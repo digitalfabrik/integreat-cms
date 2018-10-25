@@ -1,0 +1,141 @@
+{% extends "_raw.html" %}
+
+{% block raw_content %}
+    {% load static %}
+    <header class="fixed pin-t pin-x flex flex-wrap">
+        <div id="search" class="flex-1 relative">
+            <form>
+                <i data-feather="search" class="absolute text-grey-darker"></i>
+                <input type="search" placeholder="Suchen..." class="w-full pl-12 pr-6">
+            </form>
+        </div>
+        <div id="instance-selector" class="relative flex flex-wrap flex-col justify-center px-3 cursor-pointer text-grey-darkest">
+            <div class="flex flex-wrap">
+                <i data-feather="server"></i>
+                <span class="mt-1 ml-2">
+                    Bad Tölz
+                </span>
+            </div>
+            <div id="instance-selector-list" class="absolute shadow rounded-b">
+            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+                Dormagen
+            </a>
+            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+                Landkreis Germerskirchen
+            </a>
+            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+                Kissing
+            </a>
+            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+                Nürnberg
+            </a>
+            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
+                Landkreis Oberallgäu
+            </a>
+            </div>
+        </div>
+        <div id="language-selector" class="relative flex flex-wrap flex-col justify-center px-4 cursor-pointer text-grey-darkest">
+            <div class="flex flex-wrap">
+                <div style="padding-top:5px;">
+                    <img src="{% static 'images/flags/de.png' %}" title="Deutsch" />
+                </div>
+                <span class="mt-1 ml-2">
+                    Deutsch
+                </span>
+            </div>
+            <div id="language-selector-list" class="absolute shadow rounded-b">
+                <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+                    English
+                </a>
+                <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+                    العربية
+                </a>
+                <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+                    فارسی
+                </a>
+                <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+                    Français
+                </a>
+                <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
+                    Türkçe
+                </a>
+            </div>
+        </div>
+        <div id="user-info" class="relative pl-2 pr-6 text-grey-darkest flex flex-wrap flex-col justify-center cursor-pointer">
+            <span class="relative block pr-6">
+                Sascha Beele
+                <i data-feather="chevron-down" class="absolute pin-t pin-r"></i>
+            </span>
+            <div id="user-menu" class="absolute shadow rounded-b">
+                <a href="/" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
+                    <i data-feather="help-circle" class="absolute"></i>
+                    Hilfe
+                </a>
+                <a href="/" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
+                    <i data-feather="message-square" class="absolute"></i>
+                    Autorenchat
+                </a>
+                <a href="/" class="break-words relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
+                    <i data-feather="grid" class="absolute"></i>
+                    Netzwerkverwaltung
+                </a>
+                <a href="/" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
+                    <i data-feather="log-out" class="absolute text-red"></i>
+                    Abmelden
+                </a>
+            </div>
+        </div>
+    </header>
+    <nav id="primary-navigation" class="fixed pin-l pin-y">
+        <div id="logo" class="w-full text-center p-2">
+            <img src="{% static 'images/integreat-logo-white.png' %}" alt="Integreat Logo" class="max-w-full" />
+        </div>
+        <div id="menu" class="pb-2">
+            <a href="/" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat active">
+                <i data-feather="grid" class="absolute"></i>
+                Dashboard
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="bar-chart" class="absolute"></i>
+                Statistiken
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="layout" class="absolute"></i>
+                Seiten
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="calendar" class="absolute"></i>
+                Veranstaltungen
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="users" class="absolute"></i>
+                Benutzer
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="thumbs-up" class="absolute"></i>
+                Feedback
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="send" class="absolute"></i>
+                Push Notifications
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="layers" class="absolute"></i>
+                PDF Export
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="file-text" class="absolute"></i>
+                Impressum
+            </a>
+            <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+                <i data-feather="sliders" class="absolute"></i>
+                Einstellungen
+            </a>
+        </div>
+    </nav>
+    <main class="relative">
+        <div class="p-6">
+            {% block content %}{% endblock content %}        
+        </div>
+    </main>
+{% endblock %}

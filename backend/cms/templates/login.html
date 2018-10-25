@@ -1,0 +1,51 @@
+{% extends "_raw.html" %}
+
+{% block raw_content %}
+  {% load static %}
+  <div id="no-session" class="flex flex-wrap flex-col justify-center px-3 py-10">
+    <div class="mx-auto w-full max-w-xs">
+      <div class="mb-3" style="padding: 0 50px;">
+        <a href="/">
+          <img src="{% static 'images/integreat-logo.png' %}" alt="Integreat Logo" class="w-full" />
+        </a>
+      </div>
+      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form method="post">
+          {% csrf_token %}
+          {% if form.errors %}
+            <div class="bg-red-lightest border-l-4 border-red text-red-dark px-4 py-3 mb-4" role="alert">
+              <p>Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut.</p>
+            </div>
+          {% endif %}
+          <div class="bg-blue-lightest border-l-4 border-blue text-blue-dark px-4 py-3 mb-4" role="alert">
+            <p>Sie wurden erfolgreich abgemeldet.</p>
+          </div>
+          <div class="mb-4">
+              <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
+                  Benutzername
+              </label>
+              <input type="text" id="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" placeholder="Benutzername" />
+          </div>
+          <div class="mb-6">
+              <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
+                  Passwort
+              </label>
+              <input type="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" placeholder="Password" />
+          </div>
+          <div class="flex items-center justify-between">
+            <button type="submit" class="bg-integreat hover:bg-grey-dark hover:text-white text-base-color font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Anmelden
+            </button>
+            <a class="inline-block align-baseline font-bold text-sm text-base-color hover:text-integreat" href="#">
+                Passwort vergessen?
+            </a>
+          </div>
+        </form>
+    
+      </div>
+      <p class="text-center text-grey text-xs">
+        &copy;2018 Tür an Tür - Digital Factory gGmbH
+      </p>
+    </div>
+  </div>
+{% endblock %}

@@ -26,6 +26,7 @@ SECRET_KEY = '-!v282$zj815_q@htaxcubylo)(l%a+k*-xi78hw*#s2@i86@_'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     '0.0.0.0'
 ]
 
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'cms.apps.CmsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
