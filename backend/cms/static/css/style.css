@@ -1,3 +1,17 @@
+/* raleway-regular - latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/raleway-v12-latin-regular.eot');
+  /* IE9 Compat Modes */
+  src: local('Raleway'), local('Raleway-Regular'), url('../fonts/raleway-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/raleway-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('../fonts/raleway-v12-latin-regular.woff') format('woff'), /* Modern Browsers */ url('../fonts/raleway-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/raleway-v12-latin-regular.svg#Raleway') format('svg');
+  /* Legacy iOS */
+}
+/** Tailwind CSS **/
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
 html,
 body {
   font-family: 'Raleway', sans-serif;
@@ -119,6 +133,11 @@ nav#primary-navigation #menu > a svg {
   top: 15px;
   left: 22px;
 }
+nav#primary-navigation #menu > a.active,
+nav#primary-navigation #menu > a:hover {
+  color: #606f7b;
+  background-color: #fbda16;
+}
 nav#primary-navigation #menu h4 {
   padding: 0 22px;
 }
@@ -131,6 +150,7 @@ main {
 #no-session {
   min-height: 100vh;
   min-width: 100vw;
+  background-color: #eff3f6;
 }
 h2.heading {
   font-size: 1.65rem;
@@ -188,20 +208,12 @@ h2.heading {
 .lang-grid.flags {
   padding-left: 2px;
 }
+.pagination a:hover {
+  background-color: #fbda16;
+}
 .bg-integreat {
   background-color: #fbda16;
 }
-nav#primary-navigation #menu > a:hover,
-nav#primary-navigation #menu > a.active {
-  color: #606f7b;
-  background-color: #fbda16;
-}
-.text-base-color {
-  color: #000000;
-}
 .text-integreat {
   color: #fbda16;
-}
-.pagination a:hover {
-  background-color: #fbda16;
 }

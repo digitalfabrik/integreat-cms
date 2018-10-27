@@ -11,10 +11,12 @@
         </div>
         <div id="instance-selector" class="relative flex flex-wrap flex-col justify-center px-3 cursor-pointer text-grey-darkest">
             <div class="flex flex-wrap">
-                <i data-feather="server"></i>
-                <span class="mt-1 ml-2">
+                <div style="padding-top: 8px;">
+                    <i data-feather="server"></i>
+                </div>
+                <div class="ml-2" style="padding-top: 10px;">
                     Bad Tölz
-                </span>
+                </div>
             </div>
             <div id="instance-selector-list" class="absolute shadow rounded-b">
             <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
@@ -79,7 +81,7 @@
                     <i data-feather="grid" class="absolute"></i>
                     Netzwerkverwaltung
                 </a>
-                <a href="/" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
+                <a href="{% url 'logout' %}" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
                     <i data-feather="log-out" class="absolute text-red"></i>
                     Abmelden
                 </a>
@@ -93,7 +95,7 @@
         <div id="menu" class="pb-2">
             <a href="/" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat active">
                 <i data-feather="grid" class="absolute"></i>
-                Dashboard
+                Mein Dashboard
             </a>
             <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
                 <i data-feather="bar-chart" class="absolute"></i>
