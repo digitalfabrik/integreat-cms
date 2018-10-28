@@ -17,21 +17,10 @@
                     <p>Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut.</p>
                 </div>
                 {% endif %}
-                {% if messages %}
-                    {% for msg in messages %}
-                        {% if msg.level_tag == 'info' %}
-                            <div class="bg-blue-lightest border-l-4 border-blue text-blue-dark px-4 py-3 mb-5" role="alert">
-                                <p>{{msg.message}}</p>
-                            </div>
-                        {% endif %}
-                        {% if msg.level_tag == 'success' %}
-                            <div class="bg-green-lightest border-l-4 border-green text-green-dark px-4 py-3 mb-5" role="alert">
-                                <p>{{msg.message}}</p>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                <div class="mb-4">
+                <div class="mb-3">
+                    {% include "messages.html" %}
+                </div>
+                <div class="-mt-3 mb-4">
                     <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
                         Benutzername
                     </label>
