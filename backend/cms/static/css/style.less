@@ -12,11 +12,6 @@
         url('../fonts/raleway-v12-latin-regular.svg#Raleway') format('svg'); /* Legacy iOS */
 }
 
-/** Tailwind CSS **/
-@tailwind preflight;
-@tailwind components;
-@tailwind utilities;
-
 html, body {
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
@@ -252,7 +247,18 @@ h2.heading {
     background-color: #fbda16;
 }
 
-// classes to imitate tailwind tweaks
+.password_reset_errors ul {
+    padding: 0;
+    list-style: none;
+    li {
+        margin-bottom: 8px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/** classes to imitate tailwind tweaks **/
 .bg-integreat {
     background-color: #fbda16;
 }
