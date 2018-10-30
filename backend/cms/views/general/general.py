@@ -1,10 +1,5 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-
-@login_required
-def index(request):
-    return render(request, 'dashboard.html')
 
 def handler400(request):
     ctx = {'code': 400, 'title': 'Bad request', 'message': 'Die Anfrage war fehlerhaft aufgebaut.'}
