@@ -4,9 +4,11 @@ from .views import general, registration, pages
 
 
 urlpatterns = [
-    url(r'^$', general.dashboard, name='dashboard'),
+    url(r'^$', general.DashboardView.as_view(), name='dashboard'),
 
-    url(r'pages/$', pages.pages, name='pages'),
+    url(r'pages/$', pages.PagesView.as_view(), name='pages'),
+    url(r'pages/new$', pages.NewPageView.as_view(), name='new_page'),
+    url(r'pages/archive$', pages.archive, name='archived_pages'),
 
     url(r'^login/$', registration.login, name='login'),
     url(r'^logout/$', registration.logout, name='logout'),

@@ -1,2 +1,3 @@
 from .pages import *
-from .new_page import *
+from .new import *
+from .archive import *
