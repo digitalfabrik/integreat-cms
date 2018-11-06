@@ -3,11 +3,11 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth import views as auth_views
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from ..util import auth
+from . import forms
 
 
 def login(request):
-    return auth_views.LoginView.as_view(template_name='registration/login.html', authentication_form=auth.LoginForm)(request)
+    return auth_views.LoginView.as_view(template_name='registration/login.html', authentication_form=forms.LoginForm)(request)
 
 def logout(request):
     django_logout(request)

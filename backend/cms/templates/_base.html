@@ -77,7 +77,7 @@
                 <i data-feather="message-square" class="absolute"></i>
                 Autorenchat
             </a>
-            <a href="/" class="break-words relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
+            <a href="/admin" class="break-words relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
                 <i data-feather="grid" class="absolute"></i>
                 Netzwerkverwaltung
             </a>
@@ -93,7 +93,7 @@
         <img src="{% static 'images/integreat-logo-white.png' %}" alt="Integreat Logo" class="max-w-full" />
     </div>
     <div id="menu" class="pb-2">
-        <a href="/" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat active">
+        <a href="{% url 'dashboard' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'dashboard' %}active{% endif %}">
             <i data-feather="grid" class="absolute"></i>
             Mein Dashboard
         </a>
@@ -101,7 +101,7 @@
             <i data-feather="bar-chart" class="absolute"></i>
             Statistiken
         </a>
-        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+        <a href="{% url 'pages' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'pages' %}active{% endif %}">
             <i data-feather="layout" class="absolute"></i>
             Seiten
         </a>
