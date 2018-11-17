@@ -189,17 +189,58 @@ h2.heading {
         width: 18px;
         height: 18px;
     }
+
     td.single_icon {
-        width: 42px;
+        //width: 42px;
+        /*
+        > span {
+            position: relative;
+            svg {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+        */
     }
 
-    tr.level-1 {
-        > td:first-child {
-            padding-left: 25px;
+    tr {
+        td:first-child {
+            > span {
+                position: relative;
+                width: 30px;
+                height: 34px;
+                svg {
+                    position: absolute;
+                    top: 8px;
+                    left: 0.75rem;
+                }
+            }
         }
-        .py-3 {
-            padding-top: .35rem;
-            padding-bottom: .35rem;
+
+        &.child {
+            .py-3 {
+                padding-top: .35rem;
+                padding-bottom: .35rem;
+            }
+        }
+
+        &.level-1 {
+            > td:first-child {
+                padding-left: 22px;
+            }
+        }
+
+        &.level-2 {
+            > td:first-child {
+                padding-left: 44px;
+            }
+        }
+
+        &.level-3 {
+            > td:first-child {
+                padding-left: 66px;
+            }
         }
     }
 }
@@ -254,6 +295,53 @@ h2.heading {
         margin-bottom: 8px;
         &:last-child {
             margin-bottom: 0;
+        }
+    }
+}
+
+input[type=file].image-field {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+    z-index: -1;
+
+    + label {
+        svg {
+            position: absolute;
+            left: 1rem;
+            width: 16px;
+            height: 16px; 
+        }
+    }
+}
+
+.entity-lang-list {
+    table {
+        tr {
+            td {
+                &:last-child {
+                    width: 30px;
+                    svg {
+                        position: absolute;
+                        top: 50%;
+                        right: .5rem;
+                        width: 16px;
+                        height: 16px;
+                        margin-top: -8px;
+                    }
+                }
+            }
+            &:nth-child(odd) {
+                background-color: #F8FAFC;
+            }
+            &:hover {
+                background-color: #f1f5f8;
+                a {
+                    color: #3D4852;
+                }
+            }
         }
     }
 }

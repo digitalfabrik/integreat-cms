@@ -162,14 +162,39 @@ h2.heading {
   height: 18px;
 }
 .table-listing td.single_icon {
-  width: 42px;
+  /*
+        > span {
+            position: relative;
+            svg {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+        */
 }
-.table-listing tr.level-1 > td:first-child {
-  padding-left: 25px;
+.table-listing tr td:first-child > span {
+  position: relative;
+  width: 30px;
+  height: 34px;
 }
-.table-listing tr.level-1 .py-3 {
+.table-listing tr td:first-child > span svg {
+  position: absolute;
+  top: 8px;
+  left: 0.75rem;
+}
+.table-listing tr.child .py-3 {
   padding-top: .35rem;
   padding-bottom: .35rem;
+}
+.table-listing tr.level-1 > td:first-child {
+  padding-left: 22px;
+}
+.table-listing tr.level-2 > td:first-child {
+  padding-left: 44px;
+}
+.table-listing tr.level-3 > td:first-child {
+  padding-left: 66px;
 }
 .password_toggle .eye-icon {
   width: 42px;
@@ -216,6 +241,40 @@ h2.heading {
 }
 .password_reset_errors ul li:last-child {
   margin-bottom: 0;
+}
+input[type=file].image-field {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+input[type=file].image-field + label svg {
+  position: absolute;
+  left: 1rem;
+  width: 16px;
+  height: 16px;
+}
+.entity-lang-list table tr td:last-child {
+  width: 30px;
+}
+.entity-lang-list table tr td:last-child svg {
+  position: absolute;
+  top: 50%;
+  right: .5rem;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+}
+.entity-lang-list table tr:nth-child(odd) {
+  background-color: #F8FAFC;
+}
+.entity-lang-list table tr:hover {
+  background-color: #f1f5f8;
+}
+.entity-lang-list table tr:hover a {
+  color: #3D4852;
 }
 /** classes to imitate tailwind tweaks **/
 .bg-integreat {

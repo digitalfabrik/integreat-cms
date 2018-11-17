@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,6 @@ LOGOUT_REDIRECT_URL = '/login'
 # Miscellaneous
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CSRF_FAILURE_VIEW = 'cms.views.general.csrf_failure'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

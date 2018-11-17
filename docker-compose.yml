@@ -5,13 +5,13 @@ services:
     build: 
       context: .
       dockerfile: ./_docker/django/development/Dockerfile
-    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    command: bash -c "pip3 install -r requirements.txt && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - postgres
     ports:
       - 8000:8000
     restart: always
-    tty: true
+    #tty: true
     volumes:
       - "./backend:/var/www/backend"
 
