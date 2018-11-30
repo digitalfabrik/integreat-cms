@@ -43,6 +43,7 @@ urlpatterns = [
         ])),
     ])),
 
+    url(r'^settings/$', general.AdminSettingsView.as_view(), name='admin_settings'),
     url(r'^login/$', registration.login, name='login'),
     url(r'^logout/$', registration.logout, name='logout'),
     url(r'^password_reset/', include([
@@ -109,5 +110,6 @@ urlpatterns = [
             ])),
         ])),
         url(r'^statistics/$', statistics.AnalyticsView.as_view(), name='statistics'),
+        url(r'^settings/$', general.SettingsView.as_view(), name='settings'),
     ])),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

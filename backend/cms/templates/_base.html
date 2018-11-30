@@ -140,7 +140,7 @@
 			    <i data-feather="flag" class="absolute"></i>
 			    {% trans 'Language tree' %}
 		    </a>
-	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	        <a href="{% url 'settings' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="sliders" class="absolute"></i>
 		        {% trans 'Settings' %}
 	        </a>
@@ -165,7 +165,7 @@
 			    <i data-feather="thumbs-up" class="absolute"></i>
 			    {% trans 'Feedback' %}
 		    </a>
-		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+		    <a href="{% url 'admin_settings' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat{% if current_menu_item == 'settings' %}active{% endif %}">
 			    <i data-feather="sliders" class="absolute"></i>
 			    {% trans 'Settings' %}
 		    </a>
