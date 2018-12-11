@@ -27,19 +27,7 @@
             </div>
         </div>
     </td>
-    <td>
-        <a href="{% url 'edit_page' page_translation_id=node.id %}" class="block py-3 px-2 text-grey-darkest">
-            {% for pt in node.page_translations.all|slice:":1" %}
-                {{ pt.user }}
-            {% endfor %}
-        </a>
-    </td>
-    <td>
-        <a href="{% url 'edit_page' page_translation_id=node.id %}" class="block py-3 px-2 text-grey-darkest">
-            {{node.pub_date|date:'d.m.Y'}}
-        </a>
-    </td>
-    <td class="pl-2 pr-4">
+    <td class="pl-2 pr-4" width="125px">
         <!-- TODO: add link to view page in web app -->
         <a href="" class="py-3" style="padding-right:4px;">
             <i data-feather="eye" class="text-grey-darkest"></i>

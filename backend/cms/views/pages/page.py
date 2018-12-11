@@ -47,7 +47,7 @@ class PageView(TemplateView):
                 messages.success(request, 'Seite wurde erfolgreich erstellt.')
             else:
                 messages.success(request, 'Seite wurde erfolgreich gespeichert.')
-            # TODO: imporve messages
+            # TODO: improve messages
         else:
             messages.error(request, 'Es sind Fehler aufgetreten.')
 

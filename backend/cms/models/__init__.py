@@ -1,2 +1,2 @@
-from .site import Site
-from .page import Page
+from .site import *
+from .page import *
