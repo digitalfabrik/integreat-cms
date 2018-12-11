@@ -9,10 +9,11 @@ class NewPageView(TemplateView):
     template_name = 'pages/new.html'
     base_context = {'current_menu_item': 'pages'}
 
-    def get(self, request):
+
+    def get(self, request, *args, **kwargs):
         form = 'To be defined'
-        return render(request, self.template_name, { 'form': form, **self.base_context })
-    
+        return render(request, self.template_name, {'form': form, **self.base_context})
+
     def post(self, request):
         form = 'To be defined'
-        return render(request, self.template_name, { 'form': form, **self.base_context })
+        return render(request, self.template_name, {'form': form, **self.base_context})

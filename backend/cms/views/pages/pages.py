@@ -9,5 +9,5 @@ class PagesView(TemplateView):
     template_name = 'pages/tree.html'
     base_context = {'current_menu_item': 'pages'}
 
-    def get(self, request):
-        return render(request, self.template_name, { **self.base_context })
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {**self.base_context})
