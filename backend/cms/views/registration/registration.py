@@ -17,7 +17,8 @@ def logout(request):
 
 
 def password_reset_done(request):
-    messages.info(request, 'Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passwort wurde an die angegebene E-Mail Adresse geschickt.')
+    messages.info(request, ('Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres'
+                            'Passwort wurde an die angegebene E-Mail Adresse geschickt.'))
     return HttpResponseRedirect(reverse('password_reset'))
 
 
