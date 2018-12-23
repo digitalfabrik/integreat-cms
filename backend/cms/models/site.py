@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Instance(models.Model):
+class Site(models.Model):
     STATUS = (
         ('publ', 'Public'),
         ('priv', 'Private'),

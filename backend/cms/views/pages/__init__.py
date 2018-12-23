@@ -1,3 +1,3 @@
 from .pages import *
-from .new import *
+from .page import *
 from .archive import *

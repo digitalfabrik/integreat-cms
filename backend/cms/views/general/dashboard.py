@@ -11,4 +11,5 @@ class DashboardView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         val = 'To be defined'
-        return render(request, self.template_name, {'key': val, **self.base_context})
+        return render(request, self.template_name,
+                      {'key': val, **self.base_context})
