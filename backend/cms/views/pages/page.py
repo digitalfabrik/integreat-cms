@@ -1,11 +1,9 @@
-from django import forms as django_forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.forms import ModelForm
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from cms.models.page import Page, PageTranslation
+from cms.models.page import PageTranslation
 from .page_form import PageForm
 
 
@@ -14,7 +12,7 @@ class PageView(TemplateView):
     template_name = 'pages/page.html'
     base_context = {'current_menu_item': 'pages'}
 
-    def get(self, request, page_translation_id=None):
+    def get(self, request, page_translation_id=None, *args, **kwargs):
         if page_translation_id:
             p = PageTranslation.objects.filter(
                 id=page_translation_id).select_related('page').first()
