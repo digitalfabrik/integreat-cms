@@ -23,7 +23,7 @@ class PageForm(forms.ModelForm):
                      ('fr', 'Französisch'),
                      ('tr', 'Türkisch')])
 
-    def save(self, commit=True, page_translation_id=None):
+    def save_page(self, page_translation_id=None):
         # TODO: version, active_version
         if page_translation_id:
             p = PageTranslation.objects.filter(

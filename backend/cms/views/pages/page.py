@@ -11,11 +11,12 @@ from .page_form import PageForm
 class PageView(TemplateView):
     template_name = 'pages/page.html'
     base_context = {'current_menu_item': 'pages'}
+    page_translation_id = None
 
-    def get(self, request, page_translation_id=None, *args, **kwargs):
-        if page_translation_id:
+    def get(self, request, *args, **kwargs):
+        if self.page_translation_id:
             p = PageTranslation.objects.filter(
-                id=page_translation_id).select_related('page').first()
+                id=self.page_translation_id).select_related('page').first()
             form = PageForm(initial={
                 'order': p.page.order,
                 'parent': p.page.parent,
@@ -30,15 +31,16 @@ class PageView(TemplateView):
         return render(request, self.template_name, {
             'form': form, **self.base_context})
 
-    def post(self, request, page_translation_id=None):
+    def post(self, request):
         # TODO: error handling
         form = PageForm(request.POST, user=request.user)
         if form.is_valid():
             if form.data['submit_publish']:
                 # TODO: handle status
 
-                if page_translation_id:
-                    form.save(page_translation_id=page_translation_id)
+                if self.page_translation_id:
+                    form.save_page(
+                        page_translation_id=self.page_translation_id)
                 else:
                     form.save()
 
