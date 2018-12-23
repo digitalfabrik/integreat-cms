@@ -29,8 +29,7 @@ class Page(MPTTModel):
         ).select_related('user')
         pages = cls.objects.all().prefetch_related(models.Prefetch(
             'page_translations',
-            queryset=page_translations)
-        ).filter(page_translations__language='de')
+            queryset=page_translations)).filter(page_translations__language='de')
 
         return pages
 
