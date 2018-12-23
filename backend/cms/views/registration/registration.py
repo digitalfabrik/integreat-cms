@@ -24,6 +24,7 @@ def password_reset_done(request):
 
 def password_reset_confirm(request):
     return auth_views.password_reset_confirm(
+        request,
         template_name='registration/password_reset_confirm.html')
 
 
