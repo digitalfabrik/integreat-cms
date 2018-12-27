@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 
+from cms.models import Site
+from cms.models.language import Language
+
 
 class Page(MPTTModel):
     order = models.IntegerField(default=0)
@@ -12,7 +15,8 @@ class Page(MPTTModel):
     icon = models.ImageField(blank=True,
                              null=True,
                              upload_to='pages/%Y/%m/%d')
-    pub_date = models.DateTimeField(auto_now_add=True)
+    site = models.ForeignKey(Site)
+    created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -50,10 +54,10 @@ class PageTranslation(models.Model):
     title = models.CharField(max_length=250)
     text = models.TextField()
     permalink = models.CharField(max_length=60)
-    language = models.CharField(max_length=2)
+    language = models.ForeignKey(Language)
     version = models.PositiveIntegerField(default=0)
     active_version = models.BooleanField(default=False)
     page = models.ForeignKey(Page, related_name='page_translations')
-    pub_date = models.DateTimeField(auto_now_add=True)
+    creator = models.ForeignKey(User)
+    created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User)
