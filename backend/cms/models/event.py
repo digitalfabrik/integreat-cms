@@ -22,7 +22,8 @@ class Event(models.Model):
         ('monthly', 'Monatlich'),
         ('yearly', 'Jährlich')
     )
-    frequency = models.CharField(max_length=7, choices=FREQUENCY, null=True, blank=True, default=None)
+    frequency = models.CharField(max_length=7, choices=FREQUENCY,
+                                 null=True, blank=True, default=None)
 
     def clean(self):
         if self.recurring_end_date:
@@ -43,9 +44,8 @@ class Event(models.Model):
         event_translations = EventTranslation.objects.filter(
             language='de'
         ).select_related('user')
-        events = cls.objects.all().prefetch_related(models.Prefetch(
-            'event_translations',
-            queryset=event_translations)
+        events = cls.objects.all().prefetch_related(
+            models.Prefetch('event_translations', queryset=event_translations)
         ).filter(event_translations__language='de')
         return events
 

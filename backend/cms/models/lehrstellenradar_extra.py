@@ -10,7 +10,8 @@ class LehrstellenradarExtra(Extra):
         return 'Lehrstellenradar'
 
     def thumbnail(self):
-        return 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/lehrstellen-radar.jpg'  # pylint: disable=line-too-long
+        return 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/lehrstellen' \
+               '-radar.jpg'
 
     def url(self):
         return 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html'

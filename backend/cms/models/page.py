@@ -1,8 +1,8 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 
-from cms.models import Site
+from cms.models.site import Site
 from cms.models.language import Language
 
 
@@ -40,24 +40,25 @@ class Page(MPTTModel):
     def depth(self):
         return len(self.get_ancestors())
 
+
     class MPTTMeta:
         order_insertion_by = ['order']
 
 
 class PageTranslation(models.Model):
+    page = models.ForeignKey(Page, related_name='page_translations')
+    permalink = models.CharField(max_length=60)
     STATUS = (
         ('draft', 'Entwurf'),
         ('review', 'Ausstehender Review'),
         ('public', 'Veröffentlicht'),
     )
-    status = models.CharField(max_length=10, choices=STATUS, default='draft')
     title = models.CharField(max_length=250)
+    status = models.CharField(max_length=10, choices=STATUS, default='draft')
     text = models.TextField()
-    permalink = models.CharField(max_length=60)
     language = models.ForeignKey(Language)
     version = models.PositiveIntegerField(default=0)
     active_version = models.BooleanField(default=False)
-    page = models.ForeignKey(Page, related_name='page_translations')
     creator = models.ForeignKey(User)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)

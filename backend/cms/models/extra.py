@@ -1,5 +1,7 @@
 from abc import abstractmethod
+
 from django.db import models
+
 from cms.models import Site
 
 

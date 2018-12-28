@@ -16,7 +16,8 @@ class SprungbrettExtra(Extra):
         return 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg'
 
     def url(self):
-        return 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=' + self.sprungbrett_location_name  # pylint: disable=line-too-long
+        return 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=' \
+               + self.sprungbrett_location_name
 
     def post_data(self):
         return None
