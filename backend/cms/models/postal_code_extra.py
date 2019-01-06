@@ -1,11 +1,9 @@
-from django.db import models
-
 from cms.models.extra import Extra
-from cms.models.link_extra_template import LinkExtraTemplate
+from cms.models.extra_template import ExtraTemplate
 
 
-class SimpleLinkExtra(Extra):
-    template = models.ForeignKey(LinkExtraTemplate)
+class PostalCodeExtra(Extra):
+    template = models.ForeignKey(ExtraTemplate)
 
     def alias(self):
         return self.template.alias
@@ -17,7 +15,7 @@ class SimpleLinkExtra(Extra):
         return self.template.thumbnail
 
     def url(self):
-        return self.template.url
+        return self.template.url + self.site.postal_code
 
     def post_data(self):
         return self.template.post_data
