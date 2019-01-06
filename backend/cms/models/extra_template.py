@@ -1,8 +1,8 @@
-from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 
-class LinkExtraTemplate(models.Model):
+class ExtraTemplate(models.Model):
     name = models.CharField(250)
     alias = models.CharField(60)
     thumbnail = models.CharField(250)
