@@ -1,14 +1,14 @@
 from datetime import datetime, time, date
 
-from cms.models import Site
-from cms.models.poi import POI
-from dateutil import rrule
-from dateutil.rrule import weekday
+from dateutil.rrule import weekday, rrule
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+
+from cms.models import Site
+from cms.models.poi import POI
 
 
 class RecurrenceRule(models.Model):
@@ -25,17 +25,20 @@ class RecurrenceRule(models.Model):
     )
     frequency = models.CharField(max_length=7, choices=FREQUENCY)
     interval = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    weekdaysForWeekly = ArrayField(models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(6)]),
-                                   null=True)
-    weekdayForMonthly = models.IntegerField(null=True)
-    weekForMonthly = models.IntegerField(null=True, validators=[MinValueValidator(-5), MaxValueValidator(5)])
+    weekdays_for_weekly = ArrayField(
+        models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(6)]),
+        null=True)
+    weekday_for_monthly = models.IntegerField(null=True)
+    week_for_monthly = models.IntegerField(null=True,
+                                           validators=[MinValueValidator(-5), MaxValueValidator(5)])
     end_date = models.DateField(null=True, default=None)
 
     def clean(self):
         if self.frequency == RecurrenceRule.WEEKLY \
-                and (self.weekdaysForWeekly is None or self.weekdaysForWeekly.size() == 0):
+                and (self.weekdays_for_weekly is None or self.weekdays_for_weekly.size() == 0):
             raise ValidationError('No weekdays selected for weekly recurrence')
-        elif self.frequency == 'monthly' and (self.weekdayForMonthly is None or self.weekForMonthly is None):
+        elif self.frequency == 'monthly' and (
+                self.weekday_for_monthly is None or self.week_for_monthly is None):
             raise ValidationError('No weekday or no week selected for monthly recurrence')
 
 
@@ -51,11 +54,13 @@ class Event(models.Model):
 
     def clean(self):
         if self.recurrence_rule:
-            if self.recurrence_rule.end_date <= self.start_date.date():
+            if self.recurrence_rule.end_date <= self.start_date:
                 raise ValidationError('recurrence end date must be after the start date!')
         if self.start_time is None ^ self.end_time is None:
-            raise ValidationError('start_time and end_time must either be both null or both non-null')
-        if self.end_date < self.start_date or (self.end_date == self.start_date and self.end_time < self.start_time):
+            raise ValidationError(
+                'start_time and end_time must either be both null or both non-null')
+        if self.end_date < self.start_date or (
+                self.end_date == self.start_date and self.end_time < self.start_time):
             raise ValidationError('end datetime mustn\'t be before start datetime')
 
     def __str__(self):
@@ -82,7 +87,8 @@ class Event(models.Model):
         :type end: datetime
         :return:
         """
-        event_start = datetime.combine(self.start_date, self.start_time if self.start_time else time.min)
+        event_start = datetime.combine(self.start_date,
+                                       self.start_time if self.start_time else time.min)
         event_end = datetime.combine(self.end_date, self.end_time if self.end_time else time.max)
         event_span = event_end - event_start
         recurrence = self.recurrence_rule
@@ -110,10 +116,7 @@ class Event(models.Model):
                                     until=until)
             return [x for x in occurrences if start <= x <= end or start <= x + event_span <= end]
         else:
-            if start <= event_start <= end or start <= event_end <= end:
-                return [event_start]
-            else:
-                return []
+            return [event_start] if start <= event_start <= end or start <= event_end <= end else []
 
 
 class EventTranslation(models.Model):
