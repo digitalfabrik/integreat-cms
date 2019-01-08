@@ -1,37 +1,62 @@
-from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
-from django.db import models
+from datetime import datetime, time, date
 
 from cms.models import Site
 from cms.models.poi import POI
+from dateutil import rrule
+from dateutil.rrule import weekday
+from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
+
+
+class RecurrenceRule(models.Model):
+    DAILY = 'DAILY'
+    WEEKLY = 'WEEKLY'
+    MONTHLY = 'MONTHLY'
+    YEARLY = 'YEARLY'
+
+    FREQUENCY = (
+        (DAILY, 'Täglich'),
+        (WEEKLY, 'Wöchentlich'),
+        (MONTHLY, 'Monatlich'),
+        (YEARLY, 'Jährlich')
+    )
+    frequency = models.CharField(max_length=7, choices=FREQUENCY)
+    interval = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+    weekdaysForWeekly = ArrayField(models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(6)]),
+                                   null=True)
+    weekdayForMonthly = models.IntegerField(null=True)
+    weekForMonthly = models.IntegerField(null=True, validators=[MinValueValidator(-5), MaxValueValidator(5)])
+    end_date = models.DateField(null=True, default=None)
+
+    def clean(self):
+        if self.frequency == RecurrenceRule.WEEKLY \
+                and (self.weekdaysForWeekly is None or self.weekdaysForWeekly.size() == 0):
+            raise ValidationError('No weekdays selected for weekly recurrence')
+        elif self.frequency == 'monthly' and (self.weekdayForMonthly is None or self.weekForMonthly is None):
+            raise ValidationError('No weekday or no week selected for monthly recurrence')
 
 
 class Event(models.Model):
     site = models.ForeignKey(Site)
     location = models.ForeignKey(POI, on_delete=models.PROTECT, null=True, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
+    start_time = models.TimeField(null=True)
+    end_date = models.DateField()
+    end_time = models.TimeField(null=True)
+    recurrence_rule = models.OneToOneField(RecurrenceRule, null=True)
     picture = models.ImageField(null=True, blank=True, upload_to='events/%Y/%m/%d')
-    is_all_day = models.BooleanField(default=False)
-    is_recurring = models.BooleanField(default=False)
-    has_recurring_end_date = models.BooleanField(default=False)
-    recurring_end_date = models.DateField(null=True, default=None, blank=True)
-    FREQUENCY = (
-        ('daily', 'Täglich'),
-        ('weekly', 'Wöchentlich'),
-        ('monthly', 'Monatlich'),
-        ('yearly', 'Jährlich')
-    )
-    frequency = models.CharField(max_length=7, choices=FREQUENCY,
-                                 null=True, blank=True, default=None)
 
     def clean(self):
-        if self.recurring_end_date:
-            if self.recurring_end_date <= self.start_date.date():
-                raise ValidationError('Wiederholungsenddatum liegt nicht nach dem Startdatum!')
-        if self.end_date:
-            if self.end_date <= self.start_date:
-                raise ValidationError('Enddatum liegt nicht nach dem Startdatum!')
+        if self.recurrence_rule:
+            if self.recurrence_rule.end_date <= self.start_date.date():
+                raise ValidationError('recurrence end date must be after the start date!')
+        if self.start_time is None ^ self.end_time is None:
+            raise ValidationError('start_time and end_time must either be both null or both non-null')
+        if self.end_date < self.start_date or (self.end_date == self.start_date and self.end_time < self.start_time):
+            raise ValidationError('end datetime mustn\'t be before start datetime')
 
     def __str__(self):
         return self.event_translations.filter(event_id=self.id, language='de').first().title
@@ -49,6 +74,47 @@ class Event(models.Model):
         ).filter(event_translations__language='de')
         return events
 
+    def get_occurrences(self, start, end):
+        """
+        Returns start datetimes of occurrences of the event that overlap with [start, end]
+        Expects start < end
+        :type start: datetime
+        :type end: datetime
+        :return:
+        """
+        event_start = datetime.combine(self.start_date, self.start_time if self.start_time else time.min)
+        event_end = datetime.combine(self.end_date, self.end_time if self.end_time else time.max)
+        event_span = event_end - event_start
+        recurrence = self.recurrence_rule
+        if recurrence:
+            until = min(end, datetime.combine(recurrence.end_date
+                                              if recurrence.end_date
+                                              else date.max, time.max))
+            if recurrence.frequency in (RecurrenceRule.DAILY, RecurrenceRule.YEARLY):
+                occurrences = rrule(recurrence.frequency,
+                                    dtstart=event_start,
+                                    interval=recurrence.interval,
+                                    until=until)
+            elif recurrence.frequency == RecurrenceRule.WEEKLY:
+                occurrences = rrule(recurrence.frequency,
+                                    dtstart=event_start,
+                                    interval=recurrence.interval,
+                                    byweekday=recurrence.weekdays_for_weekly,
+                                    until=until)
+            else:
+                occurrences = rrule(recurrence.frequency,
+                                    dtstart=event_start,
+                                    interval=recurrence.interval,
+                                    byweekday=weekday(recurrence.weekday_for_monthly,
+                                                      recurrence.week_for_monthly),
+                                    until=until)
+            return [x for x in occurrences if start <= x <= end or start <= x + event_span <= end]
+        else:
+            if start <= event_start <= end or start <= event_end <= end:
+                return [event_start]
+            else:
+                return []
+
 
 class EventTranslation(models.Model):
     STATUS = (
@@ -63,7 +129,7 @@ class EventTranslation(models.Model):
     language = models.CharField(max_length=2)
     version = models.PositiveIntegerField(default=0)
     active_version = models.BooleanField(default=False)
-    event = models.ForeignKey(to='Event', related_name='event_translations')
+    event = models.ForeignKey(Event, related_name='event_translations')
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User)
