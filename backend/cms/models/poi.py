@@ -1,8 +1,11 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from cms.models import Site
+
 
 class POI(models.Model):
+    site = models.ForeignKey(Site)
     address = models.CharField(max_length=250)
     postcode = models.CharField(max_length=10)
     city = models.CharField(max_length=250)
