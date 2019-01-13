@@ -50,15 +50,16 @@ class PageTranslation(models.Model):
     permalink = models.CharField(max_length=60)
     STATUS = (
         ('draft', 'Entwurf'),
-        ('review', 'Ausstehender Review'),
-        ('public', 'Veröffentlicht'),
+        ('in-review', 'Ausstehender Review'),
+        ('reviewed', 'Review abgeschlossen'),
     )
     title = models.CharField(max_length=250)
-    status = models.CharField(max_length=10, choices=STATUS, default='draft')
+    status = models.CharField(max_length=9, choices=STATUS, default='draft')
     text = models.TextField()
     language = models.ForeignKey(Language)
     version = models.PositiveIntegerField(default=0)
-    active_version = models.BooleanField(default=False)
+    public = models.BooleanField(default=False)
+    minor_edit = models.BooleanField(default=False)
     creator = models.ForeignKey(User)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)

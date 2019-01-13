@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
-from cms.models import Site
+from cms.models import Site, Language
 from cms.models.poi import POI
 
 
@@ -122,16 +122,17 @@ class Event(models.Model):
 class EventTranslation(models.Model):
     STATUS = (
         ('draft', 'Entwurf'),
-        ('review', 'Ausstehender Review'),
-        ('public', 'Veröffentlicht'),
+        ('in-review', 'Ausstehender Review'),
+        ('reviewed', 'Review abgeschlossen'),
     )
-    status = models.CharField(max_length=10, choices=STATUS, default='draft')
+    status = models.CharField(max_length=9, choices=STATUS, default='draft')
     title = models.CharField(max_length=250)
     description = models.TextField()
     permalink = models.CharField(max_length=60)
-    language = models.CharField(max_length=2)
+    language = models.ForeignKey(Language)
     version = models.PositiveIntegerField(default=0)
-    active_version = models.BooleanField(default=False)
+    minor_edit = models.BooleanField(default=False)
+    public = models.BooleanField(default=False)
     event = models.ForeignKey(Event, related_name='event_translations')
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)

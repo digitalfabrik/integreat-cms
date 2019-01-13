@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from cms.models import Site
+from cms.models import Site, Language
 
 
 class POI(models.Model):
@@ -32,14 +32,15 @@ class POITranslation(models.Model):
     permalink = models.CharField(max_length=60)
     STATUS = (
         ('draft', 'Entwurf'),
-        ('review', 'Ausstehender Review'),
-        ('public', 'Veröffentlicht'),
+        ('in-review', 'Ausstehender Review'),
+        ('reviewed', 'Review abgeschlossen'),
     )
-    status = models.CharField(max_length=10, choices=STATUS, default='draft')
+    status = models.CharField(max_length=9, choices=STATUS, default='draft')
     description = models.TextField()
-    language = models.CharField(max_length=2)
+    language = models.ForeignKey(Language)
     version = models.PositiveIntegerField(default=0)
-    active_version = models.BooleanField(default=False)
+    minor_edit = models.BooleanField(default=False)
+    public = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User)
