@@ -7,8 +7,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
-from cms.models import Site, Language
-from cms.models.poi import POI
+from .site import Site
+from .language import Language
+from .poi import POI
 
 
 class RecurrenceRule(models.Model):

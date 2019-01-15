@@ -1,7 +1,7 @@
 from django.db import models
 
-from cms.models import Site
-from cms.models.language import Language
+from .site import Site
+from .language import Language
 
 
 class PushNotification(models.Model):

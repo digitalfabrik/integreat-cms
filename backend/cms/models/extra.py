@@ -1,6 +1,6 @@
 from django.db import models
-from cms.models import Site
-from cms.models.extra_template import ExtraTemplate
+from .site import Site
+from .extra_template import ExtraTemplate
 
 
 class Extra(models.Model):

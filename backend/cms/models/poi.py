@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from cms.models import Site, Language
+from .site import Site
+from .language import Language
 
 
 class POI(models.Model):
