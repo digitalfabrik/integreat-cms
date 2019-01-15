@@ -1,7 +1,7 @@
 from django.db.models import Exists, OuterRef
 from django.http import JsonResponse, HttpResponse
 
-from cms.models import Site, Extra, ExtraTemplate
+from cms.models import Site, Extra, ExtraTemplate, Language
 
 PREFIXES = [
     'EAE',
@@ -48,15 +48,22 @@ def pushnew(_):
     This is a convenience function for development.
     todo: To be removed on deploy.
     """
+    en = Language()
+    en.code = 'es'
+    en.title = 'English'
+    en.text_direction = 'ltr'
+    en.save()
+
     template = ExtraTemplate()
     template.save()
-
     site = Site()
     site.push_notification_channels = []
     site.latitude = 48.37154
     site.longitude = 10.89851
-    site.name = 'augsburg23'
+    site.name = 'augsburg223'
     site.title = 'Stadt Augsburg'
+    site.save()
+    site.supported_languages = [en]
     site.save()
 
     extra = Extra()
