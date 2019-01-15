@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 
 {% block content %}
+{% load static %}
 {% load widget_tweaks %}
 <form method="post">
     {% csrf_token %}
@@ -22,7 +23,6 @@
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
                 {% render_field form.title placeholder="Titel hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                 <div class="mt-4">
-                    <!--{% render_field form.text placeholder="Text" class="tinymce_textarea" %}-->
                     {% render_field form.text placeholder="Text" class="bg-grey-lighter w-full p-2" %}
                 </div>
             </div>
@@ -36,8 +36,7 @@
                         <option>Danach anhängen</option>
                     </select>
                     <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                     </div>
                 </div>
                 <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded">
@@ -53,15 +52,13 @@
                     <div class="relative my-2">
                         {% render_field form.language id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                     <div class="entity-lang-list mt-4 mb-2">
                         <label class="text-xs uppercase block mb-2">Übersetzungen</label>
                         <!-- TODO: get available languages from site settings -->
-                        <table width="100%%" border="0" cellspacing="0" cellpadding="0">
+                        <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td>
                                     <a href="" class="text-black block p-2">
@@ -131,9 +128,7 @@
                     <div class="relative my-2">
                         {% render_field form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                     <label for="order" class="text-xs uppercase block mt-4">Reihenfolge</label>
@@ -146,9 +141,7 @@
                     <div class="relative my-2">
                         {% render_field form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                 </div>

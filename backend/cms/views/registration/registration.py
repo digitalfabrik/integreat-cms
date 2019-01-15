@@ -17,14 +17,18 @@ def logout(request):
 
 
 def password_reset_done(request):
-    messages.info(request, 'Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passwort wurde an die angegebene E-Mail Adresse geschickt.')
+    messages.info(request, ('Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres'
+                            'Passwort wurde an die angegebene E-Mail Adresse geschickt.'))
     return HttpResponseRedirect(reverse('password_reset'))
 
 
 def password_reset_confirm(request):
-    return auth_views.password_reset_confirm(template_name='registration/password_reset_confirm.html')
+    return auth_views.password_reset_confirm(
+        request,
+        template_name='registration/password_reset_confirm.html')
 
 
 def password_reset_complete(request):
-    messages.success(request, 'Ihr Passwort wurde erfolgreich geändert. Sie können sich jetzt mit dem neuen Passwort einloggen.')
+    messages.success(request, 'Ihr Passwort wurde erfolgreich geändert.\
+        Sie können sich jetzt mit dem neuen Passwort einloggen.')
     return HttpResponseRedirect(reverse('login'))

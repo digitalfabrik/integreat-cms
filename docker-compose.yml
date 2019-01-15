@@ -2,7 +2,7 @@ version: '2'
 
 services:
   django:
-    build: 
+    build:
       context: .
       dockerfile: ./_docker/django/development/Dockerfile
     command: bash -c "pip3 install -r requirements.txt && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
