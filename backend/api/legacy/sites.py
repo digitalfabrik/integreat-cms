@@ -1,6 +1,7 @@
+from django.db.models import Exists, OuterRef
 from django.http import JsonResponse, HttpResponse
 
-from cms.models import Site
+from cms.models import Site, Extra, ExtraTemplate
 
 PREFIXES = [
     'EAE',
@@ -35,7 +36,10 @@ def sites(_):
             'aliases': None  # todo
         }
 
-    result = list(map(transform_site, Site.objects.exclude(status=Site.ARCHIVED)))
+    result = list(map(transform_site,
+                      Site.objects.exclude(status=Site.ARCHIVED)
+                      .annotate(extras_enabled=Exists(Extra.objects.filter(site=OuterRef('pk'))))
+                      ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 
@@ -44,11 +48,19 @@ def pushnew(_):
     This is a convenience function for development.
     todo: To be removed on deploy.
     """
+    template = ExtraTemplate()
+    template.save()
+
     site = Site()
     site.push_notification_channels = []
     site.latitude = 48.37154
     site.longitude = 10.89851
-    site.name = 'augsburg'
+    site.name = 'augsburg23'
     site.title = 'Stadt Augsburg'
     site.save()
+
+    extra = Extra()
+    extra.template = template
+    extra.site = site
+    extra.save()
     return HttpResponse('Pushing successful')

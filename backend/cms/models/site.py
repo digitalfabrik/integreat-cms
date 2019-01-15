@@ -20,7 +20,6 @@ class Site(models.Model):
     status = models.CharField(max_length=4, choices=STATUS)
     supported_languages = models.ManyToManyField(Language)
 
-    extras_enabled = models.BooleanField(default=True)
     events_enabled = models.BooleanField(default=True)
     push_notifications_enabled = models.BooleanField(default=True)
     push_notification_channels = ArrayField(models.CharField(max_length=60))
