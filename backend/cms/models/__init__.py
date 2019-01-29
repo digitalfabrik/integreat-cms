@@ -5,6 +5,7 @@ from .event import EventTranslation
 from .extra import Extra
 from .extra_template import ExtraTemplate
 
+from .language_tree import LanguageTree
 from .language import Language
 
 from .page import Page, ContentPage, MirrorPage
