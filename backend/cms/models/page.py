@@ -3,8 +3,8 @@ from django.db import models
 from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
 
-from cms.models.site import Site
 from cms.models.language import Language
+from cms.models.site import Site
 
 
 class Page(MPTTModel):
@@ -42,13 +42,23 @@ class Page(MPTTModel):
     def depth(self):
         return len(self.get_ancestors())
 
-
     class MPTTMeta:
         order_insertion_by = ['order']
 
+    class Meta:
+        abstract = True
+
+
+class ContentPage(Page):
+    pass
+
+
+class MirrorPage(Page):
+    mirrored_page = models.ForeignKey(ContentPage)
+
 
 class PageTranslation(models.Model):
-    page = models.ForeignKey(Page, related_name='page_translations')
+    page = models.ForeignKey(ContentPage, related_name='page_translations')
     permalink = models.CharField(max_length=60)
     STATUS = (
         ('draft', 'Entwurf'),
@@ -65,3 +75,4 @@ class PageTranslation(models.Model):
     creator = models.ForeignKey(User)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+    #  todo: is currently in translation

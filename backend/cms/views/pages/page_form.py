@@ -1,10 +1,10 @@
 from django import forms
-from cms.models.page import Page, PageTranslation
+from cms.models.page import Page, PageTranslation, ContentPage
 
 
 class PageForm(forms.ModelForm):
     order = forms.IntegerField(required=False)
-    parent = forms.ModelChoiceField(queryset=Page.objects.all(),
+    parent = forms.ModelChoiceField(queryset=ContentPage.objects.all(),
                                     required=False)
     icon = forms.ImageField(required=False)
 
@@ -30,7 +30,7 @@ class PageForm(forms.ModelForm):
                 id=page_translation_id).select_related('page').first()
 
             # save page
-            page = Page.objects.get(id=p.page.id)
+            page = ContentPage.objects.get(id=p.page.id)
             page.order = self.cleaned_data['order']
             page.parent = self.cleaned_data['parent']
             page.icon = self.cleaned_data['icon']
