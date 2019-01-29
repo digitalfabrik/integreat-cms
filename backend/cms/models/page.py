@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
 
 from cms.models.site import Site
@@ -16,7 +17,7 @@ class Page(MPTTModel):
                              null=True,
                              upload_to='pages/%Y/%m/%d')
     site = models.ForeignKey(Site)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -62,5 +63,5 @@ class PageTranslation(models.Model):
     public = models.BooleanField(default=False)
     minor_edit = models.BooleanField(default=False)
     creator = models.ForeignKey(User)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)

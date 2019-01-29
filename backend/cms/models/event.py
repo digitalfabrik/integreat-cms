@@ -6,6 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.utils import timezone
 
 from .site import Site
 from .language import Language
@@ -135,6 +136,6 @@ class EventTranslation(models.Model):
     minor_edit = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
     event = models.ForeignKey(Event, related_name='event_translations')
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User)
