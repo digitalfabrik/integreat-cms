@@ -25,8 +25,8 @@ class Site(models.Model):
     push_notifications_enabled = models.BooleanField(default=True)
     push_notification_channels = ArrayField(models.CharField(max_length=60))
 
-    latitude = models.FloatField(blank=True)
-    longitude = models.FloatField(blank=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
     postal_code = models.CharField(max_length=10)
 
     admin_mail = models.EmailField()
