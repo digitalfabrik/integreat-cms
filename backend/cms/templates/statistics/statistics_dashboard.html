@@ -1,0 +1,100 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="heading font-normal mb-2">Statistiken</h2>
+    </div>
+    <div class="flex flex-row flex-wrap flex-grow mt-2">
+        <div class="w-full md:w-3/4 p-3">
+            <!--Graph Card-->
+            <div class="bg-grey-lightest border border-grey rounded shadow">
+                <div class="border-b border-grey-dark p-3">
+                    <h2 class="text-grey-darkest">Seitenaufrufe</h2>
+                </div>
+                <div class="p-5">
+                    <canvas id="chartjs-7" class="chartjs" width="undefined" height="undefined"></canvas>
+                    <script>
+                        new Chart(document.getElementById("chartjs-7"), {
+                            "type": "bar",
+                            "data": {
+                                "labels": ["Januar", "Februar", "März", "April"],
+                                "datasets": [{
+                                    "label": "Seitenaufrufe gesamt",
+                                    "data": [400, 330, 340, 410],
+                                    "borderColor": "rgb(255, 100, 132)",
+                                    "backgroundColor": "rgba(255, 99, 132, 0.3)"
+                                }, {
+                                    "label": "Deutsch",
+                                    "data": [200, 150, 100, 305],
+                                    "type": "line",
+                                    "fill": false,
+                                    "borderColor": "rgb(255, 0, 0)"
+                                }, {
+                                    "label": "Englisch",
+                                    "data": [100, 100, 50, 55],
+                                    "type": "line",
+                                    "fill": false,
+                                    "borderColor": "rgb(100, 100, 100)"
+                                }, {
+                                    "label": "Arabisch",
+                                    "data": [60, 50, 70, 30],
+                                    "type": "line",
+                                    "fill": false,
+                                    "borderColor": "rgb(0, 0, 255)"
+                                }, {
+                                    "label": "Farsi",
+                                    "data": [40, 30, 120, 20],
+                                    "type": "line",
+                                    "fill": false,
+                                    "borderColor": "rgb(0, 255, 0)"
+                                }]
+                            },
+                            "options": {
+                                "scales": {
+                                    "yAxes": [{
+                                        "ticks": {
+                                            "beginAtZero": true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="w-full md:w-1/4 p-3">
+            <div class="bg-grey-lightest border border-grey rounded shadow">
+                <div class="border-b border-grey-dark p-3">
+                    <h2 class="text-grey-darkest">Einstellungen</h2>
+                </div>
+                <form class="px-8 pt-6 pb-8 mb-4">
+                    <h3 class="text-grey-darkest m-2">Startzeitpunkt auswählen:</h3>
+                    <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" type="date" name="start_date" />
+                    <h3 class="text-grey-darkest m-2">Endzeitpunkt auswählen:</h3>
+                    <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" type="date" name="end_date" />
+                    <fieldset>
+                        <div class="w-full m-2">
+                            <input type="radio" id="viewmonth" name="viewselection" value="Monatsansicht" checked>
+                            <label for="viewmonth">Monatsansicht</label>
+                        </div>
+                        <div class="w-full m-2">
+                            <input type="radio" id="viewyear" name="viewselection" value="Jahresansicht">
+                            <label for="viewyear">Jahresansicht</label>
+                        </div>
+                    </fieldset>                    
+                    <input type="submit" name="submit_save" class="cursor-pointer bg-blue hover:bg-grey-dark text-white font-bold py-3 px-4 rounded m-2" value="Ansicht anpassen" />
+                </form>
+            </div>
+        </div>
+        <div class="w-full md:w-1/4 p-3">
+            <div class="bg-grey-lightest border border-grey rounded shadow">
+                <div class="border-b border-grey-dark p-3">
+                    <h2 class="text-grey-darkest">Einstellungen</h2>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
