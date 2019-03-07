@@ -1,0 +1,13 @@
+[Unit]
+Description=Integreat CMS
+After=multi-user.target
+Requires=docker.service
+#ConditionPathExists=/etc/integreat-cms/%I.ini
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/integreat-cms %I
+User=integreat
+
+[Install]
+WantedBy=multi-user.target
