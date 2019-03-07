@@ -13,7 +13,7 @@ class AnalyticsView(TemplateView):
     base_context = {'current_menu_item': 'statistics'}
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {})
+        return render(request, self.template_name, {**self.base_context})
 
 
 def statistics_data(request):

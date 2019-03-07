@@ -7,16 +7,23 @@
         <h2 class="heading font-normal mb-2">Statistiken</h2>
     </div>
     <div class="flex flex-row flex-wrap flex-grow mt-2">
-        <div class="w-full md:w-3/4 p-3">
-            <!--Graph Card-->
+        <div class="md:w-3/4 p-3">
             <div class="bg-grey-lightest border border-grey rounded shadow">
                 <div class="border-b border-grey-dark p-3">
                     <h2 class="text-grey-darkest">Seitenaufrufe</h2>
                 </div>
-                <div class="p-5">
-                    <canvas id="chartjs-7" class="chartjs" width="undefined" height="undefined"></canvas>
+                <div class="p-5 bg-white">
+                    <canvas id="visitor-chart" class="chartjs"></canvas>
                     <script>
-                        new Chart(document.getElementById("chartjs-7"), {
+                        var chart = document.getElementById("visitor-chart");
+                        Chart.plugins.register({
+                            beforeDraw: function(chartInstance) {
+                            var ctx = chartInstance.chart.ctx;
+                            ctx.fillStyle = "white";
+                            ctx.fillRect(0, 0, chartInstance.chart.width, chartInstance.chart.height);
+                            }
+                        });
+                        new Chart(chart, {
                             "type": "bar",
                             "data": {
                                 "labels": ["Januar", "Februar", "März", "April"],
@@ -27,24 +34,28 @@
                                     "backgroundColor": "rgba(255, 99, 132, 0.3)"
                                 }, {
                                     "label": "Deutsch",
+                                    "lineTension": 0,
                                     "data": [200, 150, 100, 305],
                                     "type": "line",
                                     "fill": false,
                                     "borderColor": "rgb(255, 0, 0)"
                                 }, {
                                     "label": "Englisch",
+                                    "lineTension": 0,
                                     "data": [100, 100, 50, 55],
                                     "type": "line",
                                     "fill": false,
                                     "borderColor": "rgb(100, 100, 100)"
                                 }, {
                                     "label": "Arabisch",
+                                    "lineTension": 0,
                                     "data": [60, 50, 70, 30],
                                     "type": "line",
                                     "fill": false,
                                     "borderColor": "rgb(0, 0, 255)"
                                 }, {
                                     "label": "Farsi",
+                                    "lineTension": 0,
                                     "data": [40, 30, 120, 20],
                                     "type": "line",
                                     "fill": false,
@@ -58,19 +69,19 @@
                                             "beginAtZero": true
                                         }
                                     }]
-                                }
+                                } 
                             }
                         });
                     </script>
                 </div>
             </div>
         </div>
-        <div class="w-full md:w-1/4 p-3">
+        <div class="md:w-1/4 p-3 pb-0">
             <div class="bg-grey-lightest border border-grey rounded shadow">
                 <div class="border-b border-grey-dark p-3">
                     <h2 class="text-grey-darkest">Einstellungen</h2>
                 </div>
-                <form class="px-8 pt-6 pb-8 mb-4">
+                <form class="px-8 pt-6 pb-8">
                     <h3 class="text-grey-darkest m-2">Startzeitpunkt auswählen:</h3>
                     <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" type="date" name="start_date" />
                     <h3 class="text-grey-darkest m-2">Endzeitpunkt auswählen:</h3>
@@ -88,13 +99,36 @@
                     <input type="submit" name="submit_save" class="cursor-pointer bg-blue hover:bg-grey-dark text-white font-bold py-3 px-4 rounded m-2" value="Ansicht anpassen" />
                 </form>
             </div>
-        </div>
-        <div class="w-full md:w-1/4 p-3">
-            <div class="bg-grey-lightest border border-grey rounded shadow">
+            <div class="bg-grey-lightest border border-grey mt-3 rounded shadow">
                 <div class="border-b border-grey-dark p-3">
-                    <h2 class="text-grey-darkest">Einstellungen</h2>
+                    <h2 class="text-grey-darkest">Exportieren</h2>
                 </div>
+                <form class="px-8 pt-6 pb-8">
+                    <label>Format auswählen</label>
+                    <select class="mt-4 block appearance-none w-full bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow focus:outline-none focus:shadow-outline">  
+                        <option selected>--bitte auswählen--</option>
+                        <option>Image(png)</option>
+                        <option>CSV</option>
+                    </select>
+                    <button class="mt-4 bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" id="demo" onclick="export_Chart()">Export</button>
+                </form>            
             </div>
         </div>
+        <script>
+        function create_download(filename, content){
+            var element = document.createElement('a');
+            element.setAttribute('href', content);
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
 
+        function export_Chart(){
+            var chart = document.getElementById("visitor-chart");
+            url = chart.toDataURL("image/png",1.0);
+            create_download("test.png",url);
+        }
+        </script>
 {% endblock %}
