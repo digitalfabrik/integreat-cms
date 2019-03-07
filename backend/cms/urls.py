@@ -20,8 +20,6 @@ urlpatterns = [
     url(r'pages/archive$', pages.archive, name='archived_pages'),
 
     url(r'statistics/$', statistics.AnalyticsView.as_view(), name='statistics'),
-    url(r'statistics_data/$', statistics.statistics_data, name='stat_data'),
-    
 
     url(r'^login/$', registration.login, name='login'),
     url(r'^logout/$', registration.logout, name='logout'),
