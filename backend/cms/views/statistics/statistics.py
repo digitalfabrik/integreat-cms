@@ -15,7 +15,7 @@ class AnalyticsView(TemplateView):
     color = ["#7e1e9c", "#15b01a", "#0343df", "#e50000", "#95d0fc", "#029386", "#f97306", "#96f97b", "#c20078", "#ffff14", "#75bbfd", "#89fe05", "#bf77f6", "#9a0eea", "#033500", "#06c2ac", "#00035b", "#d1b26f", "#00ffff"]
     raw_hits = [[200, 100, 50, 40, 20], [250, 150, 40, 30, 20], [350, 250, 4, 35, 25]]
     hits = [[lang[0], color[0], raw_hits[0]], [lang[1], color[1], raw_hits[1]], [lang[2], color[2], raw_hits[2]]]
-    
+
     csv_row = "date"
     csv_raw = ""
     for l in lang:
@@ -30,8 +30,6 @@ class AnalyticsView(TemplateView):
                 csv_row += ","
         csv_row += ";"
         csv_raw += str(csv_row)
-
-
 
     def get(self, request, *args, **kwargs):
         from_date = request.GET.get('start_date', str(date.today() -
