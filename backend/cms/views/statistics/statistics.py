@@ -40,12 +40,11 @@ class AnalyticsView(TemplateView):
         start_date = request.GET.get('start_date', str(date.today() -
                                                        timedelta(days=30)))
         end_date = request.GET.get('end_date', str(date.today()))
-        api_token = ""
         languages = [["de", "Deutsch", "#7e1e9c"], ["en", "Englisch", "#15b01a"],
                      ["ar", "Arabisch", "#0343df"]]
 
         api_man = MatomoApiManager(matomo_url="https://statistics.integreat-app.de",
-                                   matomo_api_key=api_token,
+                                   matomo_api_key="",
                                    ssl_verify=True)
         response_dates = []
         response_hits = []

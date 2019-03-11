@@ -96,20 +96,6 @@ class MatomoApiManager:
         request = self.api_request("get", curl)
         return request
 
-    def get_unique_visitors(self, site_id, date, period):
-        """
-        Delivers unique visiors for a period ("day", "week", "month", "year") from beginning date
-        :param site_id: String
-        :param date: String "yyyy-mm-dd" or e.g. "2019-07-24"
-        :param period: String "day", "week", "month", "year"
-        :return: String cumulated unique visitors
-        """
-        method = "/?module=API&method=VisitsSummary.getUniqueVisitors&idSite=" + site_id
-        method += "&period=" + period + "&date=" + date + "&format=JSON"
-        curl = self.matomo_url + method + self.matomo_api_key
-        request = self.api_request("get", curl)
-        return request
-
     def get_all_site_ids(self):
         """
         Returns only all siteIDs
