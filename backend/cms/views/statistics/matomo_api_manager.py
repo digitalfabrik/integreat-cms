@@ -26,14 +26,14 @@ class MatomoApiManager:
     matomo_url = ""  # URL to Matomo-Instance
     matomo_api_key = ""  # Matomo API-key
 
-    def __init__(self, matomo_URL, matomo_api_key, ssl_verify):
+    def __init__(self, matomo_url, matomo_api_key, ssl_verify):
         """
         Constructor initialises matomo_url, matomo_api_key, ssl_verify
         :param matomo_url:
         :param matomo_api_key:
         :param ssl_verify:
         """
-        self.matomo_url = matomo_URL
+        self.matomo_url = matomo_url
         self.matomo_api_key = matomo_api_key
         self.matomo_api_key = "&token_auth=" + self.matomo_api_key  # concats token api-parameter
         self.ssl_verify = ssl_verify
@@ -155,103 +155,40 @@ class MatomoApiManager:
         request = self.api_request("get", curl)
         return request
 
-    def get_unique_visitors_per_day(self, date, site_id, lang):
+    def get_visitors_per_timerange(self, date_string, site_id, period, lang):
         """
-        Returns unique visitors per day
-        :param date: String "yyyy-mm-dd" or e.g. "2007-07-24"
+        Returns the total unique visitors in a timerange as definded in period
         :param site_id: String
-        :param lang: String e.g. "de" for german, "en" for english
-        :return: List with date and count of unique visitors for this date
+        :param date_string: String "yyyy-mm-dd,yyyy-mm-dd"
+        :param period: String "day", "week", "month", "year"
+        :param lang: String contains the language, that is called
+        :return: List[Date, Hits]
         """
-        method = "/index.php?date=" + date + "&expanded=1&filter_limit=-1&format=JSON"
-        method += "&format_metrics=1" + "&idSite=" + site_id
-        method += "&method=API.get&module=API&period=day&segment=pageUrl%253D@%25252F"
-        method += lang + "%25252Fwp-json%25252F"
-        curl = self.matomo_url + method + self.matomo_api_key
-        request = self.api_request("get", curl)
-        request = json.loads(request)
-        list_hits = []
-
-        list_hits.append(date)
-        for (key, value) in request.items():
-            if key == "nb_uniq_visitors":
-                list_hits.append(value)
-        return list_hits
-
-    def get_unique_visitors_month(self, year, month, site_id, lang):  # month should be 01 for Jan
-        """
-        Unique visitors for whole month in requested year
-        :param year: String "YYYY" or e.g. "2019"
-        :param month: String "MM" or e.g. "02" for February
-        :param site_id: String
-        :param lang: String e.g. "de" for german, "en" for english
-        :return:
-        """
-        start_date = datetime(int(year), int(month), 1).date()
-        end_date = self.last_day_of_month(datetime(int(year), int(month), 1).date())
-
-        delta = end_date - start_date
-        list_hits = []
-        for i in range(delta.days+1):
-            date = start_date + timedelta(i)
-            list_hits.append(self.get_unique_visitors_per_day(date.strftime('%Y-%m-%d'),
-                                                              site_id, lang))
-        return list_hits
-
-    def get_unique_visitors_year(self, year, site_id, lang):  # year in format as "2019"
-        """
-        Returns unique visitors for a all days in a whole year
-        :param year: String "YYYY" or e.g. "2019"
-        :param site_id: String
-        :param lang: String e.g. "de" for german, "en" for english
-        :return: List with dates and count of unique visitors for all dates in a year
-        """
-        start_date = datetime(int(year), 1, 1).date()
-        end_date = self.last_day_of_month(datetime(int(year), 12, 1).date())
-
-        delta = end_date - start_date
-        list_hits = []
-        for i in range(delta.days+1):
-            date = start_date + timedelta(i)
-            list_hits.append(self.get_unique_visitors_per_day(date.strftime('%Y-%m-%d'), site_id,
-                                                              lang))
-        return list_hits
-
-    def get_unique_visitors_last_30(self, site_id, lang):
-        """
-        Returns unique visitors for last 30 days since today
-        :param site_id: String
-        :param lang: String e.g. "de" for german, "en" for english
-        :return: List with dates and count of unique visitors for last 30 days
-        """
-        start_date = datetime.now().date() + timedelta(-30)
-        end_date = datetime.now().date()
-
-        delta = end_date - start_date
-        list_hits = []
-        for i in range(delta.days+1):
-            date = start_date + timedelta(i)
-            list_hits.append(self.get_unique_visitors_per_day(date.strftime('%Y-%m-%d'),
-                                                              site_id, lang))
-        return list_hits
-
-    def get_timezones_list(self):
-        """
-        Shows you all possible Timezones with utc codes.
-        :return: JSON
-        """
-        method = "/?module=API&method=SitesManager.getTimezonesList"
-        curl = self.matomo_url + method + self.matomo_api_key
-        request = self.api_request("get", curl)
-        return request
-
-    @staticmethod
-    def last_day_of_month(any_month):
-        """
-        Calculates last day of month helps severy other methods in finding proper dates.
-        Thanks and CC to Augusto Men on Stackoverflow
-        :param any_month: Date for which last day will be calculated
-        :return: Date last day of month
-        """
-        next_month = any_month.replace(day=28) + timedelta(days=4)  # this will never fail
-        return next_month - timedelta(days=next_month.day)
+        domain = self.matomo_url
+        api_key = self.matomo_api_key
+        response = {}
+        url = """{}/index.php?date={}&expanded=1
+        &filter_limit=-1&format=JSON&format_metrics=1
+        &idSite={}&method=API.get&module=API&period={}
+        &segment=pageUrl%253D@%25252F{}
+        %25252Fwp-json%25252F{}""".format(domain, date_string, site_id, period, lang, api_key)
+        response = requests.get(url).json()
+        result = []
+        for json_object in response:
+            if period == "day":
+                if response[json_object] == []:
+                    result.append([re.sub(r'(\d{4})-(\d{1,2})-(\d{1,2})',
+                                          '\\3-\\2-\\1', json_object), 0])
+                else:
+                    result.append([re.sub(r'(\d{4})-(\d{1,2})-(\d{1,2})',
+                                          '\\3-\\2-\\1', json_object),
+                                   response[json_object]['nb_uniq_visitors']])
+            elif period == "month":
+                if response[json_object] == []:
+                    result.append([re.sub(r'(\d{4})-(\d{1,2})',
+                                          '\\2-\\1', json_object), 0])
+                else:
+                    result.append([re.sub(r'(\d{4})-(\d{1,2})',
+                                          '\\2-\\1', json_object),
+                                   response[json_object]['nb_uniq_visitors']])
+        return result

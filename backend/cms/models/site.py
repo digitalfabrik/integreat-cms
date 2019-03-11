@@ -1,10 +1,16 @@
+"""
+Database model representing an autonomous authority
+"""
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from cms.models.language import Language
+from .language import Language
 
 
 class Site(models.Model):
+    """
+    Class to generate site database objects
+    """
     ACTIVE = 'acti'
     HIDDEN = 'hidd'
     ARCHIVED = 'arch'
@@ -33,3 +39,8 @@ class Site(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
+
+    statistics_enabled = models.BooleanField(default=False)
+    matomo_url = models.CharField(max_length=150, blank=True, default='')
+    matomo_token = models.CharField(max_length=150, blank=True, default='')
+    matomo_ssl_verify = models.BooleanField(default=True)
