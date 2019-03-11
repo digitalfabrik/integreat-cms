@@ -7,6 +7,7 @@ from cms.models.language import Language
 class PushNotification(models.Model):
     site = models.ForeignKey(Site)
     channel = models.CharField(max_length=60)
+    draft = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
