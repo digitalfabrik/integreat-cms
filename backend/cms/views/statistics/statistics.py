@@ -25,7 +25,7 @@ class AnalyticsView(TemplateView):
         for l_value in languages:
             csv_row += "," + l_value[1]
         csv_raw += csv_row + ";"
-        for date_index in range(0, len(dates)):
+        for date_index, _ in enumerate(dates):
             csv_row = ""
             csv_row += str(dates[date_index]) + ","
             for idy in range(0, len(languages)):
