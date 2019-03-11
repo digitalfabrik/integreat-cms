@@ -2,7 +2,6 @@
 """
 Helper class to interact with the Matomo API
 """
-from datetime import datetime, timedelta
 import re
 import json
 import requests
