@@ -10,7 +10,7 @@ class Feedback(models.Model):
         ("Neg", "Negative")
     )
     emotion = models.CharField(max_length=3, choices=EMOTIONS)
-    text = models.CharField()
+    text = models.CharField(max_length=200)
 
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
