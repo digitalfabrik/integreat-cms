@@ -1,3 +1,5 @@
+"""Provides routing to all submodules inside the application
+"""
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.conf import settings
