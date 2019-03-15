@@ -7,8 +7,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
-from cms.models import Site, Language
-from cms.models.poi import POI
+from ..models import Site, Language
+from ..models.poi import POI
 
 
 class RecurrenceRule(models.Model):
@@ -71,6 +71,13 @@ class Event(models.Model):
 
     @classmethod
     def get_list_view(cls):
+        """
+        Function: Get List View
+        
+        Returns:
+            [events]: Array of all Events
+        """
+
         event_translations = EventTranslation.objects.filter(
             language='de'
         ).select_related('user')
@@ -120,6 +127,9 @@ class Event(models.Model):
 
 
 class EventTranslation(models.Model):
+    """
+    Database object representing an event tranlsation
+    """
     STATUS = (
         ('draft', 'Entwurf'),
         ('in-review', 'Ausstehender Review'),

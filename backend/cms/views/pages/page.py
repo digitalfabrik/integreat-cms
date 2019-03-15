@@ -1,9 +1,15 @@
+"""
+
+Returns:
+    [type]: [description]
+"""
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from cms.models.page import PageTranslation
+from ...models.page import PageTranslation
 from .page_form import PageForm
 
 
