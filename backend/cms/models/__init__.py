@@ -8,7 +8,7 @@ from .extra_template import ExtraTemplate
 from .language_tree import LanguageTree
 from .language import Language
 
-from .page import Page, ContentPage, MirrorPage
+from .page import Page
 from .page import PageTranslation
 
 from .poi import POI

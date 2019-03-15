@@ -8,7 +8,6 @@ from cms.models.site import Site
 
 
 class Page(MPTTModel):
-    order = models.IntegerField(default=0)
     parent = TreeForeignKey('self',
                             blank=True,
                             null=True,
@@ -17,6 +16,7 @@ class Page(MPTTModel):
                              null=True,
                              upload_to='pages/%Y/%m/%d')
     site = models.ForeignKey(Site)
+    mirrored_page = models.ForeignKey('self', null=True)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -36,7 +36,6 @@ class Page(MPTTModel):
         pages = cls.objects.all().prefetch_related(models.Prefetch(
             'page_translations',
             queryset=page_translations)).filter(page_translations__language='de')
-
         return pages
 
     def depth(self):
@@ -49,16 +48,8 @@ class Page(MPTTModel):
         abstract = True
 
 
-class ContentPage(Page):
-    pass
-
-
-class MirrorPage(Page):
-    mirrored_page = models.ForeignKey(ContentPage)
-
-
 class PageTranslation(models.Model):
-    page = models.ForeignKey(ContentPage, related_name='page_translations')
+    page = models.ForeignKey(Page, related_name='page_translations')
     permalink = models.CharField(max_length=60)
     STATUS = (
         ('draft', 'Entwurf'),
