@@ -39,7 +39,7 @@ class RecurrenceRule(models.Model):
         if self.frequency == RecurrenceRule.WEEKLY \
                 and (self.weekdays_for_weekly is None or self.weekdays_for_weekly.size() == 0):
             raise ValidationError('No weekdays selected for weekly recurrence')
-        elif self.frequency == 'monthly' and (
+        if self.frequency == 'monthly' and (
                 self.weekday_for_monthly is None or self.week_for_monthly is None):
             raise ValidationError('No weekday or no week selected for monthly recurrence')
 
@@ -117,8 +117,7 @@ class Event(models.Model):
                                                       recurrence.week_for_monthly),
                                     until=until)
             return [x for x in occurrences if start <= x <= end or start <= x + event_span <= end]
-        else:
-            return [event_start] if start <= event_start <= end or start <= event_end <= end else []
+        return [event_start] if start <= event_start <= end or start <= event_end <= end else []
 
 
 class EventTranslation(models.Model):
