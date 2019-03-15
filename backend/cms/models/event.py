@@ -73,7 +73,6 @@ class Event(models.Model):
     def get_list_view(cls):
         """
         Function: Get List View
-        
         Returns:
             [events]: Array of all Events
         """
