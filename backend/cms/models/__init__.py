@@ -5,10 +5,13 @@ from .event import EventTranslation
 from .extra import Extra
 from .extra_template import ExtraTemplate
 
-from .feedback import PageFeedback
+from .feedback import Feedback
 from .feedback import SiteFeedback
+from .feedback import PageFeedback
 from .feedback import TechnicalFeedback
 from .feedback import ExtraFeedback
+from .feedback import EventFeedback
+from .feedback import SearchResultFeedback
 
 from .language_tree import LanguageTree
 from .language import Language
