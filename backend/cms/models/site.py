@@ -5,7 +5,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 
-from cms.models.language_tree import LanguageTree
+from .language_tree import LanguageTree
 
 
 class Site(models.Model):
@@ -25,7 +25,7 @@ class Site(models.Model):
     title = models.CharField(max_length=200)
     name = models.URLField(max_length=60, unique=True)
     status = models.CharField(max_length=4, choices=STATUS)
-    language_tree = models.ForeignKey(LanguageTree)
+    language_tree = models.ForeignKey(LanguageTree, null=True, on_delete=models.SET_NULL)
 
     events_enabled = models.BooleanField(default=True)
     push_notifications_enabled = models.BooleanField(default=True)

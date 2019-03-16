@@ -8,7 +8,7 @@ from .language import Language
 
 class LanguageTree(MPTTModel):
 
-    language = models.ForeignKey(Language)
+    language = models.ForeignKey(Language, on_delete=models.PROTECT)
     parent = TreeForeignKey('self',
                             blank=True,
                             null=True,

@@ -2,9 +2,6 @@
 
 Raises:
     ValidationError: Raised when an value does not match the requirements
-
-Returns:
-    [type]: [description]
 """
 from datetime import datetime, time, date
 
@@ -179,4 +176,4 @@ class EventTranslation(models.Model):
     event = models.ForeignKey(Event, related_name='event_translations', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(User, on_delete=models.SET_NULL)
+    creator = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)

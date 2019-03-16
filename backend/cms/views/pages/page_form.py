@@ -15,8 +15,7 @@ class PageForm(forms.ModelForm):
     """
 
     order = forms.IntegerField(required=False)
-    parent = forms.ModelChoiceField(queryset=Page.objects.all(),
-                                    required=False)
+    parent = forms.ModelChoiceField(queryset=Page.objects.all(), required=False)
     icon = forms.ImageField(required=False)
 
     class Meta:

@@ -15,6 +15,6 @@ class Language(models.Model):
     # It's unlikely that we have language codes longer than 8 characters though.
     code = models.CharField(max_length=8, primary_key=True, validators=[MinLengthValidator(2)])
     title = models.CharField(max_length=250, blank=False)
-    text_direction = models.CharField(choices=DIRECTION, max_length=3)
+    text_direction = models.CharField(default=DIRECTION[0][0], choices=DIRECTION, max_length=3)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)

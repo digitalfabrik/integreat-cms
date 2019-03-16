@@ -15,8 +15,8 @@ class Page(MPTTModel):
     icon = models.ImageField(blank=True,
                              null=True,
                              upload_to='pages/%Y/%m/%d')
-    site = models.ForeignKey(Site)
-    mirrored_page = models.ForeignKey('self', null=True)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    mirrored_page = models.ForeignKey('self', null=True, on_delete=models.PROTECT)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -44,12 +44,9 @@ class Page(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['order']
 
-    class Meta:
-        abstract = True
-
 
 class PageTranslation(models.Model):
-    page = models.ForeignKey(Page, related_name='page_translations')
+    page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
     permalink = models.CharField(max_length=60)
     STATUS = (
         ('draft', 'Entwurf'),
@@ -59,11 +56,12 @@ class PageTranslation(models.Model):
     title = models.CharField(max_length=250)
     status = models.CharField(max_length=9, choices=STATUS, default='draft')
     text = models.TextField()
-    language = models.ForeignKey(Language)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
     version = models.PositiveIntegerField(default=0)
     public = models.BooleanField(default=False)
     minor_edit = models.BooleanField(default=False)
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+
     #  todo: is currently in translation
