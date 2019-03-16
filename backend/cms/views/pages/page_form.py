@@ -1,11 +1,21 @@
+"""
+Form for creating a page object
+"""
+
 from django import forms
-from cms.models.page import Page, PageTranslation
+from ...models.page import Page, PageTranslation
 
 
 class PageForm(forms.ModelForm):
+    """
+    DjangoForm Class, that can be rendered to create deliverable HTML
+
+    Args:
+        forms : Defines the form as an Model form related to a database object
+    """
+
     order = forms.IntegerField(required=False)
-    parent = forms.ModelChoiceField(queryset=Page.objects.all(),
-                                    required=False)
+    parent = forms.ModelChoiceField(queryset=Page.objects.all(), required=False)
     icon = forms.ImageField(required=False)
 
     class Meta:
@@ -24,20 +34,25 @@ class PageForm(forms.ModelForm):
                      ('tr', 'Türkisch')])
 
     def save_page(self, page_translation_id=None):
+        """Function to create or update a page
+            page_translation_id ([Integer], optional): Defaults to None. If it's not set creates
+            a page or update the page with the given page id.
+        """
+
         # TODO: version, active_version
         if page_translation_id:
-            p = PageTranslation.objects.filter(
+            page_object = PageTranslation.objects.filter(
                 id=page_translation_id).select_related('page').first()
 
             # save page
-            page = Page.objects.get(id=p.page.id)
+            page = Page.objects.get(id=page_object.page.id)
             page.order = self.cleaned_data['order']
             page.parent = self.cleaned_data['parent']
             page.icon = self.cleaned_data['icon']
             page.save()
 
             # save page translation
-            page_translation = PageTranslation.objects.get(id=p.id)
+            page_translation = PageTranslation.objects.get(id=page_object.id)
             page_translation.title = self.cleaned_data['title']
             page_translation.text = self.cleaned_data['text']
             page_translation.status = self.cleaned_data['status']
@@ -61,5 +76,9 @@ class PageForm(forms.ModelForm):
             )
 
     def clean_order(self):
+        """Function to clean the order of the form
+        Returns:
+            order: Ordered list
+        """
         order = self.cleaned_data['order'] if self.cleaned_data['order'] else 0
         return order

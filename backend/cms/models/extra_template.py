@@ -1,9 +1,17 @@
+"""Model to represent an Extra
+"""
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.utils import timezone
 
 
 class ExtraTemplate(models.Model):
+    """Model class for representing an Extra database object
+
+    Args:
+        models : Databas model inherit from the standard django models
+    """
+
     name = models.CharField(max_length=250)
     alias = models.CharField(max_length=60)
     thumbnail = models.CharField(max_length=250)

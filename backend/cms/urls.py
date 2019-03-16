@@ -1,8 +1,11 @@
+"""Provides routing to all submodules inside the application
+"""
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from .views import general, registration, pages
+from .views.statistics import statistics
 
 
 urlpatterns = [
@@ -17,6 +20,8 @@ urlpatterns = [
         pages.PageView.as_view(),
         name='delete_page'),
     url(r'pages/archive$', pages.archive, name='archived_pages'),
+
+    url(r'statistics/$', statistics.AnalyticsView.as_view(), name='statistics'),
 
     url(r'^login/$', registration.login, name='login'),
     url(r'^logout/$', registration.logout, name='logout'),
