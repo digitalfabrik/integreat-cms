@@ -1,17 +1,27 @@
+"""Model representing a page with content
+"""
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
 
-from cms.models.language import Language
-from cms.models.site import Site
+from .language import Language
+from .site import Site
 
 
 class Page(MPTTModel):
+    """Class that represents an Page database object
+
+    Args:
+        MPTTModel : Library for hierachical data structures
+    """
+
     parent = TreeForeignKey('self',
                             blank=True,
                             null=True,
-                            related_name='children')
+                            related_name='children',
+                            on_delete=models.PROTECT)
     icon = models.ImageField(blank=True,
                              null=True,
                              upload_to='pages/%Y/%m/%d')
@@ -22,13 +32,19 @@ class Page(MPTTModel):
 
     def __str__(self):
         # TODO: get current language title
-        pt = PageTranslation.objects.filter(
+        page_translation = PageTranslation.objects.filter(
             page_id=self.id,
             language='de').first()
-        return pt.title
+        return page_translation.title
 
     @classmethod
     def get_tree_view(cls):
+        """Function for building up a Treeview of all pages
+
+        Returns:
+            [pages]: Array of pages connected with their relations
+        """
+
         page_translations = PageTranslation.objects.filter(
             language='de'
         ).select_related('user')
@@ -39,6 +55,12 @@ class Page(MPTTModel):
         return pages
 
     def depth(self):
+        """Provide level of inheritance
+
+        Returns:
+            Int : Number of ancestors
+        """
+
         return len(self.get_ancestors())
 
     class MPTTMeta:
@@ -46,6 +68,12 @@ class Page(MPTTModel):
 
 
 class PageTranslation(models.Model):
+    """Class defining a Translation of a Page
+
+    Args:
+        models : Class inherit of django-Models
+    """
+
     page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
     permalink = models.CharField(max_length=60)
     STATUS = (
