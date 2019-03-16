@@ -1,12 +1,14 @@
 from django.db import models
-from cms.models import Site
-from cms.models.extra_template import ExtraTemplate
+from django.utils import timezone
+
+from .site import Site
+from .extra_template import ExtraTemplate
 
 
 class Extra(models.Model):
     site = models.ForeignKey(Site)
     template = models.ForeignKey(ExtraTemplate)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
     def alias(self):
