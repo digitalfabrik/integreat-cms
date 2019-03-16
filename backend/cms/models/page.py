@@ -44,9 +44,6 @@ class Page(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['order']
 
-    class Meta:
-        abstract = True
-
 
 class PageTranslation(models.Model):
     page = models.ForeignKey(Page, related_name='page_translations')
