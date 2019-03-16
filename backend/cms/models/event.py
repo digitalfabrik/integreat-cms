@@ -1,3 +1,11 @@
+"""Class defining event-related database models
+
+Raises:
+    ValidationError: Raised when an value does not match the requirements
+
+Returns:
+    [type]: [description]
+"""
 from datetime import datetime, time, date
 
 from dateutil.rrule import weekday, rrule
@@ -12,6 +20,15 @@ from ..models.poi import POI
 
 
 class RecurrenceRule(models.Model):
+    """
+    Object to define the recurrence frequency
+    Args:
+        models ([type]): [description]
+    Raises:
+        ValidationError: Error raised when weekdays_for_weekly does not fit into the range
+        from 0 to 6 or when the value of weekdays_for_monthly isn't between -5 and 5.
+    """
+
     DAILY = 'DAILY'
     WEEKLY = 'WEEKLY'
     MONTHLY = 'MONTHLY'
@@ -43,13 +60,24 @@ class RecurrenceRule(models.Model):
 
 
 class Event(models.Model):
-    site = models.ForeignKey(Site)
+    """Database object representing an event with name, date and the option to add recurrency.
+
+    Args:
+        models : Databas model inherit from the standard django models
+
+    Raises:
+        ValidationError: Raised if the recurrence end date is after the start date
+        ValidationError: Raised if start or end date isn't null when the other one is
+        ValidationError: Raised if the end date is before the start date
+    """
+
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
     location = models.ForeignKey(POI, on_delete=models.PROTECT, null=True, blank=True)
     start_date = models.DateField()
     start_time = models.TimeField(null=True)
     end_date = models.DateField()
     end_time = models.TimeField(null=True)
-    recurrence_rule = models.OneToOneField(RecurrenceRule, null=True)
+    recurrence_rule = models.OneToOneField(RecurrenceRule, null=True, on_delete=models.SET_NULL)
     picture = models.ImageField(null=True, blank=True, upload_to='events/%Y/%m/%d')
 
     def clean(self):
@@ -67,6 +95,11 @@ class Event(models.Model):
         return self.event_translations.filter(event_id=self.id, language='de').first().title
 
     def get_translations(self):
+        """Provides all translations of the Event
+        Returns:
+            [event_translations]: Array with all translations related to this event
+        """
+
         return self.event_translations.all()
 
     @classmethod
@@ -137,11 +170,11 @@ class EventTranslation(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField()
     permalink = models.CharField(max_length=60)
-    language = models.ForeignKey(Language)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
     version = models.PositiveIntegerField(default=0)
     minor_edit = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
-    event = models.ForeignKey(Event, related_name='event_translations')
+    event = models.ForeignKey(Event, related_name='event_translations', on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, on_delete=models.SET_NULL)
