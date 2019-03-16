@@ -1,9 +1,19 @@
+"""
+Model to define a Language
+"""
+
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
 
 
 class Language(models.Model):
+    """
+    Class to define language database objects
+
+    Args:
+        models : Databas model inherit from the standard django models
+    """
 
     DIRECTION = (
         ('ltr', 'left-to-right'),
