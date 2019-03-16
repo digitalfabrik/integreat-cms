@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
 
-from cms.models.site import Site
 from cms.models.language import Language
+from cms.models.site import Site
 
 
 class Page(MPTTModel):
-    order = models.IntegerField(default=0)
     parent = TreeForeignKey('self',
                             blank=True,
                             null=True,
@@ -16,7 +16,8 @@ class Page(MPTTModel):
                              null=True,
                              upload_to='pages/%Y/%m/%d')
     site = models.ForeignKey(Site)
-    created_date = models.DateTimeField(auto_now_add=True)
+    mirrored_page = models.ForeignKey('self', null=True)
+    created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -31,18 +32,20 @@ class Page(MPTTModel):
         page_translations = PageTranslation.objects.filter(
             language='de'
         ).select_related('user')
+
         pages = cls.objects.all().prefetch_related(models.Prefetch(
             'page_translations',
             queryset=page_translations)).filter(page_translations__language='de')
-
         return pages
 
     def depth(self):
         return len(self.get_ancestors())
 
-
     class MPTTMeta:
         order_insertion_by = ['order']
+
+    class Meta:
+        abstract = True
 
 
 class PageTranslation(models.Model):
@@ -61,5 +64,6 @@ class PageTranslation(models.Model):
     public = models.BooleanField(default=False)
     minor_edit = models.BooleanField(default=False)
     creator = models.ForeignKey(User)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+    #  todo: is currently in translation
