@@ -3,6 +3,7 @@
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
@@ -48,6 +49,9 @@ class Page(MPTTModel):
     def get_translation(self, language_code):
         language = Language.objects.get(code=language_code)
         return self.page_translations.get(language=language)
+
+    def get_absolute_url(self):
+        return reverse('edit_page', kwargs={'page_id': self.id, 'site_slug': self.site.slug})
 
     def __str__(self):
         # TODO: get current language title

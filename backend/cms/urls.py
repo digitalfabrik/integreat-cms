@@ -75,7 +75,7 @@ urlpatterns = [
         url(r'^pages/', include([
             url(r'^$', pages.PageTreeView.as_view(), name='pages'),
             url(r'^new$', pages.PageView.as_view(), name='new_page'),
-            url(r'^(?P<page_translation_id>[0-9]+)/', include([
+            url(r'^(?P<page_id>[0-9]+)/', include([
                 url(
                     r'^edit$',
                     pages.PageView.as_view(),

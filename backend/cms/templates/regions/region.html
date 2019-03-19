@@ -9,7 +9,9 @@
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
             <h2 class="heading font-normal">
 	            {% if form.initial %}
-		            {% blocktrans %}Edit region {{ form.name.initial }}{% endblocktrans %}
+		            {% with form.name.value as region_name %}
+			            {% blocktrans %}Edit region "{{ region_name }}"{% endblocktrans %}
+		            {% endwith %}
 	            {% else %}
 		            {% trans 'Create new region' %}
 	            {% endif %}

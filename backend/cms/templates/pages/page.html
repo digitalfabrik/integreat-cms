@@ -8,12 +8,20 @@
     <div class="flex flex-wrap mb-4">
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
             <h2 class="heading font-normal">
-	            {% trans 'Create new page' %}
+	            {% if form.initial %}
+		            {% with form.title.value as page_title %}
+		            {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
+		            {% endwith %}
+	            {% else %}
+		            {% trans 'Create new page' %}
+	            {% endif %}
             </h2>
         </div>
         <div class="w-3/5 flex justify-end">
             <input type="submit" name="submit_save" class="cursor-pointer bg-grey hover:bg-grey-dark text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
-            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% if not public %}
+                <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% endif %}
         </div>
     </div>
 
@@ -23,7 +31,7 @@
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
 	            {% trans 'Insert title here' as title_placeholder%}
                 {% render_field form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                <div class="mt-4">
+	            <div class="mt-4">
 	                {% trans 'Insert content here' as text_placeholder%}
                     {% render_field form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2" %}
                 </div>
@@ -133,6 +141,15 @@
                     <label for="parent" class="text-xs uppercase">{% trans 'Page' %}</label>
                     <div class="relative my-2">
                         {% render_field form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
+                </div>
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+                    <label for="public" class="font-bold">{% trans 'Visibility' %}</label>
+                    <div class="relative my-2">
+                        {% render_field form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>

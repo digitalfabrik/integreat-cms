@@ -53,4 +53,8 @@ class Site(models.Model):
         return None
 
     def __str__(self):
+        """Function that provides a string representation of this object
+
+        Returns: String
+        """
         return self.name

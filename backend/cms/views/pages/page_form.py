@@ -2,8 +2,10 @@
 Form for creating a page object and page translation object
 """
 
+import sys
 from django import forms
 from django.utils.text import slugify
+from django.utils.translation import ugettext as _
 from ...models import Page, PageTranslation, Site
 from ..general import POSITION_CHOICES
 
@@ -19,6 +21,11 @@ class PageForm(forms.ModelForm):
     position = forms.ChoiceField(choices=POSITION_CHOICES)
     parent = forms.ModelChoiceField(queryset=Page.objects.all(), required=False)
     icon = forms.ImageField(required=False)
+    PUBLIC_CHOICES = (
+        (True, _('Public')),
+        (False, _('Private'))
+    )
+    public = forms.ChoiceField(choices=PUBLIC_CHOICES)
 
     class Meta:
         model = PageTranslation
@@ -29,10 +36,15 @@ class PageForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(PageForm, self).__init__(*args, **kwargs)
 
-    def save_page(self, site_slug, page_translation_id=None):
+    def save_page(self, site_slug, page_id=None, publish=False):
         """Function to create or update a page
-            page_translation_id ([Integer], optional): Defaults to None. If it's not set creates
-            a page or update the page with the given page id.
+
+            page_id ([Integer], optional): Defaults to None.
+            publish ([Boolean], optional): Defaults to False. Flag for changing publication status
+                                           via publish button.
+
+            Returns:
+                page: the created or updated page
         """
 
         slug = slugify(self.cleaned_data['title'])
@@ -40,10 +52,11 @@ class PageForm(forms.ModelForm):
         if (
                 (
                     # translation is created
-                    not page_translation_id
+                    not page_id
                     or
                     # slug has changed
-                    PageTranslation.objects.get(id=page_translation_id).slug != slug
+                    # TODO: current language
+                    Page.objects.get(pk=page_id).get_translation('de').slug != slug
                 )
                 and
                 # the new slug already exists
@@ -58,25 +71,31 @@ class PageForm(forms.ModelForm):
                     break
 
         # TODO: version, active_version
-        if page_translation_id:
-            page_object = PageTranslation.objects.filter(
-                id=page_translation_id).select_related('page').first()
 
+        if publish:
+            self.cleaned_data['public'] = True
+
+        # TODO: version, active_version
+        if page_id:
+            print("DEBUG 1: ", file=sys.stderr)
             # save page
-            page = Page.objects.get(id=page_object.page.id)
+            page = Page.objects.get(id=page_id)
             page.icon = self.cleaned_data['icon']
             page.save()
             page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
 
             # save page translation
-            page_translation = PageTranslation.objects.get(id=page_object.id)
+            #language = Language.objects.get(id=self.cleaned_data['language'])
+            page_translation = Page.objects.get(pk=page_id).get_translation(
+                self.cleaned_data['language'].code
+            )
             page_translation.slug = slug
             page_translation.title = self.cleaned_data['title']
             page_translation.text = self.cleaned_data['text']
             page_translation.status = self.cleaned_data['status']
-            page_translation.language = self.cleaned_data['language']
             page_translation.save()
         else:
+            print("DEBUG 2: ", file=sys.stderr)
             # create page
             page = Page.objects.create(
                 icon=self.cleaned_data['icon'],
@@ -91,6 +110,9 @@ class PageForm(forms.ModelForm):
                 text=self.cleaned_data['text'],
                 status=self.cleaned_data['status'],
                 language=self.cleaned_data['language'],
+                public=self.cleaned_data['public'],
                 page=page,
                 creator=self.user
             )
+
+        return page
