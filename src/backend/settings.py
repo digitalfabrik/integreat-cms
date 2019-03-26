@@ -60,6 +60,13 @@ RSS_FEED_URLS = {
 #: How many days of chat history should be shown
 AUTHOR_CHAT_HISTORY_DAYS = 30
 
+#: The federation settings of this cms instance
+FEDERATION = {
+    'name': 'integreat-cms',
+    'domain': 'localhost:8000',
+    'seed_contacts': [] # urls to other cms instances, e.g. cms.integreat-app.de
+}
+
 ###########
 # GVZ API #
 ###########
@@ -115,6 +122,7 @@ else:
 #: Enabled applications (see :setting:`django:INSTALLED_APPS`)
 INSTALLED_APPS = [
     "cms.apps.CmsConfig",
+    "federation.apps.FederationConfig",
     "gvz_api.apps.GvzApiConfig",
     "django.contrib.admin",
     "django.contrib.auth",
