@@ -12,18 +12,18 @@ PREFIXES = [
 
 
 def sites(_):
-    def strip_prefix(title):
+    def strip_prefix(name):
         for p in PREFIXES:
-            if title.startswith(p):
-                return p, title[len(p) + 1:]  # +1 for one whitespace
-        return None, title
+            if name.startswith(p):
+                return p, name[len(p) + 1:]  # +1 for one whitespace
+        return None, name
 
     def transform_site(s):
-        prefix, name_without_prefix = strip_prefix(s.title)
+        prefix, name_without_prefix = strip_prefix(s.name)
         return {
-            'id': s.name,
-            'name': s.title,
-            'path': f'/{s.name}/',  # todo: tbd
+            'id': s.slug,
+            'name': s.name,
+            'path': s.slug,
             'live': s.status == Site.ACTIVE,
             'prefix': prefix,
             'name_without_prefix': name_without_prefix,
