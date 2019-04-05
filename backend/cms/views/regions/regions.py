@@ -2,6 +2,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from ...models.site import Site
@@ -62,13 +63,13 @@ class RegionView(TemplateView):
         if form.is_valid():
             if region_slug:
                 form.save_region(region_slug=region_slug)
-                messages.success(request, 'Region wurde erfolgreich gespeichert.')
+                messages.success(request, _('Region saved successfully.'))
             else:
                 form.save_region()
-                messages.success(request, 'Region wurde erfolgreich erstellt.')
+                messages.success(request, _('Region created successfully'))
             # TODO: improve messages
         else:
-            messages.error(request, 'Es sind Fehler aufgetreten.')
+            messages.error(request, _('Es sind Fehler aufgetreten.'))
 
         return render(request, self.template_name, {
             'form': form, **self.base_context})

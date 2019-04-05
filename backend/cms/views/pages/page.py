@@ -6,6 +6,7 @@ Returns:
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
@@ -50,15 +51,15 @@ class PageView(TemplateView):
                     site_slug=site_slug,
                     page_translation_id=self.page_translation_id,
                 )
-                messages.success(request, 'Seite wurde erfolgreich gespeichert.')
+                messages.success(request, _('Page was saved successfully.'))
             else:
                 form.save_page(
                     site_slug=site_slug,
                 )
-                messages.success(request, 'Seite wurde erfolgreich erstellt.')
+                messages.success(request, _('Page was created successfully.'))
             # TODO: improve messages
         else:
-            messages.error(request, 'Es sind Fehler aufgetreten.')
+            messages.error(request, _('Errors have occurred.'))
 
         return render(request, self.template_name, {
             'form': form, **self.base_context})

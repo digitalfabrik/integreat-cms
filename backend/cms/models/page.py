@@ -4,6 +4,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
 from .language import Language
@@ -83,9 +84,9 @@ class PageTranslation(models.Model):
     page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
     permalink = models.CharField(max_length=60)
     STATUS = (
-        ('draft', 'Entwurf'),
-        ('in-review', 'Ausstehender Review'),
-        ('reviewed', 'Review abgeschlossen'),
+        ('draft', _('Draft')),
+        ('in-review', _('Pending Review')),
+        ('reviewed', _('Finished Review')),
     )
     title = models.CharField(max_length=250)
     status = models.CharField(max_length=9, choices=STATUS, default='draft')

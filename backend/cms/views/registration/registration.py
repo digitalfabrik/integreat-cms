@@ -4,6 +4,7 @@ Handling of login, logout and password reset functionality.
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth import views as auth_views
+from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -28,7 +29,7 @@ def logout(request):
     """
 
     django_logout(request)
-    messages.info(request, 'Sie wurden erfolgreich abgemeldet.')
+    messages.info(request, _('You have been successfully logged off.'))
     return HttpResponseRedirect(reverse('login'))
 
 
@@ -40,8 +41,8 @@ def password_reset_done(request):
             HttpResponseRedirect: Redirect after password reset
     """
 
-    messages.info(request, ('Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres'
-                            'Passwort wurde an die angegebene E-Mail Adresse geschickt.'))
+    messages.info(request, (_('A message with instructions for resetting your password '
+                              'has been sent to the e-mail address provided.')))
     return HttpResponseRedirect(reverse('password_reset'))
 
 
@@ -65,6 +66,6 @@ def password_reset_complete(request):
             HttpResponseRedirect: Redirect to login page after password is reseted
     """
 
-    messages.success(request, 'Ihr Passwort wurde erfolgreich geändert.\
-                                Sie können sich jetzt mit dem neuen Passwort einloggen.')
+    messages.success(request, (_('Your password has been successfully changed.')/
+                               _('You can now log in with your new password.')))
     return HttpResponseRedirect(reverse('login'))
