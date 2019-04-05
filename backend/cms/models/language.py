@@ -28,3 +28,6 @@ class Language(models.Model):
     text_direction = models.CharField(default=DIRECTION[0][0], choices=DIRECTION, max_length=3)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

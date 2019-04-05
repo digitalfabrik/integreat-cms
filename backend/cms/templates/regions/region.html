@@ -1,0 +1,118 @@
+{% extends "_base.html" %}
+
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h2 class="heading font-normal">
+	            {% if form.initial %}
+		            Region {{ form.name.initial }} bearbeiten
+	            {% else %}
+                    Neue Region erstellen
+	            {% endif %}
+            </h2>
+        </div>
+        <div class="w-3/5 flex justify-end">
+            <input type="submit" name="submit_save" class="cursor-pointer bg-grey hover:bg-grey-dark text-white font-bold py-3 px-4 rounded mr-2" value="Speichern" />
+            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="Veröffentlichen" />
+        </div>
+    </div>
+
+    <div class="flex flex-wrap">
+	    <div class="w-1/3 pr-4">
+		    {{form.errors}}
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			    <label for="name" class="font-bold block mb-2">Name der Region</label>
+			    {% render_field form.name placeholder="Name der Region hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+		    </div>
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			    <label for="admin_mail" class="font-bold block mb-2">E-Mail-Adresse des Administrators</label>
+			    {% render_field form.admin_mail placeholder="E-Mail-Adresse des Administrators hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+		    </div>
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			    <label for="postal_code" class="font-bold block mb-2">Postleitzahl</label>
+			    {% render_field form.postal_code placeholder="Postleitzahl hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+		    </div>
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			    <span class="block mb-2 font-bold">Koordinaten</span>
+			    <div class="py-2 border-b solid border-grey-lighter mb-2 ml-4">
+				    <label for="latitude" class="font-bold block mb-2">Geographische Breite</label>
+			        {% render_field form.latitude placeholder="Geographische Breite hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+			    </div>
+			    <div class="py-2 pb-4 ml-4">
+				    <label for="longitude" class="font-bold block mb-2">Geographische Länge</label>
+				    {% render_field form.longitude placeholder="Geographische Länge hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+			    </div>
+		    </div>
+	    </div>
+	    <div class="w-1/3 pr-4">
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			    <div class="py-2 pb-4">
+				    <label for="events_enabled" class="font-bold">Events aktivieren</label>
+				    {% render_field form.events_enabled id="events_enabled" class="" %}
+			    </div>
+		    </div>
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			    <div class="py-2 border-b solid border-grey-lighter mb-2">
+				    <label for="push_notifications_enabled" class="font-bold">Push-Notifications aktivieren</label>
+				    {% render_field form.push_notifications_enabled id="push_notifications_enabled" class="" %}
+			    </div>
+			    <div class="py-2 pb-4">
+				    <label for="push_notification_channels" class="font-bold block mb-2">Push-Notification-Channels</label>
+				    <label for="languages" class="block mb-2 text-s">Mehrere Channels mit Leerzeichen getrennt eingeben.</label>
+				    {% render_field form.push_notification_channels placeholder="Push-Notofication-Channels hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+			    </div>
+		    </div>
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			    <div class="py-2 border-b solid border-grey-lighter mb-2">
+				    <label for="statistics_enabled" class="font-bold">Statistiken aktivieren</label>
+				    {% render_field form.statistics_enabled id="statistics_enabled" class="" %}
+			    </div>
+			    <div class="py-2 border-b solid border-grey-lighter mb-2">
+				    {% render_field form.matomo_url placeholder="Matomo URL hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+			    </div>
+			    <div class="py-2 border-b solid border-grey-lighter mb-2">
+				    {% render_field form.matomo_token placeholder="Matomo Token hier eingeben" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+			    </div>
+			    <div class="py-2 pb-4">
+				    <label for="matomo_ssl_verify" class="font-bold">Matomo SSL-Verifikation aktivieren</label>
+				    {% render_field form.matomo_ssl_verify id="matomo_ssl_verify" class="" %}
+			    </div>
+		    </div>
+	    </div>
+        <div class="w-1/3">
+	        <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+		        <div class="py-2 pb-4">
+			        <label for="languages" class="block mb-2 font-bold">Sprachen</label>
+			        {% render_field form.languages id="languages" class="list-reset mr-2 leading-tight" %}
+		        </div>
+	        </div>
+	        <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+		        <div class="py-2 pb-4">
+			        <label for="status" class="font-bold">Status</label>
+			        <div class="relative my-2">
+				        {% render_field form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+				        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+					        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+				        </div>
+			        </div>
+		        </div>
+	        </div>
+	        <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+		        <div class="pt-2 pb-4">
+			        <span class="block font-bold mb-4">Icon</span>
+			        {% render_field form.icon id="icon" class="image-field" %}
+			        <label for="icon" class="font-bold my-2 bg-blue hover:bg-blue-dark focus:bg-blue-dark text-white font-bold py-2 pl-10 pr-4 rounded cursor-pointer relative">
+				        <i data-feather="upload"></i>
+				        <span class="standard_text">Icon festlegen</span>
+				        <span class="filename"></span>
+			        </label>
+		        </div>
+	        </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

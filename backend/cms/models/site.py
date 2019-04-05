@@ -5,7 +5,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 
-from .language_tree import LanguageTree
+from .language import Language
 
 
 class Site(models.Model):
@@ -22,14 +22,14 @@ class Site(models.Model):
         (ARCHIVED, 'Archived'),
     )
 
-    title = models.CharField(max_length=200)
-    name = models.URLField(max_length=60, unique=True)
+    name = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200, unique=True)
     status = models.CharField(max_length=4, choices=STATUS)
-    language_tree = models.ForeignKey(LanguageTree, null=True, on_delete=models.SET_NULL)
+    languages = models.ManyToManyField(Language)
 
     events_enabled = models.BooleanField(default=True)
     push_notifications_enabled = models.BooleanField(default=True)
-    push_notification_channels = ArrayField(models.CharField(max_length=60))
+    push_notification_channels = ArrayField(models.CharField(max_length=60), blank=True)
 
     latitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
@@ -44,3 +44,12 @@ class Site(models.Model):
     matomo_url = models.CharField(max_length=150, blank=True, default='')
     matomo_token = models.CharField(max_length=150, blank=True, default='')
     matomo_ssl_verify = models.BooleanField(default=True)
+
+    @classmethod
+    def get_current_site(cls, request):
+        if hasattr(request, 'resolver_match'):
+            site_slug = request.resolver_match.kwargs.get('site_slug')
+            if site_slug:
+                site = cls.objects.get(slug=site_slug)
+                return site
+        return None

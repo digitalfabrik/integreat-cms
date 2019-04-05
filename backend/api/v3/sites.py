@@ -1,7 +1,7 @@
 from django.db.models import Exists, OuterRef
 from django.http import JsonResponse, HttpResponse
 
-from cms.models import Site, Extra, Language, LanguageTree
+from cms.models import Site, Extra, Language
 
 PREFIXES = [
     'EAE',
@@ -52,11 +52,7 @@ def pushnew(_):
     dutch = Language(code='nl', title='Nederlands', text_direction='ltr')
     de.save()
     dutch.save()
-    main_lang = LanguageTree(language=de)
-    main_lang.save()
-    dutch_lang = LanguageTree(parent=main_lang, language=dutch)
-    dutch_lang.save()
-    site = Site(title='Augsburg', name='augsburg', language_tree=dutch_lang,
+    site = Site(title='Augsburg', name='augsburg', languages=[de, dutch],
                 push_notification_channels=[])
     site.save()
     return HttpResponse('Pushing successful')

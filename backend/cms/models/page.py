@@ -25,6 +25,7 @@ class Page(MPTTModel):
     icon = models.ImageField(blank=True,
                              null=True,
                              upload_to='pages/%Y/%m/%d')
+    order = models.IntegerField(null=True)
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     mirrored_page = models.ForeignKey('self', null=True, on_delete=models.PROTECT)
     created_date = models.DateTimeField(default=timezone.now)
@@ -34,11 +35,12 @@ class Page(MPTTModel):
         # TODO: get current language title
         page_translation = PageTranslation.objects.filter(
             page_id=self.id,
-            language='de').first()
+            language='de'
+        ).first()
         return page_translation.title
 
     @classmethod
-    def get_tree_view(cls):
+    def get_tree_view(cls, request):
         """Function for building up a Treeview of all pages
 
         Returns:
@@ -46,12 +48,16 @@ class Page(MPTTModel):
         """
 
         page_translations = PageTranslation.objects.filter(
-            language='de'
-        ).select_related('user')
+            language='de',
+        ).select_related('creator')
 
         pages = cls.objects.all().prefetch_related(models.Prefetch(
             'page_translations',
-            queryset=page_translations)).filter(page_translations__language='de')
+            queryset=page_translations
+        )).filter(
+            page_translations__language='de',
+            site__slug=Site.get_current_site(request).slug
+        )
         return pages
 
     def depth(self):

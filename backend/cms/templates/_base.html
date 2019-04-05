@@ -11,29 +11,33 @@
     </div>
     <div id="instance-selector" class="relative flex flex-wrap flex-col justify-center px-3 cursor-pointer text-grey-darkest">
         <div class="flex flex-wrap">
-            <div style="padding-top: 8px;">
-                <i data-feather="server"></i>
-            </div>
-            <div class="ml-2" style="padding-top: 10px;">
-                Bad Tölz
-            </div>
+	        {% if site %}
+		        <div style="padding-top: 8px;">
+			        <i data-feather="home"></i>
+		        </div>
+	            <div class="ml-2" style="padding-top: 10px;">
+		            {{ site.name }}
+	            </div>
+	        {% else %}
+		        <div style="padding-top: 8px;">
+			        <i data-feather="grid"></i>
+		        </div>
+		        <div class="ml-2" style="padding-top: 10px;">
+			        Netzwerkverwaltung
+		        </div>
+	        {% endif %}
         </div>
         <div id="instance-selector-list" class="absolute shadow rounded-b">
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-                Dormagen
-            </a>
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-                Landkreis Germerskirchen
-            </a>
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-                Kissing
-            </a>
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-                Nürnberg
-            </a>
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
-                Landkreis Oberallgäu
-            </a>
+	        {% for other_region in sites %}
+	            <a href="{% url 'dashboard' site_slug=other_region.slug %}" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+	                {{ other_region.name }}
+	            </a>
+	        {% endfor %}
+	        {% if site %}
+		        <a href="{% url 'admin_dashboard' %}" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
+			        Netzwerkverwaltung
+		        </a>
+	        {% endif %}
         </div>
     </div>
     <div id="language-selector" class="relative flex flex-wrap flex-col justify-center px-4 cursor-pointer text-grey-darkest">
@@ -65,7 +69,11 @@
     </div>
     <div id="user-info" class="relative pl-2 pr-6 text-grey-darkest flex flex-wrap flex-col justify-center cursor-pointer">
         <span class="relative block pr-6">
-            Sascha Beele
+	        {% if request.user.first_name or request.user.last_name %}
+                {{ request.user.first_name }} {{ request.user.last_name }}
+	        {% else %}
+		        {{ request.user.username }}
+	        {% endif %}
             <i data-feather="chevron-down" class="absolute pin-t pin-r"></i>
         </span>
         <div id="user-menu" class="absolute shadow rounded-b">
@@ -79,7 +87,7 @@
             </a>
             <a href="/admin" class="break-words relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
                 <i data-feather="grid" class="absolute"></i>
-                Netzwerkverwaltung
+                Django Administration
             </a>
             <a href="{% url 'logout' %}" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
                 <i data-feather="log-out" class="absolute text-red"></i>
@@ -93,46 +101,73 @@
         <img src="{% static 'images/integreat-logo-white.png' %}" alt="Integreat Logo" class="max-w-full" />
     </div>
     <div id="menu" class="pb-2">
-        <a href="{% url 'dashboard' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'dashboard' %}active{% endif %}">
-            <i data-feather="grid" class="absolute"></i>
-            Mein Dashboard
-        </a>
-        <a href="{% url 'statistics' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'statistics' %}active{% endif %}">
-            <i data-feather="bar-chart" class="absolute"></i>
-            Statistiken
-        </a>
-        <a href="{% url 'pages' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'pages' %}active{% endif %}">
-            <i data-feather="layout" class="absolute"></i>
-            Seiten
-        </a>
-        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
-            <i data-feather="calendar" class="absolute"></i>
-            Veranstaltungen
-        </a>
-        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
-            <i data-feather="users" class="absolute"></i>
-            Benutzer
-        </a>
-        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
-            <i data-feather="thumbs-up" class="absolute"></i>
-            Feedback
-        </a>
-        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
-            <i data-feather="send" class="absolute"></i>
-            Push Notifications
-        </a>
-        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
-            <i data-feather="layers" class="absolute"></i>
-            PDF Export
-        </a>
-        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
-            <i data-feather="file-text" class="absolute"></i>
-            Impressum
-        </a>
-        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
-            <i data-feather="sliders" class="absolute"></i>
-            Einstellungen
-        </a>
+	    {% if site %}
+	        <a href="{% url 'dashboard' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'dashboard' %}active{% endif %}">
+	            <i data-feather="grid" class="absolute"></i>
+	            Mein Dashboard
+	        </a>
+	        <a href="{% url 'statistics' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'statistics' %}active{% endif %}">
+	            <i data-feather="bar-chart" class="absolute"></i>
+	            Statistiken
+	        </a>
+	        <a href="{% url 'pages' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'pages' %}active{% endif %}">
+	            <i data-feather="layout" class="absolute"></i>
+	            Seiten
+	        </a>
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	            <i data-feather="calendar" class="absolute"></i>
+	            Veranstaltungen
+	        </a>
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	            <i data-feather="users" class="absolute"></i>
+	            Benutzer
+	        </a>
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	            <i data-feather="thumbs-up" class="absolute"></i>
+	            Feedback
+	        </a>
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	            <i data-feather="send" class="absolute"></i>
+	            Push Notifications
+	        </a>
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	            <i data-feather="layers" class="absolute"></i>
+	            PDF Export
+	        </a>
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	            <i data-feather="file-text" class="absolute"></i>
+	            Impressum
+	        </a>
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	            <i data-feather="sliders" class="absolute"></i>
+	            Einstellungen
+	        </a>
+	    {% else %}
+		    <a href="{% url 'admin_dashboard' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'admin_dashboard' %}active{% endif %}">
+			    <i data-feather="grid" class="absolute"></i>
+			    Admin Dashboard
+		    </a>
+		    <a href="{% url 'regions' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'regions' %}active{% endif %}">
+			    <i data-feather="map" class="absolute"></i>
+			    Regionen
+		    </a>
+		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+			    <i data-feather="flag" class="absolute"></i>
+			    Sprachen
+		    </a>
+		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+			    <i data-feather="users" class="absolute"></i>
+			    Benutzer
+		    </a>
+		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+			    <i data-feather="thumbs-up" class="absolute"></i>
+			    Feedback
+		    </a>
+		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+			    <i data-feather="sliders" class="absolute"></i>
+			    Einstellungen
+		    </a>
+        {% endif %}
     </div>
 </nav>
 <main class="relative">

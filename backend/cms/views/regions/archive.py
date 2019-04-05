@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 
 @login_required
-def archive(request, site_slug):
+def archive(request):
     """View for creating and rendering archive page
     Args:
         request : Object representing the user request
@@ -15,5 +15,5 @@ def archive(request, site_slug):
         Rendered HTML : Archive Page rendered by archive.html template and page context
     """
 
-    return render(request, 'pages/archive.html',
-                  {'current_menu_item': 'pages'})
+    return render(request, 'regions/archive.html',
+                  {'current_menu_item': 'regions'})

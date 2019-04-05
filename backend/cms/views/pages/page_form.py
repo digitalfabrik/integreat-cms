@@ -3,7 +3,7 @@ Form for creating a page object
 """
 
 from django import forms
-from ...models.page import Page, PageTranslation
+from ...models.page import Page, PageTranslation, Site
 
 
 class PageForm(forms.ModelForm):
@@ -22,18 +22,12 @@ class PageForm(forms.ModelForm):
         model = PageTranslation
         fields = ['title', 'text', 'status', 'language']
 
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(PageForm, self).__init__(*args, **kwargs)
-        # TODO: get available languages from site settings
-        self.fields['language'] = forms.ChoiceField(
-            choices=[('de', 'Deutsch'),
-                     ('ar', 'Arabisch'),
-                     ('fa', 'Farsi'),
-                     ('fr', 'Französisch'),
-                     ('tr', 'Türkisch')])
 
-    def save_page(self, page_translation_id=None):
+    def save_page(self, site_slug, page_translation_id=None):
         """Function to create or update a page
             page_translation_id ([Integer], optional): Defaults to None. If it's not set creates
             a page or update the page with the given page id.
@@ -63,7 +57,9 @@ class PageForm(forms.ModelForm):
             page = Page.objects.create(
                 order=self.cleaned_data['order'],
                 parent=self.cleaned_data['parent'],
-                icon=self.cleaned_data['icon'])
+                icon=self.cleaned_data['icon'],
+                site=Site.objects.get(slug=site_slug),
+            )
 
             # create page translation
             page_translation = PageTranslation.objects.create(
@@ -72,7 +68,7 @@ class PageForm(forms.ModelForm):
                 status=self.cleaned_data['status'],
                 language=self.cleaned_data['language'],
                 page=page,
-                user=self.user
+                creator=self.user
             )
 
     def clean_order(self):

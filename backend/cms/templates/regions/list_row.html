@@ -1,0 +1,26 @@
+<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
+    <td>
+        <a href="{% url 'edit_region' region_slug=site.slug %}" class="block py-3 px-2 text-grey-darkest">
+            {{ site.name }}
+        </a>
+    </td>
+	<td>
+		<a href="{% url 'dashboard' site_slug=site.slug %}" class="block py-3 px-2 text-grey-darkest">
+			{{ request.scheme }}://{{ request.get_host }}{% url 'dashboard' site_slug=site.slug %}
+		</a>
+	</td>
+	<td>
+		<a href="https://integreat.app{% url 'dashboard' site_slug=site.slug %}" class="block py-3 px-2 text-grey-darkest">
+			https://integreat.app{% url 'dashboard' site_slug=site.slug %}
+		</a>
+	</td>
+	<td>
+		{{ site.created_date }}
+	</td>
+	<td>
+		{{ site.last_updated }}
+	</td>
+	<td>
+		{{ site.get_status_display }}
+	</td>
+</tr>

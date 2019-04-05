@@ -10,7 +10,7 @@
         </div>
         <div class="w-1/2 flex flex-wrap flex-col justify-center">
             <div class="flex flex-wrap justify-end">
-                <a href="{% url 'archived_pages' %}" class="font-bold text-xs text-grey-darkest block pb-2">Archivierte Seiten</a>
+                <a href="{% url 'archived_pages' site_slug=site.slug %}" class="font-bold text-xs text-grey-darkest block pb-2">Archivierte Seiten</a>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <input type="search" placeholder="Suche" class="h-full pl-10 pr-4 rounded shadow">
         </form>
         <div class="w-1/2 flex flex-wrap justify-end">
-            <a href="{% url 'new_page' %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'new_page' site_slug=site.slug %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Seite erstellen
             </a>
         </div>

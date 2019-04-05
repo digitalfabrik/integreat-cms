@@ -9,8 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from ...models.page import PageTranslation
+from ...models.page import Page, PageTranslation
 from .page_form import PageForm
+from ...models.site import Site
 
 
 @method_decorator(login_required, name='dispatch')
@@ -34,25 +35,27 @@ class PageView(TemplateView):
             })
         else:
             form = PageForm()
+        form.fields['parent'].queryset = Page.objects.filter(
+            site__slug=Site.get_current_site(request).slug
+        )
         return render(request, self.template_name, {
             'form': form, **self.base_context})
 
-    def post(self, request):
+    def post(self, request, site_slug):
         # TODO: error handling
         form = PageForm(request.POST, user=request.user)
         if form.is_valid():
-            if form.data['submit_publish']:
-                # TODO: handle status
-
-                if self.page_translation_id:
-                    form.save_page(
-                        page_translation_id=self.page_translation_id)
-                else:
-                    form.save()
-
-                messages.success(request, 'Seite wurde erfolgreich erstellt.')
-            else:
+            if self.page_translation_id:
+                form.save_page(
+                    site_slug=site_slug,
+                    page_translation_id=self.page_translation_id,
+                )
                 messages.success(request, 'Seite wurde erfolgreich gespeichert.')
+            else:
+                form.save_page(
+                    site_slug=site_slug,
+                )
+                messages.success(request, 'Seite wurde erfolgreich erstellt.')
             # TODO: improve messages
         else:
             messages.error(request, 'Es sind Fehler aufgetreten.')
