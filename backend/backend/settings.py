@@ -116,15 +116,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 LANGUAGES = (
-    ('en', 'English'),
-    ('de', 'Deutsch'),
+    ('en-us', 'English'),
+    ('de-de', 'Deutsch'),
 )
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-LANGUAGE_CODE = 'de'
+LANGUAGE_CODE = 'de-de'
 
 TIME_ZONE = 'UTC'
 
