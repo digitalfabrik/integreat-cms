@@ -1,12 +1,12 @@
 {% extends "_raw.html" %}
-
+{% load i18n %}
 {% block raw_content %}
 {% load static %}
 <header class="fixed pin-t pin-x flex flex-wrap">
     <div id="search" class="flex-1 relative">
         <form>
             <i data-feather="search" class="absolute text-grey-darker"></i>
-            <input type="search" placeholder="Suchen..." class="w-full pl-12 pr-6">
+            <input type="search" placeholder="{% trans 'Search' %}..." class="w-full pl-12 pr-6">
         </form>
     </div>
     <div id="instance-selector" class="relative flex flex-wrap flex-col justify-center px-3 cursor-pointer text-grey-darkest">
@@ -23,7 +23,7 @@
 			        <i data-feather="grid"></i>
 		        </div>
 		        <div class="ml-2" style="padding-top: 10px;">
-			        Netzwerkverwaltung
+			        {% trans 'Network Management' %}
 		        </div>
 	        {% endif %}
         </div>
@@ -35,36 +35,34 @@
 	        {% endfor %}
 	        {% if site %}
 		        <a href="{% url 'admin_dashboard' %}" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
-			        Netzwerkverwaltung
+			        {% trans 'Network Management' %}
 		        </a>
 	        {% endif %}
         </div>
     </div>
     <div id="language-selector" class="relative flex flex-wrap flex-col justify-center px-4 cursor-pointer text-grey-darkest">
+        {% get_current_language as LANGUAGE_CODE %}
         <div class="flex flex-wrap">
             <div style="padding-top:5px;">
-                <img src="{% static 'images/flags/de.png' %}" title="Deutsch" />
+                <img src="{% static '' %}/images/flags/{{ LANGUAGE_CODE }}.png" title="{{ LANGUAGE_CODE|language_name_local }}" />
             </div>
             <span class="mt-1 ml-2">
-                Deutsch
-            </span>
+	                {{ LANGUAGE_CODE|language_name_local }}
+	            </span>
         </div>
         <div id="language-selector-list" class="absolute shadow rounded-b">
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-                English
-            </a>
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-                العربية
-            </a>
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-                فارسی
-            </a>
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-                Français
-            </a>
-            <a href="" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
-                Türkçe
-            </a>
+            {% get_available_languages as LANGUAGES %}
+            {% for language_code, language_name in LANGUAGES %}
+                {% if language_code != LANGUAGE_CODE %}
+                    <form id="i18n-{{ language_code }}" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <input name="language" type="hidden" value="{{ language_code }}" />
+                        <a href="#" onclick="document.forms['i18n-{{ language_code }}'].submit();" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
+                            {{ language_code|language_name_local }}
+                        </a>
+                    </form>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
     <div id="user-info" class="relative pl-2 pr-6 text-grey-darkest flex flex-wrap flex-col justify-center cursor-pointer">
@@ -79,93 +77,93 @@
         <div id="user-menu" class="absolute shadow rounded-b">
             <a href="/" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
                 <i data-feather="help-circle" class="absolute"></i>
-                Hilfe
+	            {% trans 'Help' %}
             </a>
             <a href="/" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
                 <i data-feather="message-square" class="absolute"></i>
-                Autorenchat
+	            {% trans 'Author Chat' %}
             </a>
             <a href="/admin" class="break-words relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
                 <i data-feather="grid" class="absolute"></i>
-                Django Administration
+	            {% trans 'Django Administration' %}
             </a>
             <a href="{% url 'logout' %}" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
                 <i data-feather="log-out" class="absolute text-red"></i>
-                Abmelden
+	            {% trans 'Log out' %}
             </a>
         </div>
     </div>
 </header>
 <nav id="primary-navigation" class="fixed pin-l pin-y">
     <div id="logo" class="w-full text-center p-2">
-        <img src="{% static 'images/integreat-logo-white.png' %}" alt="Integreat Logo" class="max-w-full" />
+        <img src="{% static 'images/integreat-logo-white.png' %}" alt="{% trans 'Integreat Logo' %}" class="max-w-full" />
     </div>
     <div id="menu" class="pb-2">
 	    {% if site %}
 	        <a href="{% url 'dashboard' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'dashboard' %}active{% endif %}">
 	            <i data-feather="grid" class="absolute"></i>
-	            Mein Dashboard
+		        {% trans 'My Dashboard' %}
 	        </a>
 	        <a href="{% url 'statistics' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'statistics' %}active{% endif %}">
 	            <i data-feather="bar-chart" class="absolute"></i>
-	            Statistiken
+		        {% trans 'Statistics' %}
 	        </a>
 	        <a href="{% url 'pages' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'pages' %}active{% endif %}">
 	            <i data-feather="layout" class="absolute"></i>
-	            Seiten
+		        {% trans 'Pages' %}
 	        </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="calendar" class="absolute"></i>
-	            Veranstaltungen
+		        {% trans 'Events' %}
 	        </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="users" class="absolute"></i>
-	            Benutzer
+		        {% trans 'User' %}
 	        </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="thumbs-up" class="absolute"></i>
-	            Feedback
+		        {% trans 'Feedback' %}
 	        </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="send" class="absolute"></i>
-	            Push Notifications
+		        {% trans 'Push Notifications' %}
 	        </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="layers" class="absolute"></i>
-	            PDF Export
+		        {% trans 'PDF Export' %}
 	        </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="file-text" class="absolute"></i>
-	            Impressum
+		        {% trans 'Imprint' %}
 	        </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="sliders" class="absolute"></i>
-	            Einstellungen
+		        {% trans 'Settings' %}
 	        </a>
 	    {% else %}
 		    <a href="{% url 'admin_dashboard' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'admin_dashboard' %}active{% endif %}">
 			    <i data-feather="grid" class="absolute"></i>
-			    Admin Dashboard
+			    {% trans 'Admin Dashboard' %}
 		    </a>
 		    <a href="{% url 'regions' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'regions' %}active{% endif %}">
 			    <i data-feather="map" class="absolute"></i>
-			    Regionen
+			    {% trans 'Regions' %}
 		    </a>
 		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 			    <i data-feather="flag" class="absolute"></i>
-			    Sprachen
+			    {% trans 'Languages' %}
 		    </a>
 		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 			    <i data-feather="users" class="absolute"></i>
-			    Benutzer
+			    {% trans 'User' %}
 		    </a>
 		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 			    <i data-feather="thumbs-up" class="absolute"></i>
-			    Feedback
+			    {% trans 'Feedback' %}
 		    </a>
 		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 			    <i data-feather="sliders" class="absolute"></i>
-			    Einstellungen
+			    {% trans 'Settings' %}
 		    </a>
         {% endif %}
     </div>

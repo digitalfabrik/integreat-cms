@@ -1,27 +1,27 @@
 {% extends "_base.html" %}
-
+{% load i18n %}
 {% block content %}
 {% load static %}
 {% load mptt_tags %}
 <div class="table-header">
     <div class="flex flex-wrap">
         <div class="w-1/2">
-            <h2 class="heading font-normal mb-2">Seiten</h2>
+            <h2 class="heading font-normal mb-2">{% trans 'Pages' %}</h2>
         </div>
         <div class="w-1/2 flex flex-wrap flex-col justify-center">
             <div class="flex flex-wrap justify-end">
-                <a href="{% url 'archived_pages' site_slug=site.slug %}" class="font-bold text-xs text-grey-darkest block pb-2">Archivierte Seiten</a>
+                <a href="{% url 'archived_pages' site_slug=site.slug %}" class="font-bold text-xs text-grey-darkest block pb-2">{% trans 'Archived pages' %}</a>
             </div>
         </div>
     </div>
     <div class="flex flex-wrap">
         <form class="table-search relative w-1/2">
             <i data-feather="search" class="absolute"></i>
-            <input type="search" placeholder="Suche" class="h-full pl-10 pr-4 rounded shadow">
+            <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
         </form>
         <div class="w-1/2 flex flex-wrap justify-end">
             <a href="{% url 'new_page' site_slug=site.slug %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Seite erstellen
+	            {% trans 'Create page' %}
             </a>
         </div>
     </div>
@@ -32,24 +32,24 @@
         <thead>
             <tr class="border-b border-solid border-grey-light">
                 <th class="text-sm text-left uppercase py-3 pl-4 pr-2"></th>
-                <th class="text-sm text-left uppercase py-3 px-2">Titel</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">
                     <div class="lang-grid flags">
                         <a href="">
-                            <img src="{% static 'images/flags/ar.png' %}" title="Arabisch" />
+                            <img src="{% static 'images/flags/ar-ma.png' %}" title="{% trans 'Arabic' %}" />
                         </a>
                         <a href="">
-                            <img src="{% static 'images/flags/de.png' %}" title="Deutsch" />
+                            <img src="{% static 'images/flags/de-de.png' %}" title="{% trans 'German' %}" />
                         </a>
                         <a href="">
-                            <img src="{% static 'images/flags/en.png' %}" title="Englisch" />
+                            <img src="{% static 'images/flags/en-gb.png' %}" title="{% trans 'English' %}" />
                         </a>
                         <a href="">
-                            <img src="{% static 'images/flags/fa.png' %}" title="Farsi" />
+                            <img src="{% static 'images/flags/fa-ir.png' %}" title="{% trans 'Farsi' %}" />
                         </a>
                     </div>
                 </th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4">Optionen</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
             </tr>
         </thead>
         <tbody>
@@ -64,7 +64,7 @@
             <tr>
                 <td></td>
                 <td colspan="5" class="px-2 py-3">
-                    Noch keine Seiten vorhanden.
+	                {% trans 'No pages available yet.' %}
                 </td>
             </tr>
         {% endif %}

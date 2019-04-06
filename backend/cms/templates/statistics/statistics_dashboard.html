@@ -1,16 +1,16 @@
 {% extends "_base.html" %}
-
+{% load i18n %}
 {% block content %}
 
 <div class="row">
     <div class="col-sm-12">
-        <h2 class="heading font-normal mb-2">Statistiken</h2>
+        <h2 class="heading font-normal mb-2">{% trans 'Statistics' %}</h2>
     </div>
     <div class="flex flex-row flex-wrap flex-grow mt-2">
         <div class="md:w-3/4 p-3">
             <div class="bg-grey-lightest border border-grey rounded shadow">
                 <div class="border-b border-grey-dark p-3">
-                    <h2 class="text-grey-darkest">Seitenaufrufe</h2>
+                    <h2 class="text-grey-darkest">{% trans 'Page views' %}</h2>
                 </div>
                 <div class="p-5 bg-white">
                     <canvas id="visitor-chart" class="chartjs"></canvas>
@@ -56,38 +56,38 @@
         <div class="md:w-1/4 p-3 pb-0">
             <div class="bg-grey-lightest border border-grey rounded shadow">
                 <div class="border-b border-grey-dark p-3">
-                    <h2 class="text-grey-darkest">Einstellungen</h2>
+                    <h2 class="text-grey-darkest">{% trans 'Settings' %}</h2>
                 </div>
                 <form class="px-8 pt-6 pb-8">
-                    <h3 class="text-grey-darkest m-2">Startzeitpunkt auswählen:</h3>
+                    <h3 class="text-grey-darkest m-2">{% trans 'Select start time' %}:</h3>
                     <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" type="date" name="start_date" />
-                    <h3 class="text-grey-darkest m-2">Endzeitpunkt auswählen:</h3>
+                    <h3 class="text-grey-darkest m-2">{% trans 'Select end time' %}:</h3>
                     <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" type="date" name="end_date" />
                     <fieldset>
                         <div class="w-full m-2">
                             <input type="radio" id="viewmonth" name="peri" value="day" checked>
-                            <label for="viewmonth">Monatsansicht</label>
+                            <label for="viewmonth">{% trans 'Month view' %}</label>
                         </div>
                         <div class="w-full m-2">
                             <input type="radio" id="viewyear" name="peri" value="month">
-                            <label for="viewyear">Jahresansicht</label>
+                            <label for="viewyear">{% trans 'Year view' %}</label>
                         </div>
                     </fieldset>                    
-                    <input type="submit" name="submit_save" class="cursor-pointer bg-blue hover:bg-grey-dark text-white font-bold py-3 px-4 rounded m-2" value="Ansicht anpassen" />
+                    <input type="submit" name="submit_save" class="cursor-pointer bg-blue hover:bg-grey-dark text-white font-bold py-3 px-4 rounded m-2" value="{% trans 'Customize view' %}" />
                 </form>
             </div>
             <div class="bg-grey-lightest border border-grey mt-3 rounded shadow">
                 <div class="border-b border-grey-dark p-3">
-                    <h2 class="text-grey-darkest">Exportieren</h2>
+                    <h2 class="text-grey-darkest">{% trans 'Export' %}</h2>
                 </div>
                 <div class="px-8 pt-6 pb-8">
-                    <label>Format auswählen</label>
+                    <label>{% trans 'Choose format' %}</label>
                     <select id="exports" class="mt-4 block appearance-none w-full bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow focus:outline-none focus:shadow-outline">  
-                        <option value="empty" selected>--bitte auswählen--</option>
-                        <option value="image">Bild/PNG</option>
-                        <option value="csv">Tabellendokument/CSV</option>
+                        <option value="empty" selected>-- {% trans 'please select' %} --</option>
+                        <option value="image">{% trans 'Image/PNG' %}</option>
+                        <option value="csv">{% trans 'Table Document/CSV' %}</option>
                     </select>
-                    <button class="mt-4 bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" id="ex" onclick="export_Chart()">Export</button>
+                    <button class="mt-4 bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" id="ex" onclick="export_Chart()">{% trans 'Export' %}</button>
                 </div>            
             </div>
         </div>

@@ -4,6 +4,7 @@ Database model representing an autonomous authority
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 from .language import Language
 
@@ -17,9 +18,9 @@ class Site(models.Model):
     ARCHIVED = 'arch'
 
     STATUS = (
-        (ACTIVE, 'Active'),
-        (HIDDEN, 'Hidden'),
-        (ARCHIVED, 'Archived'),
+        (ACTIVE, _('Active')),
+        (HIDDEN, _('Hidden')),
+        (ARCHIVED, _('Archived')),
     )
 
     name = models.CharField(max_length=200)

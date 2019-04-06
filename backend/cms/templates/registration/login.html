@@ -1,5 +1,5 @@
 {% extends "_raw.html" %}
-
+{% load i18n %}
 {% block raw_content %}
 {% load static %}
 {% load widget_tweaks %}
@@ -7,7 +7,7 @@
     <div class="mx-auto w-full max-w-xs">
         <div class="mb-3" style="padding: 0 50px;">
             <a href="/">
-                <img src="{% static 'images/integreat-logo.png' %}" alt="Integreat Logo" class="w-full" />
+                <img src="{% static 'images/integreat-logo.png' %}" alt="{% trans 'Integreat Logo' %}" class="w-full" />
             </a>
         </div>
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -15,7 +15,7 @@
                 {% csrf_token %}
                 {% if form.errors %}
                 <div class="bg-red-lightest border-l-4 border-red text-red-dark px-4 py-3 mb-5" role="alert">
-                    <p>Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut.</p>
+                    <p>{% trans 'The username or the password is incorrect.' %} {% trans 'Please try again.' %}</p>
                 </div>
                 {% endif %}
                 <div class="mb-3">
@@ -23,29 +23,31 @@
                 </div>
                 <div class="-mt-3 mb-4">
                     <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
-                        Benutzername
+	                    {% trans 'Username' %}
                     </label>
-                    {% render_field form.username id="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" name="username" placeholder="Benutzername" %}
+	                {% trans 'Username' as username_placeholder%}
+                    {% render_field form.username id="username" placeholder=username_placeholder class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" %}
                 </div>
                 <div class="mb-4">
                     <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
-                        Passwort
+	                    {% trans 'Password' %}
                     </label>
-                    {% render_field form.password id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" name="password" placeholder="Passwort" %}
+	                {% trans 'Password' as password_placeholder%}
+                    {% render_field form.password id="password" placeholder=password_placeholder class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" %}
                 </div>
                 <div class="flex items-center justify-between">
                     <button type="submit" class="bg-integreat hover:bg-grey-dark hover:text-white text-grey-darkest font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Anmelden
+	                    {% trans 'Log in' %}
                     </button>
                     <a href="{% url 'password_reset' %}" class="inline-block align-baseline font-bold text-sm text-grey-darkest hover:text-integreat">
-                        Passwort vergessen?
+	                    {% trans 'Forgot your password?' %}
                     </a>
                 </div>
             </form>
 
         </div>
         <p class="text-center text-grey text-xs">
-            &copy;2018 Tür an Tür - Digital Factory gGmbH
+	        &copy;2018 Tür an Tür - Digital Factory gGmbH
         </p>
     </div>
 </div>

@@ -29,3 +29,10 @@
 * `docker rm $(docker ps -a -q)`
 * remove all images: `docker rmi $(docker images -a -q)`
 * remove all volumes: `docker volume prune`
+
+### i18n
+To make use of the translated backend, comile the django.po file as follows:
+
+`django-admin compilemessages`
+
+If you use a virtual python environment, be sure to use the ´--exclude´ parameter or execute this command in the backend or cms directory, otherwise all the translation files in your venv will be compiled, too.

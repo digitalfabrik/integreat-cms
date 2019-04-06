@@ -1,15 +1,15 @@
 {% extends "_raw.html" %}
-
+{% load i18n %}
 {% block raw_content %}
 <div id="no-session" class="px-4 py-10">
     <div class="w-full max-w-xs mx-auto">
-        <h3 class="mb-2">Error {{code}}</h3>
+        <h3 class="mb-2">{% trans 'Error' %} {{code}}</h3>
         <h1 class="mb-4">{{title}}</h1>
         <p class="mb-4">
             {{message}}
         </p>
         <p>
-            <a href="/" class="text-grey-darker">Zur Startseite</a>
+            <a href="/" class="text-grey-darker">{% trans 'Return back home' %}</a>
         </p>
     </div>
 </div>
