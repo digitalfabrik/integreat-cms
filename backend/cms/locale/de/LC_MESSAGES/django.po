@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-06 00:30+0200\n"
+"POT-Creation-Date: 2019-04-06 20:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models/page.py:87
+#: models/page.py:83
 msgid "Draft"
 msgstr "Entwurf"
 
-#: models/page.py:88
+#: models/page.py:84
 msgid "Pending Review"
 msgstr "Ausstehender Review"
 
-#: models/page.py:89
+#: models/page.py:85
 msgid "Finished Review"
 msgstr "Abgeschlossener Review"
 
@@ -50,77 +50,77 @@ msgstr "Suchen"
 msgid "Network Management"
 msgstr "Netzwerkverwaltung"
 
-#: templates/_base.html:95
+#: templates/_base.html:80
 msgid "Help"
 msgstr "Hilfe"
 
-#: templates/_base.html:99
+#: templates/_base.html:84
 msgid "Author Chat"
 msgstr "Autorenchat"
 
-#: templates/_base.html:103
+#: templates/_base.html:88
 msgid "Django Administration"
 msgstr "Django Administration"
 
-#: templates/_base.html:107
+#: templates/_base.html:92
 msgid "Log out"
 msgstr "Abmelden"
 
-#: templates/_base.html:114 templates/registration/login.html:10
+#: templates/_base.html:99 templates/registration/login.html:10
 msgid "Integreat Logo"
 msgstr "Integreat Logo"
 
-#: templates/_base.html:120
+#: templates/_base.html:105
 msgid "My Dashboard"
 msgstr "Mein Dashboard"
 
-#: templates/_base.html:124 templates/statistics/statistics_dashboard.html:7
+#: templates/_base.html:109 templates/statistics/statistics_dashboard.html:7
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/_base.html:128 templates/pages/tree.html:9
+#: templates/_base.html:113 templates/pages/tree.html:9
 msgid "Pages"
 msgstr "Seiten"
 
-#: templates/_base.html:132
+#: templates/_base.html:117
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: templates/_base.html:136 templates/_base.html:173
+#: templates/_base.html:121 templates/_base.html:158
 msgid "User"
 msgstr "Benutzer"
 
-#: templates/_base.html:140 templates/_base.html:177
+#: templates/_base.html:125 templates/_base.html:162
 msgid "Feedback"
 msgstr "Feedback"
 
-#: templates/_base.html:144
+#: templates/_base.html:129
 #: templates/push_notifications/push_notifications.html:7
 msgid "Push Notifications"
 msgstr "Push-Benachrichtigungen"
 
-#: templates/_base.html:148
+#: templates/_base.html:133
 msgid "PDF Export"
 msgstr "PDF Export"
 
-#: templates/_base.html:152
+#: templates/_base.html:137
 msgid "Imprint"
 msgstr "Impressum"
 
-#: templates/_base.html:156 templates/_base.html:181
+#: templates/_base.html:141 templates/_base.html:166
 #: templates/statistics/statistics_dashboard.html:59
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: templates/_base.html:161
+#: templates/_base.html:146
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: templates/_base.html:165
+#: templates/_base.html:150
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:169 templates/regions/region.html:97
+#: templates/_base.html:154 templates/regions/region.html:97
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -221,12 +221,12 @@ msgid "Positioning"
 msgstr "Anordnung"
 
 #: templates/pages/page.html:129
-msgid "Parent page"
-msgstr "Übergeordnete Seite"
+msgid "Relationship"
+msgstr "Verhältnis"
 
-#: templates/pages/page.html:136
-msgid "Order"
-msgstr "Reihenfolge"
+#: templates/pages/page.html:133
+msgid "Page"
+msgstr "Seite"
 
 #: templates/pages/page.html:142 templates/regions/list.html:28
 #: templates/regions/region.html:103
@@ -547,31 +547,31 @@ msgstr "Tabellendokument/CSV"
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
 
-#: views/general/general.py:5
+#: views/general/general.py:6
 msgid "There was an error in your request."
 msgstr "Die Anfrage war fehlerhaft aufgebaut."
 
-#: views/general/general.py:12
+#: views/general/general.py:13
 msgid "Forbidden"
 msgstr "Zugriff verweigert"
 
-#: views/general/general.py:13
+#: views/general/general.py:14
 msgid "You don't have the permission to access this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite aufzurufen."
 
-#: views/general/general.py:20
+#: views/general/general.py:21
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: views/general/general.py:21
+#: views/general/general.py:22
 msgid "The page you requested could not be found."
 msgstr "Die von Ihnen angeforderte Seite konnte leider nicht gefunden werden."
 
-#: views/general/general.py:28
+#: views/general/general.py:29
 msgid "Internal Server Error"
 msgstr "Interner Server-Fehler"
 
-#: views/general/general.py:29
+#: views/general/general.py:30
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
@@ -586,6 +586,22 @@ msgstr "Seite wurde erfolgreich erstellt."
 #: views/pages/page.py:62
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
+
+#: views/pages/page_form.py:20
+msgid "First child of"
+msgstr "Erstes Unterelement von"
+
+#: views/pages/page_form.py:21
+msgid "Last child of"
+msgstr "Letztes Unterelement von"
+
+#: views/pages/page_form.py:22
+msgid "Left neighbor of"
+msgstr "Linker Nachbar von"
+
+#: views/pages/page_form.py:23
+msgid "Right neighbor of"
+msgstr "Rechter Nachbar von"
 
 #: views/regions/regions.py:66
 msgid "Region saved successfully."
@@ -622,6 +638,15 @@ msgstr "Ihr Passwort wurde erfolgreich geändert."
 #: views/registration/registration.py:70
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
+
+#~ msgid "Related page"
+#~ msgstr "Verwandte Seite"
+
+#~ msgid "Parent page"
+#~ msgstr "Übergeordnete Seite"
+
+#~ msgid "Order"
+#~ msgstr "Reihenfolge"
 
 #~ msgid "Integreat CMS"
 #~ msgstr "Integreat CMS"

@@ -3,6 +3,7 @@ Form for creating a page object
 """
 
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 from ...models.page import Page, PageTranslation, Site
 
 
@@ -15,6 +16,13 @@ class PageForm(forms.ModelForm):
     """
 
     order = forms.IntegerField(required=False)
+    POSITION_CHOICES = (
+        ('first-child', _('First child of')),
+        ('last-child', _('Last child of')),
+        ('left', _('Left neighbor of')),
+        ('right', _('Right neighbor of'))
+    )
+    position = forms.ChoiceField(choices=POSITION_CHOICES)
     parent = forms.ModelChoiceField(queryset=Page.objects.all(), required=False)
     icon = forms.ImageField(required=False)
 
@@ -40,10 +48,9 @@ class PageForm(forms.ModelForm):
 
             # save page
             page = Page.objects.get(id=page_object.page.id)
-            page.order = self.cleaned_data['order']
-            page.parent = self.cleaned_data['parent']
             page.icon = self.cleaned_data['icon']
             page.save()
+            page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
 
             # save page translation
             page_translation = PageTranslation.objects.get(id=page_object.id)
@@ -55,11 +62,10 @@ class PageForm(forms.ModelForm):
         else:
             # create page
             page = Page.objects.create(
-                order=self.cleaned_data['order'],
-                parent=self.cleaned_data['parent'],
                 icon=self.cleaned_data['icon'],
                 site=Site.objects.get(slug=site_slug),
             )
+            page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
 
             # create page translation
             page_translation = PageTranslation.objects.create(
@@ -70,11 +76,3 @@ class PageForm(forms.ModelForm):
                 page=page,
                 creator=self.user
             )
-
-    def clean_order(self):
-        """Function to clean the order of the form
-        Returns:
-            order: Ordered list
-        """
-        order = self.cleaned_data['order'] if self.cleaned_data['order'] else 0
-        return order

@@ -26,7 +26,6 @@ class Page(MPTTModel):
     icon = models.ImageField(blank=True,
                              null=True,
                              upload_to='pages/%Y/%m/%d')
-    order = models.IntegerField(null=True)
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     mirrored_page = models.ForeignKey('self', null=True, on_delete=models.PROTECT)
     created_date = models.DateTimeField(default=timezone.now)
@@ -69,9 +68,6 @@ class Page(MPTTModel):
         """
 
         return len(self.get_ancestors())
-
-    class MPTTMeta:
-        order_insertion_by = ['order']
 
 
 class PageTranslation(models.Model):
