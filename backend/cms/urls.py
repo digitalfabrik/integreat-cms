@@ -13,8 +13,8 @@ urlpatterns = [
     url(r'^regions/', include([
         url(r'^$', regions.RegionListView.as_view(), name='regions'),
         url(r'^new$', regions.RegionView.as_view(), name='new_region'),
-        url(r'^(?P<region_slug>[-\w]+)', include([
-            url(r'^$',
+        url(r'^(?P<region_slug>[-\w]+)/', include([
+            url(r'^edit$',
                 regions.RegionView.as_view(),
                 name='edit_region'
                 ),
@@ -52,8 +52,8 @@ urlpatterns = [
         url(r'^pages/', include([
             url(r'^$', pages.PageTreeView.as_view(), name='pages'),
             url(r'^new$', pages.PageView.as_view(), name='new_page'),
-            url(r'^(?P<page_translation_id>[0-9]+)', include([
-                url(r'^$',
+            url(r'^(?P<page_translation_id>[0-9]+)/', include([
+                url(r'^edit$',
                     pages.PageView.as_view(),
                     name='edit_page'
                     ),

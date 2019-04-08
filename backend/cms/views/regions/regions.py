@@ -1,4 +1,3 @@
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -57,7 +56,7 @@ class RegionView(TemplateView):
         return render(request, self.template_name, {
             'form': form, **self.base_context})
 
-    def post(self, request, region_slug):
+    def post(self, request, region_slug=None):
         # TODO: error handling
         form = RegionForm(request.POST)
         if form.is_valid():
