@@ -45,8 +45,10 @@ class RecurrenceRule(models.Model):
         models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(6)]),
         null=True)
     weekday_for_monthly = models.IntegerField(null=True)
-    week_for_monthly = models.IntegerField(null=True,
-                                           validators=[MinValueValidator(-5), MaxValueValidator(5)])
+    week_for_monthly = models.IntegerField(
+        null=True,
+        validators=[MinValueValidator(-5), MaxValueValidator(5)]
+    )
     end_date = models.DateField(null=True, default=None)
 
     def clean(self):

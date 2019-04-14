@@ -10,9 +10,8 @@ from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from ...models.page import Page, PageTranslation
+from ...models import Page, PageTranslation, Site
 from .page_form import PageForm
-from ...models.site import Site
 
 
 @method_decorator(login_required, name='dispatch')

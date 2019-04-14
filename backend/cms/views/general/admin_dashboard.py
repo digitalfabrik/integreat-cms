@@ -1,5 +1,5 @@
 """
-View to build up the dashboard.
+View to build up the admin dashboard.
 """
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator

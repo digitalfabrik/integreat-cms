@@ -2,22 +2,22 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from ...models.page import Page
+from ...models import Site
 
 
 @method_decorator(login_required, name='dispatch')
-class PageTreeView(TemplateView):
-    template_name = 'pages/tree.html'
-    base_context = {'current_menu_item': 'pages'}
+class LanguageTreeView(TemplateView):
+    template_name = 'language_tree/tree.html'
+    base_context = {'current_menu_item': 'language_tree'}
 
     def get(self, request, *args, **kwargs):
-        pages = Page.get_tree_view(request)
+        language_tree = Site.get_current_site(request).language_tree_nodes.all()
 
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
-                'pages': pages
+                'language_tree': language_tree
             }
         )

@@ -1,0 +1,60 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h2 class="heading font-normal">
+	            {% if form.initial %}
+		            {% blocktrans %}Edit language tree node{% endblocktrans %}
+	            {% else %}
+		            {% trans 'Add language' %}
+	            {% endif %}
+            </h2>
+        </div>
+        <div class="w-3/5 flex justify-end">
+            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        </div>
+    </div>
+
+    <div class="flex flex-wrap">
+        <div class="w-2/3 pl-2">
+	        {{form.errors}}
+            <div class="w-full px-4 py-2 rounded border border-solid border-grey-light shadow bg-white">
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+                    <label for="language" class="block mb-2 font-bold">{% trans 'Language' %}</label>
+                    <div class="relative my-2">
+                        {% render_field form.language id="language" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
+                </div>
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+                    <span class="font-bold mb-2 block">{% trans 'Positioning' %}</span>
+	                <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
+	                <div class="relative my-2">
+		                {% render_field form.position placeholder="0" id="position" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+	                </div>
+                    <label for="parent" class="text-xs uppercase">{% trans 'Language' %}</label>
+                    <div class="relative my-2">
+                        {% render_field form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
+                </div>
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+	                <div class="py-2 pb-4">
+		                <label for="active" class="font-bold">{% trans 'Activate language' %}</label>
+		                {% render_field form.active id="active" class="" %}
+	                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

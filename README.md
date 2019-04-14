@@ -31,7 +31,7 @@
 * remove all volumes: `docker volume prune`
 
 ### i18n
-To make use of the translated backend, comile the django.po file as follows:
+To make use of the translated backend, compile the django.po file as follows:
 
 `django-admin compilemessages`
 

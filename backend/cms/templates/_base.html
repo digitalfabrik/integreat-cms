@@ -136,6 +136,10 @@
 	            <i data-feather="file-text" class="absolute"></i>
 		        {% trans 'Imprint' %}
 	        </a>
+		    <a href="{% url 'language_tree' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'language_tree' %}active{% endif %}">
+			    <i data-feather="flag" class="absolute"></i>
+			    {% trans 'Language tree' %}
+		    </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
 	            <i data-feather="sliders" class="absolute"></i>
 		        {% trans 'Settings' %}
@@ -149,7 +153,7 @@
 			    <i data-feather="map" class="absolute"></i>
 			    {% trans 'Regions' %}
 		    </a>
-		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+		    <a href="{% url 'languages' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'languages' %}active{% endif %}">
 			    <i data-feather="flag" class="absolute"></i>
 			    {% trans 'Languages' %}
 		    </a>

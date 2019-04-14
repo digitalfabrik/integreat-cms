@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-06 20:40+0200\n"
+"POT-Creation-Date: 2019-04-14 01:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -17,31 +17,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models/page.py:83
+#: models/language.py:23
+msgid "Left to right"
+msgstr "Links nach Rechts"
+
+#: models/language.py:24
+msgid "Right to left"
+msgstr "Rechts nach Links"
+
+#: models/page.py:87
 msgid "Draft"
 msgstr "Entwurf"
 
-#: models/page.py:84
+#: models/page.py:88
 msgid "Pending Review"
-msgstr "Ausstehender Review"
+msgstr "Review ausstehend"
 
-#: models/page.py:85
+#: models/page.py:89
 msgid "Finished Review"
-msgstr "Abgeschlossener Review"
+msgstr "Review abgeschlossen"
 
-#: models/site.py:21
+#: models/site.py:19 templates/language_tree/tree.html:31
 msgid "Active"
 msgstr "Aktiv"
 
-#: models/site.py:22
+#: models/site.py:20
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: models/site.py:23
+#: models/site.py:21
 msgid "Archived"
 msgstr "Archiviert"
 
-#: templates/_base.html:9 templates/pages/tree.html:20
+#: templates/_base.html:9 templates/language_tree/tree.html:15
+#: templates/languages/list.html:9 templates/pages/tree.html:20
 #: templates/regions/list.html:9
 msgid "Search"
 msgstr "Suchen"
@@ -86,11 +95,11 @@ msgstr "Seiten"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: templates/_base.html:121 templates/_base.html:158
+#: templates/_base.html:121 templates/_base.html:162
 msgid "User"
 msgstr "Benutzer"
 
-#: templates/_base.html:125 templates/_base.html:162
+#: templates/_base.html:125 templates/_base.html:166
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -107,20 +116,24 @@ msgstr "PDF Export"
 msgid "Imprint"
 msgstr "Impressum"
 
-#: templates/_base.html:141 templates/_base.html:166
+#: templates/_base.html:141 templates/language_tree/tree.html:9
+msgid "Language tree"
+msgstr "Sprach-Baum"
+
+#: templates/_base.html:145 templates/_base.html:170
 #: templates/statistics/statistics_dashboard.html:59
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: templates/_base.html:146
+#: templates/_base.html:150
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: templates/_base.html:150
+#: templates/_base.html:154
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:154 templates/regions/region.html:97
+#: templates/_base.html:158
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -144,17 +157,104 @@ msgstr "Zurück zur Startseite"
 msgid "Error"
 msgstr "Fehler"
 
-#: templates/pages/page.html:11
-msgid "Create new page"
-msgstr "Neue Seite erstellen"
+#: templates/language_tree/tree.html:19
+msgid "Create language tree node"
+msgstr "Sprach-Knoten hinzufügen"
 
-#: templates/pages/page.html:15 templates/regions/region.html:19
+#: templates/language_tree/tree.html:30
+#: templates/language_tree/tree_node.html:28
+#: templates/language_tree/tree_node.html:42 templates/pages/page.html:52
+msgid "Language"
+msgstr "Sprache"
+
+#: templates/language_tree/tree.html:46
+msgid "No language tree available yet."
+msgstr "Noch kein Sprach-Baum vorhanden."
+
+#: templates/language_tree/tree_node.html:12
+msgid "Edit language tree node"
+msgstr "Knoten bearbeiten"
+
+#: templates/language_tree/tree_node.html:14
+msgid "Add language"
+msgstr "Sprache hinzufügen"
+
+#: templates/language_tree/tree_node.html:19
+#: templates/languages/language.html:19 templates/pages/page.html:15
+#: templates/regions/region.html:19
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/pages/page.html:16 templates/regions/region.html:20
+#: templates/language_tree/tree_node.html:37 templates/pages/page.html:128
+msgid "Positioning"
+msgstr "Anordnung"
+
+#: templates/language_tree/tree_node.html:38 templates/pages/page.html:129
+msgid "Relationship"
+msgstr "Verhältnis"
+
+#: templates/language_tree/tree_node.html:52
+msgid "Activate language"
+msgstr "Sprache aktivieren"
+
+#: templates/languages/language.html:12
+#, python-format
+msgid "Edit language %(form.name.initial)s"
+msgstr "Sprache %(form.name.initial)s bearbeiten"
+
+#: templates/languages/language.html:14
+msgid "Create new language"
+msgstr "Neue Sprache erstellen"
+
+#: templates/languages/language.html:20 templates/pages/page.html:16
+#: templates/regions/region.html:20
 msgid "Publish"
 msgstr "Veröffentlichen"
+
+#: templates/languages/language.html:28 templates/languages/list.html:23
+#: templates/regions/list.html:23
+msgid "Name"
+msgstr "Name"
+
+#: templates/languages/language.html:29
+msgid "Enter the language's name here"
+msgstr "Name der Sprache hier eingeben"
+
+#: templates/languages/language.html:33 templates/languages/list.html:24
+msgid "Code"
+msgstr ""
+
+#: templates/languages/language.html:34
+msgid "Enter the language's code here"
+msgstr "Sprach-Code hier eingeben"
+
+#: templates/languages/language.html:38 templates/languages/list.html:25
+msgid "Text direction"
+msgstr "Schreibrichtung"
+
+#: templates/languages/language.html:39
+msgid "Select text direction here"
+msgstr "Schreibrichtung auswählen"
+
+#: templates/languages/list.html:13
+msgid "Create language"
+msgstr "Sprache hinzufügen"
+
+#: templates/languages/list.html:26 templates/regions/list.html:26
+msgid "Created"
+msgstr "Erstellt"
+
+#: templates/languages/list.html:27 templates/regions/list.html:27
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
+#: templates/languages/list.html:36
+msgid "No languages available yet."
+msgstr "Noch keine Sprachen vorhanden."
+
+#: templates/pages/page.html:11
+msgid "Create new page"
+msgstr "Neue Seite erstellen"
 
 #: templates/pages/page.html:24
 msgid "Insert title here"
@@ -184,10 +284,6 @@ msgstr "Nach Inhalt einbinden"
 msgid "Embed page"
 msgstr "Seite einbinden"
 
-#: templates/pages/page.html:52
-msgid "Language"
-msgstr "Sprache"
-
 #: templates/pages/page.html:53
 msgid "Current language"
 msgstr "Aktuelle Sprache"
@@ -216,28 +312,20 @@ msgstr "Französisch"
 msgid "Turkish"
 msgstr "Türkisch"
 
-#: templates/pages/page.html:128
-msgid "Positioning"
-msgstr "Anordnung"
-
-#: templates/pages/page.html:129
-msgid "Relationship"
-msgstr "Verhältnis"
-
 #: templates/pages/page.html:133
 msgid "Page"
 msgstr "Seite"
 
 #: templates/pages/page.html:142 templates/regions/list.html:28
-#: templates/regions/region.html:103
+#: templates/regions/region.html:97
 msgid "Status"
 msgstr "Status"
 
-#: templates/pages/page.html:151 templates/regions/region.html:114
+#: templates/pages/page.html:151 templates/regions/region.html:108
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/pages/page.html:155 templates/regions/region.html:118
+#: templates/pages/page.html:155 templates/regions/region.html:112
 msgid "Set icon"
 msgstr "Icon festlegen"
 
@@ -292,10 +380,6 @@ msgstr "Exportieren"
 msgid "Create region"
 msgstr "Region erstellen"
 
-#: templates/regions/list.html:23
-msgid "Name"
-msgstr "Name"
-
 #: templates/regions/list.html:24
 msgid "CMS-URL"
 msgstr "CMS-URL"
@@ -303,14 +387,6 @@ msgstr "CMS-URL"
 #: templates/regions/list.html:25
 msgid "WebApp-URL"
 msgstr "WebApp-URL"
-
-#: templates/regions/list.html:26
-msgid "Created"
-msgstr "Erstellt"
-
-#: templates/regions/list.html:27
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
 
 #: templates/regions/list.html:37
 msgid "No regions available yet."
@@ -575,6 +651,47 @@ msgstr "Interner Server-Fehler"
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
+#: views/general/tree_utils.py:4 views/pages/page_form.py:20
+msgid "First child of"
+msgstr "Erstes Unterelement von"
+
+#: views/general/tree_utils.py:5 views/pages/page_form.py:21
+msgid "Last child of"
+msgstr "Letztes Unterelement von"
+
+#: views/general/tree_utils.py:6 views/pages/page_form.py:22
+msgid "Left neighbor of"
+msgstr "Linker Nachbar von"
+
+#: views/general/tree_utils.py:7 views/pages/page_form.py:23
+msgid "Right neighbor of"
+msgstr "Rechter Nachbar von"
+
+#: views/language_tree/language_tree_node.py:55
+msgid "Language tree node was saved successfully."
+msgstr "Sprach-Baum wurde erfolgreich gespeichert."
+
+#: views/language_tree/language_tree_node.py:60
+msgid "Language tree node was created successfully."
+msgstr "Sprach-Baum wurde erfolgreich erstellt."
+
+#: views/language_tree/language_tree_node.py:63 views/pages/page.py:62
+#: views/regions/regions.py:70
+msgid "Errors have occurred."
+msgstr "Es sind Fehler aufgetreten."
+
+#: views/languages/languages.py:54
+msgid "Language saved successfully."
+msgstr "Sprache wurde erfolgreich gespeichert."
+
+#: views/languages/languages.py:57
+msgid "Language created successfully"
+msgstr "Sprache wurde erfolgreich erstellt."
+
+#: views/languages/languages.py:60
+msgid "Es sind Fehler aufgetreten."
+msgstr ""
+
 #: views/pages/page.py:54
 msgid "Page was saved successfully."
 msgstr "Seite wurde erfolgreich gespeichert."
@@ -583,37 +700,13 @@ msgstr "Seite wurde erfolgreich gespeichert."
 msgid "Page was created successfully."
 msgstr "Seite wurde erfolgreich erstellt."
 
-#: views/pages/page.py:62
-msgid "Errors have occurred."
-msgstr "Es sind Fehler aufgetreten."
-
-#: views/pages/page_form.py:20
-msgid "First child of"
-msgstr "Erstes Unterelement von"
-
-#: views/pages/page_form.py:21
-msgid "Last child of"
-msgstr "Letztes Unterelement von"
-
-#: views/pages/page_form.py:22
-msgid "Left neighbor of"
-msgstr "Linker Nachbar von"
-
-#: views/pages/page_form.py:23
-msgid "Right neighbor of"
-msgstr "Rechter Nachbar von"
-
-#: views/regions/regions.py:66
+#: views/regions/regions.py:64
 msgid "Region saved successfully."
 msgstr "Region wurde erfolgreich gespeichert."
 
-#: views/regions/regions.py:69
+#: views/regions/regions.py:67
 msgid "Region created successfully"
 msgstr "Region wurde erfolgreich erstellt."
-
-#: views/regions/regions.py:72
-msgid "Es sind Fehler aufgetreten."
-msgstr ""
 
 #: views/registration/forms.py:13
 msgid "The passwords do not match."

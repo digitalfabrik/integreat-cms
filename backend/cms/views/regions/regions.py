@@ -37,7 +37,6 @@ class RegionView(TemplateView):
             region = Site.objects.get(slug=self.region_slug)
             form = RegionForm(initial={
                 'name': region.name,
-                'languages': region.languages.all(),
                 'events_enabled': region.events_enabled,
                 'push_notifications_enabled': region.push_notifications_enabled,
                 'latitude': region.latitude,
@@ -68,7 +67,7 @@ class RegionView(TemplateView):
                 messages.success(request, _('Region created successfully'))
             # TODO: improve messages
         else:
-            messages.error(request, _('Es sind Fehler aufgetreten.'))
+            messages.error(request, _('Errors have occurred.'))
 
         return render(request, self.template_name, {
             'form': form, **self.base_context})

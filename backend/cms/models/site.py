@@ -6,8 +6,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from .language import Language
-
 
 class Site(models.Model):
     """
@@ -24,9 +22,8 @@ class Site(models.Model):
     )
 
     name = models.CharField(max_length=200)
-    slug = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
     status = models.CharField(max_length=4, choices=STATUS)
-    languages = models.ManyToManyField(Language)
 
     events_enabled = models.BooleanField(default=True)
     push_notifications_enabled = models.BooleanField(default=True)
@@ -54,3 +51,6 @@ class Site(models.Model):
                 site = cls.objects.get(slug=site_slug)
                 return site
         return None
+
+    def __str__(self):
+        return self.name

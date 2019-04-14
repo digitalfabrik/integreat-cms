@@ -13,6 +13,7 @@ from .feedback import ExtraFeedback
 from .feedback import EventFeedback
 from .feedback import SearchResultFeedback
 
+from .language import LanguageTreeNode
 from .language import Language
 
 from .page import Page

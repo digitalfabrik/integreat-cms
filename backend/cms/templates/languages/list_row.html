@@ -1,0 +1,19 @@
+<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
+    <td>
+        <a href="{% url 'edit_language' language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+            {{ language.name }}
+        </a>
+    </td>
+	<td>
+		{{ language.code }}
+	</td>
+	<td>
+		{{ language.get_text_direction_display }}
+	</td>
+	<td>
+		{{ language.created_date }}
+	</td>
+	<td>
+		{{ language.last_updated }}
+	</td>
+</tr>

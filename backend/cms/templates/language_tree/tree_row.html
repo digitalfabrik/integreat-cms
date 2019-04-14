@@ -1,0 +1,19 @@
+<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest{% if node.depth > 0 %} child level-{{node.depth}}{% endif %}">
+    <td class="single_icon">
+        <span class="block py-3 pl-4 pr-2 cursor-move">
+            <i data-feather="move" class="text-grey-darkest"></i>
+        </span>
+    </td>
+	<td>
+		<a href="{% url 'edit_language_tree_node' language_tree_node_id=node.id site_slug=site.slug %}" class="block py-3 px-2 text-grey-darkest">
+			{{ node }}
+		</a>
+	</td>
+    <td class="pl-2 pr-4" width="125">
+	    {% if node.active %}
+		    <i data-feather="check" class="text-grey-darkest"></i>
+	    {% else %}
+		    <i data-feather="x" class="text-grey-darkest"></i>
+	    {% endif %}
+    </td>
+</tr>

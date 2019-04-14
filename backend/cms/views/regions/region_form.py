@@ -1,11 +1,9 @@
 """
-Form for creating a page object
+Form for creating a region object
 """
 
 from django import forms
-from django.forms.widgets import CheckboxSelectMultiple
 from django.utils.text import slugify
-from ...models.language import Language
 from ...models.site import Site
 
 
@@ -20,27 +18,35 @@ class RegionForm(forms.ModelForm):
 
     class Meta:
         model = Site
-        fields = ['name', 'languages', 'events_enabled', 'push_notifications_enabled',
+        fields = ['name', 'events_enabled', 'push_notifications_enabled',
                   'latitude', 'longitude', 'postal_code', 'admin_mail', 'statistics_enabled',
                   'matomo_url', 'matomo_token', 'matomo_ssl_verify', 'status']
 
     def __init__(self, *args, **kwargs):
         super(RegionForm, self).__init__(*args, **kwargs)
-        self.fields["languages"].widget = CheckboxSelectMultiple()
-        self.fields["languages"].queryset = Language.objects.all()
 
     def save_region(self, region_slug=None):
-        """Function to create or update a page
-            page_translation_id ([Integer], optional): Defaults to None. If it's not set creates
-            a page or update the page with the given page id.
+        """Function to create or update a region
+            region_slug ([Integer], optional): Defaults to None. If it's not set creates
+            a region or update the region with the given region slug.
         """
+
+        slug = slugify(self.cleaned_data['name'])
+        # if the slug has changed, make sure the slug derived from the name is unique
+        if slug != region_slug and Site.objects.filter(slug=slug).exists():
+            old_slug = slug
+            i = 1
+            while True:
+                i += 1
+                slug = old_slug + '-' + str(i)
+                if not Site.objects.filter(slug=slug).exists():
+                    break
 
         if region_slug:
             # save region
             region = Site.objects.get(slug=region_slug)
+            region.slug = slug
             region.name = self.cleaned_data['name']
-            region.slug = slugify(self.cleaned_data['name'])
-            region.languages = self.cleaned_data['languages']
             region.events_enabled = self.cleaned_data['events_enabled']
             region.push_notifications_enabled = self.cleaned_data['push_notifications_enabled']
             region.latitude = self.cleaned_data['latitude']
@@ -59,8 +65,8 @@ class RegionForm(forms.ModelForm):
         else:
             # create region
             region = Site.objects.create(
+                slug=slug,
                 name=self.cleaned_data['name'],
-                slug=slugify(self.cleaned_data['name']),
                 events_enabled=self.cleaned_data['events_enabled'],
                 push_notifications_enabled=self.cleaned_data['push_notifications_enabled'],
                 latitude=self.cleaned_data['latitude'],
@@ -76,5 +82,3 @@ class RegionForm(forms.ModelForm):
                 ].split(' '),
                 status=self.cleaned_data['status'],
             )
-            region.languages = self.cleaned_data['languages']
-            region.save()
