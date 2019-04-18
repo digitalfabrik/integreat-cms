@@ -43,6 +43,18 @@ class Site(models.Model):
     matomo_token = models.CharField(max_length=150, blank=True, default='')
     matomo_ssl_verify = models.BooleanField(default=True)
 
+    @property
+    def languages(self):
+        language_tree_nodes = self.language_tree_nodes.prefetch_related('language').all()
+        languages = []
+        for language_tree_node in language_tree_nodes:
+            languages.append(language_tree_node.language)
+        return languages
+
+    @property
+    def default_language(self):
+        return self.language_tree_nodes.filter(level=0).first().language
+
     @classmethod
     def get_current_site(cls, request):
         if hasattr(request, 'resolver_match'):

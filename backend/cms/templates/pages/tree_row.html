@@ -5,25 +5,22 @@
         </span>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug %}" class="block py-3 px-2 text-grey-darkest">
-            {{ node }}
+        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+	        {% for page_translation in node.page_translations.all %}
+		        {% if page_translation.language == language %}
+			        {{ page_translation.title }}
+		        {% endif %}
+	        {% endfor %}
         </a>
     </td>
     <td>
         <div class="block py-3 px-2 text-grey-darkest">
             <div class="lang-grid">
-                <a href="">
-                    <i data-feather="plus" class="text-grey-darkest"></i>
-                </a>
-                <a href="">
-                    <i data-feather="edit-2" class="text-grey-darkest"></i>
-                </a>
-                <a href="">
-                    <i data-feather="edit-2" class="text-grey-darkest"></i>
-                </a>
-                <a href="">
-                    <i data-feather="plus" class="text-grey-darkest"></i>
-                </a>
+	            {% for other_language in languages %}
+		            <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=other_language.code %}">
+			            <i data-feather="{% if other_language in node.languages %}edit-2{% else %}plus{% endif %}" class="text-grey-darkest"></i>
+		            </a>
+	            {% endfor %}
             </div>
         </div>
     </td>
@@ -32,10 +29,10 @@
         <a href="" class="py-3" style="padding-right:4px;">
             <i data-feather="eye" class="text-grey-darkest"></i>
         </a>
-        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug %}" class="py-3" style="padding-left:4px;padding-right:4px;">
+        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="py-3" style="padding-left:4px;padding-right:4px;">
             <i data-feather="edit" class="text-grey-darkest"></i>
         </a>
-        <a href="{% url 'delete_page' page_id=node.id site_slug=site.slug %}" class="py-3" style="padding-left:4px;padding-right:4px;">
+        <a href="{% url 'delete_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="py-3" style="padding-left:4px;padding-right:4px;">
             <i data-feather="trash-2" class="text-grey-darkest"></i>
         </a>
     </td>

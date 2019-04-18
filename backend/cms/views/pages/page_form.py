@@ -6,7 +6,8 @@ import sys
 from django import forms
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
-from ...models import Page, PageTranslation, Site
+
+from ...models import Page, PageTranslation, Site, Language
 from ..general import POSITION_CHOICES
 
 
@@ -29,14 +30,14 @@ class PageForm(forms.ModelForm):
 
     class Meta:
         model = PageTranslation
-        fields = ['title', 'text', 'status', 'language']
+        fields = ['title', 'text', 'status']
 
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(PageForm, self).__init__(*args, **kwargs)
 
-    def save_page(self, site_slug, page_id=None, publish=False):
+    def save_page(self, site_slug, language_code, page_id=None, publish=False):
         """Function to create or update a page
 
             page_id ([Integer], optional): Defaults to None.
@@ -48,15 +49,23 @@ class PageForm(forms.ModelForm):
         """
 
         slug = slugify(self.cleaned_data['title'])
+        page_translation = PageTranslation.objects.filter(
+            page__id=page_id,
+            language__code=language_code
+        ).first()
         # make sure the slug derived from the title is unique
         if (
                 (
-                    # translation is created
-                    not page_id
+                    (
+                        # page is created
+                        not page_id
+                        or
+                        # translation is created
+                        not page_translation
+                    )
                     or
                     # slug has changed
-                    # TODO: current language
-                    Page.objects.get(pk=page_id).get_translation('de').slug != slug
+                    page_translation.slug != slug
                 )
                 and
                 # the new slug already exists
@@ -83,17 +92,6 @@ class PageForm(forms.ModelForm):
             page.icon = self.cleaned_data['icon']
             page.save()
             page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
-
-            # save page translation
-            #language = Language.objects.get(id=self.cleaned_data['language'])
-            page_translation = Page.objects.get(pk=page_id).get_translation(
-                self.cleaned_data['language'].code
-            )
-            page_translation.slug = slug
-            page_translation.title = self.cleaned_data['title']
-            page_translation.text = self.cleaned_data['text']
-            page_translation.status = self.cleaned_data['status']
-            page_translation.save()
         else:
             print("DEBUG 2: ", file=sys.stderr)
             # create page
@@ -103,13 +101,21 @@ class PageForm(forms.ModelForm):
             )
             page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
 
+        if page_translation:
+            # save page translation
+            page_translation.slug = slug
+            page_translation.title = self.cleaned_data['title']
+            page_translation.text = self.cleaned_data['text']
+            page_translation.status = self.cleaned_data['status']
+            page_translation.save()
+        else:
             # create page translation
             page_translation = PageTranslation.objects.create(
                 slug=slug,
                 title=self.cleaned_data['title'],
                 text=self.cleaned_data['text'],
                 status=self.cleaned_data['status'],
-                language=self.cleaned_data['language'],
+                language=Language.objects.get(code=language_code),
                 public=self.cleaned_data['public'],
                 page=page,
                 creator=self.user
