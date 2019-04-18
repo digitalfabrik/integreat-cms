@@ -10,20 +10,22 @@
         </div>
         <div class="w-1/2 flex flex-wrap flex-col justify-center">
             <div class="flex flex-wrap justify-end">
-                <a href="{% url 'archived_pages' site_slug=site.slug %}" class="font-bold text-xs text-grey-darkest block pb-2">{% trans 'Archived pages' %}</a>
+                <a href="{% url 'archived_pages' site_slug=site.slug language_code=language.code %}" class="font-bold text-xs text-grey-darkest block pb-2">{% trans 'Archived pages' %}</a>
             </div>
         </div>
     </div>
     <div class="flex flex-wrap">
         <form class="table-search relative w-1/2">
             <i data-feather="search" class="absolute"></i>
-            <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
+            <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
         </form>
+        {% if site.default_language == language %}
         <div class="w-1/2 flex flex-wrap justify-end">
-            <a href="{% url 'new_page' site_slug=site.slug %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'new_page' site_slug=site.slug language_code=language.code %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
 	            {% trans 'Create page' %}
             </a>
         </div>
+        {% endif %}
     </div>
 </div>
 
@@ -35,18 +37,11 @@
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">
                     <div class="lang-grid flags">
-                        <a href="">
-                            <img src="{% static 'images/flags/ar-ma.png' %}" title="{% trans 'Arabic' %}" />
-                        </a>
-                        <a href="">
-                            <img src="{% static 'images/flags/de-de.png' %}" title="{% trans 'German' %}" />
-                        </a>
-                        <a href="">
-                            <img src="{% static 'images/flags/en-gb.png' %}" title="{% trans 'English' %}" />
-                        </a>
-                        <a href="">
-                            <img src="{% static 'images/flags/fa-ir.png' %}" title="{% trans 'Farsi' %}" />
-                        </a>
+	                    {% for other_language in languages %}
+		                    <a href="{% url 'pages' site_slug=site.slug language_code=other_language.code %}">
+			                    <img src="{% static '' %}images/flags/{{ other_language.code }}.png" title="{{ other_language.name }}" />
+		                    </a>
+	                    {% endfor %}
                     </div>
                 </th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>

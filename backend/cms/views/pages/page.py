@@ -20,67 +20,78 @@ class PageView(TemplateView):
     base_context = {'current_menu_item': 'pages'}
 
     def get(self, request, *args, **kwargs):
-        site_slug = kwargs.get('site_slug')
-        page_id = kwargs.get('page_id', None)
+        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        page = Page.objects.filter(pk=kwargs.get('page_id', None)).first()
+        language = Language.objects.get(code=kwargs.get('language_code'))
+        languages = site.languages
         # limit possible parents to pages of current region
         parent_queryset = Page.objects.filter(
-            site__slug=site_slug
+            site__slug=site.slug
         )
-        if page_id:
-            # TODO: get current language
-            page = Page.objects.get(pk=page_id)
+        initial = {}
+        public = False
+        if page:
+            initial['parent'] = page.parent
             # remove children from possible parents
             children = page.get_descendants(include_self=True)
             parent_queryset = parent_queryset.difference(children)
-            page_translation = page.get_translation('de')
-            form = PageForm(initial={
-                'title': page_translation.title,
-                'text': page_translation.text,
-                'status': page_translation.status,
-                'language': page_translation.language,
-                'public': page_translation.public,
-                'parent': page.parent
-            })
-            public = page_translation.public
-        else:
-            form = PageForm()
-            public = False
+            page_translation = page.get_translation(language.code)
+            if page_translation:
+                initial.update({
+                    'title': page_translation.title,
+                    'text': page_translation.text,
+                    'status': page_translation.status,
+                    'public': page_translation.public,
+                })
+                public = page_translation.public
+        form = PageForm(initial=initial)
         form.fields['parent'].queryset = parent_queryset
-        form.fields['language'].queryset = Language.objects.filter(
-            language_tree_nodes__in=Site.objects.get(slug=site_slug).language_tree_nodes.all()
-        )
         return render(request, self.template_name, {
-            'form': form, 'public': public, **self.base_context})
+            'form': form,
+            'public': public,
+            'page': page,
+            'language': language,
+            'languages': languages,
+            **self.base_context,
+        })
 
     def post(self, request, *args, **kwargs):
         site_slug = kwargs.get('site_slug')
         page_id = kwargs.get('page_id', None)
+        language_code = kwargs.get('language_code')
         # TODO: error handling
         form = PageForm(request.POST, user=request.user)
         if form.is_valid():
             if form.data.get('submit_publish'):
                 page = form.save_page(
                     site_slug=site_slug,
+                    language_code=language_code,
                     page_id=page_id,
                     publish=True
                 )
                 if page_id:
                     messages.success(request, _('Page was published successfully.'))
                 else:
+                    page_id = page.id
                     messages.success(request, _('Page was created and published successfully.'))
             else:
                 page = form.save_page(
                     site_slug=site_slug,
+                    language_code=language_code,
                     page_id=page_id,
                     publish=False
                 )
                 if page_id:
                     messages.success(request, _('Page was saved successfully.'))
                 else:
+                    page_id = page.id
                     messages.success(request, _('Page was created successfully.'))
-            return redirect(page)
-        messages.error(request, _('Errors have occurred.'))
+        else:
+            messages.error(request, _('Errors have occurred.'))
         if page_id:
-            page = Page.objects.get(pk=page_id)
-            return redirect(page)
-        return redirect('new_page', kwargs={'site_slug': site_slug})
+            return redirect('edit_page', **{
+                'page_id': page_id,
+                'site_slug': site_slug,
+                'language_code': language_code,
+            })
+        return redirect('new_page', **kwargs)

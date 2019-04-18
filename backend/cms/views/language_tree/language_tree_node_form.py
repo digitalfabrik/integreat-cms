@@ -23,6 +23,9 @@ class LanguageTreeNodeForm(forms.ModelForm):
 
 
     def __init__(self, *args, **kwargs):
+        site_slug = kwargs.get('site_slug')
+        if site_slug:
+            self.site = Site.objects.get(slug=site_slug)
         super(LanguageTreeNodeForm, self).__init__(*args, **kwargs)
 
     def save_page(self, site_slug, language_tree_node_id=None):
@@ -47,3 +50,24 @@ class LanguageTreeNodeForm(forms.ModelForm):
                 active=self.cleaned_data['active'],
                 parent=self.cleaned_data['parent'],
             )
+
+        return language_tree_node
+
+    def clean(self):
+        """
+        Don't allow multiple root nodes for one site:
+            If self is a root node and the site already has a default language,
+            raise a validation error.
+        """
+        if not self.cleaned_data['parent'] and self.site.default_language:
+            raise ValidationError(_('This region has already a default language.'
+                                    'Please specify a source language for this language.'))
+        #    Require all nodes of one tree to have the same site:
+        #    If self has a parent node, check if the parent's site equals the site of self.
+        if (
+                self.cleaned_data['parent']
+                and
+                self.cleaned_data['parent'].site != self.site
+        ):
+            raise ValidationError(_('The source language belongs to another region.'
+                                    'Please specify a source language of this region.'))
