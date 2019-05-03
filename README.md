@@ -40,6 +40,9 @@ If you use a virtual python environment, be sure to use the ´--exclude´ parame
 ### Packaging
 Packaging for Debian can be done with setuptools. Install `python3-stdeb`, then run
 ```
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+$ pip3 install stdeb
 $ python3 setup.py --command-packages=stdeb.command bdist_deb
 ```
 The .spec file for building RPMs can be found at https://build.opensuse.org/package/show/home:sven15/integreat-cms-django
