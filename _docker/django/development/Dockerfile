@@ -11,6 +11,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt install --yes --force-yes python3 python3
 # remove deprecated pycrypto package
 RUN DEBIAN_FRONTEND=noninteractive apt remove --yes --force-yes python3-crypto
 
-RUN python3 setup.py install
+RUN python3 setup.py develop
 
 EXPOSE 8000
