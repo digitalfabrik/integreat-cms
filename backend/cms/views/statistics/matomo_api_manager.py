@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Helper class to interact with the Matomo API
 """

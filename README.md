@@ -36,3 +36,10 @@ To make use of the translated backend, compile the django.po file as follows:
 `django-admin compilemessages`
 
 If you use a virtual python environment, be sure to use the ´--exclude´ parameter or execute this command in the backend or cms directory, otherwise all the translation files in your venv will be compiled, too.
+
+### Packaging
+Packaging for Debian can be done with setuptools. Install `python3-stdeb`, then run
+```
+$ python3 setup.py --command-packages=stdeb.command bdist_deb
+```
+The .spec file for building RPMs can be found at https://build.opensuse.org/package/show/home:sven15/integreat-cms-django
