@@ -46,3 +46,20 @@ $ pip3 install stdeb
 $ python3 setup.py --command-packages=stdeb.command bdist_deb
 ```
 The .spec file for building RPMs can be found at https://build.opensuse.org/package/show/home:sven15/integreat-cms-django
+
+#### Installing on Ubuntu
+To install the CMS as a .deb file, the python3-django-widget-tweaks needs to be build first.
+````
+$ git clone git@github.com:jazzband/django-widget-tweaks.git
+$ cd django-widget-tweaks
+$ python3 -m venv .venv
+$ pip3 install stdeb
+$ python3 setup.py --command-packages=stdeb.command bdist_deb
+````
+Then install both packages with gdebi:
+````
+# apt install gdebi postgresql
+# gdebi django-widget-tweaks/deb_dist/python3-django-widget-tweaks_1.4.3-1_all.deb
+# gebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
+````
+In the end, create a Postgre user and database and adjust the `/usr/lib/python3/dist-packages/backend/settings.py`.

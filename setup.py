@@ -10,9 +10,11 @@ setup(
     package_dir={'':'backend'},
     include_package_data=True,
     scripts=['backend/integreat-cms'],
-    data_files=[("lib/integreat-{}".format(root), [os.path.join(root, f) for f in files])
-                for root, dirs, files in os.walk('backend/cms/templates/')] +
-    [('usr/lib/systemd/system/', ['systemd/integreat-cms@.service'])],
+    data_files= [("lib/integreat-{}".format(root), [os.path.join(root, f) for f in files])
+                 for root, dirs, files in os.walk('backend/cms/templates/')] +
+                [("lib/integreat-{}".format(root), [os.path.join(root, f) for f in files])
+                 for root, dirs, files in os.walk('backend/cms/static/')] +
+                [('usr/lib/systemd/system/', ['systemd/integreat-cms@.service'])],
     install_requires=[
         "asn1crypto==0.24.0",
         "cffi==1.11.5",
