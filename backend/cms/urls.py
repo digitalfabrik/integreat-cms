@@ -73,6 +73,7 @@ urlpatterns = [
     url(r'^(?P<site_slug>[-\w]+)/', include([
         url(r'^$', general.DashboardView.as_view(), name='dashboard'),
         url(r'^pages/', include([
+            url(r'^$', pages.PageTreeView.as_view(), name='pages'),
             url(r'^(?P<language_code>[-\w]+)/', include([
                 url(r'^$', pages.PageTreeView.as_view(), name='pages'),
                 url(r'^new$', pages.PageView.as_view(), name='new_page'),

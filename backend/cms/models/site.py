@@ -45,15 +45,13 @@ class Site(models.Model):
 
     @property
     def languages(self):
-        language_tree_nodes = self.language_tree_nodes.prefetch_related('language').all()
-        languages = []
-        for language_tree_node in language_tree_nodes:
-            languages.append(language_tree_node.language)
-        return languages
+        language_tree_nodes = self.language_tree_nodes.select_related('language').all()
+        return [language_tree_node.language for language_tree_node in language_tree_nodes]
 
     @property
     def default_language(self):
-        return self.language_tree_nodes.filter(level=0).first().language
+        tree_root = self.language_tree_nodes.filter(level=0).first()
+        return tree_root.language if tree_root else None
 
     @classmethod
     def get_current_site(cls, request):
