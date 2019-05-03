@@ -24,7 +24,7 @@
 * freeze new installed dependencies via `docker exec -it $(docker-compose ps -q django) bash -c "pip3 freeze > requirements.txt"`
 * install requirements via `docker exec -it $(docker-compose ps -q django) bash -c "pip3 install -r requirements.txt"`
 
-### Docker clean up
+### Troubleshooting: Docker clean up
 * `docker stop $(docker ps -a -q)`
 * `docker rm $(docker ps -a -q)`
 * remove all images: `docker rmi $(docker images -a -q)`
