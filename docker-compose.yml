@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./_docker/django/development/Dockerfile
-    command: bash -c "integreat-cms runserver 0.0.0.0:8000"
+    command: bash -c "source .venv/bin/activate && python3 setup.py develop && integreat-cms runserver 0.0.0.0:8000"
     depends_on:
       - postgres
     ports:
@@ -13,7 +13,7 @@ services:
     restart: always
     #tty: true
     volumes:
-      - "./backend:/var/www/backend"
+      - "./backend:/opt/integreat-cms/backend"
 
   postgres:
     environment:
