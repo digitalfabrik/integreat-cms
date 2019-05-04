@@ -13,4 +13,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt remove --yes --force-yes python3-crypto
 
 RUN python3 -m venv .venv
 
+RUN echo "source /opt/integreat-cms/.venv/bin/activate" >> /root/.bashrc
+
 EXPOSE 8000
