@@ -1,6 +1,32 @@
 # Integreat Django CMS
 ## Development
-### Local development setup
+There are several ways to run this project locally: install as a package (Ubuntu, openSUSE), run in local Python3 venv, and also in a Docker container. Each method is detailed below.
+
+To get started, run
+````
+git clone git@github.com:Integreat/cms-django.git
+cd cms-django
+````
+
+### Development Tools
+
+- Delete docker environment to start over again: `dev-tools/prune_docker.sh`
+  (be careful: This will delete all your other docker images as well)
+- Delete database to start over again: `dev-tools/prune_database.sh`
+- Migrate database: `dev-tools/migrate.sh`
+- Create superuser: `dev-tools/create_superuser.sh`
+
+### Run CMS in Python3 venv
+1. Install a local PostgreSQL server, for example with `apt install postgresql` and create a database and database user with the name `integreat`.
+2. Run `./install-venv.sh`
+3. Open the `backend/backend/settings.py` and adjust the database credentials. Also change the hostname to `localhost`.
+4. Do the database migrations: `integreat-cms migrate`
+5. Create the initial superuser: `integreat-cms createsuperuser`
+6. Fire up the CMS: `integreat-cms runserver localhost:8000`
+7. Go to your browser and open the URL `http://localhost:8000`
+
+### Run CMS in Docker container
+A docker-compose file is provided in the the repository. It will start one container with a PostgreSQL database and another one with the CMS.
 * `docker-compose up`
 * enter [http://localhost:8000](http://localhost:8000)
 * as long as there is no standard SQL dump, you have to create your own user: `docker exec -it $(docker-compose ps -q django) bash -c "python3 manage.py createsuperuser"`
