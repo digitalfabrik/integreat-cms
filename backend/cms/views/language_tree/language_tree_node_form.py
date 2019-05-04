@@ -2,9 +2,10 @@
 Form for creating a language tree node object
 """
 
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 from ...models import LanguageTreeNode, Site
-from ..general import POSITION_CHOICES
 
 
 class LanguageTreeNodeForm(forms.ModelForm):
@@ -15,20 +16,18 @@ class LanguageTreeNodeForm(forms.ModelForm):
         forms : Defines the form as an Model form related to a database object
     """
 
-    position = forms.ChoiceField(choices=POSITION_CHOICES)
-
     class Meta:
         model = LanguageTreeNode
         fields = ['language', 'parent', 'active']
 
 
     def __init__(self, *args, **kwargs):
-        site_slug = kwargs.get('site_slug')
+        site_slug = kwargs.pop('site_slug', None)
         if site_slug:
             self.site = Site.objects.get(slug=site_slug)
         super(LanguageTreeNodeForm, self).__init__(*args, **kwargs)
 
-    def save_page(self, site_slug, language_tree_node_id=None):
+    def save_language_node(self, language_tree_node_id=None):
         """Function to create or update a page
             language_tree_node_id ([Integer], optional): Defaults to None. If it's not set creates
             a language tree node or update the language tree node with the given page id.
@@ -46,7 +45,7 @@ class LanguageTreeNodeForm(forms.ModelForm):
             # create language tree node
             language_tree_node = LanguageTreeNode.objects.create(
                 language=self.cleaned_data['language'],
-                site=Site.objects.get(slug=site_slug),
+                site=self.site,
                 active=self.cleaned_data['active'],
                 parent=self.cleaned_data['parent'],
             )

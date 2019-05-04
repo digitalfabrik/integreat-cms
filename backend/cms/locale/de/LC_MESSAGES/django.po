@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-19 17:32+0200\n"
+"POT-Creation-Date: 2019-05-08 17:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -25,15 +25,15 @@ msgstr "Links nach Rechts"
 msgid "Right to left"
 msgstr "Rechts nach Links"
 
-#: models/page.py:106
+#: models/page.py:105
 msgid "Draft"
 msgstr "Entwurf"
 
-#: models/page.py:107
+#: models/page.py:106
 msgid "Pending Review"
 msgstr "Review ausstehend"
 
-#: models/page.py:108
+#: models/page.py:107
 msgid "Finished Review"
 msgstr "Review abgeschlossen"
 
@@ -83,7 +83,8 @@ msgstr "Integreat Logo"
 msgid "My Dashboard"
 msgstr "Mein Dashboard"
 
-#: templates/_base.html:109 templates/statistics/statistics_dashboard.html:7
+#: templates/_base.html:109 templates/regions/region.html:111
+#: templates/statistics/statistics_dashboard.html:7
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -91,7 +92,7 @@ msgstr "Statistiken"
 msgid "Pages"
 msgstr "Seiten"
 
-#: templates/_base.html:117
+#: templates/_base.html:117 templates/regions/region.html:91
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -105,6 +106,7 @@ msgstr "Feedback"
 
 #: templates/_base.html:129
 #: templates/push_notifications/push_notifications.html:7
+#: templates/regions/region.html:98
 msgid "Push Notifications"
 msgstr "Push-Benachrichtigungen"
 
@@ -170,8 +172,7 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: templates/language_tree/tree.html:30
-#: templates/language_tree/tree_node.html:28
-#: templates/language_tree/tree_node.html:42 templates/pages/page.html:64
+#: templates/language_tree/tree_node.html:28 templates/pages/page.html:64
 msgid "Language"
 msgstr "Sprache"
 
@@ -193,15 +194,11 @@ msgstr "Sprache hinzufügen"
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/language_tree/tree_node.html:37 templates/pages/page.html:95
-msgid "Positioning"
-msgstr "Anordnung"
+#: templates/language_tree/tree_node.html:37
+msgid "Source Language"
+msgstr "Quell-Sprache"
 
-#: templates/language_tree/tree_node.html:38 templates/pages/page.html:96
-msgid "Relationship"
-msgstr "Verhältnis"
-
-#: templates/language_tree/tree_node.html:52
+#: templates/language_tree/tree_node.html:47
 msgid "Activate language"
 msgstr "Sprache aktivieren"
 
@@ -309,6 +306,14 @@ msgstr "Aktuelle Sprache"
 msgid "Translations"
 msgstr "Übersetzungen"
 
+#: templates/pages/page.html:95
+msgid "Positioning"
+msgstr "Anordnung"
+
+#: templates/pages/page.html:96
+msgid "Relationship"
+msgstr "Verhältnis"
+
 #: templates/pages/page.html:100
 msgid "Page"
 msgstr "Seite"
@@ -318,15 +323,15 @@ msgid "Visibility"
 msgstr "Sichtbarkeit"
 
 #: templates/pages/page.html:118 templates/regions/list.html:28
-#: templates/regions/region.html:99
+#: templates/regions/region.html:74
 msgid "Status"
 msgstr "Status"
 
-#: templates/pages/page.html:127 templates/regions/region.html:110
+#: templates/pages/page.html:127 templates/regions/region.html:57
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/pages/page.html:131 templates/regions/region.html:114
+#: templates/pages/page.html:131 templates/regions/region.html:67
 msgid "Set icon"
 msgstr "Icon festlegen"
 
@@ -334,19 +339,19 @@ msgstr "Icon festlegen"
 msgid "Archived pages"
 msgstr "Archivierte Seiten"
 
-#: templates/pages/tree.html:24
+#: templates/pages/tree.html:25
 msgid "Create page"
 msgstr "Seite erstellen"
 
-#: templates/pages/tree.html:35
+#: templates/pages/tree.html:37
 msgid "Title"
 msgstr "Titel"
 
-#: templates/pages/tree.html:45
+#: templates/pages/tree.html:47
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/pages/tree.html:60
+#: templates/pages/tree.html:62
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
@@ -398,39 +403,43 @@ msgstr "Region \"%(region_name)s\" bearbeiten"
 msgid "Create new region"
 msgstr "Neue Region erstellen"
 
-#: templates/regions/region.html:30
+#: templates/regions/region.html:31
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: templates/regions/region.html:36
 msgid "Name of the region"
 msgstr "Name der Region"
 
-#: templates/regions/region.html:31
+#: templates/regions/region.html:37
 msgid "Enter the region's name here"
 msgstr "Name der Region hier eingeben"
 
-#: templates/regions/region.html:35
+#: templates/regions/region.html:40
 msgid "E-mail-address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: templates/regions/region.html:36
+#: templates/regions/region.html:41
 msgid "Enter the administrator's e-mail-address here"
 msgstr "E-Mail-Adresse des Administrators hier eingeben"
 
-#: templates/regions/region.html:40
+#: templates/regions/region.html:45
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: templates/regions/region.html:41
+#: templates/regions/region.html:46
 msgid "Enter postal code here"
 msgstr "Postleitzahl hier eingeben"
 
-#: templates/regions/region.html:45
+#: templates/regions/region.html:48
 msgid "Coordinates"
 msgstr "Koordinaten"
 
-#: templates/regions/region.html:47
+#: templates/regions/region.html:49
 msgid "Latitude"
 msgstr "Geographische Breite"
 
-#: templates/regions/region.html:48
+#: templates/regions/region.html:50
 msgid "Enter latitude here"
 msgstr "Geographische Breite hier eingeben"
 
@@ -442,41 +451,45 @@ msgstr "Geographische Länge"
 msgid "Enter longitude here"
 msgstr "Geographische Länge hier eingeben"
 
-#: templates/regions/region.html:61
+#: templates/regions/region.html:87
+msgid "Extended Settings"
+msgstr "Erweiterte Einstellungen"
+
+#: templates/regions/region.html:93
 msgid "Activate events"
 msgstr "Veranstaltungen aktivieren"
 
-#: templates/regions/region.html:67
+#: templates/regions/region.html:100
 msgid "Activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
-#: templates/regions/region.html:71
+#: templates/regions/region.html:104
 msgid "Push notification channels"
 msgstr "Push-Benachrichtigungskanäle"
 
-#: templates/regions/region.html:72
+#: templates/regions/region.html:105
 msgid "Enter multiple channels separated by spaces."
 msgstr "Mehrere Kanäle mit Leerzeichen getrennt eingeben."
 
-#: templates/regions/region.html:73
+#: templates/regions/region.html:106
 msgid "Enter push notification channels here"
 msgstr "Push-Benachrichtigungskanäle hier eingeben"
 
-#: templates/regions/region.html:79
+#: templates/regions/region.html:113
 msgid "Activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: templates/regions/region.html:83
+#: templates/regions/region.html:117
+msgid "Activate SSL verification for Matomo"
+msgstr "SSL-Verifikation für Matomo aktivieren"
+
+#: templates/regions/region.html:121
 msgid "Enter URL for Matomo here"
 msgstr "Matomo-URL hier eingeben"
 
-#: templates/regions/region.html:87
+#: templates/regions/region.html:125
 msgid "Enter token for Matomo here"
 msgstr "Matomo-Token hier eingeben"
-
-#: templates/regions/region.html:91
-msgid "Activate SSL verification for Matomo"
-msgstr "SSL-Verifikation für Matomo aktivieren"
 
 #: templates/registration/login.html:18
 msgid "The username or the password is incorrect."
@@ -664,18 +677,34 @@ msgstr "Linker Nachbar von"
 msgid "Right neighbor of"
 msgstr "Rechter Nachbar von"
 
-#: views/language_tree/language_tree_node.py:55
+#: views/language_tree/language_tree_node.py:54
 msgid "Language tree node was saved successfully."
 msgstr "Sprach-Baum wurde erfolgreich gespeichert."
 
-#: views/language_tree/language_tree_node.py:60
+#: views/language_tree/language_tree_node.py:57
 msgid "Language tree node was created successfully."
 msgstr "Sprach-Baum wurde erfolgreich erstellt."
 
-#: views/language_tree/language_tree_node.py:63 views/pages/page.py:90
+#: views/language_tree/language_tree_node.py:64 views/pages/page.py:90
 #: views/regions/regions.py:70
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
+
+#: views/language_tree/language_tree_node_form.py:62
+msgid ""
+"This region has already a default language.Please specify a source language "
+"for this language."
+msgstr ""
+"Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
+"Quell-Sprache für diese Sprache ein."
+
+#: views/language_tree/language_tree_node_form.py:71
+msgid ""
+"The source language belongs to another region.Please specify a source "
+"language of this region."
+msgstr ""
+"Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
+"Quell-Sprache dieser Region ein."
 
 #: views/languages/languages.py:54
 msgid "Language saved successfully."
@@ -713,9 +742,11 @@ msgstr "Öffentlich"
 msgid "Private"
 msgstr "Privat"
 
-#: views/pages/pages.py:31
+#: views/pages/pages.py:32
 msgid "Please create at least one language node before creating pages."
-msgstr "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten verwalten."
+msgstr ""
+"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
+"verwalten."
 
 #: views/regions/regions.py:64
 msgid "Region saved successfully."
