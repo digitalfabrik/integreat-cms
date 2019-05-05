@@ -23,7 +23,7 @@ cd cms-django
 A docker-compose file is provided in the the repository. It will start one container with a PostgreSQL database and another one with the CMS.
 * `docker-compose up`
 * enter [http://localhost:8000](http://localhost:8000)
-* as long as there is no standard SQL dump, you have to create your own user: `docker exec -it $(docker-compose ps -q django) bash -c "integreat-cms createsuperuser"`
+* as long as there is no standard SQL dump, you have to create your own user: `docker exec -it $(docker-compose ps -q django) bash -ic "integreat-cms createsuperuser"`
 
 ### Packaging and installing on Ubuntu 18.04
 Packaging for Debian can be done with setuptools.
@@ -62,9 +62,15 @@ In the end, create a PostgreSQL user and database and adjust the `/usr/lib/pytho
 
 ### Migrations
 * change models
-* `docker exec -it $(docker-compose ps -q django) bash -c "python3 manage.py makemigrations [app]"`
-* optional, if you want to inspect the corresponding SQL syntax: `docker exec -it $(docker-compose ps -q django) bash -c "python3 manage.py sqlmigrate [app] [number]"`
-* `docker exec -it $(docker-compose ps -q django) bash -c "python3 manage.py migrate"`
+* `docker exec -it $(docker-compose ps -q django) bash -ic "integreat-cms makemigrations [app]"`
+* optional, if you want to inspect the corresponding SQL syntax: `docker exec -it $(docker-compose ps -q django) bash -ic "integreat-cms sqlmigrate [app] [number]"`
+* `docker exec -it $(docker-compose ps -q django) bash -ic "integreat-cms migrate"`
+
+### Docker clean up
+* `docker stop $(docker ps -a -q)`
+* `docker rm $(docker ps -a -q)`
+* remove all images: `docker rmi $(docker images -a -q)`
+* remove all volumes: `docker volume prune`
 
 ### i18n
 To make use of the translated backend, compile the django.po file as follows:
