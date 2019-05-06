@@ -23,7 +23,7 @@ cd cms-django
 A docker-compose file is provided in the the repository. It will start one container with a PostgreSQL database and another one with the CMS.
 * `docker-compose up`
 * enter [http://localhost:8000](http://localhost:8000)
-* as long as there is no standard SQL dump, you have to create your own user: `docker exec -it $(docker-compose ps -q django) bash -c "integreat-cms createsuperuser"`
+* as long as there is no standard SQL dump, you have to create your own user: `docker exec -it $(docker-compose ps -q django) bash -c ".venv/bin/integreat-cms createsuperuser"`
 
 ### Packaging and installing on Ubuntu 18.04
 Packaging for Debian can be done with setuptools.
