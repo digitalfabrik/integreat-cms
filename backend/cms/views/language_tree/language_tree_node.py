@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ...models import Language, LanguageTreeNode, Site
 from .language_tree_node_form import LanguageTreeNodeForm
 
@@ -20,7 +20,7 @@ class LanguageTreeNodeView(TemplateView):
     base_context = {'current_menu_item': 'language_tree'}
 
     def get(self, request, *args, **kwargs):
-        language_tree_node_id = self.kwargs.get('language_tree_node_id', None)
+        language_tree_node_id = self.kwargs.get('language_tree_node_id')
         # limit possible parents to nodes of current region
         parent_queryset = Site.get_current_site(request).language_tree_nodes
         # limit possible languages to those which are not yet included in the tree
@@ -45,19 +45,20 @@ class LanguageTreeNodeView(TemplateView):
 
     def post(self, request, site_slug, language_tree_node_id=None):
         # TODO: error handling
-        form = LanguageTreeNodeForm(request.POST)
+        form = LanguageTreeNodeForm(data=request.POST, site_slug=site_slug)
         if form.is_valid():
             if language_tree_node_id:
-                form.save_page(
-                    site_slug=site_slug,
+                form.save_language_node(
                     language_tree_node_id=language_tree_node_id,
                 )
                 messages.success(request, _('Language tree node was saved successfully.'))
             else:
-                form.save_page(
-                    site_slug=site_slug,
-                )
+                language_tree_node = form.save_language_node()
                 messages.success(request, _('Language tree node was created successfully.'))
+                return redirect('edit_language_tree_node', **{
+                    'language_tree_node_id': language_tree_node.id,
+                    'site_slug': site_slug,
+                })
             # TODO: improve messages
         else:
             messages.error(request, _('Errors have occurred.'))

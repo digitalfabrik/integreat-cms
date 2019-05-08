@@ -1,8 +1,10 @@
-"""Model representing a page with content
+"""Models representing a page and page translation with content
 """
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
@@ -45,35 +47,47 @@ class Page(MPTTModel):
 
         return len(self.get_ancestors())
 
+    @property
+    def languages(self):
+        page_translations = self.page_translations.prefetch_related('language').all()
+        languages = []
+        for page_translation in page_translations:
+            languages.append(page_translation.language)
+        return languages
+
     def get_translation(self, language_code):
-        language = Language.objects.get(code=language_code)
-        return self.page_translations.get(language=language)
+        try:
+            page_translation = self.page_translations.get(language__code=language_code)
+        except ObjectDoesNotExist:
+            page_translation = None
+        return page_translation
+
+    def get_absolute_url(self):
+        return reverse('edit_page', kwargs={
+            'page_id': self.id,
+            'site_slug': self.site.slug,
+            'language_code': self.site.default_language.code,
+        })
 
     def __str__(self):
         # TODO: get current language title
-        translation = self.get_translation('de')
+        translation = PageTranslation.objects.filter(page=self).first()
         if translation:
             return translation.title
         return ""
 
     @classmethod
-    def get_tree_view(cls, request):
+    def get_tree(cls, site_slug):
         """Function for building up a Treeview of all pages
 
         Returns:
             [pages]: Array of pages connected with their relations
         """
 
-        page_translations = PageTranslation.objects.filter(
-            language__code='de',
-        ).select_related('creator')
-
-        pages = cls.objects.all().prefetch_related(models.Prefetch(
-            'page_translations',
-            queryset=page_translations
-        )).filter(
-            page_translations__language__code='de',
-            site__slug=Site.get_current_site(request).slug
+        pages = cls.objects.all().prefetch_related(
+            'page_translations'
+        ).filter(
+            site__slug=site_slug
         )
         return pages
 
@@ -95,7 +109,11 @@ class PageTranslation(models.Model):
     title = models.CharField(max_length=250)
     status = models.CharField(max_length=9, choices=STATUS, default='draft')
     text = models.TextField()
-    language = models.ForeignKey(Language, related_name='pages', on_delete=models.CASCADE)
+    language = models.ForeignKey(
+        Language,
+        related_name='page_translations',
+        on_delete=models.CASCADE
+    )
     currently_in_translation = models.BooleanField(default=False)
     version = models.PositiveIntegerField(default=0)
     public = models.BooleanField(default=False)

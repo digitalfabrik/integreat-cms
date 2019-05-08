@@ -10,6 +10,14 @@ git clone git@github.com:Integreat/cms-django.git
 cd cms-django
 ````
 
+### Development Tools
+
+- Delete docker environment to start over again: `dev-tools/prune_docker.sh`
+  (be careful: This will delete all your other docker images as well)
+- Delete database to start over again: `dev-tools/prune_database.sh`
+- Migrate database: `dev-tools/migrate.sh`
+- Create superuser: `dev-tools/create_superuser.sh`
+
 ### Run CMS in Python3 venv
 1. Install a local PostgreSQL server, for example with `apt install postgresql` and create a database and database user with the name `integreat`.
 2. Run `./install-venv.sh`

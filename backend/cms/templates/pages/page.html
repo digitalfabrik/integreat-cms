@@ -8,12 +8,24 @@
     <div class="flex flex-wrap mb-4">
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
             <h2 class="heading font-normal">
-	            {% trans 'Create new page' %}
+                {% if page %}
+		            {% if form.title.value %}
+			            {% with form.title.value as page_title %}
+			            {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
+			            {% endwith %}
+		            {% else %}
+			            {% trans 'Create new translation' %}
+		            {% endif %}
+                {% else %}
+	                {% trans 'Create new page' %}
+                {% endif %}
             </h2>
         </div>
         <div class="w-3/5 flex justify-end">
             <input type="submit" name="submit_save" class="cursor-pointer bg-grey hover:bg-grey-dark text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
-            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% if not public %}
+                <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% endif %}
         </div>
     </div>
 
@@ -23,7 +35,7 @@
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
 	            {% trans 'Insert title here' as title_placeholder%}
                 {% render_field form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                <div class="mt-4">
+	            <div class="mt-4">
 	                {% trans 'Insert content here' as text_placeholder%}
                     {% render_field form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2" %}
                 </div>
@@ -52,77 +64,32 @@
                     <span class="block mb-2 font-bold">{% trans 'Language' %}</span>
                     <label class="text-xs uppercase block">{% trans 'Current language' %}</label>
                     <div class="relative my-2">
-                        {% render_field form.language id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                        </div>
+	                    {{ language.name }}
                     </div>
-                    <div class="entity-lang-list mt-4 mb-2">
-                        <label class="text-xs uppercase block mb-2">{% trans 'Translations' %}</label>
-                        <!-- TODO: get available languages from site settings -->
-                        <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td>
-                                    <a href="" class="text-black block p-2">
-	                                    {% trans 'Arabic' %}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="text-black block p-2 relative">
-                                        <i data-feather="edit-2"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="" class="text-black block p-2">
-	                                    {% trans 'English' %}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="text-black block p-2 relative">
-                                        <i data-feather="edit-2"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="" class="text-black block p-2">
-	                                    {% trans 'Farsi' %}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="text-black block p-2 relative">
-                                        <i data-feather="plus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="" class="text-black block p-2">
-	                                    {% trans 'French' %}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="text-black block p-2 relative">
-                                        <i data-feather="plus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="" class="text-black block p-2">
-	                                    {% trans 'Turkish' %}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="text-black block p-2 relative">
-                                        <i data-feather="plus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    {% if page %}
+	                    <div class="entity-lang-list mt-4 mb-2">
+	                        <label class="text-xs uppercase block mb-2">{% trans 'Translations' %}</label>
+	                        <!-- TODO: get available languages from site settings -->
+	                        <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
+		                        {% for other_language in languages %}
+			                        {% if other_language != language %}
+				                        <tr>
+					                        <td>
+						                        <a href="{% url 'edit_page' page_id=page.id site_slug=site.slug language_code=other_language.code %}" class="text-black block p-2">
+							                        {{ other_language.name }}
+						                        </a>
+					                        </td>
+					                        <td>
+						                        <a href="" class="text-black block p-2 relative">
+							                        <i data-feather="{% if other_language in page.languages %}edit-2{% else %}plus{% endif %}"></i>
+						                        </a>
+					                        </td>
+				                        </tr>
+			                        {% endif %}
+		                        {% endfor %}
+	                        </table>
+	                    </div>
+                    {% endif %}
                 </div>
                 <div class="py-2 border-b solid border-grey-lighter mb-2">
                     <span class="font-bold mb-2 block">{% trans 'Positioning' %}</span>
@@ -133,6 +100,15 @@
                     <label for="parent" class="text-xs uppercase">{% trans 'Page' %}</label>
                     <div class="relative my-2">
                         {% render_field form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
+                </div>
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+                    <label for="public" class="font-bold">{% trans 'Visibility' %}</label>
+                    <div class="relative my-2">
+                        {% render_field form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>

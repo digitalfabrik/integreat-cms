@@ -34,6 +34,10 @@ class Language(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """Function that provides a string representation of this object
+
+        Returns: String
+        """
         return self.name
 
 
@@ -75,4 +79,8 @@ class LanguageTreeNode(MPTTModel):
         unique_together = (('language', 'site', ), )
 
     def __str__(self):
+        """Function that provides a string representation of this object
+
+        Returns: String
+        """
         return self.language.name

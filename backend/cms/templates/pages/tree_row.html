@@ -1,3 +1,4 @@
+{% load page_filters %}
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest{% if node.depth > 0 %} child level-{{node.depth}}{% endif %}">
     <td class="single_icon">
         <span class="block py-3 pl-4 pr-2 cursor-move">
@@ -5,25 +6,18 @@
         </span>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_translation_id=node.id site_slug=site.slug %}" class="block py-3 px-2 text-grey-darkest">
-            {{ node }}
+        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+	        {{ node|page_translation_title:language }}
         </a>
     </td>
     <td>
         <div class="block py-3 px-2 text-grey-darkest">
             <div class="lang-grid">
-                <a href="">
-                    <i data-feather="plus" class="text-grey-darkest"></i>
-                </a>
-                <a href="">
-                    <i data-feather="edit-2" class="text-grey-darkest"></i>
-                </a>
-                <a href="">
-                    <i data-feather="edit-2" class="text-grey-darkest"></i>
-                </a>
-                <a href="">
-                    <i data-feather="plus" class="text-grey-darkest"></i>
-                </a>
+	            {% for other_language in languages %}
+		            <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=other_language.code %}">
+			            <i data-feather="{% if other_language in node.languages %}edit-2{% else %}plus{% endif %}" class="text-grey-darkest"></i>
+		            </a>
+	            {% endfor %}
             </div>
         </div>
     </td>
@@ -32,10 +26,10 @@
         <a href="" class="py-3" style="padding-right:4px;">
             <i data-feather="eye" class="text-grey-darkest"></i>
         </a>
-        <a href="{% url 'edit_page' page_translation_id=node.id site_slug=site.slug %}" class="py-3" style="padding-left:4px;padding-right:4px;">
+        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="py-3" style="padding-left:4px;padding-right:4px;">
             <i data-feather="edit" class="text-grey-darkest"></i>
         </a>
-        <a href="{% url 'delete_page' page_translation_id=node.id site_slug=site.slug %}" class="py-3" style="padding-left:4px;padding-right:4px;">
+        <a href="{% url 'delete_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="py-3" style="padding-left:4px;padding-right:4px;">
             <i data-feather="trash-2" class="text-grey-darkest"></i>
         </a>
     </td>

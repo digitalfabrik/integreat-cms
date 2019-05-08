@@ -43,6 +43,7 @@ urlpatterns = [
         ])),
     ])),
 
+    url(r'^settings/$', general.AdminSettingsView.as_view(), name='admin_settings'),
     url(r'^login/$', registration.login, name='login'),
     url(r'^logout/$', registration.logout, name='logout'),
     url(r'^password_reset/', include([
@@ -73,20 +74,23 @@ urlpatterns = [
         url(r'^$', general.DashboardView.as_view(), name='dashboard'),
         url(r'^pages/', include([
             url(r'^$', pages.PageTreeView.as_view(), name='pages'),
-            url(r'^new$', pages.PageView.as_view(), name='new_page'),
-            url(r'^(?P<page_translation_id>[0-9]+)/', include([
-                url(
-                    r'^edit$',
-                    pages.PageView.as_view(),
-                    name='edit_page'
-                ),
-                url(
-                    r'^delete$',
-                    pages.PageView.as_view(),
-                    name='delete_page'
-                ),
+            url(r'^(?P<language_code>[-\w]+)/', include([
+                url(r'^$', pages.PageTreeView.as_view(), name='pages'),
+                url(r'^new$', pages.PageView.as_view(), name='new_page'),
+                url(r'^(?P<page_id>[0-9]+)/', include([
+                    url(
+                        r'^edit$',
+                        pages.PageView.as_view(),
+                        name='edit_page'
+                    ),
+                    url(
+                        r'^delete$',
+                        pages.PageView.as_view(),
+                        name='delete_page'
+                    ),
+                ])),
+                url(r'^archive$', pages.archive, name='archived_pages'),
             ])),
-            url(r'^archive$', pages.archive, name='archived_pages'),
         ])),
         url(r'^language-tree/', include([
             url(r'^$', language_tree.LanguageTreeView.as_view(), name='language_tree'),
@@ -109,5 +113,6 @@ urlpatterns = [
             ])),
         ])),
         url(r'^statistics/$', statistics.AnalyticsView.as_view(), name='statistics'),
+        url(r'^settings/$', general.SettingsView.as_view(), name='settings'),
     ])),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
