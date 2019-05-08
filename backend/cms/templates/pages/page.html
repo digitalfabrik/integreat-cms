@@ -22,7 +22,7 @@
             </h2>
         </div>
         <div class="w-3/5 flex justify-end">
-            <input type="submit" name="submit_save" class="cursor-pointer bg-grey hover:bg-grey-dark text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
+            <input type="submit" name="submit_save" class="{% if public %}bg-blue hover:bg-blue-dark{% else %}bg-grey hover:bg-grey-dark{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
             {% if not public %}
                 <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
             {% endif %}
