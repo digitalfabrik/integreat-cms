@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load page_filters %}
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest{% if node.depth > 0 %} child level-{{node.depth}}{% endif %}">
     <td class="single_icon">
@@ -21,16 +22,38 @@
             </div>
         </div>
     </td>
-    <td class="pl-2 pr-4" width="125">
+    <td class="pl-2 pr-4" width="150">
         <!-- TODO: add link to view page in web app -->
-        <a href="" class="py-3" style="padding-right:4px;">
+        <a href="" title="{% trans 'View page' %}" class="py-3" style="padding-right:4px;">
             <i data-feather="eye" class="text-grey-darkest"></i>
         </a>
-        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="py-3" style="padding-left:4px;padding-right:4px;">
+        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
             <i data-feather="edit" class="text-grey-darkest"></i>
         </a>
-        <a href="{% url 'delete_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="py-3" style="padding-left:4px;padding-right:4px;">
+        <a href="{% url 'delete_page' page_id=node.id site_slug=site.slug language_code=language.code %}" title="{% trans 'Delete page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
             <i data-feather="trash-2" class="text-grey-darkest"></i>
         </a>
+
+        <button title="{% trans 'Archive page' %}" class="py-3" style="padding-left:4px;" onclick="confirmation_popup(event, '#confirm_archive_page{{ node.id }}')">
+            <i data-feather="archive" class="text-grey-darkest"></i>            
+        </button>
+
+        <!-- confirmation popup -->
+        <div id="confirm_archive_page{{ node.id }}" class="confirmation-popup flex-col justify-center max-w-sm fixed pin-t pin-b pin-r pin-l hidden">
+            <div class="content bg-grey-light w-full p-4 shadow-md rounded">
+                <h2>{% trans 'Please confirm that you really want to archive this page' %}</h2>
+                <p class="mt-4 mb-6">
+                    {% trans 'All translations of this page will also be archived.' %}
+                </p>
+                <form method="post" action="{% url 'archive_page' page_id=node.id site_slug=site.slug language_code=language.code %}">
+                    {% csrf_token %}
+                    <input type="submit" class="inline-block cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, archive this page now.' %}" />
+                    <button class="cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+                        {% trans 'Cancel' %}
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!------------------------>
     </td>
 </tr>

@@ -37,7 +37,7 @@ class PageForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(PageForm, self).__init__(*args, **kwargs)
 
-    def save_page(self, site_slug, language_code, page_id=None, publish=False):
+    def save_page(self, site_slug, language_code, page_id=None, publish=False, archived=False):
         """Function to create or update a page
 
             page_id ([Integer], optional): Defaults to None.
@@ -86,14 +86,17 @@ class PageForm(forms.ModelForm):
 
         # TODO: version, active_version
         if page_id:
-            print("DEBUG 1: ", file=sys.stderr)
             # save page
             page = Page.objects.get(id=page_id)
             page.icon = self.cleaned_data['icon']
+            if archived:
+                page.public = False
+                page.archived = True
+            else:
+                page.public = self.cleaned_data['public']
             page.save()
             page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
         else:
-            print("DEBUG 2: ", file=sys.stderr)
             # create page
             page = Page.objects.create(
                 icon=self.cleaned_data['icon'],

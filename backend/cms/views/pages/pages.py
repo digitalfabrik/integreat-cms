@@ -17,6 +17,7 @@ class PageTreeView(TemplateView):
         # current site
         site_slug = kwargs.get('site_slug')
         site = Site.objects.get(slug=site_slug)
+
         # current language
         language_code = kwargs.get('language_code', None)
         if language_code:
@@ -34,8 +35,10 @@ class PageTreeView(TemplateView):
             return redirect('language_tree', **{
                 'site_slug': site_slug,
             })
+
         # all pages of the current site in the current language
         pages = Page.get_tree(site_slug)
+        
         # all other languages of current site
         languages = site.languages
 
@@ -45,6 +48,7 @@ class PageTreeView(TemplateView):
             {
                 **self.base_context,
                 'pages': pages,
+                'archived_count': Page.archived_count(site_slug),
                 'language': language,
                 'languages': languages,
             }

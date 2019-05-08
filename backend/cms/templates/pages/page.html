@@ -132,6 +132,18 @@
                         <span class="filename"></span>
                     </label>
                 </div>
+                <div class="pt-2 pb-4">
+                    <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
+                    {% if page.archived %}
+                        {% trans 'Page is archived.' %}
+                    {% else %}
+                        <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_page')">
+                            {% trans 'Archive this page' %}
+                        </button>
+                    {% endif %}
+
+                    {% include "../general/confirmation_popups/archive_page.html" %}
+                </div>
             </div>
         </div>
     </div>

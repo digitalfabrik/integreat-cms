@@ -30,6 +30,7 @@ class PageView(TemplateView):
         )
         initial = {}
         public = False
+
         if page:
             initial['parent'] = page.parent
             # remove children from possible parents
@@ -46,6 +47,7 @@ class PageView(TemplateView):
                 public = page_translation.public
         form = PageForm(initial=initial)
         form.fields['parent'].queryset = parent_queryset
+
         return render(request, self.template_name, {
             'form': form,
             'public': public,
@@ -70,10 +72,22 @@ class PageView(TemplateView):
                     publish=True
                 )
                 if page_id:
-                    messages.success(request, _('Page was published successfully.'))
+                    messages.success(request, _('Page was successfully published.'))
                 else:
                     page_id = page.id
-                    messages.success(request, _('Page was created and published successfully.'))
+                    messages.success(request, _('Page was successfully created and published.'))
+            elif form.data.get('submit_archive'):
+                page = form.save_page(
+                        site_slug=site_slug,
+                        language_code=language_code,
+                        page_id=page_id,
+                        archived=True
+                    )
+                if page_id:
+                    messages.success(request, _('Page was successfully saved.'))
+                else:
+                    page_id = page.id
+                    messages.success(request, _('Page was successfully created.'))
             else:
                 page = form.save_page(
                     site_slug=site_slug,
@@ -82,10 +96,10 @@ class PageView(TemplateView):
                     publish=False
                 )
                 if page_id:
-                    messages.success(request, _('Page was saved successfully.'))
+                    messages.success(request, _('Page was successfully saved.'))
                 else:
                     page_id = page.id
-                    messages.success(request, _('Page was created successfully.'))
+                    messages.success(request, _('Page was successfully created.'))
         else:
             messages.error(request, _('Errors have occurred.'))
         if page_id:
@@ -95,3 +109,32 @@ class PageView(TemplateView):
                 'language_code': language_code,
             })
         return redirect('new_page', **kwargs)
+
+
+@login_required
+def archive_page(request, page_id, site_slug, language_code):
+    page = Page.objects.get(id=page_id)
+    page.public = False
+    page.archived = True
+    page.save()
+
+    messages.success(request, _('Page was successfully archived.'))
+
+    return redirect('pages', **{
+                'site_slug': site_slug,
+                'language_code': language_code,
+            })
+
+
+@login_required
+def restore_page(request, page_id, site_slug, language_code):
+    page = Page.objects.get(id=page_id)
+    page.archived = False
+    page.save()
+
+    messages.success(request, _('Page was successfully restored.'))
+
+    return redirect('pages', **{
+                'site_slug': site_slug,
+                'language_code': language_code,
+            })

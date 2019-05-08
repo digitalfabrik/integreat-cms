@@ -1,8 +1,9 @@
 {% extends "_base.html" %}
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load mptt_tags %}
+
+{% block content %}
 <div class="table-header">
     <div class="flex flex-wrap">
         <div class="w-1/2">
@@ -10,7 +11,12 @@
         </div>
         <div class="w-1/2 flex flex-wrap flex-col justify-center">
             <div class="flex flex-wrap justify-end">
-                <a href="{% url 'archived_pages' site_slug=site.slug language_code=language.code %}" class="font-bold text-xs text-grey-darkest block pb-2">{% trans 'Archived pages' %}</a>
+                <a href="{% url 'archived_pages' site_slug=site.slug language_code=language.code %}" class="font-bold text-xs text-grey-darkest block pb-2 hover:underline">
+                    {% trans 'Archived pages' %}
+                    <span class="inline-block rounded-full bg-integreat text-grey-darkest px-2 py-1 text-xs font-bold">
+                        {{ archived_count }}
+                    </span>
+                </a>
             </div>
         </div>
     </div>
@@ -37,9 +43,9 @@
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">
                     <div class="lang-grid flags">
-	                    {% for other_language in languages %}
-		                    <a href="{% url 'pages' site_slug=site.slug language_code=other_language.code %}">
-			                    <img src="{% static '' %}images/flags/{{ other_language.code }}.png" title="{{ other_language.name }}" />
+	                    {% for lang in languages %}
+		                    <a href="{% url 'pages' site_slug=site.slug language_code=lang.code %}">
+			                    <img src="{% static '' %}images/flags/{{ lang.code }}.png" title="{{ lang.name }}" />
 		                    </a>
 	                    {% endfor %}
                     </div>

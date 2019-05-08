@@ -2,5 +2,5 @@
 Python standard Init-File
 """
 from .pages import PageTreeView
-from .page import PageView
-from .archive import archive
+from .page import PageView, archive_page, restore_page
+from .archive import ArchivedPagesView

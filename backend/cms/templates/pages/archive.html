@@ -1,5 +1,72 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load static %}
+
 {% block content %}
-    Archived pages
+<div class="table-header">
+    <div class="w-1/2">
+        <h2 class="heading font-normal mb-2">{% trans 'Archived Pages' %}</h2>
+    </div>
+    <div class="flex flex-wrap">
+        <form class="table-search relative w-full">
+            <i data-feather="search" class="absolute"></i>
+            <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
+        </form>
+    </div>
+</div>
+<div class="table-listing">
+    <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-grey-light">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 w-full">{% trans 'Title' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Operations' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if pages %}
+            {% for page in pages %}
+            	<tr>
+            		<td class="pl-4 pr-2 py-3">
+            			{{ page }}
+            		</td>
+                    <td class="pl-2 pr-4 py-3">
+                        <button title="{% trans 'Restore page' %}" class="text-grey-darkest flex flex-wrap" onclick="confirmation_popup(event, '#confirm_restore_page{{ page.id }}')">
+                            <div>
+                                <i data-feather="refresh-ccw" class="text-grey-darkest"></i>
+                            </div>
+                            <div class="pl-2">
+                                {% trans 'Restore' %}
+                            </div>
+                        </button>
+
+                        <!-- confirmation popup -->
+                        <div id="confirm_restore_page{{ page.id }}" class="confirmation-popup flex-col justify-center max-w-sm fixed pin-t pin-b pin-r pin-l hidden">
+                            <div class="content bg-grey-light w-full p-4 shadow-md rounded">
+                                <h2>{% trans 'Please confirm that you really want to restore this page' %}</h2>
+                                <p class="mt-4 mb-6">
+                                    {% trans 'All translations of this page will also be restored.' %}
+                                </p>
+                                <form method="post" action="{% url 'restore_page' page_id=page.id site_slug=site.slug language_code=language.code %}">
+                                    {% csrf_token %}
+                                    <input type="submit" class="inline-block cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, restore this page now.' %}" />
+                                    <button class="cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+                                        {% trans 'Cancel' %}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <!------------------------>
+                    </td>
+            	</tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="2" class="px-2 py-3">
+	                {% trans 'No pages available yet.' %}
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

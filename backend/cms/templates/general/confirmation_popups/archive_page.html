@@ -1,0 +1,13 @@
+{% load i18n %}
+<div id="confirm_archive_page" class="confirmation-popup flex-col justify-center max-w-sm fixed pin-t pin-b pin-r pin-l hidden">
+	<div class="content bg-grey-light w-full p-4 shadow-md rounded">
+		<h2>{% trans 'Please confirm that you really want to archive this page' %}</h2>
+		<p class="mt-4 mb-6">
+            {% trans 'All translations of this page will also be archived.' %}
+		</p>
+		<input type="submit" name="submit_archive" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, archive this page now.' %}" />
+		<button class="cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+			{% trans 'Cancel' %}
+		</button>
+	</div>
+</div>

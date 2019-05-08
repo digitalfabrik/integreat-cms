@@ -84,12 +84,22 @@ urlpatterns = [
                         name='edit_page'
                     ),
                     url(
+                        r'^archive$',
+                        pages.archive_page,
+                        name='archive_page'
+                    ),
+                    url(
+                        r'^restore$',
+                        pages.restore_page,
+                        name='restore_page'
+                    ),
+                    url(
                         r'^delete$',
                         pages.PageView.as_view(),
                         name='delete_page'
                     ),
                 ])),
-                url(r'^archive$', pages.archive, name='archived_pages'),
+                url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
             ])),
         ])),
         url(r'^language-tree/', include([

@@ -33,6 +33,7 @@ class Page(MPTTModel):
         upload_to='pages/%Y/%m/%d'
     )
     site = models.ForeignKey(Site, related_name='pages', on_delete=models.CASCADE)
+    archived = models.BooleanField(default=False)
     mirrored_page = models.ForeignKey('self', null=True, on_delete=models.PROTECT)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
@@ -69,6 +70,12 @@ class Page(MPTTModel):
             'language_code': self.site.default_language.code,
         })
 
+    def get_archived(site_slug):
+        return Page.objects.filter(archived=True, site__slug=site_slug)
+
+    def archived_count(site_slug):
+        return Page.objects.filter(archived=True, site__slug=site_slug).count()
+
     def __str__(self):
         # TODO: get current language title
         translation = PageTranslation.objects.filter(page=self).first()
@@ -77,18 +84,31 @@ class Page(MPTTModel):
         return ""
 
     @classmethod
-    def get_tree(cls, site_slug):
+    def get_tree(cls, site_slug, archived=False):
         """Function for building up a Treeview of all pages
+        
+        Args:
+            site_slug: slug of the site the page belongs to
+            archived:  if true archived pages will be included
 
         Returns:
             [pages]: Array of pages connected with their relations
         """
 
-        pages = cls.objects.all().prefetch_related(
-            'page_translations'
-        ).filter(
-            site__slug=site_slug
-        )
+        if archived:
+            pages = cls.objects.all().prefetch_related(
+                'page_translations'
+            ).filter(
+                site__slug=site_slug
+            )
+        else:
+            pages = cls.objects.all().prefetch_related(
+                'page_translations'
+            ).filter(
+                site__slug=site_slug,
+                archived=False
+            )
+
         return pages
 
 
