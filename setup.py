@@ -19,7 +19,7 @@ setup(
         "asn1crypto==0.24.0",
         "cffi==1.11.5",
         "cryptography==2.3.1",
-        "Django==1.11.18",
+        "Django==1.11.20",
         "django-js-asset==1.1.0",
         "django-mptt==0.9.1",
         "django-widget-tweaks==1.4.3",
