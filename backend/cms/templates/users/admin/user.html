@@ -1,0 +1,116 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h2 class="heading font-normal">
+	            {% if user_form.instance.id %}
+		            {% with user_form.username.value as user_name %}
+			            {% blocktrans %}Edit user "{{ user_name }}"{% endblocktrans %}
+		            {% endwith %}
+	            {% else %}
+		            {% trans 'Create new user' %}
+	            {% endif %}
+            </h2>
+        </div>
+        <div class="w-3/5 flex justify-end">
+            <input type="submit" name="submit" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        </div>
+    </div>
+
+    <div class="flex flex-wrap">
+	    <div class="w-1/2 pr-4">
+		    {{ user_form.errors }}
+		    {{ user_profile_form.errors }}
+		    <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+				<div class="w-full p-4 rounded bg-blue-dark">
+					<h3 class="heading font-bold text-white">{% trans 'General Settings' %}</h3>
+				</div>
+				<div class="w-full p-4">
+
+					<!-- General Options for user management -->
+                    <label for="username" class="font-bold block p-2 mb-2">{% trans "Username" %}</label>
+                    {% trans "Enter the username here" as username_placeholder%}
+                    {% render_field user_form.username placeholder=username_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+                    <label for="first_name" class="font-bold block p-2 mb-2">{% trans "First name of the user" %}</label>
+                    {% trans "Enter the user's first name here" as first_name_placeholder%}
+                    {% render_field user_form.first_name placeholder=first_name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+                    <label for="last_name" class="font-bold block p-2 mb-2">{% trans "Last name of the user" %}</label>
+                    {% trans "Enter the user's last name here" as last_name_placeholder%}
+                    {% render_field user_form.last_name placeholder=last_name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+                    <label for="email" class="font-bold block p-2 mb-2">{% trans 'E-mail-address of the user' %}</label>
+                    {% trans "Enter the user's e-mail-address here" as email_placeholder%}
+                    {% render_field user_form.email placeholder=email_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+                    <label for="password" class="font-bold block p-2 mb-2">{% trans 'Password of the user' %}</label>
+                    <ul>
+                        {% for item in user_form.password.help_text %}
+                            <li>{{ item }}
+                        {% endfor %}
+                    </ul>
+                    {% if user_form.instance.id %}{% trans 'Leave empty to keep unchanged' as password_placeholder%}{% else %}{% trans "Enter the user's password here" as password_placeholder%}{% endif %}
+                    {% render_field user_form.password placeholder=password_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+				</div>
+			</div>
+		</div>
+	<div class="w-1/2 pr-4">
+		<div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			<div class="w-full p-4 rounded bg-blue-dark">
+				<h3 class="heading font-bold text-white">{% trans 'Extended Settings' %}</h3>
+			</div>
+
+			<div class="w-full p-4">
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    <label for="is_superuser" class="font-bold">{% trans 'Superuser' %}</label>
+                    {% render_field user_form.is_superuser %}
+                </div>
+
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    <label for="is_staff" class="font-bold">{% trans 'Staff' %}</label>
+                    {% render_field user_form.is_staff %}
+                </div>
+
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    <label for="is_active" class="font-bold">{% trans 'Active' %}</label>
+                    {% render_field user_form.is_active %}
+                </div>
+
+                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Roles' %}</span>
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    {% render_field user_form.roles %}
+                </div>
+
+                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Regions' %}</span>
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    {% render_field user_profile_form.regions %}
+                </div>
+
+                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Organization' %}</span>
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    {% render_field user_profile_form.organization %}
+                </div>
+				
+			</div>
+			
+		</div>
+	</div>
+	    {% if user_form.instance.id %}
+	    <div class="pt-2 pb-4">
+		    <button class="bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_user')">
+			    {% trans 'Delete this user' %}
+		    </button>
+
+		    {% include "../../general/confirmation_popups/delete_user.html" %}
+	    </div>
+	    {% endif %}
+</div>
+</form>
+{% endblock %}

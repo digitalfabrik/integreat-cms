@@ -4,8 +4,8 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from .views import general, registration, pages, regions, languages, language_tree, push_notifications, media, analytics
-from .views.statistics import statistics
+
+from .views import general, registration, pages, regions, languages, language_tree, users, roles, organizations, statistics, push_notifications, media, analytics
 
 
 urlpatterns = [
@@ -39,6 +39,54 @@ urlpatterns = [
                 r'^delete$',
                 languages.LanguageView.as_view(),
                 name='delete_language'
+            ),
+        ])),
+    ])),
+    url(r'^users/', include([
+        url(r'^$', users.UserListView.as_view(), name='users'),
+        url(r'^new$', users.UserView.as_view(), name='new_user'),
+        url(r'^(?P<user_id>[0-9]+)/', include([
+            url(
+                r'^edit$',
+                users.UserView.as_view(),
+                name='edit_user'
+            ),
+            url(
+                r'^delete$',
+                users.delete_user,
+                name='delete_user'
+            ),
+        ])),
+    ])),
+    url(r'^roles/', include([
+        url(r'^$', roles.RoleListView.as_view(), name='roles'),
+        url(r'^new$', roles.RoleView.as_view(), name='new_role'),
+        url(r'^(?P<role_id>[0-9]+)/', include([
+            url(
+                r'^edit$',
+                roles.RoleView.as_view(),
+                name='edit_role'
+            ),
+            url(
+                r'^delete$',
+                roles.RoleView.as_view(),
+                name='delete_role'
+            ),
+        ])),
+    ])),
+    url(r'^organizations/', include([
+        url(r'^$', organizations.OrganizationListView.as_view(), name='organizations'),
+        url(r'^new$', organizations.OrganizationView.as_view(), name='new_organization'),
+        url(r'^(?P<organization_id>[0-9]+)/', include([
+            url(
+                r'^edit$',
+                organizations.OrganizationView.as_view(),
+                name='edit_organization'
+            ),
+            url(
+                r'^delete$',
+                organizations.OrganizationView.as_view(),
+                name='delete_organization'
             ),
         ])),
     ])),
@@ -161,6 +209,22 @@ urlpatterns = [
                 url(r'^new$', media.MediaEditView.as_view(), name='new_upload_file'),
                 url(r'^edit$', media.MediaEditView.as_view(), name='edit_file'),
                 url(r'^delete$', media.delete_file, name='delete_file'),
+            ])),
+        ])),
+        url(r'^users/', include([
+            url(r'^$', users.RegionUserListView.as_view(), name='region_users'),
+            url(r'^new$', users.RegionUserView.as_view(), name='new_region_user'),
+            url(r'^(?P<user_id>[0-9]+)/', include([
+                url(
+                    r'^edit$',
+                    users.RegionUserView.as_view(),
+                    name='edit_region_user'
+                ),
+                url(
+                    r'^delete$',
+                    users.delete_region_user,
+                    name='delete_region_user'
+                ),
             ])),
         ])),
     ])),

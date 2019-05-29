@@ -6,7 +6,7 @@ from django.shortcuts import render
 @method_decorator(login_required, name='dispatch')
 class SettingsView(TemplateView):
     template_name = 'general/settings.html'
-    base_context = {'current_menu_item': 'settings'}
+    base_context = {'current_menu_item': 'region_settings'}
 
     def get(self, request, *args, **kwargs):
         settings = 'to be defined'

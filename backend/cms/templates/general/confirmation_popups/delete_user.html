@@ -1,0 +1,15 @@
+{% load i18n %}
+<div id="confirm_delete_user" class="confirmation-popup flex-col justify-center max-w-sm fixed pin-t pin-b pin-r pin-l hidden">
+	<div class="content bg-grey-light w-full p-4 shadow-md rounded">
+		<h2>{% trans 'Please confirm that you really want to delete this user' %}</h2>
+		<p class="mt-4 mb-6">
+            {% trans 'This cannot be reversed.' %}
+		</p>
+		<a href="{% url 'delete_user' user_id=user_form.instance.id %}" class="bg-red hover:bg-red-dark text-white font-bold py-3 px-4 mr-2 rounded focus:outline-none focus:shadow-outline">
+			{% trans 'Yes, delete this user now' %}
+		</a>
+		<button class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+			{% trans 'Cancel' %}
+		</button>
+	</div>
+</div>

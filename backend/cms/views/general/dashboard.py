@@ -19,7 +19,7 @@ class DashboardView(TemplateView):
     """
 
     template_name = 'general/dashboard.html'
-    base_context = {'current_menu_item': 'dashboard'}
+    base_context = {'current_menu_item': 'region_dashboard'}
 
     def get(self, request, *args, **kwargs):
         val = 'To be defined'

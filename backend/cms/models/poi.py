@@ -1,8 +1,8 @@
 """Model for Point of Interests
 
 """
-from django.contrib.auth.models import User
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 
 from .site import Site
@@ -35,7 +35,7 @@ class POI(models.Model):
 
         poi_translations = POITranslation.objects.filter(
             language='de'
-        ).select_related('user')
+        ).select_related('creator')
         pois = cls.objects.all().prefetch_related(
             models.Prefetch('poi_translations', queryset=poi_translations)
         ).filter(poi_translations__language='de')
@@ -66,4 +66,4 @@ class POITranslation(models.Model):
     public = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)

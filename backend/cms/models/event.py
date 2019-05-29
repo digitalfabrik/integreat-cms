@@ -6,7 +6,7 @@ Raises:
 from datetime import datetime, time, date
 
 from dateutil.rrule import weekday, rrule
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -113,7 +113,7 @@ class Event(models.Model):
 
         event_translations = EventTranslation.objects.filter(
             language='de'
-        ).select_related('user')
+        ).select_related('creator')
         events = cls.objects.all().prefetch_related(
             models.Prefetch('event_translations', queryset=event_translations)
         ).filter(event_translations__language='de')
@@ -178,4 +178,4 @@ class EventTranslation(models.Model):
     event = models.ForeignKey(Event, related_name='event_translations', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
