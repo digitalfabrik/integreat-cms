@@ -5,6 +5,10 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from .matomo_api_manager import MatomoApiManager
+from ...models import Page, Site, Language
+from django.utils.translation import ugettext as _
+
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -37,14 +41,16 @@ class AnalyticsView(TemplateView):
         return csv_raw
 
     def get(self, request, *args, **kwargs):
+        site_slug = kwargs.get('site_slug')
+        site = Site.objects.get(slug=site_slug)
         start_date = request.GET.get('start_date', str(date.today() -
                                                        timedelta(days=30)))
         end_date = request.GET.get('end_date', str(date.today()))
         languages = [["de", "Deutsch", "#7e1e9c"], ["en", "Englisch", "#15b01a"],
                      ["ar", "Arabisch", "#0343df"]]
 
-        api_man = MatomoApiManager(matomo_url="https://statistics.integreat-app.de",
-                                   matomo_api_key="",
+        api_man = MatomoApiManager(matomo_url=site.matomo_url,
+                                   matomo_api_key=site.matomo_token,
                                    ssl_verify=True)
         response_dates = []
         response_hits = []
