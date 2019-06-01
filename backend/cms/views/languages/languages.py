@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -12,7 +13,10 @@ from ...decorators import staff_required
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(staff_required, name='dispatch')
-class LanguageListView(TemplateView):
+class LanguageListView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.manage_languages'
+    raise_exception = True
+
     template_name = 'languages/list.html'
     base_context = {'current_menu_item': 'languages'}
 
@@ -31,7 +35,10 @@ class LanguageListView(TemplateView):
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(staff_required, name='dispatch')
-class LanguageView(TemplateView):
+class LanguageView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.manage_languages'
+    raise_exception = True
+
     template_name = 'languages/language.html'
     base_context = {'current_menu_item': 'languages'}
     language_code = None

@@ -157,6 +157,14 @@ class Event(models.Model):
             return [x for x in occurrences if start <= x <= end or start <= x + event_span <= end]
         return [event_start] if start <= event_start <= end or start <= event_end <= end else []
 
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('view_events', 'Can view events'),
+            ('edit_events', 'Can edit events'),
+            ('publish_events', 'Can publish events'),
+        )
+
 
 class EventTranslation(models.Model):
     """
@@ -179,3 +187,6 @@ class EventTranslation(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        default_permissions = ()

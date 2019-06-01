@@ -25,6 +25,14 @@ class PushNotification(models.Model):
             return self.translations.first().title
         return ""
 
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('view_push_notifications', 'Can view push notification'),
+            ('edit_push_notifications', 'Can edit push notification'),
+            ('send_push_notifications', 'Can send push notification'),
+        )
+
 
 class PushNotificationTranslation(models.Model):
     """Class representing the Translation of a Push Notification
@@ -41,3 +49,6 @@ class PushNotificationTranslation(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        default_permissions = ()

@@ -18,5 +18,5 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-    class Meta():
+    class Meta:
         default_permissions = ()

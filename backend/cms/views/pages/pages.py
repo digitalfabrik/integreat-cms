@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -11,7 +12,10 @@ from ...decorators import region_permission_required
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
-class PageTreeView(TemplateView):
+class PageTreeView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.view_pages'
+    raise_exception = True
+
     template_name = 'pages/tree.html'
     base_context = {'current_menu_item': 'pages'}
 

@@ -6,6 +6,7 @@ Returns:
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
@@ -18,7 +19,10 @@ from ...decorators import region_permission_required
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
-class LanguageTreeNodeView(TemplateView):
+class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.manage_language_tree'
+    raise_exception = True
+
     template_name = 'language_tree/tree_node.html'
     base_context = {'current_menu_item': 'language_tree'}
 

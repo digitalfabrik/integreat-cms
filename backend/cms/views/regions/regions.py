@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -12,7 +13,10 @@ from ...decorators import staff_required
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(staff_required, name='dispatch')
-class RegionListView(TemplateView):
+class RegionListView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.manage_regions'
+    raise_exception = True
+
     template_name = 'regions/list.html'
     base_context = {'current_menu_item': 'regions'}
 
@@ -31,7 +35,10 @@ class RegionListView(TemplateView):
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(staff_required, name='dispatch')
-class RegionView(TemplateView):
+class RegionView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.manage_regions'
+    raise_exception = True
+
     template_name = 'regions/region.html'
     base_context = {'current_menu_item': 'regions'}
     region_slug = None

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -13,7 +14,9 @@ from ...decorators import staff_required
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(staff_required, name='dispatch')
-class UserListView(TemplateView):
+class UserListView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.change_user'
+    raise_exception = True
 
     template_name = 'users/admin/list.html'
     base_context = {'current_menu_item': 'users'}
@@ -33,7 +36,9 @@ class UserListView(TemplateView):
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(staff_required, name='dispatch')
-class UserView(TemplateView):
+class UserView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.change_user'
+    raise_exception = True
 
     template_name = 'users/admin/user.html'
     base_context = {'current_menu_item': 'users'}

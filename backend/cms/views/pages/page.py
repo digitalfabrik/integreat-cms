@@ -7,8 +7,10 @@ import os
 import uuid
 import logging
 
+from django.core.exceptions import PermissionDenied
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
@@ -27,7 +29,10 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
-class PageView(TemplateView):
+class PageView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.view_pages'
+    raise_exception = True
+
     template_name = 'pages/page.html'
     base_context = {'current_menu_item': 'pages'}
 
@@ -62,6 +67,13 @@ class PageView(TemplateView):
         })
 
     def post(self, request, *args, **kwargs):
+
+        if not request.user.has_perm('cms.edit_pages'):
+            raise PermissionDenied
+
+        if 'submit_publish' in request.POST or request.POST.get('public') == 'True':
+            if not request.user.has_perm('cms.publish_pages'):
+                raise PermissionDenied
 
         site = Site.objects.get(slug=kwargs.get('site_slug'))
         language = Language.objects.get(code=kwargs.get('language_code'))
@@ -137,6 +149,7 @@ class PageView(TemplateView):
 
 @login_required
 @region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
 def archive_page(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
     page.public = False
@@ -153,6 +166,7 @@ def archive_page(request, page_id, site_slug, language_code):
 
 @login_required
 @region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
 def restore_page(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
     page.archived = False
@@ -168,6 +182,7 @@ def restore_page(request, page_id, site_slug, language_code):
 
 @login_required
 @region_permission_required
+@permission_required('cms.view_pages', raise_exception=True)
 def view_page(request, page_id, site_slug, language_code):
     template_name = 'pages/page_view.html'
     page = Page.objects.get(id=page_id)
@@ -182,6 +197,7 @@ def view_page(request, page_id, site_slug, language_code):
 
 @login_required
 @region_permission_required
+@permission_required('cms.view_pages', raise_exception=True)
 def download_page_xliff(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
     page_xliff_helper = PageXliffHelper()
@@ -195,6 +211,7 @@ def download_page_xliff(request, page_id, site_slug, language_code):
 
 @login_required
 @region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
 def upload_page(request, site_slug, language_code):
     if request.method == 'POST' and 'xliff_file' in request.FILES:
         page_xliff_helper = PageXliffHelper()

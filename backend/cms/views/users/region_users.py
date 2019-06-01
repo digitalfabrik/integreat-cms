@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -14,7 +15,9 @@ from ...decorators import region_permission_required
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
-class RegionUserListView(TemplateView):
+class RegionUserListView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.change_user'
+    raise_exception = True
 
     template_name = 'users/region/list.html'
     base_context = {'current_menu_item': 'region_users'}
@@ -41,7 +44,9 @@ class RegionUserListView(TemplateView):
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
-class RegionUserView(TemplateView):
+class RegionUserView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.change_user'
+    raise_exception = True
 
     template_name = 'users/region/user.html'
     base_context = {'current_menu_item': 'region_users'}

@@ -10,7 +10,7 @@ from django.shortcuts import redirect
 
 @method_decorator(login_required, name='dispatch')
 class RedirectView(TemplateView):
-    """View class representing the Dashboard
+    """View class representing redirection to correct dashboard
 
     Args:
         TemplateView : View inherits from the django TemplateView class
