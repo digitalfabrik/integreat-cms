@@ -1,9 +1,11 @@
 """Views related to the statistics module"""
 from datetime import date, timedelta
+from requests.exceptions import ConnectionError
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from .matomo_api_manager import MatomoApiManager
 from ...models import Page, Site, Language
 from django.utils.translation import ugettext as _
@@ -55,11 +57,15 @@ class AnalyticsView(TemplateView):
         response_dates = []
         response_hits = []
         for lang in languages:
-            api_hits = api_man.get_visitors_per_timerange(date_string=start_date + ',' + end_date,
-                                                          site_id="2",
-                                                          period=request.GET.get('peri', 'day'),
-                                                          lang=lang[0])
-            temp_hits = []
+            try:
+                api_hits = api_man.get_visitors_per_timerange(date_string=start_date + ',' + end_date,
+                                                              site_id="2",
+                                                              period=request.GET.get('peri', 'day'),
+                                                              lang=lang[0])
+                temp_hits = []
+            except ConnectionError:
+                messages.error(request, _('Connection to Matamom could not be established'))
+                return redirect('dashboard', site_slug=site_slug)
             for single_day in api_hits:
                 temp_hits.append(single_day[1])
             response_hits.append([lang[1], lang[2], temp_hits])
