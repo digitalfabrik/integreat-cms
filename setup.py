@@ -32,6 +32,7 @@ setup(
         "pycparser==2.19",
         "python-dateutil==2.7.5",
         "pytz==2018.3",
+        "rules==2.0.1",
         "pyxdg==0.26",
         "SecretStorage==2.3.1",
         "six==1.11.0",

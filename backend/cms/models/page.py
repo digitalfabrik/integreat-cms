@@ -9,6 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
 from mptt.models import MPTTModel, TreeForeignKey
 
 from .language import Language
@@ -131,6 +132,7 @@ class Page(MPTTModel):
             ('view_pages', 'Can view pages'),
             ('edit_pages', 'Can edit pages'),
             ('publish_pages', 'Can publish pages'),
+            ('grant_page_permissions', 'Can grant page permissions'),
         )
 
 
