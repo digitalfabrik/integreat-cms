@@ -126,7 +126,7 @@
 	            <i data-feather="thumbs-up" class="absolute"></i>
 		        {% trans 'Feedback' %}
 	        </a>
-	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	        <a href="{% url 'push_notifications' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'push_notifications' %}active{% endif %}">
 	            <i data-feather="send" class="absolute"></i>
 		        {% trans 'Push Notifications' %}
 	        </a>
