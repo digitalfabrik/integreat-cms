@@ -1,0 +1,56 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+<div class="table-header">
+    <div class="flex flex-wrap">
+        <form class="table-search relative w-1/2">
+            <i data-feather="search" class="absolute"></i>
+            <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
+        </form>
+        <div class="w-1/2 flex flex-wrap justify-end">
+            <a href="{% url 'new_push_notification' site_slug=site.slug language_code=language.code %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+	            {% trans 'Create push notification' %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="table-listing">
+    <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-grey-light">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                    {% trans 'Title' %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                    {% trans 'Channel' %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 px-2">
+                    <div class="lang-grid flags">
+                        {% for lang in languages %}
+                        <a href="{% url 'push_notifications' site_slug=site.slug language_code=lang.code %}">
+                            <img src="{% static '' %}images/flags/{{ lang.code }}.png" title="{{ lang.name }}" />
+                        </a>
+                        {% endfor %}
+                    </div>
+                </th>
+                <th class="text-sm text-left uppercase py-3 px-2">
+                    {% trans 'Sent' %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for push_notification in push_notifications %}
+            {% include "push_notifications/list_row.html" %}
+        {% empty %}
+            <tr>
+	            <td colspan="6" class="px-2 py-3">
+		            {% trans 'No push notifications available yet.' %}
+	            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+{% load push_notification_filters %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h2 class="heading font-normal">
+                {% if push_notification %}
+                    {% if push_notification_translation_form.title.value %}
+                        {% with push_notification_translation_form.title.value as push_notification_title %}
+                        {% blocktrans %}Edit push notification "{{ push_notification_title }}"{% endblocktrans %}
+                        {% endwith %}
+                    {% else %}
+                        {% trans 'Create new translation for push notification' %}
+                    {% endif %}
+                {% else %}
+                    {% trans 'Create new push notification' %}
+                {% endif %}
+            </h2>
+        </div>
+        <div class="w-3/5 flex justify-end">
+            <input type="submit" name="submit_save" class="{% if public %}bg-blue hover:bg-blue-dark{% else %}bg-grey hover:bg-grey-dark{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
+            <input type="submit" name="submit_send" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Save & Send' %}" />
+        </div>
+    </div>
+
+    {% if push_notification.sent_date %}
+        <div class="bg-blue-lightest border-l-4 border-blue text-blue-dark px-4 py-3 mb-5" role="alert">
+            {% with push_notification.sent_date as push_notification_sent_date %}
+            <p>{% blocktrans %}This push notification has already been sent on the {{ push_notification_sent_date }}.{% endblocktrans %}</p>
+            {% endwith %}
+        </div>
+    {% endif %}
+
+    <div class="flex flex-wrap">
+        <div class="w-2/3 pr-2">
+            {{push_notification_translation_form.errors}}
+            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+                <label class="block mb-2 font-bold">{% trans 'Channel' %}</label>
+                <span class="text-xs uppercase block mb-2">{% trans 'This affects all translations of this notification.' %}</span>
+                {% trans 'Insert channel name here' as channel_placeholder%}
+                {% render_field push_notification_form.channel placeholder=channel_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+            </div>
+            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+                <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
+                {% blocktrans asvar title_placeholder %}Insert title in {{ language }} here{% endblocktrans %}
+                {% render_field push_notification_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+            </div>
+            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+                <label class="block mb-2 font-bold">{% trans 'Content' %}</label>
+                {% blocktrans asvar text_placeholder %}Insert content in {{ language }} here{% endblocktrans %}
+                {% render_field push_notification_translation_form.text placeholder=text_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+            </div>
+        </div>
+        <div class="w-1/3 pl-2">
+            <div class="w-full px-4 py-2 rounded border border-solid border-grey-light shadow bg-white">
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+                    <span class="block mb-2 font-bold">{% trans 'Language' %}</span>
+                    <label class="text-xs uppercase block">{% trans 'Current language' %}</label>
+                    <div class="relative my-2">
+                        <img src="{% static '' %}images/flags/{{ language.code }}.png" title="{{ language.name }}" />
+                        {{ language.name }}
+                    </div>
+                    {% if push_notification %}
+                    <div class="entity-lang-list mt-4 mb-2">
+                        <label class="text-xs uppercase block mb-2">{% trans 'Translations' %}</label>
+                        <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
+                            {% for other_language in languages %}
+                            {% if other_language != language %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id site_slug=site.slug language_code=other_language.code %}" class="text-black block p-2">
+                                        <img src="{% static '' %}images/flags/{{ other_language.code }}.png" title="{{ other_language.name }}" />
+                                        {{ other_language.name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="" class="text-black block p-2 relative">
+                                        <i data-feather="{% if push_notification|translation:other_language %}edit-2{% else %}plus{% endif %}"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

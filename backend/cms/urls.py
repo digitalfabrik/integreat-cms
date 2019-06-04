@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from .views import general, registration, pages, regions, languages, language_tree
+from .views import general, registration, pages, regions, languages, language_tree, push_notifications
 from .views.statistics import statistics
 
 
@@ -100,6 +100,20 @@ urlpatterns = [
                     ),
                 ])),
                 url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
+            ])),
+        ])),
+        url(r'^push_notifications/', include([
+            url(r'^$', push_notifications.PushNotificationListView.as_view(), name='push_notifications'),
+            url(r'^(?P<language_code>[-\w]+)/', include([
+                url(r'^$', push_notifications.PushNotificationListView.as_view(), name='push_notifications'),
+                url(r'^new$', push_notifications.PushNotificationView.as_view(), name='new_push_notification'),
+                url(r'^(?P<push_notification_id>[0-9]+)/', include([
+                    url(
+                        r'^edit$',
+                        push_notifications.PushNotificationView.as_view(),
+                        name='edit_push_notification'
+                    ),
+                ])),
             ])),
         ])),
         url(r'^language-tree/', include([
