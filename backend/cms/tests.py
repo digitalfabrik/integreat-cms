@@ -8,8 +8,9 @@ from .views.languages.language_form import LanguageForm
 from .views.language_tree.language_tree_node_form import LanguageTreeNodeForm
 from .models.site import Site
 from django.contrib.auth.models import User
-from cms.page_xliff_converter import PageXliffConverter
+from cms.page_xliff_converter import PageXliffConverter, XliffValidationException
 from bs4 import BeautifulSoup
+import re
 
 
 class SetupClass(TestCase):
@@ -105,7 +106,7 @@ class SetupClass(TestCase):
 
         self.page_tunews = self.create_page(
             page_data={
-                'title': 'Tunews',
+                'title': 'big news',
                 'text': '''
                     <p>First Layer</p>
                     <div style="width: 100%;background: #0079ad;text-align: center">
@@ -220,19 +221,18 @@ class PageFormTestCase(SetupClass):
         self.assertEqual(len(pages), 4)
 
 
-EXPECT_PAGE_TUNEWS__XLIFF = '''
-<?xml version="1.0"?>
+EXPECT_PAGE_TUNEWS_XLIFF = '''
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-us" trgLang="de-de">
-    <page id="2">
-        <title>
+    <page id="1">
+        <page-title>
             <unit>
                 <segment >
-                    <source>Tunews</source>
+                    <source>big news</source>
                     <target></target>
                 </segment>
             </unit>
-        </title>  
-        <text>       
+        </page-title>  
+        <page-text>       
             <p>
                 <unit>
                 <segment >
@@ -263,35 +263,35 @@ EXPECT_PAGE_TUNEWS__XLIFF = '''
                     </segment>
                 </unit>
             </div>
-        </text>     
+        </page-text>     
     </page>
 </xliff>
 '''
 
 TEXT_HTML = '''
-<text>
+<page-text>
 <p>Slot 1</p>
 <div style="width: 100%;background: #0079ad;text-align: center">
     E-news No: 12345 - 
     <a href="http://tunewsinternational.com/">international test</a> 
     - 2019-04-05 11:53:44
 </div>
-</text>
+</page-text>
 '''
 
 TARGET_TEXT_HTML = '''
-<text>
+<page-text>
 <p>Schlitz 1</p>
 <div style="width: 100%;background: #0079ad;text-align: center">
     E-news No: 12345 - 
     <a href="http://tunewsinternational.com/">internationaler Test</a> 
     - 2019-04-05 11:53:44
 </div>
-</text>
+</page-text>
 '''
 
 TEXT_XLIFF = '''
-<text>
+<page-text>
 <p>
     <unit>
     <segment >
@@ -322,11 +322,11 @@ TEXT_XLIFF = '''
         </segment>
     </unit>
 </div> 
-</text>
+</page-text>
 '''
 
 SOURCE_TARGET_TEXT_XLIFF = '''
-<text>
+<page-text>
 <p>
     <unit>
     <segment >
@@ -357,7 +357,54 @@ SOURCE_TARGET_TEXT_XLIFF = '''
         </segment>
     </unit>
 </div> 
-</text>
+</page-text>
+'''
+
+EXPECT_TRANSLATED_PAGE_TUNEWS_XLIFF = '''
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-us" trgLang="de-de">
+    <page id="1">
+        <page-title>
+            <unit>
+                <segment state="translated">
+                    <source>big news</source>
+                    <target>Große Neuigkeiten</target>
+                </segment>
+            </unit>
+        </page-title>  
+        <page-text>       
+            <p>
+                <unit>
+                <segment state="translated">
+                    <source>First Layer</source>
+                    <target>Erste Ebene</target>
+                    </segment>
+                </unit>
+            </p>
+            <div style="width: 100%;background: #0079ad;text-align: center">
+                <unit>
+                    <segment state="translated">
+                    <source>hello world</source>
+                    <target>Hallo Welt</target>
+                    </segment>
+                </unit>
+                <a href="http://tunewsinternational.com/">
+                    <unit>
+                        <segment state="translated">
+                        <source>international test</source>
+                        <target>Internationaler Test</target>
+                        </segment>
+                    </unit>
+                </a>
+                <unit>
+                    <segment state="translated">
+                    <source>2019-04-05 11:53:44</source>
+                    <target>2019-04-05 11:53:44</target>
+                    </segment>
+                </unit>
+            </div>
+        </page-text>     
+    </page>
+</xliff>
 '''
 
 
@@ -369,7 +416,7 @@ class PageXliffConverterTestCase(SetupClass):
     def _equals(self, source_content, expect_content):
         source_bs = BeautifulSoup(source_content, 'xml')
         expect_bs = BeautifulSoup(expect_content, 'xml')
-        self.assertEqual(source_bs.prettify(formatter="minimal"), expect_bs.prettify(formatter="minimal"))
+        self.assertEqual(source_bs.prettify(), expect_bs.prettify())
 
     def test_html_to_xliff(self):
         xliff = self.converter.html_to_xliff(TEXT_HTML)
@@ -384,9 +431,47 @@ class PageXliffConverterTestCase(SetupClass):
         self._equals(target_html, TARGET_TEXT_HTML)
         self._equals(source_html, TEXT_HTML)
 
-    def test_page_to_xliff(self):
-        pass
+    def test_page_translation_to_xliff(self):
+        # self.page_tunews.languages
+        source_translation_page = self.page_tunews.get_translation(language_code='en-us')
+        page_tunews_xliff = self.converter.page_translation_to_xliff(source_translation_page, target_language_code='de-de')
+        self._equals(re.sub(r'<page id="\d+">', '<page id="1">', page_tunews_xliff),
+                     re.sub(r'<page id="\d+">', '<page id="1">', EXPECT_PAGE_TUNEWS_XLIFF))
 
+    def test_xliff_to_page_xliff(self):
+        source_translation_page = self.page_tunews.get_translation(language_code='en-us')
+        page_tunews_xliff = self.converter.page_translation_to_xliff(source_translation_page, target_language_code='de-de')
 
-    def test_xliff_to_page(self):
-        pass
+        page_xliff = self.converter.xliff_to_page_xliff(page_tunews_xliff)
+        self.assertEqual(int(page_xliff.page_id), source_translation_page.page.id)
+        self.assertEqual(page_xliff.language_code, 'de-de')
+        self.assertEqual(page_xliff.title, '')
+        self.assertEqual(page_xliff.text, '')
+
+        page_xliff = self.converter.xliff_to_page_xliff(page_tunews_xliff, target=False)
+        self.assertEqual(int(page_xliff.page_id), source_translation_page.page.id)
+        self.assertEqual(page_xliff.language_code, 'en-us')
+        self.assertEqual(page_xliff.title, source_translation_page.title)
+        self._equals(page_xliff.text, source_translation_page.text)
+
+    def test_translated_xliff_to_page_xliff(self):
+        page_xliff = self.converter.xliff_to_page_xliff(EXPECT_TRANSLATED_PAGE_TUNEWS_XLIFF)
+        self.assertEqual(int(page_xliff.page_id), 1)
+        self.assertEqual(page_xliff.language_code, 'de-de')
+        self.assertEqual(page_xliff.title, 'Große Neuigkeiten')
+        self._equals(page_xliff.text,
+                     '''<p>Erste Ebene</p>
+                        <div style="width: 100%;background: #0079ad;text-align: center">
+                        Hallo Welt 
+                        <a href="http://tunewsinternational.com/">international test</a> 
+                        2019-04-05 11:53:44
+                        </div>
+                        ''')
+
+    def test_xliff_to_page_exception(self):
+        with self.assertRaises(XliffValidationException) as context:
+            self.converter.xliff_to_page_xliff('''
+                <invalid>testing</invalid>
+            ''')
+
+        self.assertTrue('cannot find xliff tag or srcLang and trgLang not exists.' in str(context.exception))
