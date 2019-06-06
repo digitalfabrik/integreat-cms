@@ -252,7 +252,7 @@ class PageXliffHelper:
     @staticmethod
     def save_file(content, file_path):
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        with open(file_path, 'w') as file:
+        with open(file_path, 'w', encoding='utf-8') as file:
             file.write(content)
 
     def export_page_translation_xliff(self, source_translation_page, target_language_code, filename=None):
@@ -374,7 +374,7 @@ class PageXliffHelper:
     def import_xliff_file(self, file_path, user):
         result = False
         if file_path.startswith(XLIFFS_DIR) and file_path.endswith(('.xlf', '.xliff')) and os.path.isfile(file_path):
-            with open(file_path, 'r') as f:
+            with open(file_path, 'r', encoding='utf-8') as f:
                 xliff_content = f.read()
                 page_xliff = self.converter.xliff_to_page_xliff(xliff_content)
                 if page_xliff:

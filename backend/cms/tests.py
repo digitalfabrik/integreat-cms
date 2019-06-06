@@ -536,6 +536,7 @@ class PageXliffConverterTestCase(SetupClass):
         self._equals(source_html, TEXT_HTML)
 
     def test_page_translation_to_xliff(self):
+        source_translation_page = self.page_tunews.get_translation(language_code='en-us')
         page_tunews_xliff = self.converter.page_translation_to_xliff(source_translation_page,
                                                                      target_language_code='de-de')
 
