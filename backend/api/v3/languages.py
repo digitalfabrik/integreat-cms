@@ -9,6 +9,7 @@ def languages(_, site_slug):
         site = Site.objects.get(slug=site_slug)
 
         result = list(map(lambda l: {
+            'id': l.language.id,
             'code': l.language.code,
             'native_name': l.language.name,
             'dir': l.language.text_direction,
