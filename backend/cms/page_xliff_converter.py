@@ -42,7 +42,7 @@ TRANSLATION_UNIT_TEMPLATE = '''
         </segment>
     </unit>
 '''
-
+ENGLISH_LANGUAGE_CODE = 'en-us'
 
 class XliffValidationException(Exception):
     pass
@@ -289,25 +289,56 @@ class PageXliffHelper:
             if len(files) == 1 and os.path.join(folder, files[0]) == file_path:
                 shutil.rmtree(folder)
 
+    @staticmethod
+    def _get_xliff_directions(languages, default_language):
+        source_target_langs = []
+        english_language = None
+        for language in languages:
+            if language.code == ENGLISH_LANGUAGE_CODE:
+                english_language = language
+                break
+
+        if default_language.code == ENGLISH_LANGUAGE_CODE or not english_language:
+            for language in languages:
+                if language != default_language:
+                    source_target_langs.append((default_language.code, language.code,))
+        else:
+            for language in languages:
+                if language != default_language:
+                    if language.code == ENGLISH_LANGUAGE_CODE:
+                        source_target_langs.append((default_language.code, ENGLISH_LANGUAGE_CODE,))
+                    else:
+                        source_target_langs.append((ENGLISH_LANGUAGE_CODE, language.code,))
+
+        return source_target_langs
+
+
     def export_page_xliffs_to_zip(self, page):
         zip_file_path = None
+        xliff_files = []
         if page and len(page.site.languages) > 1:
             page_translations = list(page.page_translations.all())
+            language_page_translation_map = {}
+            for page_translation in page_translations:
+                language_page_translation_map[page_translation.language.code] = page_translation
 
-            site_default_language = page.site.default_language
-            languages = page.site.languages
-            # Top priority using English as source language if the translation page exists.
-            source_page_translation = page.get_translation('en-us')
-            if not source_page_translation:
-                source_page_translation = page.get_translation(site_default_language.code)
-                if not source_page_translation:
-                    source_page_translation = page_translations[0]
-            source_page_language = source_page_translation.language
+            default_language = page.site.default_language
+            if not default_language or default_language.code not in language_page_translation_map:
+                default_language = page_translations[0].language
+                source_page_translation = page_translations[0]
+            elif default_language.code in language_page_translation_map:
+                source_page_translation = language_page_translation_map[default_language.code]
 
-            xliff_files = []
-            for language in languages:
-                if language.code != source_page_language.code:
-                    xliff_files.append(self.export_page_translation_xliff(source_page_translation, language.code))
+            xliff_directions = self._get_xliff_directions(page.site.languages, default_language)
+
+            for source_language_code, target_language_code in xliff_directions:
+                if source_language_code in language_page_translation_map:
+                    xliff_files.append(
+                        self.export_page_translation_xliff(language_page_translation_map[source_language_code],
+                                                           target_language_code))
+                elif target_language_code != source_page_translation.language.code:
+                    xliff_files.append(
+                        self.export_page_translation_xliff(source_page_translation, target_language_code))
 
             zip_file_name = "page_{0}.zip".format(page.id)
             zip_file_path = os.path.join(XLIFFS_DIR, 'pages', str(uuid.uuid4()), zip_file_name)
