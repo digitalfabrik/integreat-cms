@@ -1,6 +1,5 @@
 from zipfile import ZipFile
-from bs4 import BeautifulSoup, NavigableString
-import re
+from bs4 import BeautifulSoup, NavigableString, Tag
 import os
 import uuid
 import shutil
@@ -35,6 +34,15 @@ PAGE_TEXT_TEMPLATE = '<page-text>{0}</page-text>'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 XLIFFS_DIR = os.path.join(BASE_DIR, 'xliffs')
 
+TRANSLATION_UNIT_TEMPLATE = '''
+    <unit>
+        <segment>
+            <source>{0}</source>
+            <target>{1}</target>
+        </segment>
+    </unit>
+'''
+
 
 class XliffValidationException(Exception):
     pass
@@ -50,42 +58,103 @@ class PageXliff:
 
 class PageXliffConverter:
     @staticmethod
-    def _find_html_contents(html):
-        contents = []
-        if html:
-            bs = BeautifulSoup(html, "html.parser")
-
-            contents = list(bs.stripped_strings)
-
-        return contents
+    def _add_navigable_string_to_empty_tag(soup):
+        for el in list(soup.descendants):
+            if type(el) == Tag and len(list(el.children)) == 0 and el.name not in ('br',):
+                el.append(NavigableString(' '))
 
     @staticmethod
-    def _replace_html_contents_to_xliff_units(source_html, source_target_contents):
-        template = '''
-        <unit>
-            <segment>
-                <source>{0}</source>
-                <target>{1}</target>
-            </segment>
-        </unit>
-        '''
-        result = source_html
-        for st_content in source_target_contents:
-            result = re.sub(r'\s*({0})\s*'.format(re.escape(st_content[0])),
-                            template.format(st_content[0], st_content[1]), result)
+    def _replace_all_navigable_strings(soup):
+        for el in list(soup.descendants):
+            if type(el) == NavigableString:
+                el.replaceWith(NavigableString('###'))
 
+
+    @staticmethod
+    def _trim_tag_navigable_string(element):
+        for child in list(element.children):
+            if type(child) == NavigableString:
+                child.replaceWith(NavigableString(child.string.strip()))
+
+    @staticmethod
+    def _trim_unit_source_target_tag_navigable_string(source_data):
+        bs = BeautifulSoup(source_data, 'xml')
+        elements = []
+        elements.extend(list(bs.find_all('source')))
+        elements.extend(list(bs.find_all('target')))
+        for element in elements:
+            PageXliffConverter._trim_tag_navigable_string(element)
+
+        return str(bs.find())
+
+    @staticmethod
+    def _compare_structure_and_return_source_target(source, target):
+        if target is None:
+            return False, source, target
+
+        source_soup = BeautifulSoup(source, 'xml')
+        target_soup = BeautifulSoup(target, 'xml')
+        source_prettify = source_soup.prettify()
+        target_prettify = target_soup.prettify()
+        PageXliffConverter._add_navigable_string_to_empty_tag(source_soup)
+        PageXliffConverter._add_navigable_string_to_empty_tag(target_soup)
+        PageXliffConverter._replace_all_navigable_strings(source_soup)
+        PageXliffConverter._replace_all_navigable_strings(target_soup)
+
+        comparing_source = source_soup.prettify()
+        comparing_target = target_soup.prettify()
+
+        return comparing_source == comparing_target, source_prettify, target_prettify
+
+    @staticmethod
+    def _replace_navigable_string_with_unit(ns_element, source, target=''):
+        if source:
+            unit = TRANSLATION_UNIT_TEMPLATE.format(source, target)
+            temp_soup = BeautifulSoup(unit, 'xml')
+            ns_element.replaceWith(temp_soup.find())
+
+    @staticmethod
+    def _replace_source_target_unit(source_element, target_element):
+        source_children = list(source_element.children)
+        target_children = list(target_element.children)
+        tag_elements = []
+        for source_child, target_child in zip(source_children, target_children):
+            if type(source_child) == NavigableString and type(target_child) == NavigableString:
+                PageXliffConverter._replace_navigable_string_with_unit(
+                    source_child, source_child.string.strip(), target_child.string.strip())
+            else:
+                tag_elements.append((source_child, target_child,))
+
+        for source_tag, target_tag in tag_elements:
+            PageXliffConverter._replace_source_target_unit(source_tag, target_tag)
+
+    @staticmethod
+    def _replace_source_unit(element):
+        children = list(element.children)
+        tag_elements = []
+        for child in children:
+            if type(child) == NavigableString:
+                PageXliffConverter._replace_navigable_string_with_unit(child, child.string.strip())
+            else:
+                tag_elements.append(child)
+
+        for tag in tag_elements:
+            PageXliffConverter._replace_source_unit(tag)
+
+    def html_to_xliff(self, source,  target=None):
+        compare_result, compare_source, compare_target = self._compare_structure_and_return_source_target(
+            source=source,
+            target=target
+        )
+        source_soup = BeautifulSoup(compare_source, 'xml')
+        if compare_result:
+            target_soup = BeautifulSoup(compare_target, 'xml')
+            self._replace_source_target_unit(source_soup, target_soup)
+        else:
+            self._replace_source_unit(source_soup)
+        result = self._trim_unit_source_target_tag_navigable_string(source_soup.find().prettify())
+        result = result.replace('<target/>', '<target></target>').replace('<source/>', '<source></source>')
         return result
-
-    def html_to_xliff(self, source_html,  target_html=None):
-        source_contents = self._find_html_contents(source_html)
-        target_contents = self._find_html_contents(target_html)
-
-        if len(source_contents) != len(target_contents):
-            target_contents = [''] * len(source_contents)
-
-        source_target_contents = zip(source_contents, target_contents)
-
-        return self._replace_html_contents_to_xliff_units(source_html, source_target_contents)
 
     def xliff_to_html(self, xliff, target=True):
         bs = BeautifulSoup(xliff, "xml")
@@ -213,11 +282,12 @@ class PageXliffHelper:
                     zip_file.write(file_path, arcname=file_name)
 
     @staticmethod
-    def _delete_file(file_path):
-        folder = os.path.dirname(file_path)
-        files = os.listdir(folder)
-        if len(files) == 1 and os.path.join(folder, files[0]) == file_path:
-            shutil.rmtree(folder)
+    def delete_tmp_in_xliff_folder(file_path):
+        if file_path.startswith(XLIFFS_DIR):
+            folder = os.path.dirname(file_path)
+            files = os.listdir(folder)
+            if len(files) == 1 and os.path.join(folder, files[0]) == file_path:
+                shutil.rmtree(folder)
 
     def export_page_xliffs_to_zip(self, page):
         zip_file_path = None
@@ -242,9 +312,23 @@ class PageXliffHelper:
             self._create_zip_file(xliff_files, zip_file_path)
 
             # delete xliff files after created zip file
-            [self._delete_file(xliff_file) for xliff_file in xliff_files]
+            [self.delete_tmp_in_xliff_folder(xliff_file) for xliff_file in xliff_files]
 
         return zip_file_path
+
+    @staticmethod
+    def _get_page_translation_slug(title):
+        slug = slugify(title)
+        if PageTranslation.objects.filter(slug=slug).exists():
+            old_slug = slug
+            i = 1
+            while True:
+                i += 1
+                slug = old_slug + '-' + str(i)
+                if not PageTranslation.objects.filter(slug=slug).exists():
+                    break
+
+        return slug
 
     @staticmethod
     def save_page_xliff(page_xliff, user):
@@ -256,6 +340,8 @@ class PageXliffHelper:
                 if page_translation:
                     page_translation.title = page_xliff.title
                     page_translation.text = page_xliff.text
+                    page_translation.slug = PageXliffHelper._get_page_translation_slug(page_xliff.title)
+
                 elif len(page.languages) > 0:
                     target_language = None
                     for language in page.site.languages:
@@ -263,7 +349,7 @@ class PageXliffHelper:
                             target_language = language
                             break
                     if target_language:
-                        slug = slugify(page_xliff.title)
+                        slug = PageXliffHelper._get_page_translation_slug(page_xliff.title)
                         source_page_translation = list(page.page_translations.all())[0]
                         page_translation = PageTranslation.objects.create(
                             slug=slug,

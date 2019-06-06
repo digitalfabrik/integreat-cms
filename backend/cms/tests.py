@@ -282,6 +282,7 @@ TEXT_HTML = '''
 </page-text>
 '''
 
+
 TARGET_TEXT_HTML = '''
 <page-text>
 <p>Schlitz 1</p>
@@ -363,6 +364,103 @@ SOURCE_TARGET_TEXT_XLIFF = '''
 </page-text>
 '''
 
+DUPLICATE_ELEMENTS_TEXT_HMLT = '''
+<page-text>
+<div>
+    <h2>testing</h2>
+    hello world
+</div>
+<ul>
+    <li>123</li>
+    <li>123</li>
+    <li>1234</li>
+    <li>1234</li>
+    <li>123</li>
+    <li>12341234</li>
+    <li>123</li>
+</ul>
+</page-text>
+'''
+
+EXPECT_DUPLICATE_ELEMENTS_TEXT_XLIFF = '''
+<page-text>
+  <div>
+    <h2>
+      <unit>
+          <segment>
+              <source>testing</source>
+              <target></target>
+          </segment>
+      </unit>
+    </h2>
+    <unit>
+      <segment>
+          <source>hello world</source>
+          <target></target>
+      </segment>
+    </unit>
+  </div>
+  <ul>
+      <li>
+          <unit>
+              <segment>
+                  <source>123</source>
+                  <target></target>
+              </segment>
+          </unit>
+      </li>
+      <li>
+          <unit>
+              <segment>
+                  <source>123</source>
+                  <target></target>
+              </segment>
+          </unit>
+      </li>
+      <li>
+          <unit>
+              <segment>
+                  <source>1234</source>
+                  <target></target>
+              </segment>
+          </unit>
+      </li>
+      <li>
+          <unit>
+              <segment>
+                  <source>1234</source>
+                  <target></target>
+              </segment>
+          </unit>
+      </li>
+      <li>
+          <unit>
+              <segment>
+                  <source>123</source>
+                  <target></target>
+              </segment>
+          </unit>
+      </li>
+      <li>
+          <unit>
+              <segment>
+                  <source>12341234</source>
+                  <target></target>
+              </segment>
+          </unit>
+      </li>
+      <li>
+          <unit>
+              <segment>
+                  <source>123</source>
+                  <target></target>
+              </segment>
+          </unit>
+      </li>
+  </ul>
+</page-text>
+'''
+
 EXPECT_TRANSLATED_PAGE_TUNEWS_XLIFF = '''
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-us" trgLang="de-de">
     <page id="1">
@@ -428,6 +526,9 @@ class PageXliffConverterTestCase(SetupClass):
         source_target_xliff = self.converter.html_to_xliff(TEXT_HTML, TARGET_TEXT_HTML)
         self._equals(source_target_xliff, SOURCE_TARGET_TEXT_XLIFF)
 
+        xliff = self.converter.html_to_xliff(DUPLICATE_ELEMENTS_TEXT_HMLT)
+        self._equals(xliff, EXPECT_DUPLICATE_ELEMENTS_TEXT_XLIFF)
+
     def test_xliff_to_html(self):
         target_html = self.converter.xliff_to_html(SOURCE_TARGET_TEXT_XLIFF, target=True)
         source_html = self.converter.xliff_to_html(SOURCE_TARGET_TEXT_XLIFF, target=False)
@@ -435,10 +536,9 @@ class PageXliffConverterTestCase(SetupClass):
         self._equals(source_html, TEXT_HTML)
 
     def test_page_translation_to_xliff(self):
-        # self.page_tunews.languages
-        source_translation_page = self.page_tunews.get_translation(language_code='en-us')
         page_tunews_xliff = self.converter.page_translation_to_xliff(source_translation_page,
                                                                      target_language_code='de-de')
+
         self._equals(re.sub(r'<page id="\d+">', '<page id="1">', page_tunews_xliff),
                      re.sub(r'<page id="\d+">', '<page id="1">', EXPECT_PAGE_TUNEWS_XLIFF))
 
@@ -541,3 +641,5 @@ class PageXliffHelperTest(SetupClass):
 
         self.assertTrue(result)
         self.assertIsNotNone(self.page_tunews.get_translation(language_code='de-de'))
+
+
