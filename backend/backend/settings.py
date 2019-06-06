@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    'widget_tweaks',
     'mptt',
+    'rest_framework',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,15 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login'
+
+# API FRAMEWORK
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 # Miscellaneous
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
