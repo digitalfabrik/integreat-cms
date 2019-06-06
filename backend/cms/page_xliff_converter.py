@@ -296,10 +296,12 @@ class PageXliffHelper:
 
             site_default_language = page.site.default_language
             languages = page.site.languages
-
-            source_page_translation = page.get_translation(site_default_language.code)
+            # Top priority using English as source language if the translation page exists.
+            source_page_translation = page.get_translation('en-us')
             if not source_page_translation:
-                source_page_translation = page_translations[0]
+                source_page_translation = page.get_translation(site_default_language.code)
+                if not source_page_translation:
+                    source_page_translation = page_translations[0]
             source_page_language = source_page_translation.language
 
             xliff_files = []
