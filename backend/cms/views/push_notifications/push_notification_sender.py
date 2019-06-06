@@ -11,6 +11,7 @@ class PushNotificationSender:
     def __init__(self):
         fcm_auth_config_key = 'fcm_auth_key'
         auth_key = Configuration.objects.get(key=fcm_auth_config_key)
+        self.logger.info("Got fcm_auth_key from database")
         self.headers = {'Authorization': 'key={}'.format(auth_key.value)}
 
     """
