@@ -1,12 +1,17 @@
 import requests
 import logging
 
+from ...models.configuration import Configuration
+
 
 class PushNotificationSender:
     logger = logging.getLogger(__name__)
     fcm_url = "https://fcm.googleapis.com/fcm/send"
-    auth_key = 'xxx'  # TODO: Get this from the db
-    headers = {'Authorization': 'key={}'.format(auth_key)}
+
+    def __init__(self):
+        fcm_auth_config_key = 'fcm_auth_key'
+        auth_key = Configuration.objects.get(key=fcm_auth_config_key)
+        self.headers = {'Authorization': 'key={}'.format(auth_key.value)}
 
     """
     Sends push notifications via FCM legacy http api.  
