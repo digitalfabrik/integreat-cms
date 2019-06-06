@@ -26,6 +26,7 @@ cd cms-django
 5. Create the initial superuser: `integreat-cms createsuperuser`
 6. Fire up the CMS: `integreat-cms runserver localhost:8000`
 7. Go to your browser and open the URL `http://localhost:8000`
+8. Run Django unittest: `integreat-cms test cms/`
 
 ### Run CMS in Docker container
 A docker-compose file is provided in the the repository. It will start one container with a PostgreSQL database and another one with the CMS.

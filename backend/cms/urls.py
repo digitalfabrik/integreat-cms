@@ -77,7 +77,13 @@ urlpatterns = [
             url(r'^(?P<language_code>[-\w]+)/', include([
                 url(r'^$', pages.PageTreeView.as_view(), name='pages'),
                 url(r'^new$', pages.PageView.as_view(), name='new_page'),
+                url(r'^upload$', pages.upload_page, name='upload_page'),
                 url(r'^(?P<page_id>[0-9]+)/', include([
+                    url(
+                        r'^view$',
+                        pages.view_page,
+                        name='view_page'
+                    ),
                     url(
                         r'^edit$',
                         pages.PageView.as_view(),
@@ -102,6 +108,11 @@ urlpatterns = [
                         r'^delete$',
                         pages.PageView.as_view(),
                         name='delete_page'
+                    ),
+                    url(
+                        r'^download$',
+                        pages.download_page_xliff,
+                        name='download_page'
                     ),
                 ])),
                 url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
