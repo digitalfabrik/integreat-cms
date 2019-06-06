@@ -10,38 +10,64 @@ PREFIXES = [
     'Stadt',
 ]
 
+def strip_prefix(name):
+    for p in PREFIXES:
+        if name.startswith(p):
+            return p, name[len(p) + 1:]  # +1 for one whitespace
+    return None, name
+
+def transform_site(s):
+    prefix, name_without_prefix = strip_prefix(s.name)
+    return {
+        'id': s.id,
+        'name': s.name,
+        'path': s.slug,
+        'live': s.status == Site.ACTIVE,
+        'prefix': prefix,
+        'name_without_prefix': name_without_prefix,
+        'plz': s.postal_code,
+        'extras': s.extras_enabled,
+        'events': s.events_enabled,
+        'push-notifications': s.push_notifications_enabled,
+        'longitude': s.longitude,
+        'langitude': s.latitude,
+        'aliases': None  # todo
+    }
+
+def transform_site_by_status(s):
+    prefix, name_without_prefix = strip_prefix(s.name)
+    return {
+        'id': s.id,
+        'name': s.name,
+        'path': s.slug,
+        'prefix': prefix,
+        'name_without_prefix': name_without_prefix,
+        'plz': s.postal_code,
+        'extras': s.extras_enabled,
+        'events': s.events_enabled,
+        'push-notifications': s.push_notifications_enabled,
+    }
 
 def sites(_):
-    def strip_prefix(name):
-        for p in PREFIXES:
-            if name.startswith(p):
-                return p, name[len(p) + 1:]  # +1 for one whitespace
-        return None, name
-
-    def transform_site(s):
-        prefix, name_without_prefix = strip_prefix(s.name)
-        return {
-            'id': s.slug,
-            'name': s.name,
-            'path': s.slug,
-            'live': s.status == Site.ACTIVE,
-            'prefix': prefix,
-            'name_without_prefix': name_without_prefix,
-            'plz': s.postal_code,
-            'extras': s.extras_enabled,
-            'events': s.events_enabled,
-            'push-notifications': s.push_notifications_enabled,
-            'longitude': s.longitude,
-            'langitude': s.latitude,
-            'aliases': None  # todo
-        }
-
     result = list(map(transform_site,
                       Site.objects.exclude(status=Site.ARCHIVED)
                       .annotate(extras_enabled=Exists(Extra.objects.filter(site=OuterRef('pk'))))
                       ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
+def livesites(_):
+    result = list(map(transform_site_by_status,
+                      Site.objects.filter(status=Site.ACTIVE)
+                      .annotate(extras_enabled=Exists(Extra.objects.filter(site=OuterRef('pk'))))
+                      ))
+    return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
+
+def hiddenites(_):
+    result = list(map(transform_site_by_status,
+                      Site.objects.filter(status=Site.HIDDEN)
+                      .annotate(extras_enabled=Exists(Extra.objects.filter(site=OuterRef('pk'))))
+                      ))
+    return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 def pushnew(_):
     """
