@@ -1,3 +1,6 @@
+import os
+from zipfile import ZipFile
+
 from django.test import TestCase
 
 from cms.models import Page, Language
@@ -8,7 +11,7 @@ from .views.languages.language_form import LanguageForm
 from .views.language_tree.language_tree_node_form import LanguageTreeNodeForm
 from .models.site import Site
 from django.contrib.auth.models import User
-from cms.page_xliff_converter import PageXliffConverter, XliffValidationException
+from cms.page_xliff_converter import PageXliffConverter, XliffValidationException, PageXliffHelper, XLIFFS_DIR
 from bs4 import BeautifulSoup
 import re
 
@@ -434,13 +437,15 @@ class PageXliffConverterTestCase(SetupClass):
     def test_page_translation_to_xliff(self):
         # self.page_tunews.languages
         source_translation_page = self.page_tunews.get_translation(language_code='en-us')
-        page_tunews_xliff = self.converter.page_translation_to_xliff(source_translation_page, target_language_code='de-de')
+        page_tunews_xliff = self.converter.page_translation_to_xliff(source_translation_page,
+                                                                     target_language_code='de-de')
         self._equals(re.sub(r'<page id="\d+">', '<page id="1">', page_tunews_xliff),
                      re.sub(r'<page id="\d+">', '<page id="1">', EXPECT_PAGE_TUNEWS_XLIFF))
 
     def test_xliff_to_page_xliff(self):
         source_translation_page = self.page_tunews.get_translation(language_code='en-us')
-        page_tunews_xliff = self.converter.page_translation_to_xliff(source_translation_page, target_language_code='de-de')
+        page_tunews_xliff = self.converter.page_translation_to_xliff(source_translation_page,
+                                                                     target_language_code='de-de')
 
         page_xliff = self.converter.xliff_to_page_xliff(page_tunews_xliff)
         self.assertEqual(int(page_xliff.page_id), source_translation_page.page.id)
@@ -475,3 +480,64 @@ class PageXliffConverterTestCase(SetupClass):
             ''')
 
         self.assertTrue('cannot find xliff tag or srcLang and trgLang not exists.' in str(context.exception))
+
+
+class PageXliffHelperTest(SetupClass):
+    def setUp(self):
+        super().setUp()
+        self.page_xliff_helper = PageXliffHelper()
+
+    def test_export_page_translation_xliff(self):
+        source_translation_page = self.page_tunews.get_translation(language_code='en-us')
+        page_tunews_xliff = self.page_xliff_helper.converter.page_translation_to_xliff(source_translation_page,
+                                                                                       target_language_code='de-de')
+        file_path = self.page_xliff_helper.export_page_translation_xliff(source_translation_page,
+                                                                         target_language_code='de-de')
+
+        with open(file_path, 'r') as file:
+            file_xliff_content = file.read()
+
+        self.assertEqual(page_tunews_xliff, file_xliff_content)
+
+    def test_export_page_xliffs_to_zip(self):
+        zip_file_path = self.page_xliff_helper.export_page_xliffs_to_zip(self.page_tunews)
+        expect_name_list = ['page_{0}_en-us_de-de.xliff'.format(self.page_tunews.id),
+                            'page_{0}_en-us_ar-ma.xliff'.format(self.page_tunews.id),
+                            ]
+        self.assertTrue(os.path.isfile(zip_file_path))
+        with ZipFile(zip_file_path, 'r') as zip_file:
+            name_list = zip_file.namelist()
+            self.assertEqual(len(name_list), 2)
+            [self.assertTrue(name in name_list) for name in expect_name_list]
+
+    def test_import_xliff_file(self):
+        source_translation_page = self.page_tunews.get_translation(language_code='en-us')
+        file_path = self.page_xliff_helper.export_page_translation_xliff(source_translation_page,
+                                                                         target_language_code='de-de')
+        result = self.page_xliff_helper.import_xliff_file(file_path, self.user)
+
+        self.assertFalse(result)
+        self.assertIsNone(self.page_tunews.get_translation(language_code='de-de'))
+
+    def test_import_xliffs_zip_file(self):
+        zip_file_path = self.page_xliff_helper.export_page_xliffs_to_zip(self.page_tunews)
+        results = self.page_xliff_helper.import_xliffs_zip_file(zip_file_path, self.user)
+
+        expect_resutls = [
+            ('page_{0}_en-us_de-de.xliff'.format(self.page_tunews.id), False),
+            ('page_{0}_en-us_ar-ma.xliff'.format(self.page_tunews.id), False)
+        ]
+        [self.assertTrue(result in results) for result in expect_resutls]
+
+    def test_import_xliff_file_translated(self):
+        xliff_content = re.sub(r'<page id="\d+">',
+                               '<page id="{0}">'.format(self.page_tunews.id),
+                               EXPECT_TRANSLATED_PAGE_TUNEWS_XLIFF)
+
+        file_path = os.path.join(XLIFFS_DIR, 'test', 'page_{0}_en-us_de-de.xliff'.format(self.page_tunews.id))
+        PageXliffHelper.save_file(xliff_content, file_path)
+
+        result = self.page_xliff_helper.import_xliff_file(file_path, self.user)
+
+        self.assertTrue(result)
+        self.assertIsNotNone(self.page_tunews.get_translation(language_code='de-de'))
