@@ -84,6 +84,11 @@ urlpatterns = [
                         name='edit_page'
                     ),
                     url(
+                        r'^sbs_edit$',
+                        pages.SBSPageView.as_view(),
+                        name='sbs_edit_page'
+                    ),
+                    url(
                         r'^archive$',
                         pages.archive_page,
                         name='archive_page'

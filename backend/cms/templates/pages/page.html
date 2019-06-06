@@ -89,6 +89,25 @@
 		                        {% endfor %}
 	                        </table>
 	                    </div>
+                        <div class="entity-lang-list mt-4 mb-2">
+	                        <label class="text-xs uppercase block mb-2">{% trans 'Side by Side View' %}</label>
+	                        <!-- TODO: get available languages from site settings -->
+	                        <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
+		                        {% for other_language in languages %}
+			                        {% if other_language != language %}
+                                        {% with language.code|add:'__'|add:other_language.code  as sbs_language_code %}
+				                        <tr>
+					                        <td>
+						                        <a href="{% url 'sbs_edit_page' page_id=page.id site_slug=site.slug language_code=sbs_language_code %}" class="text-black block p-2">
+							                        {{ other_language.name }}
+						                        </a>
+					                        </td>
+				                        </tr>
+                                        {% endwith %}
+			                        {% endif %}
+		                        {% endfor %}
+	                        </table>
+	                    </div>
                     {% endif %}
                 </div>
                 <div class="py-2 border-b solid border-grey-lighter mb-2">
