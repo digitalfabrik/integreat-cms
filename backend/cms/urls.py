@@ -79,6 +79,11 @@ urlpatterns = [
                 url(r'^new$', pages.PageView.as_view(), name='new_page'),
                 url(r'^(?P<page_id>[0-9]+)/', include([
                     url(
+                        r'^view$',
+                        pages.view_page,
+                        name='view_page'
+                    ),
+                    url(
                         r'^edit$',
                         pages.PageView.as_view(),
                         name='edit_page'

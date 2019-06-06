@@ -138,3 +138,16 @@ def restore_page(request, page_id, site_slug, language_code):
                 'site_slug': site_slug,
                 'language_code': language_code,
             })
+
+
+@login_required
+def view_page(request, page_id, site_slug, language_code):
+    template_name = 'pages/page_view.html'
+    page = Page.objects.get(id=page_id)
+
+    page_translation = page.get_translation(language_code)
+
+    return render(request,
+                  template_name,
+                  {"page_translation": page_translation}
+                  )
