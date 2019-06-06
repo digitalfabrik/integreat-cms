@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
+from .push_notification_sender import PushNotificationSender
 from .push_notification_form import PushNotificationForm, PushNotificationTranslationForm
 from ...models.push_notification import PushNotification, PushNotificationTranslation
 from ...models.language import Language
@@ -14,7 +15,6 @@ from ...models.site import Site
 
 @method_decorator(login_required, name='dispatch')
 class PushNotificationListView(TemplateView):
-
     template_name = 'push_notifications/list.html'
     base_context = {'current_menu_item': 'push_notifications'}
 
@@ -57,6 +57,7 @@ class PushNotificationView(TemplateView):
 
     template_name = 'push_notifications/push_notification.html'
     base_context = {'current_menu_item': 'push_notifications'}
+    push_sender = PushNotificationSender()
 
     def get(self, request, *args, **kwargs):
         push_notification = PushNotification.objects.filter(id=kwargs.get('push_notification_id')).first()
@@ -137,12 +138,16 @@ class PushNotificationView(TemplateView):
             # Check if Save button has been clicked
             if push_notification_form.data.get('submit_send'):
 
-                # TODO: send push notification (EXPEDIA HACKATHON)
+                push_sent = self.push_sender.send(site.slug, push_notification.channel, push_notification_translation.title,
+                                                  push_notification_translation.text, language.code)
 
-                push_notification.sent_date = timezone.now()
-                push_notification.save()
-                messages.success(request, _('Push notification was successfully sent.'))
-
+                if push_sent:
+                    push_notification.sent_date = timezone.now()
+                    push_notification.save()
+                    messages.success(request, _('Push notification was successfully sent.'))
+                else:
+                    messages.error(request, _('Error occurred sending the push notification'))
+                    
         else:
             messages.error(request, _('Errors have occurred.'))
 
