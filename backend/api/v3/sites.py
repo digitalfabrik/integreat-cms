@@ -19,7 +19,7 @@ def strip_prefix(name):
 def transform_site(s):
     prefix, name_without_prefix = strip_prefix(s.name)
     return {
-        'id': s.slug,
+        'id': s.id,
         'name': s.name,
         'path': s.slug,
         'live': s.status == Site.ACTIVE,
@@ -37,7 +37,7 @@ def transform_site(s):
 def transform_site_by_status(s):
     prefix, name_without_prefix = strip_prefix(s.name)
     return {
-        'id': s.slug,
+        'id': s.id,
         'name': s.name,
         'path': s.slug,
         'prefix': prefix,
