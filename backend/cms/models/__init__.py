@@ -29,3 +29,5 @@ from .push_notification import PushNotification
 from .push_notification import PushNotificationTranslation
 
 from .site import Site
+
+from .configuration import Configuration
