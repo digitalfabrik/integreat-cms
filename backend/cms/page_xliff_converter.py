@@ -388,11 +388,15 @@ class PageXliffHelper:
         if zip_file_path.startswith(XLIFFS_DIR) and zip_file_path.endswith('.zip') and os.path.isfile(zip_file_path):
             with ZipFile(zip_file_path, 'r') as zip_file:
                 for file_name in zip_file.namelist():
-                    with zip_file.open(file_name) as f:
-                        xliff_content = f.read()
-                        page_xliff = self.converter.xliff_to_page_xliff(xliff_content)
-                        if page_xliff:
-                            results.append((file_name, self.save_page_xliff(page_xliff, user),))
-                        else:
-                            results.append((file_name, False,))
+                    if file_name.endswith(('.xliff', '.xlf',)):
+                        with zip_file.open(file_name) as f:
+                            try:
+                                xliff_content = f.read()
+                                page_xliff = self.converter.xliff_to_page_xliff(xliff_content)
+                                if page_xliff:
+                                    results.append((file_name, self.save_page_xliff(page_xliff, user),))
+                                else:
+                                    results.append((file_name, False,))
+                            except XliffValidationException as ex:
+                                results.append((file_name, False,))
         return results
