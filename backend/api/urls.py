@@ -26,6 +26,7 @@ urlpatterns = [
     url('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'site/(?P<site>\d+)/extras/$', views.ExtrasView.as_view()),
+    url(r'site/(?P<site>\d+)/locations/$', views.LocationView.as_view()),
     url(r'extra/(?P<id>\d+)/$', views.ExtraView.as_view()),
     url(r'sites/$', sites, name='sites'),
     url(r'sites/live/$', livesites, name='livesites'),
