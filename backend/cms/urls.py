@@ -140,8 +140,9 @@ urlpatterns = [
         url(r'^settings/$', general.SettingsView.as_view(), name='settings'),
         url(r'^media/', include([
             url(r'^$', media.MediaListView.as_view(), name='media'),
-            url(r'^new$', media.MediaUploadView.as_view(), name='new_upload_file'),
             url(r'^(?P<document_id>[0-9]+)/', include([
+                url(r'^new$', media.MediaEditView.as_view(), name='new_upload_file'),
+                url(r'^edit$', media.MediaEditView.as_view(), name='edit_file'),
                 url(r'^delete$', media.delete_file, name='delete_file'),
             ])),
         ])),

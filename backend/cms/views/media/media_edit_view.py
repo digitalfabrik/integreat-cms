@@ -2,23 +2,32 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
-from ...models import DocumentForm
+from ...models import DocumentForm, Document
 from ...models.site import Site
 from ..utils import save_file
 
 
 @method_decorator(login_required, name='dispatch')
-class MediaUploadView(TemplateView):
-    template_name = 'media/mediaupload.html'
+class MediaEditView(TemplateView):
+    template_name = 'media/mediaedit.html'
     base_context = {'current_menu_item': 'media'}
 
     def get(self, request, *args, **kwargs):
+        slug = kwargs.get('site_slug')
+        site = Site.objects.get(slug=slug)
+        document_id = kwargs.get('document_id')
+        form = DocumentForm()
+        if document_id != '0':
+            document = Document.objects.get(pk=document_id)
+            form = DocumentForm(instance=document)
+
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
-                'form': DocumentForm(),
+                'form': form,
+                'site_slug': site.slug,
             }
         )
 
