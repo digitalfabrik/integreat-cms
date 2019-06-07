@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'easy_thumbnails',
+    'filer',
     'mptt',
 ]
 
@@ -58,6 +60,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+THUMBNAIL_HIGH_RESOLUTION = True
 
 TEMPLATES = [
     {
@@ -87,8 +90,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'integreat',
         'USER': 'integreat',
-        'PASSWORD': 'password',
-        'HOST': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -153,3 +156,4 @@ CSRF_FAILURE_VIEW = 'cms.views.general.csrf_failure'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+FILER_CANONICAL_URL = 'media/'

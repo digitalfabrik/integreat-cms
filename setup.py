@@ -38,6 +38,7 @@ setup(
         "pylint-django==2.0.4",
         "pylint_runner==0.5.4",
         "requests==2.21.0",
+        "django-filer==1.5.0"
     ],
     author="Integreat App Project",
     author_email="info@integreat-app.de",
