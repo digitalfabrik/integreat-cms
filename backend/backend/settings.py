@@ -90,8 +90,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'integreat',
         'USER': 'integreat',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'PASSWORD': 'password',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 }
