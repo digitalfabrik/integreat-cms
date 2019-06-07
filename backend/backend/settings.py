@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'drf_yasg',
     'mptt',
     'rest_framework',
-    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
