@@ -106,6 +106,10 @@
 	            <i data-feather="grid" class="absolute"></i>
 		        {% trans 'My Dashboard' %}
 	        </a>
+			<a href="{% url 'translation_coverage' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'translation_coverage' %}active{% endif %}">
+	            <i data-feather="pie-chart" class="absolute"></i>
+		        {% trans 'Translation Report' %}
+	        </a>
 	        <a href="{% url 'statistics' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'statistics' %}active{% endif %}">
 	            <i data-feather="bar-chart" class="absolute"></i>
 		        {% trans 'Statistics' %}

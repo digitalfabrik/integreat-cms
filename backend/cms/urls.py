@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from .views import general, registration, pages, regions, languages, language_tree, push_notifications
+from .views import general, registration, pages, regions, languages, language_tree, push_notifications, analytics
 from .views.statistics import statistics
 
 
@@ -72,6 +72,7 @@ urlpatterns = [
 
     url(r'^(?P<site_slug>[-\w]+)/', include([
         url(r'^$', general.DashboardView.as_view(), name='dashboard'),
+        url(r'^translation_coverage/', analytics.TranslationCoverageView.as_view(), name='translation_coverage'),
         url(r'^pages/', include([
             url(r'^$', pages.PageTreeView.as_view(), name='pages'),
             url(r'^(?P<language_code>[-\w]+)/', include([
