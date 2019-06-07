@@ -5,10 +5,13 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render
+
 from .role_form import RoleForm
+from ...decorators import staff_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class RoleListView(TemplateView):
     template_name = 'roles/list.html'
     base_context = {'current_menu_item': 'roles'}
@@ -25,7 +28,9 @@ class RoleListView(TemplateView):
             }
         )
 
+
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class RoleView(TemplateView):
     template_name = 'roles/role.html'
     base_context = {'current_menu_item': 'roles'}

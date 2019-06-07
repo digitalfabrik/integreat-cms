@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
@@ -8,8 +9,11 @@ from django.shortcuts import render, redirect
 from .region_user_form import RegionUserForm, RegionUserProfileForm
 from ...models.site import Site
 from ...models.user_profile import UserProfile
+from ...decorators import region_permission_required
 
 
+@method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class RegionUserListView(TemplateView):
 
     template_name = 'users/region/list.html'
@@ -35,6 +39,8 @@ class RegionUserListView(TemplateView):
         )
 
 
+@method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class RegionUserView(TemplateView):
 
     template_name = 'users/region/user.html'
@@ -109,6 +115,7 @@ class RegionUserView(TemplateView):
 
 
 @login_required
+@region_permission_required
 def delete_region_user(request, site_slug, user_id):
     get_user_model().objects.get(
         id=user_id,

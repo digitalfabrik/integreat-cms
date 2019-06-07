@@ -9,7 +9,8 @@ from .views import general, registration, pages, regions, languages, language_tr
 
 
 urlpatterns = [
-    url(r'^$', general.AdminDashboardView.as_view(), name='admin_dashboard'),
+    url(r'^$', general.RedirectView.as_view(), name='redirect'),
+    url(r'^admin_dashboard/$', general.AdminDashboardView.as_view(), name='admin_dashboard'),
     url(r'^regions/', include([
         url(r'^$', regions.RegionListView.as_view(), name='regions'),
         url(r'^new$', regions.RegionView.as_view(), name='new_region'),

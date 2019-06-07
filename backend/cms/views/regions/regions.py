@@ -4,11 +4,14 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from ...models.site import Site
+
 from .region_form import RegionForm
+from ...models.site import Site
+from ...decorators import staff_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class RegionListView(TemplateView):
     template_name = 'regions/list.html'
     base_context = {'current_menu_item': 'regions'}
@@ -25,14 +28,16 @@ class RegionListView(TemplateView):
             }
         )
 
+
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class RegionView(TemplateView):
     template_name = 'regions/region.html'
     base_context = {'current_menu_item': 'regions'}
     region_slug = None
 
     def get(self, request, *args, **kwargs):
-        self.region_slug = self.kwargs.get('region_slug', None)
+        self.region_slug = self.kwargs.get('region_slug')
         if self.region_slug:
             region = Site.objects.get(slug=self.region_slug)
             form = RegionForm(initial={

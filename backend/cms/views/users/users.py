@@ -8,10 +8,11 @@ from django.shortcuts import render, redirect
 
 from .user_form import UserForm, UserProfileForm
 from ...models.user_profile import UserProfile
-from .user_form import UserForm, UserProfileForm
+from ...decorators import staff_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class UserListView(TemplateView):
 
     template_name = 'users/admin/list.html'
@@ -31,6 +32,7 @@ class UserListView(TemplateView):
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class UserView(TemplateView):
 
     template_name = 'users/admin/user.html'
@@ -91,6 +93,7 @@ class UserView(TemplateView):
         })
 
 
+@staff_required
 @login_required
 def delete_user(request, user_id):
 

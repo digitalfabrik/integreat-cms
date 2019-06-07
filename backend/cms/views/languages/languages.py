@@ -4,11 +4,14 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from ...models import Language
+
 from .language_form import LanguageForm
+from ...models import Language
+from ...decorators import staff_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class LanguageListView(TemplateView):
     template_name = 'languages/list.html'
     base_context = {'current_menu_item': 'languages'}
@@ -25,7 +28,9 @@ class LanguageListView(TemplateView):
             }
         )
 
+
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class LanguageView(TemplateView):
     template_name = 'languages/language.html'
     base_context = {'current_menu_item': 'languages'}

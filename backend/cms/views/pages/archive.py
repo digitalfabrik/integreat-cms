@@ -8,9 +8,11 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from ...models import Page, Site, Language
+from ...decorators import region_permission_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class ArchivedPagesView(TemplateView):
 	template_name = 'pages/archive.html'
 	base_context = {'current_menu_item': 'pages'}

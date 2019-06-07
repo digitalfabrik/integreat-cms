@@ -11,9 +11,11 @@ from .push_notification_form import PushNotificationForm, PushNotificationTransl
 from ...models.push_notification import PushNotification, PushNotificationTranslation
 from ...models.language import Language
 from ...models.site import Site
+from ...decorators import region_permission_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class PushNotificationListView(TemplateView):
     template_name = 'push_notifications/list.html'
     base_context = {'current_menu_item': 'push_notifications'}
@@ -53,6 +55,7 @@ class PushNotificationListView(TemplateView):
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class PushNotificationView(TemplateView):
 
     template_name = 'push_notifications/push_notification.html'

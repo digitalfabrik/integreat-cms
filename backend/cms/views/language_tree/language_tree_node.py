@@ -10,11 +10,14 @@ from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
-from ...models import Language, LanguageTreeNode, Site
+
 from .language_tree_node_form import LanguageTreeNodeForm
+from ...models import Language, LanguageTreeNode, Site
+from ...decorators import region_permission_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class LanguageTreeNodeView(TemplateView):
     template_name = 'language_tree/tree_node.html'
     base_context = {'current_menu_item': 'language_tree'}

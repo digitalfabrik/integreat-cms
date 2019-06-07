@@ -11,9 +11,11 @@ from django.shortcuts import render, redirect
 
 from .page_form import PageTranslationForm
 from ...models import Page, Site, Language
+from ...decorators import region_permission_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class SBSPageView(TemplateView):
     template_name = 'pages/sbs_page.html'
     base_context = {'current_menu_item': 'pages'}
