@@ -3,11 +3,11 @@
 {% block content %}
 {% load static %}
     <div class="w-full max-w-full">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" enctype="multipart/form-data">
+        <form id="upload_form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
 
-            <div class="flex items-center justify-start mt-2">
+            <div class="flex items-center justify-start mt-6">
                 <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded">
 	                {% trans 'Submit' %}
                 </button>
@@ -18,3 +18,9 @@
         </form>
     </div>
 {% endblock %}
+
+<style>
+    #upload_form p {
+        margin: 1rem 1rem 1rem 0;
+    }
+</style>
