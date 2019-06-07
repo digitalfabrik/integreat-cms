@@ -3,8 +3,6 @@ from django.http import HttpResponse
 
 from cms.models import Page, PageFeedback, PageTranslation
 
-from django.views.decorators.csrf import csrf_exempt
-
 
 class FeedbackData:
     def __init__(self, page_id, permalink, comment, emotion):
@@ -36,7 +34,6 @@ class FeedbackData:
     def __is_either_exist(self, one, two):
         return one or two
 
-@csrf_exempt
 def feedback(req, site_slug, languages):
     if req.method != 'POST':
         return HttpResponse(f'Invalid request method.', status=405)
