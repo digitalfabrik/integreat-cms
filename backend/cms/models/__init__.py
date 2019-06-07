@@ -29,3 +29,7 @@ from .push_notification import PushNotification
 from .push_notification import PushNotificationTranslation
 
 from .site import Site
+
+from .media_models import Document
+from .media_models import DocumentForm
+from .configuration import Configuration
