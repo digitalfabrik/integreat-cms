@@ -1,0 +1,67 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="heading font-normal mb-2">{% trans 'Statistics' %}</h2>
+    </div>
+    <div class="flex flex-row flex-wrap flex-grow mt-2">
+        <div class="md:w-3/4 p-3">
+            <div class="bg-grey-lightest border border-grey rounded shadow">
+                <div class="border-b border-grey-dark p-3">
+                    <h2 class="text-grey-darkest">{% trans 'Translation Coverage' %}</h2>
+                </div>
+                <div class="p-5 bg-white">
+                    <canvas id="visitor-chart" class="chartjs"></canvas>
+                    <script>
+                        var chart = document.getElementById("visitor-chart");
+                        Chart.plugins.register({
+                            beforeDraw: function(chartInstance) {
+                            var ctx = chartInstance.chart.ctx;
+                            ctx.fillStyle = "white";
+                            ctx.fillRect(0, 0, chartInstance.chart.width, chartInstance.chart.height);
+                            }
+                        });
+                        var graph = new Chart(chart, {
+                            "type": "bar",
+                            "data": {
+                                "labels": [{% for lang in coverages %}"{{lang.1}}",{% endfor %}],
+                                "datasets": [
+                                    {
+                                        "label": "Translated",
+                                        "lineTension": 0,
+                                        "data": [{% for lang in coverages %}"{{lang.3}}",{% endfor %}],
+                                        "type": "bar",
+                                        "fill": true,
+                                        "borderColor": "#008000",
+                                        "backgroundColor": "#008000",
+                                    },
+                                    {
+                                        "label": "Need to be translated",
+                                        "lineTension": 0,
+                                        "data": [{% for lang in coverages %}{{lang.4}},{% endfor %}],
+                                        "type": "bar",
+                                        "fill": true,
+                                        "borderColor": "#C0D6E4",
+                                        "backgroundColor": "#C0D6E4",},
+
+                                    ]},
+                            "options": {
+                                "scales": {
+                                    "xAxes": [{
+							            "stacked": true,
+                                    }],
+                                    "yAxes": [{
+                                        "stacked": true,
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

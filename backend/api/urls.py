@@ -4,6 +4,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from .v3 import views
+from .v3.feedback import feedback
 from .v3.languages import languages
 from .v3.sites import sites, livesites, hiddenites, pushnew
 from .v3.push_notifications import sent_push_notifications
@@ -35,5 +36,6 @@ urlpatterns = [
     url(r'(?P<site_slug>[-\w]+)/', include([
         url(r'languages$', languages),
         url(r'(?P<lan_code>[-\w]+)/sent_push_notifications/$', sent_push_notifications),
+        url(r'(?P<languages>[-\w]+)/feedback/$', feedback),
     ])),
 ]
