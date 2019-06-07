@@ -8,11 +8,12 @@ class PushNotificationSender:
     logger = logging.getLogger(__name__)
     fcm_url = "https://fcm.googleapis.com/fcm/send"
 
-    def __init__(self):
+    def _init_headers(self):
         fcm_auth_config_key = 'fcm_auth_key'
-        auth_key = Configuration.objects.get(key=fcm_auth_config_key)
-        self.logger.info("Got fcm_auth_key from database")
-        self.headers = {'Authorization': 'key={}'.format(auth_key.value)}
+        if not self.auth_key:
+            self.logger.info("Got fcm_auth_key from database")
+            self.auth_key = Configuration.objects.get(key=fcm_auth_config_key)
+        self.headers = {'Authorization': 'key={}'.format(self.auth_key.value)}
 
     """
     Sends push notifications via FCM legacy http api.  
@@ -20,6 +21,7 @@ class PushNotificationSender:
     """
 
     def send(self, site_slug, channel, title, message, lan_code):
+        self._init_headers()
         payload = {'to': '/topics/{}-{}-{}'.format(site_slug, lan_code, channel),
                    'notification': {
                        'title': title,
