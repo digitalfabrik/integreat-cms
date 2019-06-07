@@ -7,7 +7,8 @@ from .v3.push_notifications import sent_push_notifications
 
 urlpatterns = [
     url('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'(?P<site>\d+)/extras/$', views.Extras.as_view()),
+    url(r'site/(?P<site>\d+)/extras/$', views.ExtrasView.as_view()),
+    url(r'extra/(?P<pk>\d+)/$', views.ExtraView.as_view()),
     url(r'sites/$', sites, name='sites'),
     url(r'sites/live/$', livesites, name='livesites'),
     url(r'sites/hidden/$', hiddenites, name='hiddensites'),

@@ -1,1 +1,2 @@
-from .extra_view import Extras
+from .extra_view import ExtrasView
+from .extra_view import ExtraView
