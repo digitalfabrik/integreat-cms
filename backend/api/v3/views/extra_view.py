@@ -24,8 +24,8 @@ class ExtraView(RetrieveAPIView):
     serializer_class = ExtraSerializer
     queryset = Extra.objects.all()
 
-    def retrieve(self, request, pk=None):
-        extra = get_object_or_404(self.get_queryset(), id=pk)
+    def retrieve(self, request, id=None):
+        extra = get_object_or_404(self.get_queryset(), id=id)
         serializer = ExtraSerializer(extra)
         return Response(serializer.data)
 
