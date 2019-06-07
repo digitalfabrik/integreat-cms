@@ -19,3 +19,10 @@ class ExtraTemplate(models.Model):
     post_data = JSONField(max_length=250, null=True)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """Function that provides a string representation of this object
+
+        Returns: String
+        """
+        return self.name

@@ -23,6 +23,8 @@ setup(
         "django-js-asset==1.1.0",
         "django-mptt==0.9.1",
         "django-widget-tweaks==1.4.3",
+        "djangorestframework==3.9.4",
+        "drf-yasg==1.15.0",
         "idna==2.6",
         "keyring==10.6.0",
         "Pillow==5.3.0",
