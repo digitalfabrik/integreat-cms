@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from .views import general, registration, pages, regions, languages, language_tree, push_notifications, analytics
+from .views import general, registration, pages, regions, languages, language_tree, push_notifications, media, analytics
 from .views.statistics import statistics
 
 
@@ -155,5 +155,13 @@ urlpatterns = [
         ])),
         url(r'^statistics/$', statistics.AnalyticsView.as_view(), name='statistics'),
         url(r'^settings/$', general.SettingsView.as_view(), name='settings'),
+        url(r'^media/', include([
+            url(r'^$', media.MediaListView.as_view(), name='media'),
+            url(r'^(?P<document_id>[0-9]+)/', include([
+                url(r'^new$', media.MediaEditView.as_view(), name='new_upload_file'),
+                url(r'^edit$', media.MediaEditView.as_view(), name='edit_file'),
+                url(r'^delete$', media.delete_file, name='delete_file'),
+            ])),
+        ])),
     ])),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

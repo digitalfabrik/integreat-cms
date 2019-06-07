@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+    'widget_tweaks',
+    'easy_thumbnails',
+    'filer',
     'drf_yasg',
     'mptt',
     'rest_framework',
@@ -60,6 +63,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+THUMBNAIL_HIGH_RESOLUTION = True
 
 TEMPLATES = [
     {
@@ -164,6 +168,7 @@ CSRF_FAILURE_VIEW = 'cms.views.general.csrf_failure'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+FILER_CANONICAL_URL = 'media/'
 
 LOGGING = {
     'version': 1,
