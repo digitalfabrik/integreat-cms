@@ -8,7 +8,8 @@ from cms.models.event import Event
 class Feedback(models.Model):
     EMOTION = (
         ("Pos", "Positive"),
-        ("Neg", "Negative")
+        ("Neg", "Negative"),
+        ("NA", "Not Available"),
     )
     emotion = models.CharField(max_length=3, choices=EMOTION)
     comment = models.CharField(max_length=1000)

@@ -3,15 +3,21 @@
 Returns:
     [type]: [description]
 """
+import os
+import uuid
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
+from django.views.static import serve
+
 from ...models import Page, Site, Language
 from .page_form import PageForm
+from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 
 
 @method_decorator(login_required, name='dispatch')
@@ -133,6 +139,56 @@ def restore_page(request, page_id, site_slug, language_code):
     page.save()
 
     messages.success(request, _('Page was successfully restored.'))
+
+    return redirect('pages', **{
+                'site_slug': site_slug,
+                'language_code': language_code,
+            })
+
+
+@login_required
+def view_page(request, page_id, site_slug, language_code):
+    template_name = 'pages/page_view.html'
+    page = Page.objects.get(id=page_id)
+
+    page_translation = page.get_translation(language_code)
+
+    return render(request,
+                  template_name,
+                  {"page_translation": page_translation}
+                  )
+
+
+@login_required
+def download_page_xliff(request, page_id, site_slug, language_code):
+    page = Page.objects.get(id=page_id)
+    page_xliff_helper = PageXliffHelper()
+    page_xliff_zip_file = page_xliff_helper.export_page_xliffs_to_zip(page)
+    if page_xliff_zip_file and page_xliff_zip_file.startswith(XLIFFS_DIR):
+        response = serve(request, page_xliff_zip_file.split(XLIFFS_DIR)[1], document_root=XLIFFS_DIR)
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(page_xliff_zip_file.split(os.sep)[-1])
+        return response
+    raise Http404
+
+
+@login_required
+def upload_page(request, site_slug, language_code):
+    if request.method == 'POST' and 'xliff_file' in request.FILES:
+        page_xliff_helper = PageXliffHelper()
+        xliff_file = request.FILES['xliff_file']
+        if xliff_file and  xliff_file.name.endswith(('.zip', '.xliff', '.xlf')):
+            filename = xliff_file.name
+            file_path = os.path.join(XLIFFS_DIR, 'upload', str(uuid.uuid4()), filename)
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'wb+') as upload_file:
+                for chunk in xliff_file.chunks():
+                    upload_file.write(chunk)
+            if filename.endswith('.zip'):
+                page_xliff_helper.import_xliffs_zip_file(file_path, request.user)
+            else:
+                page_xliff_helper.import_xliff_file(file_path, request.user)
+
+            page_xliff_helper.delete_tmp_in_xliff_folder(file_path)
 
     return redirect('pages', **{
                 'site_slug': site_slug,

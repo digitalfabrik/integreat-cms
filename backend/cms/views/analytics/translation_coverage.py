@@ -1,0 +1,32 @@
+"""Views related to the statistics module"""
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from django.shortcuts import render
+from cms.models import Language, Page, PageTranslation
+
+
+@method_decorator(login_required, name='dispatch')
+class TranslationCoverageView(TemplateView):
+    """
+    Class to create the statistic page, that can be found via -> "Statistiken"
+    """
+    template_name = 'analytics/translation_coverage.html'
+    base_context = {'current_menu_item': 'translation_coverage'}
+
+    def get(self, request, *args, **kwargs):
+
+        languages = Language.objects.all()
+
+        languages = list(map(lambda x: [x.code, x.name, x.id], languages))
+
+        all_pages = Page.objects.count()
+
+        for i in range(len(languages)):
+            translated_count = PageTranslation.objects.filter(language_id=languages[i][2]).count()
+            languages[i].append(translated_count)
+            languages[i].append(all_pages - languages[i][3])
+
+        return render(request, self.template_name,
+                      {**self.base_context,
+                       'coverages': languages})

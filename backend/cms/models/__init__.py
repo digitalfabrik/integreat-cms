@@ -32,3 +32,4 @@ from .site import Site
 
 from .media_models import Document
 from .media_models import DocumentForm
+from .configuration import Configuration

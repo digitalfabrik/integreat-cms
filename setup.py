@@ -23,6 +23,8 @@ setup(
         "django-js-asset==1.1.0",
         "django-mptt==0.9.1",
         "django-widget-tweaks==1.4.3",
+        "djangorestframework==3.9.4",
+        "drf-yasg==1.15.0",
         "idna==2.6",
         "keyring==10.6.0",
         "Pillow==5.3.0",
@@ -39,6 +41,8 @@ setup(
         "pylint_runner==0.5.4",
         "requests==2.21.0",
         "django-filer==1.5.0"
+        "beautifulsoup4==4.7.1",
+        "lxml==4.3.3",
     ],
     author="Integreat App Project",
     author_email="info@integreat-app.de",

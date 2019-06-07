@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from .views import general, registration, pages, regions, languages, language_tree, push_notifications, media
+from .views import general, registration, pages, regions, languages, language_tree, push_notifications, media, analytics
 from .views.statistics import statistics
 
 
@@ -72,16 +72,28 @@ urlpatterns = [
 
     url(r'^(?P<site_slug>[-\w]+)/', include([
         url(r'^$', general.DashboardView.as_view(), name='dashboard'),
+        url(r'^translation_coverage/', analytics.TranslationCoverageView.as_view(), name='translation_coverage'),
         url(r'^pages/', include([
             url(r'^$', pages.PageTreeView.as_view(), name='pages'),
             url(r'^(?P<language_code>[-\w]+)/', include([
                 url(r'^$', pages.PageTreeView.as_view(), name='pages'),
                 url(r'^new$', pages.PageView.as_view(), name='new_page'),
+                url(r'^upload$', pages.upload_page, name='upload_page'),
                 url(r'^(?P<page_id>[0-9]+)/', include([
+                    url(
+                        r'^view$',
+                        pages.view_page,
+                        name='view_page'
+                    ),
                     url(
                         r'^edit$',
                         pages.PageView.as_view(),
                         name='edit_page'
+                    ),
+                    url(
+                        r'^sbs_edit$',
+                        pages.SBSPageView.as_view(),
+                        name='sbs_edit_page'
                     ),
                     url(
                         r'^archive$',
@@ -97,6 +109,11 @@ urlpatterns = [
                         r'^delete$',
                         pages.PageView.as_view(),
                         name='delete_page'
+                    ),
+                    url(
+                        r'^download$',
+                        pages.download_page_xliff,
+                        name='download_page'
                     ),
                 ])),
                 url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
