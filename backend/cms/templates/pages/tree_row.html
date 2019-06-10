@@ -7,8 +7,11 @@
         </span>
     </td>
     <td>
+        {{ node.id }}
+    </td>
+    <td>
         <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
-	        {{ node|page_translation_title:language }}
+            {{ node|page_translation_title:language }}
         </a>
     </td>
     <td>
@@ -21,6 +24,15 @@
 	            {% endfor %}
             </div>
         </div>
+    </td>
+    <td>
+        {{ node|page_translation_creator:language }}
+    </td>
+    <td>
+        {{ node|page_translation_last_updated:language }}
+    </td>
+    <td>
+        {{ node|page_translation_created_date:language }}
     </td>
     <td class="pl-2 pr-4" width="180">
         <!-- TODO: add link to view page in web app -->
