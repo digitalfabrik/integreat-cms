@@ -9,13 +9,13 @@
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
             <h2 class="heading font-normal">
                 {% if page %}
-		            {% if form.title.value %}
-			            {% with form.title.value as page_title %}
-			            {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
-			            {% endwith %}
-		            {% else %}
-			            {% trans 'Create new translation' %}
-		            {% endif %}
+                    {% if page_translation_form.instance.id %}
+                        {% with page_translation_form.instance.title as page_title %}
+                        {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
+                        {% endwith %}
+                    {% else %}
+                        {% trans 'Create new translation' %}
+                    {% endif %}
                 {% else %}
 	                {% trans 'Create new page' %}
                 {% endif %}
@@ -23,7 +23,7 @@
         </div>
         <div class="w-3/5 flex justify-end">
             <input type="submit" name="submit_save" class="{% if public %}bg-blue hover:bg-blue-dark{% else %}bg-grey hover:bg-grey-dark{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
-            {% if not public %}
+            {% if not page_translation_form.instance.public %}
                 <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
             {% endif %}
         </div>
@@ -31,16 +31,33 @@
 
     <div class="flex flex-wrap">
         <div class="w-2/3 pr-2">
-            {{form.errors}}
+            {{page_form.errors}}
+            {{page_translation_form.errors}}
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-	            {% trans 'Insert title here' as title_placeholder%}
-                {% render_field form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-	            <div class="mt-4">
-	                {% trans 'Insert content here' as text_placeholder%}
-                    {% render_field form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2" %}
+                <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
+                {% trans 'Insert title here' as title_placeholder%}
+                {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                <div class="mt-4">
+                    <label class="block mb-2 font-bold">{% trans 'Content' %}</label>
+                    {% trans 'Insert content here' as text_placeholder%}
+                    {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded" %}
                 </div>
             </div>
-            <div class="w-full p-4 rounded border border-solid border-grey-light shadow bg-white">
+            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+                <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
+            <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
+                {% spaceless %}
+                    <div style="display: table; white-space: nowrap;">
+                        <span style="display: table-cell;">https://integreat.app/{{ site.slug }}/{{ language.code }}/</span>
+                        {% if page_translation_form.instance.ancestor_path %}
+                            <span style="display: table-cell;">{{ page_translation_form.instance.ancestor_path }}/</span>
+                        {% endif %}
+                        <span style="display: table-cell; width: 100%;">{% render_field page_translation_form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
+                    </div>
+                {% endspaceless %}
+            </div></div>
+            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
                 <h3 class="mb-2">{% trans 'Embed live content' %}</h3>
                 <input type="text" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
                     placeholder="{% trans 'Search page' %}" />
@@ -80,7 +97,7 @@
 						                        </a>
 					                        </td>
 					                        <td>
-						                        <a href="" class="text-black block p-2 relative">
+						                        <a href="{% url 'edit_page' page_id=page.id site_slug=site.slug language_code=other_language.code %}" class="text-black block p-2 relative">
 							                        <i data-feather="{% if other_language in page.languages %}edit-2{% else %}plus{% endif %}"></i>
 						                        </a>
 					                        </td>
@@ -112,13 +129,13 @@
                 </div>
                 <div class="py-2 border-b solid border-grey-lighter mb-2">
                     <span class="font-bold mb-2 block">{% trans 'Positioning' %}</span>
-	                <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
-	                <div class="relative my-2">
-		                {% render_field form.position placeholder="0" id="position" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-	                </div>
+                    <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
+                    <div class="relative my-2">
+                        {% render_field page_form.position placeholder="0" id="position" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    </div>
                     <label for="parent" class="text-xs uppercase">{% trans 'Page' %}</label>
                     <div class="relative my-2">
-                        {% render_field form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% render_field page_form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
@@ -127,7 +144,7 @@
                 <div class="py-2 border-b solid border-grey-lighter mb-2">
                     <label for="public" class="font-bold">{% trans 'Visibility' %}</label>
                     <div class="relative my-2">
-                        {% render_field form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% render_field page_translation_form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
@@ -136,7 +153,7 @@
                 <div class="py-2 border-b solid border-grey-lighter mb-2">
                     <label for="status" class="font-bold">{% trans 'Status' %}</label>
                     <div class="relative my-2">
-                        {% render_field form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% render_field page_translation_form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
@@ -144,7 +161,7 @@
                 </div>
                 <div class="pt-2 pb-4">
                     <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
-                    {% render_field form.icon id="icon" class="image-field" %}
+                    {% render_field page_form.icon id="icon" class="image-field" %}
                     <label for="icon" class="font-bold my-2 bg-blue hover:bg-blue-dark focus:bg-blue-dark text-white font-bold py-2 pl-10 pr-4 rounded cursor-pointer relative">
                         <i data-feather="upload"></i>
                         <span class="standard_text">{% trans 'Set icon' %}</span>

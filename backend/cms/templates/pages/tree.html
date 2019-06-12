@@ -49,13 +49,14 @@
 </div>
 
 <div class="table-listing">
-    <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white">
+    <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white table-fixed">
         <thead>
             <tr class="border-b border-solid border-grey-light">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2"></th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4" style="width: 100px;"></th>
+                <th class="text-sm text-left uppercase py-3" style="width: 50px;">{% trans 'ID' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">
-                    <div class="lang-grid flags">
+                <th class="text-sm text-left uppercase py-3 px-2" style="width: 200px;">
+                    <div class="lang-grid flags" style="white-space: nowrap;">
 	                    {% for lang in languages %}
 		                    <a href="{% url 'pages' site_slug=site.slug language_code=lang.code %}">
 			                    <img src="{% static '' %}images/flags/{{ lang.code }}.png" title="{{ lang.name }}" />
@@ -63,7 +64,10 @@
 	                    {% endfor %}
                     </div>
                 </th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
+                <th class="text-sm text-left uppercase py-3" style="width: 250px;">{% trans 'Creator' %}</th>
+                <th class="text-sm text-left uppercase py-3" style="width: 200px;">{% trans 'Last updated' %}</th>
+                <th class="text-sm text-left uppercase py-3" style="width: 200px;">{% trans 'Created' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4" style="width: 200px;">{% trans 'Options' %}</th>
             </tr>
         </thead>
         <tbody>
