@@ -81,6 +81,8 @@ class PageView(TemplateView):
         page_translation_form = PageTranslationForm(
             request.POST,
             instance=page_translation_instance,
+            site=site,
+            language=language,
         )
 
         # TODO: error handling
@@ -89,7 +91,6 @@ class PageView(TemplateView):
             page = page_form.save()
             page_translation = page_translation_form.save(
                 page=page,
-                language=language,
                 user=request.user,
             )
 
