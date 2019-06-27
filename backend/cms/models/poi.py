@@ -42,6 +42,12 @@ class POI(models.Model):
 
         return pois
 
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('manage_pois', 'Can manage points of interest'),
+        )
+
 
 class POITranslation(models.Model):
     """Translation of an Point of Interest
@@ -67,3 +73,6 @@ class POITranslation(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        default_permissions = ()

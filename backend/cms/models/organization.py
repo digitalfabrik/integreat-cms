@@ -13,3 +13,9 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('manage_organizations', 'Can manage organizations'),
+        )

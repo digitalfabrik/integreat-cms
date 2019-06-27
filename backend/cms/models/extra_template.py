@@ -26,3 +26,9 @@ class ExtraTemplate(models.Model):
         Returns: String
         """
         return self.name
+
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('manage_extra_templates', 'Can manage extra templates'),
+        )
