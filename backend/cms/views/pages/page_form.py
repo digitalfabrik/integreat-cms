@@ -146,6 +146,10 @@ class PageTranslationForm(forms.ModelForm):
 
         logger.info('New PageTranslationForm with args {} and kwargs {}'.format(args, kwargs))
 
+        # pop kwarg to make sure the super class does not get this param
+        self.site = kwargs.pop('site', None)
+        self.language = kwargs.pop('language', None)
+
         # to set the public value through the submit button, we have to overwrite the field value for public.
         # we could also do this in the save() function, but this would mean that it is not recognized in changed_data.
         # check if POST data was submitted and the publish button was pressed
@@ -170,7 +174,6 @@ class PageTranslationForm(forms.ModelForm):
 
         # pop kwarg to make sure the super class does not get this param
         page = kwargs.pop('page', None)
-        language = kwargs.pop('language', None)
         user = kwargs.pop('user', None)
 
         if not self.instance.id:
@@ -183,7 +186,7 @@ class PageTranslationForm(forms.ModelForm):
             # only update these values when page translation is created
             page_translation.page = page
             page_translation.creator = user
-            page_translation.language = language
+            page_translation.language = self.language
 
         page_translation.save()
 
@@ -203,8 +206,8 @@ class PageTranslationForm(forms.ModelForm):
         i = 1
         while True:
             other_page_translation = PageTranslation.objects.filter(
-                page__site=self.instance.page.site,
-                language=self.instance.language,
+                page__site=self.site,
+                language=self.language,
                 slug=unique_slug
             ).exclude(id=self.instance.id)
             if not other_page_translation.exists():

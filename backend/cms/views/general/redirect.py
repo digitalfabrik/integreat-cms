@@ -1,17 +1,15 @@
 """
-View to build up the admin dashboard.
+View to redirect to the correct dashboard.
 """
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.shortcuts import render
-
-from ...decorators import staff_required
+from django.shortcuts import redirect
 
 
 @method_decorator(login_required, name='dispatch')
-@method_decorator(staff_required, name='dispatch')
-class AdminDashboardView(TemplateView):
+class RedirectView(TemplateView):
     """View class representing the Dashboard
 
     Args:
@@ -21,10 +19,11 @@ class AdminDashboardView(TemplateView):
         View : Rendered HTML-Page that will be seen in the CMS-Dashboard
     """
 
-    template_name = 'general/admin_dashboard.html'
-    base_context = {'current_menu_item': 'admin_dashboard'}
-
     def get(self, request, *args, **kwargs):
-        val = 'To be defined'
-        return render(request, self.template_name,
-                      {'key': val, **self.base_context})
+        user = request.user
+        if user.is_superuser or user.is_staff:
+            return redirect('admin_dashboard')
+        regions = user.profile.regions
+        if regions.exists():
+            return redirect('dashboard', site_slug=regions.first().slug)
+        raise PermissionDenied

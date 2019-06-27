@@ -4,10 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
+
 from .matomo_api_manager import MatomoApiManager
+from ...decorators import region_permission_required
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class AnalyticsView(TemplateView):
     """
     Class to create the statistic page, that can be found via -> "Statistiken"

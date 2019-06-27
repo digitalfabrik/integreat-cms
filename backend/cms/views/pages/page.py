@@ -19,12 +19,14 @@ from django.views.static import serve
 from .page_form import PageForm, PageTranslationForm
 from ...models import Page, PageTranslation, Site, Language
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
+from ...decorators import region_permission_required
 
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class PageView(TemplateView):
     template_name = 'pages/page.html'
     base_context = {'current_menu_item': 'pages'}
@@ -79,6 +81,8 @@ class PageView(TemplateView):
         page_translation_form = PageTranslationForm(
             request.POST,
             instance=page_translation_instance,
+            site=site,
+            language=language,
         )
 
         # TODO: error handling
@@ -87,7 +91,6 @@ class PageView(TemplateView):
             page = page_form.save()
             page_translation = page_translation_form.save(
                 page=page,
-                language=language,
                 user=request.user,
             )
 
@@ -133,6 +136,7 @@ class PageView(TemplateView):
 
 
 @login_required
+@region_permission_required
 def archive_page(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
     page.public = False
@@ -148,6 +152,7 @@ def archive_page(request, page_id, site_slug, language_code):
 
 
 @login_required
+@region_permission_required
 def restore_page(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
     page.archived = False
@@ -162,6 +167,7 @@ def restore_page(request, page_id, site_slug, language_code):
 
 
 @login_required
+@region_permission_required
 def view_page(request, page_id, site_slug, language_code):
     template_name = 'pages/page_view.html'
     page = Page.objects.get(id=page_id)
@@ -175,6 +181,7 @@ def view_page(request, page_id, site_slug, language_code):
 
 
 @login_required
+@region_permission_required
 def download_page_xliff(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
     page_xliff_helper = PageXliffHelper()
@@ -187,6 +194,7 @@ def download_page_xliff(request, page_id, site_slug, language_code):
 
 
 @login_required
+@region_permission_required
 def upload_page(request, site_slug, language_code):
     if request.method == 'POST' and 'xliff_file' in request.FILES:
         page_xliff_helper = PageXliffHelper()
