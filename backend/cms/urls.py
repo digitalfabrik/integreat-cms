@@ -119,6 +119,19 @@ urlpatterns = [
         ),
     ])),
 
+    url(r'^ajax/', include([
+        url(
+            r'^grant_page_permission$',
+            pages.grant_page_permission_ajax,
+            name='grant_page_permission_ajax'
+        ),
+        url(
+            r'^revoke_page_permission$',
+            pages.revoke_page_permission_ajax,
+            name='revoke_page_permission_ajax'
+        ),
+    ])),
+
     url(r'^(?P<site_slug>[-\w]+)/', include([
         url(r'^$', general.DashboardView.as_view(), name='dashboard'),
         url(r'^translation_coverage/', analytics.TranslationCoverageView.as_view(), name='translation_coverage'),

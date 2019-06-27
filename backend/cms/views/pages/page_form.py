@@ -42,10 +42,12 @@ class PageForm(forms.ModelForm):
 
     position = forms.ChoiceField(choices=POSITION_CHOICES, initial=POSITION_CHOICES[0][0])
     parent = ParentField(queryset=Page.objects.all(), required=False)
+    editors = forms.ModelChoiceField(queryset=get_user_model().objects.all(), required=False)
+    publishers = forms.ModelChoiceField(queryset=get_user_model().objects.all(), required=False)
 
     class Meta:
         model = Page
-        fields = ['icon', 'editors', 'publishers']
+        fields = ['icon']
 
     def __init__(self, *args, **kwargs):
 
@@ -62,6 +64,15 @@ class PageForm(forms.ModelForm):
 
         # instantiate ModelForm
         super(PageForm, self).__init__(*args, **kwargs)
+
+        if len(args) == 1:
+            # dirty hack to remove fields when submitted by POST
+            del self.fields['editors']
+            del self.fields['publishers']
+        else:
+            # update the querysets otherwise
+            self.fields['editors'].queryset = self.get_editor_queryset()
+            self.fields['publishers'].queryset = self.get_publisher_queryset()
 
         # limit possible parents to pages of current region
         parent_queryset = Page.objects.filter(
@@ -82,8 +93,7 @@ class PageForm(forms.ModelForm):
         # add the language to the parent field to make sure the translated page titles are shown
         self.fields['parent'].language = language
         self.fields['parent'].queryset = parent_queryset
-        self.fields['editors'].queryset = self.get_editor_queryset()
-        self.fields['publishers'].queryset = self.get_publisher_queryset()
+
 
     def save(self, *args, **kwargs):
 

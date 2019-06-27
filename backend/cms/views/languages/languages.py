@@ -69,7 +69,7 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
                 messages.success(request, _('Language created successfully'))
             # TODO: improve messages
         else:
-            messages.error(request, _('Es sind Fehler aufgetreten.'))
+            messages.error(request, _('An error has occurred.'))
 
         return render(request, self.template_name, {
             'form': form, **self.base_context})

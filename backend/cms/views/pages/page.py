@@ -5,11 +5,13 @@ Returns:
 """
 import os
 import uuid
+import json
 import logging
 
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.utils.translation import ugettext as _
@@ -37,6 +39,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
     base_context = {'current_menu_item': 'pages'}
 
     def get(self, request, *args, **kwargs):
+
         site = Site.objects.get(slug=kwargs.get('site_slug'))
 
         language = Language.objects.get(code=kwargs.get('language_code'))
@@ -68,13 +71,6 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
 
-        if not request.user.has_perm('cms.edit_pages'):
-            raise PermissionDenied
-
-        if 'submit_publish' in request.POST or request.POST.get('public') == 'True':
-            if not request.user.has_perm('cms.publish_pages'):
-                raise PermissionDenied
-
         site = Site.objects.get(slug=kwargs.get('site_slug'))
         language = Language.objects.get(code=kwargs.get('language_code'))
 
@@ -83,6 +79,9 @@ class PageView(PermissionRequiredMixin, TemplateView):
             page=page_instance,
             language=language,
         ).first()
+
+        if not request.user.has_perm('cms.edit_page', page_instance):
+            raise PermissionDenied
 
         page_form = PageForm(
             request.POST,
@@ -96,6 +95,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
             site=site,
             language=language,
         )
+
+        if page_translation_form.data.get('public') and 'public' in page_translation_form.changed_data:
+            if not request.user.has_perm('cms.publish_page', page_instance):
+                raise PermissionDenied
 
         # TODO: error handling
         if page_form.is_valid() and page_translation_form.is_valid():
@@ -149,9 +152,12 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
 @login_required
 @region_permission_required
-@permission_required('cms.edit_pages', raise_exception=True)
 def archive_page(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
+
+    if not request.user.has_perm('cms.edit_page', page):
+        raise PermissionDenied
+
     page.public = False
     page.archived = True
     page.save()
@@ -166,9 +172,12 @@ def archive_page(request, page_id, site_slug, language_code):
 
 @login_required
 @region_permission_required
-@permission_required('cms.edit_pages', raise_exception=True)
 def restore_page(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
+
+    if not request.user.has_perm('cms.edit_page', page):
+        raise PermissionDenied
+
     page.archived = False
     page.save()
 
@@ -234,3 +243,176 @@ def upload_page(request, site_slug, language_code):
                 'site_slug': site_slug,
                 'language_code': language_code,
             })
+
+
+@login_required
+@region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
+@permission_required('cms.grant_page_permissions', raise_exception=True)
+def grant_page_permission_ajax(request):
+
+    data = json.loads(request.body.decode('utf-8'))
+    permission = data.get('permission')
+    page_id = data.get('page_id')
+    user_id = data.get('user_id')
+
+    logger.info('Ajax call: The user {request_user} wants to grant the permission to {permission} '
+                  'page with id {page_id} to user with id {user_id}.'.format(
+        request_user=request.user.username, permission=permission, page_id=page_id, user_id=user_id
+    ))
+
+    page = Page.objects.get(id=page_id)
+    user = get_user_model().objects.get(id=user_id)
+
+    if not request.user.has_perm('cms.grant_page_permissions'):
+        logger.info('Error: The user {request_user} does not have the permission to grant page permissions.'.format(
+            request_user=request.user.username
+        ))
+        raise PermissionDenied
+
+    if not (request.user.is_superuser or request.user.is_staff):
+        # additional checks if requesting user is no superuser or staff
+        if page.site not in request.user.profile.regions:
+            # requesting user can only grant permissions for pages of his region
+            logger.info('Error: The user {request_user} cannot grant permissions for region {region}.'.format(
+                request_user=request.user.username, region=page.site.name
+            ))
+            raise PermissionDenied
+        if page.site not in user.profile.regions:
+            # user can only receive permissions for pages of his region
+            logger.info('Error: The user {user} cannot receive permissions for region {region}.'.format(
+                user=user.username, region=page.site.name
+            ))
+            raise PermissionDenied
+
+    if permission == 'edit':
+        # check, if the user already has this permission
+        if user.has_perm('cms.edit_page', page):
+            message = _('Information: The user {user} has this permission already.').format(
+                user=user.username
+            )
+            level_tag = 'info'
+        else:
+            # else grant the permission by adding the user to the editors of the page
+            page.editors.add(user)
+            page.save()
+            message = _('Success: The user {user} can now edit this page.').format(
+                user=user.username
+            )
+            level_tag = 'success'
+    elif permission == 'publish':
+        # check, if the user already has this permission
+        if user.has_perm('cms.publish_page', page):
+            message = _('Information: The user {user} has this permission already.').format(
+                user=user.username
+            )
+            level_tag = 'info'
+        else:
+            # else grant the permission by adding the user to the publishers of the page
+            page.publishers.add(user)
+            page.save()
+            message = _('Success: The user {user} can now publish this page.').format(
+                user=user.username
+            )
+            level_tag = 'success'
+    else:
+        logger.info('Error: The permission {permission} is not supported.'.format(
+            permission=permission
+        ))
+        raise PermissionDenied
+
+    logger.info(message)
+
+    return render(request, 'pages/_page_permission_table.html', {
+        'page': page,
+        'page_form': PageForm(instance=page),
+        'permission_message': {
+            'message': message,
+            'level_tag': level_tag
+        }
+    })
+
+
+@login_required
+@region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
+@permission_required('cms.grant_page_permissions', raise_exception=True)
+def revoke_page_permission_ajax(request):
+
+    data = json.loads(request.body.decode('utf-8'))
+    permission = data.get('permission')
+    page_id = data.get('page_id')
+    page = Page.objects.get(id=page_id)
+    user = get_user_model().objects.get(id=data.get('user_id'))
+
+    logger.info('Ajax call: The user {request_user} wants to revoke the permission to {permission} '
+                  'page with id {page_id} from user {user}.'.format(
+        request_user=request.user.username, permission=permission, page_id=page_id, user=user.username
+    ))
+
+    if not request.user.has_perm('cms.grant_page_permissions'):
+        logger.info('Error: The user {request_user} does not have the permission to revoke page permissions.'.format(
+            request_user=request.user.username
+        ))
+        raise PermissionDenied
+
+    if not (request.user.is_superuser or request.user.is_staff):
+        # additional checks if requesting user is no superuser or staff
+        if page.site not in request.user.profile.regions:
+            # requesting user can only revoke permissions for pages of his region
+            logger.info('Error: The user {request_user} cannot revoke permissions for region {region}.'.format(
+                request_user=request.user.username, region=page.site.name
+            ))
+            raise PermissionDenied
+
+    if permission == 'edit':
+        if user in page.editors.all():
+            # revoke the permission by removing the user to the editors of the page
+            page.editors.remove(user)
+            page.save()
+        # check, if the user has this permission anyway
+        if user.has_perm('cms.edit_page', page):
+            message = _('Information: The user {user} has been removed from the editors of this page, '
+                        'but has the implicit permission to edit this page anyway.').format(
+                user=user.username
+            )
+            level_tag = 'info'
+        else:
+            message = _('Success: The user {user} cannot edit this page anymore.').format(
+                user=user.username
+            )
+            level_tag = 'success'
+    elif permission == 'publish':
+        if user in page.publishers.all():
+            # revoke the permission by removing the user to the publishers of the page
+            page.publishers.remove(user)
+            page.save()
+        # check, if the user already has this permission
+        if user.has_perm('cms.publish_page', page):
+            message = _('Information: The user {user} has been removed from the publishers of this page, '
+                        'but has the implicit permission to publish this page anyway.').format(
+                user=user.username
+            )
+            level_tag = 'info'
+        else:
+            message = _('Success: The user {user} cannot publish this page anymore.').format(
+                user=user.username
+            )
+            level_tag = 'success'
+    else:
+        logger.info('Error: The permission {permission} is not supported.'.format(
+            permission=permission
+        ))
+        raise PermissionDenied
+
+    logger.info(message)
+
+    return render(request, 'pages/_page_permission_table.html', {
+        'page': page,
+        'page_form': PageForm(instance=page),
+        'permission_message': {
+            'message': message,
+            'level_tag': level_tag
+        }
+    })
+
