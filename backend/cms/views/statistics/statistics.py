@@ -13,7 +13,6 @@ from ...decorators import region_permission_required
 
 
 
-
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
 class AnalyticsView(TemplateView):
