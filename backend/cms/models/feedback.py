@@ -18,26 +18,56 @@ class Feedback(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('view_feedback', 'Can view feedback'),
+        )
+
 
 class SiteFeedback(Feedback):
+
     site = models.ForeignKey(Site)
+
+    class Meta:
+        default_permissions = ()
 
 
 class PageFeedback(Feedback):
+
     page = models.ForeignKey(Page)
+
+    class Meta:
+        default_permissions = ()
 
 
 class TechnicalFeedback(Feedback):
+
     page = models.ForeignKey(Page)
+
+    class Meta:
+        default_permissions = ()
 
 
 class ExtraFeedback(Feedback):
+
     extra = models.ForeignKey(Extra)
+
+    class Meta:
+        default_permissions = ()
 
 
 class EventFeedback(Feedback):
+
     event = models.ForeignKey(Event)
+
+    class Meta:
+        default_permissions = ()
 
 
 class SearchResultFeedback(Feedback):
+
     searchQuery = models.CharField(max_length=1000)
+
+    class Meta:
+        default_permissions = ()

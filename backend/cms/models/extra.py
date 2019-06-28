@@ -25,3 +25,9 @@ class Extra(models.Model):
 
     def post_data(self):
         return self.template.post_data
+
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('manage_extras', 'Can manage extras'),
+        )

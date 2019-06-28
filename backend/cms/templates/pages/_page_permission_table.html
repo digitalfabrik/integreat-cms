@@ -1,0 +1,96 @@
+{% load page_filters %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+    {% if permission_message %}
+        {% if permission_message.level_tag == 'info' %}
+            <div class="bg-blue-lightest border-l-4 border-blue text-blue-dark px-4 py-3 mb-5" role="alert">
+                <p>{{permission_message.message}}</p>
+            </div>
+        {% endif %}
+        {% if permission_message.level_tag == 'success' %}
+            <div class="bg-green-lightest border-l-4 border-green text-green-dark px-4 py-3 mb-5" role="alert">
+                <p>{{ permission_message.message }}</p>
+            </div>
+        {% endif %}
+        {% if permission_message.level_tag == 'warning' %}
+            <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark px-4 py-3 mb-5" role="alert">
+                <p>{{ permission_message.message }}</p>
+            </div>
+        {% endif %}
+        {% if permission_message.level_tag == 'error' %}
+            <div class="bg-red-lightest border-l-4 border-red text-red-dark px-4 py-3 mb-5" role="alert">
+                <p>{{ permission_message.message }}</p>
+            </div>
+        {% endif %}
+    {% endif %}
+<div class="w-fullrounded overflow-hidden shadow-lg mt-6">
+    <div class="px-6 pt-4">
+        <div class="font-bold text-xl mb-2">{% trans 'Editors' %}</div>
+        <p class="text-gray-700 text-base">
+            {% trans 'These users can edit this page, but are not allowed to publish it.' %}
+        </p>
+    </div>
+    <div class="px-2 py-2">
+        {% for user in page.editors.all %}
+            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue text-white text-xl">
+                {{ user.username }}
+                <a class="revoke-page-permission" data-user-id="{{ user.id }}" data-permission="edit">
+                    <i data-feather="x-circle" class="cursor-pointer ml-1 mb-0 align-middle"></i>
+                </a>
+            </span>
+        {% empty %}
+        {% endfor %}
+    </div>
+    <div class="w-full flex flex-wrap mt-2 px-6 pb-4">
+        <div class="w-1/3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                {% trans 'Username' %}
+            </label>
+            {% render_field page_form.editors class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+            </div>
+        </div>
+        <div class="w-1/3 mt-6 ml-3">
+            <button type="button" class="bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" id="grant-edit-page-permission" data-user-id="{{ user.id }}" data-permission="edit">
+                <i data-feather="plus-circle" class="align-middle"></i> {% trans 'Add to editors' %}
+            </button>
+        </div>
+    </div>
+</div>
+<div class="w-fullrounded overflow-hidden shadow-lg mt-6">
+    <div class="px-6 pt-4">
+        <div class="font-bold text-xl mb-2">{% trans 'Publishers' %}</div>
+        <p class="text-gray-700 text-base">
+            {% trans 'These users can edit and publish this page.' %}
+        </p>
+    </div>
+    <div class="px-2 py-2">
+        {% for user in page.publishers.all %}
+            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue text-white text-xl">
+                {{ user.username }}
+                <a class="revoke-page-permission" data-user-id="{{ user.id }}" data-permission="publish">
+                    <i data-feather="x-circle" class="cursor-pointer ml-1 mb-0 align-middle"></i>
+                </a>
+            </span>
+        {% empty %}
+        {% endfor %}
+    </div>
+    <div class="w-full flex flex-wrap mt-2 px-6 pb-4">
+        <div class="w-1/3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                {% trans 'Username' %}
+            </label>
+            {% render_field page_form.publishers class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+            </div>
+        </div>
+        <div class="w-1/3 mt-6 ml-3">
+            <button type="button" class="bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" id="grant-publish-page-permission">
+                <i data-feather="plus-circle" class="align-middle"></i> {% trans 'Add to publishers' %}
+            </button>
+        </div>
+    </div>
+</div>

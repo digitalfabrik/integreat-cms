@@ -7,58 +7,38 @@
     <div class="flex flex-wrap mb-4">
         <div class="w-full flex flex-wrap flex-col justify-center">
             <h2 class="heading font-normal">
-                {% if page %}
-		            {% if source.title %}
-			            {% with source.title as page_title %}
-			            {% blocktrans %}Translate "{{ page_title }}" from {{source_language}} to {{target_language}}{% endblocktrans %}
-			            {% endwith %}
-		            {% else %}
-			            {% trans 'Create new translation' %}
-		            {% endif %}
-                {% else %}
-	                {% trans 'Create new page' %}
-                {% endif %}
+	            {% with source_page_translation.title as page_title %}
+	            {% blocktrans %}Translate "{{ page_title }}" from {{source_language}} to {{target_language}}{% endblocktrans %}
+	            {% endwith %}
             </h2>
         </div>
     </div>
 
     <div class="flex flex-wrap">
         <div class="w-1/2 pr-2">
-            <!--{{form.errors}}-->
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-	            {% trans 'Insert title here' as title_placeholder%}
-                <!--{% render_field form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}-->
-                <input type="text" name="source_title" disabled value="{{source.title}}" maxlength="250" class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{title_placeholder}}">
+                <input type="text" name="source_title" disabled value="{{source_page_translation.title}}" maxlength="250" class="appearance-none block w-full bg-grey-lighter text-xl border border-grey-lighter rounded py-3 px-4 leading-tight">
 	            <div class="mt-4">
-	                {% trans 'Insert content here' as text_placeholder%}
-                    <!--{% render_field form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2" %}-->
-                    <textarea disabled name="text" cols="40" rows="10" class="bg-grey-lighter w-full p-2" placeholder="{{text_placeholder}}">{{source.text}}</textarea>
+                    <textarea disabled name="text" cols="40" rows="10" class="bg-grey-lighter w-full p-2">{{source_page_translation.text}}</textarea>
                 </div>
             </div>
         </div>
         <form method="post" class="w-1/2 pr-2">
             {% csrf_token %}
-            {{form.errors}}
+            {{ page_translation_form.errors }}
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
 	            {% trans 'Insert title here' as title_placeholder%}
-                {% render_field form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
 	            <div class="mt-4">
 	                {% trans 'Insert content here' as text_placeholder%}
-                    {% render_field form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2" %}
+                    {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded" %}
                 </div>
             </div>
             <div class="w-full p-4 flex justify-end">
                 <input type="submit" name="submit_save" class="bg-blue hover:bg-blue-dark cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
-                 <a href="{% url 'edit_page' page_id=page.id site_slug=site.slug language_code=target_language.code %}" class="bg-grey hover:bg-grey-dark cursor-pointer text-white font-bold py-3 px-4 rounded">
+                 <a href="{% url 'edit_page' page_id=source_page_translation.page.id site_slug=site.slug language_code=source_language.code %}" class="bg-grey hover:bg-grey-dark cursor-pointer text-white font-bold py-3 px-4 rounded">
                     {% trans 'Go Back to Page Editor' %}
                 </a>
-            </div>
-            <div class="hidden">
-                {% render_field form.position placeholder="0" id="position" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                {% render_field form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                {% render_field form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                {% render_field form.icon id="icon" class="image-field" %}
-                {% render_field form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
             </div>
         </form>
     </div>

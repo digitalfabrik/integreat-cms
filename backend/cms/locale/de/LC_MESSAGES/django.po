@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-05 00:28+0200\n"
+"POT-Creation-Date: 2019-06-12 05:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -25,19 +25,21 @@ msgstr "Links nach Rechts"
 msgid "Right to left"
 msgstr "Rechts nach Links"
 
-#: models/page.py:125
+#: models/page.py:150
 msgid "Draft"
 msgstr "Entwurf"
 
-#: models/page.py:126
+#: models/page.py:151
 msgid "Pending Review"
 msgstr "Review ausstehend"
 
-#: models/page.py:127
+#: models/page.py:152
 msgid "Finished Review"
 msgstr "Review abgeschlossen"
 
-#: models/site.py:19 templates/language_tree/tree.html:31
+#: models/site.py:20 templates/language_tree/tree.html:31
+#: templates/users/admin/list.html:28 templates/users/admin/user.html:82
+#: templates/users/region/list.html:28 templates/users/region/user.html:73
 msgid "Active"
 msgstr "Aktiv"
 
@@ -45,126 +47,167 @@ msgstr "Aktiv"
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: models/site.py:21
+#: models/site.py:22
 msgid "Archived"
 msgstr "Archiviert"
 
 #: templates/_base.html:11 templates/language_tree/tree.html:15
-#: templates/languages/list.html:9 templates/pages/archive.html:13
+#: templates/languages/list.html:9 templates/media/medialist.html:8
+#: templates/organizations/list.html:9 templates/pages/archive.html:13
 #: templates/pages/tree.html:26 templates/push_notifications/list.html:9
-#: templates/regions/list.html:9 templates/media/medialist.html:9
+#: templates/regions/list.html:9 templates/roles/list.html:9
+#: templates/users/admin/list.html:9 templates/users/region/list.html:9
 msgid "Search"
 msgstr "Suchen"
 
-#: templates/_base.html:28 templates/_base.html:40
+#: templates/_base.html:28 templates/_base.html:43
 msgid "Network Management"
 msgstr "Netzwerkverwaltung"
 
-#: templates/_base.html:82
+#: templates/_base.html:86
 msgid "Help"
 msgstr "Hilfe"
 
-#: templates/_base.html:86
+#: templates/_base.html:90
 msgid "Author Chat"
 msgstr "Autorenchat"
 
-#: templates/_base.html:90
+#: templates/_base.html:94
 msgid "Django Administration"
 msgstr "Django Administration"
 
-#: templates/_base.html:94
+#: templates/_base.html:98
 msgid "Log out"
 msgstr "Abmelden"
 
-#: templates/_base.html:101 templates/registration/login.html:10
+#: templates/_base.html:105 templates/registration/login.html:10
 msgid "Integreat Logo"
 msgstr "Integreat Logo"
 
-#: templates/_base.html:107
+#: templates/_base.html:111
 msgid "My Dashboard"
 msgstr "Mein Dashboard"
 
-#: templates/_base.html:111 templates/regions/region.html:111
+#: templates/_base.html:115
+msgid "Translation Report"
+msgstr "Übersetzungs-Bericht"
+
+#: templates/_base.html:119 templates/analytics/translation_coverage.html:7
+#: templates/regions/region.html:111
 #: templates/statistics/statistics_dashboard.html:7
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/_base.html:119 templates/pages/tree.html:10
+#: templates/_base.html:123
+msgid "Media Library"
+msgstr "Medienbibliothek"
+
+#: templates/_base.html:127 templates/pages/tree.html:10
 msgid "Pages"
 msgstr "Seiten"
 
-#: templates/_base.html:123 templates/regions/region.html:91
+#: templates/_base.html:131 templates/regions/region.html:91
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: templates/_base.html:127 templates/_base.html:168
-msgid "User"
+#: templates/_base.html:135 templates/_base.html:176
+msgid "Users"
 msgstr "Benutzer"
 
-#: templates/_base.html:131 templates/_base.html:172
+#: templates/_base.html:139 templates/_base.html:188
 msgid "Feedback"
 msgstr "Feedback"
 
-#: templates/_base.html:135 templates/regions/region.html:98
+#: templates/_base.html:143 templates/regions/region.html:98
 msgid "Push Notifications"
 msgstr "Push-Benachrichtigungen"
 
-#: templates/_base.html:139
+#: templates/_base.html:147
 msgid "PDF Export"
 msgstr "PDF Export"
 
-#: templates/_base.html:143
+#: templates/_base.html:151
 msgid "Imprint"
 msgstr "Impressum"
 
-#: templates/_base.html:147 templates/language_tree/tree.html:9
+#: templates/_base.html:155 templates/language_tree/tree.html:9
 msgid "Language tree"
 msgstr "Sprach-Baum"
 
-#: templates/_base.html:151 templates/_base.html:176
+#: templates/_base.html:159 templates/_base.html:192
 #: templates/statistics/statistics_dashboard.html:59
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: templates/_base.html:156
+#: templates/_base.html:164
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: templates/_base.html:160
+#: templates/_base.html:168 templates/users/admin/user.html:91
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:164
+#: templates/_base.html:172
 msgid "Languages"
 msgstr "Sprachen"
+
+#: templates/_base.html:180 templates/users/admin/user.html:86
+#: templates/users/region/user.html:77
+msgid "Roles"
+msgstr "Rollen"
+
+#: templates/_base.html:184
+msgid "Organizations"
+msgstr "Organisationen"
 
 #: templates/_raw.html:9
 msgid "Integreat Backend"
 msgstr "Integreat CMS"
+
+#: templates/analytics/translation_coverage.html:13
+msgid "Translation Coverage"
+msgstr "Abdeckung der Übersetzungen"
 
 #: templates/general/admin_settings.html:9
 msgid "Admin Settings"
 msgstr "Administrator-Einstellungen"
 
 #: templates/general/confirmation_popups/archive_page.html:4
-#: templates/pages/tree_row.html:44
+#: templates/pages/tree_row.html:63
 msgid "Please confirm that you really want to archive this page"
 msgstr "Bitte bestätigen Sie, dass diese Seite archiviert werden soll."
 
 #: templates/general/confirmation_popups/archive_page.html:6
-#: templates/pages/tree_row.html:46
+#: templates/pages/tree_row.html:65
 msgid "All translations of this page will also be archived."
 msgstr "Es werden auch alle Übersetzungen dieser Seite archiviert."
 
 #: templates/general/confirmation_popups/archive_page.html:8
-#: templates/pages/tree_row.html:50
+#: templates/pages/tree_row.html:69
 msgid "Yes, archive this page now."
 msgstr "Ja, diese Seite jetzt archivieren"
 
 #: templates/general/confirmation_popups/archive_page.html:10
-#: templates/pages/archive.html:53 templates/pages/tree_row.html:52
+#: templates/general/confirmation_popups/delete_region_user.html:12
+#: templates/general/confirmation_popups/delete_user.html:12
+#: templates/pages/archive.html:53 templates/pages/tree_row.html:71
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: templates/general/confirmation_popups/delete_region_user.html:4
+#: templates/general/confirmation_popups/delete_user.html:4
+msgid "Please confirm that you really want to delete this user"
+msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
+
+#: templates/general/confirmation_popups/delete_region_user.html:6
+#: templates/general/confirmation_popups/delete_user.html:6
+msgid "This cannot be reversed."
+msgstr "Dies kann nicht rückgängig gemacht werden."
+
+#: templates/general/confirmation_popups/delete_region_user.html:9
+#: templates/general/confirmation_popups/delete_user.html:9
+msgid "Yes, delete this user now"
+msgstr "Ja, diesen Benutzer jetzt löschen"
 
 #: templates/general/csrf_failure.html:6
 msgid "CSRF Error"
@@ -191,7 +234,7 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: templates/language_tree/tree.html:30
-#: templates/language_tree/tree_node.html:28 templates/pages/page.html:64
+#: templates/language_tree/tree_node.html:28 templates/pages/page.html:96
 #: templates/push_notifications/push_notification.html:62
 msgid "Language"
 msgstr "Sprache"
@@ -209,9 +252,12 @@ msgid "Add language"
 msgstr "Sprache hinzufügen"
 
 #: templates/language_tree/tree_node.html:19
-#: templates/languages/language.html:19 templates/pages/page.html:25
+#: templates/languages/language.html:19
+#: templates/organizations/organization.html:21 templates/pages/page.html:29
+#: templates/pages/sbs_page.html:38
 #: templates/push_notifications/push_notification.html:26
-#: templates/regions/region.html:21
+#: templates/regions/region.html:21 templates/roles/role.html:21
+#: templates/users/admin/user.html:21 templates/users/region/user.html:21
 msgid "Save"
 msgstr "Speichern"
 
@@ -232,13 +278,15 @@ msgstr "Sprache %(form.name.initial)s bearbeiten"
 msgid "Create new language"
 msgstr "Neue Sprache erstellen"
 
-#: templates/languages/language.html:20 templates/pages/page.html:27
+#: templates/languages/language.html:20
+#: templates/organizations/organization.html:22 templates/pages/page.html:33
 #: templates/regions/region.html:22
 msgid "Publish"
 msgstr "Veröffentlichen"
 
 #: templates/languages/language.html:28 templates/languages/list.html:23
-#: templates/regions/list.html:23 template/media/medialist.html:23
+#: templates/media/medialist.html:22 templates/organizations/list.html:23
+#: templates/regions/list.html:23 templates/roles/list.html:23
 msgid "Name"
 msgstr "Name"
 
@@ -266,11 +314,13 @@ msgstr "Schreibrichtung auswählen"
 msgid "Create language"
 msgstr "Sprache hinzufügen"
 
-#: templates/languages/list.html:26 templates/regions/list.html:26
+#: templates/languages/list.html:26 templates/pages/tree.html:69
+#: templates/regions/list.html:26
 msgid "Created"
 msgstr "Erstellt"
 
-#: templates/languages/list.html:27 templates/regions/list.html:27
+#: templates/languages/list.html:27 templates/pages/tree.html:68
+#: templates/regions/list.html:27
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
@@ -278,29 +328,138 @@ msgstr "Zuletzt aktualisiert"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
+#: templates/media/mediaedit.html:12
+msgid "Submit"
+msgstr "Absenden"
+
+#: templates/media/mediaedit.html:15
+msgid "Return"
+msgstr "Zurück"
+
+#: templates/media/medialist.html:12
+msgid "Upload File"
+msgstr "Datei hochladen"
+
+#: templates/media/medialist.html:23
+msgid "Date"
+msgstr "Datum"
+
+#: templates/media/medialist.html:24 templates/pages/archive.html:22
+msgid "Operations"
+msgstr "Optionenen"
+
+#: templates/organizations/list.html:13
+msgid "Create organization"
+msgstr "Organisation erstellen"
+
+#: templates/organizations/list.html:24
+msgid "Slug"
+msgstr "URL-Parameter"
+
+#: templates/organizations/list.html:25
+msgid "Thumbnail"
+msgstr "Vorschaubild"
+
+#: templates/organizations/list.html:34
+msgid "No organizations available yet."
+msgstr "Noch keine Organisationen vorhanden."
+
+#: templates/organizations/organization.html:13
+#, python-format
+msgid "Edit organization \"%(organization_name)s\""
+msgstr "Organisation \"%(organization_name)s\" bearbeiten"
+
+#: templates/organizations/organization.html:16
+msgid "Create new organization"
+msgstr "Neue Organisation erstellen"
+
+#: templates/organizations/organization.html:31
+#: templates/regions/region.html:31 templates/users/admin/user.html:31
+#: templates/users/region/user.html:31
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: templates/organizations/organization.html:36
+msgid "Organizationname"
+msgstr "Organisationsname"
+
+#: templates/organizations/organization.html:37
+msgid "Enter the organization's name here"
+msgstr "Name der Organisation hier eingeben"
+
+#: templates/organizations/organization.html:40
+msgid "Slug of the organization"
+msgstr "Slug der Organisation"
+
+#: templates/organizations/organization.html:41
+msgid "Enter the organization's slug here"
+msgstr "URL-Parameter der Organisation hier eingeben"
+
+#: templates/organizations/organization.html:44
+msgid "Thumbnail of the organization"
+msgstr "Thumbnail der Organisation"
+
+#: templates/organizations/organization.html:45
+msgid "Enter the organization's thumbnail here"
+msgstr "Name der Organisations-Thumbnail hier eingeben"
+
+#: templates/organizations/organization.html:54
+#: templates/regions/region.html:87 templates/users/admin/user.html:67
+#: templates/users/region/user.html:67
+msgid "Extended Settings"
+msgstr "Erweiterte Einstellungen"
+
+#: templates/organizations/organization.html:66 templates/pages/page.html:185
+#: templates/regions/region.html:67
+msgid "Set icon"
+msgstr "Icon festlegen"
+
+#: templates/pages/_page_permission_table.html:29
+msgid "Editors"
+msgstr "Bearbeiter"
+
+#: templates/pages/_page_permission_table.html:31
+msgid "These users can edit this page, but are not allowed to publish it."
+msgstr ""
+"Diese Benutzer können die Seite bearbeiten, aber nicht veröffentlichen."
+
+#: templates/pages/_page_permission_table.html:48
+#: templates/pages/_page_permission_table.html:83
+#: templates/registration/login.html:26 templates/registration/login.html:28
+#: templates/users/admin/list.html:23 templates/users/admin/user.html:36
+#: templates/users/region/list.html:23 templates/users/region/user.html:36
+msgid "Username"
+msgstr "Benutzername"
+
+#: templates/pages/_page_permission_table.html:57
+msgid "Add to editors"
+msgstr "Zu Bearbeitern hinzufügen"
+
+#: templates/pages/_page_permission_table.html:64
+msgid "Publishers"
+msgstr "Veröffentlicher"
+
+#: templates/pages/_page_permission_table.html:66
+msgid "These users can edit and publish this page."
+msgstr "Diese Benutzer können die Seite bearbeiten und veröffentlichen"
+
+#: templates/pages/_page_permission_table.html:92
+msgid "Add to publishers"
+msgstr "Erlaubnis zum Veröffentlichen erteilen"
+
 #: templates/pages/archive.html:8
-#, fuzzy
-#| msgid "Archived pages"
 msgid "Archived Pages"
 msgstr "Archivierte Seiten"
 
-#: templates/pages/archive.html:21 templates/pages/tree.html:43
-#: templates/push_notifications/list.html:24
+#: templates/pages/archive.html:21 templates/pages/page.html:43
+#: templates/pages/tree.html:57 templates/push_notifications/list.html:24
 #: templates/push_notifications/push_notification.html:49
 msgid "Title"
 msgstr "Titel"
 
-#: templates/pages/archive.html:22 teamplate/media/medialist.html:25
-#, fuzzy
-#| msgid "Options"
-msgid "Operations"
-msgstr "Optionen"
-
 #: templates/pages/archive.html:33
-#, fuzzy
-#| msgid "Related page"
 msgid "Restore page"
-msgstr "Verwandte Seite"
+msgstr "Seite wiederherstellen"
 
 #: templates/pages/archive.html:38
 msgid "Restore"
@@ -318,137 +477,178 @@ msgstr "Alle Übersetzungen dieser Seite werden wiederhergestellt."
 msgid "Yes, restore this page now."
 msgstr "Ja, die Seite wiederherstellen."
 
-#: templates/pages/archive.html:65 templates/pages/tree.html:68
+#: templates/pages/archive.html:65 templates/pages/tree.html:85
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
-#: templates/pages/page.html:14
+#: templates/pages/page.html:16
 #, python-format
 msgid "Edit page \"%(page_title)s\""
 msgstr "Seite \"%(page_title)s\" bearbeiten"
 
-#: templates/pages/page.html:17
+#: templates/pages/page.html:19
 msgid "Create new translation"
 msgstr "Neue Übersetzung erstellen"
 
-#: templates/pages/page.html:20
+#: templates/pages/page.html:22
 msgid "Create new page"
 msgstr "Neue Seite erstellen"
 
-#: templates/pages/page.html:36
+#: templates/pages/page.html:44 templates/pages/sbs_page.html:30
 msgid "Insert title here"
 msgstr "Titel hier eingeben"
 
-#: templates/pages/page.html:39
+#: templates/pages/page.html:47
+#: templates/push_notifications/push_notification.html:54
+msgid "Content"
+msgstr "Inhalt"
+
+#: templates/pages/page.html:48 templates/pages/sbs_page.html:33
 msgid "Insert content here"
 msgstr "Inhalt hier eingeben"
 
-#: templates/pages/page.html:44
+#: templates/pages/page.html:53
+msgid "Permalink"
+msgstr ""
+
+#: templates/pages/page.html:55
+msgid " Leave blank to generate unique permalink from title"
+msgstr ""
+" Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
+"generieren"
+
+#: templates/pages/page.html:67
 msgid "Embed live content"
 msgstr "Live-Inhalte einbinden"
 
-#: templates/pages/page.html:46
+#: templates/pages/page.html:69
 msgid "Search page"
 msgstr "Seite suchen"
 
-#: templates/pages/page.html:49
+#: templates/pages/page.html:72
 msgid "Embed before content"
 msgstr "Vor Inhalt einbinden"
 
-#: templates/pages/page.html:50
+#: templates/pages/page.html:73
 msgid "Embed after content"
 msgstr "Nach Inhalt einbinden"
 
-#: templates/pages/page.html:57
+#: templates/pages/page.html:80
 msgid "Embed page"
 msgstr "Seite einbinden"
 
-#: templates/pages/page.html:65
+#: templates/pages/page.html:85
+msgid "Additional permissions for this page"
+msgstr "Zusätzliche Berechtigungen für diese Seite"
+
+#: templates/pages/page.html:86
+msgid ""
+"This affects only users, who don't have the permission to change arbitrary "
+"pages anyway."
+msgstr ""
+"Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
+"beliebige Seiten zu ändern."
+
+#: templates/pages/page.html:97
 #: templates/push_notifications/push_notification.html:63
 msgid "Current language"
 msgstr "Aktuelle Sprache"
 
-#: templates/pages/page.html:71
+#: templates/pages/page.html:103
 #: templates/push_notifications/push_notification.html:70
 msgid "Translations"
 msgstr "Übersetzungen"
 
-#: templates/pages/page.html:95
+#: templates/pages/page.html:125
+msgid "Side by Side View"
+msgstr "Übersetzungen nebeneinander anzeigen"
+
+#: templates/pages/page.html:146
 msgid "Positioning"
 msgstr "Anordnung"
 
-#: templates/pages/page.html:96
+#: templates/pages/page.html:147
 msgid "Relationship"
 msgstr "Verhältnis"
 
-#: templates/pages/page.html:100
+#: templates/pages/page.html:151
 msgid "Page"
 msgstr "Seite"
 
-#: templates/pages/page.html:109
+#: templates/pages/page.html:162
 msgid "Visibility"
 msgstr "Sichtbarkeit"
 
-#: templates/pages/page.html:118 templates/regions/list.html:28
+#: templates/pages/page.html:172 templates/regions/list.html:28
 #: templates/regions/region.html:74
 msgid "Status"
 msgstr "Status"
 
-#: templates/pages/page.html:127 templates/regions/region.html:57
+#: templates/pages/page.html:181 templates/regions/region.html:57
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/pages/page.html:131 templates/regions/region.html:67
-msgid "Set icon"
-msgstr "Icon festlegen"
-
-#: templates/pages/page.html:136 templates/pages/tree_row.html:37
+#: templates/pages/page.html:190 templates/pages/tree_row.html:51
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: templates/pages/page.html:138
+#: templates/pages/page.html:192
 msgid "Page is archived."
 msgstr "Die Seite wurde archiviert."
 
-#: templates/pages/page.html:141
-#, fuzzy
-#| msgid "Archived pages"
+#: templates/pages/page.html:195
 msgid "Archive this page"
-msgstr "Archivierte Seiten"
+msgstr "Diese Seite archivieren"
+
+#: templates/pages/sbs_page.html:11
+#, python-format
+msgid ""
+"Translate \"%(page_title)s\" from %(source_language)s to %(target_language)s"
+msgstr ""
+
+#: templates/pages/sbs_page.html:40
+msgid "Go Back to Page Editor"
+msgstr "Zurück zum Seiten-Editor"
 
 #: templates/pages/tree.html:15
 msgid "Archived pages"
 msgstr "Archivierte Seiten"
 
-#: templates/pages/tree.html:31
-msgid "Create page"
-msgstr "Seite erstellen"
-
-#: models/site.py:19 templates/language_tree/tree.html:37
+#: templates/pages/tree.html:37
 msgid "Upload"
 msgstr "Hochladen"
 
-#: templates/pages/tree.html:53
+#: templates/pages/tree.html:44
+msgid "Create page"
+msgstr "Seite erstellen"
+
+#: templates/pages/tree.html:56
+msgid "ID"
+msgstr ""
+
+#: templates/pages/tree.html:67
+msgid "Creator"
+msgstr "Ersteller"
+
+#: templates/pages/tree.html:70
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/pages/tree_row.html:27
-#, fuzzy
-#| msgid "Embed page"
+#: templates/pages/tree_row.html:41
 msgid "View page"
-msgstr "Seite einbinden"
+msgstr "Seite ansehen"
 
-#: templates/pages/tree_row.html:30
-#, fuzzy
-#| msgid "Embed page"
+#: templates/pages/tree_row.html:44
 msgid "Edit page"
-msgstr "Seite einbinden"
+msgstr "Seite bearbeiten"
 
-#: templates/pages/tree_row.html:33
-#, fuzzy
-#| msgid "Related page"
+#: templates/pages/tree_row.html:47
 msgid "Delete page"
-msgstr "Verwandte Seite"
+msgstr "Gelöschte Seite"
+
+#: templates/pages/tree_row.html:56
+msgid "Download page"
+msgstr "Seite herunterladen"
 
 #: templates/push_notifications/list.html:13
 msgid "Create push notification"
@@ -490,8 +690,8 @@ msgid ""
 "This push notification has already been sent on the "
 "%(push_notification_sent_date)s."
 msgstr ""
-"Diese Push-Benachrichtigung wurde bereits am "
-"%(push_notification_sent_date)s gesendet."
+"Diese Push-Benachrichtigung wurde bereits am %(push_notification_sent_date)s "
+"gesendet."
 
 #: templates/push_notifications/push_notification.html:44
 msgid "This affects all translations of this notification."
@@ -502,20 +702,14 @@ msgid "Insert channel name here"
 msgstr "Kanal-Name hier eingeben"
 
 #: templates/push_notifications/push_notification.html:50
-#, fuzzy, python-format
-#| msgid "Insert title here"
+#, python-format
 msgid "Insert title in %(language)s here"
-msgstr "Titel hier eingeben"
-
-#: templates/push_notifications/push_notification.html:54
-msgid "Content"
-msgstr "Inhalt"
+msgstr "Titel auf %(language)s hier eingeben"
 
 #: templates/push_notifications/push_notification.html:55
-#, fuzzy, python-format
-#| msgid "Insert content here"
+#, python-format
 msgid "Insert content in %(language)s here"
-msgstr "Inhalt hier eingeben"
+msgstr "Inhalt auf %(language)s hier eingeben"
 
 #: templates/regions/list.html:13
 msgid "Create region"
@@ -541,10 +735,6 @@ msgstr "Region \"%(region_name)s\" bearbeiten"
 #: templates/regions/region.html:16
 msgid "Create new region"
 msgstr "Neue Region erstellen"
-
-#: templates/regions/region.html:31
-msgid "General Settings"
-msgstr "Allgemeine Einstellungen"
 
 #: templates/regions/region.html:36
 msgid "Name of the region"
@@ -590,10 +780,6 @@ msgstr "Geographische Länge"
 msgid "Enter longitude here"
 msgstr "Geographische Länge hier eingeben"
 
-#: templates/regions/region.html:87
-msgid "Extended Settings"
-msgstr "Erweiterte Einstellungen"
-
 #: templates/regions/region.html:93
 msgid "Activate events"
 msgstr "Veranstaltungen aktivieren"
@@ -638,10 +824,6 @@ msgstr "Der Benutzername oder das Passwort ist falsch."
 #: templates/registration/password_reset_form.html:16
 msgid "Please try again."
 msgstr "Bitte versuchen Sie es erneut."
-
-#: templates/registration/login.html:26 templates/registration/login.html:28
-msgid "Username"
-msgstr "Benutzername"
 
 #: templates/registration/login.html:33 templates/registration/login.html:35
 #: templates/registration/password_reset_confirm.html:22
@@ -720,6 +902,7 @@ msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
 #: templates/registration/password_reset_form.html:14
+#: views/languages/languages.py:72
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -731,6 +914,35 @@ msgstr "Womöglich ist diese E-Mail Adresse nicht im System vorhanden."
 #: templates/registration/password_reset_form.html:33
 msgid "E-mail address"
 msgstr "E-Mail Adresse"
+
+#: templates/roles/list.html:13
+msgid "Create role"
+msgstr "Rolle erstellen"
+
+#: templates/roles/list.html:32
+msgid "No roles available yet."
+msgstr "Noch keine Rollen vorhanden."
+
+#: templates/roles/role.html:13
+#, python-format
+msgid "Edit role \"%(role_name)s\""
+msgstr "Rolle \"%(role_name)s\" bearbeiten"
+
+#: templates/roles/role.html:16
+msgid "Create new role"
+msgstr "Neue Rolle erstellen"
+
+#: templates/roles/role.html:30
+msgid "Name of the Role"
+msgstr "Name der Rolle"
+
+#: templates/roles/role.html:33
+msgid "Enter the role's name here"
+msgstr "Name der Rolle hier eingeben"
+
+#: templates/roles/role.html:41
+msgid "Permissions of the role"
+msgstr "Berechtigungen der Rolle"
 
 #: templates/statistics/statistics_dashboard.html:13
 msgid "Page views"
@@ -771,41 +983,127 @@ msgstr "bitte auswählen"
 
 #: templates/statistics/statistics_dashboard.html:87
 msgid "Image/PNG"
-msgstr "Bild/PNG"
+msgstr ""
 
 #: templates/statistics/statistics_dashboard.html:88
 msgid "Table Document/CSV"
 msgstr "Tabellendokument/CSV"
 
-#: views/general/general.py:5
+#: templates/users/admin/list.html:13 templates/users/region/list.html:13
+msgid "Create user"
+msgstr "Benutzer erstellen"
+
+#: templates/users/admin/list.html:24 templates/users/region/list.html:24
+msgid "First Name"
+msgstr "Vorname"
+
+#: templates/users/admin/list.html:25 templates/users/region/list.html:25
+msgid "Last Name"
+msgstr "Nachname"
+
+#: templates/users/admin/list.html:26 templates/users/region/list.html:26
+msgid "E-mail-address"
+msgstr "E-Mail Adresse"
+
+#: templates/users/admin/list.html:27 templates/users/admin/user.html:96
+#: templates/users/region/list.html:27 templates/users/region/user.html:82
+msgid "Organization"
+msgstr "Organisation"
+
+#: templates/users/admin/list.html:29 templates/users/admin/user.html:77
+msgid "Staff"
+msgstr "Mitarbeiter"
+
+#: templates/users/admin/list.html:30 templates/users/admin/user.html:72
+msgid "Superuser"
+msgstr "Super-Administrator"
+
+#: templates/users/admin/list.html:39 templates/users/region/list.html:37
+msgid "No users available yet."
+msgstr "Noch keine Benutzer vorhanden."
+
+#: templates/users/admin/user.html:13 templates/users/region/user.html:13
+#, python-format
+msgid "Edit user \"%(user_name)s\""
+msgstr "Benutzer \"%(user_name)s\" bearbeiten"
+
+#: templates/users/admin/user.html:16 templates/users/region/user.html:16
+msgid "Create new user"
+msgstr "Neuen Benutzer erstellen"
+
+#: templates/users/admin/user.html:37 templates/users/region/user.html:37
+msgid "Enter the username here"
+msgstr "Name des Benutzers hier eingeben"
+
+#: templates/users/admin/user.html:40 templates/users/region/user.html:40
+msgid "First name of the user"
+msgstr "Vorname des Benutzers"
+
+#: templates/users/admin/user.html:41 templates/users/region/user.html:41
+msgid "Enter the user's first name here"
+msgstr "Vorname des Benutzers hier eingeben"
+
+#: templates/users/admin/user.html:44 templates/users/region/user.html:44
+msgid "Last name of the user"
+msgstr "Nachname des Benutzers"
+
+#: templates/users/admin/user.html:45 templates/users/region/user.html:45
+msgid "Enter the user's last name here"
+msgstr "Nachname des Benutzers hier eingeben"
+
+#: templates/users/admin/user.html:48 templates/users/region/user.html:48
+msgid "E-mail-address of the user"
+msgstr "E-Mail-Adresse des Benutzers"
+
+#: templates/users/admin/user.html:49 templates/users/region/user.html:49
+msgid "Enter the user's e-mail-address here"
+msgstr "E-Mail-Adresse des Benutzers hier eingeben"
+
+#: templates/users/admin/user.html:52 templates/users/region/user.html:52
+msgid "Password of the user"
+msgstr "Passwort des Benutzers"
+
+#: templates/users/admin/user.html:58 templates/users/region/user.html:58
+msgid "Leave empty to keep unchanged"
+msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
+
+#: templates/users/admin/user.html:58 templates/users/region/user.html:58
+msgid "Enter the user's password here"
+msgstr "Passwort des Benutzers hier eingeben"
+
+#: templates/users/admin/user.html:108 templates/users/region/user.html:94
+msgid "Delete this user"
+msgstr "Diesen Benutzer löschen"
+
+#: views/general/error_handler.py:5
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
 
-#: views/general/general.py:6
+#: views/general/error_handler.py:6
 msgid "There was an error in your request."
 msgstr "Die Anfrage war fehlerhaft aufgebaut."
 
-#: views/general/general.py:13
+#: views/general/error_handler.py:13
 msgid "Forbidden"
 msgstr "Zugriff verweigert"
 
-#: views/general/general.py:14
+#: views/general/error_handler.py:14
 msgid "You don't have the permission to access this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite aufzurufen."
 
-#: views/general/general.py:21
+#: views/general/error_handler.py:21
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: views/general/general.py:22
+#: views/general/error_handler.py:22
 msgid "The page you requested could not be found."
 msgstr "Die von Ihnen angeforderte Seite konnte leider nicht gefunden werden."
 
-#: views/general/general.py:29
+#: views/general/error_handler.py:29
 msgid "Internal Server Error"
 msgstr "Interner Server-Fehler"
 
-#: views/general/general.py:30
+#: views/general/error_handler.py:30
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
@@ -825,17 +1123,20 @@ msgstr "Linker Nachbar von"
 msgid "Right neighbor of"
 msgstr "Rechter Nachbar von"
 
-#: views/language_tree/language_tree_node.py:54
+#: views/language_tree/language_tree_node.py:61
 msgid "Language tree node was saved successfully."
 msgstr "Sprach-Baum wurde erfolgreich gespeichert."
 
-#: views/language_tree/language_tree_node.py:57
+#: views/language_tree/language_tree_node.py:64
 msgid "Language tree node was created successfully."
 msgstr "Sprach-Baum wurde erfolgreich erstellt."
 
-#: views/language_tree/language_tree_node.py:64 views/pages/page.py:104
-#: views/push_notifications/push_notifications.py:147
-#: views/regions/regions.py:70
+#: views/language_tree/language_tree_node.py:71
+#: views/organizations/organizations.py:72 views/pages/page.py:140
+#: views/pages/sbs_page.py:109
+#: views/push_notifications/push_notifications.py:170
+#: views/regions/regions.py:82 views/roles/roles.py:71
+#: views/users/region_users.py:113 views/users/users.py:92
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
 
@@ -855,100 +1156,140 @@ msgstr ""
 "Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
 "Quell-Sprache dieser Region ein."
 
-#: views/languages/languages.py:54
+#: views/languages/languages.py:66
 msgid "Language saved successfully."
 msgstr "Sprache wurde erfolgreich gespeichert."
 
-#: views/languages/languages.py:57
+#: views/languages/languages.py:69
 msgid "Language created successfully"
 msgstr "Sprache wurde erfolgreich erstellt."
 
-#: views/languages/languages.py:60
-msgid "Es sind Fehler aufgetreten."
-msgstr ""
+#: views/organizations/organizations.py:62
+msgid "Organization created successfully"
+msgstr "Organisation wurde erfolgreich erstellt."
 
-#: views/pages/page.py:75
-#, fuzzy
-#| msgid "Page was saved successfully."
-msgid "Page was successfully published."
-msgstr "Seite wurde erfolgreich gespeichert."
+#: views/organizations/organizations.py:65
+msgid "Organization saved successfully"
+msgstr "Organisation wurde erfolgreich gespeichert."
 
-#: views/pages/page.py:78
-#, fuzzy
-#| msgid "Page was created and published successfully."
+#: views/pages/page.py:115 views/pages/page.py:164
+msgid "Page was successfully archived."
+msgstr "Seite wurde erfolgreich archiviert."
+
+#: views/pages/page.py:118
 msgid "Page was successfully created and published."
 msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/pages/page.py:87 views/pages/page.py:99
-#, fuzzy
-#| msgid "Page was saved successfully."
-msgid "Page was successfully saved."
-msgstr "Seite wurde erfolgreich gespeichert."
-
-#: views/pages/page.py:90 views/pages/page.py:102
-#, fuzzy
-#| msgid "Page was saved successfully."
+#: views/pages/page.py:120
 msgid "Page was successfully created."
-msgstr "Seite wurde erfolgreich gespeichert."
+msgstr "Seite wurde erfolgreich erstellt."
 
-#: views/pages/page.py:121
-#, fuzzy
-#| msgid "Page was saved successfully."
-msgid "Page was successfully archived."
-msgstr "Seite wurde erfolgreich gespeichert."
+#: views/pages/page.py:123
+msgid "Translation was successfully created and published."
+msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/pages/page.py:135
-#, fuzzy
-#| msgid "Page was saved successfully."
+#: views/pages/page.py:125 views/pages/sbs_page.py:103
+msgid "Translation was successfully created."
+msgstr "Übersetzung wurde erfolgreich erstellt."
+
+#: views/pages/page.py:128
+msgid "Translation was successfully published."
+msgstr "Übersetzung wurde erfolgreich veröffentlich."
+
+#: views/pages/page.py:130 views/pages/sbs_page.py:105
+msgid "Translation was successfully saved."
+msgstr "Übersetzung wurde erfolgreich gespeichert."
+
+#: views/pages/page.py:132 views/pages/sbs_page.py:107
+#: views/users/region_users.py:110 views/users/users.py:89
+msgid "No changes detected."
+msgstr "Keine Änderungen vorgenommen."
+
+#: views/pages/page.py:183
 msgid "Page was successfully restored."
-msgstr "Seite wurde erfolgreich gespeichert."
+msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page_form.py:26
+#: views/pages/page.py:290 views/pages/page.py:305
+#, python-brace-format
+msgid "Information: The user {user} has this permission already."
+msgstr ""
+
+#: views/pages/page.py:298
+#, python-brace-format
+msgid "Success: The user {user} can now edit this page."
+msgstr ""
+
+#: views/pages/page.py:313
+#, python-brace-format
+msgid "Success: The user {user} can now publish this page."
+msgstr ""
+
+#: views/pages/page.py:374
+#, python-brace-format
+msgid ""
+"Information: The user {user} has been removed from the editors of this page, "
+"but has the implicit permission to edit this page anyway."
+msgstr ""
+
+#: views/pages/page.py:380
+#, python-brace-format
+msgid "Success: The user {user} cannot edit this page anymore."
+msgstr ""
+
+#: views/pages/page.py:391
+#, python-brace-format
+msgid ""
+"Information: The user {user} has been removed from the publishers of this "
+"page, but has the implicit permission to publish this page anyway."
+msgstr ""
+
+#: views/pages/page.py:397
+#, python-brace-format
+msgid "Success: The user {user} cannot publish this page anymore."
+msgstr ""
+
+#: views/pages/page_form.py:146
 msgid "Public"
 msgstr "Öffentlich"
 
-#: views/pages/page_form.py:27
+#: views/pages/page_form.py:147
 msgid "Private"
 msgstr "Privat"
 
-#: views/pages/pages.py:33
+#: views/pages/pages.py:39
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
 "verwalten."
 
-#: views/push_notifications/push_notifications.py:37
-#, fuzzy
-#| msgid "Please create at least one language node before creating pages."
+#: views/push_notifications/push_notifications.py:44
 msgid ""
 "Please create at least one language node before creating push notifications."
 msgstr ""
-"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
-"verwalten."
+"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
+"Benachrichtigungen verwalten."
 
-#: views/push_notifications/push_notifications.py:97
-#, fuzzy
-#| msgid "Region saved successfully."
+#: views/push_notifications/push_notifications.py:116
 msgid "Push notification saved successfully."
-msgstr "Region wurde erfolgreich gespeichert."
+msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert."
 
-#: views/push_notifications/push_notifications.py:100
-#, fuzzy
-#| msgid "Region created successfully"
+#: views/push_notifications/push_notifications.py:119
 msgid "Push notification created successfully."
-msgstr "Region wurde erfolgreich erstellt."
+msgstr "Push-Benachrichtigung wurde erfolgreich erstellt."
 
-#: views/push_notifications/push_notifications.py:144
-#, fuzzy
-#| msgid "Page was saved successfully."
+#: views/push_notifications/push_notifications.py:165
 msgid "Push notification was successfully sent."
-msgstr "Seite wurde erfolgreich gespeichert."
+msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert."
 
-#: views/regions/regions.py:64
+#: views/push_notifications/push_notifications.py:167
+msgid "Error occurred sending the push notification"
+msgstr "Push-Benachrichtigung konnte nicht gesendet werden"
+
+#: views/regions/regions.py:76
 msgid "Region saved successfully."
 msgstr "Region wurde erfolgreich gespeichert."
 
-#: views/regions/regions.py:67
+#: views/regions/regions.py:79
 msgid "Region created successfully"
 msgstr "Region wurde erfolgreich erstellt."
 
@@ -976,25 +1317,52 @@ msgstr "Ihr Passwort wurde erfolgreich geändert."
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 
-#: templates/_base.html:115
-msgid "Media Library"
-msgstr "Medienbibliothek"
+#: views/roles/roles.py:62
+msgid "Role saved successfully"
+msgstr "Rolle wurde erfolgreich gespeichert."
 
-#: templates/media/medialist.html:13
-msgid "Upload File"
-msgstr "Datei hochladen"
+#: views/roles/roles.py:65
+msgid "Role created successfully"
+msgstr "Rolle wurde erfolgreich erstellt."
 
-#: templates/media/medialist.html:24
-msgid "Date"
-msgstr "Datum"
+#: views/users/region_users.py:102 views/users/users.py:82
+msgid "User was successfully saved."
+msgstr "Benutzer wurde erfolgreich gespeichert."
 
-#: templates/media/mediaupload.html:12
-msgid "Submit"
-msgstr "einreichen"
+#: views/users/region_users.py:104 views/users/users.py:84
+msgid "User was successfully created."
+msgstr "Benutzer wurde erfolgreich erstellt."
 
-#: templates/media/mediaupload.html:15
-msgid "Return"
-msgstr "Rückkehr"
+#: views/users/region_users.py:130 views/users/users.py:107
+msgid "User was successfully deleted."
+msgstr "Benutzer wurde erfolgreich gelöscht."
+
+#~ msgid "User"
+#~ msgstr "Benutzer"
+
+#~ msgid "Permissions"
+#~ msgstr "Berechtigungen"
+
+#~ msgid "Grant permission"
+#~ msgstr "Berechtigung erteilen"
+
+#~ msgid "Edit all translations"
+#~ msgstr "Alle Übersetzungen bearbeiten"
+
+#~ msgid "Publish all translations"
+#~ msgstr "Alle Übersetzungen veröffentlichen"
+
+#~ msgid "Edit this translation"
+#~ msgstr "Diese Übersetzung bearbeiten"
+
+#~ msgid "Publish this translation"
+#~ msgstr "Diese Übersetzung veröffentlichen"
+
+#~ msgid "User saved successfully."
+#~ msgstr "Benutzer wurde erfolgreich gespeichert."
+
+#~ msgid "User created successfully."
+#~ msgstr "Benutzer wurde erfolgreich erstellt."
 
 #~ msgid "History"
 #~ msgstr "Historie"
@@ -1022,9 +1390,6 @@ msgstr "Rückkehr"
 
 #~ msgid "Turkish"
 #~ msgstr "Türkisch"
-
-#~ msgid "German"
-#~ msgstr "Deutsch"
 
 #~ msgid "Parent page"
 #~ msgstr "Übergeordnete Seite"

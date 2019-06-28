@@ -6,8 +6,11 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
+from ...decorators import region_permission_required
+
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class DashboardView(TemplateView):
     """View class representing the Dashboard
 
@@ -19,7 +22,7 @@ class DashboardView(TemplateView):
     """
 
     template_name = 'general/dashboard.html'
-    base_context = {'current_menu_item': 'dashboard'}
+    base_context = {'current_menu_item': 'region_dashboard'}
 
     def get(self, request, *args, **kwargs):
         val = 'To be defined'

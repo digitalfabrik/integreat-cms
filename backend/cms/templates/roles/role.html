@@ -1,0 +1,50 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h2 class="heading font-normal">
+	            {% if form.initial %}
+		            {% with form.name.value as role_name %}
+			            {% blocktrans %}Edit role "{{ role_name }}"{% endblocktrans %}
+		            {% endwith %}
+	            {% else %}
+		            {% trans 'Create new role' %}
+	            {% endif %}
+            </h2>
+        </div>
+        <div class="w-3/5 flex justify-end">
+            <input type="submit" name="submit" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        </div>
+    </div>
+
+    <div class="flex flex-wrap">
+	    <div class="w-full pr-4">
+		    {{form.errors}}
+		    <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+				<div class="w-full p-4 rounded bg-blue-dark">
+					<h3 class="heading font-bold text-white">{% trans "Name of the Role" %}</h3>
+				</div>
+				<div class="w-full p-4">
+                    {% trans "Enter the role's name here" as name_placeholder%}
+                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+				</div>
+			</div>
+		</div>
+	<div class="w-full pr-4">
+		<div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			<div class="w-full p-4 rounded bg-blue-dark">
+				<h3 class="heading font-bold text-white">{% trans "Permissions of the role" %}</h3>
+			</div>
+			<div class="w-full p-4">
+				{% render_field form.permissions class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+{% endblock %}

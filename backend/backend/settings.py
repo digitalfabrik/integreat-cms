@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'mptt',
     'rest_framework',
+    'rules.apps.AutodiscoverRulesConfig',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,19 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+# Directory for initial database contents
+
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, 'cms/fixtures/'),
+)
+
+# Authentication backends
+
+AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend', # this is default
+)
 
 
 # Password validation
@@ -191,6 +205,11 @@ LOGGING = {
         'cms': {
             'handlers': ['console'],
             'level': 'INFO',
+            'propagate': True,
+        },
+        'rules': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
     }
