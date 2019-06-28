@@ -64,8 +64,13 @@ class AnalyticsView(TemplateView):
                                                               lang=lang[0])
                 temp_hits = []
             except ConnectionError:
-                messages.error(request, _('Connection to Matamom could not be established'))
+                messages.error(request, _('Connection to Matomo could not be established'))
                 return redirect('dashboard', site_slug=site_slug)
+            except InvalidURL:
+                messages.error(request, _('The entered matomo url is invalid. Please check.'))
+                return redirect('dashboard', site_slug=site_slug)
+            except TypeError:
+                messages.error(request, _('There was an error during the establishment of a connection. Please check the region and the entered key.'))
             for single_day in api_hits:
                 temp_hits.append(single_day[1])
             response_hits.append([lang[1], lang[2], temp_hits])
