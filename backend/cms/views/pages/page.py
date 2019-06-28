@@ -5,9 +5,14 @@ Returns:
 """
 import os
 import uuid
+import json
+import logging
 
+from django.core.exceptions import PermissionDenied
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
@@ -15,111 +20,144 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.views.static import serve
 
-from ...models import Page, Site, Language
-from .page_form import PageForm
+from .page_form import PageForm, PageTranslationForm
+from ...models import Page, PageTranslation, Site, Language
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
+from ...decorators import region_permission_required
+
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name='dispatch')
-class PageView(TemplateView):
+@method_decorator(region_permission_required, name='dispatch')
+class PageView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.view_pages'
+    raise_exception = True
+
     template_name = 'pages/page.html'
     base_context = {'current_menu_item': 'pages'}
 
     def get(self, request, *args, **kwargs):
-        site = Site.objects.get(slug=kwargs.get('site_slug'))
-        page = Page.objects.filter(pk=kwargs.get('page_id', None)).first()
-        language = Language.objects.get(code=kwargs.get('language_code'))
-        languages = site.languages
-        # limit possible parents to pages of current region
-        parent_queryset = Page.objects.filter(
-            site__slug=site.slug
-        )
-        initial = {}
-        public = False
 
-        if page:
-            initial['parent'] = page.parent
-            # remove children from possible parents
-            children = page.get_descendants(include_self=True)
-            parent_queryset = parent_queryset.difference(children)
-            page_translation = page.get_translation(language.code)
-            if page_translation:
-                initial.update({
-                    'title': page_translation.title,
-                    'text': page_translation.text,
-                    'status': page_translation.status,
-                    'public': page_translation.public,
-                })
-                public = page_translation.public
-        form = PageForm(initial=initial)
-        form.fields['parent'].queryset = parent_queryset
+        site = Site.objects.get(slug=kwargs.get('site_slug'))
+
+        language = Language.objects.get(code=kwargs.get('language_code'))
+
+        # get page and translation objects if they exist
+        page = Page.objects.filter(id=kwargs.get('page_id')).first()
+        page_translation = PageTranslation.objects.filter(
+            page=page,
+            language=language,
+        ).first()
+
+        page_form = PageForm(
+            instance=page,
+            site=site,
+            language=language,
+        )
+        page_translation_form = PageTranslationForm(
+            instance=page_translation,
+        )
 
         return render(request, self.template_name, {
-            'form': form,
-            'public': public,
+            **self.base_context,
+            'page_form': page_form,
+            'page_translation_form': page_translation_form,
             'page': page,
             'language': language,
-            'languages': languages,
-            **self.base_context,
+            'languages': site.languages,
         })
 
     def post(self, request, *args, **kwargs):
-        site_slug = kwargs.get('site_slug')
-        page_id = kwargs.get('page_id', None)
-        language_code = kwargs.get('language_code')
+
+        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        language = Language.objects.get(code=kwargs.get('language_code'))
+
+        page_instance = Page.objects.filter(id=kwargs.get('page_id')).first()
+        page_translation_instance = PageTranslation.objects.filter(
+            page=page_instance,
+            language=language,
+        ).first()
+
+        if not request.user.has_perm('cms.edit_page', page_instance):
+            raise PermissionDenied
+
+        page_form = PageForm(
+            request.POST,
+            instance=page_instance,
+            site=site,
+            language=language,
+        )
+        page_translation_form = PageTranslationForm(
+            request.POST,
+            instance=page_translation_instance,
+            site=site,
+            language=language,
+        )
+
+        if page_translation_form.data.get('public') and 'public' in page_translation_form.changed_data:
+            if not request.user.has_perm('cms.publish_page', page_instance):
+                raise PermissionDenied
+
         # TODO: error handling
-        form = PageForm(request.POST, user=request.user)
-        if form.is_valid():
-            if form.data.get('submit_publish'):
-                page = form.save_page(
-                    site_slug=site_slug,
-                    language_code=language_code,
-                    page_id=page_id,
-                    publish=True
-                )
-                if page_id:
-                    messages.success(request, _('Page was successfully published.'))
+        if page_form.is_valid() and page_translation_form.is_valid():
+
+            page = page_form.save()
+            page_translation = page_translation_form.save(
+                page=page,
+                user=request.user,
+            )
+
+            if page_form.has_changed() or page_translation_form.has_changed():
+                published = page_translation.public and 'public' in page_translation_form.changed_data
+                if page_form.data.get('submit_archive'):
+                    # archive button has been submitted
+                    messages.success(request, _('Page was successfully archived.'))
+                elif not page_instance:
+                    if published:
+                        messages.success(request, _('Page was successfully created and published.'))
+                    else:
+                        messages.success(request, _('Page was successfully created.'))
+                elif not page_translation_instance:
+                    if published:
+                        messages.success(request, _('Translation was successfully created and published.'))
+                    else:
+                        messages.success(request, _('Translation was successfully created.'))
                 else:
-                    page_id = page.id
-                    messages.success(request, _('Page was successfully created and published.'))
-            elif form.data.get('submit_archive'):
-                page = form.save_page(
-                        site_slug=site_slug,
-                        language_code=language_code,
-                        page_id=page_id,
-                        archived=True
-                    )
-                if page_id:
-                    messages.success(request, _('Page was successfully saved.'))
-                else:
-                    page_id = page.id
-                    messages.success(request, _('Page was successfully created.'))
+                    if published:
+                        messages.success(request, _('Translation was successfully published.'))
+                    else:
+                        messages.success(request, _('Translation was successfully saved.'))
             else:
-                page = form.save_page(
-                    site_slug=site_slug,
-                    language_code=language_code,
-                    page_id=page_id,
-                    publish=False
-                )
-                if page_id:
-                    messages.success(request, _('Page was successfully saved.'))
-                else:
-                    page_id = page.id
-                    messages.success(request, _('Page was successfully created.'))
-        else:
-            messages.error(request, _('Errors have occurred.'))
-        if page_id:
+                messages.info(request, _('No changes detected.'))
+
             return redirect('edit_page', **{
-                'page_id': page_id,
-                'site_slug': site_slug,
-                'language_code': language_code,
+                'page_id': page.id,
+                'site_slug': site.slug,
+                'language_code': language.code,
             })
-        return redirect('new_page', **kwargs)
+
+        messages.error(request, _('Errors have occurred.'))
+
+        return render(request, self.template_name, {
+            **self.base_context,
+            'page_form': page_form,
+            'page_translation_form': page_translation_form,
+            'page': page_instance,
+            'language': language,
+            'languages': site.languages,
+        })
 
 
 @login_required
+@region_permission_required
 def archive_page(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
+
+    if not request.user.has_perm('cms.edit_page', page):
+        raise PermissionDenied
+
     page.public = False
     page.archived = True
     page.save()
@@ -133,8 +171,13 @@ def archive_page(request, page_id, site_slug, language_code):
 
 
 @login_required
+@region_permission_required
 def restore_page(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
+
+    if not request.user.has_perm('cms.edit_page', page):
+        raise PermissionDenied
+
     page.archived = False
     page.save()
 
@@ -147,6 +190,8 @@ def restore_page(request, page_id, site_slug, language_code):
 
 
 @login_required
+@region_permission_required
+@permission_required('cms.view_pages', raise_exception=True)
 def view_page(request, page_id, site_slug, language_code):
     template_name = 'pages/page_view.html'
     page = Page.objects.get(id=page_id)
@@ -160,6 +205,8 @@ def view_page(request, page_id, site_slug, language_code):
 
 
 @login_required
+@region_permission_required
+@permission_required('cms.view_pages', raise_exception=True)
 def download_page_xliff(request, page_id, site_slug, language_code):
     page = Page.objects.get(id=page_id)
     page_xliff_helper = PageXliffHelper()
@@ -172,6 +219,8 @@ def download_page_xliff(request, page_id, site_slug, language_code):
 
 
 @login_required
+@region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
 def upload_page(request, site_slug, language_code):
     if request.method == 'POST' and 'xliff_file' in request.FILES:
         page_xliff_helper = PageXliffHelper()
@@ -194,3 +243,176 @@ def upload_page(request, site_slug, language_code):
                 'site_slug': site_slug,
                 'language_code': language_code,
             })
+
+
+@login_required
+@region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
+@permission_required('cms.grant_page_permissions', raise_exception=True)
+def grant_page_permission_ajax(request):
+
+    data = json.loads(request.body.decode('utf-8'))
+    permission = data.get('permission')
+    page_id = data.get('page_id')
+    user_id = data.get('user_id')
+
+    logger.info('Ajax call: The user {request_user} wants to grant the permission to {permission} '
+                  'page with id {page_id} to user with id {user_id}.'.format(
+        request_user=request.user.username, permission=permission, page_id=page_id, user_id=user_id
+    ))
+
+    page = Page.objects.get(id=page_id)
+    user = get_user_model().objects.get(id=user_id)
+
+    if not request.user.has_perm('cms.grant_page_permissions'):
+        logger.info('Error: The user {request_user} does not have the permission to grant page permissions.'.format(
+            request_user=request.user.username
+        ))
+        raise PermissionDenied
+
+    if not (request.user.is_superuser or request.user.is_staff):
+        # additional checks if requesting user is no superuser or staff
+        if page.site not in request.user.profile.regions:
+            # requesting user can only grant permissions for pages of his region
+            logger.info('Error: The user {request_user} cannot grant permissions for region {region}.'.format(
+                request_user=request.user.username, region=page.site.name
+            ))
+            raise PermissionDenied
+        if page.site not in user.profile.regions:
+            # user can only receive permissions for pages of his region
+            logger.info('Error: The user {user} cannot receive permissions for region {region}.'.format(
+                user=user.username, region=page.site.name
+            ))
+            raise PermissionDenied
+
+    if permission == 'edit':
+        # check, if the user already has this permission
+        if user.has_perm('cms.edit_page', page):
+            message = _('Information: The user {user} has this permission already.').format(
+                user=user.username
+            )
+            level_tag = 'info'
+        else:
+            # else grant the permission by adding the user to the editors of the page
+            page.editors.add(user)
+            page.save()
+            message = _('Success: The user {user} can now edit this page.').format(
+                user=user.username
+            )
+            level_tag = 'success'
+    elif permission == 'publish':
+        # check, if the user already has this permission
+        if user.has_perm('cms.publish_page', page):
+            message = _('Information: The user {user} has this permission already.').format(
+                user=user.username
+            )
+            level_tag = 'info'
+        else:
+            # else grant the permission by adding the user to the publishers of the page
+            page.publishers.add(user)
+            page.save()
+            message = _('Success: The user {user} can now publish this page.').format(
+                user=user.username
+            )
+            level_tag = 'success'
+    else:
+        logger.info('Error: The permission {permission} is not supported.'.format(
+            permission=permission
+        ))
+        raise PermissionDenied
+
+    logger.info(message)
+
+    return render(request, 'pages/_page_permission_table.html', {
+        'page': page,
+        'page_form': PageForm(instance=page),
+        'permission_message': {
+            'message': message,
+            'level_tag': level_tag
+        }
+    })
+
+
+@login_required
+@region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
+@permission_required('cms.grant_page_permissions', raise_exception=True)
+def revoke_page_permission_ajax(request):
+
+    data = json.loads(request.body.decode('utf-8'))
+    permission = data.get('permission')
+    page_id = data.get('page_id')
+    page = Page.objects.get(id=page_id)
+    user = get_user_model().objects.get(id=data.get('user_id'))
+
+    logger.info('Ajax call: The user {request_user} wants to revoke the permission to {permission} '
+                  'page with id {page_id} from user {user}.'.format(
+        request_user=request.user.username, permission=permission, page_id=page_id, user=user.username
+    ))
+
+    if not request.user.has_perm('cms.grant_page_permissions'):
+        logger.info('Error: The user {request_user} does not have the permission to revoke page permissions.'.format(
+            request_user=request.user.username
+        ))
+        raise PermissionDenied
+
+    if not (request.user.is_superuser or request.user.is_staff):
+        # additional checks if requesting user is no superuser or staff
+        if page.site not in request.user.profile.regions:
+            # requesting user can only revoke permissions for pages of his region
+            logger.info('Error: The user {request_user} cannot revoke permissions for region {region}.'.format(
+                request_user=request.user.username, region=page.site.name
+            ))
+            raise PermissionDenied
+
+    if permission == 'edit':
+        if user in page.editors.all():
+            # revoke the permission by removing the user to the editors of the page
+            page.editors.remove(user)
+            page.save()
+        # check, if the user has this permission anyway
+        if user.has_perm('cms.edit_page', page):
+            message = _('Information: The user {user} has been removed from the editors of this page, '
+                        'but has the implicit permission to edit this page anyway.').format(
+                user=user.username
+            )
+            level_tag = 'info'
+        else:
+            message = _('Success: The user {user} cannot edit this page anymore.').format(
+                user=user.username
+            )
+            level_tag = 'success'
+    elif permission == 'publish':
+        if user in page.publishers.all():
+            # revoke the permission by removing the user to the publishers of the page
+            page.publishers.remove(user)
+            page.save()
+        # check, if the user already has this permission
+        if user.has_perm('cms.publish_page', page):
+            message = _('Information: The user {user} has been removed from the publishers of this page, '
+                        'but has the implicit permission to publish this page anyway.').format(
+                user=user.username
+            )
+            level_tag = 'info'
+        else:
+            message = _('Success: The user {user} cannot publish this page anymore.').format(
+                user=user.username
+            )
+            level_tag = 'success'
+    else:
+        logger.info('Error: The permission {permission} is not supported.'.format(
+            permission=permission
+        ))
+        raise PermissionDenied
+
+    logger.info(message)
+
+    return render(request, 'pages/_page_permission_table.html', {
+        'page': page,
+        'page_form': PageForm(instance=page),
+        'permission_message': {
+            'message': message,
+            'level_tag': level_tag
+        }
+    })
+

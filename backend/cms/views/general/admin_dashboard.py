@@ -6,8 +6,11 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
+from ...decorators import staff_required
+
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(staff_required, name='dispatch')
 class AdminDashboardView(TemplateView):
     """View class representing the Dashboard
 

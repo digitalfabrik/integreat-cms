@@ -3,6 +3,7 @@ Database model representing an autonomous authority
 """
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.http import Http404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -55,12 +56,15 @@ class Site(models.Model):
 
     @classmethod
     def get_current_site(cls, request):
-        if hasattr(request, 'resolver_match'):
-            site_slug = request.resolver_match.kwargs.get('site_slug')
-            if site_slug:
-                site = cls.objects.get(slug=site_slug)
-                return site
-        return None
+        if not hasattr(request, 'resolver_match'):
+            return None
+        site_slug = request.resolver_match.kwargs.get('site_slug')
+        if not site_slug:
+            return None
+        site = cls.objects.filter(slug=site_slug)
+        if not site.exists():
+            raise Http404
+        return site.first()
 
     def __str__(self):
         """Function that provides a string representation of this object
@@ -68,3 +72,9 @@ class Site(models.Model):
         Returns: String
         """
         return self.name
+
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('manage_regions', 'Can manage regions'),
+        )

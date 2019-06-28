@@ -3,27 +3,33 @@
 {% block content %}
 {% load static %}
 {% load widget_tweaks %}
+{% load page_filters %}
+{% load rules %}
 <form method="post">
     {% csrf_token %}
     <div class="flex flex-wrap mb-4">
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
             <h2 class="heading font-normal">
                 {% if page %}
-		            {% if form.title.value %}
-			            {% with form.title.value as page_title %}
-			            {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
-			            {% endwith %}
-		            {% else %}
-			            {% trans 'Create new translation' %}
-		            {% endif %}
+                    {% if page_translation_form.instance.id %}
+                        {% with page_translation_form.instance.title as page_title %}
+                        {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
+                        {% endwith %}
+                    {% else %}
+                        {% trans 'Create new translation' %}
+                    {% endif %}
                 {% else %}
-	                {% trans 'Create new page' %}
+                    {% trans 'Create new page' %}
                 {% endif %}
             </h2>
         </div>
         <div class="w-3/5 flex justify-end">
-            <input type="submit" name="submit_save" class="{% if public %}bg-blue hover:bg-blue-dark{% else %}bg-grey hover:bg-grey-dark{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
-            {% if not public %}
+            {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
+            {% if can_edit_page %}
+                <input type="submit" name="submit_save" class="{% if public %}bg-blue hover:bg-blue-dark{% else %}bg-grey hover:bg-grey-dark{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
+            {% endif %}
+            {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
+            {% if not page_translation_form.instance.public and can_publish_page %}
                 <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
             {% endif %}
         </div>
@@ -31,16 +37,33 @@
 
     <div class="flex flex-wrap">
         <div class="w-2/3 pr-2">
-            {{form.errors}}
+            {{page_form.errors}}
+            {{page_translation_form.errors}}
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-	            {% trans 'Insert title here' as title_placeholder%}
-                {% render_field form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-	            <div class="mt-4">
-	                {% trans 'Insert content here' as text_placeholder%}
-                    {% render_field form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2" %}
+                <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
+                {% trans 'Insert title here' as title_placeholder%}
+                {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                <div class="mt-4">
+                    <label class="block mb-2 font-bold">{% trans 'Content' %}</label>
+                    {% trans 'Insert content here' as text_placeholder%}
+                    {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded" %}
                 </div>
             </div>
-            <div class="w-full p-4 rounded border border-solid border-grey-light shadow bg-white">
+            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+                <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
+            <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
+                {% spaceless %}
+                    <div style="display: table; white-space: nowrap;">
+                        <span style="display: table-cell;">https://integreat.app/{{ site.slug }}/{{ language.code }}/</span>
+                        {% if page_translation_form.instance.ancestor_path %}
+                            <span style="display: table-cell;">{{ page_translation_form.instance.ancestor_path }}/</span>
+                        {% endif %}
+                        <span style="display: table-cell; width: 100%;">{% render_field page_translation_form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
+                    </div>
+                {% endspaceless %}
+            </div></div>
+            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
                 <h3 class="mb-2">{% trans 'Embed live content' %}</h3>
                 <input type="text" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
                     placeholder="{% trans 'Search page' %}" />
@@ -54,9 +77,18 @@
                     </div>
                 </div>
                 <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded">
-	                {% trans 'Embed page' %}
+                    {% trans 'Embed page' %}
                 </button>
             </div>
+            {% if perms.cms.grant_page_permissions %}
+            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
+                <h3 class="mb-2">{% trans 'Additional permissions for this page' %}</h3>
+                <p class="mb-2">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
+                <div id="page_permission_table">
+                        {% include "pages/_page_permission_table.html" %}
+                </div>
+            </div>
+            {% endif %}
         </div>
         <div class="w-1/3 pl-2">
             <div class="w-full px-4 py-2 rounded border border-solid border-grey-light shadow bg-white">
@@ -64,7 +96,7 @@
                     <span class="block mb-2 font-bold">{% trans 'Language' %}</span>
                     <label class="text-xs uppercase block">{% trans 'Current language' %}</label>
                     <div class="relative my-2">
-	                    {{ language.name }}
+                        {{ language.name }}
                     </div>
                     {% if page %}
 	                    <div class="entity-lang-list mt-4 mb-2">
@@ -80,7 +112,7 @@
 						                        </a>
 					                        </td>
 					                        <td>
-						                        <a href="" class="text-black block p-2 relative">
+						                        <a href="{% url 'edit_page' page_id=page.id site_slug=site.slug language_code=other_language.code %}" class="text-black block p-2 relative">
 							                        <i data-feather="{% if other_language in page.languages %}edit-2{% else %}plus{% endif %}"></i>
 						                        </a>
 					                        </td>
@@ -90,53 +122,56 @@
 	                        </table>
 	                    </div>
                         <div class="entity-lang-list mt-4 mb-2">
-	                        <label class="text-xs uppercase block mb-2">{% trans 'Side by Side View' %}</label>
-	                        <!-- TODO: get available languages from site settings -->
-	                        <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
-		                        {% for other_language in languages %}
-			                        {% if other_language != language %}
+                            <label class="text-xs uppercase block mb-2">{% trans 'Side by Side View' %}</label>
+                            <!-- TODO: get available languages from site settings -->
+                            <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
+                                {% for other_language in languages %}
+                                    {% if other_language != language %}
                                         {% with language.code|add:'__'|add:other_language.code  as sbs_language_code %}
-				                        <tr>
-					                        <td>
-						                        <a href="{% url 'sbs_edit_page' page_id=page.id site_slug=site.slug language_code=sbs_language_code %}" class="text-black block p-2">
-							                        {{ other_language.name }}
-						                        </a>
-					                        </td>
-				                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'sbs_edit_page' page_id=page.id site_slug=site.slug language_code=sbs_language_code %}" class="text-black block p-2">
+                                                    {{ other_language.name }}
+                                                </a>
+                                            </td>
+                                        </tr>
                                         {% endwith %}
-			                        {% endif %}
-		                        {% endfor %}
-	                        </table>
-	                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
+                        </div>
                     {% endif %}
                 </div>
                 <div class="py-2 border-b solid border-grey-lighter mb-2">
                     <span class="font-bold mb-2 block">{% trans 'Positioning' %}</span>
-	                <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
-	                <div class="relative my-2">
-		                {% render_field form.position placeholder="0" id="position" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-	                </div>
+                    <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
+                    <div class="relative my-2">
+                        {% render_field page_form.position placeholder="0" id="position" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    </div>
                     <label for="parent" class="text-xs uppercase">{% trans 'Page' %}</label>
                     <div class="relative my-2">
-                        {% render_field form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% render_field page_form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                 </div>
+                {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
+                {% if can_publish_page %}
                 <div class="py-2 border-b solid border-grey-lighter mb-2">
                     <label for="public" class="font-bold">{% trans 'Visibility' %}</label>
                     <div class="relative my-2">
-                        {% render_field form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% render_field page_translation_form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <div class="py-2 border-b solid border-grey-lighter mb-2">
                     <label for="status" class="font-bold">{% trans 'Status' %}</label>
                     <div class="relative my-2">
-                        {% render_field form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% render_field page_translation_form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
@@ -144,7 +179,7 @@
                 </div>
                 <div class="pt-2 pb-4">
                     <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
-                    {% render_field form.icon id="icon" class="image-field" %}
+                    {% render_field page_form.icon id="icon" class="image-field" %}
                     <label for="icon" class="font-bold my-2 bg-blue hover:bg-blue-dark focus:bg-blue-dark text-white font-bold py-2 pl-10 pr-4 rounded cursor-pointer relative">
                         <i data-feather="upload"></i>
                         <span class="standard_text">{% trans 'Set icon' %}</span>
@@ -167,4 +202,78 @@
         </div>
     </div>
 </form>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        // event handler for granting edit page permissions
+        u("#grant-edit-page-permission").handle('click', grant_edit_page_permission);
+        // wrapper function for granting edit page permissions
+        async function grant_edit_page_permission(e) {
+            update_page_permission(
+                "{% url 'grant_page_permission_ajax' %}",
+                "{{ page.id }}",
+                u("#id_editors").first().value,
+                'edit'
+            );
+        }
+        // event handler for granting publish page permissions
+        u("#grant-publish-page-permission").handle('click', grant_publish_page_permission);
+        // wrapper function for granting publish page permissions
+        async function grant_publish_page_permission(e) {
+            update_page_permission(
+                "{% url 'grant_page_permission_ajax' %}",
+                "{{ page.id }}",
+                u("#id_publishers").first().value,
+                'publish'
+            );
+        }
+        // event handler for revoking page permissions
+        u('.revoke-page-permission').each(function(node, i)  {
+            u(this).handle('click', revoke_page_permission);
+        });
+        // wrapper function for revoking page permissions
+        async function revoke_page_permission(e) {
+            update_page_permission(
+                "{% url 'revoke_page_permission_ajax' %}",
+                "{{ page.id }}",
+                u(this).data('user-id'),
+                u(this).data('permission')
+            );
+        }
+        // ajax call for updating the page permissions
+        async function update_page_permission(url, page_id, user_id, permission) {
+            const data = await fetch(url, {
+                method: 'POST',
+                headers:  {
+                    'X-CSRFToken': u('[name=csrfmiddlewaretoken]').first().value
+                },
+                body: JSON.stringify({
+                    "page_id": page_id,
+                    "user_id": user_id,
+                    "permission": permission
+                })
+            }).then(res => {
+                if (res.status != 200) {
+                    // return empty result if status is not ok
+                    return '';
+                } else {
+                    // return response text otherwise
+                    return res.text();
+                }
+            });
+            if (data) {
+                // insert response into table
+                u("#page_permission_table").html(data);
+                // set new event listeners
+                u('.revoke-page-permission').each(function(node, i)  {
+                    u(this).handle('click', revoke_page_permission);
+                });
+                u("#grant-edit-page-permission").handle('click', grant_edit_page_permission);
+                u("#grant-publish-page-permission").handle('click', grant_publish_page_permission);
+                feather.replace();
+            }
+
+        }
+    </script>
 {% endblock %}

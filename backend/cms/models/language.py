@@ -40,6 +40,11 @@ class Language(models.Model):
         """
         return self.name
 
+    class Meta:
+        default_permissions = ()
+        permissions = (
+            ('manage_languages', 'Can manage languages'),
+        )
 
 class LanguageTreeNode(MPTTModel):
     """Class defining a LanguageTree database object.
@@ -77,6 +82,10 @@ class LanguageTreeNode(MPTTModel):
 
     class Meta:
         unique_together = (('language', 'site', ), )
+        default_permissions = ()
+        permissions = (
+            ('manage_language_tree', 'Can manage language tree'),
+        )
 
     def __str__(self):
         """Function that provides a string representation of this object

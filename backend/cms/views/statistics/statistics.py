@@ -4,6 +4,7 @@ from requests.exceptions import ConnectionError
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .matomo_api_manager import MatomoApiManager
@@ -11,9 +12,16 @@ from ...models import Page, Site, Language
 from django.utils.translation import ugettext as _
 
 
+=======
+from django.shortcuts import render
+
+from .matomo_api_manager import MatomoApiManager
+from ...decorators import region_permission_required
+>>>>>>> develop
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(region_permission_required, name='dispatch')
 class AnalyticsView(TemplateView):
     """
     Class to create the statistic page, that can be found via -> "Statistiken"

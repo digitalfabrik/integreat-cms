@@ -30,15 +30,19 @@
 	        {% endif %}
         </div>
         <div id="instance-selector-list" class="absolute shadow rounded-b">
-	        {% for other_region in sites %}
-	            <a href="{% url 'dashboard' site_slug=other_region.slug %}" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
-	                {{ other_region.name }}
-	            </a>
+	        {% for other_region in user.profile.regions.all %}
+		        {% if not other_region == site %}
+		            <a href="{% url 'dashboard' site_slug=other_region.slug %}" class="block px-4 py-3 text-grey-darkest hover:bg-grey">
+		                {{ other_region.name }}
+		            </a>
+		        {% endif %}
 	        {% endfor %}
-	        {% if site %}
-		        <a href="{% url 'admin_dashboard' %}" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
-			        {% trans 'Network Management' %}
-		        </a>
+	        {% if user.is_superuser or user.is_staff %}
+		        {% if site %}
+			        <a href="{% url 'admin_dashboard' %}" class="block px-4 py-3 text-grey-darkest hover:bg-grey rounded-b">
+				        {% trans 'Network Management' %}
+			        </a>
+		        {% endif %}
 	        {% endif %}
         </div>
     </div>
@@ -76,7 +80,7 @@
 	        {% endif %}
             <i data-feather="chevron-down" class="absolute pin-t pin-r"></i>
         </span>
-        <div id="user-menu" class="absolute shadow rounded-b">
+        <div id="user-menu" class="absolute shadow rounded-b" style="left: -120px;">
             <a href="/" class="relative block pl-10 pr-4 py-3 text-grey-darkest hover:bg-grey">
                 <i data-feather="help-circle" class="absolute"></i>
 	            {% trans 'Help' %}
@@ -102,7 +106,7 @@
     </div>
     <div id="menu" class="pb-2">
 	    {% if site %}
-	        <a href="{% url 'dashboard' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'dashboard' %}active{% endif %}">
+	        <a href="{% url 'dashboard' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'region_dashboard' %}active{% endif %}">
 	            <i data-feather="grid" class="absolute"></i>
 		        {% trans 'My Dashboard' %}
 	        </a>
@@ -124,15 +128,15 @@
 	            <i data-feather="layout" class="absolute"></i>
 		        {% trans 'Pages' %}
 	        </a>
-	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'events' %}active{% endif %}">
 	            <i data-feather="calendar" class="absolute"></i>
 		        {% trans 'Events' %}
 	        </a>
-	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	        <a href="{% url 'region_users' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'region_users' %}active{% endif %}">
 	            <i data-feather="users" class="absolute"></i>
-		        {% trans 'User' %}
+		        {% trans 'Users' %}
 	        </a>
-	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'region_feedback' %}active{% endif %}">
 	            <i data-feather="thumbs-up" class="absolute"></i>
 		        {% trans 'Feedback' %}
 	        </a>
@@ -140,11 +144,11 @@
 	            <i data-feather="send" class="absolute"></i>
 		        {% trans 'Push Notifications' %}
 	        </a>
-	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'pdf_export' %}active{% endif %}">
 	            <i data-feather="layers" class="absolute"></i>
 		        {% trans 'PDF Export' %}
 	        </a>
-	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'imprint' %}active{% endif %}">
 	            <i data-feather="file-text" class="absolute"></i>
 		        {% trans 'Imprint' %}
 	        </a>
@@ -152,7 +156,7 @@
 			    <i data-feather="flag" class="absolute"></i>
 			    {% trans 'Language tree' %}
 		    </a>
-	        <a href="{% url 'settings' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	        <a href="{% url 'settings' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'region_settings' %}active{% endif %}">
 	            <i data-feather="sliders" class="absolute"></i>
 		        {% trans 'Settings' %}
 	        </a>
@@ -169,15 +173,23 @@
 			    <i data-feather="flag" class="absolute"></i>
 			    {% trans 'Languages' %}
 		    </a>
-		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
-			    <i data-feather="users" class="absolute"></i>
-			    {% trans 'User' %}
-		    </a>
-		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat">
+	    <a href="{% url 'users' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'users' %}active{% endif %}">
+		    <i data-feather="users" class="absolute"></i>
+		    {% trans 'Users' %}
+	    </a>
+	    <a href="{% url 'roles' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'roles' %}active{% endif %}">
+		    <i data-feather="key" class="absolute"></i>
+		    {% trans 'Roles' %}
+	    </a>
+            <a href="{% url 'organizations' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'organizations' %}active{% endif %}">
+                <i data-feather="umbrella" class="absolute"></i>
+                {% trans 'Organizations' %}
+            </a>
+		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
 			    <i data-feather="thumbs-up" class="absolute"></i>
 			    {% trans 'Feedback' %}
 		    </a>
-		    <a href="{% url 'admin_settings' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat{% if current_menu_item == 'settings' %}active{% endif %}">
+		    <a href="{% url 'admin_settings' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'admin_settings' %}active{% endif %}">
 			    <i data-feather="sliders" class="absolute"></i>
 			    {% trans 'Settings' %}
 		    </a>

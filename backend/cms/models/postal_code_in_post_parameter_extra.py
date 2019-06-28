@@ -7,3 +7,6 @@ class PostalCodeInPostParameterExtra(Extra):
         post = self.template.post_data
         post.update({'search-plz': self.site.postal_code})
         return post
+
+    class Meta:
+        default_permissions = ()

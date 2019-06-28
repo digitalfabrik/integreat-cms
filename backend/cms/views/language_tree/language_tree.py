@@ -1,12 +1,19 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
+
 from ...models import Site
+from ...decorators import region_permission_required
 
 
 @method_decorator(login_required, name='dispatch')
-class LanguageTreeView(TemplateView):
+@method_decorator(region_permission_required, name='dispatch')
+class LanguageTreeView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.manage_language_tree'
+    raise_exception = True
+
     template_name = 'language_tree/tree.html'
     base_context = {'current_menu_item': 'language_tree'}
 

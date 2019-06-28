@@ -1,0 +1,77 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h2 class="heading font-normal">
+	            {% if form.initial %}
+		            {% with form.name.value as organization_name %}
+			            {% blocktrans %}Edit organization "{{ organization_name }}"{% endblocktrans %}
+		            {% endwith %}
+	            {% else %}
+		            {% trans 'Create new organization' %}
+	            {% endif %}
+            </h2>
+        </div>
+        <div class="w-3/5 flex justify-end">
+            <input type="submit" name="submit_save" class="cursor-pointer bg-grey hover:bg-grey-dark text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
+            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+        </div>
+    </div>
+
+    <div class="flex flex-wrap">
+	    <div class="w-1/2 pr-4">
+		    {{form.errors}}
+		    <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+				<div class="w-full p-4 rounded bg-blue-dark">
+					<h3 class="heading font-bold text-white">{% trans 'General Settings' %}</h3>
+				</div>
+				<div class="w-full p-4">
+
+					<!-- General Options for organization management -->
+                    <label for="name" class="font-bold block p-2 mb-2">{% trans "Organizationname" %}</label>
+                    {% trans "Enter the organization's name here" as name_placeholder%}
+                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+                    <label for="slug" class="font-bold block p-2 mb-2">{% trans "Slug of the organization" %}</label>
+                    {% trans "Enter the organization's slug here" as slug_placeholder%}
+                    {% render_field form.slug placeholder=slug_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+                    <label for="thumbnail" class="font-bold block p-2 mb-2">{% trans "Thumbnail of the organization" %}</label>
+                    {% trans "Enter the organization's thumbnail here" as thumbnail_placeholder%}
+                    {% render_field form.thumbnail placeholder=thumbnail_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+				</div>
+			</div>
+		</div>
+	<div class="w-1/2 pr-4">
+		<div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+			<div class="w-full p-4 rounded bg-blue-dark">
+				<h3 class="heading font-bold text-white">{% trans 'Extended Settings' %}</h3>
+			</div>
+			<div class="w-full p-4">
+				<div class="flex w-full bg-grey-lighter">
+					<img class="flex w-2/3 p-2 h-40 pt-4 pb-4 justify-start" src="https://tailwindcss.com/img/card-top.jpg">
+					</img>
+					<div class="flex h-48 w-1/3 pt-4 p-2 pb-4 justify-end">
+						{% render_field form.icon id="icon" class="image-field" %}
+						<label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+							<svg class="w-1/4 h-1/4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+								<path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+							</svg>
+							<span class="mt-2 text-base leading-normal">{% trans 'Set icon' %}</span>
+							<input type='filename' class="hidden" />
+						</label>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+</form>
+{% endblock %}

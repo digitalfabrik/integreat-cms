@@ -1,5 +1,7 @@
+from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -11,10 +13,15 @@ from .push_notification_form import PushNotificationForm, PushNotificationTransl
 from ...models.push_notification import PushNotification, PushNotificationTranslation
 from ...models.language import Language
 from ...models.site import Site
+from ...decorators import region_permission_required
 
 
 @method_decorator(login_required, name='dispatch')
-class PushNotificationListView(TemplateView):
+@method_decorator(region_permission_required, name='dispatch')
+class PushNotificationListView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.view_push_notifications'
+    raise_exception = True
+
     template_name = 'push_notifications/list.html'
     base_context = {'current_menu_item': 'push_notifications'}
 
@@ -53,7 +60,10 @@ class PushNotificationListView(TemplateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class PushNotificationView(TemplateView):
+@method_decorator(region_permission_required, name='dispatch')
+class PushNotificationView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'cms.view_push_notifications'
+    raise_exception = True
 
     template_name = 'push_notifications/push_notification.html'
     base_context = {'current_menu_item': 'push_notifications'}
@@ -88,6 +98,14 @@ class PushNotificationView(TemplateView):
         })
 
     def post(self, request, *args, **kwargs):
+
+        if not request.user.has_perm('cms.edit_push_notifications'):
+            raise PermissionDenied
+
+        if 'submit_send' in request.POST:
+            if not request.user.has_perm('cms.send_push_notifications'):
+                raise PermissionDenied
+
         site = Site.objects.get(slug=kwargs.get('site_slug'))
         language = Language.objects.get(code=kwargs.get('language_code'))
 
