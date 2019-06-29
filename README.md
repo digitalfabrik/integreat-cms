@@ -24,6 +24,8 @@ You can run Postgres either on your local machine or in a Docker container.
 5. Fire up the CMS: `integreat-cms runserver localhost:8000`
 6. Go to your browser and open the URL `http://localhost:8000`
 
+You may need to activate the `virtualenv` explicitly via `source .venv/bin/activate`.
+
 ## Development
 ### Migrations
 After changing a models you have to migrate via `./dev-tools/migrate.sh`
