@@ -1,6 +1,6 @@
 """Views related to the statistics module"""
 from datetime import date, timedelta
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, InvalidURL
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
@@ -68,10 +68,11 @@ class AnalyticsView(TemplateView):
                 messages.error(request, _('Connection to Matomo could not be established'))
                 return redirect('dashboard', site_slug=site_slug)
             except InvalidURL:
-                messages.error(request, _('The entered matomo url is invalid. Please check.'))
+                messages.error(request, _('The url you have entered is invalid. Please check the corresponding settings.'))
                 return redirect('dashboard', site_slug=site_slug)
             except TypeError:
                 messages.error(request, _('There was an error during the establishment of a connection. Please check the region and the entered key.'))
+                return redirect('dashboard', site_slug=site_slug)
             for single_day in api_hits:
                 temp_hits.append(single_day[1])
             response_hits.append([lang[1], lang[2], temp_hits])

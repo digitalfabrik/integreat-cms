@@ -4,7 +4,8 @@ Helper class to interact with the Matomo API
 import re
 import json
 import requests
-
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 class MatomoApiManager:
     """
@@ -50,21 +51,6 @@ class MatomoApiManager:
         elif not bool(re.match("^https://", self.matomo_url)):  # check for "https://" and set it
             self.matomo_url = self.protocol + self.matomo_url
 
-    def api_request(self, method, curl):
-        """
-        General function which will handle requests to the api and exceptions for all functions
-        :param method: get- or push-http-request, shoud be a string
-        :param curl: concated protocoll with matomo_url, api-method and matomo_api_key
-        :return: returns api reply
-        """
-        try:
-            if method == "get":
-                request = requests.get(curl, verify=self.ssl_verify)
-            elif method == "push":  # not used so far
-                request = requests.get(curl, verify=self.ssl_verify)
-        except ConnectionError:
-            request = False
-        return request.text
 
     def checkmatomo_url(self):
         """
@@ -150,13 +136,25 @@ class MatomoApiManager:
         """
         domain = self.matomo_url
         api_key = self.matomo_api_key
+        headers = {
+            'User-Agent': 'Mozilla/5.0',
+            'From': 'holtgrave@integreat-app.de'  # This is another valid field
+        }
         response = {}
         url = """{}/index.php?date={}&expanded=1
         &filter_limit=-1&format=JSON&format_metrics=1
         &idSite={}&method=API.get&module=API&period={}
         &segment=pageUrl%253D@%25252F{}
         %25252Fwp-json%25252F{}""".format(domain, date_string, site_id, period, lang, api_key)
-        response = requests.get(url).json()
+
+        session = requests.Session()
+        retry = Retry(connect=3, backoff_factor=0.5)
+        adapter = HTTPAdapter(max_retries=retry)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
+
+        response = session.get(url).json()
+
         result = []
         for json_object in response:
             if period == "day":
