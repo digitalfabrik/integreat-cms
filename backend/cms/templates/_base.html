@@ -114,10 +114,12 @@
 	            <i data-feather="pie-chart" class="absolute"></i>
 		        {% trans 'Translation Report' %}
 	        </a>
+			{% if site.statistics_enabled %}
 	        <a href="{% url 'statistics' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'statistics' %}active{% endif %}">
 	            <i data-feather="bar-chart" class="absolute"></i>
 		        {% trans 'Statistics' %}
 	        </a>
+			{% endif %}
 			<a href="{% url 'media' site_slug=site.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'media' %}active{% endif %}">
 	            <i data-feather='file' class="absolute"></i>
 		        {% trans 'Media Library' %}
