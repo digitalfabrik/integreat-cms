@@ -39,30 +39,46 @@
         <div class="w-2/3 pr-2">
             {{page_form.errors}}
             {{page_translation_form.errors}}
+            <ul class="flex" style="list-style-type: none;">
+                {% for other_language in languages %}
+                    <li class="flex mr-2">
+                    {% if other_language == language  %}
+                        <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold" href="#">{{ other_language.name }}
+                            <img src="{% static '' %}images/flags/{{ other_language.code }}.png" title="{{ lang.name }}" />
+                        </a>
+                    {% else %}
+                        <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">{{ other_language.name }}
+                            <img src="{% static '' %}images/flags/{{ other_language.code }}.png" title="{{ lang.name }}" />
+                        </a>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            
+ 
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
                 <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
                 {% trans 'Insert title here' as title_placeholder%}
                 {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                <div class="mt-4">
+                <label class="block mt-2 mb-2 font-bold">{% trans 'Permalink' %}</label>
+                    <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                        {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
+                        {% spaceless %}
+                        <div style="display: table; white-space: nowrap;">
+                            <span style="display: table-cell;">https://integreat.app/{{ site.slug }}/{{ language.code }}/</span>
+                            {% if page_translation_form.instance.ancestor_path %}
+                                <span style="display: table-cell;">{{ page_translation_form.instance.ancestor_path }}/</span>
+                            {% endif %}
+                                <span style="display: table-cell; width: 100%;">{% render_field page_translation_form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
+                        </div>
+                        {% endspaceless %}
+                    </div>
+                <div class="mt-4 min-h-8">
                     <label class="block mb-2 font-bold">{% trans 'Content' %}</label>
                     {% trans 'Insert content here' as text_placeholder%}
-                    {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded" %}
+                    {% render_field page_translation_form.text placeholder=text_placeholder id="contentfield" class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded" %}
                 </div>
             </div>
-            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-                <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
-            <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
-                {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
-                {% spaceless %}
-                    <div style="display: table; white-space: nowrap;">
-                        <span style="display: table-cell;">https://integreat.app/{{ site.slug }}/{{ language.code }}/</span>
-                        {% if page_translation_form.instance.ancestor_path %}
-                            <span style="display: table-cell;">{{ page_translation_form.instance.ancestor_path }}/</span>
-                        {% endif %}
-                        <span style="display: table-cell; width: 100%;">{% render_field page_translation_form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
-                    </div>
-                {% endspaceless %}
-            </div></div>
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
                 <h3 class="mb-2">{% trans 'Embed live content' %}</h3>
                 <input type="text" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
@@ -205,6 +221,11 @@
 {% endblock %}
 
 {% block javascript %}
+    <script>
+        tinymce.init({
+        selector: '#contentfield'
+        });
+    </script>
     <script>
         // event handler for granting edit page permissions
         u("#grant-edit-page-permission").handle('click', grant_edit_page_permission);
