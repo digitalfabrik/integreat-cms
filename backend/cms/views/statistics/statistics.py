@@ -49,6 +49,10 @@ class AnalyticsView(TemplateView):
         start_date = request.GET.get('start_date', str(date.today() -
                                                        timedelta(days=30)))
         end_date = request.GET.get('end_date', str(date.today()))
+        if (start_date == "") or (end_date == ""):
+            messages.error(request, _("Please enter a correct start and enddate"))
+            return redirect('statistics', site_slug=site_slug)
+
         languages = [["de", "Deutsch", "#7e1e9c"], ["en", "Englisch", "#15b01a"],
                      ["ar", "Arabisch", "#0343df"]]
 

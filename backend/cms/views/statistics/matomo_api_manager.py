@@ -51,7 +51,6 @@ class MatomoApiManager:
         elif not bool(re.match("^https://", self.matomo_url)):  # check for "https://" and set it
             self.matomo_url = self.protocol + self.matomo_url
 
-
     def checkmatomo_url(self):
         """
         This method checks the proper functionality of a simple url request
@@ -64,66 +63,6 @@ class MatomoApiManager:
             return False
         except ConnectionError:
             return False
-
-    def create_instance(self, site_name, url, timezone, start_date):
-        """
-        Creates an instance on Matomo-instance.
-        :param site_name: String
-        :param url: String
-        :param timezone: String "utc-1" for Germany/Berlin
-        :param start_date: String "yyyy-mm-dd" or e.g. "2007-07-24"
-        :return: String ID of newly created instance
-        """
-        method = "/?module=API&method=SitesManager.addSite&site_name=" + site_name + "&urls=" + url
-        method += "&timezone=" + timezone + "&start_date=" + start_date
-        curl = self.matomo_url + method + self.matomo_api_key
-        request = self.api_request("get", curl)
-        return request
-
-    def get_all_site_ids(self):
-        """
-        Returns only all siteIDs
-        :return: JSON with all IDs
-        """
-        method = "/?module=API&method=SitesManager.getAllSitesId&format=JSON"
-        curl = self.matomo_url + method + self.matomo_api_key
-        request = self.api_request("get", curl)
-
-        return request
-
-    def get_all_sites_id_name(self):  # Site ID und Site Name
-        """
-        Returns SiteIDs with the instance name as a list object
-        :return: list object
-        """
-        method = "/?module=API&method=SitesManager.getAllSites&format=JSON"
-        curl = self.matomo_url + method + self.matomo_api_key
-        request = self.api_request("get", curl)
-
-        request = json.loads(request)
-
-        name_list = []
-
-        i = 0
-        for json_object in request:
-            list.append([])
-            for (key, value) in json_object.items():
-                if key == "idsite":
-                    name_list[i].append(value)
-                if key == "name":
-                    name_list[i].append(value)
-            i += 1
-        return name_list
-
-    def get_all_sites(self):
-        """
-        Returns all instances of your matomo instance and all metadata of it
-        :return: JSON
-        """
-        method = "/?module=API&method=SitesManager.getAllSites&format=json"
-        curl = self.matomo_url + method + self.matomo_api_key
-        request = self.api_request("get", curl)
-        return request
 
     def get_visitors_per_timerange(self, date_string, site_id, period, lang):
         """
