@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'integreat',
         'USER': 'integreat',
         'PASSWORD': 'password',
-        'HOST': 'postgres',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

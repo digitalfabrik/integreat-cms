@@ -1,40 +1,53 @@
 # Integreat Django CMS
 This project aims to develop a content management system tailored to the needs of municipalities to provide multilingual local information. It aims at being easy to use and easy to maintain over a long time. This project uses Python3 and Django 1.11 and aims at being run on a Ubuntu 18.04.
 
-## Development
-There are several ways to run this project locally: install as a package (Ubuntu, openSUSE), run in local Python3 venv, and also in a Docker container. Each method is detailed below.
+## Setup a local development environment
+To run the project locally you can either install as a package (Ubuntu, openSUSE) or you can run in local Python3 **virtualenv**, and also in a Docker container. Using **virtualenv** is the recommended way for setting up a local development environment.
 
-To get started, run
+First of all, clone the project:
 ````
 git clone git@github.com:Integreat/cms-django.git
 cd cms-django
 ````
 
-### Development Tools
+### Setup the database
+You can run Postgres either on your local machine or in a Docker container.
 
-- Delete docker environment to start over again: `dev-tools/prune_docker.sh`
-  (be careful: This will delete all your other docker images as well)
-- Delete database to start over again: `dev-tools/prune_database.sh`
-- Migrate database: `dev-tools/migrate.sh`
-- Create superuser: `dev-tools/create_superuser.sh`
+* Install Postgres on your machine ([Tutorial for Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04))
+* Run Postgres in a Docker container: `./dev-tools/start_db_docker.sh`
 
-### Run CMS in Python3 venv
-1. Install a local PostgreSQL server, for example with `apt install postgresql` and create a database and database user with the name `integreat`.
-2. Run `./install-venv.sh`
-3. Open the `backend/backend/settings.py` and adjust the database credentials. Also change the hostname to `localhost`.
-4. Do the database migrations: `integreat-cms migrate`
-5. Create the initial superuser: `integreat-cms createsuperuser`
-6. Fire up the CMS: `integreat-cms runserver localhost:8000`
-7. Go to your browser and open the URL `http://localhost:8000`
-8. Run Django unittest: `integreat-cms test cms/`
+### virtualenv
+1. Run `./install-venv.sh`
+2. If you have installed Postgres on your machine, you may have to adjust database credentials in `backend/backend/settings.py`
+3. Do the database migrations: `integreat-cms migrate`
+4. Create the initial superuser: `integreat-cms createsuperuser`
+5. Fire up the CMS: `integreat-cms runserver localhost:8000`
+6. Go to your browser and open the URL `http://localhost:8000`
 
-### Run CMS in Docker container
-A docker-compose file is provided in the the repository. It will start one container with a PostgreSQL database and another one with the CMS.
-* `docker-compose up`
-* enter [http://localhost:8000](http://localhost:8000)
-* as long as there is no standard SQL dump, you have to create your own user: `docker exec -it $(docker-compose ps -q django) bash -ic "integreat-cms createsuperuser"`
+You may need to activate the `virtualenv` explicitly via `source .venv/bin/activate`.
 
-### Packaging and installing on Ubuntu 18.04
+## Development
+### Migrations
+After changing a models you have to migrate via `./dev-tools/migrate.sh`
+
+### i18n
+To make use of the translated backend, compile the django.po file as follows:
+
+`django-admin compilemessages`
+
+If you are using a virtual python environment, be sure to use the ´--exclude´ parameter or execute this command in the backend or cms directory, otherwise all the translation files in your venv will be compiled, too.
+
+### Testing
+Run Django unittest: `integreat-cms test cms/`
+
+### Miscellaneous
+* Keep in mind that we are using Python 3.x, so use `python3` and `pip3` with any command
+* Access the Postgres database running in Docker container: `docker exec -it integreat_django_postgres psql -U integreat`
+* Too ensure that you do not accidentally push your changes in `settings.py`, you can ignore the file locally via `git update-index --assume-unchanged ./backend/backend/settings.py`
+* Delete the database to start over again: `dev-tools/prune_database.sh`
+* Create superuser: `dev-tools/create_superuser.sh`
+
+## Packaging and installing on Ubuntu 18.04
 Packaging for Debian can be done with setuptools.
 ```
 $ python3 -m venv .venv
@@ -57,34 +70,3 @@ Then install both packages with gdebi:
 # gebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
 ````
 In the end, create a PostgreSQL user and database and adjust the `/usr/lib/python3/dist-packages/backend/settings.py`.
-
-
-### Troubleshooting
-#### Cleaning up Docker environment
-* stop all conntainers: `docker stop $(docker ps -a -q)`
-* remove all images: `docker rmi $(docker images -a -q)`
-* remove all volumes: `docker system prune`
-#### Misc
-* keep in mind that we are using Python 3.x, so use `python3` and `pip3` on your bash commands
-* get a bash shell in the django container: `docker exec -it $(docker-compose ps -q django) bash`
-* enter postgres container: `docker exec -it $(docker-compose ps -q postgres) psql -U"integreat" -d "integreat"`
-
-### Migrations
-* change models
-* `docker exec -it $(docker-compose ps -q django) bash -ic "integreat-cms makemigrations [app]"`
-* optional, if you want to inspect the corresponding SQL syntax: `docker exec -it $(docker-compose ps -q django) bash -ic "integreat-cms sqlmigrate [app] [number]"`
-* `docker exec -it $(docker-compose ps -q django) bash -ic "integreat-cms migrate"`
-
-### Docker clean up
-* `docker stop $(docker ps -a -q)`
-* `docker rm $(docker ps -a -q)`
-* remove all images: `docker rmi $(docker images -a -q)`
-* remove all volumes: `docker volume prune`
-
-### i18n
-To make use of the translated backend, compile the django.po file as follows:
-
-`django-admin compilemessages`
-
-If you use a virtual python environment, be sure to use the ´--exclude´ parameter or execute this command in the backend or cms directory, otherwise all the translation files in your venv will be compiled, too.
-
