@@ -55,17 +55,17 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
         form = LanguageTreeNodeForm(data=request.POST, site_slug=site_slug)
         if form.is_valid():
             if language_tree_node_id:
-                form.save_language_node(
+                language_tree_node = form.save_language_node(
                     language_tree_node_id=language_tree_node_id,
                 )
                 messages.success(request, _('Language tree node was saved successfully.'))
             else:
                 language_tree_node = form.save_language_node()
                 messages.success(request, _('Language tree node was created successfully.'))
-                return redirect('edit_language_tree_node', **{
-                    'language_tree_node_id': language_tree_node.id,
-                    'site_slug': site_slug,
-                })
+            return redirect('edit_language_tree_node', **{
+                'language_tree_node_id': language_tree_node.id,
+                'site_slug': site_slug,
+            })
             # TODO: improve messages
         else:
             messages.error(request, _('Errors have occurred.'))
