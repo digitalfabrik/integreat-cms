@@ -1,12 +1,14 @@
-from zipfile import ZipFile
-from bs4 import BeautifulSoup, NavigableString, Tag
 import os
 import uuid
 import shutil
 
+from zipfile import ZipFile
+from bs4 import BeautifulSoup, NavigableString, Tag
+
 from django.utils.text import slugify
 
 from cms.models import Page, PageTranslation
+
 
 XLIFF_TAG = 'xliff'
 XLIFF_SRC_LANG_ATTRIBUTE_NAME = 'srcLang'
@@ -47,33 +49,33 @@ ENGLISH_LANGUAGE_CODE = 'en-us'
 class XliffValidationException(Exception):
     pass
 
-
+# pylint: disable=R0903
 class PageXliff:
     def __init__(self, page_id, language_code, title, text):
         self.page_id = page_id
         self.language_code = language_code
         self.title = title
-        self.text =text
+        self.text = text
 
 
 class PageXliffConverter:
     @staticmethod
     def _add_navigable_string_to_empty_tag(soup):
         for el in list(soup.descendants):
-            if type(el) == Tag and len(list(el.children)) == 0 and el.name not in ('br',):
+            if isinstance(el, Tag) and not list(el.children) and el.name not in ('br',):
                 el.append(NavigableString(' '))
 
     @staticmethod
     def _replace_all_navigable_strings(soup):
         for el in list(soup.descendants):
-            if type(el) == NavigableString:
+            if isinstance(el, NavigableString):
                 el.replaceWith(NavigableString('###'))
 
 
     @staticmethod
     def _trim_tag_navigable_string(element):
         for child in list(element.children):
-            if type(child) == NavigableString:
+            if isinstance(child, NavigableString):
                 child.replaceWith(NavigableString(child.string.strip()))
 
     @staticmethod
@@ -119,7 +121,7 @@ class PageXliffConverter:
         target_children = list(target_element.children)
         tag_elements = []
         for source_child, target_child in zip(source_children, target_children):
-            if type(source_child) == NavigableString and type(target_child) == NavigableString:
+            if isinstance(source_child, NavigableString) and isinstance(target_child, NavigableString):
                 PageXliffConverter._replace_navigable_string_with_unit(
                     source_child, source_child.string.strip(), target_child.string.strip())
             else:
@@ -133,7 +135,7 @@ class PageXliffConverter:
         children = list(element.children)
         tag_elements = []
         for child in children:
-            if type(child) == NavigableString:
+            if isinstance(child, NavigableString):
                 PageXliffConverter._replace_navigable_string_with_unit(child, child.string.strip())
             else:
                 tag_elements.append(child)
@@ -141,7 +143,7 @@ class PageXliffConverter:
         for tag in tag_elements:
             PageXliffConverter._replace_source_unit(tag)
 
-    def html_to_xliff(self, source,  target=None):
+    def html_to_xliff(self, source, target=None):
         compare_result, compare_source, compare_target = self._compare_structure_and_return_source_target(
             source=source,
             target=target
@@ -156,7 +158,8 @@ class PageXliffConverter:
         result = result.replace('<target/>', '<target></target>').replace('<source/>', '<source></source>')
         return result
 
-    def xliff_to_html(self, xliff, target=True):
+    @staticmethod
+    def xliff_to_html(xliff, target=True):
         bs = BeautifulSoup(xliff, "xml")
         elements = bs.find_all('unit')
         content_tag = 'target'
@@ -201,6 +204,7 @@ class PageXliffConverter:
                                                 text=text)
         return result
 
+    # pylint: disable=R0914
     def xliff_to_page_xliff(self, xliff, target=True):
         bs = BeautifulSoup(xliff, 'xml')
         xliff_element = bs.find(XLIFF_TAG)
@@ -223,7 +227,7 @@ class PageXliffConverter:
                     text = self.xliff_to_html(text_element.prettify(), target=target)
                     temp_bs = BeautifulSoup(text, 'xml')
                     temp_strings = list(temp_bs.stripped_strings)
-                    if len(temp_strings):
+                    if temp_strings:
                         text = text.replace(PAGE_TEXT_BEGIN_TAG, '').replace(PAGE_TEXT_END_TAG, '').strip()
                     else:
                         text = ''
@@ -236,7 +240,7 @@ class PageXliffConverter:
         else:
             error_messages.append('cannot find xliff tag or srcLang and trgLang not exists.')
 
-        if len(error_messages):
+        if error_messages:
             raise XliffValidationException('\n'.join(error_messages))
 
         return page_xliff
@@ -345,7 +349,8 @@ class PageXliffHelper:
             self._create_zip_file(xliff_files, zip_file_path)
 
             # delete xliff files after created zip file
-            [self.delete_tmp_in_xliff_folder(xliff_file) for xliff_file in xliff_files]
+            for xliff_file in xliff_files:
+                self.delete_tmp_in_xliff_folder(xliff_file)
 
         return zip_file_path
 
@@ -375,7 +380,7 @@ class PageXliffHelper:
                     page_translation.text = page_xliff.text
                     page_translation.slug = PageXliffHelper._get_page_translation_slug(page_xliff.title)
 
-                elif len(page.languages) > 0:
+                elif page.languages:
                     target_language = None
                     for language in page.site.languages:
                         if page_xliff.language_code == language.code:
@@ -398,8 +403,8 @@ class PageXliffHelper:
                 if page_translation:
                     page_translation.save()
                     result = True
-
-        except Exception as ex:
+        # pylint: disable=W0703
+        except Exception:
             pass
 
         return result
@@ -430,6 +435,6 @@ class PageXliffHelper:
                                     results.append((file_name, self.save_page_xliff(page_xliff, user),))
                                 else:
                                     results.append((file_name, False,))
-                            except XliffValidationException as ex:
+                            except XliffValidationException:
                                 results.append((file_name, False,))
         return results

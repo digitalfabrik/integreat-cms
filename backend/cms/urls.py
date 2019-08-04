@@ -5,7 +5,19 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 
-from .views import general, registration, pages, regions, languages, language_tree, users, roles, organizations, statistics, push_notifications, media, analytics
+from .views import general
+from .views import registration
+from .views import pages
+from .views import regions
+from .views import languages
+from .views import language_tree
+from .views import users
+from .views import roles
+from .views import organizations
+from .views import statistics
+from .views import push_notifications
+from .views import media
+from .views import analytics
 
 
 urlpatterns = [

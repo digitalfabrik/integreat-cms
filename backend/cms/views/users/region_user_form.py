@@ -5,7 +5,6 @@ Form for creating a region user object
 import logging
 
 from django.contrib.auth import get_user_model
-from django.utils.translation import ugettext_lazy as _
 
 from ...models.user_profile import UserProfile
 from .user_form import UserForm, UserProfileForm
@@ -42,6 +41,10 @@ class RegionUserProfileForm(UserProfileForm):
             # only update the region when user is created
             user_profile.regions.add(region)
             user_profile.save()
-            logger.info('The new user {} was added to the region {}.'.format(user_profile.user, region))
+            logger.info(
+                'The new user %s was added to the region %s.',
+                user_profile.user,
+                region
+            )
 
         return user_profile

@@ -23,9 +23,15 @@ class ParentField(forms.ModelChoiceField):
         Subclass of ModelChoiceField
         Helper to overwrite the label function (which would otherwise call __str__)
     """
+    language = None
 
+    # pylint: disable=W0221
     def label_from_instance(self, page):
-        logger.info('Generate label for page with id {} in language {}'.format(page, self.language))
+        logger.info(
+            'Generate label for page with id %s in language %s',
+            page,
+            self.language
+        )
         return ' -> '.join([
             page.get_translation(self.language.code).title
             for page in page.get_ancestors(include_self=True)
@@ -51,7 +57,11 @@ class PageForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
-        logger.info('New PageForm instantiated with args {} and kwargs {}'.format(args, kwargs))
+        logger.info(
+            'New PageForm instantiated with args %s and kwargs %s',
+            args,
+            kwargs
+        )
 
         # pop kwarg to make sure the super class does not get this param
         self.site = kwargs.pop('site', None)
@@ -95,9 +105,14 @@ class PageForm(forms.ModelForm):
         self.fields['parent'].queryset = parent_queryset
 
 
+    # pylint: disable=W0221
     def save(self, *args, **kwargs):
 
-        logger.info('PageForm saved with args {} and kwargs {}'.format(args, kwargs))
+        logger.info(
+            'PageForm saved with args %s and kwargs %s',
+            args,
+            kwargs
+        )
 
         # don't commit saving of ModelForm, because required fields are still missing
         kwargs['commit'] = False
@@ -154,7 +169,11 @@ class PageTranslationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
-        logger.info('New PageTranslationForm with args {} and kwargs {}'.format(args, kwargs))
+        logger.info(
+            'New PageTranslationForm with args %s and kwargs %s',
+            args,
+            kwargs
+        )
 
         # pop kwarg to make sure the super class does not get this param
         self.site = kwargs.pop('site', None)
@@ -178,9 +197,14 @@ class PageTranslationForm(forms.ModelForm):
 
         self.fields['public'].widget = forms.Select(choices=self.PUBLIC_CHOICES)
 
+    # pylint: disable=W0221
     def save(self, *args, **kwargs):
 
-        logger.info('PageTranslationForm saved with args {} and kwargs {}'.format(args, kwargs))
+        logger.info(
+            'PageTranslationForm saved with args %s and kwargs %s',
+            args,
+            kwargs
+        )
 
         # pop kwarg to make sure the super class does not get this param
         page = kwargs.pop('page', None)
@@ -209,7 +233,10 @@ class PageTranslationForm(forms.ModelForm):
         if not slug:
             # slugify to make sure slug doesn't contain special chars etc.
             slug = slugify(self.cleaned_data['title'])
-            logger.info('Generate new slug from title {}'.format(slug))
+            logger.info(
+                'Generate new slug from title %s',
+                slug
+            )
 
         # make sure slug is unique per region and language
         unique_slug = slug
@@ -226,6 +253,10 @@ class PageTranslationForm(forms.ModelForm):
             unique_slug = '{}-{}'.format(slug, i)
 
         if self.cleaned_data['slug'] != unique_slug:
-            logger.info('Cleaned slug from {} to {}.'.format(self.cleaned_data['slug'], unique_slug))
+            logger.info(
+                'Cleaned slug from %s to %s.',
+                self.cleaned_data['slug'],
+                unique_slug
+            )
 
         return unique_slug

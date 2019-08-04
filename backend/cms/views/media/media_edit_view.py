@@ -42,5 +42,4 @@ class MediaEditView(TemplateView):
 
         if result.get('status') == 1:
             return redirect('media', **{'site_slug': site.slug})
-        else:
-            return render(request, self.template_name, {'form': result.get('form')})
+        return render(request, self.template_name, {'form': result.get('form')})

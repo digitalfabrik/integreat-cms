@@ -11,6 +11,7 @@ class Document(models.Model):
     def __str__(self):
         return self.document.name
 
+    # pylint: disable=W0221
     def delete(self, *args, **kwargs):
         self.document.delete()
         super().delete(*args, **kwargs)

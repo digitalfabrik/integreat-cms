@@ -44,7 +44,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
 
         # all pages of the current site in the current language
         pages = Page.get_tree(site_slug)
-        
+
         # all other languages of current site
         languages = site.languages
 

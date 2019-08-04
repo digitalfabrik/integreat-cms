@@ -69,6 +69,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
             'languages': site.languages,
         })
 
+    # pylint: disable=R0912
     def post(self, request, *args, **kwargs):
 
         site = Site.objects.get(slug=kwargs.get('site_slug'))
@@ -167,7 +168,7 @@ def archive_page(request, page_id, site_slug, language_code):
     return redirect('pages', **{
                 'site_slug': site_slug,
                 'language_code': language_code,
-            })
+    })
 
 
 @login_required
@@ -186,7 +187,7 @@ def restore_page(request, page_id, site_slug, language_code):
     return redirect('pages', **{
                 'site_slug': site_slug,
                 'language_code': language_code,
-            })
+    })
 
 
 @login_required
@@ -198,10 +199,13 @@ def view_page(request, page_id, site_slug, language_code):
 
     page_translation = page.get_translation(language_code)
 
-    return render(request,
-                  template_name,
-                  {"page_translation": page_translation}
-                  )
+    return render(
+        request,
+        template_name,
+        {
+            "page_translation": page_translation
+        }
+    )
 
 
 @login_required
@@ -242,7 +246,7 @@ def upload_page(request, site_slug, language_code):
     return redirect('pages', **{
                 'site_slug': site_slug,
                 'language_code': language_code,
-            })
+    })
 
 
 @login_required
@@ -256,33 +260,39 @@ def grant_page_permission_ajax(request):
     page_id = data.get('page_id')
     user_id = data.get('user_id')
 
-    logger.info('Ajax call: The user {request_user} wants to grant the permission to {permission} '
-                  'page with id {page_id} to user with id {user_id}.'.format(
-        request_user=request.user.username, permission=permission, page_id=page_id, user_id=user_id
-    ))
+    logger.info(
+        'Ajax call: The user %s wants to grant the permission to %s page with id %s to user with id %s.',
+        request.user.username,
+        permission, page_id, user_id
+    )
 
     page = Page.objects.get(id=page_id)
     user = get_user_model().objects.get(id=user_id)
 
     if not request.user.has_perm('cms.grant_page_permissions'):
-        logger.info('Error: The user {request_user} does not have the permission to grant page permissions.'.format(
-            request_user=request.user.username
-        ))
+        logger.info(
+            'Error: The user %s does not have the permission to grant page permissions.',
+            request.user.username
+        )
         raise PermissionDenied
 
     if not (request.user.is_superuser or request.user.is_staff):
         # additional checks if requesting user is no superuser or staff
         if page.site not in request.user.profile.regions:
             # requesting user can only grant permissions for pages of his region
-            logger.info('Error: The user {request_user} cannot grant permissions for region {region}.'.format(
-                request_user=request.user.username, region=page.site.name
-            ))
+            logger.info(
+                'Error: The user %s cannot grant permissions for region %s.',
+                request.user.username,
+                page.site.name
+            )
             raise PermissionDenied
         if page.site not in user.profile.regions:
             # user can only receive permissions for pages of his region
-            logger.info('Error: The user {user} cannot receive permissions for region {region}.'.format(
-                user=user.username, region=page.site.name
-            ))
+            logger.info(
+                'Error: The user %s cannot receive permissions for region %s.',
+                user.username,
+                page.site.name
+            )
             raise PermissionDenied
 
     if permission == 'edit':
@@ -316,9 +326,10 @@ def grant_page_permission_ajax(request):
             )
             level_tag = 'success'
     else:
-        logger.info('Error: The permission {permission} is not supported.'.format(
-            permission=permission
-        ))
+        logger.info(
+            'Error: The permission %s is not supported.',
+            permission
+        )
         raise PermissionDenied
 
     logger.info(message)
@@ -345,24 +356,29 @@ def revoke_page_permission_ajax(request):
     page = Page.objects.get(id=page_id)
     user = get_user_model().objects.get(id=data.get('user_id'))
 
-    logger.info('Ajax call: The user {request_user} wants to revoke the permission to {permission} '
-                  'page with id {page_id} from user {user}.'.format(
-        request_user=request.user.username, permission=permission, page_id=page_id, user=user.username
-    ))
+    logger.info(
+        'Ajax call: The user %s wants to revoke the permission to %s page with id %s from user %s.',
+        request.user.username,
+        permission,
+        page_id,
+        user.username
+    )
 
     if not request.user.has_perm('cms.grant_page_permissions'):
-        logger.info('Error: The user {request_user} does not have the permission to revoke page permissions.'.format(
-            request_user=request.user.username
-        ))
+        logger.info(
+            'Error: The user %s does not have the permission to revoke page permissions.',
+            request.user.username
+        )
         raise PermissionDenied
 
     if not (request.user.is_superuser or request.user.is_staff):
         # additional checks if requesting user is no superuser or staff
         if page.site not in request.user.profile.regions:
             # requesting user can only revoke permissions for pages of his region
-            logger.info('Error: The user {request_user} cannot revoke permissions for region {region}.'.format(
-                request_user=request.user.username, region=page.site.name
-            ))
+            logger.info(
+                'Error: The user %s cannot revoke permissions for region %s.',
+                request.user.username, page.site.name
+            )
             raise PermissionDenied
 
     if permission == 'edit':
@@ -374,8 +390,8 @@ def revoke_page_permission_ajax(request):
         if user.has_perm('cms.edit_page', page):
             message = _('Information: The user {user} has been removed from the editors of this page, '
                         'but has the implicit permission to edit this page anyway.').format(
-                user=user.username
-            )
+                            user=user.username
+                        )
             level_tag = 'info'
         else:
             message = _('Success: The user {user} cannot edit this page anymore.').format(
@@ -391,8 +407,8 @@ def revoke_page_permission_ajax(request):
         if user.has_perm('cms.publish_page', page):
             message = _('Information: The user {user} has been removed from the publishers of this page, '
                         'but has the implicit permission to publish this page anyway.').format(
-                user=user.username
-            )
+                            user=user.username
+                        )
             level_tag = 'info'
         else:
             message = _('Success: The user {user} cannot publish this page anymore.').format(
@@ -400,9 +416,10 @@ def revoke_page_permission_ajax(request):
             )
             level_tag = 'success'
     else:
-        logger.info('Error: The permission {permission} is not supported.'.format(
-            permission=permission
-        ))
+        logger.info(
+            'Error: The permission %s is not supported.',
+            permission
+        )
         raise PermissionDenied
 
     logger.info(message)
@@ -415,4 +432,3 @@ def revoke_page_permission_ajax(request):
             'level_tag': level_tag
         }
     })
-

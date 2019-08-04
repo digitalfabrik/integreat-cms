@@ -26,7 +26,7 @@ class RegionUserListView(PermissionRequiredMixin, TemplateView):
 
         region = Site.objects.get(slug=kwargs.get('site_slug'))
 
-        users = get_user_model().objects.filter(
+        region_users = get_user_model().objects.filter(
             profile__regions=region,
             is_superuser=False,
             is_staff=False,
@@ -37,7 +37,7 @@ class RegionUserListView(PermissionRequiredMixin, TemplateView):
             self.template_name,
             {
                 **self.base_context,
-                'users': users
+                'users': region_users
             }
         )
 
@@ -62,12 +62,12 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
         ).first()
         user_profile = UserProfile.objects.filter(user=user).first()
 
-        user_form = RegionUserForm(instance=user)
+        region_user_form = RegionUserForm(instance=user)
         user_profile_form = RegionUserProfileForm(instance=user_profile)
 
         return render(request, self.template_name, {
             **self.base_context,
-            'user_form': user_form,
+            'user_form': region_user_form,
             'user_profile_form': user_profile_form,
         })
 
@@ -82,7 +82,7 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
         ).first()
         user_profile_instance = UserProfile.objects.filter(user=user_instance).first()
 
-        user_form = RegionUserForm(
+        region_user_form = RegionUserForm(
             request.POST,
             instance=user_instance
         )
@@ -92,29 +92,32 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
         )
 
         # TODO: error handling
-        if user_form.is_valid() and user_profile_form.is_valid():
+        if region_user_form.is_valid() and user_profile_form.is_valid():
 
-            user = user_form.save()
+            user = region_user_form.save()
             user_profile_form.save(user=user, region=region)
 
-            if user_form.has_changed() or user_profile_form.has_changed():
+            if region_user_form.has_changed() or user_profile_form.has_changed():
                 if user_instance:
                     messages.success(request, _('User was successfully saved.'))
                 else:
                     messages.success(request, _('User was successfully created.'))
-                    return redirect('edit_region_user', **{
-                        'site_slug': region.slug,
-                        'user_id': user.id,
-                    })
+                    return redirect(
+                        'edit_region_user',
+                        **{
+                            'site_slug': region.slug,
+                            'user_id': user.id,
+                        }
+                    )
             else:
                 messages.info(request, _('No changes detected.'))
         else:
-            # TODO: improve messages
+            # TODO: improve messages for region users
             messages.error(request, _('Errors have occurred.'))
 
         return render(request, self.template_name, {
             **self.base_context,
-            'user_form': user_form,
+            'user_form': region_user_form,
             'user_profile_form': user_profile_form,
         })
 

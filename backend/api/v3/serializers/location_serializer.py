@@ -1,5 +1,7 @@
-from cms.models import POI
 from rest_framework.serializers import ModelSerializer
+
+from cms.models import POI
+
 
 class LocationSerializer(ModelSerializer):
     class Meta:

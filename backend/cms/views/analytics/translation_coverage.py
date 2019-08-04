@@ -25,11 +25,17 @@ class TranslationCoverageView(TemplateView):
 
         all_pages = Page.objects.count()
 
+        # pylint: disable=C0200
         for i in range(len(languages)):
             translated_count = PageTranslation.objects.filter(language_id=languages[i][2]).count()
             languages[i].append(translated_count)
             languages[i].append(all_pages - languages[i][3])
 
-        return render(request, self.template_name,
-                      {**self.base_context,
-                       'coverages': languages})
+        return render(
+            request,
+            self.template_name,
+            {
+                **self.base_context,
+                'coverages': languages
+            }
+        )

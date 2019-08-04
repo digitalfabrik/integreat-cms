@@ -1,14 +1,17 @@
 """Views related to the statistics module"""
 from datetime import date, timedelta
+# pylint: disable=W0622
 from requests.exceptions import ConnectionError, InvalidURL
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .matomo_api_manager import MatomoApiManager
-from ...models import Page, Site, Language
 from django.utils.translation import ugettext as _
+
+from .matomo_api_manager import MatomoApiManager
+from ...models import Site
 from ...decorators import region_permission_required
 
 
@@ -43,18 +46,24 @@ class AnalyticsView(TemplateView):
             csv_raw += str(csv_row)
         return csv_raw
 
+    # pylint: disable=R0914
     def get(self, request, *args, **kwargs):
         site_slug = kwargs.get('site_slug')
         site = Site.objects.get(slug=site_slug)
-        start_date = request.GET.get('start_date', str(date.today() -
-                                                       timedelta(days=30)))
+        start_date = request.GET.get(
+            'start_date',
+            str(date.today() - timedelta(days=30))
+        )
         end_date = request.GET.get('end_date', str(date.today()))
         if (start_date == "") or (end_date == ""):
             messages.error(request, _("Please enter a correct start and enddate"))
             return redirect('statistics', site_slug=site_slug)
 
-        languages = [["de", "Deutsch", "#7e1e9c"], ["en", "Englisch", "#15b01a"],
-                     ["ar", "Arabisch", "#0343df"]]
+        languages = [
+            ["de", "Deutsch", "#7e1e9c"],
+            ["en", "Englisch", "#15b01a"],
+            ["ar", "Arabisch", "#0343df"]
+        ]
 
         api_man = MatomoApiManager(matomo_url=site.matomo_url,
                                    matomo_api_key=site.matomo_token,
@@ -83,8 +92,13 @@ class AnalyticsView(TemplateView):
         for single_day in api_hits:
             response_dates.append(single_day[0])
 
-        return render(request, self.template_name,
-                      {**self.base_context,
-                       'csv': self.prepare_csv(languages, response_hits, response_dates),
-                       'dates': response_dates,
-                       'hits': response_hits})
+        return render(
+            request,
+            self.template_name,
+            {
+                **self.base_context,
+                'csv': self.prepare_csv(languages, response_hits, response_dates),
+                'dates': response_dates,
+                'hits': response_hits
+            }
+        )

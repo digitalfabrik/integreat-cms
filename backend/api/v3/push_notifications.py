@@ -1,10 +1,9 @@
-from django.http import JsonResponse
-
-from cms.models import PushNotificationTranslation
-
 """
 Retrieve push notifications that have been sent, optionally filtering by channel.
 """
+from django.http import JsonResponse
+
+from cms.models import PushNotificationTranslation
 
 
 def sent_push_notifications(req, site_slug, lan_code):

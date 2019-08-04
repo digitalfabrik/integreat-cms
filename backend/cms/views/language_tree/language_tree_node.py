@@ -67,8 +67,6 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
                 'site_slug': site_slug,
             })
             # TODO: improve messages
-        else:
-            messages.error(request, _('Errors have occurred.'))
-
+        messages.error(request, _('Errors have occurred.'))
         return render(request, self.template_name, {
             'form': form, **self.base_context})

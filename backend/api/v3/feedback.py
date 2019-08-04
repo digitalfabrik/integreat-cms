@@ -11,12 +11,13 @@ class FeedbackData:
         self.comment = comment
         self.emotion = emotion
 
-    def from_dict(dict):
-        return FeedbackData(
-            dict.get('id', None),
-            dict.get('permalink', None),
-            dict.get('comment', None),
-            dict.get('emotion', None)
+    @classmethod
+    def from_dict(cls, feedback_dict):
+        return cls(
+            feedback_dict.get('id', None),
+            feedback_dict.get('permalink', None),
+            feedback_dict.get('comment', None),
+            feedback_dict.get('emotion', None)
         )
 
     def has_id(self):
@@ -31,9 +32,11 @@ class FeedbackData:
     def get_emotion(self):
         return self.emotion if self.emotion else "NA"
 
-    def __is_either_exist(self, one, two):
+    @staticmethod
+    def __is_either_exist(one, two):
         return one or two
 
+# pylint: disable=W0613
 def feedback(req, site_slug, languages):
     if req.method != 'POST':
         return HttpResponse(f'Invalid request method.', status=405)

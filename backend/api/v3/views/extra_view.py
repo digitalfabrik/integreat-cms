@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404
 
-from cms.models import Extra
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from api.v3.serializers import ExtraSerializer
 from rest_framework.response import Response
+from api.v3.serializers import ExtraSerializer
+
+from cms.models import Extra
 
 
 class ExtrasView(ListAPIView):
@@ -24,8 +25,7 @@ class ExtraView(RetrieveAPIView):
     serializer_class = ExtraSerializer
     queryset = Extra.objects.all()
 
-    def retrieve(self, request, id=None):
-        extra = get_object_or_404(self.get_queryset(), id=id)
+    def retrieve_extra(self, request, extra_id=None):
+        extra = get_object_or_404(self.get_queryset(), id=extra_id)
         serializer = ExtraSerializer(extra)
         return Response(serializer.data)
-

@@ -97,6 +97,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             'languages': site.languages,
         })
 
+    # pylint: disable=R0912
     def post(self, request, *args, **kwargs):
 
         if not request.user.has_perm('cms.edit_push_notifications'):
@@ -165,7 +166,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
                     messages.success(request, _('Push notification was successfully sent.'))
                 else:
                     messages.error(request, _('Error occurred sending the push notification'))
-                    
+
         else:
             messages.error(request, _('Errors have occurred.'))
 

@@ -8,7 +8,6 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group as Role
 from django.contrib.auth.password_validation import validate_password, password_validators_help_texts
-from django.utils.translation import ugettext_lazy as _
 
 from ...models.user_profile import UserProfile
 
@@ -35,7 +34,11 @@ class UserForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
-        logger.info('New UserForm instantiated with args {} and kwargs {}'.format(args, kwargs))
+        logger.info(
+            'New UserForm instantiated with args %s and kwargs %s',
+            args,
+            kwargs
+        )
 
         # instantiate ModelForm
         super(UserForm, self).__init__(*args, **kwargs)
@@ -47,9 +50,14 @@ class UserForm(forms.ModelForm):
             # don't require password if user already exists
             self.fields['password'].required = False
 
+    # pylint: disable=W0221
     def save(self, *args, **kwargs):
 
-        logger.info('UserForm saved with args {} and kwargs {}'.format(args, kwargs))
+        logger.info(
+            'UserForm saved with args %s and kwargs %s',
+            args,
+            kwargs
+        )
 
         # save ModelForm
         user = super(UserForm, self).save(*args, **kwargs)
@@ -63,12 +71,20 @@ class UserForm(forms.ModelForm):
         # assign all selected roles which the user does not have already
         for role in set(self.cleaned_data['roles']) - set(user.groups.all()):
             role.user_set.add(user)
-            logger.info('The role {} was assigned to the user {}'.format(role, user))
+            logger.info(
+                'The role %s was assigned to the user %s',
+                role,
+                user
+            )
 
         # remove all unselected roles which the user had before
         for role in set(user.groups.all()) - set(self.cleaned_data['roles']):
             role.user_set.remove(user)
-            logger.info('The role {} was removed from the user {}'.format(role, user))
+            logger.info(
+                'The role %s was removed from the user %s',
+                role,
+                user
+            )
 
         return user
 
@@ -79,9 +95,14 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['regions', 'organization']
 
+    # pylint: disable=W0221
     def save(self, *args, **kwargs):
 
-        logger.info('UserProfileForm saved with args {} and kwargs {}'.format(args, kwargs))
+        logger.info(
+            'UserProfileForm saved with args %s and kwargs %s',
+            args,
+            kwargs
+        )
 
         # pop kwarg to make sure the super class does not get this param
         user = kwargs.pop('user', None)

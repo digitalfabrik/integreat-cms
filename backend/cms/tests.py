@@ -1,21 +1,24 @@
 import os
+import re
+
 from zipfile import ZipFile
+from bs4 import BeautifulSoup
 
 from django.test import TestCase
+from django.contrib.auth.models import User
 
-from cms.models import Page, Language
-from cms.views.general import POSITION_CHOICES
+from .models import Site
+from .models import Page
+from .models import Language
 from .views.regions.region_form import RegionForm
 from .views.pages.page_form import PageForm
 from .views.languages.language_form import LanguageForm
 from .views.language_tree.language_tree_node_form import LanguageTreeNodeForm
-from .models.site import Site
-from django.contrib.auth.models import User
-from cms.page_xliff_converter import PageXliffConverter, XliffValidationException, PageXliffHelper, XLIFFS_DIR
-from bs4 import BeautifulSoup
-import re
+from .views.general import POSITION_CHOICES
+from .page_xliff_converter import PageXliffConverter, XliffValidationException, PageXliffHelper, XLIFFS_DIR
 
 
+# pylint: disable=R0902
 class SetupClass(TestCase):
     @staticmethod
     def create_region(region_data):
@@ -39,15 +42,22 @@ class SetupClass(TestCase):
         return language_tree_node_form.save_language_node()
 
     @staticmethod
+    # pylint: disable=R0913
     def create_page(page_data, user, site_slug, language_code,
                     page_id=None, publish=False, archived=False):
-        page_form = PageForm(page_data, user=user)
-        page_form.is_valid()
-        return page_form.save_page(site_slug=site_slug,
-                                   language_code=language_code,
-                                   page_id=page_id,
-                                   publish=publish,
-                                   archived=archived)
+        # TODO: fix form usage to page_form and page_translation_form
+        page_form = PageForm(
+            page_data,
+            page_id=page_id,
+            publish=publish,
+            archived=archived,
+            site_slug=site_slug,
+            language_code=language_code,
+            user=user
+        )
+        if page_form.is_valid():
+            return page_form.save()
+        return None
 
     def setUp(self):
         self.user = User.objects.create_user('test', 'test@integreat.com', 'test')
@@ -113,8 +123,8 @@ class SetupClass(TestCase):
                 'text': '''
                     <p>First Layer</p>
                     <div style="width: 100%;background: #0079ad;text-align: center">
-                        hello world 
-                        <a href="http://tunewsinternational.com/">international test</a> 
+                        hello world
+                        <a href="http://tunewsinternational.com/">international test</a>
                         2019-04-05 11:53:44
                     </div>
                 ''',
@@ -568,8 +578,8 @@ class PageXliffConverterTestCase(SetupClass):
         self._equals(page_xliff.text,
                      '''<p>Erste Ebene</p>
                         <div style="width: 100%;background: #0079ad;text-align: center">
-                        Hallo Welt 
-                        <a href="http://tunewsinternational.com/">international test</a> 
+                        Hallo Welt
+                        <a href="http://tunewsinternational.com/">international test</a>
                         2019-04-05 11:53:44
                         </div>
                         ''')
@@ -609,7 +619,8 @@ class PageXliffHelperTest(SetupClass):
         with ZipFile(zip_file_path, 'r') as zip_file:
             name_list = zip_file.namelist()
             self.assertEqual(len(name_list), 2)
-            [self.assertTrue(name in name_list) for name in expect_name_list]
+            for name in expect_name_list:
+                self.assertTrue(name in name_list)
 
     def test_import_xliff_file(self):
         source_translation_page = self.page_tunews.get_translation(language_code='en-us')
@@ -628,7 +639,8 @@ class PageXliffHelperTest(SetupClass):
             ('page_{0}_en-us_de-de.xliff'.format(self.page_tunews.id), False),
             ('page_{0}_en-us_ar-ma.xliff'.format(self.page_tunews.id), False)
         ]
-        [self.assertTrue(result in results) for result in expect_resutls]
+        for result in expect_resutls:
+            self.assertTrue(result in results)
 
     def test_import_xliff_file_translated(self):
         xliff_content = re.sub(r'<page id="\d+">',
@@ -642,5 +654,3 @@ class PageXliffHelperTest(SetupClass):
 
         self.assertTrue(result)
         self.assertIsNotNone(self.page_tunews.get_translation(language_code='de-de'))
-
-

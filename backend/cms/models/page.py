@@ -78,9 +78,11 @@ class Page(MPTTModel):
             'language_code': self.site.default_language.code,
         })
 
+    @staticmethod
     def get_archived(site_slug):
         return Page.objects.filter(archived=True, site__slug=site_slug)
 
+    @staticmethod
     def archived_count(site_slug):
         return Page.objects.filter(archived=True, site__slug=site_slug).count()
 
@@ -101,7 +103,7 @@ class Page(MPTTModel):
     @classmethod
     def get_tree(cls, site_slug, archived=False):
         """Function for building up a Treeview of all pages
-        
+
         Args:
             site_slug: slug of the site the page belongs to
             archived:  if true archived pages will be included

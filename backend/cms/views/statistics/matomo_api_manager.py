@@ -2,10 +2,9 @@
 Helper class to interact with the Matomo API
 """
 import re
-import json
 import requests
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
+from urllib3.util.retry import Retry
 
 class MatomoApiManager:
     """
@@ -75,11 +74,6 @@ class MatomoApiManager:
         """
         domain = self.matomo_url
         api_key = self.matomo_api_key
-        headers = {
-            'User-Agent': 'Mozilla/5.0',
-            'From': 'holtgrave@integreat-app.de'  # This is another valid field
-        }
-        response = {}
         url = """{}/index.php?date={}&expanded=1
         &filter_limit=-1&format=JSON&format_metrics=1
         &idSite={}&method=API.get&module=API&period={}

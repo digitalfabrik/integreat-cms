@@ -21,6 +21,8 @@ class PushNotification(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        # pylint does not recognize the related name as attribute
+        # pylint: disable=E1101
         if self.translations.exists():
             return self.translations.first().title
         return ""
@@ -38,7 +40,7 @@ class PushNotificationTranslation(models.Model):
     """Class representing the Translation of a Push Notification
 
     Args:
-        models : Databas model inherit from the standard django models
+        models : Database model inherit from the standard django models
     """
     title = models.CharField(max_length=250)
     text = models.CharField(max_length=250)

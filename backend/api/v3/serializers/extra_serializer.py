@@ -1,5 +1,6 @@
-from cms.models import Extra
 from rest_framework.serializers import ModelSerializer
+from cms.models import Extra
+
 
 class ExtraSerializer(ModelSerializer):
     class Meta:

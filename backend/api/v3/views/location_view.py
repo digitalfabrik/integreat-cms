@@ -1,6 +1,7 @@
-from cms.models import POI
 from rest_framework.generics import ListAPIView
 from api.v3.serializers import LocationSerializer
+
+from cms.models import POI
 
 
 class LocationView(ListAPIView):
@@ -12,4 +13,3 @@ class LocationView(ListAPIView):
     def get_queryset(self):
         site = self.kwargs['site']
         return POI.objects.filter(site=site)
-
