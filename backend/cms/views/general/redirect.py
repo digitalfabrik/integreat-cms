@@ -25,5 +25,5 @@ class RedirectView(TemplateView):
             return redirect('admin_dashboard')
         regions = user.profile.regions
         if regions.exists():
-            return redirect('dashboard', site_slug=regions.first().slug)
+            return redirect('dashboard', region_slug=regions.first().slug)
         raise PermissionDenied

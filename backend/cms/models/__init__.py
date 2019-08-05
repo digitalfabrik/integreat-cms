@@ -6,7 +6,7 @@ from .extra import Extra
 from .extra_template import ExtraTemplate
 
 from .feedback import Feedback
-from .feedback import SiteFeedback
+from .feedback import RegionFeedback
 from .feedback import PageFeedback
 from .feedback import TechnicalFeedback
 from .feedback import ExtraFeedback
@@ -28,7 +28,7 @@ from .postal_code_in_post_parameter_extra import PostalCodeInPostParameterExtra
 from .push_notification import PushNotification
 from .push_notification import PushNotificationTranslation
 
-from .site import Site
+from .region import Region
 
 from .media_models import Document
 from .media_models import DocumentForm

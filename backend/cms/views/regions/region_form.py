@@ -4,7 +4,7 @@ Form for creating a region object
 
 from django import forms
 from django.utils.text import slugify
-from ...models.site import Site
+from ...models.region import Region
 
 
 class RegionForm(forms.ModelForm):
@@ -17,7 +17,7 @@ class RegionForm(forms.ModelForm):
     push_notification_channels = forms.CharField(required=False)
 
     class Meta:
-        model = Site
+        model = Region
         fields = ['name', 'events_enabled', 'push_notifications_enabled',
                   'latitude', 'longitude', 'postal_code', 'admin_mail', 'statistics_enabled',
                   'matomo_url', 'matomo_token', 'matomo_ssl_verify', 'status']
@@ -33,18 +33,18 @@ class RegionForm(forms.ModelForm):
 
         slug = slugify(self.cleaned_data['name'])
         # if the slug has changed, make sure the slug derived from the name is unique
-        if slug != region_slug and Site.objects.filter(slug=slug).exists():
+        if slug != region_slug and Region.objects.filter(slug=slug).exists():
             old_slug = slug
             i = 1
             while True:
                 i += 1
                 slug = old_slug + '-' + str(i)
-                if not Site.objects.filter(slug=slug).exists():
+                if not Region.objects.filter(slug=slug).exists():
                     break
 
         if region_slug:
             # save region
-            region = Site.objects.get(slug=region_slug)
+            region = Region.objects.get(slug=region_slug)
             region.slug = slug
             region.name = self.cleaned_data['name']
             region.events_enabled = self.cleaned_data['events_enabled']
@@ -64,7 +64,7 @@ class RegionForm(forms.ModelForm):
             region.save()
         else:
             # create region
-            region = Site.objects.create(
+            region = Region.objects.create(
                 slug=slug,
                 name=self.cleaned_data['name'],
                 events_enabled=self.cleaned_data['events_enabled'],

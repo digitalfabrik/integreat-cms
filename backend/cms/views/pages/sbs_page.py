@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
 from .page_form import PageTranslationForm
-from ...models import Page, Site, Language
+from ...models import Page, Region, Language
 from ...decorators import region_permission_required
 
 
@@ -27,7 +27,7 @@ class SBSPageView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        region = Region.objects.get(slug=kwargs.get('region_slug'))
         page = Page.objects.get(pk=kwargs.get('page_id'))
 
         source_language_code, target_language_code = kwargs.get('language_code').split('__')
@@ -40,7 +40,7 @@ class SBSPageView(PermissionRequiredMixin, TemplateView):
         if not source_page_translation:
             return redirect('edit_page', **{
                 'page_id': page.id,
-                'site_slug': site.slug,
+                'region_slug': region.slug,
                 'language_code': source_language.code,
             })
 
@@ -61,7 +61,7 @@ class SBSPageView(PermissionRequiredMixin, TemplateView):
         if not request.user.has_perm('cms.edit_pages'):
             raise PermissionDenied
 
-        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        region = Region.objects.get(slug=kwargs.get('region_slug'))
         page = Page.objects.get(pk=kwargs.get('page_id'))
 
         source_language_code, target_language_code = kwargs.get('language_code').split('__')
@@ -74,7 +74,7 @@ class SBSPageView(PermissionRequiredMixin, TemplateView):
         if not source_page_translation:
             return redirect('edit_page', **{
                 'page_id': page.id,
-                'site_slug': site.slug,
+                'region_slug': region.slug,
                 'language_code': source_language.code,
             })
 

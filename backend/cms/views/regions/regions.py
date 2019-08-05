@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render
 
 from .region_form import RegionForm
-from ...models.site import Site
+from ...models.region import Region
 from ...decorators import staff_required
 
 
@@ -21,7 +21,7 @@ class RegionListView(PermissionRequiredMixin, TemplateView):
     base_context = {'current_menu_item': 'regions'}
 
     def get(self, request, *args, **kwargs):
-        regions = Site.objects.all()
+        regions = Region.objects.all()
 
         return render(
             request,
@@ -46,7 +46,7 @@ class RegionView(PermissionRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         self.region_slug = self.kwargs.get('region_slug')
         if self.region_slug:
-            region = Site.objects.get(slug=self.region_slug)
+            region = Region.objects.get(slug=self.region_slug)
             form = RegionForm(initial={
                 'name': region.name,
                 'events_enabled': region.events_enabled,

@@ -13,7 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
 from .language import Language
-from .site import Site
+from .region import Region
 
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class Page(MPTTModel):
         null=True,
         upload_to='pages/%Y/%m/%d'
     )
-    site = models.ForeignKey(Site, related_name='pages', on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, related_name='pages', on_delete=models.CASCADE)
     archived = models.BooleanField(default=False)
     mirrored_page = models.ForeignKey('self', null=True, blank=True, on_delete=models.PROTECT)
     editors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='editors', blank=True)
@@ -74,17 +74,17 @@ class Page(MPTTModel):
     def get_absolute_url(self):
         return reverse('edit_page', kwargs={
             'page_id': self.id,
-            'site_slug': self.site.slug,
-            'language_code': self.site.default_language.code,
+            'region_slug': self.region.slug,
+            'language_code': self.region.default_language.code,
         })
 
     @staticmethod
-    def get_archived(site_slug):
-        return Page.objects.filter(archived=True, site__slug=site_slug)
+    def get_archived(region_slug):
+        return Page.objects.filter(archived=True, region__slug=region_slug)
 
     @staticmethod
-    def archived_count(site_slug):
-        return Page.objects.filter(archived=True, site__slug=site_slug).count()
+    def archived_count(region_slug):
+        return Page.objects.filter(archived=True, region__slug=region_slug).count()
 
     def __str__(self):
         translations = PageTranslation.objects.filter(page=self)
@@ -101,11 +101,11 @@ class Page(MPTTModel):
         return '(id: {}, slug: {})'.format(self.id, slug)
 
     @classmethod
-    def get_tree(cls, site_slug, archived=False):
+    def get_tree(cls, region_slug, archived=False):
         """Function for building up a Treeview of all pages
 
         Args:
-            site_slug: slug of the site the page belongs to
+            region_slug: slug of the region the page belongs to
             archived:  if true archived pages will be included
 
         Returns:
@@ -116,13 +116,13 @@ class Page(MPTTModel):
             pages = cls.objects.all().prefetch_related(
                 'page_translations'
             ).filter(
-                site__slug=site_slug
+                region__slug=region_slug
             )
         else:
             pages = cls.objects.all().prefetch_related(
                 'page_translations'
             ).filter(
-                site__slug=site_slug,
+                region__slug=region_slug,
                 archived=False
             )
 
@@ -178,7 +178,7 @@ class PageTranslation(models.Model):
     @property
     def permalink(self):
         return '{}/{}/{}/{}'.format(
-            self.page.site.slug, self.language.code, self.ancestor_path, self.slug
+            self.page.region.slug, self.language.code, self.ancestor_path, self.slug
         )
 
     def __str__(self):

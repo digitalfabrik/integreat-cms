@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
-from .site import Site
+from .region import Region
 
 class Language(models.Model):
     """
@@ -65,7 +65,7 @@ class LanguageTreeNode(MPTTModel):
         related_name='children',
         on_delete=models.PROTECT
     )
-    site = models.ForeignKey(Site, related_name='language_tree_nodes', on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, related_name='language_tree_nodes', on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
@@ -81,7 +81,7 @@ class LanguageTreeNode(MPTTModel):
         return len(self.get_ancestors())
 
     class Meta:
-        unique_together = (('language', 'site', ), )
+        unique_together = (('language', 'region', ), )
         default_permissions = ()
         permissions = (
             ('manage_language_tree', 'Can manage language tree'),

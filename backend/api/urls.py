@@ -6,7 +6,7 @@ from drf_yasg import openapi
 from .v3 import views
 from .v3.feedback import feedback
 from .v3.languages import languages
-from .v3.sites import sites, livesites, hiddenites, pushnew
+from .v3.regions import regions, liveregions, hiddenregions, pushnew
 from .v3.push_notifications import sent_push_notifications
 
 
@@ -26,14 +26,14 @@ schema_view = get_schema_view(
 urlpatterns = [
     url('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    url(r'site/(?P<site>\d+)/extras/$', views.ExtrasView.as_view()),
-    url(r'site/(?P<site>\d+)/locations/$', views.LocationView.as_view()),
+    url(r'region/(?P<region>\d+)/extras/$', views.ExtrasView.as_view()),
+    url(r'region/(?P<region>\d+)/locations/$', views.LocationView.as_view()),
     url(r'extra/(?P<id>\d+)/$', views.ExtraView.as_view()),
-    url(r'sites/$', sites, name='sites'),
-    url(r'sites/live/$', livesites, name='livesites'),
-    url(r'sites/hidden/$', hiddenites, name='hiddensites'),
-    url(r'sites/pushnew/$', pushnew, name='pushnew'),
-    url(r'(?P<site_slug>[-\w]+)/', include([
+    url(r'regions/$', regions, name='regions'),
+    url(r'regions/live/$', liveregions, name='liveregions'),
+    url(r'regions/hidden/$', hiddenregions, name='hiddenregions'),
+    url(r'regions/pushnew/$', pushnew, name='pushnew'),
+    url(r'(?P<region_slug>[-\w]+)/', include([
         url(r'languages$', languages),
         url(r'(?P<lan_code>[-\w]+)/sent_push_notifications/$', sent_push_notifications),
         url(r'(?P<languages>[-\w]+)/feedback/$', feedback),

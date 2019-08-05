@@ -10,7 +10,7 @@
         {{ node.id }}
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+        <a href="{% url 'edit_page' page_id=node.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
             {{ node|page_translation_title:language }}
         </a>
     </td>
@@ -18,7 +18,7 @@
         <div class="block py-3 px-2 text-grey-darkest">
             <div class="lang-grid">
 	            {% for other_language in languages %}
-		            <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=other_language.code %}">
+		            <a href="{% url 'edit_page' page_id=node.id region_slug=region.slug language_code=other_language.code %}">
 			            <i data-feather="{% if other_language in node.languages %}edit-2{% else %}plus{% endif %}" class="text-grey-darkest"></i>
 		            </a>
 	            {% endfor %}
@@ -36,15 +36,15 @@
     </td>
     <td class="pl-2 pr-4" width="180">
         <!-- TODO: add link to view page in web app -->
-        <a href="{% url 'view_page' page_id=node.id site_slug=site.slug language_code=language.code %}"
+        <a href="{% url 'view_page' page_id=node.id region_slug=region.slug language_code=language.code %}"
            target="_blank"
            title="{% trans 'View page' %}" class="py-3" style="padding-right:4px;">
             <i data-feather="eye" class="text-grey-darkest"></i>
         </a>
-        <a href="{% url 'edit_page' page_id=node.id site_slug=site.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
+        <a href="{% url 'edit_page' page_id=node.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
             <i data-feather="edit" class="text-grey-darkest"></i>
         </a>
-        <a href="{% url 'delete_page' page_id=node.id site_slug=site.slug language_code=language.code %}" title="{% trans 'Delete page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
+        <a href="{% url 'delete_page' page_id=node.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Delete page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
             <i data-feather="trash-2" class="text-grey-darkest"></i>
         </a>
 
@@ -52,7 +52,7 @@
             <i data-feather="archive" class="text-grey-darkest"></i>
         </button>
 
-        <a href="{% url 'download_page' page_id=node.id site_slug=site.slug language_code=language.code %}"
+        <a href="{% url 'download_page' page_id=node.id region_slug=region.slug language_code=language.code %}"
            title="{% trans 'Download page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
              <i data-feather="download" class="text-grey-darkest"></i>
         </a>
@@ -64,7 +64,7 @@
                 <p class="mt-4 mb-6">
                     {% trans 'All translations of this page will also be archived.' %}
                 </p>
-                <form method="post" action="{% url 'archive_page' page_id=node.id site_slug=site.slug language_code=language.code %}">
+                <form method="post" action="{% url 'archive_page' page_id=node.id region_slug=region.slug language_code=language.code %}">
                     {% csrf_token %}
                     <input type="submit" class="inline-block cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, archive this page now.' %}" />
                     <button class="cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">

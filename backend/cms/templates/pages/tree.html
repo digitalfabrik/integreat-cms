@@ -11,7 +11,7 @@
         </div>
         <div class="w-1/2 flex flex-wrap flex-col justify-center">
             <div class="flex flex-wrap justify-end">
-                <a href="{% url 'archived_pages' site_slug=site.slug language_code=language.code %}" class="font-bold text-xs text-grey-darkest block pb-2 hover:underline">
+                <a href="{% url 'archived_pages' region_slug=region.slug language_code=language.code %}" class="font-bold text-xs text-grey-darkest block pb-2 hover:underline">
                     {% trans 'Archived pages' %}
                     <span class="inline-block rounded-full bg-integreat text-grey-darkest px-2 py-1 text-xs font-bold">
                         {{ archived_count }}
@@ -27,7 +27,7 @@
         </form>
         <div class="flex-wrap relative w-1/2">
             <form class="table-search relative" method="post" enctype="multipart/form-data"
-                  action="{% url 'upload_page' site_slug=site.slug language_code=language.code%}">
+                  action="{% url 'upload_page' region_slug=region.slug language_code=language.code%}">
                 <i data-feather="upload" class="absolute"></i>
                 <input type="file" name="xliff_file" class="h-full py-2 pl-10 pr-4 rounded shadow">
                 {% csrf_token %}
@@ -38,9 +38,9 @@
             </form>
         </div>
 
-        {% if site.default_language == language %}
+        {% if region.default_language == language %}
         <div class="w-1/4 flex flex-wrap justify-end">
-            <a href="{% url 'new_page' site_slug=site.slug language_code=language.code %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
 	            {% trans 'Create page' %}
             </a>
         </div>
@@ -58,7 +58,7 @@
                 <th class="text-sm text-left uppercase py-3 px-2" style="width: 200px;">
                     <div class="lang-grid flags" style="white-space: nowrap;">
 	                    {% for lang in languages %}
-		                    <a href="{% url 'pages' site_slug=site.slug language_code=lang.code %}">
+		                    <a href="{% url 'pages' region_slug=region.slug language_code=lang.code %}">
 			                    <img src="{% static '' %}images/flags/{{ lang.code }}.png" title="{{ lang.name }}" />
 		                    </a>
 	                    {% endfor %}

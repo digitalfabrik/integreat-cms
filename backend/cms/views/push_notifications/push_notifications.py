@@ -12,7 +12,7 @@ from .push_notification_sender import PushNotificationSender
 from .push_notification_form import PushNotificationForm, PushNotificationTranslationForm
 from ...models.push_notification import PushNotification, PushNotificationTranslation
 from ...models.language import Language
-from ...models.site import Site
+from ...models.region import Region
 from ...decorators import region_permission_required
 
 
@@ -26,17 +26,17 @@ class PushNotificationListView(PermissionRequiredMixin, TemplateView):
     base_context = {'current_menu_item': 'push_notifications'}
 
     def get(self, request, *args, **kwargs):
-        # current site
-        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        # current region
+        region = Region.objects.get(slug=kwargs.get('region_slug'))
 
         # current language
         language_code = kwargs.get('language_code', None)
         if language_code:
             language = Language.objects.get(code=language_code)
-        elif site.default_language:
+        elif region.default_language:
             return redirect('push_notifications', **{
-                'site_slug': site.slug,
-                'language_code': site.default_language.code,
+                'region_slug': region.slug,
+                'language_code': region.default_language.code,
             })
         else:
             messages.error(
@@ -44,7 +44,7 @@ class PushNotificationListView(PermissionRequiredMixin, TemplateView):
                 _('Please create at least one language node before creating push notifications.')
             )
             return redirect('language_tree', **{
-                'site_slug': site.slug,
+                'region_slug': region.slug,
             })
 
         return render(
@@ -52,9 +52,9 @@ class PushNotificationListView(PermissionRequiredMixin, TemplateView):
             self.template_name,
             {
                 **self.base_context,
-                'push_notifications': site.push_notifications.all(),
+                'push_notifications': region.push_notifications.all(),
                 'language': language,
-                'languages': site.languages,
+                'languages': region.languages,
             }
         )
 
@@ -71,7 +71,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         push_notification = PushNotification.objects.filter(id=kwargs.get('push_notification_id')).first()
-        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        region = Region.objects.get(slug=kwargs.get('region_slug'))
         language = Language.objects.get(code=kwargs.get('language_code'))
         if push_notification:
             push_notification_form = PushNotificationForm(instance=push_notification)
@@ -94,7 +94,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             'push_notification_form': push_notification_form,
             'push_notification_translation_form': push_notification_translation_form,
             'language': language,
-            'languages': site.languages,
+            'languages': region.languages,
         })
 
     # pylint: disable=R0912
@@ -107,7 +107,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             if not request.user.has_perm('cms.send_push_notifications'):
                 raise PermissionDenied
 
-        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        region = Region.objects.get(slug=kwargs.get('region_slug'))
         language = Language.objects.get(code=kwargs.get('language_code'))
 
         # At first check if push notification exists already
@@ -137,10 +137,10 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             if push_notification:
                 push_notification = push_notification_form.save()
             else:
-                # The push notification cannot be created directly, because it has a required foreign key to site
+                # The push notification cannot be created directly, because it has a required foreign key to region
                 # (which has to be set indirectly before saving)
                 push_notification = push_notification_form.save(commit=False)
-                push_notification.site = site
+                push_notification.region = region
                 push_notification.save()
             if push_notification_translation:
                 push_notification_translation_form.save()
@@ -157,7 +157,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             # Check if Save button has been clicked
             if push_notification_form.data.get('submit_send'):
 
-                push_sent = self.push_sender.send(site.slug, push_notification.channel, push_notification_translation.title,
+                push_sent = self.push_sender.send(region.slug, push_notification.channel, push_notification_translation.title,
                                                   push_notification_translation.text, language.code)
 
                 if push_sent:
@@ -176,5 +176,5 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             'push_notification_form': push_notification_form,
             'push_notification_translation_form': push_notification_translation_form,
             'language': language,
-            'languages': site.languages,
+            'languages': region.languages,
         })

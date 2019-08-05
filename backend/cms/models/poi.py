@@ -5,7 +5,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
-from .site import Site
+from .region import Region
 from .language import Language
 
 
@@ -16,7 +16,7 @@ class POI(models.Model):
         models : Databas model inherit from the standard django models
     """
 
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
     address = models.CharField(max_length=250)
     postcode = models.CharField(max_length=10)
     city = models.CharField(max_length=250)

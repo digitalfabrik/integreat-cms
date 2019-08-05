@@ -8,7 +8,7 @@
             <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
         </form>
         <div class="w-1/2 flex flex-wrap justify-end">
-            <a href="{% url 'new_upload_file' document_id='0' site_slug=site.slug %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'new_upload_file' document_id='0' region_slug=region.slug %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
 	            {% trans 'Upload File' %}
             </a>
         </div>
@@ -32,11 +32,11 @@
 	            <td class="p-3">
                     <a href="{{ obj.document.url }}" rel="{{ obj.description }}" class="mr-2"><i data-feather="eye"></i></a>
                     <a href="{{ obj.document.url }}" rel="{{ obj.description }}" class="mr-2" download><i data-feather="download"></i></a>
-                    <form method="post" action="{% url 'delete_file' document_id=obj.pk site_slug=site.slug %}" class="inline-block mr-2">
+                    <form method="post" action="{% url 'delete_file' document_id=obj.pk region_slug=region.slug %}" class="inline-block mr-2">
                         {% csrf_token %}
                         <button type="submit" class="bg-white"><i data-feather="trash-2"></i></button>
                     </form>
-                    <a href="{% url 'edit_file' document_id=obj.pk site_slug=site.slug %}" class="mr-2"><i data-feather="edit"></i></a>
+                    <a href="{% url 'edit_file' document_id=obj.pk region_slug=region.slug %}" class="mr-2"><i data-feather="edit"></i></a>
                 </td>
             </tr>
         {% endfor %}

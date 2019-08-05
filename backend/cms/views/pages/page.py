@@ -21,7 +21,7 @@ from django.shortcuts import render, redirect
 from django.views.static import serve
 
 from .page_form import PageForm, PageTranslationForm
-from ...models import Page, PageTranslation, Site, Language
+from ...models import Page, PageTranslation, Region, Language
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 from ...decorators import region_permission_required
 
@@ -40,7 +40,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        region = Region.objects.get(slug=kwargs.get('region_slug'))
 
         language = Language.objects.get(code=kwargs.get('language_code'))
 
@@ -53,7 +53,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
         page_form = PageForm(
             instance=page,
-            site=site,
+            region=region,
             language=language,
         )
         page_translation_form = PageTranslationForm(
@@ -66,13 +66,13 @@ class PageView(PermissionRequiredMixin, TemplateView):
             'page_translation_form': page_translation_form,
             'page': page,
             'language': language,
-            'languages': site.languages,
+            'languages': region.languages,
         })
 
     # pylint: disable=R0912
     def post(self, request, *args, **kwargs):
 
-        site = Site.objects.get(slug=kwargs.get('site_slug'))
+        region = Region.objects.get(slug=kwargs.get('region_slug'))
         language = Language.objects.get(code=kwargs.get('language_code'))
 
         page_instance = Page.objects.filter(id=kwargs.get('page_id')).first()
@@ -87,13 +87,13 @@ class PageView(PermissionRequiredMixin, TemplateView):
         page_form = PageForm(
             request.POST,
             instance=page_instance,
-            site=site,
+            region=region,
             language=language,
         )
         page_translation_form = PageTranslationForm(
             request.POST,
             instance=page_translation_instance,
-            site=site,
+            region=region,
             language=language,
         )
 
@@ -135,7 +135,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
             return redirect('edit_page', **{
                 'page_id': page.id,
-                'site_slug': site.slug,
+                'region_slug': region.slug,
                 'language_code': language.code,
             })
 
@@ -147,13 +147,13 @@ class PageView(PermissionRequiredMixin, TemplateView):
             'page_translation_form': page_translation_form,
             'page': page_instance,
             'language': language,
-            'languages': site.languages,
+            'languages': region.languages,
         })
 
 
 @login_required
 @region_permission_required
-def archive_page(request, page_id, site_slug, language_code):
+def archive_page(request, page_id, region_slug, language_code):
     page = Page.objects.get(id=page_id)
 
     if not request.user.has_perm('cms.edit_page', page):
@@ -166,14 +166,14 @@ def archive_page(request, page_id, site_slug, language_code):
     messages.success(request, _('Page was successfully archived.'))
 
     return redirect('pages', **{
-                'site_slug': site_slug,
+                'region_slug': region_slug,
                 'language_code': language_code,
     })
 
 
 @login_required
 @region_permission_required
-def restore_page(request, page_id, site_slug, language_code):
+def restore_page(request, page_id, region_slug, language_code):
     page = Page.objects.get(id=page_id)
 
     if not request.user.has_perm('cms.edit_page', page):
@@ -185,7 +185,7 @@ def restore_page(request, page_id, site_slug, language_code):
     messages.success(request, _('Page was successfully restored.'))
 
     return redirect('pages', **{
-                'site_slug': site_slug,
+                'region_slug': region_slug,
                 'language_code': language_code,
     })
 
@@ -193,7 +193,7 @@ def restore_page(request, page_id, site_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required('cms.view_pages', raise_exception=True)
-def view_page(request, page_id, site_slug, language_code):
+def view_page(request, page_id, region_slug, language_code):
     template_name = 'pages/page_view.html'
     page = Page.objects.get(id=page_id)
 
@@ -211,7 +211,7 @@ def view_page(request, page_id, site_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required('cms.view_pages', raise_exception=True)
-def download_page_xliff(request, page_id, site_slug, language_code):
+def download_page_xliff(request, page_id, region_slug, language_code):
     page = Page.objects.get(id=page_id)
     page_xliff_helper = PageXliffHelper()
     page_xliff_zip_file = page_xliff_helper.export_page_xliffs_to_zip(page)
@@ -225,7 +225,7 @@ def download_page_xliff(request, page_id, site_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required('cms.edit_pages', raise_exception=True)
-def upload_page(request, site_slug, language_code):
+def upload_page(request, region_slug, language_code):
     if request.method == 'POST' and 'xliff_file' in request.FILES:
         page_xliff_helper = PageXliffHelper()
         xliff_file = request.FILES['xliff_file']
@@ -244,7 +244,7 @@ def upload_page(request, site_slug, language_code):
             page_xliff_helper.delete_tmp_in_xliff_folder(file_path)
 
     return redirect('pages', **{
-                'site_slug': site_slug,
+                'region_slug': region_slug,
                 'language_code': language_code,
     })
 
@@ -278,20 +278,20 @@ def grant_page_permission_ajax(request):
 
     if not (request.user.is_superuser or request.user.is_staff):
         # additional checks if requesting user is no superuser or staff
-        if page.site not in request.user.profile.regions:
+        if page.region not in request.user.profile.regions:
             # requesting user can only grant permissions for pages of his region
             logger.info(
                 'Error: The user %s cannot grant permissions for region %s.',
                 request.user.username,
-                page.site.name
+                page.region.name
             )
             raise PermissionDenied
-        if page.site not in user.profile.regions:
+        if page.region not in user.profile.regions:
             # user can only receive permissions for pages of his region
             logger.info(
                 'Error: The user %s cannot receive permissions for region %s.',
                 user.username,
-                page.site.name
+                page.region.name
             )
             raise PermissionDenied
 
@@ -373,11 +373,11 @@ def revoke_page_permission_ajax(request):
 
     if not (request.user.is_superuser or request.user.is_staff):
         # additional checks if requesting user is no superuser or staff
-        if page.site not in request.user.profile.regions:
+        if page.region not in request.user.profile.regions:
             # requesting user can only revoke permissions for pages of his region
             logger.info(
                 'Error: The user %s cannot revoke permissions for region %s.',
-                request.user.username, page.site.name
+                request.user.username, page.region.name
             )
             raise PermissionDenied
 

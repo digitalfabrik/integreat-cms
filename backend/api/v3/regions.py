@@ -1,7 +1,7 @@
 from django.db.models import Exists, OuterRef
 from django.http import JsonResponse, HttpResponse
 
-from cms.models import Site, Extra, Language
+from cms.models import Region, Extra, Language
 
 PREFIXES = [
     'EAE',
@@ -16,13 +16,13 @@ def strip_prefix(name):
             return p, name[len(p) + 1:]  # +1 for one whitespace
     return None, name
 
-def transform_site(s):
+def transform_region(s):
     prefix, name_without_prefix = strip_prefix(s.name)
     return {
         'id': s.id,
         'name': s.name,
         'path': s.slug,
-        'live': s.status == Site.ACTIVE,
+        'live': s.status == Region.ACTIVE,
         'prefix': prefix,
         'name_without_prefix': name_without_prefix,
         'plz': s.postal_code,
@@ -34,7 +34,7 @@ def transform_site(s):
         'aliases': None  # todo
     }
 
-def transform_site_by_status(s):
+def transform_region_by_status(s):
     prefix, name_without_prefix = strip_prefix(s.name)
     return {
         'id': s.id,
@@ -48,24 +48,24 @@ def transform_site_by_status(s):
         'push-notifications': s.push_notifications_enabled,
     }
 
-def sites(_):
-    result = list(map(transform_site,
-                      Site.objects.exclude(status=Site.ARCHIVED)
-                      .annotate(extras_enabled=Exists(Extra.objects.filter(site=OuterRef('pk'))))
+def regions(_):
+    result = list(map(transform_region,
+                      Region.objects.exclude(status=Region.ARCHIVED)
+                      .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
                       ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
-def livesites(_):
-    result = list(map(transform_site_by_status,
-                      Site.objects.filter(status=Site.ACTIVE)
-                      .annotate(extras_enabled=Exists(Extra.objects.filter(site=OuterRef('pk'))))
+def liveregions(_):
+    result = list(map(transform_region_by_status,
+                      Region.objects.filter(status=Region.ACTIVE)
+                      .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
                       ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
-def hiddenites(_):
-    result = list(map(transform_site_by_status,
-                      Site.objects.filter(status=Site.HIDDEN)
-                      .annotate(extras_enabled=Exists(Extra.objects.filter(site=OuterRef('pk'))))
+def hiddenregions(_):
+    result = list(map(transform_region_by_status,
+                      Region.objects.filter(status=Region.HIDDEN)
+                      .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
                       ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
@@ -78,7 +78,11 @@ def pushnew(_):
     dutch = Language(code='nl', title='Nederlands', text_direction='ltr')
     de.save()
     dutch.save()
-    site = Site(title='Augsburg', name='augsburg', languages=[de, dutch],
-                push_notification_channels=[])
-    site.save()
+    region = Region(
+        title='Augsburg',
+        name='augsburg',
+        languages=[de, dutch],
+        push_notification_channels=[]
+    )
+    region.save()
     return HttpResponse('Pushing successful')

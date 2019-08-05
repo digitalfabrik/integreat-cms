@@ -9,13 +9,13 @@ from cms.models import Extra
 
 class ExtrasView(ListAPIView):
     """
-    This API should return a list of extras for a site
+    This API should return a list of extras for a region
     """
     serializer_class = ExtraSerializer
 
     def get_queryset(self):
-        site = self.kwargs['site']
-        return Extra.objects.filter(site=site)
+        region = self.kwargs['region']
+        return Extra.objects.filter(region=region)
 
 
 class ExtraView(RetrieveAPIView):

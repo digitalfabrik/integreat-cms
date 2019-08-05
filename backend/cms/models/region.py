@@ -8,9 +8,9 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 
-class Site(models.Model):
+class Region(models.Model):
     """
-    Class to generate site database objects
+    Class to generate region database objects
     """
     ACTIVE = 'acti'
     HIDDEN = 'hidd'
@@ -55,16 +55,16 @@ class Site(models.Model):
         return tree_root.language if tree_root else None
 
     @classmethod
-    def get_current_site(cls, request):
+    def get_current_region(cls, request):
         if not hasattr(request, 'resolver_match'):
             return None
-        site_slug = request.resolver_match.kwargs.get('site_slug')
-        if not site_slug:
+        region_slug = request.resolver_match.kwargs.get('region_slug')
+        if not region_slug:
             return None
-        site = cls.objects.filter(slug=site_slug)
-        if not site.exists():
+        region = cls.objects.filter(slug=region_slug)
+        if not region.exists():
             raise Http404
-        return site.first()
+        return region.first()
 
     def __str__(self):
         """Function that provides a string representation of this object

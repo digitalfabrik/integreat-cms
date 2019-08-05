@@ -144,7 +144,7 @@ urlpatterns = [
         ),
     ])),
 
-    url(r'^(?P<site_slug>[-\w]+)/', include([
+    url(r'^(?P<region_slug>[-\w]+)/', include([
         url(r'^$', general.DashboardView.as_view(), name='dashboard'),
         url(r'^translation_coverage/', analytics.TranslationCoverageView.as_view(), name='translation_coverage'),
         url(r'^pages/', include([

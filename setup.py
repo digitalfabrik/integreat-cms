@@ -26,6 +26,7 @@ setup(
         "drf-yasg==1.16.1",
         "idna==2.6",
         "lxml==4.3.3",
+        "packaging==19.0",
         "psycopg2-binary==2.8.3",
         "pylint==2.3.1",
         "pylint-django==2.0.11",

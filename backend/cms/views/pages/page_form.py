@@ -64,7 +64,7 @@ class PageForm(forms.ModelForm):
         )
 
         # pop kwarg to make sure the super class does not get this param
-        self.site = kwargs.pop('site', None)
+        self.region = kwargs.pop('region', None)
         language = kwargs.pop('language', None)
 
         # add initial kwarg to make sure changed_data is preserved
@@ -86,7 +86,7 @@ class PageForm(forms.ModelForm):
 
         # limit possible parents to pages of current region
         parent_queryset = Page.objects.filter(
-            site=self.site,
+            region=self.region,
         )
         # limit possible queryset to page which has translation in current language
         for parent in parent_queryset:
@@ -120,7 +120,7 @@ class PageForm(forms.ModelForm):
 
         if not self.instance.id:
             # only update these values when page is created
-            page.site = self.site
+            page.region = self.region
         page.archived = bool(self.data.get('submit_archive'))
         page.save()
         page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
@@ -176,7 +176,7 @@ class PageTranslationForm(forms.ModelForm):
         )
 
         # pop kwarg to make sure the super class does not get this param
-        self.site = kwargs.pop('site', None)
+        self.region = kwargs.pop('region', None)
         self.language = kwargs.pop('language', None)
 
         # to set the public value through the submit button, we have to overwrite the field value for public.
@@ -243,7 +243,7 @@ class PageTranslationForm(forms.ModelForm):
         i = 1
         while True:
             other_page_translation = PageTranslation.objects.filter(
-                page__site=self.site,
+                page__region=self.region,
                 language=self.language,
                 slug=unique_slug
             ).exclude(id=self.instance.id)

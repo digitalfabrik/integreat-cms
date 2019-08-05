@@ -6,10 +6,10 @@ from cms.models import POI
 
 class LocationView(ListAPIView):
     """
-    This API should return a list of locations for a site
+    This API should return a list of locations for a region
     """
     serializer_class = LocationSerializer
 
     def get_queryset(self):
-        site = self.kwargs['site']
-        return POI.objects.filter(site=site)
+        region = self.kwargs['region']
+        return POI.objects.filter(region=region)

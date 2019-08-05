@@ -15,7 +15,7 @@ class PushNotificationSender:
     """
 
     # pylint: disable=R0913
-    def send(self, site_slug, channel, title, message, lan_code):
+    def send(self, region_slug, channel, title, message, lan_code):
         fcm_auth_config_key = 'fcm_auth_key'
         auth_key = Configuration.objects.filter(key=fcm_auth_config_key)
         if auth_key.exists():
@@ -26,12 +26,12 @@ class PushNotificationSender:
                 fcm_auth_config_key
             )
             return False
-        payload = {'to': '/topics/{}-{}-{}'.format(site_slug, lan_code, channel),
+        payload = {'to': '/topics/{}-{}-{}'.format(region_slug, lan_code, channel),
                    'notification': {
                        'title': title,
                        'body': message
                    },
-                   'data': {'lanCode': lan_code, 'city': site_slug}
+                   'data': {'lanCode': lan_code, 'city': region_slug}
                    }
         headers = {'Authorization': 'key={}'.format(auth_key.first().value)}
         res = requests.post(self.fcm_url, json=payload, headers=headers)

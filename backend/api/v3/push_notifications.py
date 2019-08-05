@@ -6,10 +6,10 @@ from django.http import JsonResponse
 from cms.models import PushNotificationTranslation
 
 
-def sent_push_notifications(req, site_slug, lan_code):
+def sent_push_notifications(req, region_slug, lan_code):
     channel = req.GET.get('channel', 'all')
     query_result = PushNotificationTranslation.objects \
-        .filter(push_notification__site__slug=site_slug) \
+        .filter(push_notification__region__slug=region_slug) \
         .filter(push_notification__sent_date__isnull=False) \
         .filter(language__code=lan_code)
     if channel != 'all':

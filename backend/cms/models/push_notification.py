@@ -3,7 +3,7 @@
 from django.db import models
 from django.utils import timezone
 
-from .site import Site
+from .region import Region
 from .language import Language
 
 
@@ -13,7 +13,7 @@ class PushNotification(models.Model):
     Args:
         models : Databas model inherit from the standard django models
     """
-    site = models.ForeignKey(Site, related_name='push_notifications', on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, related_name='push_notifications', on_delete=models.CASCADE)
     channel = models.CharField(max_length=60)
     draft = models.BooleanField(default=True)
     sent_date = models.DateTimeField(null=True, blank=True)

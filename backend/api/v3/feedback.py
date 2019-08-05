@@ -37,7 +37,7 @@ class FeedbackData:
         return one or two
 
 # pylint: disable=W0613
-def feedback(req, site_slug, languages):
+def feedback(req, region_slug, languages):
     if req.method != 'POST':
         return HttpResponse(f'Invalid request method.', status=405)
 
@@ -45,7 +45,7 @@ def feedback(req, site_slug, languages):
     feedback_data = FeedbackData.from_dict(data)
 
     if not feedback_data.has_id():
-        return HttpResponse(f'No page found for site "{site_slug}" with permalink "{feedback_data.permalink}".',
+        return HttpResponse(f'No page found for region "{region_slug}" with permalink "{feedback_data.permalink}".',
                             content_type='text/plain', status=404)
 
     if not feedback_data.has_content():

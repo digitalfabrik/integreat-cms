@@ -1,9 +1,9 @@
-from cms.models.site import Site
+from cms.models.region import Region
 
-def site_slug_processor(request):
-    site = Site.get_current_site(request)
-    if site:
-        sites = Site.objects.exclude(slug=site.slug)
+def region_slug_processor(request):
+    region = Region.get_current_region(request)
+    if region:
+        regions = Region.objects.exclude(slug=region.slug)
     else:
-        sites = Site.objects.all()
-    return {'sites': sites, 'site': site}
+        regions = Region.objects.all()
+    return {'regions': regions, 'region': region}

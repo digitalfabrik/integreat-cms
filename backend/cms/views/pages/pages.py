@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
-from ...models import Page, Site, Language
+from ...models import Page, Region, Language
 from ...decorators import region_permission_required
 
 
@@ -20,18 +20,18 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
     base_context = {'current_menu_item': 'pages'}
 
     def get(self, request, *args, **kwargs):
-        # current site
-        site_slug = kwargs.get('site_slug')
-        site = Site.objects.get(slug=site_slug)
+        # current region
+        region_slug = kwargs.get('region_slug')
+        region = Region.objects.get(slug=region_slug)
 
         # current language
         language_code = kwargs.get('language_code', None)
         if language_code:
             language = Language.objects.get(code=language_code)
-        elif site.default_language:
+        elif region.default_language:
             return redirect('pages', **{
-                'site_slug': site_slug,
-                'language_code': site.default_language.code,
+                'region_slug': region_slug,
+                'language_code': region.default_language.code,
             })
         else:
             messages.error(
@@ -39,14 +39,14 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
                 _('Please create at least one language node before creating pages.')
             )
             return redirect('language_tree', **{
-                'site_slug': site_slug,
+                'region_slug': region_slug,
             })
 
-        # all pages of the current site in the current language
-        pages = Page.get_tree(site_slug)
+        # all pages of the current region in the current language
+        pages = Page.get_tree(region_slug)
 
-        # all other languages of current site
-        languages = site.languages
+        # all other languages of current region
+        languages = region.languages
 
         return render(
             request,
@@ -54,7 +54,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
             {
                 **self.base_context,
                 'pages': pages,
-                'archived_count': Page.archived_count(site_slug),
+                'archived_count': Page.archived_count(region_slug),
                 'language': language,
                 'languages': languages,
             }

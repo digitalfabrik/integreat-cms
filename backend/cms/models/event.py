@@ -13,7 +13,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
 
-from .site import Site
+from .region import Region
 from .language import Language
 from .poi import POI
 
@@ -72,7 +72,7 @@ class Event(models.Model):
         ValidationError: Raised if the end date is before the start date
     """
 
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
     location = models.ForeignKey(POI, on_delete=models.PROTECT, null=True, blank=True)
     start_date = models.DateField()
     start_time = models.TimeField(null=True)

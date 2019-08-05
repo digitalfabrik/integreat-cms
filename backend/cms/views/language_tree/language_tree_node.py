@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
 from .language_tree_node_form import LanguageTreeNodeForm
-from ...models import Language, LanguageTreeNode, Site
+from ...models import Language, LanguageTreeNode, Region
 from ...decorators import region_permission_required
 
 
@@ -29,7 +29,7 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         language_tree_node_id = self.kwargs.get('language_tree_node_id')
         # limit possible parents to nodes of current region
-        parent_queryset = Site.get_current_site(request).language_tree_nodes
+        parent_queryset = Region.get_current_region(request).language_tree_nodes
         # limit possible languages to those which are not yet included in the tree
         language_queryset = Language.objects.exclude(
             language_tree_nodes__in=parent_queryset.exclude(id=language_tree_node_id)
@@ -50,9 +50,9 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
         return render(request, self.template_name, {
             'form': form, **self.base_context})
 
-    def post(self, request, site_slug, language_tree_node_id=None):
+    def post(self, request, region_slug, language_tree_node_id=None):
         # TODO: error handling
-        form = LanguageTreeNodeForm(data=request.POST, site_slug=site_slug)
+        form = LanguageTreeNodeForm(data=request.POST, region_slug=region_slug)
         if form.is_valid():
             if language_tree_node_id:
                 language_tree_node = form.save_language_node(
@@ -64,7 +64,7 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
                 messages.success(request, _('Language tree node was created successfully.'))
             return redirect('edit_language_tree_node', **{
                 'language_tree_node_id': language_tree_node.id,
-                'site_slug': site_slug,
+                'region_slug': region_slug,
             })
             # TODO: improve messages
         messages.error(request, _('Errors have occurred.'))

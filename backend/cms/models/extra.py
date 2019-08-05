@@ -1,12 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
-from .site import Site
+from .region import Region
 from .extra_template import ExtraTemplate
 
 
 class Extra(models.Model):
-    site = models.ForeignKey(Site)
+    region = models.ForeignKey(Region)
     template = models.ForeignKey(ExtraTemplate)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)

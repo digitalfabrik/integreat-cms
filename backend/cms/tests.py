@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from .models import Site
+from .models import Region
 from .models import Page
 from .models import Language
 from .views.regions.region_form import RegionForm
@@ -25,7 +25,7 @@ class SetupClass(TestCase):
         region_form = RegionForm(region_data)
         region_form.is_valid()
         region_form.save_region()
-        return Site.objects.get(slug=region_data['name'])
+        return Region.objects.get(slug=region_data['name'])
 
     @staticmethod
     def create_language(language_data):
@@ -35,15 +35,15 @@ class SetupClass(TestCase):
         return Language.objects.get(name=language_data['name'])
 
     @staticmethod
-    def create_language_tree_node(language_tree_node_data, site_slug=None):
+    def create_language_tree_node(language_tree_node_data, region_slug=None):
         language_tree_node_form = LanguageTreeNodeForm(data=language_tree_node_data,
-                                                       site_slug=site_slug)
+                                                       region_slug=region_slug)
         language_tree_node_form.is_valid()
         return language_tree_node_form.save_language_node()
 
     @staticmethod
     # pylint: disable=R0913
-    def create_page(page_data, user, site_slug, language_code,
+    def create_page(page_data, user, region_slug, language_code,
                     page_id=None, publish=False, archived=False):
         # TODO: fix form usage to page_form and page_translation_form
         page_form = PageForm(
@@ -51,7 +51,7 @@ class SetupClass(TestCase):
             page_id=page_id,
             publish=publish,
             archived=archived,
-            site_slug=site_slug,
+            region_slug=region_slug,
             language_code=language_code,
             user=user
         )
@@ -61,7 +61,7 @@ class SetupClass(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user('test', 'test@integreat.com', 'test')
-        self.site = self.create_region({
+        self.region = self.create_region({
             'name': 'demo',
             'events_enabled': True,
             'push_notifications_enabled': True,
@@ -74,7 +74,7 @@ class SetupClass(TestCase):
             'matomo_url': '',
             'matomo_token': '',
             'matomo_ssl_verify': True,
-            'status': Site.ACTIVE,
+            'status': Region.ACTIVE,
         })
 
         self.english = self.create_language({
@@ -100,7 +100,7 @@ class SetupClass(TestCase):
                 'language': self.english.id,
                 'parent': None,
                 'active': True
-            }, site_slug='demo'
+            }, region_slug='demo'
         )
 
         self.deutsch_node = self.create_language_tree_node(
@@ -108,14 +108,14 @@ class SetupClass(TestCase):
                 'language': self.deutsch.id,
                 'parent': self.english_node.id,
                 'active': True,
-            }, site_slug='demo')
+            }, region_slug='demo')
 
         self.arabic_node = self.create_language_tree_node(
             language_tree_node_data={
                 'language': self.arabic.id,
                 'parent': self.english_node.id,
                 'active': True
-            }, site_slug='demo')
+            }, region_slug='demo')
 
         self.page_tunews = self.create_page(
             page_data={
@@ -135,7 +135,7 @@ class SetupClass(TestCase):
                 'public': True
             },
             user=self.user,
-            site_slug='demo',
+            region_slug='demo',
             language_code='en-us',
             publish=True
         )
@@ -157,7 +157,7 @@ class SetupClass(TestCase):
                 'public': True
             },
             user=self.user,
-            site_slug='demo',
+            region_slug='demo',
             language_code='en-us',
             publish=True
         )
@@ -174,7 +174,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             page_id=self.page_slot_one.id,
-            site_slug='demo',
+            region_slug='demo',
             language_code='de-de',
             publish=True
         )
@@ -190,7 +190,7 @@ class SetupClass(TestCase):
                 'public': True
             },
             user=self.user,
-            site_slug='demo',
+            region_slug='demo',
             language_code='en-us',
             publish=True
         )
@@ -206,15 +206,15 @@ class SetupClass(TestCase):
                 'public': True
             },
             user=self.user,
-            site_slug='demo',
+            region_slug='demo',
             language_code='en-us',
             publish=True
         )
 
 
 class LanguageTreeNodeTestCase(SetupClass):
-    def test_node_site(self):
-        self.assertEqual(self.english_node.site, self.site)
+    def test_node_region(self):
+        self.assertEqual(self.english_node.region, self.region)
 
     def test_parent_node(self):
         self.assertEqual(self.deutsch_node.parent, self.english_node)
@@ -230,7 +230,7 @@ class PageFormTestCase(SetupClass):
         self.assertIsNotNone(self.page_slot_one.get_translation('de-de'))
 
     def test_pages(self):
-        pages = Page.get_tree(site_slug=self.site.slug)
+        pages = Page.get_tree(region_slug=self.region.slug)
         self.assertEqual(len(pages), 4)
 
 

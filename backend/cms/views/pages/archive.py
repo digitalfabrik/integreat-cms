@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
-from ...models import Page, Site, Language
+from ...models import Page, Region, Language
 from ...decorators import region_permission_required
 
 
@@ -18,28 +18,28 @@ class ArchivedPagesView(TemplateView):
     base_context = {'current_menu_item': 'pages'}
 
     def get(self, request, *args, **kwargs):
-        # current site
-        site_slug = kwargs.get('site_slug')
-        site = Site.objects.get(slug=site_slug)
+        # current region
+        region_slug = kwargs.get('region_slug')
+        region = Region.objects.get(slug=region_slug)
 
-        # all languages of current site
-        languages = site.languages
+        # all languages of current region
+        languages = region.languages
 
         # current language
         language_code = kwargs.get('language_code', None)
         if language_code:
             language = Language.objects.get(code=language_code)
-        elif site.default_language:
+        elif region.default_language:
             return redirect(
                 'pages',
                 **{
-                    'site_slug': site_slug,
-                    'language_code': site.default_language.code,
+                    'region_slug': region_slug,
+                    'language_code': region.default_language.code,
                 }
             )
 
-        # all archived pages of the current site in the current language
-        pages = Page.get_archived(site_slug)
+        # all archived pages of the current region in the current language
+        pages = Page.get_archived(region_slug)
 
         return render(
             request,

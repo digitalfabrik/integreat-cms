@@ -320,20 +320,20 @@ class PageXliffHelper:
     def export_page_xliffs_to_zip(self, page):
         zip_file_path = None
         xliff_files = []
-        if page and len(page.site.languages) > 1:
+        if page and len(page.region.languages) > 1:
             page_translations = list(page.page_translations.all())
             language_page_translation_map = {}
             for page_translation in page_translations:
                 language_page_translation_map[page_translation.language.code] = page_translation
 
-            default_language = page.site.default_language
+            default_language = page.region.default_language
             if not default_language or default_language.code not in language_page_translation_map:
                 default_language = page_translations[0].language
                 source_page_translation = page_translations[0]
             elif default_language.code in language_page_translation_map:
                 source_page_translation = language_page_translation_map[default_language.code]
 
-            xliff_directions = self._get_xliff_directions(page.site.languages, default_language)
+            xliff_directions = self._get_xliff_directions(page.region.languages, default_language)
 
             for source_language_code, target_language_code in xliff_directions:
                 if source_language_code in language_page_translation_map:
@@ -382,7 +382,7 @@ class PageXliffHelper:
 
                 elif page.languages:
                     target_language = None
-                    for language in page.site.languages:
+                    for language in page.region.languages:
                         if page_xliff.language_code == language.code:
                             target_language = language
                             break

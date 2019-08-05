@@ -73,7 +73,7 @@
                             {% if other_language != language %}
                             <tr>
                                 <td>
-                                    <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id site_slug=site.slug language_code=other_language.code %}" class="text-black block p-2">
+                                    <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=other_language.code %}" class="text-black block p-2">
                                         <img src="{% static '' %}images/flags/{{ other_language.code }}.png" title="{{ other_language.name }}" />
                                         {{ other_language.name }}
                                     </a>
