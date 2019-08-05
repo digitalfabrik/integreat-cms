@@ -21,7 +21,7 @@ class DashboardView(TemplateView):
         View : Rendered HTML-Page that will be seen in the CMS-Dashboard
     """
 
-    template_name = 'general/dashboard.html'
+    template_name = 'dashboard/dashboard.html'
     base_context = {'current_menu_item': 'region_dashboard'}
 
     def get(self, request, *args, **kwargs):

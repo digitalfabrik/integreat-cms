@@ -8,7 +8,7 @@ from ...decorators import staff_required, region_permission_required
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
 class SettingsView(TemplateView):
-    template_name = 'general/settings.html'
+    template_name = 'settings/settings.html'
     base_context = {'current_menu_item': 'region_settings'}
 
     def get(self, request, *args, **kwargs):
@@ -22,7 +22,7 @@ class SettingsView(TemplateView):
 @method_decorator(login_required, name='dispatch')
 @method_decorator(staff_required, name='dispatch')
 class AdminSettingsView(TemplateView):
-    template_name = 'general/admin_settings.html'
+    template_name = 'settings/admin_settings.html'
     base_context = {'current_menu_item': 'admin_settings'}
 
     def get(self, request, *args, **kwargs):

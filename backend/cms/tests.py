@@ -14,7 +14,7 @@ from .views.regions.region_form import RegionForm
 from .views.pages.page_form import PageForm
 from .views.languages.language_form import LanguageForm
 from .views.language_tree.language_tree_node_form import LanguageTreeNodeForm
-from .views.general import POSITION_CHOICES
+from .views.utils.tree_utils import POSITION_CHOICES
 from .page_xliff_converter import PageXliffConverter, XliffValidationException, PageXliffHelper, XLIFFS_DIR
 
 

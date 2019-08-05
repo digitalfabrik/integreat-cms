@@ -8,11 +8,11 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
-from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from ...models import Page, PageTranslation
-from ..general import POSITION_CHOICES
+from ..utils.tree_utils import POSITION_CHOICES
+from ..utils.slug_utils import generate_unique_slug
 
 
 logger = logging.getLogger(__name__)
@@ -227,36 +227,4 @@ class PageTranslationForm(forms.ModelForm):
         return page_translation
 
     def clean_slug(self):
-
-        slug = self.cleaned_data['slug']
-        # if slug is empty, generate from title
-        if not slug:
-            # slugify to make sure slug doesn't contain special chars etc.
-            slug = slugify(self.cleaned_data['title'])
-            logger.info(
-                'Generate new slug from title %s',
-                slug
-            )
-
-        # make sure slug is unique per region and language
-        unique_slug = slug
-        i = 1
-        while True:
-            other_page_translation = PageTranslation.objects.filter(
-                page__region=self.region,
-                language=self.language,
-                slug=unique_slug
-            ).exclude(id=self.instance.id)
-            if not other_page_translation.exists():
-                break
-            i += 1
-            unique_slug = '{}-{}'.format(slug, i)
-
-        if self.cleaned_data['slug'] != unique_slug:
-            logger.info(
-                'Cleaned slug from %s to %s.',
-                self.cleaned_data['slug'],
-                unique_slug
-            )
-
-        return unique_slug
+        return generate_unique_slug(self, 'page')
