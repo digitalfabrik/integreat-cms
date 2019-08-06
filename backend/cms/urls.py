@@ -11,6 +11,7 @@ from .views import languages
 from .views import language_tree
 from .views import media
 from .views import pages
+from .views import pois
 from .views import push_notifications
 from .views import organizations
 from .views import settings
@@ -192,6 +193,40 @@ urlpatterns = [
                     ),
                 ])),
                 url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
+            ])),
+        ])),
+        url(r'^pois/', include([
+            url(r'^$', pois.POIListView.as_view(), name='pois'),
+            url(r'^(?P<language_code>[-\w]+)/', include([
+                url(r'^$', pois.POIListView.as_view(), name='pois'),
+                url(r'^new$', pois.POIView.as_view(), name='new_poi'),
+                url(r'^(?P<poi_id>[0-9]+)/', include([
+                    url(
+                        r'^view$',
+                        pois.view_poi,
+                        name='view_poi'
+                    ),
+                    url(
+                        r'^edit$',
+                        pois.POIView.as_view(),
+                        name='edit_poi'
+                    ),
+                    url(
+                        r'^archive$',
+                        pois.archive_poi,
+                        name='archive_poi'
+                    ),
+                    url(
+                        r'^restore$',
+                        pois.restore_poi,
+                        name='restore_poi'
+                    ),
+                    url(
+                        r'^delete$',
+                        pois.POIView.as_view(),
+                        name='delete_poi'
+                    ),
+                ])),
             ])),
         ])),
         url(r'^push_notifications/', include([

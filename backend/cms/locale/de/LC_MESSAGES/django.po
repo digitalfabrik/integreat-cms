@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-03 16:22+0200\n"
+"POT-Creation-Date: 2019-08-06 18:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -54,9 +54,10 @@ msgstr "Archiviert"
 #: templates/_base.html:11 templates/language_tree/tree.html:15
 #: templates/languages/list.html:9 templates/media/medialist.html:8
 #: templates/organizations/list.html:9 templates/pages/archive.html:13
-#: templates/pages/tree.html:26 templates/push_notifications/list.html:9
-#: templates/regions/list.html:9 templates/roles/list.html:9
-#: templates/users/admin/list.html:9 templates/users/region/list.html:9
+#: templates/pages/tree.html:26 templates/pois/list.html:15
+#: templates/push_notifications/list.html:9 templates/regions/list.html:9
+#: templates/roles/list.html:9 templates/users/admin/list.html:9
+#: templates/users/region/list.html:9
 msgid "Search"
 msgstr "Suchen"
 
@@ -110,53 +111,57 @@ msgstr "Seiten"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: templates/_base.html:137 templates/_base.html:178
+#: templates/_base.html:137 templates/pois/list.html:9
+msgid "Points of Interest"
+msgstr "POIs"
+
+#: templates/_base.html:141 templates/_base.html:182
 msgid "Users"
 msgstr "Benutzer"
 
-#: templates/_base.html:141 templates/_base.html:190
+#: templates/_base.html:145 templates/_base.html:194
 msgid "Feedback"
 msgstr "Feedback"
 
-#: templates/_base.html:145 templates/regions/region.html:98
+#: templates/_base.html:149 templates/regions/region.html:98
 msgid "Push Notifications"
 msgstr "Push-Benachrichtigungen"
 
-#: templates/_base.html:149
+#: templates/_base.html:153
 msgid "PDF Export"
 msgstr "PDF Export"
 
-#: templates/_base.html:153
+#: templates/_base.html:157
 msgid "Imprint"
 msgstr "Impressum"
 
-#: templates/_base.html:157 templates/language_tree/tree.html:9
+#: templates/_base.html:161 templates/language_tree/tree.html:9
 msgid "Language tree"
 msgstr "Sprach-Baum"
 
-#: templates/_base.html:161 templates/_base.html:194
+#: templates/_base.html:165 templates/_base.html:198
 #: templates/statistics/statistics_dashboard.html:59
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: templates/_base.html:166
+#: templates/_base.html:170
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: templates/_base.html:170 templates/users/admin/user.html:91
+#: templates/_base.html:174 templates/users/admin/user.html:91
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:174
+#: templates/_base.html:178
 msgid "Languages"
 msgstr "Sprachen"
 
-#: templates/_base.html:182 templates/users/admin/user.html:86
+#: templates/_base.html:186 templates/users/admin/user.html:86
 #: templates/users/region/user.html:77
 msgid "Roles"
 msgstr "Rollen"
 
-#: templates/_base.html:186
+#: templates/_base.html:190
 msgid "Organizations"
 msgstr "Organisationen"
 
@@ -168,66 +173,22 @@ msgstr "Integreat CMS"
 msgid "Translation Coverage"
 msgstr "Abdeckung der Übersetzungen"
 
-#: templates/general/admin_settings.html:9
-msgid "Admin Settings"
-msgstr "Administrator-Einstellungen"
-
-#: templates/general/confirmation_popups/archive_page.html:4
-#: templates/pages/tree_row.html:63
-msgid "Please confirm that you really want to archive this page"
-msgstr "Bitte bestätigen Sie, dass diese Seite archiviert werden soll."
-
-#: templates/general/confirmation_popups/archive_page.html:6
-#: templates/pages/tree_row.html:65
-msgid "All translations of this page will also be archived."
-msgstr "Es werden auch alle Übersetzungen dieser Seite archiviert."
-
-#: templates/general/confirmation_popups/archive_page.html:8
-#: templates/pages/tree_row.html:69
-msgid "Yes, archive this page now."
-msgstr "Ja, diese Seite jetzt archivieren"
-
-#: templates/general/confirmation_popups/archive_page.html:10
-#: templates/general/confirmation_popups/delete_region_user.html:12
-#: templates/general/confirmation_popups/delete_user.html:12
-#: templates/pages/archive.html:53 templates/pages/tree_row.html:71
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: templates/general/confirmation_popups/delete_region_user.html:4
-#: templates/general/confirmation_popups/delete_user.html:4
-msgid "Please confirm that you really want to delete this user"
-msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
-
-#: templates/general/confirmation_popups/delete_region_user.html:6
-#: templates/general/confirmation_popups/delete_user.html:6
-msgid "This cannot be reversed."
-msgstr "Dies kann nicht rückgängig gemacht werden."
-
-#: templates/general/confirmation_popups/delete_region_user.html:9
-#: templates/general/confirmation_popups/delete_user.html:9
-msgid "Yes, delete this user now"
-msgstr "Ja, diesen Benutzer jetzt löschen"
-
-#: templates/general/csrf_failure.html:6
+#: templates/error_handler/csrf_failure.html:6
 msgid "CSRF Error"
 msgstr "CSRF Fehler"
 
-#: templates/general/csrf_failure.html:8
+#: templates/error_handler/csrf_failure.html:8
 msgid "Please try to reload the page."
 msgstr "Bitte versuchen Sie die Seite neu zu laden."
 
-#: templates/general/csrf_failure.html:11 templates/general/http_error.html:12
+#: templates/error_handler/csrf_failure.html:11
+#: templates/error_handler/http_error.html:12
 msgid "Return back home"
 msgstr "Zurück zur Startseite"
 
-#: templates/general/http_error.html:6
+#: templates/error_handler/http_error.html:6
 msgid "Error"
 msgstr "Fehler"
-
-#: templates/general/settings.html:11
-msgid "Settings for"
-msgstr "Einstellungen für"
 
 #: templates/language_tree/tree.html:19
 msgid "Create language tree node"
@@ -235,6 +196,7 @@ msgstr "Sprach-Knoten hinzufügen"
 
 #: templates/language_tree/tree.html:30
 #: templates/language_tree/tree_node.html:28 templates/pages/page.html:96
+#: templates/pois/poi.html:87
 #: templates/push_notifications/push_notification.html:62
 msgid "Language"
 msgstr "Sprache"
@@ -254,7 +216,7 @@ msgstr "Sprache hinzufügen"
 #: templates/language_tree/tree_node.html:19
 #: templates/languages/language.html:19
 #: templates/organizations/organization.html:21 templates/pages/page.html:29
-#: templates/pages/sbs_page.html:38
+#: templates/pages/sbs_page.html:38 templates/pois/poi.html:27
 #: templates/push_notifications/push_notification.html:26
 #: templates/regions/region.html:21 templates/roles/role.html:21
 #: templates/users/admin/user.html:21 templates/users/region/user.html:21
@@ -410,7 +372,7 @@ msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
 #: templates/organizations/organization.html:66 templates/pages/page.html:185
-#: templates/regions/region.html:67
+#: templates/pois/poi.html:130 templates/regions/region.html:67
 msgid "Set icon"
 msgstr "Icon festlegen"
 
@@ -452,7 +414,8 @@ msgid "Archived Pages"
 msgstr "Archivierte Seiten"
 
 #: templates/pages/archive.html:21 templates/pages/page.html:43
-#: templates/pages/tree.html:57 templates/push_notifications/list.html:24
+#: templates/pages/tree.html:57 templates/pois/list.html:32
+#: templates/pois/poi.html:36 templates/push_notifications/list.html:24
 #: templates/push_notifications/push_notification.html:49
 msgid "Title"
 msgstr "Titel"
@@ -477,9 +440,32 @@ msgstr "Alle Übersetzungen dieser Seite werden wiederhergestellt."
 msgid "Yes, restore this page now."
 msgstr "Ja, die Seite wiederherstellen."
 
+#: templates/pages/archive.html:53
+#: templates/pages/confirmation_popups/archive_page.html:10
+#: templates/pages/tree_row.html:71
+#: templates/users/confirmation_popups/delete_region_user.html:12
+#: templates/users/confirmation_popups/delete_user.html:12
+msgid "Cancel"
+msgstr "Abbrechen"
+
 #: templates/pages/archive.html:65 templates/pages/tree.html:85
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
+
+#: templates/pages/confirmation_popups/archive_page.html:4
+#: templates/pages/tree_row.html:63
+msgid "Please confirm that you really want to archive this page"
+msgstr "Bitte bestätigen Sie, dass diese Seite archiviert werden soll."
+
+#: templates/pages/confirmation_popups/archive_page.html:6
+#: templates/pages/tree_row.html:65
+msgid "All translations of this page will also be archived."
+msgstr "Es werden auch alle Übersetzungen dieser Seite archiviert."
+
+#: templates/pages/confirmation_popups/archive_page.html:8
+#: templates/pages/tree_row.html:69
+msgid "Yes, archive this page now."
+msgstr "Ja, diese Seite jetzt archivieren"
 
 #: templates/pages/page.html:16
 #, python-format
@@ -495,6 +481,7 @@ msgid "Create new page"
 msgstr "Neue Seite erstellen"
 
 #: templates/pages/page.html:44 templates/pages/sbs_page.html:30
+#: templates/pois/poi.html:37
 msgid "Insert title here"
 msgstr "Titel hier eingeben"
 
@@ -507,11 +494,11 @@ msgstr "Inhalt"
 msgid "Insert content here"
 msgstr "Inhalt hier eingeben"
 
-#: templates/pages/page.html:53
+#: templates/pages/page.html:53 templates/pois/poi.html:70
 msgid "Permalink"
 msgstr ""
 
-#: templates/pages/page.html:55
+#: templates/pages/page.html:55 templates/pois/poi.html:72
 msgid " Leave blank to generate unique permalink from title"
 msgstr ""
 " Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
@@ -549,12 +536,12 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: templates/pages/page.html:97
+#: templates/pages/page.html:97 templates/pois/poi.html:88
 #: templates/push_notifications/push_notification.html:63
 msgid "Current language"
 msgstr "Aktuelle Sprache"
 
-#: templates/pages/page.html:103
+#: templates/pages/page.html:103 templates/pois/poi.html:94
 #: templates/push_notifications/push_notification.html:70
 msgid "Translations"
 msgstr "Übersetzungen"
@@ -579,12 +566,13 @@ msgstr "Seite"
 msgid "Visibility"
 msgstr "Sichtbarkeit"
 
-#: templates/pages/page.html:172 templates/regions/list.html:28
-#: templates/regions/region.html:74
+#: templates/pages/page.html:172 templates/pois/poi.html:117
+#: templates/regions/list.html:28 templates/regions/region.html:74
 msgid "Status"
 msgstr "Status"
 
-#: templates/pages/page.html:181 templates/regions/region.html:57
+#: templates/pages/page.html:181 templates/pois/poi.html:126
+#: templates/regions/region.html:57
 msgid "Icon"
 msgstr "Icon"
 
@@ -622,7 +610,7 @@ msgstr "Hochladen"
 msgid "Create page"
 msgstr "Seite erstellen"
 
-#: templates/pages/tree.html:56
+#: templates/pages/tree.html:56 templates/pois/list.html:31
 msgid "ID"
 msgstr ""
 
@@ -649,6 +637,90 @@ msgstr "Gelöschte Seite"
 #: templates/pages/tree_row.html:56
 msgid "Download page"
 msgstr "Seite herunterladen"
+
+#: templates/pois/list.html:20
+msgid "Create POI"
+msgstr "POI erstellen"
+
+#: templates/pois/list.html:42 templates/pois/poi.html:46
+msgid "Address"
+msgstr "Adresse"
+
+#: templates/pois/list.html:43 templates/pois/poi.html:50
+msgid "Postal Code"
+msgstr "Postleitzahl"
+
+#: templates/pois/list.html:44 templates/pois/poi.html:53
+msgid "City"
+msgstr "Stadt"
+
+#: templates/pois/list.html:45 templates/pois/poi.html:56
+msgid "Country"
+msgstr "Land"
+
+#: templates/pois/list.html:54
+msgid "No POIs available yet."
+msgstr "Noch keine POIs vorhanden."
+
+#: templates/pois/poi.html:16
+msgid "Edit poi \"%(poi_title)s\""
+msgstr "POI \"%(page_title)s\" bearbeiten"
+
+#: templates/pois/poi.html:19
+msgid "Create new POI translation"
+msgstr "Neue POI Übersetzung erstellen"
+
+#: templates/pois/poi.html:22
+msgid "Create new point of interest"
+msgstr "Neuen POI erstellen"
+
+#: templates/pois/poi.html:40
+msgid "Description"
+msgstr "Beschreibung"
+
+#: templates/pois/poi.html:41
+msgid "Insert description here"
+msgstr "Beschreibung hier eingeben"
+
+#: templates/pois/poi.html:47
+msgid "Street"
+msgstr "Straße"
+
+#: templates/pois/poi.html:48
+msgid "Insert street here"
+msgstr "Straße hier eingeben"
+
+#: templates/pois/poi.html:51
+msgid "Insert postal code here"
+msgstr "Postleitzahl hier eingeben"
+
+#: templates/pois/poi.html:54
+msgid "Insert city here"
+msgstr "Stadt hier eingeben"
+
+#: templates/pois/poi.html:57
+msgid "Insert country here"
+msgstr "Land hier eingeben"
+
+#: templates/pois/poi.html:61
+msgid "Position"
+msgstr "Position"
+
+#: templates/pois/poi.html:62 templates/regions/region.html:52
+msgid "Longitude"
+msgstr "Geographische Länge"
+
+#: templates/pois/poi.html:63
+msgid "Insert longitude here"
+msgstr "Geographische Länge hier eingeben"
+
+#: templates/pois/poi.html:65 templates/regions/region.html:49
+msgid "Latitude"
+msgstr "Geographische Breite"
+
+#: templates/pois/poi.html:66
+msgid "Insert latitude here"
+msgstr "Geographische Breite hier eingeben"
 
 #: templates/push_notifications/list.html:13
 msgid "Create push notification"
@@ -764,17 +836,9 @@ msgstr "Postleitzahl hier eingeben"
 msgid "Coordinates"
 msgstr "Koordinaten"
 
-#: templates/regions/region.html:49
-msgid "Latitude"
-msgstr "Geographische Breite"
-
 #: templates/regions/region.html:50
 msgid "Enter latitude here"
 msgstr "Geographische Breite hier eingeben"
-
-#: templates/regions/region.html:52
-msgid "Longitude"
-msgstr "Geographische Länge"
 
 #: templates/regions/region.html:53
 msgid "Enter longitude here"
@@ -944,6 +1008,14 @@ msgstr "Name der Rolle hier eingeben"
 msgid "Permissions of the role"
 msgstr "Berechtigungen der Rolle"
 
+#: templates/settings/admin_settings.html:9
+msgid "Admin Settings"
+msgstr "Administrator-Einstellungen"
+
+#: templates/settings/settings.html:11
+msgid "Settings for"
+msgstr "Einstellungen für"
+
 #: templates/statistics/statistics_dashboard.html:13
 msgid "Page views"
 msgstr "Seitenaufrufe"
@@ -1075,53 +1147,52 @@ msgstr "Passwort des Benutzers hier eingeben"
 msgid "Delete this user"
 msgstr "Diesen Benutzer löschen"
 
-#: views/general/error_handler.py:5
+#: templates/users/confirmation_popups/delete_region_user.html:4
+#: templates/users/confirmation_popups/delete_user.html:4
+msgid "Please confirm that you really want to delete this user"
+msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
+
+#: templates/users/confirmation_popups/delete_region_user.html:6
+#: templates/users/confirmation_popups/delete_user.html:6
+msgid "This cannot be reversed."
+msgstr "Dies kann nicht rückgängig gemacht werden."
+
+#: templates/users/confirmation_popups/delete_region_user.html:9
+#: templates/users/confirmation_popups/delete_user.html:9
+msgid "Yes, delete this user now"
+msgstr "Ja, diesen Benutzer jetzt löschen"
+
+#: views/error_handler/error_handler.py:5
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
 
-#: views/general/error_handler.py:6
+#: views/error_handler/error_handler.py:6
 msgid "There was an error in your request."
 msgstr "Die Anfrage war fehlerhaft aufgebaut."
 
-#: views/general/error_handler.py:13
+#: views/error_handler/error_handler.py:13
 msgid "Forbidden"
 msgstr "Zugriff verweigert"
 
-#: views/general/error_handler.py:14
+#: views/error_handler/error_handler.py:14
 msgid "You don't have the permission to access this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite aufzurufen."
 
-#: views/general/error_handler.py:21
+#: views/error_handler/error_handler.py:21
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: views/general/error_handler.py:22
+#: views/error_handler/error_handler.py:22
 msgid "The page you requested could not be found."
 msgstr "Die von Ihnen angeforderte Seite konnte leider nicht gefunden werden."
 
-#: views/general/error_handler.py:29
+#: views/error_handler/error_handler.py:29
 msgid "Internal Server Error"
 msgstr "Interner Server-Fehler"
 
-#: views/general/error_handler.py:30
+#: views/error_handler/error_handler.py:30
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
-
-#: views/general/tree_utils.py:4
-msgid "First child of"
-msgstr "Erstes Unterelement von"
-
-#: views/general/tree_utils.py:5
-msgid "Last child of"
-msgstr "Letztes Unterelement von"
-
-#: views/general/tree_utils.py:6
-msgid "Left neighbor of"
-msgstr "Linker Nachbar von"
-
-#: views/general/tree_utils.py:7
-msgid "Right neighbor of"
-msgstr "Rechter Nachbar von"
 
 #: views/language_tree/language_tree_node.py:61
 msgid "Language tree node was saved successfully."
@@ -1131,9 +1202,9 @@ msgstr "Sprach-Baum wurde erfolgreich gespeichert."
 msgid "Language tree node was created successfully."
 msgstr "Sprach-Baum wurde erfolgreich erstellt."
 
-#: views/language_tree/language_tree_node.py:71
+#: views/language_tree/language_tree_node.py:70
 #: views/organizations/organizations.py:72 views/pages/page.py:142
-#: views/pages/sbs_page.py:109
+#: views/pages/sbs_page.py:109 views/pois/poi.py:126
 #: views/push_notifications/push_notifications.py:171
 #: views/regions/regions.py:82 views/roles/roles.py:71
 #: views/users/region_users.py:116 views/users/users.py:92
@@ -1200,7 +1271,7 @@ msgstr "Übersetzung wurde erfolgreich veröffentlich."
 msgid "Translation was successfully saved."
 msgstr "Übersetzung wurde erfolgreich gespeichert."
 
-#: views/pages/page.py:134 views/pages/sbs_page.py:107
+#: views/pages/page.py:134 views/pages/sbs_page.py:107 views/pois/poi.py:118
 #: views/users/region_users.py:113 views/users/users.py:89
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
@@ -1254,11 +1325,11 @@ msgstr ""
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
 
-#: views/pages/page_form.py:162
+#: views/pages/page_form.py:162 views/pois/poi_form.py:72
 msgid "Public"
 msgstr "Öffentlich"
 
-#: views/pages/page_form.py:163
+#: views/pages/page_form.py:163 views/pois/poi_form.py:73
 msgid "Private"
 msgstr "Privat"
 
@@ -1266,6 +1337,44 @@ msgstr "Privat"
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
+"verwalten."
+
+#: views/pois/poi.py:101 views/pois/poi.py:148
+msgid "POI was successfully archived."
+msgstr "POI wurde erfolgreich archiviert."
+
+#: views/pois/poi.py:104
+msgid "POI was successfully created and published."
+msgstr "POI wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pois/poi.py:106
+msgid "POI was successfully created."
+msgstr "POI wurde erfolgreich erstellt."
+
+#: views/pois/poi.py:109
+msgid "POI Translation was successfully created and published."
+msgstr "POI Übersetzung wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pois/poi.py:111
+msgid "POI Translation was successfully created."
+msgstr "POI Übersetzung wurde erfolgreich erstellt."
+
+#: views/pois/poi.py:114
+msgid "POI Translation was successfully published."
+msgstr "POI Übersetzung wurde erfolgreich veröffentlich."
+
+#: views/pois/poi.py:116
+msgid "POI Translation was successfully saved."
+msgstr "POI Übersetzung wurde erfolgreich gespeichert."
+
+#: views/pois/poi.py:165
+msgid "POI was successfully restored."
+msgstr "POI wurde erfolgreich wiederhergestellt."
+
+#: views/pois/pois.py:39
+msgid "Please create at least one language node before creating pois."
+msgstr ""
+"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie POIs "
 "verwalten."
 
 #: views/push_notifications/push_notifications.py:44
@@ -1365,6 +1474,22 @@ msgstr "Benutzer wurde erfolgreich erstellt."
 #: views/users/region_users.py:133 views/users/users.py:107
 msgid "User was successfully deleted."
 msgstr "Benutzer wurde erfolgreich gelöscht."
+
+#: views/utils/tree_utils.py:5
+msgid "First child of"
+msgstr "Erstes Unterelement von"
+
+#: views/utils/tree_utils.py:6
+msgid "Last child of"
+msgstr "Letztes Unterelement von"
+
+#: views/utils/tree_utils.py:7
+msgid "Left neighbor of"
+msgstr "Linker Nachbar von"
+
+#: views/utils/tree_utils.py:8
+msgid "Right neighbor of"
+msgstr "Rechter Nachbar von"
 
 #~ msgid "User"
 #~ msgstr "Benutzer"
