@@ -3,7 +3,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
-from ..utils import save_file
+from ..utils.file_utils import save_file
 from ...models import DocumentForm, Document
 from ...models.region import Region
 from ...decorators import region_permission_required

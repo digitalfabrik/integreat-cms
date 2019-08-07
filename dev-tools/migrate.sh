@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
+cd $(dirname "$BASH_SOURCE")/..
 source .venv/bin/activate
 integreat-cms makemigrations cms
 integreat-cms migrate

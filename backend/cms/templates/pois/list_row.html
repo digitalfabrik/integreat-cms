@@ -1,0 +1,36 @@
+{% load i18n %}
+{% load poi_filters %}
+
+<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
+	<td class="py-3 px-2">
+		{{ poi.id }}
+	</td>
+	<td>
+		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+			{{ poi|poi_translation_title:language }}
+		</a>
+	</td>
+	<td>
+		<div class="block py-3 px-2 text-grey-darkest">
+			<div class="lang-grid">
+				{% for other_language in languages %}
+					<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=other_language.code %}">
+						<i data-feather="{% if other_language in poi.languages %}edit-2{% else %}plus{% endif %}" class="text-grey-darkest"></i>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	</td>
+	<td>
+		{{ poi.address }}
+	</td>
+	<td>
+		{{ poi.postcode }}
+	</td>
+	<td>
+		{{ poi.city }}
+	</td>
+	<td>
+		{{ poi.country }}
+	</td>
+</tr>
