@@ -30,7 +30,12 @@ if [ ! "$(docker ps -q -f name=integreat_django_postgres)" ]; then
           echo -n "."
         done
         echo ""
+        # Migrate new database
         ./dev-tools/migrate.sh
+        # Create new dummy user (otherwise the import might fail due to constraints)
+        integreat-cms createsuperuser --noinput  --username 'dummy_user' --email 'test@test.test'
+        # Import test data
+        ./dev-tools/loadtestdata.sh
     fi
 fi
 

@@ -57,6 +57,7 @@ Run Postgres in our provided Docker container and start the `integreat-cms` loca
 ```
 ./dev-tools/run.sh
 ```
+On the first run, this will also migrate the database and populate it with initial test data.
 
 #### 2.2. Manually install postgres
 Alternatively,
@@ -68,7 +69,14 @@ While the database is running, migrate it:
 ```
 ./dev-tools/migrate.sh
 ```
-### 4. Running
+
+### 4. Initial test data
+To import initial test data into the database, execute:
+```
+./dev-tools/loadtestdata.sh
+```
+
+### 5. Running
 * While the database is running, create a first superuser:
 ```
 integreat-cms createsuperuser
@@ -82,7 +90,7 @@ integreat-cms runserver localhost:8000
 
 You may need to activate the `virtualenv` explicitly via `source .venv/bin/activate`.
 
-### 5. Testing
+### 6. Testing
 Run Django unittest: `integreat-cms test cms/`
 
 ## Miscellaneous
