@@ -95,7 +95,7 @@ DATABASES = {
         'USER': 'integreat',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 

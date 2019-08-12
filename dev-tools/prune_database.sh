@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script can be used to prune the complete postgres database.
+# It stops and removes the docker container and removes all database-related directories.
+
 # Stop Postgres Docker container
 if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
     docker stop integreat_django_postgres
