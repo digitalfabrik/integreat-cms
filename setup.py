@@ -28,14 +28,18 @@ setup(
         "lxml==4.3.3",
         "packaging==19.0",
         "psycopg2-binary==2.8.3",
-        "pylint==2.3.1",
-        "pylint-django==2.0.11",
-        "pylint_runner==0.5.4",
         "python-dateutil==2.8.0",
         "requests==2.22.0",
         "rules==2.0.1",
         "six==1.11.0",
     ],
+    extras_require={
+        "dev": [
+            "pylint==2.3.1",
+            "pylint-django==2.0.11",
+            "pylint_runner==0.5.4",
+        ]
+    },
     author="Integreat App Project",
     author_email="info@integreat-app.de",
     description="Content Management System for the Integreat App",

@@ -4,10 +4,9 @@ pipeline {
   stages {
     stage('Test') {
       steps{
-        sh 'python3 -m venv env'
-        sh '. env/bin/activate && python3 setup.py develop && cd backend && pylint_runner'
-        sh '. env/bin/activate && pip3 install stdeb'
-        sh '. env/bin/activate && python3 setup.py --command-packages=stdeb.command bdist_deb'
+        sh './dev-tools/install.sh'
+        sh '. .venv/bin/activate && cd backend && pylint_runner'
+        sh '. .venv/bin/activate && pip3 install stdeb && python3 setup.py --command-packages=stdeb.command bdist_deb'
       }
     }
   }

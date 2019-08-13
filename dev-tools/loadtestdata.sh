@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# This script can be used to generate migrations and applying them afterwards.
-# It can be used with the postgres docker container as well as a standalone installation.
+# This script imports test data into the database.
 
 cd $(dirname "$BASH_SOURCE")/..
 source .venv/bin/activate
@@ -9,6 +8,4 @@ source .venv/bin/activate
 if [ -x "$(command -v docker)" ] && [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
     export DJANGO_SETTINGS_MODULE=backend.docker_settings
 fi
-integreat-cms makemigrations cms
-integreat-cms migrate
-integreat-cms loaddata backend/cms/fixtures/roles.json
+integreat-cms loaddata backend/cms/fixtures/test_data.json
