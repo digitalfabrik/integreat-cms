@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 
-def handler400(request):
+def handler400(request, exception):
     ctx = {'code': 400, 'title': _('Bad request'),
            'message': _('There was an error in your request.')}
     response = render(request, 'error_handler/http_error.html', ctx)
@@ -9,7 +9,7 @@ def handler400(request):
     return response
 
 
-def handler403(request):
+def handler403(request, exception):
     ctx = {'code': 403, 'title': _('Forbidden'),
            'message': _("You don't have the permission to access this page.")}
     response = render(request, 'error_handler/http_error.html', ctx)
@@ -17,7 +17,7 @@ def handler403(request):
     return response
 
 
-def handler404(request):
+def handler404(request, exception):
     ctx = {'code': 404, 'title': _('Page not found'),
            'message': _('The page you requested could not be found.')}
     response = render(request, 'error_handler/http_error.html', ctx)

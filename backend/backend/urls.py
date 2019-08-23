@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
-handler400 = 'cms.views.general.handler400'
-handler403 = 'cms.views.general.handler403'
-handler404 = 'cms.views.general.handler404'
-handler500 = 'cms.views.general.handler500'
+handler400 = 'cms.views.error_handler.handler400'
+handler403 = 'cms.views.error_handler.handler403'
+handler404 = 'cms.views.error_handler.handler404'
+handler500 = 'cms.views.error_handler.handler500'
