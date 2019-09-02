@@ -26,6 +26,7 @@ urlpatterns = [
     url(r"^i18n/", include("django.conf.urls.i18n")),
     url(r"^", include("sitemap.urls")),
     url(r"^", include("cms.urls")),
+    url(r"^federation/", include("federation.urls")),
 ]
 
 handler400 = "cms.views.error_handler.handler400"
