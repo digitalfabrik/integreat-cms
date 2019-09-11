@@ -160,13 +160,12 @@ class PageTranslation(models.Model):
         related_name='page_translations',
         on_delete=models.CASCADE
     )
-    currently_in_translation = models.BooleanField(default=False)
+    in_translation = models.BooleanField(default=False)
     version = models.PositiveIntegerField(default=0)
     public = models.BooleanField(default=False)
     minor_edit = models.BooleanField(default=False)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now=True)
 
     @property
     def ancestor_path(self):
@@ -186,3 +185,4 @@ class PageTranslation(models.Model):
 
     class Meta:
         default_permissions = ()
+        unique_together = (("page", "language", "version"),)
