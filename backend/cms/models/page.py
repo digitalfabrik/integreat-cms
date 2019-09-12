@@ -11,6 +11,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from mptt.models import MPTTModel, TreeForeignKey
+import reversion
+from reversion.models import Version
 
 from .language import Language
 from .region import Region
@@ -138,6 +140,7 @@ class Page(MPTTModel):
         )
 
 
+@reversion.register()
 class PageTranslation(models.Model):
     """Class defining a Translation of a Page
 
@@ -161,11 +164,8 @@ class PageTranslation(models.Model):
         on_delete=models.CASCADE
     )
     in_translation = models.BooleanField(default=False)
-    version = models.PositiveIntegerField(default=0)
     public = models.BooleanField(default=False)
     minor_edit = models.BooleanField(default=False)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
-    timestamp = models.DateTimeField(auto_now=True)
 
     @property
     def ancestor_path(self):
@@ -180,9 +180,29 @@ class PageTranslation(models.Model):
             self.page.region.slug, self.language.code, self.ancestor_path, self.slug
         )
 
+    @property
+    def creator(self):
+        versions = Version.objects.get_for_object(self)
+        if versions:
+            return versions[0].revision.user
+        return ""
+
+    @property
+    def last_updated(self):
+        versions = Version.objects.get_for_object(self)
+        if versions:
+            return versions[0].revision.date_created
+        return ""
+
+    @property
+    def created_date(self):
+        versions = Version.objects.get_for_object(self)
+        if versions:
+            return versions.reverse()[0].revision.date_created
+        return ""
+
     def __str__(self):
         return '(id: {}, slug: {})'.format(self.id, self.slug)
 
     class Meta:
         default_permissions = ()
-        unique_together = (("page", "language", "version"),)

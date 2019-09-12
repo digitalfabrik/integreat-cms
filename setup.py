@@ -32,6 +32,7 @@ setup(
         "requests",
         "rules",
         "six",
+        "django-reversion"
     ],
     extras_require={
         "dev": [

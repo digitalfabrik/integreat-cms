@@ -4,6 +4,7 @@ File routing to the admin region
 
 
 from django.contrib import admin
+from reversion.admin import VersionAdmin
 from .models import Region
 from .models import Language
 from .models import LanguageTreeNode
@@ -13,11 +14,18 @@ from .models import POI
 from .models import POITranslation
 from .models import Organization
 
+
 admin.site.register(Region)
 admin.site.register(Language)
 admin.site.register(LanguageTreeNode)
-admin.site.register(Page)
-admin.site.register(PageTranslation)
 admin.site.register(POI)
 admin.site.register(POITranslation)
 admin.site.register(Organization)
+admin.site.register(Page)
+
+
+@admin.register(PageTranslation)  # pylint: disable=R0903
+class YourModelAdmin(VersionAdmin):
+    """
+    Add reversions to the PageTranslations
+    """

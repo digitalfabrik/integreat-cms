@@ -3,6 +3,7 @@ Form for creating a page object and page translation object
 """
 
 import logging
+import reversion
 
 from django import forms
 from django.contrib.auth import get_user_model
@@ -219,10 +220,11 @@ class PageTranslationForm(forms.ModelForm):
         if not self.instance.id:
             # only update these values when page translation is created
             page_translation.page = page
-            page_translation.creator = user
             page_translation.language = self.language
 
-        page_translation.save()
+        with reversion.create_revision():
+            page_translation.save()
+            reversion.set_user(user)
 
         return page_translation
 
