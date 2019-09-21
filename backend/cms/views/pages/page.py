@@ -102,52 +102,63 @@ class PageView(PermissionRequiredMixin, TemplateView):
                 raise PermissionDenied
 
         # TODO: error handling
-        if page_form.is_valid() and page_translation_form.is_valid():
+        if not page_form.is_valid() or not page_translation_form.is_valid():
 
-            page = page_form.save()
-            page_translation = page_translation_form.save(
-                page=page,
-                user=request.user,
-            )
+            messages.error(request, _('Errors have occurred.'))
 
-            if page_form.has_changed() or page_translation_form.has_changed():
-                published = page_translation.public and 'public' in page_translation_form.changed_data
-                if page_form.data.get('submit_archive'):
-                    # archive button has been submitted
-                    messages.success(request, _('Page was successfully archived.'))
-                elif not page_instance:
-                    if published:
-                        messages.success(request, _('Page was successfully created and published.'))
-                    else:
-                        messages.success(request, _('Page was successfully created.'))
-                elif not page_translation_instance:
-                    if published:
-                        messages.success(request, _('Translation was successfully created and published.'))
-                    else:
-                        messages.success(request, _('Translation was successfully created.'))
-                else:
-                    if published:
-                        messages.success(request, _('Translation was successfully published.'))
-                    else:
-                        messages.success(request, _('Translation was successfully saved.'))
-            else:
-                messages.info(request, _('No changes detected.'))
-
-            return redirect('edit_page', **{
-                'page_id': page.id,
-                'region_slug': region.slug,
-                'language_code': language.code,
+            return render(request, self.template_name, {
+                **self.base_context,
+                'page_form': page_form,
+                'page_translation_form': page_translation_form,
+                'page': page_instance,
+                'language': language,
+                'languages': region.languages,
             })
 
-        messages.error(request, _('Errors have occurred.'))
+        if not page_form.has_changed() and not page_translation_form.has_changed():
 
-        return render(request, self.template_name, {
-            **self.base_context,
-            'page_form': page_form,
-            'page_translation_form': page_translation_form,
-            'page': page_instance,
-            'language': language,
-            'languages': region.languages,
+            messages.info(request, _('No changes detected.'))
+
+            return render(request, self.template_name, {
+                **self.base_context,
+                'page_form': page_form,
+                'page_translation_form': page_translation_form,
+                'page': page_instance,
+                'language': language,
+                'languages': region.languages,
+            })
+
+        page = page_form.save()
+        page_translation = page_translation_form.save(
+            page=page,
+            user=request.user,
+        )
+
+        published = page_translation.public and 'public' in page_translation_form.changed_data
+
+        if page_form.data.get('submit_archive'):
+            # archive button has been submitted
+            messages.success(request, _('Page was successfully archived.'))
+        elif not page_instance:
+            if published:
+                messages.success(request, _('Page was successfully created and published.'))
+            else:
+                messages.success(request, _('Page was successfully created.'))
+        elif not page_translation_instance:
+            if published:
+                messages.success(request, _('Translation was successfully created and published.'))
+            else:
+                messages.success(request, _('Translation was successfully created.'))
+        else:
+            if published:
+                messages.success(request, _('Translation was successfully published.'))
+            else:
+                messages.success(request, _('Translation was successfully saved.'))
+
+        return redirect('edit_page', **{
+            'page_id': page.id,
+            'region_slug': region.slug,
+            'language_code': language.code,
         })
 
 
