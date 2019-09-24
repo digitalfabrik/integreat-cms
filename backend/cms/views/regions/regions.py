@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .region_form import RegionForm
 from ...models.region import Region
@@ -41,45 +41,67 @@ class RegionView(PermissionRequiredMixin, TemplateView):
 
     template_name = 'regions/region.html'
     base_context = {'current_menu_item': 'regions'}
-    region_slug = None
 
     def get(self, request, *args, **kwargs):
-        self.region_slug = self.kwargs.get('region_slug')
-        if self.region_slug:
-            region = Region.objects.get(slug=self.region_slug)
-            form = RegionForm(initial={
-                'name': region.name,
-                'events_enabled': region.events_enabled,
-                'push_notifications_enabled': region.push_notifications_enabled,
-                'latitude': region.latitude,
-                'longitude': region.longitude,
-                'postal_code': region.postal_code,
-                'admin_mail': region.admin_mail,
-                'statistics_enabled': region.statistics_enabled,
-                'matomo_url': region.matomo_url,
-                'matomo_token': region.matomo_token,
-                'matomo_ssl_verify': region.matomo_ssl_verify,
-                'push_notification_channels': ' '.join(region.push_notification_channels),
-                'status': region.status,
-            })
-        else:
-            form = RegionForm()
-        return render(request, self.template_name, {
-            'form': form, **self.base_context})
 
-    def post(self, request, region_slug=None):
+        region_instance = Region.objects.filter(
+            slug=kwargs.get('region_slug')
+        ).first()
+
+        form = RegionForm(
+            instance=region_instance
+        )
+
+        return render(
+            request,
+            self.template_name,
+            {
+                'form': form,
+                **self.base_context
+            }
+        )
+
+    def post(self, request, *args, **kwargs):
+
+        region_instance = Region.objects.filter(
+            slug=kwargs.get('region_slug')
+        ).first()
+
+        form = RegionForm(
+            request.POST,
+            instance=region_instance
+        )
+
         # TODO: error handling
-        form = RegionForm(request.POST)
-        if form.is_valid():
-            if region_slug:
-                form.save_region(region_slug=region_slug)
-                messages.success(request, _('Region saved successfully.'))
-            else:
-                form.save_region()
-                messages.success(request, _('Region created successfully'))
-            # TODO: improve messages
-        else:
+        if not form.is_valid():
             messages.error(request, _('Errors have occurred.'))
+            return render(
+                request,
+                self.template_name,
+                {
+                    'form': form,
+                    **self.base_context
+                }
+            )
 
-        return render(request, self.template_name, {
-            'form': form, **self.base_context})
+        if not form.has_changed():
+            messages.info(request, _('No changes detected.'))
+            return render(
+                request,
+                self.template_name,
+                {
+                    'form': form,
+                    **self.base_context
+                }
+            )
+
+        region = form.save()
+
+        if region_instance:
+            messages.success(request, _('Region saved successfully.'))
+        else:
+            messages.success(request, _('Region created successfully'))
+
+        return redirect('edit_region', **{
+            'region_slug': region.slug,
+        })

@@ -24,7 +24,7 @@ class SetupClass(TestCase):
     def create_region(region_data):
         region_form = RegionForm(region_data)
         region_form.is_valid()
-        region_form.save_region()
+        region_form.save()
         return Region.objects.get(slug=region_data['name'])
 
     @staticmethod
