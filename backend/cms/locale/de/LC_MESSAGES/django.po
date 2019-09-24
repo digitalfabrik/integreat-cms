@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-06 18:03+0200\n"
+"POT-Creation-Date: 2019-09-24 15:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -94,7 +94,7 @@ msgid "Translation Report"
 msgstr "Übersetzungs-Bericht"
 
 #: templates/_base.html:120 templates/analytics/translation_coverage.html:7
-#: templates/regions/region.html:111
+#: templates/regions/region.html:122
 #: templates/statistics/statistics_dashboard.html:7
 msgid "Statistics"
 msgstr "Statistiken"
@@ -104,10 +104,12 @@ msgid "Media Library"
 msgstr "Medienbibliothek"
 
 #: templates/_base.html:129 templates/pages/tree.html:10
+#: templates/regions/region.html:174
 msgid "Pages"
 msgstr "Seiten"
 
-#: templates/_base.html:133 templates/regions/region.html:91
+#: templates/_base.html:133 templates/regions/region.html:102
+#: templates/regions/region.html:175
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -116,6 +118,7 @@ msgid "Points of Interest"
 msgstr "POIs"
 
 #: templates/_base.html:141 templates/_base.html:182
+#: templates/regions/region.html:172
 msgid "Users"
 msgstr "Benutzer"
 
@@ -123,7 +126,7 @@ msgstr "Benutzer"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: templates/_base.html:149 templates/regions/region.html:98
+#: templates/_base.html:149 templates/regions/region.html:109
 msgid "Push Notifications"
 msgstr "Push-Benachrichtigungen"
 
@@ -152,7 +155,7 @@ msgstr "Admin Dashboard"
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:178
+#: templates/_base.html:178 templates/regions/region.html:173
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -366,13 +369,13 @@ msgid "Enter the organization's thumbnail here"
 msgstr "Name der Organisations-Thumbnail hier eingeben"
 
 #: templates/organizations/organization.html:54
-#: templates/regions/region.html:87 templates/users/admin/user.html:67
+#: templates/regions/region.html:98 templates/users/admin/user.html:67
 #: templates/users/region/user.html:67
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
 #: templates/organizations/organization.html:66 templates/pages/page.html:185
-#: templates/pois/poi.html:130 templates/regions/region.html:67
+#: templates/pois/poi.html:130 templates/regions/region.html:78
 msgid "Set icon"
 msgstr "Icon festlegen"
 
@@ -443,6 +446,8 @@ msgstr "Ja, die Seite wiederherstellen."
 #: templates/pages/archive.html:53
 #: templates/pages/confirmation_popups/archive_page.html:10
 #: templates/pages/tree_row.html:71
+#: templates/regions/confirmation_popups/delete_region.html:12
+#: templates/regions/region.html:184
 #: templates/users/confirmation_popups/delete_region_user.html:12
 #: templates/users/confirmation_popups/delete_user.html:12
 msgid "Cancel"
@@ -495,10 +500,12 @@ msgid "Insert content here"
 msgstr "Inhalt hier eingeben"
 
 #: templates/pages/page.html:53 templates/pois/poi.html:70
+#: templates/regions/region.html:40
 msgid "Permalink"
 msgstr ""
 
 #: templates/pages/page.html:55 templates/pois/poi.html:72
+#: templates/regions/region.html:42
 msgid " Leave blank to generate unique permalink from title"
 msgstr ""
 " Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
@@ -567,12 +574,12 @@ msgid "Visibility"
 msgstr "Sichtbarkeit"
 
 #: templates/pages/page.html:172 templates/pois/poi.html:117
-#: templates/regions/list.html:28 templates/regions/region.html:74
+#: templates/regions/list.html:28 templates/regions/region.html:85
 msgid "Status"
 msgstr "Status"
 
 #: templates/pages/page.html:181 templates/pois/poi.html:126
-#: templates/regions/region.html:57
+#: templates/regions/region.html:68
 msgid "Icon"
 msgstr "Icon"
 
@@ -663,8 +670,9 @@ msgid "No POIs available yet."
 msgstr "Noch keine POIs vorhanden."
 
 #: templates/pois/poi.html:16
+#, python-format
 msgid "Edit poi \"%(poi_title)s\""
-msgstr "POI \"%(page_title)s\" bearbeiten"
+msgstr "POI \"%(poi_title)s\" bearbeiten"
 
 #: templates/pois/poi.html:19
 msgid "Create new POI translation"
@@ -706,7 +714,7 @@ msgstr "Land hier eingeben"
 msgid "Position"
 msgstr "Position"
 
-#: templates/pois/poi.html:62 templates/regions/region.html:52
+#: templates/pois/poi.html:62 templates/regions/region.html:63
 msgid "Longitude"
 msgstr "Geographische Länge"
 
@@ -714,7 +722,7 @@ msgstr "Geographische Länge"
 msgid "Insert longitude here"
 msgstr "Geographische Länge hier eingeben"
 
-#: templates/pois/poi.html:65 templates/regions/region.html:49
+#: templates/pois/poi.html:65 templates/regions/region.html:60
 msgid "Latitude"
 msgstr "Geographische Breite"
 
@@ -783,6 +791,27 @@ msgstr "Titel auf %(language)s hier eingeben"
 msgid "Insert content in %(language)s here"
 msgstr "Inhalt auf %(language)s hier eingeben"
 
+#: templates/regions/confirmation_popups/delete_region.html:5
+#, python-format
+msgid ""
+"Please confirm that you really want to delete the region \"%(region_name)s\""
+msgstr ""
+"Bitte bestätigen Sie, dass die Region \"%(region_name)s\" gelöscht werden "
+"soll"
+
+#: templates/regions/confirmation_popups/delete_region.html:8
+#: templates/regions/region.html:162
+msgid ""
+"This can not be reversed. All pages, events, POIs and users of this region "
+"will also be deleted."
+msgstr ""
+"Dies kann nicht rückgängig gemacht werden. Alle Seiten, Veranstaltungen, "
+"POIs und Benutzer dieser Region werden ebenfalls gelöscht."
+
+#: templates/regions/confirmation_popups/delete_region.html:10
+msgid "Yes, delete this region now."
+msgstr "Ja, diese Region jetzt löschen"
+
 #: templates/regions/list.html:13
 msgid "Create region"
 msgstr "Region erstellen"
@@ -816,69 +845,94 @@ msgstr "Name der Region"
 msgid "Enter the region's name here"
 msgstr "Name der Region hier eingeben"
 
-#: templates/regions/region.html:40
+#: templates/regions/region.html:51
 msgid "E-mail-address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: templates/regions/region.html:41
+#: templates/regions/region.html:52
 msgid "Enter the administrator's e-mail-address here"
 msgstr "E-Mail-Adresse des Administrators hier eingeben"
 
-#: templates/regions/region.html:45
+#: templates/regions/region.html:56
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: templates/regions/region.html:46
+#: templates/regions/region.html:57
 msgid "Enter postal code here"
 msgstr "Postleitzahl hier eingeben"
 
-#: templates/regions/region.html:48
+#: templates/regions/region.html:59
 msgid "Coordinates"
 msgstr "Koordinaten"
 
-#: templates/regions/region.html:50
+#: templates/regions/region.html:61
 msgid "Enter latitude here"
 msgstr "Geographische Breite hier eingeben"
 
-#: templates/regions/region.html:53
+#: templates/regions/region.html:64
 msgid "Enter longitude here"
 msgstr "Geographische Länge hier eingeben"
 
-#: templates/regions/region.html:93
+#: templates/regions/region.html:104
 msgid "Activate events"
 msgstr "Veranstaltungen aktivieren"
 
-#: templates/regions/region.html:100
+#: templates/regions/region.html:111
 msgid "Activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
-#: templates/regions/region.html:104
+#: templates/regions/region.html:115
 msgid "Push notification channels"
 msgstr "Push-Benachrichtigungskanäle"
 
-#: templates/regions/region.html:105
+#: templates/regions/region.html:116
 msgid "Enter multiple channels separated by spaces."
 msgstr "Mehrere Kanäle mit Leerzeichen getrennt eingeben."
 
-#: templates/regions/region.html:106
+#: templates/regions/region.html:117
 msgid "Enter push notification channels here"
 msgstr "Push-Benachrichtigungskanäle hier eingeben"
 
-#: templates/regions/region.html:113
+#: templates/regions/region.html:124
 msgid "Activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: templates/regions/region.html:117
+#: templates/regions/region.html:128
 msgid "Activate SSL verification for Matomo"
 msgstr "SSL-Verifikation für Matomo aktivieren"
 
-#: templates/regions/region.html:121
+#: templates/regions/region.html:132
 msgid "Enter URL for Matomo here"
 msgstr "Matomo-URL hier eingeben"
 
-#: templates/regions/region.html:125
+#: templates/regions/region.html:136
 msgid "Enter token for Matomo here"
 msgstr "Matomo-Token hier eingeben"
+
+#: templates/regions/region.html:149
+#, python-format
+msgid "Delete region \"%(region_name)s\""
+msgstr "Region \"%(region_name)s\" löschen"
+
+#: templates/regions/region.html:160
+msgid "Please confirm that you really want to delete this region."
+msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
+
+#: templates/regions/region.html:166
+msgid "Summary of deleted objects"
+msgstr "Zusammenfassung der zu löschenden Objekte"
+
+#: templates/regions/region.html:170
+msgid "Region"
+msgstr "Region"
+
+#: templates/regions/region.html:176
+msgid "POIs"
+msgstr "POIs"
+
+#: templates/regions/region.html:182
+msgid "Yes, delete this region now"
+msgstr "Ja, diese Region jetzt löschen"
 
 #: templates/registration/login.html:18
 msgid "The username or the password is incorrect."
@@ -1204,9 +1258,9 @@ msgstr "Sprach-Baum wurde erfolgreich erstellt."
 
 #: views/language_tree/language_tree_node.py:70
 #: views/organizations/organizations.py:72 views/pages/page.py:142
-#: views/pages/sbs_page.py:109 views/pois/poi.py:126
+#: views/pages/sbs_page.py:109 views/pois/poi.py:122
 #: views/push_notifications/push_notifications.py:171
-#: views/regions/regions.py:82 views/roles/roles.py:71
+#: views/regions/regions.py:78 views/roles/roles.py:71
 #: views/users/region_users.py:116 views/users/users.py:92
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
@@ -1271,8 +1325,9 @@ msgstr "Übersetzung wurde erfolgreich veröffentlich."
 msgid "Translation was successfully saved."
 msgstr "Übersetzung wurde erfolgreich gespeichert."
 
-#: views/pages/page.py:134 views/pages/sbs_page.py:107 views/pois/poi.py:118
-#: views/users/region_users.py:113 views/users/users.py:89
+#: views/pages/page.py:134 views/pages/sbs_page.py:107 views/pois/poi.py:114
+#: views/regions/regions.py:89 views/users/region_users.py:113
+#: views/users/users.py:89
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
@@ -1339,43 +1394,42 @@ msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
 "verwalten."
 
-#: views/pois/poi.py:101 views/pois/poi.py:148
+#: views/pois/poi.py:97 views/pois/poi.py:144
 msgid "POI was successfully archived."
 msgstr "POI wurde erfolgreich archiviert."
 
-#: views/pois/poi.py:104
+#: views/pois/poi.py:100
 msgid "POI was successfully created and published."
 msgstr "POI wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/pois/poi.py:106
+#: views/pois/poi.py:102
 msgid "POI was successfully created."
 msgstr "POI wurde erfolgreich erstellt."
 
-#: views/pois/poi.py:109
+#: views/pois/poi.py:105
 msgid "POI Translation was successfully created and published."
 msgstr "POI Übersetzung wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/pois/poi.py:111
+#: views/pois/poi.py:107
 msgid "POI Translation was successfully created."
 msgstr "POI Übersetzung wurde erfolgreich erstellt."
 
-#: views/pois/poi.py:114
+#: views/pois/poi.py:110
 msgid "POI Translation was successfully published."
 msgstr "POI Übersetzung wurde erfolgreich veröffentlich."
 
-#: views/pois/poi.py:116
+#: views/pois/poi.py:112
 msgid "POI Translation was successfully saved."
 msgstr "POI Übersetzung wurde erfolgreich gespeichert."
 
-#: views/pois/poi.py:165
+#: views/pois/poi.py:161
 msgid "POI was successfully restored."
 msgstr "POI wurde erfolgreich wiederhergestellt."
 
 #: views/pois/pois.py:39
 msgid "Please create at least one language node before creating pois."
 msgstr ""
-"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie POIs "
-"verwalten."
+"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie POIs verwalten."
 
 #: views/push_notifications/push_notifications.py:44
 msgid ""
@@ -1400,13 +1454,17 @@ msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert."
 msgid "Error occurred sending the push notification"
 msgstr "Push-Benachrichtigung konnte nicht gesendet werden"
 
-#: views/regions/regions.py:76
+#: views/regions/regions.py:102
 msgid "Region saved successfully."
 msgstr "Region wurde erfolgreich gespeichert."
 
-#: views/regions/regions.py:79
+#: views/regions/regions.py:104
 msgid "Region created successfully"
 msgstr "Region wurde erfolgreich erstellt."
+
+#: views/regions/regions.py:120
+msgid "Region was successfully deleted."
+msgstr "Region wurde erfolgreich gelöscht."
 
 #: views/registration/forms.py:13
 msgid "The passwords do not match."

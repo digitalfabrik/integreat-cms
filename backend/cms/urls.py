@@ -36,7 +36,7 @@ urlpatterns = [
             ),
             url(
                 r'^delete$',
-                regions.RegionView.as_view(),
+                regions.delete_region,
                 name='delete_region'
             ),
         ])),

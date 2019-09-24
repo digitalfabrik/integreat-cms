@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -105,3 +106,17 @@ class RegionView(PermissionRequiredMixin, TemplateView):
         return redirect('edit_region', **{
             'region_slug': region.slug,
         })
+
+@login_required
+@staff_required
+def delete_region(request, *args, **kwargs):
+
+    if not request.user.has_perm('cms.manage_regions'):
+        raise PermissionDenied
+
+    region = Region.objects.get(slug=kwargs.get('region_slug'))
+    region.delete()
+
+    messages.success(request, _('Region was successfully deleted.'))
+
+    return redirect('regions')
