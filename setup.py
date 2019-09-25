@@ -35,7 +35,7 @@ setup(
     ],
     extras_require={
         "dev": [
-            "pylint",
+            "pylint==2.3.1",
             "pylint-django",
             "pylint_runner",
         ]
