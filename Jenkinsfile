@@ -6,7 +6,8 @@ pipeline {
       steps{
         sh './dev-tools/install.sh'
         sh '. .venv/bin/activate && cd backend && pylint_runner'
-        sh '. .venv/bin/activate && pip3 install stdeb && python3 setup.py --command-packages=stdeb.command bdist_deb'
+        sh '. .venv/bin/activate && pip3 install stdeb'
+        sh '. .venv/bin/activate && python3 setup.py --command-packages=stdeb.command bdist_deb'
       }
     }
   }
