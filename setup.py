@@ -37,7 +37,8 @@ setup(
         "dev": [
             "pylint",
             "pylint-django",
-            "pylint_runner",
+            "pylint-plugin-utils",
+            "wheel"
         ]
     },
     author="Integreat App Project",
