@@ -32,15 +32,11 @@ setup(
         "requests",
         "rules",
         "six",
+        "wheel",
+        "pylint",
+        "pylint-django",
+        "pylint-plugin-utils",
     ],
-    extras_require={
-        "dev": [
-            "pylint",
-            "pylint-django",
-            "pylint-plugin-utils",
-            "wheel"
-        ]
-    },
     author="Integreat App Project",
     author_email="info@integreat-app.de",
     description="Content Management System for the Integreat App",
