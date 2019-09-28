@@ -23,7 +23,7 @@ class Region(models.Model):
     )
 
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
     status = models.CharField(max_length=4, choices=STATUS)
 
     events_enabled = models.BooleanField(default=True)

@@ -8,7 +8,7 @@ from .organization import Organization
 class UserProfile(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile', on_delete=models.CASCADE)
-    regions = models.ManyToManyField(Region, blank=True)
+    regions = models.ManyToManyField(Region, related_name='users', blank=True)
     organization = models.ForeignKey(Organization, null=True, blank=True, on_delete=models.SET_NULL)
 
     @property
