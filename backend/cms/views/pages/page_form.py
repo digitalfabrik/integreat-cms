@@ -199,7 +199,6 @@ class PageTranslationForm(forms.ModelForm):
 
     # pylint: disable=W0221
     def save(self, *args, **kwargs):
-
         logger.info(
             'PageTranslationForm saved with args %s and kwargs %s',
             args,
@@ -210,10 +209,7 @@ class PageTranslationForm(forms.ModelForm):
         page = kwargs.pop('page', None)
         user = kwargs.pop('user', None)
 
-        if not self.instance.id:
-            # don't commit saving of ModelForm, because required fields are still missing
-            kwargs['commit'] = False
-
+        kwargs['commit'] = False  # Don't save yet. We just want the object.
         page_translation = super(PageTranslationForm, self).save(*args, **kwargs)
 
         if not self.instance.id:
@@ -222,9 +218,13 @@ class PageTranslationForm(forms.ModelForm):
             page_translation.creator = user
             page_translation.language = self.language
 
-        page_translation.save()
+        page_translation.version = page_translation.version + 1
+        page_translation.save(force_insert=True)
 
         return page_translation
 
     def clean_slug(self):
+        existing_version = PageTranslation.objects.filter(language=self.language, page=self.instance.page)
+        if existing_version:
+            return existing_version.first().slug
         return generate_unique_slug(self, 'page')

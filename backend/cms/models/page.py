@@ -66,7 +66,8 @@ class Page(MPTTModel):
 
     def get_translation(self, language_code):
         try:
-            page_translation = self.page_translations.get(language__code=language_code)
+            page_translation = self.page_translations.filter(
+                language__code=language_code).order_by('-version').first()
         except ObjectDoesNotExist:
             page_translation = None
         return page_translation
