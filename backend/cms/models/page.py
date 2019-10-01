@@ -7,10 +7,11 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import get_language
 
 from mptt.models import MPTTModel, TreeForeignKey
 
-from .language import Language
+from .language import Language, LanguageTreeNode
 from .region import Region
 from ..constants import status
 
@@ -40,6 +41,7 @@ class Page(MPTTModel):
     region = models.ForeignKey(Region, related_name='pages', on_delete=models.CASCADE)
     archived = models.BooleanField(default=False)
     mirrored_page = models.ForeignKey('self', null=True, blank=True, on_delete=models.PROTECT)
+    mirrored_page_first = models.BooleanField(default=True)
     editors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='editors', blank=True)
     publishers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='publishers', blank=True)
     created_date = models.DateTimeField(default=timezone.now)
@@ -74,7 +76,7 @@ class Page(MPTTModel):
         # Taking [] directly as default parameter would be dangerous because it is mutable
         if not priority_language_codes:
             priority_language_codes = []
-        for language_code in priority_language_codes + ['en-gb', 'de.de']:
+        for language_code in priority_language_codes + ['en-us', 'de-de']:
             if self.page_translations.filter(language__code=language_code).exists():
                 return self.page_translations.filter(language__code=language_code).first()
         return self.page_translations.first()
@@ -84,6 +86,12 @@ class Page(MPTTModel):
             language__code=language_code,
             status=status.PUBLIC,
         ).first()
+
+    def get_mirrored_text(self, language_code):
+        """
+        This content needs to be added when delivering content to end users
+        """
+        return self.mirrored_page.get_translation(language_code).text
 
     def get_absolute_url(self):
         return reverse('edit_page', kwargs={
@@ -131,6 +139,13 @@ class Page(MPTTModel):
             )
 
         return pages
+
+    def best_language_title(self):
+        page_translation = self.page_translations.filter(language__code=get_language())
+        if not page_translation:
+            alt_code = LanguageTreeNode.objects.get(region__id=self.region.id).get_root().language.code
+            page_translation = self.page_translations.filter(language__code=alt_code)
+        return page_translation.first().title
 
     class Meta:
         default_permissions = ()
@@ -245,6 +260,15 @@ class PageTranslation(models.Model):
         if not self_revision or not source_revision:
             return False
         return self_revision.last_updated < source_revision.last_updated
+
+    @property
+    def combined_text(self):
+        """
+        Combines the text from the PageTranslation with the text from the mirrored page.
+        """
+        if self.page.mirrored_page_first:
+            return self.page.get_mirrored_text(self.language.code) + self.text
+        return self.text + self.page.get_mirrored_text(self.language.code)
 
     def __str__(self):
         return '(id: {}, lang: {}, slug: {})'.format(self.id, self.language.code, self.slug)

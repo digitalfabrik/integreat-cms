@@ -11,7 +11,9 @@ from .page import (
     upload_page,
     move_page,
     grant_page_permission_ajax,
-    revoke_page_permission_ajax
+    revoke_page_permission_ajax,
+    get_pages_list_ajax,
+    save_mirrored_page
 )
 from .archive import ArchivedPagesView
 from .sbs_page import SBSPageView

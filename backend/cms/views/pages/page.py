@@ -13,13 +13,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.views.static import serve
-
 from mptt.exceptions import InvalidMove
 
 from .page_form import PageForm, PageTranslationForm
@@ -508,3 +507,32 @@ def revoke_page_permission_ajax(request):
             'level_tag': level_tag
         }
     })
+
+@login_required
+@permission_required('cms.edit_pages', raise_exception=True)
+def get_pages_list_ajax(request):
+    decoded_json = json.loads(request.body.decode('utf-8'))
+    if 'region' not in decoded_json or decoded_json['region'] == "":
+        page = Page.objects.get(id=decoded_json['current_page'])
+        page.mirrored_page = None
+        page.save()
+        return JsonResponse({'nolist': True})
+    region_id = decoded_json['region']
+    pages = Page.objects.filter(region__id=region_id)
+    result = []
+    for page in pages:
+        result.append({"id": page.id, "name": ' -> '.join([page_iter.best_language_title() for page_iter in page.get_ancestors(include_self=True)])})
+    return JsonResponse(result, safe=False)
+
+@login_required
+@permission_required('cms.edit_pages', raise_exception=True)
+def save_mirrored_page(request):
+    decoded_json = json.loads(request.body.decode('utf-8'))
+    page = Page.objects.get(id=decoded_json['current_page'])
+    if int(decoded_json['mirrored_page']) == 0:
+        page.mirrored_page = None
+    else:
+        page.mirrored_page = Page.objects.get(id=int(decoded_json['mirrored_page']))
+        page.mirrored_page_first = int(decoded_json['mirrored_page_first']) == 1
+    page.save()
+    return JsonResponse({'code': True})

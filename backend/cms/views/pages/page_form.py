@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 
-from ...models import Page, PageTranslation
+from ...models import Page, PageTranslation, Region
 from ...constants import position, status
 from ..utils.slug_utils import generate_unique_slug
 
@@ -37,6 +37,16 @@ class ParentField(forms.ModelChoiceField):
         ])
 
 
+class MirrorPageField(forms.ModelChoiceField):
+    """
+    Show ancestors page titles in mirror page select
+    """
+
+    # pylint: disable=arguments-differ
+    def label_from_instance(self, page):
+        return ' -> '.join([page_iter.best_language_title() for page_iter in page.get_ancestors(include_self=True)])
+
+
 class PageForm(forms.ModelForm):
     """
     DjangoForm Class, that can be rendered to create deliverable HTML
@@ -49,6 +59,12 @@ class PageForm(forms.ModelForm):
     parent = ParentField(queryset=Page.objects.all(), required=False)
     editors = forms.ModelChoiceField(queryset=get_user_model().objects.all(), required=False)
     publishers = forms.ModelChoiceField(queryset=get_user_model().objects.all(), required=False)
+    mirrored_page_region = forms.ModelChoiceField(queryset=Region.objects.all(), required=False)
+    mirrored_page = MirrorPageField(queryset=Page.objects.all(), required=False)
+    mirrored_page_first = forms.TypedChoiceField(
+        coerce=lambda x: x == 'True',
+        choices=((False, 'False'), (True, 'True')),
+        widget=forms.RadioSelect)
 
     class Meta:
         model = Page
@@ -101,6 +117,17 @@ class PageForm(forms.ModelForm):
             parent_queryset = parent_queryset.exclude(id__in=children)
             self.fields['parent'].initial = self.instance.parent
 
+        self.mirrored_page = forms.ModelChoiceField(queryset=Page.objects.all(), required=False)
+        self.mirrored_page_first = forms.TypedChoiceField(
+            coerce=lambda x: x == 'True',
+            choices=((False, 'False'), (True, 'True')),
+            widget=forms.RadioSelect)
+        if self.instance.mirrored_page:
+            self.fields['mirrored_page'].queryset = Page.objects.filter(region=self.instance.mirrored_page.region)
+            self.fields['mirrored_page'].initial = self.instance.mirrored_page
+            self.fields['mirrored_page_first'].initial = self.instance.mirrored_page_first
+            self.fields['mirrored_page_region'].initial = self.instance.mirrored_page.region
+
         # add the language to the parent field to make sure the translated page titles are shown
         self.fields['parent'].language = language
         self.fields['parent'].queryset = parent_queryset
@@ -123,6 +150,8 @@ class PageForm(forms.ModelForm):
             # only update these values when page is created
             page.region = self.region
         page.archived = bool(self.data.get('submit_archive'))
+        page.mirrored_page_first = self.cleaned_data['mirrored_page_first']
+        page.mirrored_page = self.cleaned_data['mirrored_page']
         page.save()
         page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
 

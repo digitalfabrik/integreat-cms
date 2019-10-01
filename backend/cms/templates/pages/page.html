@@ -9,6 +9,7 @@
 <form method="post">
     {% compress js %}
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/page.js' %}"></script>
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
     <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
     <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
@@ -168,12 +169,22 @@
                         </div>
                     </div>
                     <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
-                    <input type="text" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 mt-4 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-                           placeholder="{% trans 'Search page' %}" />
-                    <div class="relative my-2 pb-2">
-                        <select class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
-                            <option>{% trans 'Embed before content' %}</option>
-                            <option>{% trans 'Embed after content' %}</option>
+                    <div class="relative my-2">
+                        {% render_field page_form.mirrored_page_region id="mirrored_page_region" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
+                    <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div">
+                        {% render_field page_form.mirrored_page id="mirrored_page" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
+                    <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
+                        <select id="mirrored_page_first" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                            <option value=1{% if page.mirrored_page_first %} selected{% endif %}>{% trans 'Embed before content' %}</option>
+                            <option value=0{% if not page.mirrored_page_first %} selected{% endif %}>{% trans 'Embed after content' %}</option>
                         </select>
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
@@ -220,11 +231,50 @@
                         {% endif %}
                     {% endif %}
                 </div>
-                </div>
             </div>
         </div>
     </div>
 </form>
+<script>
+    // preselect mirrored page when document is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        update_mirrored_pages_list("{% url 'get_pages_list_ajax' %}", {{ page.id }}, {{ page.mirrored_page.id }});
+    });
+
+    // event handler for showing the page selection for attach pages
+    u("#mirrored_page_region").handle('change', update_mirrored_pages_list_wrapper);
+        async function update_mirrored_pages_list_wrapper(e) {
+        update_mirrored_pages_list("{% url 'get_pages_list_ajax' %}", {{ page.id }});
+    };
+
+    // event handler for saving attached pages
+    u("#mirrored_page").handle('change', save_mirrored_page_wrapper);
+    u("#mirrored_page_first").handle('change', save_mirrored_page_wrapper);
+    async function save_mirrored_page_wrapper(e){
+        save_mirrored_page("{% url 'save_mirrored_page' %}", {{ page.id }});
+    };
+
+    // event handler for granting edit page permissions
+    u("#grant-edit-page-permission").handle('click', grant_edit_page_permission_wrapper);
+    async function grant_edit_page_permission_wrapper(e){
+        grant_edit_page_permission("{% url 'grant_page_permission_ajax' %}", {{ page.id }});
+    };
+
+    // event handler for granting publish page permissions
+    u("#grant-publish-page-permission").handle('click', grant_publish_page_permission_wrapper);
+    async function grant_publish_page_permission_wrapper(e){
+      grant_publish_page_permission("{% url 'grant_page_permission_ajax' %}", {{ page.id }});
+    };
+
+    // event handler for revoking permissions
+    u('.revoke-page-permission').each(function(node, i)  {
+        u(this).handle('click', revoke_page_permission_wrapper);
+    });
+    async function revoke_page_permission_wrapper(e) {
+        revoke_page_permission("{% url 'revoke_page_permission_ajax' %}", {{ page.id }});
+    };
+</script>
+
 {% if page %}
     {% include "./confirmation_popups/archive_page.html" with page=page %}
     {% if user.is_superuser or user.is_staff %}
@@ -238,7 +288,7 @@
 {% block javascript_nocompress %}
 <script>
 {% get_current_language as LANGUAGE_CODE %}
-document.addEventListener('DOMContentLoaded', function(){ 
+document.addEventListener('DOMContentLoaded', function(){
     tinymce.init({
         selector: '.tinymce_textarea',
         menubar: "edit view insert format tools",
@@ -253,78 +303,4 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 {% endblock %}
 
-{% block javascript %}
-    {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
-    <script>
-        // event handler for granting edit page permissions
-        u("#grant-edit-page-permission").handle('click', grant_edit_page_permission);
-        // wrapper function for granting edit page permissions
-        async function grant_edit_page_permission(e) {
-            update_page_permission(
-                "{% url 'grant_page_permission_ajax' %}",
-                "{{ page.id }}",
-                u("#id_editors").first().value,
-                'edit'
-            );
-        }
-        // event handler for granting publish page permissions
-        u("#grant-publish-page-permission").handle('click', grant_publish_page_permission);
-        // wrapper function for granting publish page permissions
-        async function grant_publish_page_permission(e) {
-            update_page_permission(
-                "{% url 'grant_page_permission_ajax' %}",
-                "{{ page.id }}",
-                u("#id_publishers").first().value,
-                'publish'
-            );
-        }
-        // event handler for revoking page permissions
-        u('.revoke-page-permission').each(function(node, i)  {
-            u(this).handle('click', revoke_page_permission);
-        });
-        // wrapper function for revoking page permissions
-        async function revoke_page_permission(e) {
-            update_page_permission(
-                "{% url 'revoke_page_permission_ajax' %}",
-                "{{ page.id }}",
-                u(this).data('user-id'),
-                u(this).data('permission')
-            );
-        }
-        // ajax call for updating the page permissions
-        async function update_page_permission(url, page_id, user_id, permission) {
-            const data = await fetch(url, {
-                method: 'POST',
-                headers:  {
-                    'X-CSRFToken': u('[name=csrfmiddlewaretoken]').first().value
-                },
-                body: JSON.stringify({
-                    "page_id": page_id,
-                    "user_id": user_id,
-                    "permission": permission
-                })
-            }).then(res => {
-                if (res.status != 200) {
-                    // return empty result if status is not ok
-                    return '';
-                } else {
-                    // return response text otherwise
-                    return res.text();
-                }
-            });
-            if (data) {
-                // insert response into table
-                u("#page_permission_table").html(data);
-                // set new event listeners
-                u('.revoke-page-permission').each(function(node, i)  {
-                    u(this).handle('click', revoke_page_permission);
-                });
-                u("#grant-edit-page-permission").handle('click', grant_edit_page_permission);
-                u("#grant-publish-page-permission").handle('click', grant_publish_page_permission);
-                feather.replace();
-            }
 
-        }
-    </script>
-    {% endif %}
-{% endblock %}
