@@ -19,29 +19,34 @@ class Extra(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
-    # pylint: disable=C0111
+    @property
     def alias(self):
         # pylint: disable=E1101
         return self.template.alias
 
-    # pylint: disable=C0111
+    @property
     def name(self):
         return self.template.name
 
-    # pylint: disable=C0111
+    @property
     def thumbnail(self):
         # pylint: disable=E1101
         return self.template.thumbnail
 
-    # pylint: disable=C0111
+    @property
     def url(self):
         # pylint: disable=E1101
+        if self.template.use_postal_code == self.template.POSTAL_GET:
+            return self.template.url + self.region.postal_code
         return self.template.url
 
-    # pylint: disable=C0111
+    @property
     def post_data(self):
         # pylint: disable=E1101
-        return self.template.post_data
+        post_data = self.template.post_data
+        if self.template.use_postal_code == self.template.POSTAL_POST:
+            post_data.update({'search-plz': self.region.postal_code})
+        return post_data
 
     # pylint: disable=R0903
     class Meta:
