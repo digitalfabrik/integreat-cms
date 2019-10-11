@@ -14,15 +14,15 @@ class Extra(models.Model):
     An extra (addon) is activated per region. For each extra,
     a template exists which can be used during activation.
     """
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
-    template = models.ForeignKey(ExtraTemplate, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, related_name='extras', on_delete=models.CASCADE)
+    template = models.ForeignKey(ExtraTemplate, related_name='extras', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
     @property
-    def alias(self):
+    def slug(self):
         # pylint: disable=E1101
-        return self.template.alias
+        return self.template.slug
 
     @property
     def name(self):
@@ -50,6 +50,7 @@ class Extra(models.Model):
 
     # pylint: disable=R0903
     class Meta:
+        unique_together = (('region', 'template', ), )
         default_permissions = ()
         permissions = (
             ('manage_extras', 'Can manage extras'),

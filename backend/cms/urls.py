@@ -14,6 +14,7 @@ from .views import pages
 from .views import pois
 from .views import push_notifications
 from .views import organizations
+from .views import extras
 from .views import extra_templates
 from .views import settings
 from .views import statistics
@@ -258,6 +259,21 @@ urlpatterns = [
                         name='edit_push_notification'
                     ),
                 ])),
+            ])),
+        ])),
+        url(r'^extras/', include([
+            url(r'^$', extras.ExtraListView.as_view(), name='extras'),
+            url(r'^(?P<extra_template_slug>[-\w]+)/', include([
+                url(
+                    r'^activate$',
+                    extras.activate,
+                    name='activate_extra'
+                ),
+                url(
+                    r'^deactivate$',
+                    extras.deactivate,
+                    name='deactivate_extra'
+                ),
             ])),
         ])),
         url(r'^language-tree/', include([

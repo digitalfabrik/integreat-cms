@@ -12,6 +12,7 @@ from .models import PageTranslation
 from .models import POI
 from .models import POITranslation
 from .models import Organization
+from .models import Extra
 from .models import ExtraTemplate
 
 admin.site.register(Region)
@@ -22,4 +23,5 @@ admin.site.register(PageTranslation)
 admin.site.register(POI)
 admin.site.register(POITranslation)
 admin.site.register(Organization)
+admin.site.register(Extra)
 admin.site.register(ExtraTemplate)
