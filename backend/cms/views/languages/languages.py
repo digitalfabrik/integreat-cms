@@ -41,35 +41,33 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
 
     template_name = 'languages/language.html'
     base_context = {'current_menu_item': 'languages'}
-    language_code = None
 
     def get(self, request, *args, **kwargs):
-        self.language_code = self.kwargs.get('language_code', None)
-        if self.language_code:
-            language = Language.objects.get(code=self.language_code)
-            form = LanguageForm(initial={
-                'name': language.name,
-                'code': language.code,
-                'text_direction': language.text_direction,
-            })
-        else:
-            form = LanguageForm()
+        language_code = self.kwargs.get('language_code', None)
+        language = Language.objects.filter(code=language_code).first()
+        form = LanguageForm(instance=language)
         return render(request, self.template_name, {
-            'form': form, **self.base_context})
+            'form': form, **self.base_context
+        })
 
-    def post(self, request, language_code=None):
-        # TODO: error handling
-        form = LanguageForm(request.POST)
+    def post(self, request, *args, **kwargs):
+        language_code = self.kwargs.get('language_code', None)
+        language = Language.objects.filter(code=language_code).first()
+        form = LanguageForm(
+            request.POST,
+            instance=language
+        )
         if form.is_valid():
+            form.save()
             if language_code:
-                form.save_language(language_code=language_code)
                 messages.success(request, _('Language saved successfully.'))
             else:
-                form.save_language()
                 messages.success(request, _('Language created successfully'))
-            # TODO: improve messages
         else:
+            # TODO: error handling
+            # TODO: improve messages
             messages.error(request, _('An error has occurred.'))
 
         return render(request, self.template_name, {
-            'form': form, **self.base_context})
+            'form': form, **self.base_context
+        })

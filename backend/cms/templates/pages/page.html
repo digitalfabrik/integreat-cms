@@ -96,7 +96,7 @@
                     <span class="block mb-2 font-bold">{% trans 'Language' %}</span>
                     <label class="text-xs uppercase block">{% trans 'Current language' %}</label>
                     <div class="relative my-2">
-                        {{ language.name }}
+                        {{ language.translated_name }}
                     </div>
                     {% if page %}
 	                    <div class="entity-lang-list mt-4 mb-2">
@@ -108,7 +108,7 @@
 				                        <tr>
 					                        <td>
 						                        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}" class="text-black block p-2">
-							                        {{ other_language.name }}
+							                        {{ other_language.translated_name }}
 						                        </a>
 					                        </td>
 					                        <td>
@@ -131,7 +131,7 @@
                                         <tr>
                                             <td>
                                                 <a href="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=sbs_language_code %}" class="text-black block p-2">
-                                                    {{ other_language.name }}
+                                                    {{ other_language.translated_name }}
                                                 </a>
                                             </td>
                                         </tr>
