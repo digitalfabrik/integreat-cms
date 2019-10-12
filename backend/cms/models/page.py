@@ -5,7 +5,6 @@ import logging
 
 from django.db import models
 from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -61,16 +60,21 @@ class Page(MPTTModel):
         page_translations = self.page_translations.prefetch_related('language').all()
         languages = []
         for page_translation in page_translations:
-            languages.append(page_translation.language)
+            if page_translation.language not in languages:
+                languages.append(page_translation.language)
         return languages
 
     def get_translation(self, language_code):
-        try:
-            page_translation = self.page_translations.filter(
-                language__code=language_code).order_by('-version').first()
-        except ObjectDoesNotExist:
-            page_translation = None
-        return page_translation
+        return self.page_translations.filter(
+            language__code=language_code
+        ).order_by('-version').first()
+
+    def get_public_translation(self, language_code):
+        return self.page_translations.filter(
+            language__code=language_code,
+            public=True,
+            status='reviewed',
+        ).order_by('-version').first()
 
     def get_absolute_url(self):
         return reverse('edit_page', kwargs={
@@ -181,6 +185,20 @@ class PageTranslation(models.Model):
         return '{}/{}/{}/{}'.format(
             self.page.region.slug, self.language.code, self.ancestor_path, self.slug
         )
+
+    @property
+    def available_languages(self):
+        languages = self.page.languages
+        languages.remove(self.language)
+        available_languages = {}
+        for language in languages:
+            other_translation = self.page.get_public_translation(language.code)
+            if other_translation:
+                available_languages[language.code] = {
+                    'id': other_translation.id,
+                    'url': other_translation.permalink
+                }
+        return available_languages
 
     def __str__(self):
         return '(id: {}, slug: {})'.format(self.id, self.slug)
