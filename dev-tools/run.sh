@@ -14,10 +14,18 @@ integreat-cms makemessages -a
 integreat-cms compilemessages
 
 cd ../..
-export DJANGO_SETTINGS_MODULE=backend.docker_settings
+
+export DJANGO_SETTINGS_MODULE=backend.settings
+if [ -x "$(command -v docker)" ]; then
+    docker ps -q -f name=integreat_django_postgres
+    if [[ $? == 0 ]]; then
+        echo "Using Docker"
+        export DJANGO_SETTINGS_MODULE=backend.docker_settings
+    fi
+fi
 
 # Start Postgres Docker container
-if [ ! "$(docker ps -q -f name=integreat_django_postgres)" ]; then
+if [[ "$DJANGO_SETTINGS_MODULE" == "backend.docker_settings" ]]; then
     if [ "$(docker ps -aq -f status=exited -f name=integreat_django_postgres)" ]; then
         # Start the existing container
         docker start integreat_django_postgres > /dev/null 2>&1
@@ -30,17 +38,20 @@ if [ ! "$(docker ps -q -f name=integreat_django_postgres)" ]; then
           echo -n "."
         done
         echo ""
-        # Migrate new database
-        ./dev-tools/migrate.sh
-        # Create new dummy user (otherwise the import might fail due to constraints)
-        integreat-cms createsuperuser --noinput  --username 'dummy_user' --email 'test@test.test'
-        # Import test data
-        ./dev-tools/loadtestdata.sh
     fi
 fi
+
+# Migrate new database
+./dev-tools/migrate.sh
+# Create new dummy user (otherwise the import might fail due to constraints)
+integreat-cms createsuperuser --noinput  --username 'dummy_user' --email 'test@test.test'
+# Import test data
+./dev-tools/loadtestdata.sh
 
 # Start Integreat CMS
 integreat-cms runserver localhost:8000
 
-# Stop the postgres database docker container
-docker stop integreat_django_postgres > /dev/null 2>&1
+if [[ "$DJANGO_SETTINGS_MODULE" == "backend.docker_settings" ]]; then
+    # Stop the postgres database docker container
+    docker stop integreat_django_postgres > /dev/null 2>&1
+fi
