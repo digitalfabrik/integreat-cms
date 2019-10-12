@@ -20,7 +20,9 @@
     <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white">
         <thead>
             <tr class="border-b border-solid border-grey-light">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Name' %}</th>
+	            {% get_current_language as LANGUAGE_CODE %}
+	            <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Name in' %} {{ LANGUAGE_CODE|language_name_local }}</th>
+	            <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Native name' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Code' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Text direction' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Created' %}</th>

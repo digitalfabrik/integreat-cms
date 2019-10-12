@@ -31,7 +31,7 @@ class SetupClass(TestCase):
     def create_language(language_data):
         language_form = LanguageForm(language_data)
         language_form.is_valid()
-        language_form.save_language()
+        language_form.save()
         return Language.objects.get(name=language_data['name'])
 
     @staticmethod

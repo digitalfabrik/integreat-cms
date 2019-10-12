@@ -28,17 +28,23 @@ class Language(models.Model):
     # The recommended minimum buffer is 35 (see https://tools.ietf.org/html/bcp47#section-4.4.1).
     # It's unlikely that we have language codes longer than 8 characters though.
     code = models.CharField(max_length=8, unique=True, validators=[MinLengthValidator(2)])
-    name = models.CharField(max_length=250, blank=False)
+    native_name = models.CharField(max_length=250, blank=False)
+    english_name = models.CharField(max_length=250, blank=False)
     text_direction = models.CharField(default=DIRECTION[0][0], choices=DIRECTION, max_length=3)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+
+    # name of the language in the current backend language
+    @property
+    def translated_name(self):
+        return _(self.english_name)
 
     def __str__(self):
         """Function that provides a string representation of this object
 
         Returns: String
         """
-        return self.name
+        return self.english_name
 
     class Meta:
         default_permissions = ()
@@ -71,6 +77,27 @@ class LanguageTreeNode(MPTTModel):
     last_updated = models.DateTimeField(auto_now=True)
 
     @property
+    def code(self):
+        return self.language.code
+
+    @property
+    def native_name(self):
+        return self.language.native_name
+
+    @property
+    def english_name(self):
+        return self.language.english_name
+
+    # name of the language in the current backend language
+    @property
+    def translated_name(self):
+        return self.language.translated_name
+
+    @property
+    def text_direction(self):
+        return self.language.text_direction
+
+    @property
     def depth(self):
         """Provide level of inheritance
 
@@ -92,4 +119,4 @@ class LanguageTreeNode(MPTTModel):
 
         Returns: String
         """
-        return self.language.name
+        return self.language.english_name

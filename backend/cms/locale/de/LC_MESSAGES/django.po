@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-11 23:08+0200\n"
+"POT-Creation-Date: 2019-10-12 01:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -225,7 +225,7 @@ msgstr "Neue Extra-Vorlage erstellen"
 
 #: templates/extra_templates/extra_template.html:22
 #: templates/language_tree/tree_node.html:19
-#: templates/languages/language.html:19
+#: templates/languages/language.html:21
 #: templates/organizations/organization.html:21 templates/pages/page.html:29
 #: templates/pages/sbs_page.html:38 templates/pois/poi.html:27
 #: templates/push_notifications/push_notification.html:26
@@ -303,7 +303,6 @@ msgid "Create extra template"
 msgstr "Neue Extra-Vorlage erstellen"
 
 #: templates/extra_templates/list.html:23 templates/extras/list.html:31
-#: templates/languages/language.html:28 templates/languages/list.html:23
 #: templates/media/medialist.html:22 templates/organizations/list.html:23
 #: templates/regions/list.html:23 templates/roles/list.html:23
 msgid "Name"
@@ -317,12 +316,12 @@ msgstr "URL-Parameter"
 msgid "URL"
 msgstr "URL"
 
-#: templates/extra_templates/list.html:26 templates/languages/list.html:27
+#: templates/extra_templates/list.html:26 templates/languages/list.html:29
 #: templates/pages/tree.html:68 templates/regions/list.html:27
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
-#: templates/extra_templates/list.html:27 templates/languages/list.html:26
+#: templates/extra_templates/list.html:27 templates/languages/list.html:28
 #: templates/pages/tree.html:69 templates/regions/list.html:26
 msgid "Created"
 msgstr "Erstellt"
@@ -386,38 +385,43 @@ msgstr "Quell-Sprache"
 msgid "Activate language"
 msgstr "Sprache aktivieren"
 
-#: templates/languages/language.html:12
-#, python-format
-msgid "Edit language %(form.name.initial)s"
-msgstr "Sprache %(form.name.initial)s bearbeiten"
+#: templates/languages/language.html:13
+msgid "Edit language \"%(translated_language_name)s\""
+msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
 
-#: templates/languages/language.html:14
+#: templates/languages/language.html:16
 msgid "Create new language"
 msgstr "Neue Sprache erstellen"
 
-#: templates/languages/language.html:20
-#: templates/organizations/organization.html:22 templates/pages/page.html:33
-#: templates/regions/region.html:22
-msgid "Publish"
-msgstr "Veröffentlichen"
-
 #: templates/languages/language.html:29
-msgid "Enter the language's name here"
-msgstr "Name der Sprache hier eingeben"
+msgid "Name in English"
+msgstr "Name auf Englisch"
 
-#: templates/languages/language.html:33 templates/languages/list.html:24
+#: templates/languages/language.html:30
+msgid "Enter the language's name in english here"
+msgstr "Name der Sprache auf Englisch hier eingeben"
+
+#: templates/languages/language.html:34 templates/languages/list.html:25
+msgid "Native name"
+msgstr "Nativer Name"
+
+#: templates/languages/language.html:35
+msgid "Enter the language's native name here"
+msgstr "Nativen Name der Sprache hier eingeben"
+
+#: templates/languages/language.html:39 templates/languages/list.html:26
 msgid "Code"
 msgstr "Code"
 
-#: templates/languages/language.html:34
+#: templates/languages/language.html:40
 msgid "Enter the language's code here"
 msgstr "Sprach-Code hier eingeben"
 
-#: templates/languages/language.html:38 templates/languages/list.html:25
+#: templates/languages/language.html:44 templates/languages/list.html:27
 msgid "Text direction"
 msgstr "Schreibrichtung"
 
-#: templates/languages/language.html:39
+#: templates/languages/language.html:45
 msgid "Select text direction here"
 msgstr "Schreibrichtung auswählen"
 
@@ -425,7 +429,11 @@ msgstr "Schreibrichtung auswählen"
 msgid "Create language"
 msgstr "Sprache hinzufügen"
 
-#: templates/languages/list.html:36
+#: templates/languages/list.html:24
+msgid "Name in"
+msgstr "Name auf"
+
+#: templates/languages/list.html:38
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
@@ -469,6 +477,11 @@ msgstr "Organisation \"%(organization_name)s\" bearbeiten"
 #: templates/organizations/organization.html:16
 msgid "Create new organization"
 msgstr "Neue Organisation erstellen"
+
+#: templates/organizations/organization.html:22 templates/pages/page.html:33
+#: templates/regions/region.html:22
+msgid "Publish"
+msgstr "Veröffentlichen"
 
 #: templates/organizations/organization.html:36
 msgid "Organizationname"
@@ -1125,7 +1138,7 @@ msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
 #: templates/registration/password_reset_form.html:14
-#: views/languages/languages.py:72
+#: views/languages/languages.py:69
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -1403,11 +1416,11 @@ msgstr ""
 "Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
 "Quell-Sprache dieser Region ein."
 
-#: views/languages/languages.py:66
+#: views/languages/languages.py:63
 msgid "Language saved successfully."
 msgstr "Sprache wurde erfolgreich gespeichert."
 
-#: views/languages/languages.py:69
+#: views/languages/languages.py:65
 msgid "Language created successfully"
 msgstr "Sprache wurde erfolgreich erstellt."
 
@@ -1671,6 +1684,12 @@ msgstr "Linker Nachbar von"
 msgid "Right neighbor of"
 msgstr "Rechter Nachbar von"
 
+#~ msgid "Edit language \"%(form.instance.translated_name)s\""
+#~ msgstr "Sprache \"%(form.instance.translated_name)s\" bearbeiten"
+
+#~ msgid "English name"
+#~ msgstr "Englischer Name"
+
 #, python-format
 #~ msgid ""
 #~ "Please confirm that you really want to delete the region \"%(region_name)s"
@@ -1723,9 +1742,6 @@ msgstr "Rechter Nachbar von"
 
 #~ msgid "Arabic"
 #~ msgstr "Arabisch"
-
-#~ msgid "English"
-#~ msgstr "Englisch"
 
 #~ msgid "Farsi"
 #~ msgstr "Farsi"
