@@ -152,6 +152,10 @@
 	            <i data-feather="layers" class="absolute"></i>
 		        {% trans 'PDF Export' %}
 	        </a>
+		    <a href="{% url 'extras' region_slug=region.slug %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'extras' %}active{% endif %}">
+			    <i data-feather="star" class="absolute"></i>
+			    {% trans 'Extras' %}
+		    </a>
 	        <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'imprint' %}active{% endif %}">
 	            <i data-feather="file-text" class="absolute"></i>
 		        {% trans 'Imprint' %}
@@ -185,10 +189,14 @@
 		    <i data-feather="key" class="absolute"></i>
 		    {% trans 'Roles' %}
 	    </a>
-            <a href="{% url 'organizations' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'organizations' %}active{% endif %}">
-                <i data-feather="umbrella" class="absolute"></i>
-                {% trans 'Organizations' %}
-            </a>
+		    <a href="{% url 'organizations' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'organizations' %}active{% endif %}">
+			    <i data-feather="umbrella" class="absolute"></i>
+			    {% trans 'Organizations' %}
+		    </a>
+		    <a href="{% url 'extra_templates' %}" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'extra_templates' %}active{% endif %}">
+			    <i data-feather="star" class="absolute"></i>
+			    {% trans 'Extra templates' %}
+		    </a>
 		    <a href="" class="relative block text-grey-light hover:text-grey-darker hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
 			    <i data-feather="thumbs-up" class="absolute"></i>
 			    {% trans 'Feedback' %}

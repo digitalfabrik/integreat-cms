@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-24 15:46+0200\n"
+"POT-Creation-Date: 2019-10-11 23:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: models/extra_template.py:20
+msgid "No"
+msgstr "Nein"
+
+#: models/extra_template.py:21
+msgid "Append postal code to URL"
+msgstr "PLZ an die URL anhängen"
+
+#: models/extra_template.py:22
+msgid "Add postal code to post parameters"
+msgstr "PLZ zu den Post-Parametern hinzufügen"
+
 #: models/language.py:23
 msgid "Left to right"
 msgstr "Links nach Rechts"
@@ -25,15 +37,15 @@ msgstr "Links nach Rechts"
 msgid "Right to left"
 msgstr "Rechts nach Links"
 
-#: models/page.py:151
+#: models/page.py:152
 msgid "Draft"
 msgstr "Entwurf"
 
-#: models/page.py:152
+#: models/page.py:153
 msgid "Pending Review"
 msgstr "Review ausstehend"
 
-#: models/page.py:153
+#: models/page.py:154
 msgid "Finished Review"
 msgstr "Review abgeschlossen"
 
@@ -51,7 +63,8 @@ msgstr "Versteckt"
 msgid "Archived"
 msgstr "Archiviert"
 
-#: templates/_base.html:11 templates/language_tree/tree.html:15
+#: templates/_base.html:11 templates/extra_templates/list.html:9
+#: templates/extras/list.html:15 templates/language_tree/tree.html:15
 #: templates/languages/list.html:9 templates/media/medialist.html:8
 #: templates/organizations/list.html:9 templates/pages/archive.html:13
 #: templates/pages/tree.html:26 templates/pois/list.html:15
@@ -117,12 +130,12 @@ msgstr "Veranstaltungen"
 msgid "Points of Interest"
 msgstr "POIs"
 
-#: templates/_base.html:141 templates/_base.html:182
+#: templates/_base.html:141 templates/_base.html:186
 #: templates/regions/region.html:172
 msgid "Users"
 msgstr "Benutzer"
 
-#: templates/_base.html:145 templates/_base.html:194
+#: templates/_base.html:145 templates/_base.html:202
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -134,39 +147,47 @@ msgstr "Push-Benachrichtigungen"
 msgid "PDF Export"
 msgstr "PDF Export"
 
-#: templates/_base.html:157
+#: templates/_base.html:157 templates/extras/list.html:9
+msgid "Extras"
+msgstr "Extras"
+
+#: templates/_base.html:161
 msgid "Imprint"
 msgstr "Impressum"
 
-#: templates/_base.html:161 templates/language_tree/tree.html:9
+#: templates/_base.html:165 templates/language_tree/tree.html:9
 msgid "Language tree"
 msgstr "Sprach-Baum"
 
-#: templates/_base.html:165 templates/_base.html:198
+#: templates/_base.html:169 templates/_base.html:206
 #: templates/statistics/statistics_dashboard.html:59
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: templates/_base.html:170
+#: templates/_base.html:174
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: templates/_base.html:174 templates/users/admin/user.html:91
+#: templates/_base.html:178 templates/users/admin/user.html:91
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:178 templates/regions/region.html:173
+#: templates/_base.html:182 templates/regions/region.html:173
 msgid "Languages"
 msgstr "Sprachen"
 
-#: templates/_base.html:186 templates/users/admin/user.html:86
+#: templates/_base.html:190 templates/users/admin/user.html:86
 #: templates/users/region/user.html:77
 msgid "Roles"
 msgstr "Rollen"
 
-#: templates/_base.html:190
+#: templates/_base.html:194
 msgid "Organizations"
 msgstr "Organisationen"
+
+#: templates/_base.html:198
+msgid "Extra templates"
+msgstr "Extra-Vorlagen"
 
 #: templates/_raw.html:9
 msgid "Integreat Backend"
@@ -193,6 +214,147 @@ msgstr "Zurück zur Startseite"
 msgid "Error"
 msgstr "Fehler"
 
+#: templates/extra_templates/extra_template.html:13
+#, python-format
+msgid "Edit extra template \"%(extra_template_name)s\""
+msgstr "Extra-Vorlage \"%(extra_template_name)s\" bearbeiten"
+
+#: templates/extra_templates/extra_template.html:16
+msgid "Create new extra template"
+msgstr "Neue Extra-Vorlage erstellen"
+
+#: templates/extra_templates/extra_template.html:22
+#: templates/language_tree/tree_node.html:19
+#: templates/languages/language.html:19
+#: templates/organizations/organization.html:21 templates/pages/page.html:29
+#: templates/pages/sbs_page.html:38 templates/pois/poi.html:27
+#: templates/push_notifications/push_notification.html:26
+#: templates/regions/region.html:21 templates/roles/role.html:21
+#: templates/users/admin/user.html:21 templates/users/region/user.html:21
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/extra_templates/extra_template.html:24
+msgid "Create"
+msgstr "Erstellen"
+
+#: templates/extra_templates/extra_template.html:34
+#: templates/organizations/organization.html:31
+#: templates/regions/region.html:31 templates/users/admin/user.html:31
+#: templates/users/region/user.html:31
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: templates/extra_templates/extra_template.html:39
+msgid "Extra name"
+msgstr "Extra Name"
+
+#: templates/extra_templates/extra_template.html:40
+msgid "Enter the extra's name here"
+msgstr "Name des Extras hier eingeben"
+
+#: templates/extra_templates/extra_template.html:43
+msgid "Slug of the extra"
+msgstr "Alias des Extras"
+
+#: templates/extra_templates/extra_template.html:44
+msgid "Leave blank to generate unique slug from name"
+msgstr ""
+"Dieses Feld freilassen, um einen eindeutigen Alias aus dem Namen zu "
+"generieren"
+
+#: templates/extra_templates/extra_template.html:47
+msgid "URL of the extra"
+msgstr "URL des Extras"
+
+#: templates/extra_templates/extra_template.html:48
+msgid "Enter the extra's url here"
+msgstr "URL des Extras hier eingeben"
+
+#: templates/extra_templates/extra_template.html:51
+msgid "Thumbnail of the extra"
+msgstr "Thumbnail des Extras"
+
+#: templates/extra_templates/extra_template.html:52
+msgid "Enter the extra's thumbnail here"
+msgstr "URL des Extra-Thumbnails hier eingeben"
+
+#: templates/extra_templates/extra_template.html:60
+#: templates/organizations/organization.html:54
+#: templates/regions/region.html:98 templates/users/admin/user.html:67
+#: templates/users/region/user.html:67
+msgid "Extended Settings"
+msgstr "Erweiterte Einstellungen"
+
+#: templates/extra_templates/extra_template.html:63
+msgid "Post data of the extra in JSON (optional)"
+msgstr "Post-Parameter des Extras im JSON-Formt (optional)"
+
+#: templates/extra_templates/extra_template.html:64
+msgid "Enter the extra's post data in JSON here"
+msgstr "Post-Parameter des Extras hier im JSON-Formt eingeben"
+
+#: templates/extra_templates/extra_template.html:71
+msgid "Does the extra make use of its region's postal code?"
+msgstr "Verwendet das Extra die PLZ seiner Region?"
+
+#: templates/extra_templates/list.html:13
+msgid "Create extra template"
+msgstr "Neue Extra-Vorlage erstellen"
+
+#: templates/extra_templates/list.html:23 templates/extras/list.html:31
+#: templates/languages/language.html:28 templates/languages/list.html:23
+#: templates/media/medialist.html:22 templates/organizations/list.html:23
+#: templates/regions/list.html:23 templates/roles/list.html:23
+msgid "Name"
+msgstr "Name"
+
+#: templates/extra_templates/list.html:24 templates/organizations/list.html:24
+msgid "Slug"
+msgstr "URL-Parameter"
+
+#: templates/extra_templates/list.html:25
+msgid "URL"
+msgstr "URL"
+
+#: templates/extra_templates/list.html:26 templates/languages/list.html:27
+#: templates/pages/tree.html:68 templates/regions/list.html:27
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
+#: templates/extra_templates/list.html:27 templates/languages/list.html:26
+#: templates/pages/tree.html:69 templates/regions/list.html:26
+msgid "Created"
+msgstr "Erstellt"
+
+#: templates/extra_templates/list.html:36
+msgid "No extra templates available yet."
+msgstr "Noch keine Extra-Vorlagen vorhanden."
+
+#: templates/extras/list.html:20
+msgid "Manage extra templates"
+msgstr "Extra-Vorlagen verwalten"
+
+#: templates/extras/list.html:32
+msgid "Active since"
+msgstr "Aktiv seit"
+
+#: templates/extras/list.html:33
+msgid "Actions"
+msgstr "Aktionen"
+
+#: templates/extras/list.html:42
+msgid "No extras available yet."
+msgstr "Noch keine Extras vorhanden."
+
+#: templates/extras/list_row.html:22
+msgid "Deactivate"
+msgstr "Deaktivieren"
+
+#: templates/extras/list_row.html:26
+msgid "Activate"
+msgstr "Aktivieren"
+
 #: templates/language_tree/tree.html:19
 msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
@@ -215,16 +377,6 @@ msgstr "Knoten bearbeiten"
 #: templates/language_tree/tree_node.html:14
 msgid "Add language"
 msgstr "Sprache hinzufügen"
-
-#: templates/language_tree/tree_node.html:19
-#: templates/languages/language.html:19
-#: templates/organizations/organization.html:21 templates/pages/page.html:29
-#: templates/pages/sbs_page.html:38 templates/pois/poi.html:27
-#: templates/push_notifications/push_notification.html:26
-#: templates/regions/region.html:21 templates/roles/role.html:21
-#: templates/users/admin/user.html:21 templates/users/region/user.html:21
-msgid "Save"
-msgstr "Speichern"
 
 #: templates/language_tree/tree_node.html:37
 msgid "Source Language"
@@ -249,12 +401,6 @@ msgstr "Neue Sprache erstellen"
 msgid "Publish"
 msgstr "Veröffentlichen"
 
-#: templates/languages/language.html:28 templates/languages/list.html:23
-#: templates/media/medialist.html:22 templates/organizations/list.html:23
-#: templates/regions/list.html:23 templates/roles/list.html:23
-msgid "Name"
-msgstr "Name"
-
 #: templates/languages/language.html:29
 msgid "Enter the language's name here"
 msgstr "Name der Sprache hier eingeben"
@@ -278,16 +424,6 @@ msgstr "Schreibrichtung auswählen"
 #: templates/languages/list.html:13
 msgid "Create language"
 msgstr "Sprache hinzufügen"
-
-#: templates/languages/list.html:26 templates/pages/tree.html:69
-#: templates/regions/list.html:26
-msgid "Created"
-msgstr "Erstellt"
-
-#: templates/languages/list.html:27 templates/pages/tree.html:68
-#: templates/regions/list.html:27
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
 
 #: templates/languages/list.html:36
 msgid "No languages available yet."
@@ -317,10 +453,6 @@ msgstr "Optionenen"
 msgid "Create organization"
 msgstr "Organisation erstellen"
 
-#: templates/organizations/list.html:24
-msgid "Slug"
-msgstr "URL-Parameter"
-
 #: templates/organizations/list.html:25
 msgid "Thumbnail"
 msgstr "Vorschaubild"
@@ -337,12 +469,6 @@ msgstr "Organisation \"%(organization_name)s\" bearbeiten"
 #: templates/organizations/organization.html:16
 msgid "Create new organization"
 msgstr "Neue Organisation erstellen"
-
-#: templates/organizations/organization.html:31
-#: templates/regions/region.html:31 templates/users/admin/user.html:31
-#: templates/users/region/user.html:31
-msgid "General Settings"
-msgstr "Allgemeine Einstellungen"
 
 #: templates/organizations/organization.html:36
 msgid "Organizationname"
@@ -367,12 +493,6 @@ msgstr "Thumbnail der Organisation"
 #: templates/organizations/organization.html:45
 msgid "Enter the organization's thumbnail here"
 msgstr "Name der Organisations-Thumbnail hier eingeben"
-
-#: templates/organizations/organization.html:54
-#: templates/regions/region.html:98 templates/users/admin/user.html:67
-#: templates/users/region/user.html:67
-msgid "Extended Settings"
-msgstr "Erweiterte Einstellungen"
 
 #: templates/organizations/organization.html:66 templates/pages/page.html:185
 #: templates/pois/poi.html:130 templates/regions/region.html:78
@@ -445,9 +565,7 @@ msgstr "Ja, die Seite wiederherstellen."
 
 #: templates/pages/archive.html:53
 #: templates/pages/confirmation_popups/archive_page.html:10
-#: templates/pages/tree_row.html:71
-#: templates/regions/confirmation_popups/delete_region.html:12
-#: templates/regions/region.html:184
+#: templates/pages/tree_row.html:71 templates/regions/region.html:184
 #: templates/users/confirmation_popups/delete_region_user.html:12
 #: templates/users/confirmation_popups/delete_user.html:12
 msgid "Cancel"
@@ -791,27 +909,6 @@ msgstr "Titel auf %(language)s hier eingeben"
 msgid "Insert content in %(language)s here"
 msgstr "Inhalt auf %(language)s hier eingeben"
 
-#: templates/regions/confirmation_popups/delete_region.html:5
-#, python-format
-msgid ""
-"Please confirm that you really want to delete the region \"%(region_name)s\""
-msgstr ""
-"Bitte bestätigen Sie, dass die Region \"%(region_name)s\" gelöscht werden "
-"soll"
-
-#: templates/regions/confirmation_popups/delete_region.html:8
-#: templates/regions/region.html:162
-msgid ""
-"This can not be reversed. All pages, events, POIs and users of this region "
-"will also be deleted."
-msgstr ""
-"Dies kann nicht rückgängig gemacht werden. Alle Seiten, Veranstaltungen, "
-"POIs und Benutzer dieser Region werden ebenfalls gelöscht."
-
-#: templates/regions/confirmation_popups/delete_region.html:10
-msgid "Yes, delete this region now."
-msgstr "Ja, diese Region jetzt löschen"
-
 #: templates/regions/list.html:13
 msgid "Create region"
 msgstr "Region erstellen"
@@ -917,6 +1014,14 @@ msgstr "Region \"%(region_name)s\" löschen"
 #: templates/regions/region.html:160
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
+
+#: templates/regions/region.html:162
+msgid ""
+"This can not be reversed. All pages, events, POIs and users of this region "
+"will also be deleted."
+msgstr ""
+"Dies kann nicht rückgängig gemacht werden. Alle Seiten, Veranstaltungen, "
+"POIs und Benutzer dieser Region werden ebenfalls gelöscht."
 
 #: templates/regions/region.html:166
 msgid "Summary of deleted objects"
@@ -1109,7 +1214,7 @@ msgstr "bitte auswählen"
 
 #: templates/statistics/statistics_dashboard.html:87
 msgid "Image/PNG"
-msgstr ""
+msgstr "Bild/PNG"
 
 #: templates/statistics/statistics_dashboard.html:88
 msgid "Table Document/CSV"
@@ -1248,14 +1353,15 @@ msgstr "Interner Server-Fehler"
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
-#: views/language_tree/language_tree_node.py:61
-msgid "Language tree node was saved successfully."
-msgstr "Sprach-Baum wurde erfolgreich gespeichert."
+#: views/extra_templates/extra_templates.py:62
+msgid "Extra template saved successfully"
+msgstr "Extra-Vorlage wurde erfolgreich gespeichert."
 
-#: views/language_tree/language_tree_node.py:64
-msgid "Language tree node was created successfully."
-msgstr "Sprach-Baum wurde erfolgreich erstellt."
+#: views/extra_templates/extra_templates.py:65
+msgid "Extra template created successfully"
+msgstr "Extra-Vorlage wurde erfolgreich erstellt."
 
+#: views/extra_templates/extra_templates.py:74
 #: views/language_tree/language_tree_node.py:70
 #: views/organizations/organizations.py:72 views/pages/page.py:142
 #: views/pages/sbs_page.py:109 views/pois/poi.py:122
@@ -1264,6 +1370,22 @@ msgstr "Sprach-Baum wurde erfolgreich erstellt."
 #: views/users/region_users.py:116 views/users/users.py:92
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
+
+#: views/extras/extras.py:46
+msgid "was successfully activated."
+msgstr "wurde erfolgreich aktiviert."
+
+#: views/extras/extras.py:59
+msgid "was successfully deactivated."
+msgstr "wurde erfolgreich deaktiviert."
+
+#: views/language_tree/language_tree_node.py:61
+msgid "Language tree node was saved successfully."
+msgstr "Sprach-Baum wurde erfolgreich gespeichert."
+
+#: views/language_tree/language_tree_node.py:64
+msgid "Language tree node was created successfully."
+msgstr "Sprach-Baum wurde erfolgreich erstellt."
 
 #: views/language_tree/language_tree_node_form.py:62
 msgid ""
@@ -1548,6 +1670,17 @@ msgstr "Linker Nachbar von"
 #: views/utils/tree_utils.py:8
 msgid "Right neighbor of"
 msgstr "Rechter Nachbar von"
+
+#, python-format
+#~ msgid ""
+#~ "Please confirm that you really want to delete the region \"%(region_name)s"
+#~ "\""
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass die Region \"%(region_name)s\" gelöscht werden "
+#~ "soll"
+
+#~ msgid "Yes, delete this region now."
+#~ msgstr "Ja, diese Region jetzt löschen"
 
 #~ msgid "User"
 #~ msgstr "Benutzer"

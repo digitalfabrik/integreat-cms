@@ -14,6 +14,8 @@ from .views import pages
 from .views import pois
 from .views import push_notifications
 from .views import organizations
+from .views import extras
+from .views import extra_templates
 from .views import settings
 from .views import statistics
 from .views import regions
@@ -102,6 +104,22 @@ urlpatterns = [
                 r'^delete$',
                 organizations.OrganizationView.as_view(),
                 name='delete_organization'
+            ),
+        ])),
+    ])),
+    url(r'^extra_templates/', include([
+        url(r'^$', extra_templates.ExtraTemplateListView.as_view(), name='extra_templates'),
+        url(r'^new$', extra_templates.ExtraTemplateView.as_view(), name='new_extra_template'),
+        url(r'^(?P<extra_template_id>[0-9]+)/', include([
+            url(
+                r'^edit$',
+                extra_templates.ExtraTemplateView.as_view(),
+                name='edit_extra_template'
+            ),
+            url(
+                r'^delete$',
+                extra_templates.ExtraTemplateView.as_view(),
+                name='delete_extra_templates'
             ),
         ])),
     ])),
@@ -241,6 +259,21 @@ urlpatterns = [
                         name='edit_push_notification'
                     ),
                 ])),
+            ])),
+        ])),
+        url(r'^extras/', include([
+            url(r'^$', extras.ExtraListView.as_view(), name='extras'),
+            url(r'^(?P<extra_template_slug>[-\w]+)/', include([
+                url(
+                    r'^activate$',
+                    extras.activate,
+                    name='activate_extra'
+                ),
+                url(
+                    r'^deactivate$',
+                    extras.deactivate,
+                    name='deactivate_extra'
+                ),
             ])),
         ])),
         url(r'^language-tree/', include([

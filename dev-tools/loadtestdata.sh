@@ -9,3 +9,4 @@ if [ -x "$(command -v docker)" ] && [ "$(docker ps -q -f name=integreat_django_p
     export DJANGO_SETTINGS_MODULE=backend.docker_settings
 fi
 integreat-cms loaddata backend/cms/fixtures/test_data.json
+integreat-cms loaddata backend/cms/fixtures/extra_templates.json

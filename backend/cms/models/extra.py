@@ -14,37 +14,43 @@ class Extra(models.Model):
     An extra (addon) is activated per region. For each extra,
     a template exists which can be used during activation.
     """
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
-    template = models.ForeignKey(ExtraTemplate, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, related_name='extras', on_delete=models.CASCADE)
+    template = models.ForeignKey(ExtraTemplate, related_name='extras', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
-    # pylint: disable=C0111
-    def alias(self):
+    @property
+    def slug(self):
         # pylint: disable=E1101
-        return self.template.alias
+        return self.template.slug
 
-    # pylint: disable=C0111
+    @property
     def name(self):
         return self.template.name
 
-    # pylint: disable=C0111
+    @property
     def thumbnail(self):
         # pylint: disable=E1101
         return self.template.thumbnail
 
-    # pylint: disable=C0111
+    @property
     def url(self):
         # pylint: disable=E1101
+        if self.template.use_postal_code == self.template.POSTAL_GET:
+            return self.template.url + self.region.postal_code
         return self.template.url
 
-    # pylint: disable=C0111
+    @property
     def post_data(self):
         # pylint: disable=E1101
-        return self.template.post_data
+        post_data = self.template.post_data
+        if self.template.use_postal_code == self.template.POSTAL_POST:
+            post_data.update({'search-plz': self.region.postal_code})
+        return post_data
 
     # pylint: disable=R0903
     class Meta:
+        unique_together = (('region', 'template', ), )
         default_permissions = ()
         permissions = (
             ('manage_extras', 'Can manage extras'),
