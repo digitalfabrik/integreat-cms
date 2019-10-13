@@ -6,7 +6,7 @@
             <i data-feather="move" class="text-grey-darkest"></i>
         </span>
     </td>
-    <td>
+    <td class="pl-4">
         {{ node.id }}
     </td>
     <td>
@@ -14,7 +14,7 @@
             {{ node|page_translation_title:language }}
         </a>
     </td>
-    <td>
+    <td class="whitespace-no-wrap">
         <div class="block py-3 px-2 text-grey-darkest">
             <div class="lang-grid">
 	            {% for other_language in languages %}
@@ -34,7 +34,7 @@
     <td>
         {{ node|page_translation_created_date:language }}
     </td>
-    <td class="pl-2 pr-4" width="180">
+    <td class="pl-2 pr-4">
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=node.id region_slug=region.slug language_code=language.code %}"
            target="_blank"
