@@ -224,7 +224,8 @@ class PageTranslationForm(forms.ModelForm):
         return page_translation
 
     def clean_slug(self):
-        existing_version = PageTranslation.objects.filter(language=self.language, page=self.instance.page)
-        if existing_version:
-            return existing_version.first().slug
+        if self.instance.id:
+            existing_version = PageTranslation.objects.filter(language=self.language, page=self.instance.page)
+            if existing_version:
+                return existing_version.first().slug
         return generate_unique_slug(self, 'page')

@@ -201,7 +201,7 @@ urlpatterns = [
                     ),
                     url(
                         r'^delete$',
-                        pages.PageView.as_view(),
+                        pages.delete_page,
                         name='delete_page'
                     ),
                     url(
