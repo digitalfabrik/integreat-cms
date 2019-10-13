@@ -1,38 +1,38 @@
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
-    <td>
+    <td class="pl-2">
         <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
             {{ user.username }}
         </a>
     </td>
-	<td>
+	<td class="pl-2">
 		{{ user.first_name }}
 	</td>
-	<td>
+	<td class="pl-2">
 		{{ user.last_name }}
 	</td>
-	<td>
+	<td class="pl-2">
 		{{ user.email }}
 	</td>
-	<td>
+	<td class="pl-2">
 		{% if user.profile.organization %}
 			{{ user.profile.organization }}
 		{% endif %}
 	</td>
-	<td>
+	<td class="pl-2">
 		{% if user.is_active %}
 		<i data-feather="check"></i>
 		{% else %}
 		<i data-feather="x"></i>
 		{% endif %}
 	</td>
-	<td>
+	<td class="pl-2">
 		{% if user.is_staff %}
 		<i data-feather="check"></i>
 		{% else %}
 		<i data-feather="x"></i>
 		{% endif %}
 	</td>
-	<td>
+	<td class="pl-2">
 		{% if user.is_superuser %}
 		<i data-feather="check"></i>
 		{% else %}

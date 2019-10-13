@@ -1,5 +1,5 @@
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
-    <td>
+    <td class="pl-2">
         <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-grey-darkest">
             {{ region.name }}
         </a>
@@ -14,13 +14,13 @@
 			https://integreat.app{% url 'dashboard' region_slug=region.slug %}
 		</a>
 	</td>
-	<td>
+	<td class="pl-2">
 		{{ region.created_date }}
 	</td>
-	<td>
+	<td class="pl-2">
 		{{ region.last_updated }}
 	</td>
-	<td>
+	<td class="pl-2">
 		{{ region.get_status_display }}
 	</td>
 </tr>
