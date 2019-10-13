@@ -23,7 +23,7 @@ from django.views.static import serve
 from .page_form import PageForm, PageTranslationForm
 from ...models import Page, PageTranslation, Region, Language
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, staff_required
 
 
 logger = logging.getLogger(__name__)
@@ -112,10 +112,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
             if page_form.has_changed() or page_translation_form.has_changed():
                 published = page_translation.public and 'public' in page_translation_form.changed_data
-                if page_form.data.get('submit_archive'):
-                    # archive button has been submitted
-                    messages.success(request, _('Page was successfully archived.'))
-                elif not page_instance:
+                if not page_instance:
                     if published:
                         messages.success(request, _('Page was successfully created and published.'))
                     else:
@@ -206,6 +203,24 @@ def view_page(request, page_id, region_slug, language_code):
             "page_translation": page_translation
         }
     )
+
+
+@login_required
+@staff_required
+def delete_page(request, page_id, region_slug, language_code):
+
+    page = Page.objects.get(id=page_id)
+
+    if page.children.exists():
+        messages.error(request, _('You cannot delete a page which has children.'))
+    else:
+        page.delete()
+        messages.success(request, _('Page was successfully deleted.'))
+
+    return redirect('pages', **{
+        'region_slug': region_slug,
+        'language_code': language_code,
+    })
 
 
 @login_required

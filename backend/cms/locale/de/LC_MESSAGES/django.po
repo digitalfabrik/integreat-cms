@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-12 01:33+0200\n"
+"POT-Creation-Date: 2019-10-13 15:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -37,15 +37,15 @@ msgstr "Links nach Rechts"
 msgid "Right to left"
 msgstr "Rechts nach Links"
 
-#: models/page.py:157
+#: models/page.py:156
 msgid "Draft"
 msgstr "Entwurf"
 
-#: models/page.py:158
+#: models/page.py:157
 msgid "Pending Review"
 msgstr "Review ausstehend"
 
-#: models/page.py:159
+#: models/page.py:158
 msgid "Finished Review"
 msgstr "Review abgeschlossen"
 
@@ -456,7 +456,7 @@ msgstr "Datum"
 
 #: templates/media/medialist.html:24 templates/pages/archive.html:22
 msgid "Operations"
-msgstr "Optionenen"
+msgstr "Optionen"
 
 #: templates/organizations/list.html:13
 msgid "Create organization"
@@ -578,8 +578,9 @@ msgid "Yes, restore this page now."
 msgstr "Ja, die Seite wiederherstellen."
 
 #: templates/pages/archive.html:53
-#: templates/pages/confirmation_popups/archive_page.html:10
-#: templates/pages/tree_row.html:71 templates/regions/region.html:184
+#: templates/pages/confirmation_popups/archive_page.html:13
+#: templates/pages/confirmation_popups/delete_page.html:13
+#: templates/regions/region.html:184
 #: templates/users/confirmation_popups/delete_region_user.html:12
 #: templates/users/confirmation_popups/delete_user.html:12
 msgid "Cancel"
@@ -589,20 +590,29 @@ msgstr "Abbrechen"
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
-#: templates/pages/confirmation_popups/archive_page.html:4
-#: templates/pages/tree_row.html:63
+#: templates/pages/confirmation_popups/archive_page.html:5
 msgid "Please confirm that you really want to archive this page"
 msgstr "Bitte bestätigen Sie, dass diese Seite archiviert werden soll."
 
-#: templates/pages/confirmation_popups/archive_page.html:6
-#: templates/pages/tree_row.html:65
+#: templates/pages/confirmation_popups/archive_page.html:7
 msgid "All translations of this page will also be archived."
 msgstr "Es werden auch alle Übersetzungen dieser Seite archiviert."
 
-#: templates/pages/confirmation_popups/archive_page.html:8
-#: templates/pages/tree_row.html:69
+#: templates/pages/confirmation_popups/archive_page.html:11
 msgid "Yes, archive this page now."
 msgstr "Ja, diese Seite jetzt archivieren"
+
+#: templates/pages/confirmation_popups/delete_page.html:5
+msgid "Please confirm that you really want to delete this page"
+msgstr "Bitte bestätigen Sie, dass diese Seite gelöscht werden soll"
+
+#: templates/pages/confirmation_popups/delete_page.html:7
+msgid "All translations of this page will also be deleted."
+msgstr "Alle Übersetzungen dieser Seite werden gelöscht."
+
+#: templates/pages/confirmation_popups/delete_page.html:11
+msgid "Yes, delete this page now."
+msgstr "Ja, die Seite jetzt löschen."
 
 #: templates/pages/page.html:16
 #, python-format
@@ -715,23 +725,37 @@ msgstr "Status"
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/pages/page.html:190 templates/pages/tree_row.html:51
+#: templates/pages/page.html:191 templates/pages/tree_row.html:48
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: templates/pages/page.html:192
+#: templates/pages/page.html:193
 msgid "Page is archived."
 msgstr "Die Seite wurde archiviert."
 
-#: templates/pages/page.html:195
+#: templates/pages/page.html:196
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
+
+#: templates/pages/page.html:202 templates/pages/tree_row.html:57
+msgid "Delete page"
+msgstr "Seite löschen"
+
+#: templates/pages/page.html:204 templates/pages/tree_row.html:53
+#: views/pages/page.py:215
+msgid "You cannot delete a page which has children."
+msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
+
+#: templates/pages/page.html:207
+msgid "Delete this page"
+msgstr "Diese Seite löschen"
 
 #: templates/pages/sbs_page.html:11
 #, python-format
 msgid ""
 "Translate \"%(page_title)s\" from %(source_language)s to %(target_language)s"
 msgstr ""
+"Übersetze \"%(page_title)s\" von %(source_language)s nach %(target_language)s"
 
 #: templates/pages/sbs_page.html:40
 msgid "Go Back to Page Editor"
@@ -769,11 +793,7 @@ msgstr "Seite ansehen"
 msgid "Edit page"
 msgstr "Seite bearbeiten"
 
-#: templates/pages/tree_row.html:47
-msgid "Delete page"
-msgstr "Gelöschte Seite"
-
-#: templates/pages/tree_row.html:56
+#: templates/pages/tree_row.html:63
 msgid "Download page"
 msgstr "Seite herunterladen"
 
@@ -1377,7 +1397,7 @@ msgstr "Extra-Vorlage wurde erfolgreich erstellt."
 
 #: views/extra_templates/extra_templates.py:74
 #: views/language_tree/language_tree_node.py:70
-#: views/organizations/organizations.py:72 views/pages/page.py:142
+#: views/organizations/organizations.py:72 views/pages/page.py:139
 #: views/pages/sbs_page.py:109 views/pois/poi.py:122
 #: views/push_notifications/push_notifications.py:171
 #: views/regions/regions.py:78 views/roles/roles.py:71
@@ -1433,60 +1453,64 @@ msgstr "Organisation wurde erfolgreich erstellt."
 msgid "Organization saved successfully"
 msgstr "Organisation wurde erfolgreich gespeichert."
 
-#: views/pages/page.py:117 views/pages/page.py:166
-msgid "Page was successfully archived."
-msgstr "Seite wurde erfolgreich archiviert."
-
-#: views/pages/page.py:120
+#: views/pages/page.py:117
 msgid "Page was successfully created and published."
 msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/pages/page.py:122
+#: views/pages/page.py:119
 msgid "Page was successfully created."
 msgstr "Seite wurde erfolgreich erstellt."
 
-#: views/pages/page.py:125
+#: views/pages/page.py:122
 msgid "Translation was successfully created and published."
 msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/pages/page.py:127 views/pages/sbs_page.py:103
+#: views/pages/page.py:124 views/pages/sbs_page.py:103
 msgid "Translation was successfully created."
 msgstr "Übersetzung wurde erfolgreich erstellt."
 
-#: views/pages/page.py:130
+#: views/pages/page.py:127
 msgid "Translation was successfully published."
 msgstr "Übersetzung wurde erfolgreich veröffentlich."
 
-#: views/pages/page.py:132 views/pages/sbs_page.py:105
+#: views/pages/page.py:129 views/pages/sbs_page.py:105
 msgid "Translation was successfully saved."
 msgstr "Übersetzung wurde erfolgreich gespeichert."
 
-#: views/pages/page.py:134 views/pages/sbs_page.py:107 views/pois/poi.py:114
+#: views/pages/page.py:131 views/pages/sbs_page.py:107 views/pois/poi.py:114
 #: views/regions/regions.py:89 views/users/region_users.py:113
 #: views/users/users.py:89
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
-#: views/pages/page.py:185
+#: views/pages/page.py:163
+msgid "Page was successfully archived."
+msgstr "Seite wurde erfolgreich archiviert."
+
+#: views/pages/page.py:182
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page.py:301 views/pages/page.py:316
+#: views/pages/page.py:218
+msgid "Page was successfully deleted."
+msgstr "Seite wurde erfolgreich gelöscht."
+
+#: views/pages/page.py:316 views/pages/page.py:331
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page.py:309
+#: views/pages/page.py:324
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page.py:324
+#: views/pages/page.py:339
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nurn veröffentlichen"
 
-#: views/pages/page.py:391
+#: views/pages/page.py:406
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -1496,12 +1520,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:397
+#: views/pages/page.py:412
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page.py:408
+#: views/pages/page.py:423
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -1511,7 +1535,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:414
+#: views/pages/page.py:429
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -1684,6 +1708,9 @@ msgstr "Linker Nachbar von"
 #: views/utils/tree_utils.py:8
 msgid "Right neighbor of"
 msgstr "Rechter Nachbar von"
+
+#~ msgid "Deleted page"
+#~ msgstr "Gelöschte Seite"
 
 #~ msgid "Edit language \"%(form.instance.translated_name)s\""
 #~ msgstr "Sprache \"%(form.instance.translated_name)s\" bearbeiten"

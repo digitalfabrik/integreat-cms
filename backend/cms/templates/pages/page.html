@@ -186,22 +186,42 @@
                         <span class="filename"></span>
                     </label>
                 </div>
-                <div class="pt-2 pb-4">
-                    <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
-                    {% if page.archived %}
-                        {% trans 'Page is archived.' %}
-                    {% else %}
-                        <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_page')">
-                            {% trans 'Archive this page' %}
-                        </button>
-                    {% endif %}
-
-                    {% include "./confirmation_popups/archive_page.html" %}
-                </div>
+	            {% if page %}
+	                <div class="pt-2 pb-4">
+	                    <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
+	                    {% if page.archived %}
+	                        {% trans 'Page is archived.' %}
+	                    {% else %}
+	                        <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_page_{{ page.id }}')">
+	                            {% trans 'Archive this page' %}
+	                        </button>
+	                    {% endif %}
+	                </div>
+		            {% if user.is_superuser or user.is_staff %}
+				        <div class="pt-2 pb-4">
+			                <span class="block font-bold mb-4">{% trans 'Delete page' %}</span>
+					        {% if page.children.all %}
+						        {% trans 'You cannot delete a page which has children.' %}
+					        {% else %}
+				                <button class="bg-red hover:bg-red-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_page_{{ page.id }}')">
+					                {% trans 'Delete this page' %}
+				                </button>
+					        {% endif %}
+		                </div>
+		            {% endif %}
+	            {% endif %}
             </div>
         </div>
     </div>
 </form>
+{% if page %}
+	{% include "./confirmation_popups/archive_page.html" with page=page %}
+	{% if user.is_superuser or user.is_staff %}
+		{% if not page.children.all %}
+			{% include "./confirmation_popups/delete_page.html" with page=page %}
+		{% endif %}
+	{% endif %}
+{% endif %}
 {% endblock %}
 
 {% block javascript %}
