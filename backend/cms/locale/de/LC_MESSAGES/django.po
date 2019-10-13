@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-13 15:37+0200\n"
+"POT-Creation-Date: 2019-10-13 20:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -50,7 +50,7 @@ msgid "Finished Review"
 msgstr "Review abgeschlossen"
 
 #: models/region.py:20 templates/language_tree/tree.html:31
-#: templates/users/admin/list.html:28 templates/users/admin/user.html:82
+#: templates/users/admin/list.html:33 templates/users/admin/user.html:82
 #: templates/users/region/list.html:28 templates/users/region/user.html:73
 msgid "Active"
 msgstr "Aktiv"
@@ -63,13 +63,11 @@ msgstr "Versteckt"
 msgid "Archived"
 msgstr "Archiviert"
 
-#: templates/_base.html:11 templates/extra_templates/list.html:9
-#: templates/extras/list.html:15 templates/language_tree/tree.html:15
-#: templates/languages/list.html:9 templates/media/medialist.html:8
-#: templates/organizations/list.html:9 templates/pages/archive.html:13
-#: templates/pages/tree.html:26 templates/pois/list.html:15
-#: templates/push_notifications/list.html:9 templates/regions/list.html:9
-#: templates/roles/list.html:9 templates/users/admin/list.html:9
+#: templates/_base.html:11 templates/extras/list.html:15
+#: templates/language_tree/tree.html:15 templates/media/medialist.html:8
+#: templates/pages/archive.html:13 templates/pages/tree.html:26
+#: templates/pois/list.html:15 templates/push_notifications/list.html:9
+#: templates/regions/list.html:14 templates/users/admin/list.html:14
 #: templates/users/region/list.html:9
 msgid "Search"
 msgstr "Suchen"
@@ -298,35 +296,39 @@ msgstr "Post-Parameter des Extras hier im JSON-Formt eingeben"
 msgid "Does the extra make use of its region's postal code?"
 msgstr "Verwendet das Extra die PLZ seiner Region?"
 
-#: templates/extra_templates/list.html:13
+#: templates/extra_templates/list.html:9
+msgid "Extra Templates"
+msgstr "Extra-Vorlagen"
+
+#: templates/extra_templates/list.html:14
 msgid "Create extra template"
 msgstr "Neue Extra-Vorlage erstellen"
 
-#: templates/extra_templates/list.html:23 templates/extras/list.html:31
-#: templates/media/medialist.html:22 templates/organizations/list.html:23
-#: templates/regions/list.html:23 templates/roles/list.html:23
+#: templates/extra_templates/list.html:24 templates/extras/list.html:31
+#: templates/media/medialist.html:22 templates/organizations/list.html:24
+#: templates/regions/list.html:28 templates/roles/list.html:24
 msgid "Name"
 msgstr "Name"
 
-#: templates/extra_templates/list.html:24 templates/organizations/list.html:24
+#: templates/extra_templates/list.html:25 templates/organizations/list.html:25
 msgid "Slug"
 msgstr "URL-Parameter"
 
-#: templates/extra_templates/list.html:25
+#: templates/extra_templates/list.html:26
 msgid "URL"
 msgstr "URL"
 
-#: templates/extra_templates/list.html:26 templates/languages/list.html:29
-#: templates/pages/tree.html:68 templates/regions/list.html:27
+#: templates/extra_templates/list.html:27 templates/languages/list.html:30
+#: templates/pages/tree.html:68 templates/regions/list.html:32
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
-#: templates/extra_templates/list.html:27 templates/languages/list.html:28
-#: templates/pages/tree.html:69 templates/regions/list.html:26
+#: templates/extra_templates/list.html:28 templates/languages/list.html:29
+#: templates/pages/tree.html:69 templates/regions/list.html:31
 msgid "Created"
 msgstr "Erstellt"
 
-#: templates/extra_templates/list.html:36
+#: templates/extra_templates/list.html:37
 msgid "No extra templates available yet."
 msgstr "Noch keine Extra-Vorlagen vorhanden."
 
@@ -402,7 +404,7 @@ msgstr "Name auf Englisch"
 msgid "Enter the language's name in english here"
 msgstr "Name der Sprache auf Englisch hier eingeben"
 
-#: templates/languages/language.html:34 templates/languages/list.html:25
+#: templates/languages/language.html:34 templates/languages/list.html:26
 msgid "Native name"
 msgstr "Nativer Name"
 
@@ -410,7 +412,7 @@ msgstr "Nativer Name"
 msgid "Enter the language's native name here"
 msgstr "Nativen Name der Sprache hier eingeben"
 
-#: templates/languages/language.html:39 templates/languages/list.html:26
+#: templates/languages/language.html:39 templates/languages/list.html:27
 msgid "Code"
 msgstr "Code"
 
@@ -418,7 +420,7 @@ msgstr "Code"
 msgid "Enter the language's code here"
 msgstr "Sprach-Code hier eingeben"
 
-#: templates/languages/language.html:44 templates/languages/list.html:27
+#: templates/languages/language.html:44 templates/languages/list.html:28
 msgid "Text direction"
 msgstr "Schreibrichtung"
 
@@ -426,15 +428,19 @@ msgstr "Schreibrichtung"
 msgid "Select text direction here"
 msgstr "Schreibrichtung auswählen"
 
-#: templates/languages/list.html:13
+#: templates/languages/list.html:9
+msgid "Manage Languages"
+msgstr "Sprachen"
+
+#: templates/languages/list.html:14
 msgid "Create language"
 msgstr "Sprache hinzufügen"
 
-#: templates/languages/list.html:24
+#: templates/languages/list.html:25
 msgid "Name in"
 msgstr "Name auf"
 
-#: templates/languages/list.html:38
+#: templates/languages/list.html:39
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
@@ -458,15 +464,19 @@ msgstr "Datum"
 msgid "Operations"
 msgstr "Optionen"
 
-#: templates/organizations/list.html:13
+#: templates/organizations/list.html:9
+msgid "Manage Organizations"
+msgstr "Organisationen"
+
+#: templates/organizations/list.html:14
 msgid "Create organization"
 msgstr "Organisation erstellen"
 
-#: templates/organizations/list.html:25
+#: templates/organizations/list.html:26
 msgid "Thumbnail"
 msgstr "Vorschaubild"
 
-#: templates/organizations/list.html:34
+#: templates/organizations/list.html:35
 msgid "No organizations available yet."
 msgstr "Noch keine Organisationen vorhanden."
 
@@ -525,7 +535,7 @@ msgstr ""
 #: templates/pages/_page_permission_table.html:48
 #: templates/pages/_page_permission_table.html:83
 #: templates/registration/login.html:26 templates/registration/login.html:28
-#: templates/users/admin/list.html:23 templates/users/admin/user.html:36
+#: templates/users/admin/list.html:28 templates/users/admin/user.html:36
 #: templates/users/region/list.html:23 templates/users/region/user.html:36
 msgid "Username"
 msgstr "Benutzername"
@@ -716,7 +726,7 @@ msgid "Visibility"
 msgstr "Sichtbarkeit"
 
 #: templates/pages/page.html:172 templates/pois/poi.html:117
-#: templates/regions/list.html:28 templates/regions/region.html:85
+#: templates/regions/list.html:33 templates/regions/region.html:85
 msgid "Status"
 msgstr "Status"
 
@@ -943,19 +953,23 @@ msgstr "Titel auf %(language)s hier eingeben"
 msgid "Insert content in %(language)s here"
 msgstr "Inhalt auf %(language)s hier eingeben"
 
-#: templates/regions/list.html:13
+#: templates/regions/list.html:9
+msgid "Manage Regions"
+msgstr "Regionen"
+
+#: templates/regions/list.html:18
 msgid "Create region"
 msgstr "Region erstellen"
 
-#: templates/regions/list.html:24
+#: templates/regions/list.html:29
 msgid "CMS-URL"
 msgstr "CMS-URL"
 
-#: templates/regions/list.html:25
+#: templates/regions/list.html:30
 msgid "WebApp-URL"
 msgstr "WebApp-URL"
 
-#: templates/regions/list.html:37
+#: templates/regions/list.html:42
 msgid "No regions available yet."
 msgstr "Noch keine Regionen vorhanden."
 
@@ -1172,11 +1186,15 @@ msgstr "Womöglich ist diese E-Mail Adresse nicht im System vorhanden."
 msgid "E-mail address"
 msgstr "E-Mail Adresse"
 
-#: templates/roles/list.html:13
+#: templates/roles/list.html:9
+msgid "Manage Roles"
+msgstr "Rollen"
+
+#: templates/roles/list.html:14
 msgid "Create role"
 msgstr "Rolle erstellen"
 
-#: templates/roles/list.html:32
+#: templates/roles/list.html:33
 msgid "No roles available yet."
 msgstr "Noch keine Rollen vorhanden."
 
@@ -1254,36 +1272,40 @@ msgstr "Bild/PNG"
 msgid "Table Document/CSV"
 msgstr "Tabellendokument/CSV"
 
-#: templates/users/admin/list.html:13 templates/users/region/list.html:13
+#: templates/users/admin/list.html:9
+msgid "Manage User"
+msgstr "Nutzerverwaltung"
+
+#: templates/users/admin/list.html:18 templates/users/region/list.html:13
 msgid "Create user"
 msgstr "Benutzer erstellen"
 
-#: templates/users/admin/list.html:24 templates/users/region/list.html:24
+#: templates/users/admin/list.html:29 templates/users/region/list.html:24
 msgid "First Name"
 msgstr "Vorname"
 
-#: templates/users/admin/list.html:25 templates/users/region/list.html:25
+#: templates/users/admin/list.html:30 templates/users/region/list.html:25
 msgid "Last Name"
 msgstr "Nachname"
 
-#: templates/users/admin/list.html:26 templates/users/region/list.html:26
+#: templates/users/admin/list.html:31 templates/users/region/list.html:26
 msgid "E-mail-address"
 msgstr "E-Mail Adresse"
 
-#: templates/users/admin/list.html:27 templates/users/admin/user.html:96
+#: templates/users/admin/list.html:32 templates/users/admin/user.html:96
 #: templates/users/region/list.html:27 templates/users/region/user.html:82
 msgid "Organization"
 msgstr "Organisation"
 
-#: templates/users/admin/list.html:29 templates/users/admin/user.html:77
+#: templates/users/admin/list.html:34 templates/users/admin/user.html:77
 msgid "Staff"
 msgstr "Mitarbeiter"
 
-#: templates/users/admin/list.html:30 templates/users/admin/user.html:72
+#: templates/users/admin/list.html:35 templates/users/admin/user.html:72
 msgid "Superuser"
 msgstr "Super-Administrator"
 
-#: templates/users/admin/list.html:39 templates/users/region/list.html:37
+#: templates/users/admin/list.html:44 templates/users/region/list.html:37
 msgid "No users available yet."
 msgstr "Noch keine Benutzer vorhanden."
 
@@ -1718,7 +1740,6 @@ msgstr "Rechter Nachbar von"
 #~ msgid "English name"
 #~ msgstr "Englischer Name"
 
-#, python-format
 #~ msgid ""
 #~ "Please confirm that you really want to delete the region \"%(region_name)s"
 #~ "\""
