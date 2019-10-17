@@ -81,6 +81,7 @@ class POITranslation(models.Model):
         ('reviewed', 'Review abgeschlossen'),
     )
     status = models.CharField(max_length=9, choices=STATUS, default='draft')
+    short_description = models.CharField(max_length=250)
     description = models.TextField()
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     version = models.PositiveIntegerField(default=0)
