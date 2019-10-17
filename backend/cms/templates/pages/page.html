@@ -7,8 +7,8 @@
 {% load rules %}
 <form method="post">
     {% csrf_token %}
-    <div class="flex flex-wrap mb-4">
-        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+    <div class="flex flex-wrap">
+        <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
             <h2 class="heading font-normal">
                 {% if page %}
                     {% if page_translation_form.instance.id %}
@@ -23,127 +23,115 @@
                 {% endif %}
             </h2>
         </div>
-        <div class="w-3/5 flex justify-end">
-            {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
-            {% if can_edit_page %}
-                <input type="submit" name="submit_save" class="{% if public %}bg-blue hover:bg-blue-dark{% else %}bg-grey hover:bg-grey-dark{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
-            {% endif %}
-            {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
-            {% if not page_translation_form.instance.public and can_publish_page %}
-                <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
-            {% endif %}
+        <div class="w-1/5 flex justify-end mb-6">
+        {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
+        {% if can_edit_page %}
+            <input type="submit" name="submit_save" class="{% if page_translation_form.instance.public %}bg-blue hover:bg-blue-dark{% else %}bg-grey hover:bg-grey-dark{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
+        {% endif %}
+        {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
+        {% if not page_translation_form.instance.public and can_publish_page %}
+            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+        {% endif %}
         </div>
-    </div>
-
-    <div class="flex flex-wrap">
-        <div class="w-2/3 pr-2">
+        <div class="w-2/3 flex flex-wrap flex-col pr-2">
             {{page_form.errors}}
             {{page_translation_form.errors}}
-            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-                <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
-                {% trans 'Insert title here' as title_placeholder%}
-                {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                <div class="mt-4">
-                    <label class="block mb-2 font-bold">{% trans 'Content' %}</label>
+            <ul class="flex flex-wrap" style="list-style: none;">
+                {% for other_language in languages %}
+                    <!--li class="mr-1 {% if other_language == language %}bg-blue-dark text-white font-bold{% else %}bg-white hover:bg-blue-dark text-blue-dark hover:text-white border-l border-t border-r border-blue-dark font-semibold{% endif %} inline-block py-2 px-4 rounded-t-lg"-->
+                    <li class="mr-1 {% if other_language == language %}z-10{% endif %} -mb-1">
+                        <div class="bg-white text-blue-dark {% if other_language != language %}hover:bg-blue-dark hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg">
+                            <div class="border-b-2 border-white">
+                        {% if other_language == language %}
+                            <div class="py-2 px-4">
+                            <i data-feather="{% if other_language in page.languages %}edit-2{% else %}plus{% endif %}"></i>
+                            <span style="vertical-align: super;">
+                                {{ other_language.translated_name }}
+                            </span>
+                            </div>
+                        {% else %}
+                            <a class="inline-block py-2 px-4" style="color: inherit;" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}">
+                                <i data-feather="{% if other_language in page.languages %}edit-2{% else %}plus{% endif %}"></i>
+                                <span style="vertical-align: super;">
+                                    {{ other_language.translated_name }}
+                                </span>
+                            </a>
+                        {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                <li class="ml-5">
+                    {% with language.code|add:'__'|add:language.code as sbs_language_code %}
+                    <a class="bg-white text-blue-dark hover:bg-blue-dark hover:text-white font-semibold inline-block py-2 px-4 border-l-2 border-t-2 border-r-2 border-blue-dark rounded-t-lg" href="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=sbs_language_code %}">
+                        <i data-feather="columns"></i>
+                        <span style="vertical-align: super;">
+                            {% trans 'Side by side view' %}
+                        </span>
+                    </a>
+                    {% endwith %}
+                </li>
+            </ul>
+            <div class="w-full mb-4 rounded border-2 border-blue-dark bg-white">
+                <div class="w-full p-4">
+                    <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
+                    <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                        {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
+                        {% spaceless %}
+                            <div style="display: table; white-space: nowrap;">
+                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.code }}/</span>
+                                {% if page_translation_form.instance.ancestor_path %}
+                                    <span style="display: table-cell;">{{ page_translation_form.instance.ancestor_path }}/</span>
+                                {% endif %}
+                                <span style="display: table-cell; width: 100%;">{% render_field page_translation_form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
+                            </div>
+                        {% endspaceless %}
+                    </div>
+                    <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
+                    {% trans 'Insert title here' as title_placeholder%}
+                    {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
                     {% trans 'Insert content here' as text_placeholder%}
                     {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded" %}
-                </div>
-            </div>
-            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-                <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
-            <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
-                {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
-                {% spaceless %}
-                    <div style="display: table; white-space: nowrap;">
-                        <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.code }}/</span>
-                        {% if page_translation_form.instance.ancestor_path %}
-                            <span style="display: table-cell;">{{ page_translation_form.instance.ancestor_path }}/</span>
-                        {% endif %}
-                        <span style="display: table-cell; width: 100%;">{% render_field page_translation_form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
-                    </div>
-                {% endspaceless %}
-            </div></div>
-            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-                <h3 class="mb-2">{% trans 'Embed live content' %}</h3>
-                <input type="text" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-                    placeholder="{% trans 'Search page' %}" />
-                <div class="relative my-2">
-                    <select class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
-                        <option>{% trans 'Embed before content' %}</option>
-                        <option>{% trans 'Embed after content' %}</option>
-                    </select>
-                    <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+
+                    <div class="py-2 border-b solid border-grey-lighter mb-2">
+                        <label for="status" class="font-bold">{% trans 'Status' %}</label>
+                        <div class="relative my-2">
+                            {% render_field page_translation_form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded">
-                    {% trans 'Embed page' %}
-                </button>
             </div>
-            {% if perms.cms.grant_page_permissions %}
-            <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-                <h3 class="mb-2">{% trans 'Additional permissions for this page' %}</h3>
-                <p class="mb-2">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
-                <div id="page_permission_table">
-                        {% include "pages/_page_permission_table.html" %}
-                </div>
-            </div>
-            {% endif %}
         </div>
-        <div class="w-1/3 pl-2">
-            <div class="w-full px-4 py-2 rounded border border-solid border-grey-light shadow bg-white">
-                <div class="py-2 border-b solid border-grey-lighter mb-2">
-                    <span class="block mb-2 font-bold">{% trans 'Language' %}</span>
-                    <label class="text-xs uppercase block">{% trans 'Current language' %}</label>
-                    <div class="relative my-2">
-                        {{ language.translated_name }}
+        <div class="w-1/3 pl-4 flex flex-wrap">
+            <ul class="flex" style="list-style: none;">
+                <li class="z-10" style="margin-bottom: -0.1rem;">
+                    <div class="bg-white text-blue-dark border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg py-2 px-4">
+                    <div class="border-b-4 border-white">
+                    <i data-feather="flag"></i>
+                    <span style="vertical-align: super;">
+                        {% trans 'Settings for all translations' %}
+                    </span>
                     </div>
-                    {% if page %}
-	                    <div class="entity-lang-list mt-4 mb-2">
-	                        <label class="text-xs uppercase block mb-2">{% trans 'Translations' %}</label>
-	                        <!-- TODO: get available languages from region settings -->
-	                        <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
-		                        {% for other_language in languages %}
-			                        {% if other_language != language %}
-				                        <tr>
-					                        <td>
-						                        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}" class="text-black block p-2">
-							                        {{ other_language.translated_name }}
-						                        </a>
-					                        </td>
-					                        <td>
-						                        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}" class="text-black block p-2 relative">
-							                        <i data-feather="{% if other_language in page.languages %}edit-2{% else %}plus{% endif %}"></i>
-						                        </a>
-					                        </td>
-				                        </tr>
-			                        {% endif %}
-		                        {% endfor %}
-	                        </table>
-	                    </div>
-                        <div class="entity-lang-list mt-4 mb-2">
-                            <label class="text-xs uppercase block mb-2">{% trans 'Side by Side View' %}</label>
-                            <!-- TODO: get available languages from region settings -->
-                            <table style="width:100%;" border="0" cellspacing="0" cellpadding="0">
-                                {% for other_language in languages %}
-                                    {% if other_language != language %}
-                                        {% with language.code|add:'__'|add:other_language.code  as sbs_language_code %}
-                                        <tr>
-                                            <td>
-                                                <a href="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=sbs_language_code %}" class="text-black block p-2">
-                                                    {{ other_language.translated_name }}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        {% endwith %}
-                                    {% endif %}
-                                {% endfor %}
-                            </table>
+                    </div>
+                </li>
+            </ul>
+            <div class="w-full mb-4 rounded border-2 border-solid border-blue-dark shadow bg-white">
+                <div class="w-full p-4">
+                    {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
+                    {% if can_publish_page %}
+                        <label for="public" class="font-bold">{% trans 'Visibility' %}</label>
+                        <div class="relative my-2">
+                            {% render_field page_translation_form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
                         </div>
                     {% endif %}
-                </div>
-                <div class="py-2 border-b solid border-grey-lighter mb-2">
-                    <span class="font-bold mb-2 block">{% trans 'Positioning' %}</span>
+                    <span class="font-bold mb-2 mt-4 block">{% trans 'Positioning' %}</span>
                     <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
                     <div class="relative my-2">
                         {% render_field page_form.position placeholder="0" id="position" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
@@ -155,72 +143,71 @@
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
-                </div>
-                {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
-                {% if can_publish_page %}
-                <div class="py-2 border-b solid border-grey-lighter mb-2">
-                    <label for="public" class="font-bold">{% trans 'Visibility' %}</label>
-                    <div class="relative my-2">
-                        {% render_field page_translation_form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
+                    <input type="text" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 mt-4 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+                           placeholder="{% trans 'Search page' %}" />
+                    <div class="relative my-2 pb-2">
+                        <select class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                            <option>{% trans 'Embed before content' %}</option>
+                            <option>{% trans 'Embed after content' %}</option>
+                        </select>
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
-                </div>
-                {% endif %}
-                <div class="py-2 border-b solid border-grey-lighter mb-2">
-                    <label for="status" class="font-bold">{% trans 'Status' %}</label>
-                    <div class="relative my-2">
-                        {% render_field page_translation_form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                    {% if perms.cms.grant_page_permissions %}
+                        <span class="block font-bold mb-2">{% trans 'Additional permissions for this page' %}</span>
+                        <p class="italic">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
+                        <div id="page_permission_table">
+                            {% include "pages/_page_permission_table.html" %}
                         </div>
+                    {% endif %}
+                    <div class="pt-2 pb-4">
+                        <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
+                        {% render_field page_form.icon id="icon" class="image-field" %}
+                        <label for="icon" class="font-bold bg-blue hover:bg-blue-dark focus:bg-blue-dark text-white font-bold py-3 pl-10 pr-4 rounded cursor-pointer relative">
+                            <i data-feather="upload"></i>
+                            <span class="standard_text">{% trans 'Set icon' %}</span>
+                            <span class="filename"></span>
+                        </label>
                     </div>
+                    {% if page %}
+                        <div class="pt-2 pb-4">
+                            <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
+                            {% if page.archived %}
+                                {% trans 'Page is archived.' %}
+                            {% else %}
+                                <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_page_{{ page.id }}')">
+                                    {% trans 'Archive this page' %}
+                                </button>
+                            {% endif %}
+                        </div>
+                        {% if user.is_superuser or user.is_staff %}
+                            <div class="pt-2 pb-4">
+                                <span class="block font-bold mb-4">{% trans 'Delete page' %}</span>
+                                {% if page.children.all %}
+                                    {% trans 'You cannot delete a page which has children.' %}
+                                {% else %}
+                                    <button class="bg-red hover:bg-red-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_page_{{ page.id }}')">
+                                        {% trans 'Delete this page' %}
+                                    </button>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
                 </div>
-                <div class="pt-2 pb-4">
-                    <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
-                    {% render_field page_form.icon id="icon" class="image-field" %}
-                    <label for="icon" class="font-bold my-2 bg-blue hover:bg-blue-dark focus:bg-blue-dark text-white font-bold py-2 pl-10 pr-4 rounded cursor-pointer relative">
-                        <i data-feather="upload"></i>
-                        <span class="standard_text">{% trans 'Set icon' %}</span>
-                        <span class="filename"></span>
-                    </label>
                 </div>
-	            {% if page %}
-	                <div class="pt-2 pb-4">
-	                    <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
-	                    {% if page.archived %}
-	                        {% trans 'Page is archived.' %}
-	                    {% else %}
-	                        <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_page_{{ page.id }}')">
-	                            {% trans 'Archive this page' %}
-	                        </button>
-	                    {% endif %}
-	                </div>
-		            {% if user.is_superuser or user.is_staff %}
-				        <div class="pt-2 pb-4">
-			                <span class="block font-bold mb-4">{% trans 'Delete page' %}</span>
-					        {% if page.children.all %}
-						        {% trans 'You cannot delete a page which has children.' %}
-					        {% else %}
-				                <button class="bg-red hover:bg-red-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_page_{{ page.id }}')">
-					                {% trans 'Delete this page' %}
-				                </button>
-					        {% endif %}
-		                </div>
-		            {% endif %}
-	            {% endif %}
             </div>
         </div>
     </div>
 </form>
 {% if page %}
-	{% include "./confirmation_popups/archive_page.html" with page=page %}
-	{% if user.is_superuser or user.is_staff %}
-		{% if not page.children.all %}
-			{% include "./confirmation_popups/delete_page.html" with page=page %}
-		{% endif %}
-	{% endif %}
+    {% include "./confirmation_popups/archive_page.html" with page=page %}
+    {% if user.is_superuser or user.is_staff %}
+        {% if not page.children.all %}
+            {% include "./confirmation_popups/delete_page.html" with page=page %}
+        {% endif %}
+    {% endif %}
 {% endif %}
 {% endblock %}
 
