@@ -75,7 +75,7 @@ class POITranslationForm(forms.ModelForm):
 
     class Meta:
         model = POITranslation
-        fields = ['title', 'status', 'description', 'slug', 'public']
+        fields = ['title', 'short_description', 'status', 'description', 'slug', 'public']
 
     def __init__(self, *args, **kwargs):
 
