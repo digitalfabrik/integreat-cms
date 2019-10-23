@@ -67,14 +67,14 @@ class Page(MPTTModel):
     def get_translation(self, language_code):
         return self.page_translations.filter(
             language__code=language_code
-        ).order_by('-version').first()
+        ).first()
 
     def get_public_translation(self, language_code):
         return self.page_translations.filter(
             language__code=language_code,
             public=True,
-            status='reviewed',
-        ).order_by('-version').first()
+            status=PageTranslation.REVIEW_FINISHED,
+        ).first()
 
     def get_absolute_url(self):
         return reverse('edit_page', kwargs={
@@ -149,16 +149,19 @@ class PageTranslation(models.Model):
     Args:
         models : Class inherit of django-Models
     """
+    DRAFT = 'DRAFT'
+    REVIEW_PENDING = 'PENDING'
+    REVIEW_FINISHED = 'FINISHED'
 
     page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, blank=True)
     STATUS = (
-        ('draft', _('Draft')),
-        ('in-review', _('Pending Review')),
-        ('reviewed', _('Finished Review')),
+        (DRAFT, _('Draft')),
+        (REVIEW_PENDING, _('Pending Review')),
+        (REVIEW_FINISHED, _('Finished Review')),
     )
     title = models.CharField(max_length=250)
-    status = models.CharField(max_length=9, choices=STATUS, default='draft')
+    status = models.CharField(max_length=9, choices=STATUS, default=DRAFT)
     text = models.TextField()
     language = models.ForeignKey(
         Language,
@@ -200,8 +203,64 @@ class PageTranslation(models.Model):
                 }
         return available_languages
 
+    @property
+    def source_translation(self):
+        source_language_tree_node = self.page.region.language_tree_nodes.get(language=self.language).parent
+        if source_language_tree_node:
+            return self.page.get_translation(source_language_tree_node.code)
+        return None
+
+    @property
+    def latest_public_revision(self):
+        return self.page.page_translations.filter(
+            language=self.language,
+            public=True,
+            status=self.REVIEW_FINISHED,
+        ).first()
+
+    @property
+    def latest_major_revision(self):
+        return self.page.page_translations.filter(
+            language=self.language,
+            minor_edit=False,
+        ).first()
+
+    @property
+    def latest_major_public_revision(self):
+        return self.page.page_translations.filter(
+            language=self.language,
+            public=True,
+            status=self.REVIEW_FINISHED,
+            minor_edit=False,
+        ).first()
+
+    @property
+    def previous_revision(self):
+        version = self.version - 1
+        return self.page.page_translations.filter(
+            language=self.language,
+            version=version,
+        ).first()
+
+    @property
+    def is_outdated(self):
+        source_translation = self.source_translation
+        # If self.language is the root language, this translation can never be outdated
+        if not source_translation:
+            return False
+        # If the source translation is outdated, this translation can not be up to date
+        if source_translation.is_outdated:
+            return True
+        self_revision = self.latest_major_public_revision
+        source_revision = source_translation.latest_major_public_revision
+        # If on of the translations has no major public revision, it cannot be outdated
+        if not self_revision or not source_revision:
+            return False
+        return self_revision.last_updated < source_revision.last_updated
+
     def __str__(self):
         return '(id: {}, slug: {})'.format(self.id, self.slug)
 
     class Meta:
+        ordering = ['page', '-version']
         default_permissions = ()

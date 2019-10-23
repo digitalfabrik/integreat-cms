@@ -49,7 +49,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
         page_translation = PageTranslation.objects.filter(
             page=page,
             language=language,
-        ).order_by('-version').first()
+        ).first()
 
         page_form = PageForm(
             instance=page,
@@ -79,7 +79,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
         page_translation_instance = PageTranslation.objects.filter(
             page=page_instance,
             language=language,
-        ).order_by('-version').first()
+        ).first()
 
         if not request.user.has_perm('cms.edit_page', page_instance):
             raise PermissionDenied

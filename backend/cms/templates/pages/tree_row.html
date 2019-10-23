@@ -17,11 +17,30 @@
     <td class="whitespace-no-wrap">
         <div class="block py-3 px-2 text-grey-darkest">
             <div class="lang-grid">
-	            {% for other_language in languages %}
-		            <a href="{% url 'edit_page' page_id=node.id region_slug=region.slug language_code=other_language.code %}">
-			            <i data-feather="{% if other_language in node.languages %}edit-2{% else %}plus{% endif %}" class="text-grey-darkest"></i>
-		            </a>
-	            {% endfor %}
+                {% for other_language in languages %}
+                    <a href="{% url 'edit_page' page_id=node.id region_slug=region.slug language_code=other_language.code %}">
+                        {% get_other_page_translation node other_language as other_translation %}
+                        {% if other_translation %}
+                            {% if other_translation.currently_in_translation %}
+	                            <span title="{% trans 'Currently in translation' %}">
+                                    <i data-feather="clock" class="text-grey-darkest"></i>
+	                            </span>
+                            {% elif other_translation.is_outdated %}
+	                            <span title="{% trans 'Translation outdated' %}">
+                                    <i data-feather="alert-triangle" class="text-grey-darkest"></i>
+	                            </span>
+                            {% else %}
+	                            <span title="{% trans 'Edit translation' %}">
+                                    <i data-feather="edit-2" class="text-grey-darkest"></i>
+	                            </span>
+                            {% endif %}
+                        {% else %}
+	                        <span title="{% trans 'Create new translation' %}">
+                                <i data-feather="plus" class="text-grey-darkest"></i>
+	                        </span>
+                        {% endif %}
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </td>
@@ -45,20 +64,20 @@
             <i data-feather="edit" class="text-grey-darkest"></i>
         </a>
 
-	    <button title="{% trans 'Archive page' %}" class="py-3" style="padding-left:4px;" onclick="confirmation_popup(event, '#confirm_archive_page_{{ node.id }}')">
-		    <i data-feather="archive" class="text-grey-darkest"></i>
-	    </button>
-	    {% if user.is_superuser or user.is_staff %}
-	        {% if node.children.all %}
-		        <button title="{% trans 'You cannot delete a page which has children.' %}" class="py-3" style="padding-left:4px;">
-			        <i data-feather="trash-2" class="text-grey"></i>
-		        </button>
-	        {% else %}
-		        <button title="{% trans 'Delete page' %}" class="py-3" style="padding-left:4px;" onclick="confirmation_popup(event, '#confirm_delete_page_{{ node.id }}')">
-			        <i data-feather="trash-2" class="text-grey-darkest"></i>
-		        </button>
-	        {% endif %}
-		{% endif %}
+        <button title="{% trans 'Archive page' %}" class="py-3" style="padding-left:4px;" onclick="confirmation_popup(event, '#confirm_archive_page_{{ node.id }}')">
+            <i data-feather="archive" class="text-grey-darkest"></i>
+        </button>
+        {% if user.is_superuser or user.is_staff %}
+            {% if node.children.all %}
+                <button title="{% trans 'You cannot delete a page which has children.' %}" class="py-3" style="padding-left:4px;">
+                    <i data-feather="trash-2" class="text-grey"></i>
+                </button>
+            {% else %}
+                <button title="{% trans 'Delete page' %}" class="py-3" style="padding-left:4px;" onclick="confirmation_popup(event, '#confirm_delete_page_{{ node.id }}')">
+                    <i data-feather="trash-2" class="text-grey-darkest"></i>
+                </button>
+            {% endif %}
+        {% endif %}
         <a href="{% url 'download_page' page_id=node.id region_slug=region.slug language_code=language.code %}"
            title="{% trans 'Download page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
              <i data-feather="download" class="text-grey-darkest"></i>
@@ -67,7 +86,7 @@
 </tr>
 {% include "./confirmation_popups/archive_page.html" with page=node %}
 {% if user.is_superuser or user.is_staff %}
-	{% if not node.children.all %}
-		{% include "./confirmation_popups/delete_page.html" with page=node %}
-	{% endif %}
+    {% if not node.children.all %}
+        {% include "./confirmation_popups/delete_page.html" with page=node %}
+    {% endif %}
 {% endif %}
