@@ -3,6 +3,10 @@ from django import template
 register = template.Library()
 
 
+@register.simple_tag
+def get_other_page_translation(page, language):
+    return page.page_translations.filter(language=language).first()
+
 @register.filter
 def page_translation_title(page, language):
     all_page_translations = page.page_translations
@@ -16,7 +20,6 @@ def page_translation_title(page, language):
             language=page_translation.language
         )
     return ''
-
 
 @register.filter
 def page_translation_creator(page, language):
