@@ -170,12 +170,16 @@ class EventTranslation(models.Model):
     """
     Database object representing an event tranlsation
     """
+    DRAFT = 'DRAFT'
+    REVIEW_PENDING = 'PENDING'
+    REVIEW_FINISHED = 'FINISHED'
+
     STATUS = (
-        ('draft', 'Entwurf'),
-        ('in-review', 'Ausstehender Review'),
-        ('reviewed', 'Review abgeschlossen'),
+        (DRAFT, 'Entwurf'),
+        (REVIEW_PENDING, 'Ausstehender Review'),
+        (REVIEW_FINISHED, 'Review abgeschlossen'),
     )
-    status = models.CharField(max_length=9, choices=STATUS, default='draft')
+    status = models.CharField(max_length=9, choices=STATUS, default=DRAFT)
     title = models.CharField(max_length=250)
     description = models.TextField()
     permalink = models.CharField(max_length=60)
