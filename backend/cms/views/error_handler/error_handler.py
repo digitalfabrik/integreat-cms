@@ -33,5 +33,5 @@ def handler500(request):
     return response
 
 
-def csrf_failure(request):
+def csrf_failure(request, reason):
     return render(request, 'error_handler/csrf_failure.html')
