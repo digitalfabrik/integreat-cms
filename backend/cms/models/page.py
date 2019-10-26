@@ -150,8 +150,8 @@ class PageTranslation(models.Model):
         models : Class inherit of django-Models
     """
     DRAFT = 'DRAFT'
-    REVIEW_PENDING = 'PENDING'
-    REVIEW_FINISHED = 'FINISHED'
+    REVIEW_PENDING = 'REVIEW_PENDING'
+    REVIEW_FINISHED = 'REVIEW_FINISHED'
 
     page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, blank=True)
@@ -161,7 +161,7 @@ class PageTranslation(models.Model):
         (REVIEW_FINISHED, _('Finished Review')),
     )
     title = models.CharField(max_length=250)
-    status = models.CharField(max_length=9, choices=STATUS, default=DRAFT)
+    status = models.CharField(max_length=15, choices=STATUS, default=DRAFT)
     text = models.TextField()
     language = models.ForeignKey(
         Language,
