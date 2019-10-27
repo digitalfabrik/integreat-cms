@@ -95,12 +95,13 @@ class Page(MPTTModel):
         translations = PageTranslation.objects.filter(page=self)
         german_translation = translations.filter(language__code='de-de').first()
         english_translation = translations.filter(language__code='en-gb').first()
-        if german_translation:
-            slug = german_translation.slug
-        elif english_translation:
-            slug = english_translation.slug
-        elif translations.exists():
-            slug = translations.first()
+        first_translation = translations.first()
+        if english_translation:
+            slug = english_translation.slug + ' (en-gb)'
+        elif german_translation:
+            slug = german_translation.slug + ' (de-de)'
+        elif first_translation:
+            slug = first_translation.slug + ' (' + first_translation.language.code + ')'
         else:
             slug = ''
         return '(id: {}, slug: {})'.format(self.id, slug)
@@ -259,7 +260,7 @@ class PageTranslation(models.Model):
         return self_revision.last_updated < source_revision.last_updated
 
     def __str__(self):
-        return '(id: {}, slug: {})'.format(self.id, self.slug)
+        return '(id: {}, lang: {}, slug: {})'.format(self.id, self.language.code, self.slug)
 
     class Meta:
         ordering = ['page', '-version']
