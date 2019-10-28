@@ -46,7 +46,6 @@
             {{page_translation_form.errors}}
             <ul class="flex flex-wrap" style="list-style: none;">
                 {% for other_language in languages %}
-                    <!--li class="mr-1 {% if other_language == language %}bg-blue-dark text-white font-bold{% else %}bg-white hover:bg-blue-dark text-blue-dark hover:text-white border-l border-t border-r border-blue-dark font-semibold{% endif %} inline-block py-2 px-4 rounded-t-lg"-->
                     <li class="mr-1 {% if other_language == language %}z-10{% endif %} -mb-1">
                         <div class="bg-white text-blue-dark {% if other_language != language %}hover:bg-blue-dark hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg">
                             <div class="border-b-2 border-white">
@@ -69,16 +68,18 @@
                         </div>
                     </li>
                 {% endfor %}
-                <li class="ml-5">
-                    {% with language.code|add:'__'|add:language.code as sbs_language_code %}
-                    <a class="bg-white text-blue-dark hover:bg-blue-dark hover:text-white font-semibold inline-block py-2 px-4 border-l-2 border-t-2 border-r-2 border-blue-dark rounded-t-lg" href="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=sbs_language_code %}">
-                        <i data-feather="columns"></i>
-                        <span style="vertical-align: super;">
-                            {% trans 'Side by side view' %}
-                        </span>
-                    </a>
-                    {% endwith %}
-                </li>
+                {% if page %}
+                    <li class="ml-5">
+                        {% with language.code|add:'__'|add:language.code as sbs_language_code %}
+                        <a class="bg-white text-blue-dark hover:bg-blue-dark hover:text-white font-semibold inline-block py-2 px-4 border-l-2 border-t-2 border-r-2 border-blue-dark rounded-t-lg" href="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=sbs_language_code %}">
+                            <i data-feather="columns"></i>
+                            <span style="vertical-align: super;">
+                                {% trans 'Side by side view' %}
+                            </span>
+                        </a>
+                        {% endwith %}
+                    </li>
+                {% endif %}
             </ul>
             <div class="w-full mb-4 rounded border-2 border-blue-dark bg-white">
                 <div class="w-full p-4">
@@ -179,7 +180,7 @@
                             <span class="filename"></span>
                         </label>
                     </div>
-                    {% if page %}
+                    {% if page and can_edit_page %}
                         <div class="pt-2 pb-4">
                             <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
                             {% if page.archived %}

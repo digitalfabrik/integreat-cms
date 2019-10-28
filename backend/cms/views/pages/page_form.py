@@ -66,6 +66,7 @@ class PageForm(forms.ModelForm):
         # pop kwarg to make sure the super class does not get this param
         self.region = kwargs.pop('region', None)
         language = kwargs.pop('language', None)
+        disabled = kwargs.pop('disabled', None)
 
         # add initial kwarg to make sure changed_data is preserved
         kwargs['initial'] = {
@@ -74,6 +75,11 @@ class PageForm(forms.ModelForm):
 
         # instantiate ModelForm
         super(PageForm, self).__init__(*args, **kwargs)
+
+        # If form is disabled because the user has no permissions to edit the page, disable all form fields
+        if disabled:
+            for _, field in self.fields.items():
+                field.disabled = True
 
         if len(args) == 1:
             # dirty hack to remove fields when submitted by POST
@@ -178,6 +184,7 @@ class PageTranslationForm(forms.ModelForm):
         # pop kwarg to make sure the super class does not get this param
         self.region = kwargs.pop('region', None)
         self.language = kwargs.pop('language', None)
+        disabled = kwargs.pop('disabled', None)
 
         # to set the public value through the submit button, we have to overwrite the field value for public.
         # we could also do this in the save() function, but this would mean that it is not recognized in changed_data.
@@ -194,6 +201,11 @@ class PageTranslationForm(forms.ModelForm):
             logger.info('changed POST arg public manually to True')
 
         super(PageTranslationForm, self).__init__(*args, **kwargs)
+
+        # If form is disabled because the user has no permissions to edit the page, disable all form fields
+        if disabled:
+            for _, field in self.fields.items():
+                field.disabled = True
 
         self.fields['public'].widget = forms.Select(choices=self.PUBLIC_CHOICES)
 

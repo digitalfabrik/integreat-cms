@@ -3,6 +3,7 @@
 {% load static %}
 {% load mptt_tags %}
 {% load page_filters %}
+{% load rules %}
 
 {% block content %}
 <div class="table-header">
@@ -39,12 +40,19 @@
             </form>
         </div>
 
-        {% if region.default_language == language %}
-        <div class="w-1/4 flex flex-wrap justify-end">
-            <a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                {% trans 'Create page' %}
-            </a>
-        </div>
+        {% has_perm 'cms.edit_page' request.user as can_edit_pages %}
+        {% if can_edit_pages %}
+            <div class="w-1/4 flex flex-wrap justify-end">
+                {% if region.default_language == language %}
+                    <a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        {% trans 'Create page' %}
+                    </a>
+                {% else %}
+                    <button title="{% trans 'You can only create pages in the default language' %} {{ region.default_language.translated_name }}." class="bg-grey text-white font-bold py-2 px-4 rounded cursor-not-allowed">
+                        {% trans 'Create page' %}
+                    </button>
+                {% endif %}
+            </div>
         {% endif %}
     </div>
 </div>

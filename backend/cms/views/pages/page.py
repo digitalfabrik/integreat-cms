@@ -51,14 +51,28 @@ class PageView(PermissionRequiredMixin, TemplateView):
             language=language,
         ).first()
 
+        # Make form disabled if user has no permission to edit the page
+        disabled = not request.user.has_perm('cms.edit_page', page)
+        if disabled:
+            messages.warning(request, _("You don't have the permission to edit this page."))
+
         page_form = PageForm(
             instance=page,
             region=region,
             language=language,
+            disabled=disabled
         )
         page_translation_form = PageTranslationForm(
             instance=page_translation,
+            disabled=disabled
         )
+
+        if page:
+            # If the page is already existing, we use all region languages for the tab view.
+            languages = region.languages
+        else:
+            # If the page is being created, we only show the tab of the current language
+            languages = [language]
 
         return render(request, self.template_name, {
             **self.base_context,
@@ -66,7 +80,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
             'page_translation_form': page_translation_form,
             'page': page,
             'language': language,
-            'languages': region.languages,
+            'languages': languages,
         })
 
     # pylint: disable=R0912
@@ -138,13 +152,20 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
         messages.error(request, _('Errors have occurred.'))
 
+        if page_instance:
+            # If the page is already existing, we use all region languages for the tab view.
+            languages = region.languages
+        else:
+            # If the page is being created, we only show the tab of the current language
+            languages = [language]
+
         return render(request, self.template_name, {
             **self.base_context,
             'page_form': page_form,
             'page_translation_form': page_translation_form,
             'page': page_instance,
             'language': language,
-            'languages': region.languages,
+            'languages': languages,
         })
 
 
