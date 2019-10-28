@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load mptt_tags %}
+{% load page_filters %}
 
 {% block content %}
 <div class="table-header">
@@ -41,7 +42,7 @@
         {% if region.default_language == language %}
         <div class="w-1/4 flex flex-wrap justify-end">
             <a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-	            {% trans 'Create page' %}
+                {% trans 'Create page' %}
             </a>
         </div>
         {% endif %}
@@ -54,26 +55,31 @@
             <tr class="border-b border-solid border-grey-light">
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-4"></th>
                 <th class="text-sm text-left uppercase py-3 pl-4">{% trans 'ID' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2">{% trans 'Version' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
+                {% get_current_language as LANGUAGE_CODE %}
+                {% unify_laguage_code LANGUAGE_CODE as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE != language.code %}
+                    <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}</th>
+                {% endif %}
                 <th class="text-sm text-left uppercase py-3 px-2">
                     <div class="lang-grid flags whitespace-no-wrap">
-	                    {% for lang in languages %}
-		                    <a href="{% url 'pages' region_slug=region.slug language_code=lang.code %}">
-			                    <img src="{% static '' %}images/flags/{{ lang.code }}.png" title="{{ lang.name }}" />
-		                    </a>
-	                    {% endfor %}
+                        {% for lang in languages %}
+                            <a href="{% url 'pages' region_slug=region.slug language_code=lang.code %}">
+                                <span title="{{ lang.translated_name }}"><img src="{% static '' %}images/flags/{{ lang.code }}.png" /></span>
+                            </a>
+                        {% endfor %}
                     </div>
                 </th>
-                <th class="text-sm text-left uppercase py-3">{% trans 'Creator' %}</th>
                 <th class="text-sm text-left uppercase py-3">{% trans 'Last updated' %}</th>
-                <th class="text-sm text-left uppercase py-3">{% trans 'Created' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
             </tr>
         </thead>
         <tbody>
         {% if pages %}
             {% recursetree pages %}
-                {% include "pages/tree_row.html" with node=node %}
+                {% get_page_translation node language.code as page_translation %}
+                {% include "pages/tree_row.html" with page=node page_translation=page_translation %}
                 {% if not node.is_leaf_node %}
                     {{children}}
                 {% endif %}
@@ -82,7 +88,7 @@
             <tr>
                 <td></td>
                 <td colspan="5" class="px-2 py-3">
-	                {% trans 'No pages available yet.' %}
+                    {% trans 'No pages available yet.' %}
                 </td>
             </tr>
         {% endif %}

@@ -219,7 +219,8 @@ class PageTranslationForm(forms.ModelForm):
             page_translation.language = self.language
 
         page_translation.version = page_translation.version + 1
-        page_translation.save(force_insert=True)
+        page_translation.pk = None
+        page_translation.save()
 
         return page_translation
 

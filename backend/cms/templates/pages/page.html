@@ -15,6 +15,14 @@
                         {% with page_translation_form.instance.title as page_title %}
                         {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
                         {% endwith %}
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% unify_laguage_code LANGUAGE_CODE as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE != language.code %}
+                            {% get_page_translation page LANGUAGE_CODE as backend_translation %}
+                            {% if backend_translation %}
+                                ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
+                            {% endif %}
+                        {% endif %}
                     {% else %}
                         {% trans 'Create new translation' %}
                     {% endif %}
