@@ -48,6 +48,9 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
         # all other languages of current region
         languages = region.languages
 
+        if not request.user.has_perm('cms.edit_page'):
+            messages.warning(request, _("You don't have the permission to edit or create pages."))
+
         return render(
             request,
             self.template_name,

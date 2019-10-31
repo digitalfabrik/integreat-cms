@@ -1,58 +1,20 @@
 from django import template
 
+from ..models import Language
+
 register = template.Library()
 
+@register.simple_tag
+def get_page_translation(page, language_code):
+    return page.page_translations.filter(language__code=language_code).first()
+
+# Unify the language codes of backend and content languages
+@register.simple_tag
+def unify_laguage_code(language_code):
+    if language_code == 'en-us':
+        return 'en-gb'
+    return language_code
 
 @register.simple_tag
-def get_other_page_translation(page, language):
-    return page.page_translations.filter(language=language).first()
-
-@register.filter
-def page_translation_title(page, language):
-    all_page_translations = page.page_translations
-    page_translation = all_page_translations.filter(language__code=language.code)
-    if page_translation.exists():
-        return page_translation.first().title
-    if all_page_translations.exists():
-        page_translation = all_page_translations.first()
-        return '{title} ({language})'.format(
-            title=page_translation.title,
-            language=page_translation.language
-        )
-    return ''
-
-@register.filter
-def page_translation_creator(page, language):
-    all_page_translations = page.page_translations
-    page_translation = all_page_translations.filter(language__code=language.code)
-    if page_translation.exists():
-        return page_translation.first().creator
-    if all_page_translations.exists():
-        page_translation = all_page_translations.first()
-        return '{creator} ({language})'.format(
-            creator=page_translation.creator,
-            language=page_translation.language
-        )
-    return ''
-
-
-@register.filter
-def page_translation_last_updated(page, language):
-    all_page_translations = page.page_translations
-    page_translation = all_page_translations.filter(language__code=language.code)
-    if page_translation.exists():
-        return page_translation.first().last_updated
-    if all_page_translations.exists():
-        return all_page_translations.first().last_updated
-    return ''
-
-
-@register.filter
-def page_translation_created_date(page, language):
-    all_page_translations = page.page_translations
-    page_translation = all_page_translations.filter(language__code=language.code)
-    if page_translation.exists():
-        return page_translation.first().created_date
-    if all_page_translations.exists():
-        return all_page_translations.first().created_date
-    return ''
+def translated_language_name(language_code):
+    return Language.objects.get(code=language_code).translated_name
