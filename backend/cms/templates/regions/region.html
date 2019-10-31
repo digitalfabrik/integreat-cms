@@ -8,13 +8,13 @@
     <div class="flex flex-wrap mb-4">
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
             <h2 class="heading font-normal">
-	            {% if form.initial %}
-		            {% with form.name.value as region_name %}
-			            {% blocktrans %}Edit region "{{ region_name }}"{% endblocktrans %}
-		            {% endwith %}
-	            {% else %}
-		            {% trans 'Create new region' %}
-	            {% endif %}
+                {% if form.initial %}
+                    {% with form.name.value as region_name %}
+                        {% blocktrans %}Edit region "{{ region_name }}"{% endblocktrans %}
+                    {% endwith %}
+                {% else %}
+                    {% trans 'Create new region' %}
+                {% endif %}
             </h2>
         </div>
         <div class="w-3/5 flex justify-end">
@@ -24,131 +24,147 @@
     </div>
 
     <div class="flex flex-wrap">
-	    <div class="w-1/2 pr-4">
-		    {{form.errors}}
-		    <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
-				<div class="w-full p-4 rounded bg-blue-dark">
-					<h3 class="heading font-bold text-white">{% trans 'General Settings' %}</h3>
-				</div>
-				<div class="w-full p-4">
+        <div class="w-1/2 pr-4">
+            {{form.errors}}
+            <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+                <div class="w-full p-4 rounded bg-blue-dark">
+                    <h3 class="heading font-bold text-white">{% trans 'General Settings' %}</h3>
+                </div>
+                <div class="w-full p-4">
 
-					<!-- General Options for region management -->
-			    	<label for="name" class="font-bold block p-2 mb-2">{% trans "Name of the region" %}</label>
-			    	{% trans "Enter the region's name here" as name_placeholder%}
-			    	{% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    <!-- General Options for region management -->
+                    <label for="name" class="font-bold block p-2 mb-2">{% trans "Name of the region" %}</label>
+                    {% trans "Enter the region's name here" as name_placeholder%}
+                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
 
-					<label class="block p-2 mb-2 font-bold">{% trans 'Permalink' %}</label>
-					<div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
-						{% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
-						{% spaceless %}
-							<div style="display: table; white-space: nowrap;">
-								<span style="display: table-cell;">https://integreat.app/</span>
-								<span style="display: table-cell; width: 100%;">{% render_field form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
-							</div>
-						{% endspaceless %}
-					</div>
+                    <label class="block p-2 mb-2 font-bold">{% trans 'Permalink' %}</label>
+                    <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                        {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
+                        {% spaceless %}
+                            <div style="display: table; white-space: nowrap;">
+                                <span style="display: table-cell;">https://integreat.app/</span>
+                                <span style="display: table-cell; width: 100%;">{% render_field form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
+                            </div>
+                        {% endspaceless %}
+                    </div>
 
-					<label for="admin_mail" class="font-bold block p-2 mb-2">{% trans 'E-mail-address of the administrator' %}</label>
-			    	{% trans "Enter the administrator's e-mail-address here" as admin_mail_placeholder%}
-			    	{% render_field form.admin_mail placeholder=admin_mail_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-					
-					<!-- Options related to coordinates for localization -->
-					<label for="postal_code" class="font-bold block p-2 mb-2">{% trans 'Postal code' %}</label>
-			    	{% trans 'Enter postal code here' as postal_code_placeholder%}
-			    	{% render_field form.postal_code placeholder=postal_code_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}	
-			    	<span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Coordinates' %}</span>
-				    <label for="latitude" class="font-bold block p-2 mb-2">{% trans 'Latitude' %}</label>
-				    {% trans 'Enter latitude here' as latitude_placeholder%}
-			        {% render_field form.latitude placeholder=latitude_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-				    <label for="longitude" class="font-bold block p-2 mb-2">{% trans 'Longitude' %}</label>
-				    {% trans 'Enter longitude here' as longitude_placeholder%}
-				    {% render_field form.longitude placeholder=longitude_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    <label for="admin_mail" class="font-bold block p-2 mb-2">{% trans 'E-mail-address of the administrator' %}</label>
+                    {% trans "Enter the administrator's e-mail-address here" as admin_mail_placeholder%}
+                    {% render_field form.admin_mail placeholder=admin_mail_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    
+                    <!-- Options related to coordinates for localization -->
+                    <label for="postal_code" class="font-bold block p-2 mb-2">{% trans 'Postal code' %}</label>
+                    {% trans 'Enter postal code here' as postal_code_placeholder%}
+                    {% render_field form.postal_code placeholder=postal_code_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}    
+                    <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Coordinates' %}</span>
+                    <label for="latitude" class="font-bold block p-2 mb-2">{% trans 'Latitude' %}</label>
+                    {% trans 'Enter latitude here' as latitude_placeholder%}
+                    {% render_field form.latitude placeholder=latitude_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    <label for="longitude" class="font-bold block p-2 mb-2">{% trans 'Longitude' %}</label>
+                    {% trans 'Enter longitude here' as longitude_placeholder%}
+                    {% render_field form.longitude placeholder=longitude_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
 
-					<!-- Options related to the region icon -->
-					<span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Icon' %}</span>
-					<div class="flex w-full bg-grey-lighter">
-						<img class="flex w-2/3 p-2 h-40 pt-4 pb-4 justify-start" src="https://tailwindcss.com/img/card-top.jpg">
-						</img>
-						<div class="flex h-48 w-1/3 pt-4 p-2 pb-4 justify-end">
-							{% render_field form.icon id="icon" class="image-field" %}
-							<label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
-								<svg class="w-1/4 h-1/4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-									<path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-								</svg>
-								<span class="mt-2 text-base leading-normal">{% trans 'Set icon' %}</span>
-								<input type='filename' class="hidden" />
-							</label>
-						</div>
-					</div>
-					
-					<!-- Options related to region status -->
-					<label for="status" class="mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Status' %}</label>
-					<div class="relative my-2">
-				        {% render_field form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-				        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-					        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-				        </div>
-			        </div>
-				</div>
-			</div>
-		</div>
-	<div class="w-1/2 pr-4">
-		<div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
-			<div class="w-full p-4 rounded bg-blue-dark">
-				<h3 class="heading font-bold text-white">{% trans 'Extended Settings' %}</h3>
-			</div>
-			<div class="w-full p-4">
-				<!-- Options related to Events -->
-		    	<span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Events' %}</span>
-				<div class="py-2 pb-5 border-b solid border-grey-light">
-		    		<label for="events_enabled" class="font-bold">{% trans 'Activate events' %}</label>
-			    	{% render_field form.events_enabled id="events_enabled" class="" %}
-				</div>
+                    <!-- Options related to the region icon -->
+                    <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Icon' %}</span>
+                    <div class="flex w-full bg-grey-lighter">
+                        <img class="flex w-2/3 p-2 h-40 pt-4 pb-4 justify-start" src="https://tailwindcss.com/img/card-top.jpg">
+                        </img>
+                        <div class="flex h-48 w-1/3 pt-4 p-2 pb-4 justify-end">
+                            {% render_field form.icon id="icon" class="image-field" %}
+                            <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+                                <svg class="w-1/4 h-1/4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                </svg>
+                                <span class="mt-2 text-base leading-normal">{% trans 'Set icon' %}</span>
+                                <input type='filename' class="hidden" />
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Options related to region status -->
+                    <label for="status" class="mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Status' %}</label>
+                    <div class="relative my-2">
+                        {% render_field form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="w-1/2 pr-4">
+        <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+            <div class="w-full p-4 rounded bg-blue-dark">
+                <h3 class="heading font-bold text-white">{% trans 'Extended Settings' %}</h3>
+            </div>
+            <div class="w-full p-4">
+                <!-- Options related to Events -->
+                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Events' %}</span>
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    <label for="events_enabled" class="font-bold">{% trans 'Activate events' %}</label>
+                    {% render_field form.events_enabled id="events_enabled" class="" %}
+                </div>
 
-				<!-- Options related to Push Notifications -->
-		    	<span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Push Notifications' %}</span>
-				<div class="py-2 pb-5 border-b solid border-grey-light">
-					<label for="push_notifications_enabled" class="font-bold">{% trans 'Activate push notifications' %}</label>
-			    	{% render_field form.push_notifications_enabled id="push_notifications_enabled" class="" %}
-				</div>
-				<div class="py-2 pb-4 border-b solid border-grey-light">
-					<label for="push_notification_channels" class="font-bold block mb-2">{% trans 'Push notification channels' %}</label>
-					<label for="languages" class="block mb-2 text-s">{% trans 'Enter multiple channels separated by spaces.' %}</label>
-					{% trans 'Enter push notification channels here' as push_notification_channels_placeholder%}
-					{% render_field form.push_notification_channels placeholder=push_notification_channels_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-				</div>
+                <!-- Options related to Push Notifications -->
+                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Push Notifications' %}</span>
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    <label for="push_notifications_enabled" class="font-bold">{% trans 'Activate push notifications' %}</label>
+                    {% render_field form.push_notifications_enabled id="push_notifications_enabled" class="" %}
+                </div>
+                <div class="py-2 pb-4 border-b solid border-grey-light">
+                    <label for="push_notification_channels" class="font-bold block mb-2">{% trans 'Push notification channels' %}</label>
+                    <label for="languages" class="block mb-2 text-s">{% trans 'Enter multiple channels separated by spaces.' %}</label>
+                    {% trans 'Enter push notification channels here' as push_notification_channels_placeholder%}
+                    {% render_field form.push_notification_channels placeholder=push_notification_channels_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                </div>
 
-				<!-- Options related to Tracking -->
-		    	<span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Statistics' %}</span>
-				<div class="py-2 border-b solid border-grey-lighter mb-2">
-				    <label for="statistics_enabled" class="font-bold">{% trans 'Activate statistics' %}</label>
-				    {% render_field form.statistics_enabled id="statistics_enabled" class="" %}
-			    </div>
-				<div class="py-2 pb-4">
-				    <label for="matomo_ssl_verify" class="font-bold">{% trans 'Activate SSL verification for Matomo' %}</label>
-				    {% render_field form.matomo_ssl_verify id="matomo_ssl_verify" class="" %}
-			    </div>
-				<div class="py-2 border-b solid border-grey-lighter mb-2">
-				    {% trans 'Enter URL for Matomo here' as matomo_url_placeholder%}
-				    {% render_field form.matomo_url placeholder=matomo_url_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-			    </div>
-			    <div class="py-2 border-b solid border-grey-lighter mb-2">
-				    {% trans 'Enter token for Matomo here' as matomo_token_placeholder%}
-				    {% render_field form.matomo_token placeholder=matomo_token_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-			    </div>
+                <!-- Options related to Tracking -->
+                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Statistics' %}</span>
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+                    <label for="statistics_enabled" class="font-bold">{% trans 'Activate statistics' %}</label>
+                    {% render_field form.statistics_enabled id="statistics_enabled" class="" %}
+                </div>
+                <div class="py-2 pb-4">
+                    <label for="matomo_ssl_verify" class="font-bold">{% trans 'Activate SSL verification for Matomo' %}</label>
+                    {% render_field form.matomo_ssl_verify id="matomo_ssl_verify" class="" %}
+                </div>
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+                    {% trans 'Enter URL for Matomo here' as matomo_url_placeholder%}
+                    {% render_field form.matomo_url placeholder=matomo_url_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                </div>
+                <div class="py-2 border-b solid border-grey-lighter mb-2">
+                    {% trans 'Enter token for Matomo here' as matomo_token_placeholder%}
+                    {% render_field form.matomo_token placeholder=matomo_token_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                </div>
 
-				
-			</div>
-			
-		</div>
-	</div>
+                
+            </div>
+            
+        </div>
+        {% if not form.instance.id %}
+        <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+            <div class="w-full p-4 rounded bg-blue-dark">
+                <h3 class="heading font-bold text-white">{% trans 'Duplicate content of another region' %}</h3>
+            </div>
+            <div class="w-full p-4">
+                <label for="duplicated_region" class="font-bold">{% trans 'Copy languages, pages and media from another region' %}</label>
+                <div class="relative my-4">
+                    {% render_field form.duplicated_region id="duplicated_region" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
 {% if form.instance.id %}
     <div class="pt-2 pb-4">
-	    <button class="bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_region')">
-		    {% with form.instance.name as region_name %}
-			    {% blocktrans %}Delete region "{{ region_name }}"{% endblocktrans %}
-		    {% endwith %}
-	    </button>
+        <button class="bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_region')">
+            {% with form.instance.name as region_name %}
+                {% blocktrans %}Delete region "{{ region_name }}"{% endblocktrans %}
+            {% endwith %}
+        </button>
     </div>
 {% endif %}
 </div>
@@ -156,35 +172,35 @@
 {% if form.instance.id %}
 <!-- confirmation popup -->
 <div id="confirm_delete_region" class="confirmation-popup flex-col justify-center max-w-sm fixed pin-t pin-b pin-r pin-l hidden">
-	<div class="content bg-grey-light w-full p-4 shadow-md rounded">
-			<h2>{% trans 'Please confirm that you really want to delete this region.' %}</h2>
-		<p class="mt-4 mb-6">
-			{% trans 'This can not be reversed. All pages, events, POIs and users of this region will also be deleted.' %}
-		</p>
-		<div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
-			<div class="w-full p-4 rounded bg-blue-dark">
-				<h3 class="heading font-bold text-white">{% trans 'Summary of deleted objects' %}:</h3>
-			</div>
-			<ul class="mt-2 mb-2 font-bold">
-				{% with form.name.value as region_name %}
-				<li>{% trans 'Region' %} "{{ region_name }}"</li>
-				{% endwith %}
-				<li>{{ form.instance.users.count }} {% trans 'Users' %}</li>
-				<li>{{ form.instance.language_tree_nodes.count }} {% trans 'Languages' %}</li>
-				<li>{{ form.instance.pages.count }} {% trans 'Pages' %}</li>
-				<li>{{ form.instance.events.count }} {% trans 'Events' %}</li>
-				<li>{{ form.instance.pois.count }} {% trans 'POIs' %}</li>
-			</ul>
-		</div>
+    <div class="content bg-grey-light w-full p-4 shadow-md rounded">
+            <h2>{% trans 'Please confirm that you really want to delete this region.' %}</h2>
+        <p class="mt-4 mb-6">
+            {% trans 'This can not be reversed. All pages, events, POIs and users of this region will also be deleted.' %}
+        </p>
+        <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
+            <div class="w-full p-4 rounded bg-blue-dark">
+                <h3 class="heading font-bold text-white">{% trans 'Summary of deleted objects' %}:</h3>
+            </div>
+            <ul class="mt-2 mb-2 font-bold">
+                {% with form.name.value as region_name %}
+                <li>{% trans 'Region' %} "{{ region_name }}"</li>
+                {% endwith %}
+                <li>{{ form.instance.users.count }} {% trans 'Users' %}</li>
+                <li>{{ form.instance.language_tree_nodes.count }} {% trans 'Languages' %}</li>
+                <li>{{ form.instance.pages.count }} {% trans 'Pages' %}</li>
+                <li>{{ form.instance.events.count }} {% trans 'Events' %}</li>
+                <li>{{ form.instance.pois.count }} {% trans 'POIs' %}</li>
+            </ul>
+        </div>
 
-		<form method="post" action="{% url 'delete_region' region_slug=form.instance.slug %}">
-			{% csrf_token %}
-			<input type="submit" class="inline-block cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, delete this region now' %}" />
-			<button class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
-				{% trans 'Cancel' %}
-			</button>
-		</form>
-	</div>
+        <form method="post" action="{% url 'delete_region' region_slug=form.instance.slug %}">
+            {% csrf_token %}
+            <input type="submit" class="inline-block cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, delete this region now' %}" />
+            <button class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+                {% trans 'Cancel' %}
+            </button>
+        </form>
+    </div>
 </div>
 <!------------------------>
 {% endif %}

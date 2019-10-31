@@ -95,12 +95,13 @@ class Page(MPTTModel):
         translations = PageTranslation.objects.filter(page=self)
         german_translation = translations.filter(language__code='de-de').first()
         english_translation = translations.filter(language__code='en-gb').first()
-        if german_translation:
-            slug = german_translation.slug
-        elif english_translation:
-            slug = english_translation.slug
-        elif translations.exists():
-            slug = translations.first()
+        first_translation = translations.first()
+        if english_translation:
+            slug = english_translation.slug + ' (en-gb)'
+        elif german_translation:
+            slug = german_translation.slug + ' (de-de)'
+        elif first_translation:
+            slug = first_translation.slug + ' (' + first_translation.language.code + ')'
         else:
             slug = ''
         return '(id: {}, slug: {})'.format(self.id, slug)
@@ -150,8 +151,8 @@ class PageTranslation(models.Model):
         models : Class inherit of django-Models
     """
     DRAFT = 'DRAFT'
-    REVIEW_PENDING = 'PENDING'
-    REVIEW_FINISHED = 'FINISHED'
+    REVIEW_PENDING = 'REVIEW_PENDING'
+    REVIEW_FINISHED = 'REVIEW_FINISHED'
 
     page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, blank=True)
@@ -161,7 +162,7 @@ class PageTranslation(models.Model):
         (REVIEW_FINISHED, _('Finished Review')),
     )
     title = models.CharField(max_length=250)
-    status = models.CharField(max_length=9, choices=STATUS, default=DRAFT)
+    status = models.CharField(max_length=15, choices=STATUS, default=DRAFT)
     text = models.TextField()
     language = models.ForeignKey(
         Language,
@@ -259,7 +260,7 @@ class PageTranslation(models.Model):
         return self_revision.last_updated < source_revision.last_updated
 
     def __str__(self):
-        return '(id: {}, slug: {})'.format(self.id, self.slug)
+        return '(id: {}, lang: {}, slug: {})'.format(self.id, self.language.code, self.slug)
 
     class Meta:
         ordering = ['page', '-version']

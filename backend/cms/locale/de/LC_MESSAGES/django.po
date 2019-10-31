@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-23 13:57+0200\n"
+"POT-Creation-Date: 2019-10-27 02:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -37,15 +37,15 @@ msgstr "Links nach Rechts"
 msgid "Right to left"
 msgstr "Rechts nach Links"
 
-#: models/page.py:159
+#: models/page.py:160
 msgid "Draft"
 msgstr "Entwurf"
 
-#: models/page.py:160
+#: models/page.py:161
 msgid "Pending Review"
 msgstr "Review ausstehend"
 
-#: models/page.py:161
+#: models/page.py:162
 msgid "Finished Review"
 msgstr "Review abgeschlossen"
 
@@ -115,12 +115,12 @@ msgid "Media Library"
 msgstr "Medienbibliothek"
 
 #: templates/_base.html:129 templates/pages/tree.html:10
-#: templates/regions/region.html:174
+#: templates/regions/region.html:190
 msgid "Pages"
 msgstr "Seiten"
 
 #: templates/_base.html:133 templates/regions/region.html:102
-#: templates/regions/region.html:175
+#: templates/regions/region.html:191
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -129,7 +129,7 @@ msgid "Points of Interest"
 msgstr "POIs"
 
 #: templates/_base.html:141 templates/_base.html:186
-#: templates/regions/region.html:172
+#: templates/regions/region.html:188
 msgid "Users"
 msgstr "Benutzer"
 
@@ -170,7 +170,7 @@ msgstr "Admin Dashboard"
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:182 templates/regions/region.html:173
+#: templates/_base.html:182 templates/regions/region.html:189
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -589,7 +589,7 @@ msgstr "Ja, die Seite wiederherstellen."
 #: templates/pages/archive.html:53
 #: templates/pages/confirmation_popups/archive_page.html:13
 #: templates/pages/confirmation_popups/delete_page.html:13
-#: templates/regions/region.html:184
+#: templates/regions/region.html:200
 #: templates/users/confirmation_popups/delete_region_user.html:12
 #: templates/users/confirmation_popups/delete_user.html:12
 msgid "Cancel"
@@ -1073,16 +1073,24 @@ msgstr "Matomo-URL hier eingeben"
 msgid "Enter token for Matomo here"
 msgstr "Matomo-Token hier eingeben"
 
-#: templates/regions/region.html:149
+#: templates/regions/region.html:147
+msgid "Duplicate content of another region"
+msgstr "Inhalte aus einer anderen Region duplizieren"
+
+#: templates/regions/region.html:150
+msgid "Copy languages, pages and media from another region"
+msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
+
+#: templates/regions/region.html:165
 #, python-format
 msgid "Delete region \"%(region_name)s\""
 msgstr "Region \"%(region_name)s\" löschen"
 
-#: templates/regions/region.html:160
+#: templates/regions/region.html:176
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: templates/regions/region.html:162
+#: templates/regions/region.html:178
 msgid ""
 "This can not be reversed. All pages, events, POIs and users of this region "
 "will also be deleted."
@@ -1090,19 +1098,19 @@ msgstr ""
 "Dies kann nicht rückgängig gemacht werden. Alle Seiten, Veranstaltungen, "
 "POIs und Benutzer dieser Region werden ebenfalls gelöscht."
 
-#: templates/regions/region.html:166
+#: templates/regions/region.html:182
 msgid "Summary of deleted objects"
 msgstr "Zusammenfassung der zu löschenden Objekte"
 
-#: templates/regions/region.html:170
+#: templates/regions/region.html:186
 msgid "Region"
 msgstr "Region"
 
-#: templates/regions/region.html:176
+#: templates/regions/region.html:192
 msgid "POIs"
 msgstr "POIs"
 
-#: templates/regions/region.html:182
+#: templates/regions/region.html:198
 msgid "Yes, delete this region now"
 msgstr "Ja, diese Region jetzt löschen"
 
@@ -1655,6 +1663,10 @@ msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert."
 msgid "Error occurred sending the push notification"
 msgstr "Push-Benachrichtigung konnte nicht gesendet werden"
 
+#: views/regions/region_form.py:19
+msgid "Do no import initial content"
+msgstr "Keine Inhalte übernehmen"
+
 #: views/regions/regions.py:102
 msgid "Region saved successfully."
 msgstr "Region wurde erfolgreich gespeichert."
@@ -1749,6 +1761,9 @@ msgstr "Linker Nachbar von"
 #: views/utils/tree_utils.py:8
 msgid "Right neighbor of"
 msgstr "Rechter Nachbar von"
+
+#~ msgid "Initial Content"
+#~ msgstr "Initialer Inhalt"
 
 #~ msgid "Side by Side View"
 #~ msgstr "Übersetzungen nebeneinander anzeigen"

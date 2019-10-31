@@ -177,7 +177,7 @@ REST_FRAMEWORK = {
 
 # Miscellaneous
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-CSRF_FAILURE_VIEW = 'cms.views.general.csrf_failure'
+CSRF_FAILURE_VIEW = 'cms.views.error_handler.csrf_failure'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

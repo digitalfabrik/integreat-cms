@@ -45,6 +45,8 @@ if [ -x "$(command -v docker)" ] && docker ps > /dev/null 2>&1; then
               echo -n "."
             done
             echo ""
+            # Migrate database
+            ./dev-tools/migrate.sh
             # Import test data
             ./dev-tools/loadtestdata.sh
         fi
