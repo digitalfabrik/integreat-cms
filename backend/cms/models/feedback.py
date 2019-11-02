@@ -24,7 +24,6 @@ class Feedback(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
-    # pylint: disable=R0903,C0111
     class Meta:
         default_permissions = ()
         permissions = (
@@ -38,7 +37,6 @@ class RegionFeedback(Feedback):
     """
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
-    # pylint: disable=R0903,C0111
     class Meta:
         default_permissions = ()
 
@@ -49,7 +47,6 @@ class PageFeedback(Feedback):
     """
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
 
-    # pylint: disable=R0903,C0111
     class Meta:
         default_permissions = ()
 
@@ -60,7 +57,6 @@ class TechnicalFeedback(Feedback):
     """
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
 
-    # pylint: disable=R0903,C0111
     class Meta:
         default_permissions = ()
 
@@ -71,7 +67,6 @@ class ExtraFeedback(Feedback):
     """
     extra = models.ForeignKey(Extra, on_delete=models.CASCADE)
 
-    # pylint: disable=R0903,C0111
     class Meta:
         default_permissions = ()
 
@@ -82,7 +77,6 @@ class EventFeedback(Feedback):
     """
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
-    # pylint: disable=R0903,C0111
     class Meta:
         default_permissions = ()
 
@@ -93,6 +87,5 @@ class SearchResultFeedback(Feedback):
     """
     searchQuery = models.CharField(max_length=1000)
 
-    # pylint: disable=R0903,C0111
     class Meta:
         default_permissions = ()

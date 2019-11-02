@@ -39,7 +39,7 @@ class RegionForm(forms.ModelForm):
             'status'
         ]
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
         logger.info(

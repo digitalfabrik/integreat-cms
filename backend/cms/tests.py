@@ -18,7 +18,7 @@ from .page_xliff_converter import PageXliffConverter, XliffValidationException, 
 from .constants import position, status, region_status
 
 
-# pylint: disable=R0902
+# pylint: disable=too-many-instance-attributes
 class SetupClass(TestCase):
     @staticmethod
     def create_region(region_data):
@@ -42,7 +42,7 @@ class SetupClass(TestCase):
         return language_tree_node_form.save_language_node()
 
     @staticmethod
-    # pylint: disable=R0913
+    # pylint: disable=too-many-arguments
     def create_page(page_data, user, region_slug, language_code,
                     page_id=None, publish=False, archived=False):
         # TODO: fix form usage to page_form and page_translation_form

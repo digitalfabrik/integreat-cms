@@ -59,7 +59,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
             'languages': region.languages,
         })
 
-    # pylint: disable=R0912
+    # pylint: disable=too-many-branches
     def post(self, request, *args, **kwargs):
 
         region = Region.objects.get(slug=kwargs.get('region_slug'))

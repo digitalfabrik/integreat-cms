@@ -49,7 +49,7 @@ ENGLISH_LANGUAGE_CODE = 'en-us'
 class XliffValidationException(Exception):
     pass
 
-# pylint: disable=R0903
+# pylint: disable=too-few-public-methods
 class PageXliff:
     def __init__(self, page_id, language_code, title, text):
         self.page_id = page_id
@@ -204,7 +204,7 @@ class PageXliffConverter:
                                                 text=text)
         return result
 
-    # pylint: disable=R0914
+    # pylint: disable=too-many-locals
     def xliff_to_page_xliff(self, xliff, target=True):
         bs = BeautifulSoup(xliff, 'xml')
         xliff_element = bs.find(XLIFF_TAG)
@@ -403,7 +403,7 @@ class PageXliffHelper:
                 if page_translation:
                     page_translation.save()
                     result = True
-        # pylint: disable=W0703
+        # pylint: disable=broad-except
         except Exception:
             pass
 

@@ -4,7 +4,7 @@ import requests
 from ...models.configuration import Configuration
 
 
-# pylint: disable=R0903
+# pylint: disable=too-few-public-methods
 class PushNotificationSender:
     logger = logging.getLogger(__name__)
     fcm_url = "https://fcm.googleapis.com/fcm/send"
@@ -14,7 +14,7 @@ class PushNotificationSender:
     Returns boolean indicating success or failure
     """
 
-    # pylint: disable=R0913
+    # pylint: disable=too-many-arguments
     def send(self, region_slug, channel, title, message, lan_code):
         fcm_auth_config_key = 'fcm_auth_key'
         auth_key = Configuration.objects.filter(key=fcm_auth_config_key)

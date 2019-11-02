@@ -24,7 +24,7 @@ class ParentField(forms.ModelChoiceField):
     """
     language = None
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def label_from_instance(self, page):
         logger.info(
             'Generate label for page with id %s in language %s',
@@ -110,7 +110,7 @@ class PageForm(forms.ModelForm):
         self.fields['parent'].queryset = parent_queryset
 
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
         logger.info(
@@ -204,7 +204,7 @@ class PageTranslationForm(forms.ModelForm):
             for _, field in self.fields.items():
                 field.disabled = True
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
         logger.info(
             'PageTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s',

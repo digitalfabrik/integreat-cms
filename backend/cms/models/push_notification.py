@@ -21,8 +21,6 @@ class PushNotification(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        # pylint does not recognize the related name as attribute
-        # pylint: disable=E1101
         if self.translations.exists():
             return self.translations.first().title
         return ""
