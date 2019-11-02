@@ -21,6 +21,7 @@ from django.shortcuts import render, redirect
 from django.views.static import serve
 
 from .page_form import PageForm, PageTranslationForm
+from ...constants import status
 from ...models import Page, PageTranslation, Region, Language
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 from ...decorators import region_permission_required, staff_required
@@ -36,7 +37,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
     raise_exception = True
 
     template_name = 'pages/page.html'
-    base_context = {'current_menu_item': 'pages'}
+    base_context = {
+        'current_menu_item': 'pages',
+        'PUBLIC': status.PUBLIC
+    }
 
     def get(self, request, *args, **kwargs):
 

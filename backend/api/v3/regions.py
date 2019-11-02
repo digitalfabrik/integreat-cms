@@ -2,6 +2,7 @@ from django.db.models import Exists, OuterRef
 from django.http import JsonResponse, HttpResponse
 
 from cms.models import Region, Extra, Language
+from cms.constants import region_status
 
 PREFIXES = [
     'EAE',
@@ -22,7 +23,7 @@ def transform_region(s):
         'id': s.id,
         'name': s.name,
         'path': s.slug,
-        'live': s.status == Region.ACTIVE,
+        'live': s.status == region_status.ACTIVE,
         'prefix': prefix,
         'name_without_prefix': name_without_prefix,
         'plz': s.postal_code,
@@ -50,21 +51,21 @@ def transform_region_by_status(s):
 
 def regions(_):
     result = list(map(transform_region,
-                      Region.objects.exclude(status=Region.ARCHIVED)
+                      Region.objects.exclude(status=region_status.ARCHIVED)
                       .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
                       ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 def liveregions(_):
     result = list(map(transform_region_by_status,
-                      Region.objects.filter(status=Region.ACTIVE)
+                      Region.objects.filter(status=region_status.ACTIVE)
                       .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
                       ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 def hiddenregions(_):
     result = list(map(transform_region_by_status,
-                      Region.objects.filter(status=Region.HIDDEN)
+                      Region.objects.filter(status=region_status.HIDDEN)
                       .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
                       ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays

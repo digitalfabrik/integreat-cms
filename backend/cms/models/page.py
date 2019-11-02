@@ -7,12 +7,12 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
 
 from mptt.models import MPTTModel, TreeForeignKey
 
 from .language import Language
 from .region import Region
+from ..constants import status
 
 
 logger = logging.getLogger(__name__)
@@ -72,8 +72,7 @@ class Page(MPTTModel):
     def get_public_translation(self, language_code):
         return self.page_translations.filter(
             language__code=language_code,
-            public=True,
-            status=PageTranslation.REVIEW_FINISHED,
+            status=status.PUBLIC,
         ).first()
 
     def get_absolute_url(self):
@@ -150,28 +149,19 @@ class PageTranslation(models.Model):
     Args:
         models : Class inherit of django-Models
     """
-    DRAFT = 'DRAFT'
-    REVIEW_PENDING = 'REVIEW_PENDING'
-    REVIEW_FINISHED = 'REVIEW_FINISHED'
 
     page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=200, blank=True)
-    STATUS = (
-        (DRAFT, _('Draft')),
-        (REVIEW_PENDING, _('Pending Review')),
-        (REVIEW_FINISHED, _('Finished Review')),
-    )
-    title = models.CharField(max_length=250)
-    status = models.CharField(max_length=15, choices=STATUS, default=DRAFT)
-    text = models.TextField()
     language = models.ForeignKey(
         Language,
         related_name='page_translations',
         on_delete=models.CASCADE
     )
+    slug = models.SlugField(max_length=200, blank=True)
+    title = models.CharField(max_length=250)
+    text = models.TextField()
+    status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     currently_in_translation = models.BooleanField(default=False)
     version = models.PositiveIntegerField(default=0)
-    public = models.BooleanField(default=False)
     minor_edit = models.BooleanField(default=False)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now)
@@ -215,8 +205,7 @@ class PageTranslation(models.Model):
     def latest_public_revision(self):
         return self.page.page_translations.filter(
             language=self.language,
-            public=True,
-            status=self.REVIEW_FINISHED,
+            status=status.PUBLIC,
         ).first()
 
     @property
@@ -230,8 +219,7 @@ class PageTranslation(models.Model):
     def latest_major_public_revision(self):
         return self.page.page_translations.filter(
             language=self.language,
-            public=True,
-            status=self.REVIEW_FINISHED,
+            status=status.PUBLIC,
             minor_edit=False,
         ).first()
 
