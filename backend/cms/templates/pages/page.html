@@ -34,11 +34,13 @@
         <div class="w-1/5 flex justify-end mb-6">
         {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
         {% if can_edit_page %}
-            <input type="submit" name="submit_save" class="{% if page_translation_form.instance.public %}bg-blue hover:bg-blue-dark{% else %}bg-grey hover:bg-grey-dark{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
+            <input type="submit" name="submit_draft" class="bg-grey hover:bg-grey-dark cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
         {% endif %}
         {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
-        {% if not page_translation_form.instance.public and can_publish_page %}
-            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+        {% if can_publish_page %}
+            <input type="submit" name="submit_public" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+        {% else %}
+            <input type="submit" name="submit_review" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
         {% endif %}
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
@@ -83,6 +85,12 @@
             </ul>
             <div class="w-full mb-4 rounded border-2 border-blue-dark bg-white">
                 <div class="w-full p-4">
+                    {% if page_translation_form.instance.id %}
+                        <label for="events_enabled" class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                        {{ page_translation_form.instance.version }}<br>
+                        <label for="events_enabled" class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                        {{ page_translation_form.instance.get_status_display }}
+                    {% endif %}
                     <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
                     <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
                         {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
@@ -102,16 +110,9 @@
                     <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
                     {% trans 'Insert content here' as text_placeholder%}
                     {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded" %}
-
-                    <div class="py-2 border-b solid border-grey-lighter mb-2">
-                        <label for="status" class="font-bold">{% trans 'Status' %}</label>
-                        <div class="relative my-2">
-                            {% render_field page_translation_form.status id="status" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
-                        </div>
-                    </div>
+                    <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
+                    {% render_field page_translation_form.minor_edit id="minor_edit" %}
+                    <label for="minor_edit" class="text-s">{% trans 'This change does not require an update of the translations' %}</label>
                 </div>
             </div>
         </div>
@@ -130,16 +131,6 @@
             </ul>
             <div class="w-full mb-4 rounded border-2 border-solid border-blue-dark shadow bg-white">
                 <div class="w-full p-4">
-                    {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
-                    {% if can_publish_page %}
-                        <label for="public" class="font-bold">{% trans 'Visibility' %}</label>
-                        <div class="relative my-2">
-                            {% render_field page_translation_form.public id="public" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
-                        </div>
-                    {% endif %}
                     <span class="font-bold mb-2 mt-4 block">{% trans 'Positioning' %}</span>
                     <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
                     <div class="relative my-2">

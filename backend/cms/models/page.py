@@ -69,6 +69,16 @@ class Page(MPTTModel):
             language__code=language_code
         ).first()
 
+    # Helper function for page labels, second level paths etc. where the ancestor translation might not exist
+    def get_first_translation(self, priority_language_codes=None):
+        # Taking [] directly as default parameter would be dangerous because it is mutable
+        if not priority_language_codes:
+            priority_language_codes = []
+        for language_code in priority_language_codes + ['en-gb', 'de.de']:
+            if self.page_translations.filter(language__code=language_code).exists():
+                return self.page_translations.filter(language__code=language_code).first()
+        return self.page_translations.first()
+
     def get_public_translation(self, language_code):
         return self.page_translations.filter(
             language__code=language_code,
@@ -91,19 +101,8 @@ class Page(MPTTModel):
         return Page.objects.filter(archived=True, region__slug=region_slug).count()
 
     def __str__(self):
-        translations = PageTranslation.objects.filter(page=self)
-        german_translation = translations.filter(language__code='de-de').first()
-        english_translation = translations.filter(language__code='en-gb').first()
-        first_translation = translations.first()
-        if english_translation:
-            slug = english_translation.slug + ' (en-gb)'
-        elif german_translation:
-            slug = german_translation.slug + ' (de-de)'
-        elif first_translation:
-            slug = first_translation.slug + ' (' + first_translation.language.code + ')'
-        else:
-            slug = ''
-        return '(id: {}, slug: {})'.format(self.id, slug)
+        first_translation = self.get_first_translation()
+        return '(id: {}, slug: {} ({}))'.format(self.id, first_translation.slug, first_translation.language.code)
 
     @classmethod
     def get_tree(cls, region_slug, archived=False):
@@ -170,7 +169,7 @@ class PageTranslation(models.Model):
     @property
     def ancestor_path(self):
         return '/'.join([
-            ancestor.page_translations.get(language=self.language).slug
+            ancestor.get_first_translation([self.language.code]).slug
             for ancestor in self.page.get_ancestors()
         ])
 

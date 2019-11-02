@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-02 12:47+0100\n"
+"POT-Creation-Date: 2019-11-02 12:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -256,7 +256,7 @@ msgstr "Neue Extra-Vorlage erstellen"
 #: templates/extra_templates/extra_template.html:22
 #: templates/language_tree/tree_node.html:19
 #: templates/languages/language.html:21
-#: templates/organizations/organization.html:21 templates/pages/page.html:37
+#: templates/organizations/organization.html:21
 #: templates/pages/sbs_page.html:38 templates/pois/poi.html:27
 #: templates/push_notifications/push_notification.html:26
 #: templates/regions/region.html:21 templates/roles/role.html:21
@@ -351,7 +351,7 @@ msgid "URL"
 msgstr "URL"
 
 #: templates/extra_templates/list.html:27 templates/languages/list.html:30
-#: templates/pages/tree.html:82 templates/regions/list.html:32
+#: templates/pages/tree.html:83 templates/regions/list.html:32
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
@@ -549,7 +549,7 @@ msgstr "Thumbnail der Organisation"
 msgid "Enter the organization's thumbnail here"
 msgstr "Name der Organisations-Thumbnail hier eingeben"
 
-#: templates/organizations/organization.html:66 templates/pages/page.html:179
+#: templates/organizations/organization.html:66 templates/pages/page.html:170
 #: templates/pois/poi.html:133 templates/regions/region.html:78
 msgid "Set icon"
 msgstr "Icon festlegen"
@@ -591,7 +591,7 @@ msgstr "Erlaubnis zum Veröffentlichen erteilen"
 msgid "Archived Pages"
 msgstr "Archivierte Seiten"
 
-#: templates/pages/archive.html:21 templates/pages/page.html:99
+#: templates/pages/archive.html:21 templates/pages/page.html:107
 #: templates/pois/list.html:32 templates/pois/poi.html:36
 #: templates/push_notifications/list.html:24
 #: templates/push_notifications/push_notification.html:49
@@ -627,7 +627,7 @@ msgstr "Ja, die Seite wiederherstellen."
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/pages/archive.html:65 templates/pages/tree.html:99
+#: templates/pages/archive.html:65 templates/pages/tree.html:100
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
@@ -660,12 +660,12 @@ msgstr "Ja, die Seite jetzt löschen."
 msgid "Edit page \"%(page_title)s\""
 msgstr "Seite \"%(page_title)s\" bearbeiten"
 
-#: templates/pages/page.html:23 templates/pages/tree.html:67
-#: templates/pages/tree.html:71
+#: templates/pages/page.html:23 templates/pages/tree.html:68
+#: templates/pages/tree.html:72
 msgid "Title in"
 msgstr "Titel auf"
 
-#: templates/pages/page.html:27 templates/pages/tree_row.html:59
+#: templates/pages/page.html:27 templates/pages/tree_row.html:62
 msgid "Create new translation"
 msgstr "Neue Übersetzung erstellen"
 
@@ -673,82 +673,99 @@ msgstr "Neue Übersetzung erstellen"
 msgid "Create new page"
 msgstr "Neue Seite erstellen"
 
-#: templates/pages/page.html:77
+#: templates/pages/page.html:37
+msgid "Save as draft"
+msgstr "Als Entwurf speichern"
+
+#: templates/pages/page.html:43
+msgid "Submit for review"
+msgstr "Zur Überprüfung vorlegen"
+
+#: templates/pages/page.html:79
 msgid "Side by side view"
 msgstr "Übersetzungen nebeneinander anzeigen"
 
-#: templates/pages/page.html:86 templates/pois/poi.html:73
+#: templates/pages/page.html:89 templates/pages/tree.html:66
+msgid "Version"
+msgstr "Version"
+
+#: templates/pages/page.html:91 templates/pages/tree.html:67
+#: templates/pois/poi.html:120 templates/regions/list.html:33
+#: templates/regions/region.html:85
+msgid "Status"
+msgstr "Status"
+
+#: templates/pages/page.html:94 templates/pois/poi.html:73
 #: templates/regions/region.html:40
 msgid "Permalink"
 msgstr ""
 
-#: templates/pages/page.html:88 templates/pois/poi.html:75
+#: templates/pages/page.html:96 templates/pois/poi.html:75
 #: templates/regions/region.html:42
 msgid " Leave blank to generate unique permalink from title"
 msgstr ""
 " Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
 "generieren"
 
-#: templates/pages/page.html:100 templates/pages/sbs_page.html:30
+#: templates/pages/page.html:108 templates/pages/sbs_page.html:30
 #: templates/pois/poi.html:37
 msgid "Insert title here"
 msgstr "Titel hier eingeben"
 
-#: templates/pages/page.html:102
+#: templates/pages/page.html:110
 #: templates/push_notifications/push_notification.html:54
 msgid "Content"
 msgstr "Inhalt"
 
-#: templates/pages/page.html:103 templates/pages/sbs_page.html:33
+#: templates/pages/page.html:111 templates/pages/sbs_page.html:33
 msgid "Insert content here"
 msgstr "Inhalt hier eingeben"
 
-#: templates/pages/page.html:107 templates/pois/poi.html:120
-#: templates/regions/list.html:33 templates/regions/region.html:85
-msgid "Status"
-msgstr "Status"
+#: templates/pages/page.html:113
+msgid "Implications on other translations"
+msgstr "Auswirkungen auf andere Übersetzungen"
 
-#: templates/pages/page.html:125
+#: templates/pages/page.html:115
+msgid "This change does not require an update of the translations"
+msgstr "Diese Änderung erfordert keine angepasste Übersetzung"
+
+#: templates/pages/page.html:126
 msgid "Settings for all translations"
 msgstr "Einstellungen für alle Übersetzungen"
 
-#: templates/pages/page.html:135
-msgid "Visibility"
-msgstr "Sichtbarkeit"
-
-#: templates/pages/page.html:143
+#: templates/pages/page.html:134
 msgid "Positioning"
 msgstr "Anordnung"
 
-#: templates/pages/page.html:144
+#: templates/pages/page.html:135
 msgid "Relationship"
 msgstr "Verhältnis"
 
-#: templates/pages/page.html:148
+#: templates/pages/page.html:139
 msgid "Page"
 msgstr "Seite"
 
-#: templates/pages/page.html:155
+#: templates/pages/page.html:146
 msgid "Embed live content"
 msgstr "Live-Inhalte einbinden"
 
-#: templates/pages/page.html:157
+#: templates/pages/page.html:148
 msgid "Search page"
 msgstr "Seite suchen"
 
-#: templates/pages/page.html:160
+#: templates/pages/page.html:151
 msgid "Embed before content"
 msgstr "Vor Inhalt einbinden"
 
-#: templates/pages/page.html:161
+#: templates/pages/page.html:152
 msgid "Embed after content"
 msgstr "Nach Inhalt einbinden"
 
-#: templates/pages/page.html:168
+#: templates/pages/page.html:159
 msgid "Additional permissions for this page"
 msgstr "Zusätzliche Berechtigungen für diese Seite"
 
-#: templates/pages/page.html:169
+#: templates/pages/page.html:160
 msgid ""
 "This affects only users, who don't have the permission to change arbitrary "
 "pages anyway."
@@ -756,33 +773,33 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: templates/pages/page.html:175 templates/pois/poi.html:129
+#: templates/pages/page.html:166 templates/pois/poi.html:129
 #: templates/regions/region.html:68
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/pages/page.html:185 templates/pages/tree_row.html:82
+#: templates/pages/page.html:176 templates/pages/tree_row.html:85
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: templates/pages/page.html:187
+#: templates/pages/page.html:178
 msgid "Page is archived."
 msgstr "Die Seite wurde archiviert."
 
-#: templates/pages/page.html:190
+#: templates/pages/page.html:181
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: templates/pages/page.html:196 templates/pages/tree_row.html:91
+#: templates/pages/page.html:187 templates/pages/tree_row.html:94
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: templates/pages/page.html:198 templates/pages/tree_row.html:87
-#: views/pages/page.py:240
+#: templates/pages/page.html:189 templates/pages/tree_row.html:90
+#: views/pages/page.py:235
 msgid "You cannot delete a page which has children."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: templates/pages/page.html:201
+#: templates/pages/page.html:192
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
@@ -817,39 +834,35 @@ msgstr "Sie können Seiten nur in der Standard-Sprache anlegen"
 msgid "ID"
 msgstr ""
 
-#: templates/pages/tree.html:66
-msgid "Version"
-msgstr "Version"
-
-#: templates/pages/tree.html:83
+#: templates/pages/tree.html:84
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/pages/tree_row.html:20 templates/pages/tree_row.html:33
+#: templates/pages/tree_row.html:23 templates/pages/tree_row.html:36
 msgid "Translation not available"
 msgstr "Übersetzung nicht verfügbar"
 
-#: templates/pages/tree_row.html:46
+#: templates/pages/tree_row.html:49
 msgid "Currently in translation"
 msgstr "Wird momentan übersetzt"
 
-#: templates/pages/tree_row.html:50
+#: templates/pages/tree_row.html:53
 msgid "Translation outdated"
 msgstr "Übersetzung is veraltet"
 
-#: templates/pages/tree_row.html:54
+#: templates/pages/tree_row.html:57
 msgid "Edit translation"
 msgstr "Diese Übersetzung bearbeiten"
 
-#: templates/pages/tree_row.html:75
+#: templates/pages/tree_row.html:78
 msgid "View page"
 msgstr "Seite ansehen"
 
-#: templates/pages/tree_row.html:78
+#: templates/pages/tree_row.html:81
 msgid "Edit page"
 msgstr "Seite bearbeiten"
 
-#: templates/pages/tree_row.html:97
+#: templates/pages/tree_row.html:100
 msgid "Download page"
 msgstr "Seite herunterladen"
 
@@ -1491,7 +1504,7 @@ msgstr "Extra-Vorlage wurde erfolgreich erstellt."
 
 #: views/extra_templates/extra_templates.py:74
 #: views/language_tree/language_tree_node.py:70
-#: views/organizations/organizations.py:72 views/pages/page.py:157
+#: views/organizations/organizations.py:72 views/pages/page.py:118
 #: views/pages/sbs_page.py:109 views/pois/poi.py:122
 #: views/push_notifications/push_notifications.py:171
 #: views/regions/regions.py:78 views/roles/roles.py:71
@@ -1551,64 +1564,64 @@ msgstr "Organisation wurde erfolgreich gespeichert."
 msgid "You don't have the permission to edit this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
 
-#: views/pages/page.py:135
-msgid "Page was successfully created and published."
-msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
-
-#: views/pages/page.py:137
-msgid "Page was successfully created."
-msgstr "Seite wurde erfolgreich erstellt."
-
-#: views/pages/page.py:140
-msgid "Translation was successfully created and published."
-msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
-
-#: views/pages/page.py:142 views/pages/sbs_page.py:103
-msgid "Translation was successfully created."
-msgstr "Übersetzung wurde erfolgreich erstellt."
-
-#: views/pages/page.py:145
-msgid "Translation was successfully published."
-msgstr "Übersetzung wurde erfolgreich veröffentlich."
-
-#: views/pages/page.py:147 views/pages/sbs_page.py:105
-msgid "Translation was successfully saved."
-msgstr "Übersetzung wurde erfolgreich gespeichert."
-
-#: views/pages/page.py:149 views/pages/sbs_page.py:107 views/pois/poi.py:114
+#: views/pages/page.py:130 views/pages/sbs_page.py:107 views/pois/poi.py:114
 #: views/regions/regions.py:89 views/users/region_users.py:113
 #: views/users/users.py:89
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
-#: views/pages/page.py:188
+#: views/pages/page.py:150
+msgid "Page was successfully created and published."
+msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pages/page.py:152
+msgid "Page was successfully created."
+msgstr "Seite wurde erfolgreich erstellt."
+
+#: views/pages/page.py:155
+msgid "Translation was successfully created and published."
+msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pages/page.py:157 views/pages/sbs_page.py:103
+msgid "Translation was successfully created."
+msgstr "Übersetzung wurde erfolgreich erstellt."
+
+#: views/pages/page.py:160
+msgid "Translation was successfully published."
+msgstr "Übersetzung wurde erfolgreich veröffentlicht."
+
+#: views/pages/page.py:162 views/pages/sbs_page.py:105
+msgid "Translation was successfully saved."
+msgstr "Übersetzung wurde erfolgreich gespeichert."
+
+#: views/pages/page.py:183
 msgid "Page was successfully archived."
 msgstr "Seite wurde erfolgreich archiviert."
 
-#: views/pages/page.py:207
+#: views/pages/page.py:202
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page.py:243
+#: views/pages/page.py:238
 msgid "Page was successfully deleted."
 msgstr "Seite wurde erfolgreich gelöscht."
 
-#: views/pages/page.py:341 views/pages/page.py:356
+#: views/pages/page.py:336 views/pages/page.py:351
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page.py:349
+#: views/pages/page.py:344
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page.py:364
+#: views/pages/page.py:359
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nurn veröffentlichen"
 
-#: views/pages/page.py:431
+#: views/pages/page.py:426
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -1618,12 +1631,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:437
+#: views/pages/page.py:432
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page.py:448
+#: views/pages/page.py:443
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -1633,7 +1646,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:454
+#: views/pages/page.py:449
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -1796,6 +1809,9 @@ msgstr "Benutzer wurde erfolgreich erstellt."
 #: views/users/region_users.py:133 views/users/users.py:107
 msgid "User was successfully deleted."
 msgstr "Benutzer wurde erfolgreich gelöscht."
+
+#~ msgid "Visibility"
+#~ msgstr "Sichtbarkeit"
 
 #~ msgid "Finished Review"
 #~ msgstr "Review abgeschlossen"

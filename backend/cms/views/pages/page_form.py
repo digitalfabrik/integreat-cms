@@ -32,7 +32,7 @@ class ParentField(forms.ModelChoiceField):
             self.language
         )
         return ' -> '.join([
-            page.get_translation(self.language.code).title
+            page.get_first_translation([self.language.code]).title
             for page in page.get_ancestors(include_self=True)
         ])
 
@@ -93,10 +93,6 @@ class PageForm(forms.ModelForm):
         parent_queryset = Page.objects.filter(
             region=self.region,
         )
-        # limit possible queryset to page which has translation in current language
-        for parent in parent_queryset:
-            if not parent.get_translation(language_code=language.code):
-                parent_queryset = parent_queryset.exclude(id=parent.id)
 
         # check if instance of this form already exists
         if self.instance.id:
@@ -227,8 +223,10 @@ class PageTranslationForm(forms.ModelForm):
             page_translation.creator = user
             page_translation.language = self.language
 
-        page_translation.version = page_translation.version + 1
-        page_translation.pk = None
+        # Only create new version if content changed
+        if not {'slug', 'title', 'text'}.isdisjoint(self.changed_data):
+            page_translation.version = page_translation.version + 1
+            page_translation.pk = None
         page_translation.save()
 
         return page_translation
