@@ -5,7 +5,7 @@ from django.utils import timezone
 class Organization(models.Model):
 
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
     thumbnail = models.CharField(max_length=250, blank=True)
 
     created_date = models.DateTimeField(default=timezone.now)

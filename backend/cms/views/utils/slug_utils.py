@@ -13,7 +13,10 @@ def generate_unique_slug(form_object_instance, foreign_model=None):
         else:
             fallback = 'name'
         # slugify to make sure slug doesn't contain special chars etc.
-        slug = slugify(form_object_instance.cleaned_data[fallback])
+        slug = slugify(form_object_instance.cleaned_data[fallback], allow_unicode=True)
+        # If the title/name field didn't contain valid characters for a slug, we use a hardcoded fallback slug
+        if not slug:
+            slug = 'page'
 
     unique_slug = slug
     i = 1
@@ -30,9 +33,16 @@ def generate_unique_slug(form_object_instance, foreign_model=None):
     while True:
         other_object = pre_filtered_objects.filter(
             slug=unique_slug
-        ).exclude(
-            id=form_object_instance.instance.id
         )
+        if foreign_model:
+            other_object = other_object.exclude(
+                page=form_object_instance.instance.page,
+                language=form_object_instance.instance.language
+            )
+        else:
+            other_object = other_object.exclude(
+                id=form_object_instance.instance.id,
+            )
         if not other_object.exists():
             break
         i += 1

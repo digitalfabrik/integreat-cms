@@ -73,7 +73,7 @@ class POITranslation(models.Model):
     """
 
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=200, blank=True)
+    slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
     poi = models.ForeignKey(POI, related_name='translations', null=True,
                             on_delete=models.SET_NULL)
     permalink = models.CharField(max_length=60)

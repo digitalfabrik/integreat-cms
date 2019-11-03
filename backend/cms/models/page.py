@@ -155,7 +155,7 @@ class PageTranslation(models.Model):
         related_name='page_translations',
         on_delete=models.CASCADE
     )
-    slug = models.SlugField(max_length=200, blank=True)
+    slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
     title = models.CharField(max_length=250)
     text = models.TextField()
     status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
