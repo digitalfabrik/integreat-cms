@@ -176,15 +176,14 @@ def archive_page(request, page_id, region_slug, language_code):
     if not request.user.has_perm('cms.edit_page', page):
         raise PermissionDenied
 
-    page.public = False
     page.archived = True
     page.save()
 
     messages.success(request, _('Page was successfully archived.'))
 
     return redirect('pages', **{
-                'region_slug': region_slug,
-                'language_code': language_code,
+        'region_slug': region_slug,
+        'language_code': language_code,
     })
 
 
@@ -202,8 +201,8 @@ def restore_page(request, page_id, region_slug, language_code):
     messages.success(request, _('Page was successfully restored.'))
 
     return redirect('pages', **{
-                'region_slug': region_slug,
-                'language_code': language_code,
+        'region_slug': region_slug,
+        'language_code': language_code,
     })
 
 
@@ -279,8 +278,8 @@ def upload_page(request, region_slug, language_code):
             page_xliff_helper.delete_tmp_in_xliff_folder(file_path)
 
     return redirect('pages', **{
-                'region_slug': region_slug,
-                'language_code': language_code,
+        'region_slug': region_slug,
+        'language_code': language_code,
     })
 
 
@@ -303,6 +302,13 @@ def grant_page_permission_ajax(request):
 
     page = Page.objects.get(id=page_id)
     user = get_user_model().objects.get(id=user_id)
+
+    if not page.region.page_permissions_enabled:
+        logger.info(
+            'Error: Page permissions are not activated for the region "%s".',
+            page.region
+        )
+        raise PermissionDenied
 
     if not request.user.has_perm('cms.grant_page_permissions'):
         logger.info(
@@ -383,6 +389,7 @@ def grant_page_permission_ajax(request):
 @region_permission_required
 @permission_required('cms.edit_pages', raise_exception=True)
 @permission_required('cms.grant_page_permissions', raise_exception=True)
+# pylint: disable=too-many-branches
 def revoke_page_permission_ajax(request):
 
     data = json.loads(request.body.decode('utf-8'))
@@ -398,6 +405,13 @@ def revoke_page_permission_ajax(request):
         page_id,
         user.username
     )
+
+    if not page.region.page_permissions_enabled:
+        logger.info(
+            'Error: Page permissions are not activated for the region "%s".',
+            page.region
+        )
+        raise PermissionDenied
 
     if not request.user.has_perm('cms.grant_page_permissions'):
         logger.info(

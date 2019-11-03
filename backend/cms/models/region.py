@@ -36,6 +36,8 @@ class Region(models.Model):
     matomo_token = models.CharField(max_length=150, blank=True, default='')
     matomo_ssl_verify = models.BooleanField(default=True)
 
+    page_permissions_enabled = models.BooleanField(default=False)
+
     @property
     def languages(self):
         language_tree_nodes = self.language_tree_nodes.select_related('language').all()

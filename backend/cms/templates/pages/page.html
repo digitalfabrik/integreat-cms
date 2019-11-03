@@ -155,7 +155,7 @@
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
-                    {% if perms.cms.grant_page_permissions %}
+                    {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
                         <span class="block font-bold mb-2">{% trans 'Additional permissions for this page' %}</span>
                         <p class="italic">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
                         <div id="page_permission_table">
@@ -212,6 +212,7 @@
 {% endblock %}
 
 {% block javascript %}
+    {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
     <script>
         // event handler for granting edit page permissions
         u("#grant-edit-page-permission").handle('click', grant_edit_page_permission);
@@ -283,4 +284,5 @@
 
         }
     </script>
+    {% endif %}
 {% endblock %}

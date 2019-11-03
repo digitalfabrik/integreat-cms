@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-02 12:48+0100\n"
+"POT-Creation-Date: 2019-11-03 18:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -147,12 +147,12 @@ msgid "Media Library"
 msgstr "Medienbibliothek"
 
 #: templates/_base.html:129 templates/pages/tree.html:12
-#: templates/regions/region.html:190
+#: templates/regions/region.html:196
 msgid "Pages"
 msgstr "Seiten"
 
 #: templates/_base.html:133 templates/regions/region.html:102
-#: templates/regions/region.html:191
+#: templates/regions/region.html:197
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -161,7 +161,7 @@ msgid "Points of Interest"
 msgstr "POIs"
 
 #: templates/_base.html:141 templates/_base.html:186
-#: templates/regions/region.html:188
+#: templates/regions/region.html:194
 msgid "Users"
 msgstr "Benutzer"
 
@@ -202,7 +202,7 @@ msgstr "Admin Dashboard"
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:182 templates/regions/region.html:189
+#: templates/_base.html:182 templates/regions/region.html:195
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -621,7 +621,7 @@ msgstr "Ja, die Seite wiederherstellen."
 #: templates/pages/archive.html:53
 #: templates/pages/confirmation_popups/archive_page.html:13
 #: templates/pages/confirmation_popups/delete_page.html:13
-#: templates/regions/region.html:200
+#: templates/regions/region.html:206
 #: templates/users/confirmation_popups/delete_region_user.html:12
 #: templates/users/confirmation_popups/delete_user.html:12
 msgid "Cancel"
@@ -795,7 +795,7 @@ msgid "Delete page"
 msgstr "Seite löschen"
 
 #: templates/pages/page.html:189 templates/pages/tree_row.html:90
-#: views/pages/page.py:235
+#: views/pages/page.py:234
 msgid "You cannot delete a page which has children."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -1131,24 +1131,32 @@ msgstr "Matomo-URL hier eingeben"
 msgid "Enter token for Matomo here"
 msgstr "Matomo-Token hier eingeben"
 
-#: templates/regions/region.html:147
+#: templates/regions/region.html:141
+msgid "Page permissions"
+msgstr "Seiten-Berechtigungen"
+
+#: templates/regions/region.html:143
+msgid "Activate permissions for specific pages"
+msgstr "Zusätzliche Berechtigungen für bestimmte Seiten aktivieren"
+
+#: templates/regions/region.html:153
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: templates/regions/region.html:150
+#: templates/regions/region.html:156
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: templates/regions/region.html:165
+#: templates/regions/region.html:171
 #, python-format
 msgid "Delete region \"%(region_name)s\""
 msgstr "Region \"%(region_name)s\" löschen"
 
-#: templates/regions/region.html:176
+#: templates/regions/region.html:182
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: templates/regions/region.html:178
+#: templates/regions/region.html:184
 msgid ""
 "This can not be reversed. All pages, events, POIs and users of this region "
 "will also be deleted."
@@ -1156,19 +1164,19 @@ msgstr ""
 "Dies kann nicht rückgängig gemacht werden. Alle Seiten, Veranstaltungen, "
 "POIs und Benutzer dieser Region werden ebenfalls gelöscht."
 
-#: templates/regions/region.html:182
+#: templates/regions/region.html:188
 msgid "Summary of deleted objects"
 msgstr "Zusammenfassung der zu löschenden Objekte"
 
-#: templates/regions/region.html:186
+#: templates/regions/region.html:192
 msgid "Region"
 msgstr "Region"
 
-#: templates/regions/region.html:192
+#: templates/regions/region.html:198
 msgid "POIs"
 msgstr "POIs"
 
-#: templates/regions/region.html:198
+#: templates/regions/region.html:204
 msgid "Yes, delete this region now"
 msgstr "Ja, diese Region jetzt löschen"
 
@@ -1594,34 +1602,34 @@ msgstr "Übersetzung wurde erfolgreich veröffentlicht."
 msgid "Translation was successfully saved."
 msgstr "Übersetzung wurde erfolgreich gespeichert."
 
-#: views/pages/page.py:183
+#: views/pages/page.py:182
 msgid "Page was successfully archived."
 msgstr "Seite wurde erfolgreich archiviert."
 
-#: views/pages/page.py:202
+#: views/pages/page.py:201
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page.py:238
+#: views/pages/page.py:237
 msgid "Page was successfully deleted."
 msgstr "Seite wurde erfolgreich gelöscht."
 
-#: views/pages/page.py:336 views/pages/page.py:351
+#: views/pages/page.py:342 views/pages/page.py:357
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page.py:344
+#: views/pages/page.py:350
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page.py:359
+#: views/pages/page.py:365
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nurn veröffentlichen"
 
-#: views/pages/page.py:426
+#: views/pages/page.py:439
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -1631,12 +1639,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:432
+#: views/pages/page.py:445
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page.py:443
+#: views/pages/page.py:456
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -1646,7 +1654,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:449
+#: views/pages/page.py:462
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -1855,9 +1863,6 @@ msgstr "Benutzer wurde erfolgreich gelöscht."
 
 #~ msgid "User"
 #~ msgstr "Benutzer"
-
-#~ msgid "Grant permission"
-#~ msgstr "Berechtigung erteilen"
 
 #~ msgid "Publish all translations"
 #~ msgstr "Alle Übersetzungen veröffentlichen"

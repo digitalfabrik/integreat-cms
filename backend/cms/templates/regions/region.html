@@ -137,6 +137,12 @@
                     {% render_field form.matomo_token placeholder=matomo_token_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                 </div>
 
+                <!-- Options related to page-instance-specific permissions -->
+                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Page permissions' %}</span>
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    <label for="page_permissions_enabled" class="font-bold">{% trans 'Activate permissions for specific pages' %}</label>
+                    {% render_field form.page_permissions_enabled id="page_permissions_enabled" %}
+                </div>
                 
             </div>
             

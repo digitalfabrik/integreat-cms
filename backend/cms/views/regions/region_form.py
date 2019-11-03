@@ -36,7 +36,8 @@ class RegionForm(forms.ModelForm):
             'matomo_url',
             'matomo_token',
             'matomo_ssl_verify',
-            'status'
+            'status',
+            'page_permissions_enabled',
         ]
 
     # pylint: disable=arguments-differ
