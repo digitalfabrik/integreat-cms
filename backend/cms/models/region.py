@@ -19,6 +19,7 @@ class Region(models.Model):
     status = models.CharField(max_length=8, choices=region_status.CHOICES, default=region_status.HIDDEN)
 
     administrative_division = models.CharField(max_length=24, choices=administrative_division.CHOICES, default=administrative_division.RURAL_DISTRICT)
+    aliases = ArrayField(models.CharField(max_length=60), blank=True)
 
     events_enabled = models.BooleanField(default=True)
     push_notifications_enabled = models.BooleanField(default=True)

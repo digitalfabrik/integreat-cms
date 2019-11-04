@@ -39,6 +39,7 @@ class RegionForm(forms.ModelForm):
             'status',
             'page_permissions_enabled',
             'administrative_division',
+            'aliases',
         ]
 
     # pylint: disable=arguments-differ

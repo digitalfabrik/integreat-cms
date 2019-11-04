@@ -44,5 +44,5 @@ integreat-cms runserver localhost:8000
 
 if [ -x "$(command -v docker)" ] && docker ps > /dev/null 2>&1; then
     # Stop the postgres database docker container
-    docker stop integreat_django_postgres
+    docker stop integreat_django_postgres > /dev/null 2>&1
 fi
