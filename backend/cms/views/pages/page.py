@@ -246,6 +246,7 @@ def delete_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required('cms.view_pages', raise_exception=True)
+# pylint: disable=unused-argument
 def download_page_xliff(request, page_id, region_slug, language_code):
     page = Page.objects.get(id=page_id)
     page_xliff_helper = PageXliffHelper()
