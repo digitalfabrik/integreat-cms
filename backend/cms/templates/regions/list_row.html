@@ -1,5 +1,8 @@
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
     <td class="pl-2">
+        {{ region.get_administrative_division_display }}
+    </td>
+    <td class="pl-2">
         <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-grey-darkest">
             {{ region.name }}
         </a>

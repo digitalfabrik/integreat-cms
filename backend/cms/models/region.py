@@ -6,7 +6,7 @@ from django.db import models
 from django.http import Http404
 from django.utils import timezone
 
-from ..constants import region_status
+from ..constants import region_status, administrative_division
 
 
 class Region(models.Model):
@@ -17,6 +17,8 @@ class Region(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True, allow_unicode=True)
     status = models.CharField(max_length=8, choices=region_status.CHOICES, default=region_status.HIDDEN)
+
+    administrative_division = models.CharField(max_length=24, choices=administrative_division.CHOICES, default=administrative_division.RURAL_DISTRICT)
 
     events_enabled = models.BooleanField(default=True)
     push_notifications_enabled = models.BooleanField(default=True)

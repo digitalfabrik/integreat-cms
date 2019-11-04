@@ -38,6 +38,7 @@ class RegionForm(forms.ModelForm):
             'matomo_ssl_verify',
             'status',
             'page_permissions_enabled',
+            'administrative_division',
         ]
 
     # pylint: disable=arguments-differ

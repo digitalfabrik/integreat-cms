@@ -32,6 +32,14 @@
                 </div>
                 <div class="w-full p-4">
 
+                    <!-- Options related to the region's administrative division -->
+                    <label for="administrative_division" class="mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Administrative division' %}</label>
+                    <div class="relative my-2">
+                        {% render_field form.administrative_division id="administrative_division" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
                     <!-- General Options for region management -->
                     <label for="name" class="font-bold block p-2 mb-2">{% trans "Name of the region" %}</label>
                     {% trans "Enter the region's name here" as name_placeholder%}
