@@ -59,7 +59,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
             'languages': region.languages,
         })
 
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
 
         region = Region.objects.get(slug=kwargs.get('region_slug'))
@@ -169,6 +169,7 @@ def restore_poi(request, poi_id, region_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required('cms.manage_pois', raise_exception=True)
+# pylint: disable=unused-argument
 def view_poi(request, poi_id, region_slug, language_code):
     template_name = 'pois/poi_view.html'
     poi = POI.objects.get(id=poi_id)

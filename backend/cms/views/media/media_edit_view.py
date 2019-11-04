@@ -34,6 +34,7 @@ class MediaEditView(TemplateView):
             }
         )
 
+    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         # current region
         region = Region.objects.get(slug=kwargs.get('region_slug'))

@@ -57,6 +57,7 @@ class UserView(PermissionRequiredMixin, TemplateView):
             'user_profile_form': user_profile_form,
         })
 
+    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
 
         user_instance = get_user_model().objects.filter(id=kwargs.get('user_id')).first()

@@ -97,7 +97,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             'languages': region.languages,
         })
 
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
 
         if not request.user.has_perm('cms.edit_push_notifications'):

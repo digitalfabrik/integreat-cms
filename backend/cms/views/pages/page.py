@@ -81,7 +81,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
             'languages': region.languages if page else [language],
         })
 
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
 
         region = Region.objects.get(slug=kwargs.get('region_slug'))
@@ -209,6 +209,7 @@ def restore_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required('cms.view_pages', raise_exception=True)
+# pylint: disable=unused-argument
 def view_page(request, page_id, region_slug, language_code):
     template_name = 'pages/page_view.html'
     page = Page.objects.get(id=page_id)
