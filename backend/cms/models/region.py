@@ -5,26 +5,21 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.http import Http404
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+
+from ..constants import region_status, administrative_division
 
 
 class Region(models.Model):
     """
     Class to generate region database objects
     """
-    ACTIVE = 'acti'
-    HIDDEN = 'hidd'
-    ARCHIVED = 'arch'
-
-    STATUS = (
-        (ACTIVE, _('Active')),
-        (HIDDEN, _('Hidden')),
-        (ARCHIVED, _('Archived')),
-    )
 
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True, blank=True)
-    status = models.CharField(max_length=4, choices=STATUS)
+    slug = models.SlugField(max_length=200, unique=True, blank=True, allow_unicode=True)
+    status = models.CharField(max_length=8, choices=region_status.CHOICES, default=region_status.HIDDEN)
+
+    administrative_division = models.CharField(max_length=24, choices=administrative_division.CHOICES, default=administrative_division.RURAL_DISTRICT)
+    aliases = ArrayField(models.CharField(max_length=60), blank=True)
 
     events_enabled = models.BooleanField(default=True)
     push_notifications_enabled = models.BooleanField(default=True)
@@ -43,6 +38,8 @@ class Region(models.Model):
     matomo_url = models.CharField(max_length=150, blank=True, default='')
     matomo_token = models.CharField(max_length=150, blank=True, default='')
     matomo_ssl_verify = models.BooleanField(default=True)
+
+    page_permissions_enabled = models.BooleanField(default=False)
 
     @property
     def languages(self):

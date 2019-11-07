@@ -40,7 +40,7 @@ class POIForm(forms.ModelForm):
         super(POIForm, self).__init__(*args, **kwargs)
 
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
         logger.info(
@@ -93,7 +93,7 @@ class POITranslationForm(forms.ModelForm):
 
         self.fields['public'].widget = forms.Select(choices=self.PUBLIC_CHOICES)
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
         logger.info(

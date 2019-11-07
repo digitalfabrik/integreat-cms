@@ -50,6 +50,7 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
             'form': form, **self.base_context
         })
 
+    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         language_code = self.kwargs.get('language_code', None)
         language = Language.objects.filter(code=language_code).first()

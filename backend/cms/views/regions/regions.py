@@ -62,6 +62,7 @@ class RegionView(PermissionRequiredMixin, TemplateView):
             }
         )
 
+    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
 
         region_instance = Region.objects.filter(
@@ -109,6 +110,7 @@ class RegionView(PermissionRequiredMixin, TemplateView):
 
 @login_required
 @staff_required
+# pylint: disable=unused-argument
 def delete_region(request, *args, **kwargs):
 
     if not request.user.has_perm('cms.manage_regions'):

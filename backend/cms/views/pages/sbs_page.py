@@ -56,6 +56,7 @@ class SBSPageView(PermissionRequiredMixin, TemplateView):
             'target_language': target_language,
         })
 
+    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
 
         if not request.user.has_perm('cms.edit_pages'):

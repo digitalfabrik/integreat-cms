@@ -36,7 +36,7 @@ class FeedbackData:
     def __is_either_exist(one, two):
         return one or two
 
-# pylint: disable=W0613
+# pylint: disable=unused-argument
 def feedback(req, region_slug, languages):
     if req.method != 'POST':
         return HttpResponse(f'Invalid request method.', status=405)

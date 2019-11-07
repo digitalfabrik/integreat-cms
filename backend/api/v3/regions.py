@@ -2,71 +2,61 @@ from django.db.models import Exists, OuterRef
 from django.http import JsonResponse, HttpResponse
 
 from cms.models import Region, Extra, Language
+from cms.constants import region_status
 
-PREFIXES = [
-    'EAE',
-    'Landkreis',
-    'Kreis',
-    'Stadt',
-]
 
-def strip_prefix(name):
-    for p in PREFIXES:
-        if name.startswith(p):
-            return p, name[len(p) + 1:]  # +1 for one whitespace
-    return None, name
-
-def transform_region(s):
-    prefix, name_without_prefix = strip_prefix(s.name)
+def transform_region(region):
     return {
-        'id': s.id,
-        'name': s.name,
-        'path': s.slug,
-        'live': s.status == Region.ACTIVE,
-        'prefix': prefix,
-        'name_without_prefix': name_without_prefix,
-        'plz': s.postal_code,
-        'extras': s.extras_enabled,
-        'events': s.events_enabled,
-        'push-notifications': s.push_notifications_enabled,
-        'longitude': s.longitude,
-        'langitude': s.latitude,
-        'aliases': None  # todo
+        'id': region.id,
+        'name': region.get_administrative_division_display() + ' ' + region.name,
+        'path': region.slug,
+        'live': region.status == region_status.ACTIVE,
+        'prefix': region.get_administrative_division_display(),
+        'name_without_prefix': region.name,
+        'plz': region.postal_code,
+        'extras': region.extras_enabled,
+        'events': region.events_enabled,
+        'push-notifications': region.push_notifications_enabled,
+        'longitude': region.longitude,
+        'langitude': region.latitude,
+        'aliases': region.aliases,
     }
 
-def transform_region_by_status(s):
-    prefix, name_without_prefix = strip_prefix(s.name)
+def transform_region_by_status(region):
     return {
-        'id': s.id,
-        'name': s.name,
-        'path': s.slug,
-        'prefix': prefix,
-        'name_without_prefix': name_without_prefix,
-        'plz': s.postal_code,
-        'extras': s.extras_enabled,
-        'events': s.events_enabled,
-        'push-notifications': s.push_notifications_enabled,
+        'id': region.id,
+        'name': region.get_administrative_division_display() + ' ' + region.name,
+        'path': region.slug,
+        'prefix': region.get_administrative_division_display(),
+        'name_without_prefix': region.name,
+        'plz': region.postal_code,
+        'extras': region.extras_enabled,
+        'events': region.events_enabled,
+        'push-notifications': region.push_notifications_enabled,
+        'longitude': region.longitude,
+        'langitude': region.latitude,
+        'aliases': region.aliases,
     }
 
 def regions(_):
-    result = list(map(transform_region,
-                      Region.objects.exclude(status=Region.ARCHIVED)
-                      .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
-                      ))
+    result = list(map(
+        transform_region,
+        Region.objects.exclude(status=region_status.ARCHIVED).annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
+    ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 def liveregions(_):
-    result = list(map(transform_region_by_status,
-                      Region.objects.filter(status=Region.ACTIVE)
-                      .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
-                      ))
+    result = list(map(
+        transform_region_by_status,
+        Region.objects.filter(status=region_status.ACTIVE).annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
+    ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 def hiddenregions(_):
-    result = list(map(transform_region_by_status,
-                      Region.objects.filter(status=Region.HIDDEN)
-                      .annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
-                      ))
+    result = list(map(
+        transform_region_by_status,
+        Region.objects.filter(status=region_status.HIDDEN).annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
+    ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 def pushnew(_):

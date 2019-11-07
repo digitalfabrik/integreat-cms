@@ -21,6 +21,7 @@ from django.shortcuts import render, redirect
 from django.views.static import serve
 
 from .page_form import PageForm, PageTranslationForm
+from ...constants import status
 from ...models import Page, PageTranslation, Region, Language
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 from ...decorators import region_permission_required, staff_required
@@ -36,7 +37,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
     raise_exception = True
 
     template_name = 'pages/page.html'
-    base_context = {'current_menu_item': 'pages'}
+    base_context = {
+        'current_menu_item': 'pages',
+        'PUBLIC': status.PUBLIC
+    }
 
     def get(self, request, *args, **kwargs):
 
@@ -67,23 +71,17 @@ class PageView(PermissionRequiredMixin, TemplateView):
             disabled=disabled
         )
 
-        if page:
-            # If the page is already existing, we use all region languages for the tab view.
-            languages = region.languages
-        else:
-            # If the page is being created, we only show the tab of the current language
-            languages = [language]
-
         return render(request, self.template_name, {
             **self.base_context,
             'page_form': page_form,
             'page_translation_form': page_translation_form,
             'page': page,
             'language': language,
-            'languages': languages,
+            # Languages for tab view
+            'languages': region.languages if page else [language],
         })
 
-    # pylint: disable=R0912
+    # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
 
         region = Region.objects.get(slug=kwargs.get('region_slug'))
@@ -116,56 +114,57 @@ class PageView(PermissionRequiredMixin, TemplateView):
                 raise PermissionDenied
 
         # TODO: error handling
-        if page_form.is_valid() and page_translation_form.is_valid():
-
-            page = page_form.save()
-            page_translation = page_translation_form.save(
-                page=page,
-                user=request.user,
-            )
-
-            if page_form.has_changed() or page_translation_form.has_changed():
-                published = page_translation.public and 'public' in page_translation_form.changed_data
-                if not page_instance:
-                    if published:
-                        messages.success(request, _('Page was successfully created and published.'))
-                    else:
-                        messages.success(request, _('Page was successfully created.'))
-                elif not page_translation_instance:
-                    if published:
-                        messages.success(request, _('Translation was successfully created and published.'))
-                    else:
-                        messages.success(request, _('Translation was successfully created.'))
-                else:
-                    if published:
-                        messages.success(request, _('Translation was successfully published.'))
-                    else:
-                        messages.success(request, _('Translation was successfully saved.'))
-            else:
-                messages.info(request, _('No changes detected.'))
-
-            return redirect('edit_page', **{
-                'page_id': page.id,
-                'region_slug': region.slug,
-                'language_code': language.code,
+        if not page_form.is_valid() or not page_translation_form.is_valid():
+            messages.error(request, _('Errors have occurred.'))
+            return render(request, self.template_name, {
+                **self.base_context,
+                'page_form': page_form,
+                'page_translation_form': page_translation_form,
+                'page': page_instance,
+                'language': language,
+                # Languages for tab view
+                'languages': region.languages if page_instance else [language],
             })
 
-        messages.error(request, _('Errors have occurred.'))
+        if not page_form.has_changed() and not page_translation_form.has_changed():
+            messages.info(request, _('No changes detected.'))
+            return render(request, self.template_name, {
+                **self.base_context,
+                'page_form': page_form,
+                'page_translation_form': page_translation_form,
+                'page': page_instance,
+                'language': language,
+                # Languages for tab view
+                'languages': region.languages if page_instance else [language],
+            })
 
-        if page_instance:
-            # If the page is already existing, we use all region languages for the tab view.
-            languages = region.languages
+        page = page_form.save()
+        page_translation = page_translation_form.save(
+            page=page,
+            user=request.user,
+        )
+
+        published = page_translation.status == status.PUBLIC
+        if not page_instance:
+            if published:
+                messages.success(request, _('Page was successfully created and published.'))
+            else:
+                messages.success(request, _('Page was successfully created.'))
+        elif not page_translation_instance:
+            if published:
+                messages.success(request, _('Translation was successfully created and published.'))
+            else:
+                messages.success(request, _('Translation was successfully created.'))
         else:
-            # If the page is being created, we only show the tab of the current language
-            languages = [language]
+            if published:
+                messages.success(request, _('Translation was successfully published.'))
+            else:
+                messages.success(request, _('Translation was successfully saved.'))
 
-        return render(request, self.template_name, {
-            **self.base_context,
-            'page_form': page_form,
-            'page_translation_form': page_translation_form,
-            'page': page_instance,
-            'language': language,
-            'languages': languages,
+        return redirect('edit_page', **{
+            'page_id': page.id,
+            'region_slug': region.slug,
+            'language_code': language.code,
         })
 
 
@@ -177,15 +176,14 @@ def archive_page(request, page_id, region_slug, language_code):
     if not request.user.has_perm('cms.edit_page', page):
         raise PermissionDenied
 
-    page.public = False
     page.archived = True
     page.save()
 
     messages.success(request, _('Page was successfully archived.'))
 
     return redirect('pages', **{
-                'region_slug': region_slug,
-                'language_code': language_code,
+        'region_slug': region_slug,
+        'language_code': language_code,
     })
 
 
@@ -203,14 +201,15 @@ def restore_page(request, page_id, region_slug, language_code):
     messages.success(request, _('Page was successfully restored.'))
 
     return redirect('pages', **{
-                'region_slug': region_slug,
-                'language_code': language_code,
+        'region_slug': region_slug,
+        'language_code': language_code,
     })
 
 
 @login_required
 @region_permission_required
 @permission_required('cms.view_pages', raise_exception=True)
+# pylint: disable=unused-argument
 def view_page(request, page_id, region_slug, language_code):
     template_name = 'pages/page_view.html'
     page = Page.objects.get(id=page_id)
@@ -247,6 +246,7 @@ def delete_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required('cms.view_pages', raise_exception=True)
+# pylint: disable=unused-argument
 def download_page_xliff(request, page_id, region_slug, language_code):
     page = Page.objects.get(id=page_id)
     page_xliff_helper = PageXliffHelper()
@@ -280,8 +280,8 @@ def upload_page(request, region_slug, language_code):
             page_xliff_helper.delete_tmp_in_xliff_folder(file_path)
 
     return redirect('pages', **{
-                'region_slug': region_slug,
-                'language_code': language_code,
+        'region_slug': region_slug,
+        'language_code': language_code,
     })
 
 
@@ -304,6 +304,13 @@ def grant_page_permission_ajax(request):
 
     page = Page.objects.get(id=page_id)
     user = get_user_model().objects.get(id=user_id)
+
+    if not page.region.page_permissions_enabled:
+        logger.info(
+            'Error: Page permissions are not activated for the region "%s".',
+            page.region
+        )
+        raise PermissionDenied
 
     if not request.user.has_perm('cms.grant_page_permissions'):
         logger.info(
@@ -384,6 +391,7 @@ def grant_page_permission_ajax(request):
 @region_permission_required
 @permission_required('cms.edit_pages', raise_exception=True)
 @permission_required('cms.grant_page_permissions', raise_exception=True)
+# pylint: disable=too-many-branches
 def revoke_page_permission_ajax(request):
 
     data = json.loads(request.body.decode('utf-8'))
@@ -399,6 +407,13 @@ def revoke_page_permission_ajax(request):
         page_id,
         user.username
     )
+
+    if not page.region.page_permissions_enabled:
+        logger.info(
+            'Error: Page permissions are not activated for the region "%s".',
+            page.region
+        )
+        raise PermissionDenied
 
     if not request.user.has_perm('cms.grant_page_permissions'):
         logger.info(

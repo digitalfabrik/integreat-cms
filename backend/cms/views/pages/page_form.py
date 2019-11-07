@@ -8,10 +8,9 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
-from django.utils.translation import ugettext_lazy as _
 
 from ...models import Page, PageTranslation
-from ..utils.tree_utils import POSITION_CHOICES
+from ...constants import position, status
 from ..utils.slug_utils import generate_unique_slug
 
 
@@ -25,7 +24,7 @@ class ParentField(forms.ModelChoiceField):
     """
     language = None
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def label_from_instance(self, page):
         logger.info(
             'Generate label for page with id %s in language %s',
@@ -33,7 +32,7 @@ class ParentField(forms.ModelChoiceField):
             self.language
         )
         return ' -> '.join([
-            page.get_translation(self.language.code).title
+            page.get_first_translation([self.language.code]).title
             for page in page.get_ancestors(include_self=True)
         ])
 
@@ -46,7 +45,7 @@ class PageForm(forms.ModelForm):
         forms : Defines the form as an Model form related to a database object
     """
 
-    position = forms.ChoiceField(choices=POSITION_CHOICES, initial=POSITION_CHOICES[0][0])
+    position = forms.ChoiceField(choices=position.CHOICES, initial=position.FIRST_CHILD)
     parent = ParentField(queryset=Page.objects.all(), required=False)
     editors = forms.ModelChoiceField(queryset=get_user_model().objects.all(), required=False)
     publishers = forms.ModelChoiceField(queryset=get_user_model().objects.all(), required=False)
@@ -70,7 +69,7 @@ class PageForm(forms.ModelForm):
 
         # add initial kwarg to make sure changed_data is preserved
         kwargs['initial'] = {
-            'position': POSITION_CHOICES[0][0]
+            'position': position.FIRST_CHILD
         }
 
         # instantiate ModelForm
@@ -94,10 +93,6 @@ class PageForm(forms.ModelForm):
         parent_queryset = Page.objects.filter(
             region=self.region,
         )
-        # limit possible queryset to page which has translation in current language
-        for parent in parent_queryset:
-            if not parent.get_translation(language_code=language.code):
-                parent_queryset = parent_queryset.exclude(id=parent.id)
 
         # check if instance of this form already exists
         if self.instance.id:
@@ -111,7 +106,7 @@ class PageForm(forms.ModelForm):
         self.fields['parent'].queryset = parent_queryset
 
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
         logger.info(
@@ -164,14 +159,9 @@ class PageTranslationForm(forms.ModelForm):
         forms : Defines the form as an Model form related to a database object
     """
 
-    PUBLIC_CHOICES = (
-        (True, _('Public')),
-        (False, _('Private')),
-    )
-
     class Meta:
         model = PageTranslation
-        fields = ['title', 'status', 'text', 'slug', 'public']
+        fields = ['title', 'slug', 'status', 'text', 'minor_edit']
 
     def __init__(self, *args, **kwargs):
 
@@ -186,19 +176,22 @@ class PageTranslationForm(forms.ModelForm):
         self.language = kwargs.pop('language', None)
         disabled = kwargs.pop('disabled', None)
 
-        # to set the public value through the submit button, we have to overwrite the field value for public.
-        # we could also do this in the save() function, but this would mean that it is not recognized in changed_data.
-        # check if POST data was submitted and the publish button was pressed
-        if len(args) == 1 and 'submit_publish' in args[0]:
-            # copy QueryDict because it is immutable
+        # To set the status value through the submit button, we have to overwrite the field value for status.
+        # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
+        # Check if POST data was submitted
+        if len(args) == 1:
+            # Copy QueryDict because it is immutable
             post = args[0].copy()
-            # remove the old public value (might be False and update() does only append, not overwrite)
-            post.pop('public')
-            # update the POST field with True (has to be a string to make sure the field is recognized as changed)
-            post.update({'public': 'True'})
-            # set the args to POST again
+            # Update the POST field with the status corresponding to the submitted button
+            if 'submit_draft' in args[0]:
+                post.update({'status': status.DRAFT})
+            elif 'submit_review' in args[0]:
+                post.update({'status': status.REVIEW})
+            elif 'submit_public' in args[0]:
+                post.update({'status': status.PUBLIC})
+            # Set the args to POST again
             args = (post,)
-            logger.info('changed POST arg public manually to True')
+            logger.info('changed POST arg status manually')
 
         super(PageTranslationForm, self).__init__(*args, **kwargs)
 
@@ -207,14 +200,14 @@ class PageTranslationForm(forms.ModelForm):
             for _, field in self.fields.items():
                 field.disabled = True
 
-        self.fields['public'].widget = forms.Select(choices=self.PUBLIC_CHOICES)
-
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
         logger.info(
-            'PageTranslationForm saved with args %s and kwargs %s',
+            'PageTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s',
             args,
-            kwargs
+            kwargs,
+            self.cleaned_data,
+            self.changed_data
         )
 
         # pop kwarg to make sure the super class does not get this param
@@ -230,15 +223,13 @@ class PageTranslationForm(forms.ModelForm):
             page_translation.creator = user
             page_translation.language = self.language
 
-        page_translation.version = page_translation.version + 1
-        page_translation.pk = None
+        # Only create new version if content changed
+        if not {'slug', 'title', 'text'}.isdisjoint(self.changed_data):
+            page_translation.version = page_translation.version + 1
+            page_translation.pk = None
         page_translation.save()
 
         return page_translation
 
     def clean_slug(self):
-        if self.instance.id:
-            existing_version = PageTranslation.objects.filter(language=self.language, page=self.instance.page)
-            if existing_version:
-                return existing_version.first().slug
         return generate_unique_slug(self, 'page')

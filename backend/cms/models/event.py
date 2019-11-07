@@ -16,6 +16,7 @@ from django.utils import timezone
 from .region import Region
 from .language import Language
 from .poi import POI
+from ..constants import status, frequency
 
 
 class RecurrenceRule(models.Model):
@@ -28,18 +29,7 @@ class RecurrenceRule(models.Model):
         from 0 to 6 or when the value of weekdays_for_monthly isn't between -5 and 5.
     """
 
-    DAILY = 'DAILY'
-    WEEKLY = 'WEEKLY'
-    MONTHLY = 'MONTHLY'
-    YEARLY = 'YEARLY'
-
-    FREQUENCY = (
-        (DAILY, 'Täglich'),
-        (WEEKLY, 'Wöchentlich'),
-        (MONTHLY, 'Monatlich'),
-        (YEARLY, 'Jährlich')
-    )
-    frequency = models.CharField(max_length=7, choices=FREQUENCY)
+    frequency = models.CharField(max_length=7, choices=frequency.CHOICES)
     interval = models.IntegerField(default=1, validators=[MinValueValidator(1)])
     weekdays_for_weekly = ArrayField(
         models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(6)]),
@@ -52,7 +42,7 @@ class RecurrenceRule(models.Model):
     end_date = models.DateField(null=True, default=None)
 
     def clean(self):
-        if self.frequency == RecurrenceRule.WEEKLY \
+        if self.frequency == frequency.WEEKLY \
                 and (self.weekdays_for_weekly is None or self.weekdays_for_weekly.size() == 0):
             raise ValidationError('No weekdays selected for weekly recurrence')
         if self.frequency == 'monthly' and (
@@ -136,12 +126,12 @@ class Event(models.Model):
             until = min(end, datetime.combine(recurrence.end_date
                                               if recurrence.end_date
                                               else date.max, time.max))
-            if recurrence.frequency in (RecurrenceRule.DAILY, RecurrenceRule.YEARLY):
+            if recurrence.frequency in (frequency.DAILY, frequency.YEARLY):
                 occurrences = rrule(recurrence.frequency,
                                     dtstart=event_start,
                                     interval=recurrence.interval,
                                     until=until)
-            elif recurrence.frequency == RecurrenceRule.WEEKLY:
+            elif recurrence.frequency == frequency.WEEKLY:
                 occurrences = rrule(recurrence.frequency,
                                     dtstart=event_start,
                                     interval=recurrence.interval,
@@ -170,16 +160,8 @@ class EventTranslation(models.Model):
     """
     Database object representing an event tranlsation
     """
-    DRAFT = 'DRAFT'
-    REVIEW_PENDING = 'PENDING'
-    REVIEW_FINISHED = 'FINISHED'
 
-    STATUS = (
-        (DRAFT, 'Entwurf'),
-        (REVIEW_PENDING, 'Ausstehender Review'),
-        (REVIEW_FINISHED, 'Review abgeschlossen'),
-    )
-    status = models.CharField(max_length=9, choices=STATUS, default=DRAFT)
+    status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     title = models.CharField(max_length=250)
     description = models.TextField()
     permalink = models.CharField(max_length=60)

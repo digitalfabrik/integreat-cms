@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from .region import Region
 from .extra_template import ExtraTemplate
+from ..constants import postal_code
 
 
 class Extra(models.Model):
@@ -21,7 +22,6 @@ class Extra(models.Model):
 
     @property
     def slug(self):
-        # pylint: disable=E1101
         return self.template.slug
 
     @property
@@ -30,25 +30,21 @@ class Extra(models.Model):
 
     @property
     def thumbnail(self):
-        # pylint: disable=E1101
         return self.template.thumbnail
 
     @property
     def url(self):
-        # pylint: disable=E1101
-        if self.template.use_postal_code == self.template.POSTAL_GET:
+        if self.template.use_postal_code == postal_code.GET:
             return self.template.url + self.region.postal_code
         return self.template.url
 
     @property
     def post_data(self):
-        # pylint: disable=E1101
         post_data = self.template.post_data
-        if self.template.use_postal_code == self.template.POSTAL_POST:
+        if self.template.use_postal_code == postal_code.POST:
             post_data.update({'search-plz': self.region.postal_code})
         return post_data
 
-    # pylint: disable=R0903
     class Meta:
         unique_together = (('region', 'template', ), )
         default_permissions = ()

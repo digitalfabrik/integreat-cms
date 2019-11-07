@@ -32,12 +32,26 @@
                 </div>
                 <div class="w-full p-4">
 
+                    <!-- Options related to the region's administrative division -->
+                    <label for="administrative_division" class="font-bold block p-2 mb-2">{% trans 'Administrative division' %}</label>
+                    <div class="relative my-2">
+                        {% render_field form.administrative_division id="administrative_division" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        </div>
+                    </div>
                     <!-- General Options for region management -->
                     <label for="name" class="font-bold block p-2 mb-2">{% trans "Name of the region" %}</label>
                     {% trans "Enter the region's name here" as name_placeholder%}
                     {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
 
-                    <label class="block p-2 mb-2 font-bold">{% trans 'Permalink' %}</label>
+                    <label for="aliases" class="font-bold block p-2 mt-2">{% trans 'Region aliases' %}</label>
+                    <label for="aliases" class="block p-2 text-s">{% trans 'This can be e.g. municipalities in this region.' %}</label>
+                    <label for="aliases" class="block p-2 mb-2 text-s">{% trans 'Enter multiple aliases separated by commas.' %}</label>
+                    {% trans 'Enter region aliases here' as aliases_placeholder%}
+                    {% render_field form.aliases placeholder=aliases_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+
+                    <label class="block p-2 my-2 font-bold">{% trans 'Permalink' %}</label>
                     <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
                         {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
                         {% spaceless %}
@@ -113,7 +127,7 @@
                 </div>
                 <div class="py-2 pb-4 border-b solid border-grey-light">
                     <label for="push_notification_channels" class="font-bold block mb-2">{% trans 'Push notification channels' %}</label>
-                    <label for="languages" class="block mb-2 text-s">{% trans 'Enter multiple channels separated by spaces.' %}</label>
+                    <label for="languages" class="block mb-2 text-s">{% trans 'Enter multiple channels separated by commas.' %}</label>
                     {% trans 'Enter push notification channels here' as push_notification_channels_placeholder%}
                     {% render_field form.push_notification_channels placeholder=push_notification_channels_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                 </div>
@@ -137,6 +151,12 @@
                     {% render_field form.matomo_token placeholder=matomo_token_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                 </div>
 
+                <!-- Options related to page-instance-specific permissions -->
+                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Page permissions' %}</span>
+                <div class="py-2 pb-5 border-b solid border-grey-light">
+                    <label for="page_permissions_enabled" class="font-bold">{% trans 'Activate permissions for specific pages' %}</label>
+                    {% render_field form.page_permissions_enabled id="page_permissions_enabled" %}
+                </div>
                 
             </div>
             

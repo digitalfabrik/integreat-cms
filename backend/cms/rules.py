@@ -16,12 +16,12 @@ def is_page_publisher(user, page):
     return user in page.publishers.all()
 
 @predicate
-# pylint: disable=W0613
+# pylint: disable=unused-argument
 def can_edit_all_pages(user, page):
     return user.has_perm('edit_pages')
 
 @predicate
-# pylint: disable=W0613
+# pylint: disable=unused-argument
 def can_publish_all_pages(user, page):
     return user.has_perm('publish_pages')
 

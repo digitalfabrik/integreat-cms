@@ -36,10 +36,13 @@ class RegionForm(forms.ModelForm):
             'matomo_url',
             'matomo_token',
             'matomo_ssl_verify',
-            'status'
+            'status',
+            'page_permissions_enabled',
+            'administrative_division',
+            'aliases',
         ]
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
         logger.info(

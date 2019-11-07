@@ -1,6 +1,6 @@
 """Views related to the statistics module"""
 from datetime import date, timedelta
-# pylint: disable=W0622
+# pylint: disable=redefined-builtin
 from requests.exceptions import ConnectionError, InvalidURL
 
 from django.contrib.auth.decorators import login_required
@@ -46,7 +46,7 @@ class AnalyticsView(TemplateView):
             csv_raw += str(csv_row)
         return csv_raw
 
-    # pylint: disable=R0914
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         region_slug = kwargs.get('region_slug')
         region = Region.objects.get(slug=region_slug)

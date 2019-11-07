@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from .region import Region
 from .language import Language
+from ..constants import status
 
 
 class POI(models.Model):
@@ -70,21 +71,13 @@ class POITranslation(models.Model):
     Args:
         models : Databas model inherit from the standard django models
     """
-    DRAFT = 'DRAFT'
-    REVIEW_PENDING = 'PENDING'
-    REVIEW_FINISHED = 'FINISHED'
 
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=200, blank=True)
+    slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
     poi = models.ForeignKey(POI, related_name='translations', null=True,
                             on_delete=models.SET_NULL)
     permalink = models.CharField(max_length=60)
-    STATUS = (
-        (DRAFT, 'Entwurf'),
-        (REVIEW_PENDING, 'Ausstehender Review'),
-        (REVIEW_FINISHED, 'Review abgeschlossen'),
-    )
-    status = models.CharField(max_length=9, choices=STATUS, default=DRAFT)
+    status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     short_description = models.CharField(max_length=250)
     description = models.TextField()
     language = models.ForeignKey(Language, on_delete=models.CASCADE)

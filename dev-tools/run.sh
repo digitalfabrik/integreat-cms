@@ -7,25 +7,8 @@
 cd $(dirname "$BASH_SOURCE")/..
 source .venv/bin/activate
 
-
 # Re-generating translation file and compile it
-cd backend/cms
-# Reset environment variable to make sure makemessages works
-export DJANGO_SETTINGS_MODULE=
-integreat-cms makemessages -l de
-integreat-cms compilemessages
-cd ../..
-
-# Ignore POT-Creation-Date of otherwise unchanged translation file
-if git diff --shortstat backend/cms/locale/de/LC_MESSAGES/django.po | grep -q "1 file changed, 1 insertion(+), 1 deletion(-)"; then
-    # Check if script was called with sudo (e.g. for docker) and make sure git checkout is not called as root (would change the file permissions)
-    if [ -z "$SUDO_USER" ]; then
-        git checkout -- backend/cms/locale/de/LC_MESSAGES/django.po
-    else
-        # Execute command as user who executed sudo (inbuilt environment variable)
-        su -c "git checkout -- backend/cms/locale/de/LC_MESSAGES/django.po" $SUDO_USER
-    fi
-fi
+./dev-tools/translate.sh
 
 # Check if docker is installed and docker socket is available
 if [ -x "$(command -v docker)" ] && docker ps > /dev/null 2>&1; then
@@ -61,5 +44,5 @@ integreat-cms runserver localhost:8000
 
 if [ -x "$(command -v docker)" ] && docker ps > /dev/null 2>&1; then
     # Stop the postgres database docker container
-    docker stop integreat_django_postgres
+    docker stop integreat_django_postgres > /dev/null 2>&1
 fi

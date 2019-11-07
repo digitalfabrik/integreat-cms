@@ -12,6 +12,9 @@
     <td class="pl-4">
         {{ page_translation.version }}
     </td>
+    <td class="pl-4">
+        {{ page_translation.get_status_display }}
+    </td>
     <td>
         <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
             {% if page_translation %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-28 17:48+0100\n"
+"POT-Creation-Date: 2019-11-04 23:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -17,17 +17,132 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models/extra_template.py:20
+#: constants/administrative_division.py:20 templates/pois/list.html:44
+#: templates/pois/poi.html:56
+msgid "City"
+msgstr "Stadt"
+
+#: constants/administrative_division.py:21
+msgid "District"
+msgstr "Kreis"
+
+#: constants/administrative_division.py:22
+msgid "Rural district"
+msgstr "Landkreis"
+
+#: constants/administrative_division.py:23 templates/regions/region.html:206
+msgid "Region"
+msgstr "Region"
+
+#: constants/administrative_division.py:24
+msgid "City and district"
+msgstr "Stadt und Landkreis"
+
+#: constants/administrative_division.py:25
+msgid "Urban district"
+msgstr "Kreisfreie Stadt"
+
+#: constants/administrative_division.py:26
+msgid "Governmental district"
+msgstr "Regierungsbezirk"
+
+#: constants/administrative_division.py:27
+msgid "City state"
+msgstr "Stadtstaat"
+
+#: constants/administrative_division.py:28
+msgid "Area state"
+msgstr "Flächenland"
+
+#: constants/administrative_division.py:29
+msgid "Free state"
+msgstr "Freistaat"
+
+#: constants/administrative_division.py:30
+msgid "Federal state"
+msgstr "Bundesland"
+
+#: constants/administrative_division.py:31
+msgid "Municipality"
+msgstr "Gemeinde"
+
+#: constants/administrative_division.py:32
+msgid "Collective municipality"
+msgstr "Gemeindeverband"
+
+#: constants/administrative_division.py:33
+msgid "Initial reception center"
+msgstr "Erstaufnahmeeinrichtung"
+
+#: constants/frequency.py:10
+msgid "Daily"
+msgstr "Täglich"
+
+#: constants/frequency.py:11
+msgid "Weekly"
+msgstr "Wöchentlich"
+
+#: constants/frequency.py:12
+msgid "Monthly"
+msgstr "Monatlich"
+
+#: constants/frequency.py:13
+msgid "Yearly"
+msgstr "Jährlich"
+
+#: constants/position.py:10
+msgid "First child of"
+msgstr "Erstes Unterelement von"
+
+#: constants/position.py:11
+msgid "Last child of"
+msgstr "Letztes Unterelement von"
+
+#: constants/position.py:12
+msgid "Left neighbor of"
+msgstr "Linker Nachbar von"
+
+#: constants/position.py:13
+msgid "Right neighbor of"
+msgstr "Rechter Nachbar von"
+
+#: constants/postal_code.py:9
 msgid "No"
 msgstr "Nein"
 
-#: models/extra_template.py:21
+#: constants/postal_code.py:10
 msgid "Append postal code to URL"
 msgstr "PLZ an die URL anhängen"
 
-#: models/extra_template.py:22
+#: constants/postal_code.py:11
 msgid "Add postal code to post parameters"
 msgstr "PLZ zu den Post-Parametern hinzufügen"
+
+#: constants/region_status.py:9 templates/language_tree/tree.html:31
+#: templates/users/admin/list.html:33 templates/users/admin/user.html:82
+#: templates/users/region/list.html:28 templates/users/region/user.html:73
+msgid "Active"
+msgstr "Aktiv"
+
+#: constants/region_status.py:10
+msgid "Hidden"
+msgstr "Versteckt"
+
+#: constants/region_status.py:11
+msgid "Archived"
+msgstr "Archiviert"
+
+#: constants/status.py:9
+msgid "Draft"
+msgstr "Entwurf"
+
+#: constants/status.py:10
+msgid "Pending Review"
+msgstr "Review ausstehend"
+
+#: constants/status.py:11 views/pois/poi_form.py:72
+msgid "Public"
+msgstr "Öffentlich"
 
 #: models/language.py:23
 msgid "Left to right"
@@ -36,32 +151,6 @@ msgstr "Links nach Rechts"
 #: models/language.py:24
 msgid "Right to left"
 msgstr "Rechts nach Links"
-
-#: models/page.py:160
-msgid "Draft"
-msgstr "Entwurf"
-
-#: models/page.py:161
-msgid "Pending Review"
-msgstr "Review ausstehend"
-
-#: models/page.py:162
-msgid "Finished Review"
-msgstr "Review abgeschlossen"
-
-#: models/region.py:20 templates/language_tree/tree.html:31
-#: templates/users/admin/list.html:33 templates/users/admin/user.html:82
-#: templates/users/region/list.html:28 templates/users/region/user.html:73
-msgid "Active"
-msgstr "Aktiv"
-
-#: models/region.py:21
-msgid "Hidden"
-msgstr "Versteckt"
-
-#: models/region.py:22
-msgid "Archived"
-msgstr "Archiviert"
 
 #: templates/_base.html:11 templates/extras/list.html:15
 #: templates/language_tree/tree.html:15 templates/media/medialist.html:8
@@ -105,7 +194,7 @@ msgid "Translation Report"
 msgstr "Übersetzungs-Bericht"
 
 #: templates/_base.html:120 templates/analytics/translation_coverage.html:7
-#: templates/regions/region.html:122
+#: templates/regions/region.html:136
 #: templates/statistics/statistics_dashboard.html:7
 msgid "Statistics"
 msgstr "Statistiken"
@@ -115,12 +204,12 @@ msgid "Media Library"
 msgstr "Medienbibliothek"
 
 #: templates/_base.html:129 templates/pages/tree.html:12
-#: templates/regions/region.html:190
+#: templates/regions/region.html:210
 msgid "Pages"
 msgstr "Seiten"
 
-#: templates/_base.html:133 templates/regions/region.html:102
-#: templates/regions/region.html:191
+#: templates/_base.html:133 templates/regions/region.html:116
+#: templates/regions/region.html:211
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -129,7 +218,7 @@ msgid "Points of Interest"
 msgstr "POIs"
 
 #: templates/_base.html:141 templates/_base.html:186
-#: templates/regions/region.html:188
+#: templates/regions/region.html:208
 msgid "Users"
 msgstr "Benutzer"
 
@@ -137,7 +226,7 @@ msgstr "Benutzer"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: templates/_base.html:149 templates/regions/region.html:109
+#: templates/_base.html:149 templates/regions/region.html:123
 msgid "Push Notifications"
 msgstr "Push-Benachrichtigungen"
 
@@ -170,7 +259,7 @@ msgstr "Admin Dashboard"
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:182 templates/regions/region.html:189
+#: templates/_base.html:182 templates/regions/region.html:209
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -224,7 +313,7 @@ msgstr "Neue Extra-Vorlage erstellen"
 #: templates/extra_templates/extra_template.html:22
 #: templates/language_tree/tree_node.html:19
 #: templates/languages/language.html:21
-#: templates/organizations/organization.html:21 templates/pages/page.html:37
+#: templates/organizations/organization.html:21
 #: templates/pages/sbs_page.html:38 templates/pois/poi.html:27
 #: templates/push_notifications/push_notification.html:26
 #: templates/regions/region.html:21 templates/roles/role.html:21
@@ -279,7 +368,7 @@ msgstr "URL des Extra-Thumbnails hier eingeben"
 
 #: templates/extra_templates/extra_template.html:60
 #: templates/organizations/organization.html:54
-#: templates/regions/region.html:98 templates/users/admin/user.html:67
+#: templates/regions/region.html:112 templates/users/admin/user.html:67
 #: templates/users/region/user.html:67
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
@@ -306,7 +395,7 @@ msgstr "Neue Extra-Vorlage erstellen"
 
 #: templates/extra_templates/list.html:24 templates/extras/list.html:31
 #: templates/media/medialist.html:22 templates/organizations/list.html:24
-#: templates/regions/list.html:28 templates/roles/list.html:24
+#: templates/regions/list.html:29 templates/roles/list.html:24
 msgid "Name"
 msgstr "Name"
 
@@ -319,12 +408,12 @@ msgid "URL"
 msgstr "URL"
 
 #: templates/extra_templates/list.html:27 templates/languages/list.html:30
-#: templates/pages/tree.html:82 templates/regions/list.html:32
+#: templates/pages/tree.html:83 templates/regions/list.html:33
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
 #: templates/extra_templates/list.html:28 templates/languages/list.html:29
-#: templates/regions/list.html:31
+#: templates/regions/list.html:32
 msgid "Created"
 msgstr "Erstellt"
 
@@ -517,8 +606,8 @@ msgstr "Thumbnail der Organisation"
 msgid "Enter the organization's thumbnail here"
 msgstr "Name der Organisations-Thumbnail hier eingeben"
 
-#: templates/organizations/organization.html:66 templates/pages/page.html:179
-#: templates/pois/poi.html:133 templates/regions/region.html:78
+#: templates/organizations/organization.html:66 templates/pages/page.html:170
+#: templates/pois/poi.html:133 templates/regions/region.html:92
 msgid "Set icon"
 msgstr "Icon festlegen"
 
@@ -559,7 +648,7 @@ msgstr "Erlaubnis zum Veröffentlichen erteilen"
 msgid "Archived Pages"
 msgstr "Archivierte Seiten"
 
-#: templates/pages/archive.html:21 templates/pages/page.html:99
+#: templates/pages/archive.html:21 templates/pages/page.html:107
 #: templates/pois/list.html:32 templates/pois/poi.html:36
 #: templates/push_notifications/list.html:24
 #: templates/push_notifications/push_notification.html:49
@@ -589,13 +678,13 @@ msgstr "Ja, die Seite wiederherstellen."
 #: templates/pages/archive.html:53
 #: templates/pages/confirmation_popups/archive_page.html:13
 #: templates/pages/confirmation_popups/delete_page.html:13
-#: templates/regions/region.html:200
+#: templates/regions/region.html:220
 #: templates/users/confirmation_popups/delete_region_user.html:12
 #: templates/users/confirmation_popups/delete_user.html:12
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/pages/archive.html:65 templates/pages/tree.html:99
+#: templates/pages/archive.html:65 templates/pages/tree.html:100
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
@@ -628,12 +717,12 @@ msgstr "Ja, die Seite jetzt löschen."
 msgid "Edit page \"%(page_title)s\""
 msgstr "Seite \"%(page_title)s\" bearbeiten"
 
-#: templates/pages/page.html:23 templates/pages/tree.html:67
-#: templates/pages/tree.html:71
+#: templates/pages/page.html:23 templates/pages/tree.html:68
+#: templates/pages/tree.html:72
 msgid "Title in"
 msgstr "Titel auf"
 
-#: templates/pages/page.html:27 templates/pages/tree_row.html:59
+#: templates/pages/page.html:27 templates/pages/tree_row.html:62
 msgid "Create new translation"
 msgstr "Neue Übersetzung erstellen"
 
@@ -641,82 +730,99 @@ msgstr "Neue Übersetzung erstellen"
 msgid "Create new page"
 msgstr "Neue Seite erstellen"
 
-#: templates/pages/page.html:77
+#: templates/pages/page.html:37
+msgid "Save as draft"
+msgstr "Als Entwurf speichern"
+
+#: templates/pages/page.html:43
+msgid "Submit for review"
+msgstr "Zur Überprüfung vorlegen"
+
+#: templates/pages/page.html:79
 msgid "Side by side view"
 msgstr "Übersetzungen nebeneinander anzeigen"
 
-#: templates/pages/page.html:86 templates/pois/poi.html:73
-#: templates/regions/region.html:40
+#: templates/pages/page.html:89 templates/pages/tree.html:66
+msgid "Version"
+msgstr "Version"
+
+#: templates/pages/page.html:91 templates/pages/tree.html:67
+#: templates/pois/poi.html:120 templates/regions/list.html:34
+#: templates/regions/region.html:99
+msgid "Status"
+msgstr "Status"
+
+#: templates/pages/page.html:94 templates/pois/poi.html:73
+#: templates/regions/region.html:54
 msgid "Permalink"
 msgstr ""
 
-#: templates/pages/page.html:88 templates/pois/poi.html:75
-#: templates/regions/region.html:42
+#: templates/pages/page.html:96 templates/pois/poi.html:75
+#: templates/regions/region.html:56
 msgid " Leave blank to generate unique permalink from title"
 msgstr ""
 " Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
 "generieren"
 
-#: templates/pages/page.html:100 templates/pages/sbs_page.html:30
+#: templates/pages/page.html:108 templates/pages/sbs_page.html:30
 #: templates/pois/poi.html:37
 msgid "Insert title here"
 msgstr "Titel hier eingeben"
 
-#: templates/pages/page.html:102
+#: templates/pages/page.html:110
 #: templates/push_notifications/push_notification.html:54
 msgid "Content"
 msgstr "Inhalt"
 
-#: templates/pages/page.html:103 templates/pages/sbs_page.html:33
+#: templates/pages/page.html:111 templates/pages/sbs_page.html:33
 msgid "Insert content here"
 msgstr "Inhalt hier eingeben"
 
-#: templates/pages/page.html:107 templates/pois/poi.html:120
-#: templates/regions/list.html:33 templates/regions/region.html:85
-msgid "Status"
-msgstr "Status"
+#: templates/pages/page.html:113
+msgid "Implications on other translations"
+msgstr "Auswirkungen auf andere Übersetzungen"
 
-#: templates/pages/page.html:125
+#: templates/pages/page.html:115
+msgid "This change does not require an update of the translations"
+msgstr "Diese Änderung erfordert keine angepasste Übersetzung"
+
+#: templates/pages/page.html:126
 msgid "Settings for all translations"
 msgstr "Einstellungen für alle Übersetzungen"
 
-#: templates/pages/page.html:135
-msgid "Visibility"
-msgstr "Sichtbarkeit"
-
-#: templates/pages/page.html:143
+#: templates/pages/page.html:134
 msgid "Positioning"
 msgstr "Anordnung"
 
-#: templates/pages/page.html:144
+#: templates/pages/page.html:135
 msgid "Relationship"
 msgstr "Verhältnis"
 
-#: templates/pages/page.html:148
+#: templates/pages/page.html:139
 msgid "Page"
 msgstr "Seite"
 
-#: templates/pages/page.html:155
+#: templates/pages/page.html:146
 msgid "Embed live content"
 msgstr "Live-Inhalte einbinden"
 
-#: templates/pages/page.html:157
+#: templates/pages/page.html:148
 msgid "Search page"
 msgstr "Seite suchen"
 
-#: templates/pages/page.html:160
+#: templates/pages/page.html:151
 msgid "Embed before content"
 msgstr "Vor Inhalt einbinden"
 
-#: templates/pages/page.html:161
+#: templates/pages/page.html:152
 msgid "Embed after content"
 msgstr "Nach Inhalt einbinden"
 
-#: templates/pages/page.html:168
+#: templates/pages/page.html:159
 msgid "Additional permissions for this page"
 msgstr "Zusätzliche Berechtigungen für diese Seite"
 
-#: templates/pages/page.html:169
+#: templates/pages/page.html:160
 msgid ""
 "This affects only users, who don't have the permission to change arbitrary "
 "pages anyway."
@@ -724,33 +830,33 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: templates/pages/page.html:175 templates/pois/poi.html:129
-#: templates/regions/region.html:68
+#: templates/pages/page.html:166 templates/pois/poi.html:129
+#: templates/regions/region.html:82
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/pages/page.html:185 templates/pages/tree_row.html:82
+#: templates/pages/page.html:176 templates/pages/tree_row.html:85
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: templates/pages/page.html:187
+#: templates/pages/page.html:178
 msgid "Page is archived."
 msgstr "Die Seite wurde archiviert."
 
-#: templates/pages/page.html:190
+#: templates/pages/page.html:181
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: templates/pages/page.html:196 templates/pages/tree_row.html:91
+#: templates/pages/page.html:187 templates/pages/tree_row.html:94
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: templates/pages/page.html:198 templates/pages/tree_row.html:87
-#: views/pages/page.py:236
+#: templates/pages/page.html:189 templates/pages/tree_row.html:90
+#: views/pages/page.py:235
 msgid "You cannot delete a page which has children."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: templates/pages/page.html:201
+#: templates/pages/page.html:192
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
@@ -785,39 +891,35 @@ msgstr "Sie können Seiten nur in der Standard-Sprache anlegen"
 msgid "ID"
 msgstr ""
 
-#: templates/pages/tree.html:66
-msgid "Version"
-msgstr "Version"
-
-#: templates/pages/tree.html:83
+#: templates/pages/tree.html:84
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/pages/tree_row.html:20 templates/pages/tree_row.html:33
+#: templates/pages/tree_row.html:23 templates/pages/tree_row.html:36
 msgid "Translation not available"
 msgstr "Übersetzung nicht verfügbar"
 
-#: templates/pages/tree_row.html:46
+#: templates/pages/tree_row.html:49
 msgid "Currently in translation"
 msgstr "Wird momentan übersetzt"
 
-#: templates/pages/tree_row.html:50
+#: templates/pages/tree_row.html:53
 msgid "Translation outdated"
 msgstr "Übersetzung is veraltet"
 
-#: templates/pages/tree_row.html:54
+#: templates/pages/tree_row.html:57
 msgid "Edit translation"
 msgstr "Diese Übersetzung bearbeiten"
 
-#: templates/pages/tree_row.html:75
+#: templates/pages/tree_row.html:78
 msgid "View page"
 msgstr "Seite ansehen"
 
-#: templates/pages/tree_row.html:78
+#: templates/pages/tree_row.html:81
 msgid "Edit page"
 msgstr "Seite bearbeiten"
 
-#: templates/pages/tree_row.html:97
+#: templates/pages/tree_row.html:100
 msgid "Download page"
 msgstr "Seite herunterladen"
 
@@ -832,10 +934,6 @@ msgstr "Adresse"
 #: templates/pois/list.html:43 templates/pois/poi.html:53
 msgid "Postal Code"
 msgstr "Postleitzahl"
-
-#: templates/pois/list.html:44 templates/pois/poi.html:56
-msgid "City"
-msgstr "Stadt"
 
 #: templates/pois/list.html:45 templates/pois/poi.html:59
 msgid "Country"
@@ -898,7 +996,7 @@ msgstr "Land hier eingeben"
 msgid "Position"
 msgstr "Position"
 
-#: templates/pois/poi.html:65 templates/regions/region.html:63
+#: templates/pois/poi.html:65 templates/regions/region.html:77
 msgid "Longitude"
 msgstr "Geographische Länge"
 
@@ -906,7 +1004,7 @@ msgstr "Geographische Länge"
 msgid "Insert longitude here"
 msgstr "Geographische Länge hier eingeben"
 
-#: templates/pois/poi.html:68 templates/regions/region.html:60
+#: templates/pois/poi.html:68 templates/regions/region.html:74
 msgid "Latitude"
 msgstr "Geographische Breite"
 
@@ -993,15 +1091,19 @@ msgstr "Regionen"
 msgid "Create region"
 msgstr "Region erstellen"
 
-#: templates/regions/list.html:29
+#: templates/regions/list.html:28 templates/regions/region.html:36
+msgid "Administrative division"
+msgstr "Verwaltungseinheit"
+
+#: templates/regions/list.html:30
 msgid "CMS-URL"
 msgstr "CMS-URL"
 
-#: templates/regions/list.html:30
+#: templates/regions/list.html:31
 msgid "WebApp-URL"
 msgstr "WebApp-URL"
 
-#: templates/regions/list.html:42
+#: templates/regions/list.html:43
 msgid "No regions available yet."
 msgstr "Noch keine Regionen vorhanden."
 
@@ -1014,96 +1116,120 @@ msgstr "Region \"%(region_name)s\" bearbeiten"
 msgid "Create new region"
 msgstr "Neue Region erstellen"
 
-#: templates/regions/region.html:36
+#: templates/regions/region.html:44
 msgid "Name of the region"
 msgstr "Name der Region"
 
-#: templates/regions/region.html:37
+#: templates/regions/region.html:45
 msgid "Enter the region's name here"
 msgstr "Name der Region hier eingeben"
 
+#: templates/regions/region.html:48
+msgid "Region aliases"
+msgstr "Alternativnamen der Region"
+
+#: templates/regions/region.html:49
+msgid "This can be e.g. municipalities in this region."
+msgstr "Dies können z.B. Gemeinden in dieser Region sein."
+
+#: templates/regions/region.html:50
+msgid "Enter multiple aliases separated by commas."
+msgstr "Mehrere Alternativnamen mit Kommata getrennt eingeben."
+
 #: templates/regions/region.html:51
+msgid "Enter region aliases here"
+msgstr "Alternativnamen der Region hier eingeben"
+
+#: templates/regions/region.html:65
 msgid "E-mail-address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: templates/regions/region.html:52
+#: templates/regions/region.html:66
 msgid "Enter the administrator's e-mail-address here"
 msgstr "E-Mail-Adresse des Administrators hier eingeben"
 
-#: templates/regions/region.html:56
+#: templates/regions/region.html:70
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: templates/regions/region.html:57
+#: templates/regions/region.html:71
 msgid "Enter postal code here"
 msgstr "Postleitzahl hier eingeben"
 
-#: templates/regions/region.html:59
+#: templates/regions/region.html:73
 msgid "Coordinates"
 msgstr "Koordinaten"
 
-#: templates/regions/region.html:61
+#: templates/regions/region.html:75
 msgid "Enter latitude here"
 msgstr "Geographische Breite hier eingeben"
 
-#: templates/regions/region.html:64
+#: templates/regions/region.html:78
 msgid "Enter longitude here"
 msgstr "Geographische Länge hier eingeben"
 
-#: templates/regions/region.html:104
+#: templates/regions/region.html:118
 msgid "Activate events"
 msgstr "Veranstaltungen aktivieren"
 
-#: templates/regions/region.html:111
+#: templates/regions/region.html:125
 msgid "Activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
-#: templates/regions/region.html:115
+#: templates/regions/region.html:129
 msgid "Push notification channels"
 msgstr "Push-Benachrichtigungskanäle"
 
-#: templates/regions/region.html:116
-msgid "Enter multiple channels separated by spaces."
-msgstr "Mehrere Kanäle mit Leerzeichen getrennt eingeben."
+#: templates/regions/region.html:130
+msgid "Enter multiple channels separated by commas."
+msgstr "Mehrere Kanäle mit Kommata getrennt eingeben."
 
-#: templates/regions/region.html:117
+#: templates/regions/region.html:131
 msgid "Enter push notification channels here"
 msgstr "Push-Benachrichtigungskanäle hier eingeben"
 
-#: templates/regions/region.html:124
+#: templates/regions/region.html:138
 msgid "Activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: templates/regions/region.html:128
+#: templates/regions/region.html:142
 msgid "Activate SSL verification for Matomo"
 msgstr "SSL-Verifikation für Matomo aktivieren"
 
-#: templates/regions/region.html:132
+#: templates/regions/region.html:146
 msgid "Enter URL for Matomo here"
 msgstr "Matomo-URL hier eingeben"
 
-#: templates/regions/region.html:136
+#: templates/regions/region.html:150
 msgid "Enter token for Matomo here"
 msgstr "Matomo-Token hier eingeben"
 
-#: templates/regions/region.html:147
+#: templates/regions/region.html:155
+msgid "Page permissions"
+msgstr "Seiten-Berechtigungen"
+
+#: templates/regions/region.html:157
+msgid "Activate permissions for specific pages"
+msgstr "Zusätzliche Berechtigungen für bestimmte Seiten aktivieren"
+
+#: templates/regions/region.html:167
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: templates/regions/region.html:150
+#: templates/regions/region.html:170
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: templates/regions/region.html:165
+#: templates/regions/region.html:185
 #, python-format
 msgid "Delete region \"%(region_name)s\""
 msgstr "Region \"%(region_name)s\" löschen"
 
-#: templates/regions/region.html:176
+#: templates/regions/region.html:196
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: templates/regions/region.html:178
+#: templates/regions/region.html:198
 msgid ""
 "This can not be reversed. All pages, events, POIs and users of this region "
 "will also be deleted."
@@ -1111,19 +1237,15 @@ msgstr ""
 "Dies kann nicht rückgängig gemacht werden. Alle Seiten, Veranstaltungen, "
 "POIs und Benutzer dieser Region werden ebenfalls gelöscht."
 
-#: templates/regions/region.html:182
+#: templates/regions/region.html:202
 msgid "Summary of deleted objects"
 msgstr "Zusammenfassung der zu löschenden Objekte"
 
-#: templates/regions/region.html:186
-msgid "Region"
-msgstr "Region"
-
-#: templates/regions/region.html:192
+#: templates/regions/region.html:212
 msgid "POIs"
 msgstr "POIs"
 
-#: templates/regions/region.html:198
+#: templates/regions/region.html:218
 msgid "Yes, delete this region now"
 msgstr "Ja, diese Region jetzt löschen"
 
@@ -1213,7 +1335,7 @@ msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
 #: templates/registration/password_reset_form.html:14
-#: views/languages/languages.py:69
+#: views/languages/languages.py:70
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -1417,35 +1539,35 @@ msgstr "Dies kann nicht rückgängig gemacht werden."
 msgid "Yes, delete this user now"
 msgstr "Ja, diesen Benutzer jetzt löschen"
 
-#: views/error_handler/error_handler.py:5
+#: views/error_handler/error_handler.py:7
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
 
-#: views/error_handler/error_handler.py:6
+#: views/error_handler/error_handler.py:8
 msgid "There was an error in your request."
 msgstr "Die Anfrage war fehlerhaft aufgebaut."
 
-#: views/error_handler/error_handler.py:13
+#: views/error_handler/error_handler.py:15
 msgid "Forbidden"
 msgstr "Zugriff verweigert"
 
-#: views/error_handler/error_handler.py:14
+#: views/error_handler/error_handler.py:16
 msgid "You don't have the permission to access this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite aufzurufen."
 
-#: views/error_handler/error_handler.py:21
+#: views/error_handler/error_handler.py:23
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: views/error_handler/error_handler.py:22
+#: views/error_handler/error_handler.py:24
 msgid "The page you requested could not be found."
 msgstr "Die von Ihnen angeforderte Seite konnte leider nicht gefunden werden."
 
-#: views/error_handler/error_handler.py:29
+#: views/error_handler/error_handler.py:31
 msgid "Internal Server Error"
 msgstr "Interner Server-Fehler"
 
-#: views/error_handler/error_handler.py:30
+#: views/error_handler/error_handler.py:32
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
@@ -1459,11 +1581,11 @@ msgstr "Extra-Vorlage wurde erfolgreich erstellt."
 
 #: views/extra_templates/extra_templates.py:74
 #: views/language_tree/language_tree_node.py:70
-#: views/organizations/organizations.py:72 views/pages/page.py:153
-#: views/pages/sbs_page.py:109 views/pois/poi.py:122
+#: views/organizations/organizations.py:72 views/pages/page.py:118
+#: views/pages/sbs_page.py:110 views/pois/poi.py:122
 #: views/push_notifications/push_notifications.py:171
-#: views/regions/regions.py:78 views/roles/roles.py:71
-#: views/users/region_users.py:116 views/users/users.py:92
+#: views/regions/regions.py:79 views/roles/roles.py:71
+#: views/users/region_users.py:117 views/users/users.py:93
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
 
@@ -1499,11 +1621,11 @@ msgstr ""
 "Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
 "Quell-Sprache dieser Region ein."
 
-#: views/languages/languages.py:63
+#: views/languages/languages.py:64
 msgid "Language saved successfully."
 msgstr "Sprache wurde erfolgreich gespeichert."
 
-#: views/languages/languages.py:65
+#: views/languages/languages.py:66
 msgid "Language created successfully"
 msgstr "Sprache wurde erfolgreich erstellt."
 
@@ -1515,68 +1637,68 @@ msgstr "Organisation wurde erfolgreich erstellt."
 msgid "Organization saved successfully"
 msgstr "Organisation wurde erfolgreich gespeichert."
 
-#: views/pages/page.py:57
+#: views/pages/page.py:61
 msgid "You don't have the permission to edit this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
 
-#: views/pages/page.py:131
-msgid "Page was successfully created and published."
-msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
-
-#: views/pages/page.py:133
-msgid "Page was successfully created."
-msgstr "Seite wurde erfolgreich erstellt."
-
-#: views/pages/page.py:136
-msgid "Translation was successfully created and published."
-msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
-
-#: views/pages/page.py:138 views/pages/sbs_page.py:103
-msgid "Translation was successfully created."
-msgstr "Übersetzung wurde erfolgreich erstellt."
-
-#: views/pages/page.py:141
-msgid "Translation was successfully published."
-msgstr "Übersetzung wurde erfolgreich veröffentlich."
-
-#: views/pages/page.py:143 views/pages/sbs_page.py:105
-msgid "Translation was successfully saved."
-msgstr "Übersetzung wurde erfolgreich gespeichert."
-
-#: views/pages/page.py:145 views/pages/sbs_page.py:107 views/pois/poi.py:114
-#: views/regions/regions.py:89 views/users/region_users.py:113
-#: views/users/users.py:89
+#: views/pages/page.py:130 views/pages/sbs_page.py:108 views/pois/poi.py:114
+#: views/regions/regions.py:90 views/users/region_users.py:114
+#: views/users/users.py:90
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
-#: views/pages/page.py:184
+#: views/pages/page.py:150
+msgid "Page was successfully created and published."
+msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pages/page.py:152
+msgid "Page was successfully created."
+msgstr "Seite wurde erfolgreich erstellt."
+
+#: views/pages/page.py:155
+msgid "Translation was successfully created and published."
+msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pages/page.py:157 views/pages/sbs_page.py:104
+msgid "Translation was successfully created."
+msgstr "Übersetzung wurde erfolgreich erstellt."
+
+#: views/pages/page.py:160
+msgid "Translation was successfully published."
+msgstr "Übersetzung wurde erfolgreich veröffentlicht."
+
+#: views/pages/page.py:162 views/pages/sbs_page.py:106
+msgid "Translation was successfully saved."
+msgstr "Übersetzung wurde erfolgreich gespeichert."
+
+#: views/pages/page.py:182
 msgid "Page was successfully archived."
 msgstr "Seite wurde erfolgreich archiviert."
 
-#: views/pages/page.py:203
+#: views/pages/page.py:201
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page.py:239
+#: views/pages/page.py:238
 msgid "Page was successfully deleted."
 msgstr "Seite wurde erfolgreich gelöscht."
 
-#: views/pages/page.py:337 views/pages/page.py:352
+#: views/pages/page.py:344 views/pages/page.py:359
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page.py:345
+#: views/pages/page.py:352
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page.py:360
+#: views/pages/page.py:367
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nurn veröffentlichen"
 
-#: views/pages/page.py:427
+#: views/pages/page.py:442
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -1586,12 +1708,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:433
+#: views/pages/page.py:448
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page.py:444
+#: views/pages/page.py:459
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -1601,18 +1723,10 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:450
+#: views/pages/page.py:465
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
-
-#: views/pages/page_form.py:168 views/pois/poi_form.py:72
-msgid "Public"
-msgstr "Öffentlich"
-
-#: views/pages/page_form.py:169 views/pois/poi_form.py:73
-msgid "Private"
-msgstr "Privat"
 
 #: views/pages/pages.py:39
 msgid "Please create at least one language node before creating pages."
@@ -1658,6 +1772,10 @@ msgstr "POI Übersetzung wurde erfolgreich gespeichert."
 msgid "POI was successfully restored."
 msgstr "POI wurde erfolgreich wiederhergestellt."
 
+#: views/pois/poi_form.py:73
+msgid "Private"
+msgstr "Privat"
+
 #: views/pois/pois.py:39
 msgid "Please create at least one language node before creating pois."
 msgstr ""
@@ -1690,15 +1808,15 @@ msgstr "Push-Benachrichtigung konnte nicht gesendet werden"
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
 
-#: views/regions/regions.py:102
+#: views/regions/regions.py:103
 msgid "Region saved successfully."
 msgstr "Region wurde erfolgreich gespeichert."
 
-#: views/regions/regions.py:104
+#: views/regions/regions.py:105
 msgid "Region created successfully"
 msgstr "Region wurde erfolgreich erstellt."
 
-#: views/regions/regions.py:120
+#: views/regions/regions.py:122
 msgid "Region was successfully deleted."
 msgstr "Region wurde erfolgreich gelöscht."
 
@@ -1757,36 +1875,23 @@ msgstr ""
 "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen Sie "
 "Ihre Einstellungen."
 
-#: views/users/region_users.py:102 views/users/users.py:82
+#: views/users/region_users.py:103 views/users/users.py:83
 msgid "User was successfully saved."
 msgstr "Benutzer wurde erfolgreich gespeichert."
 
-#: views/users/region_users.py:104 views/users/users.py:84
+#: views/users/region_users.py:105 views/users/users.py:85
 msgid "User was successfully created."
 msgstr "Benutzer wurde erfolgreich erstellt."
 
-#: views/users/region_users.py:133 views/users/users.py:107
+#: views/users/region_users.py:134 views/users/users.py:108
 msgid "User was successfully deleted."
 msgstr "Benutzer wurde erfolgreich gelöscht."
 
-#: views/utils/tree_utils.py:5
-msgid "First child of"
-msgstr "Erstes Unterelement von"
+#~ msgid "Visibility"
+#~ msgstr "Sichtbarkeit"
 
-#: views/utils/tree_utils.py:6
-msgid "Last child of"
-msgstr "Letztes Unterelement von"
-
-#: views/utils/tree_utils.py:7
-msgid "Left neighbor of"
-msgstr "Linker Nachbar von"
-
-#: views/utils/tree_utils.py:8
-msgid "Right neighbor of"
-msgstr "Rechter Nachbar von"
-
-#~ msgid "Initial Content"
-#~ msgstr "Initialer Inhalt"
+#~ msgid "Finished Review"
+#~ msgstr "Review abgeschlossen"
 
 #~ msgid "Creator"
 #~ msgstr "Ersteller"
@@ -1824,9 +1929,6 @@ msgstr "Rechter Nachbar von"
 
 #~ msgid "User"
 #~ msgstr "Benutzer"
-
-#~ msgid "Grant permission"
-#~ msgstr "Berechtigung erteilen"
 
 #~ msgid "Publish all translations"
 #~ msgstr "Alle Übersetzungen veröffentlichen"

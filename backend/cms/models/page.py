@@ -7,12 +7,12 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
 
 from mptt.models import MPTTModel, TreeForeignKey
 
 from .language import Language
 from .region import Region
+from ..constants import status
 
 
 logger = logging.getLogger(__name__)
@@ -69,11 +69,20 @@ class Page(MPTTModel):
             language__code=language_code
         ).first()
 
+    # Helper function for page labels, second level paths etc. where the ancestor translation might not exist
+    def get_first_translation(self, priority_language_codes=None):
+        # Taking [] directly as default parameter would be dangerous because it is mutable
+        if not priority_language_codes:
+            priority_language_codes = []
+        for language_code in priority_language_codes + ['en-gb', 'de.de']:
+            if self.page_translations.filter(language__code=language_code).exists():
+                return self.page_translations.filter(language__code=language_code).first()
+        return self.page_translations.first()
+
     def get_public_translation(self, language_code):
         return self.page_translations.filter(
             language__code=language_code,
-            public=True,
-            status=PageTranslation.REVIEW_FINISHED,
+            status=status.PUBLIC,
         ).first()
 
     def get_absolute_url(self):
@@ -92,19 +101,8 @@ class Page(MPTTModel):
         return Page.objects.filter(archived=True, region__slug=region_slug).count()
 
     def __str__(self):
-        translations = PageTranslation.objects.filter(page=self)
-        german_translation = translations.filter(language__code='de-de').first()
-        english_translation = translations.filter(language__code='en-gb').first()
-        first_translation = translations.first()
-        if english_translation:
-            slug = english_translation.slug + ' (en-gb)'
-        elif german_translation:
-            slug = german_translation.slug + ' (de-de)'
-        elif first_translation:
-            slug = first_translation.slug + ' (' + first_translation.language.code + ')'
-        else:
-            slug = ''
-        return '(id: {}, slug: {})'.format(self.id, slug)
+        first_translation = self.get_first_translation()
+        return '(id: {}, slug: {} ({}))'.format(self.id, first_translation.slug, first_translation.language.code)
 
     @classmethod
     def get_tree(cls, region_slug, archived=False):
@@ -150,28 +148,19 @@ class PageTranslation(models.Model):
     Args:
         models : Class inherit of django-Models
     """
-    DRAFT = 'DRAFT'
-    REVIEW_PENDING = 'REVIEW_PENDING'
-    REVIEW_FINISHED = 'REVIEW_FINISHED'
 
     page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=200, blank=True)
-    STATUS = (
-        (DRAFT, _('Draft')),
-        (REVIEW_PENDING, _('Pending Review')),
-        (REVIEW_FINISHED, _('Finished Review')),
-    )
-    title = models.CharField(max_length=250)
-    status = models.CharField(max_length=15, choices=STATUS, default=DRAFT)
-    text = models.TextField()
     language = models.ForeignKey(
         Language,
         related_name='page_translations',
         on_delete=models.CASCADE
     )
+    slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
+    title = models.CharField(max_length=250)
+    text = models.TextField()
+    status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     currently_in_translation = models.BooleanField(default=False)
     version = models.PositiveIntegerField(default=0)
-    public = models.BooleanField(default=False)
     minor_edit = models.BooleanField(default=False)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now)
@@ -180,7 +169,7 @@ class PageTranslation(models.Model):
     @property
     def ancestor_path(self):
         return '/'.join([
-            ancestor.page_translations.get(language=self.language).slug
+            ancestor.get_first_translation([self.language.code]).slug
             for ancestor in self.page.get_ancestors()
         ])
 
@@ -215,8 +204,7 @@ class PageTranslation(models.Model):
     def latest_public_revision(self):
         return self.page.page_translations.filter(
             language=self.language,
-            public=True,
-            status=self.REVIEW_FINISHED,
+            status=status.PUBLIC,
         ).first()
 
     @property
@@ -230,8 +218,7 @@ class PageTranslation(models.Model):
     def latest_major_public_revision(self):
         return self.page.page_translations.filter(
             language=self.language,
-            public=True,
-            status=self.REVIEW_FINISHED,
+            status=status.PUBLIC,
             minor_edit=False,
         ).first()
 

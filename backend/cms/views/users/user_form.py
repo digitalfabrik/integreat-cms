@@ -50,7 +50,7 @@ class UserForm(forms.ModelForm):
             # don't require password if user already exists
             self.fields['password'].required = False
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
         logger.info(
@@ -95,7 +95,7 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['regions', 'organization']
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
         logger.info(

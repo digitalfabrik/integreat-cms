@@ -10,16 +10,15 @@ from django.contrib.auth.models import User
 from .models import Region
 from .models import Page
 from .models import Language
-from .models import PageTranslation
 from .views.regions.region_form import RegionForm
 from .views.pages.page_form import PageForm
 from .views.languages.language_form import LanguageForm
 from .views.language_tree.language_tree_node_form import LanguageTreeNodeForm
-from .views.utils.tree_utils import POSITION_CHOICES
 from .page_xliff_converter import PageXliffConverter, XliffValidationException, PageXliffHelper, XLIFFS_DIR
+from .constants import position, status, region_status
 
 
-# pylint: disable=R0902
+# pylint: disable=too-many-instance-attributes
 class SetupClass(TestCase):
     @staticmethod
     def create_region(region_data):
@@ -43,7 +42,7 @@ class SetupClass(TestCase):
         return language_tree_node_form.save_language_node()
 
     @staticmethod
-    # pylint: disable=R0913
+    # pylint: disable=too-many-arguments
     def create_page(page_data, user, region_slug, language_code,
                     page_id=None, publish=False, archived=False):
         # TODO: fix form usage to page_form and page_translation_form
@@ -75,7 +74,7 @@ class SetupClass(TestCase):
             'matomo_url': '',
             'matomo_token': '',
             'matomo_ssl_verify': True,
-            'status': Region.ACTIVE,
+            'status': region_status.ACTIVE,
         })
 
         self.english = self.create_language({
@@ -129,8 +128,8 @@ class SetupClass(TestCase):
                         2019-04-05 11:53:44
                     </div>
                 ''',
-                'status': PageTranslation.REVIEW_FINISHED,
-                'position': POSITION_CHOICES[0][0],
+                'status': status.PUBLIC,
+                'position': position.FIRST_CHILD,
                 'parent': None,
                 'icon': None,
                 'public': True
@@ -151,8 +150,8 @@ class SetupClass(TestCase):
                     <a href="http://tunewsinternational.com/">TüNews INTERNATIONAL</a> 
                     - 2019-04-05 11:53:44
                 </div>''',
-                'status': PageTranslation.REVIEW_FINISHED,
-                'position': POSITION_CHOICES[0][0],
+                'status': status.PUBLIC,
+                'position': position.FIRST_CHILD,
                 'parent': self.page_tunews.id,
                 'icon': None,
                 'public': True
@@ -167,8 +166,8 @@ class SetupClass(TestCase):
             page_data={
                 'title': 'Schlitz1',
                 'text': 'zweite Schicht Schlitz eins',
-                'status': PageTranslation.REVIEW_FINISHED,
-                'position': POSITION_CHOICES[0][0],
+                'status': status.PUBLIC,
+                'position': position.FIRST_CHILD,
                 'parent': self.page_tunews.id,
                 'icon': None,
                 'public': True
@@ -184,8 +183,8 @@ class SetupClass(TestCase):
             page_data={
                 'title': 'Slot2',
                 'text': 'second layer slot two',
-                'status': PageTranslation.REVIEW_FINISHED,
-                'position': POSITION_CHOICES[1][0],
+                'status': status.PUBLIC,
+                'position': position.LAST_CHILD,
                 'parent': self.page_tunews.id,
                 'icon': None,
                 'public': True
@@ -200,8 +199,8 @@ class SetupClass(TestCase):
             page_data={
                 'title': 'Tunews two',
                 'text': 'first layer',
-                'status': PageTranslation.REVIEW_FINISHED,
-                'position': POSITION_CHOICES[0][0],
+                'status': status.PUBLIC,
+                'position': position.FIRST_CHILD,
                 'parent': None,
                 'icon': None,
                 'public': True

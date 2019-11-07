@@ -71,6 +71,7 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
             'user_profile_form': user_profile_form,
         })
 
+    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
 
         region = Region.objects.get(slug=kwargs.get('region_slug'))
