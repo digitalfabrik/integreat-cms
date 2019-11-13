@@ -24,7 +24,7 @@ else
         if ! [ $(id -u) = 0 ]; then
             echo "This script needs root privileges to connect to the docker deamon. It will be automatically restarted with sudo." >&2
             # Call this script again as root
-            sudo $0
+            sudo env PATH=$PATH $0
             # Exit with code of subprocess
             exit $?
         elif [ -z "$SUDO_USER" ]; then
