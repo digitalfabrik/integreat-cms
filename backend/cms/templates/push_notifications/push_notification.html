@@ -40,18 +40,18 @@
         <div class="w-2/3 pr-2">
             {{push_notification_translation_form.errors}}
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-                <label class="block mb-2 font-bold">{% trans 'Channel' %}</label>
+                <label for="id_channel" class="block mb-2 font-bold cursor-pointer">{% trans 'Channel' %}</label>
                 <span class="text-xs uppercase block mb-2">{% trans 'This affects all translations of this notification.' %}</span>
                 {% trans 'Insert channel name here' as channel_placeholder%}
                 {% render_field push_notification_form.channel placeholder=channel_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
             </div>
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-                <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
+                <label for="id_title" class="block mb-2 font-bold cursor-pointer">{% trans 'Title' %}</label>
                 {% blocktrans asvar title_placeholder %}Insert title in {{ language }} here{% endblocktrans %}
                 {% render_field push_notification_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
             </div>
             <div class="w-full p-4 mb-4 rounded border border-solid border-grey-light shadow bg-white">
-                <label class="block mb-2 font-bold">{% trans 'Content' %}</label>
+                <label for="id_text" class="block mb-2 font-bold cursor-pointer">{% trans 'Content' %}</label>
                 {% blocktrans asvar text_placeholder %}Insert content in {{ language }} here{% endblocktrans %}
                 {% render_field push_notification_translation_form.text placeholder=text_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
             </div>
