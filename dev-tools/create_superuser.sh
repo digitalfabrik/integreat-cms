@@ -22,7 +22,7 @@ if nc -w1 localhost 5432; then
     cd $(dirname "$BASH_SOURCE")
     source ../.venv/bin/activate
 
-    integreat-cms createsuperuser --username root --email ''
+    integreat-cms createsuperuser
 
 else
 
@@ -54,7 +54,7 @@ else
 
     # Check if postgres database container is already running
     if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
-        sudo -u $SUDO_USER integreat-cms createsuperuser --username root --email '' --settings=backend.docker_settings
+        sudo -u $SUDO_USER integreat-cms createsuperuser --settings=backend.docker_settings
     else
         # Check if stopped container is available
         if [ "$(docker ps -aq -f status=exited -f name=integreat_django_postgres)" ]; then
@@ -73,7 +73,7 @@ else
             done
             echo ""
         fi
-        sudo -u $SUDO_USER integreat-cms createsuperuser --username root --email '' --settings=backend.docker_settings
+        sudo -u $SUDO_USER integreat-cms createsuperuser --settings=backend.docker_settings
         # Stop the postgres database docker container
         docker stop integreat_django_postgres > /dev/null
     fi

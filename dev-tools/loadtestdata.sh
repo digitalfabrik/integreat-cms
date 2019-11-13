@@ -21,10 +21,7 @@ if nc -w1 localhost 5432; then
     cd $(dirname "$BASH_SOURCE")
     source ../.venv/bin/activate
 
-    # Create new dummy user if not exists (otherwise the import might fail due to constraints)
-    integreat-cms createsuperuser --noinput  --username 'dummy_user' --email 'test@test.test' > /dev/null 2>&1
     integreat-cms loaddata ../backend/cms/fixtures/test_data.json
-    integreat-cms loaddata ../backend/cms/fixtures/extra_templates.json
 
 else
 
@@ -56,10 +53,7 @@ else
 
     # Check if postgres database container is already running
     if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
-        # Create new dummy user if not exists (otherwise the import might fail due to constraints)
-        sudo -u $SUDO_USER integreat-cms createsuperuser --noinput  --username 'dummy_user' --email 'test@test.test' --settings=backend.docker_settings > /dev/null 2>&1
         sudo -u $SUDO_USER integreat-cms loaddata ../backend/cms/fixtures/test_data.json --settings=backend.docker_settings
-        sudo -u $SUDO_USER integreat-cms loaddata ../backend/cms/fixtures/extra_templates.json --settings=backend.docker_settings
     else
         # Check if stopped container is available
         if [ "$(docker ps -aq -f status=exited -f name=integreat_django_postgres)" ]; then
@@ -78,10 +72,7 @@ else
             done
             echo ""
         fi
-        # Create new dummy user if not exists (otherwise the import might fail due to constraints)
-        sudo -u $SUDO_USER integreat-cms createsuperuser --noinput  --username 'dummy_user' --email 'test@test.test' --settings=backend.docker_settings > /dev/null 2>&1
         sudo -u $SUDO_USER integreat-cms loaddata ../backend/cms/fixtures/test_data.json --settings=backend.docker_settings
-        sudo -u $SUDO_USER integreat-cms loaddata ../backend/cms/fixtures/extra_templates.json --settings=backend.docker_settings
         # Stop the postgres database docker container
         docker stop integreat_django_postgres > /dev/null
     fi
