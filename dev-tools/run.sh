@@ -23,6 +23,9 @@ if nc -w1 localhost 5432; then
     cd $(dirname "$BASH_SOURCE")
     source ../.venv/bin/activate
 
+    # Apply Compressing
+    integreat-cms compress
+
     # Re-generating translation file and compile it
     ./translate.sh
 
@@ -92,6 +95,9 @@ else
             ./loadtestdata.sh
         fi
     fi
+
+    # Apply Compressing
+    sudo -u $SUDO_USER env PATH=$PATH integreat-cms compress
 
     # Start Integreat CMS
     sudo -u $SUDO_USER env PATH=$PATH integreat-cms runserver localhost:8000 --settings=backend.docker_settings
