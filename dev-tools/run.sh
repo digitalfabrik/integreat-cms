@@ -14,7 +14,7 @@ if nc -w1 localhost 5432; then
             exit 1
         else
             # Call this script again as the user who executed sudo
-            sudo -u $SUDO_USER $0
+            sudo -u $SUDO_USER env PATH=$PATH $0
             # Exit with code of subprocess
             exit $?
         fi
@@ -22,6 +22,9 @@ if nc -w1 localhost 5432; then
 
     cd $(dirname "$BASH_SOURCE")
     source ../.venv/bin/activate
+
+    # Apply Compressing
+    integreat-cms compress
 
     # Re-generating translation file and compile it
     ./translate.sh
@@ -44,7 +47,7 @@ else
     if ! [ $(id -u) = 0 ]; then
         echo "This script needs root privileges to connect to the docker deamon. It will be automatically restarted with sudo." >&2
         # Call this script again as root
-        sudo $0
+        sudo env PATH=$PATH $0
         # Exit with code of subprocess
         exit $?
     elif [ -z "$SUDO_USER" ]; then
@@ -61,7 +64,7 @@ else
     source ../.venv/bin/activate
 
     # Re-generating translation file and compile it
-    sudo -u $SUDO_USER ./translate.sh
+    sudo -u $SUDO_USER env PATH=$PATH ./translate.sh
 
     # Check if postgres database container is already running
     if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
@@ -93,8 +96,11 @@ else
         fi
     fi
 
+    # Apply Compressing
+    sudo -u $SUDO_USER env PATH=$PATH integreat-cms compress
+
     # Start Integreat CMS
-    sudo -u $SUDO_USER integreat-cms runserver localhost:8000 --settings=backend.docker_settings
+    sudo -u $SUDO_USER env PATH=$PATH integreat-cms runserver localhost:8000 --settings=backend.docker_settings
 
     # Stop the postgres database docker container
     docker stop integreat_django_postgres > /dev/null

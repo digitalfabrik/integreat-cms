@@ -26,7 +26,6 @@ setup(
         "drf-yasg",
         "idna",
         "lxml",
-        "packaging",
         "psycopg2-binary",
         "python-dateutil",
         "requests",
@@ -35,6 +34,9 @@ setup(
     ],
     extras_require={
         "dev": [
+            "django-compressor",
+            "django-compressor-toolkit",
+            "packaging",
             "pylint",
             "pylint-django",
             "pylint_runner",

@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load compress %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,14 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no" />
     <title>{% trans 'Integreat Backend' %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}">
-    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet">
-    <script src="{% static 'js/umbrella.min.js' %}"></script>
-    <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-    <script src="{% static 'js/custom.js' %}"></script>
-    <script src="{% static 'js/feather.min.js' %}"></script>
+    {% compress css %}
     <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/upload_form.css' %}" rel="stylesheet" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js" integrity="sha256-MZo5XY1Ah7Z2Aui4/alkfeiq3CopMdV/bbkc/Sh41+s=" crossorigin="anonymous"></script>
+    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet">
+    {% endcompress %}
+    {% compress js %}
+    <script src="{% static 'umbrellajs/umbrella.js' %}"></script>
+    <script src="{% static 'feather-icons/dist/feather.js' %}"></script>
+    {% endcompress %}
 </head>
 <body>
     {% block raw_content %}{% endblock raw_content %}
@@ -23,5 +25,6 @@
         feather.replace()
     </script>
     {% block javascript %}{% endblock %}
+
 </body>
 </html>
