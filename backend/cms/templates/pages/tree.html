@@ -28,15 +28,19 @@
             <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
         </form>
         <div class="flex-wrap relative w-1/2">
-            <form class="table-search relative" method="post" enctype="multipart/form-data"
+            <form class="table-search relative flex flex-wrap h-full" method="post" enctype="multipart/form-data"
                   action="{% url 'upload_page' region_slug=region.slug language_code=language.code%}">
-                <i data-feather="upload" class="absolute"></i>
-                <input type="file" name="xliff_file" class="h-full py-2 pl-10 pr-4 rounded shadow">
-                {% csrf_token %}
-                <input type="submit"
+                <div>
+                    <i data-feather="upload" class="absolute"></i>
+                    <input type="file" name="xliff_file" class="h-full pl-10 pr-4 rounded shadow" style="padding-top: 5px;">
+                    {% csrf_token %}
+                </div>
+                <div class="pl-3">
+                    <input type="submit"
                        class="inline-block cursor-pointer bg-blue
-                       hover:bg-blue-dark text-white
-                       font-bold py-3 px-4 rounded" value="{% trans 'Upload' %}" />
+                       hover:bg-blue-dark text-white h-full
+                       font-bold py-2 px-4 rounded" value="{% trans 'Upload' %}" />
+                </div>
             </form>
         </div>
 
@@ -80,7 +84,7 @@
                         {% endfor %}
                     </div>
                 </th>
-                <th class="text-sm text-left uppercase py-3">{% trans 'Last updated' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2">{% trans 'Last updated' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
             </tr>
         </thead>
