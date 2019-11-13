@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load compress %}
 {% block content %}
 
 <div class="row">
@@ -14,6 +15,7 @@
                 </div>
                 <div class="p-5 bg-white">
                     <canvas id="visitor-chart" class="chartjs"></canvas>
+                    {% compress js inline %}
                     <script>
                         var chart = document.getElementById("visitor-chart");
                         Chart.plugins.register({
@@ -50,6 +52,7 @@
                             }
                         });
                     </script>
+                    {% endcompress %}
                 </div>
             </div>
         </div>
