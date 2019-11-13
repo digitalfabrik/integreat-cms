@@ -4,19 +4,27 @@
             {{ user.username }}
         </a>
     </td>
-	<td class="pl-2">
-		{{ user.first_name }}
+	<td>
+        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
+            {{ user.first_name }}
+        </a>
 	</td>
-	<td class="pl-2">
-		{{ user.last_name }}
+	<td>
+        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
+            {{ user.last_name }}
+        </a>
 	</td>
-	<td class="pl-2">
-		{{ user.email }}
+	<td>
+        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
+            {{ user.email }}
+        </a>
 	</td>
-	<td class="pl-2">
-		{% if user.profile.organization %}
-			{{ user.profile.organization }}
-		{% endif %}
+	<td>
+        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
+			{% if user.profile.organization %}
+				{{ user.profile.organization }}
+			{% endif %}
+        </a>
 	</td>
 	<td class="pl-2">
 		{% if user.is_active %}
@@ -32,7 +40,7 @@
 		<i data-feather="x"></i>
 		{% endif %}
 	</td>
-	<td class="pl-2">
+	<td class="pl-2 pr-4">
 		{% if user.is_superuser %}
 		<i data-feather="check"></i>
 		{% else %}

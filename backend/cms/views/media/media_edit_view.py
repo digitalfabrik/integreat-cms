@@ -12,7 +12,7 @@ from ...decorators import region_permission_required
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
 class MediaEditView(TemplateView):
-    template_name = 'media/mediaedit.html'
+    template_name = 'media/edit.html'
     base_context = {'current_menu_item': 'media'}
 
     def get(self, request, *args, **kwargs):

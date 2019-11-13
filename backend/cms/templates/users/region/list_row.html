@@ -1,24 +1,32 @@
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
-    <td>
+    <td class="pl-2">
         <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
             {{ user.username }}
         </a>
     </td>
 	<td>
-		{{ user.first_name }}
+        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
+            {{ user.first_name }}
+        </a>
 	</td>
 	<td>
-		{{ user.last_name }}
+        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
+            {{ user.last_name }}
+        </a>
 	</td>
 	<td>
-		{{ user.email }}
+        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
+            {{ user.email }}
+        </a>
 	</td>
 	<td>
-		{% if user.profile.organization %}
-			{{ user.profile.organization }}
-		{% endif %}
+        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 px-2 text-grey-darkest">
+			{% if user.profile.organization %}
+				{{ user.profile.organization }}
+			{% endif %}
+        </a>
 	</td>
-	<td>
+	<td class="pl-2 pr-4">
 		{% if user.is_active %}
 		<i data-feather="check"></i>
 		{% else %}

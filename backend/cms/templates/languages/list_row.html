@@ -6,19 +6,29 @@
 			{{ language.translated_name }}
 		</a>
 	</td>
-	<td class="pl-2">
-		{{ language.native_name }}
+	<td>
+		<a href="{% url 'edit_language' language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+			{{ language.native_name }}
+		</a>
 	</td>
-	<td class="pl-2">
-		{{ language.code }}
+	<td>
+		<a href="{% url 'edit_language' language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+			{{ language.code }}
+		</a>
 	</td>
-	<td class="pl-2">
-		{{ language.get_text_direction_display }}
+	<td>
+		<a href="{% url 'edit_language' language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+			{{ language.get_text_direction_display }}
+		</a>
 	</td>
-	<td class="pl-2">
-		{{ language.created_date }}
+	<td>
+		<a href="{% url 'edit_language' language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+			{{ language.created_date }}
+		</a>
 	</td>
-	<td class="pl-2">
-		{{ language.last_updated }}
+	<td class="pr-2">
+		<a href="{% url 'edit_language' language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+			{{ language.last_updated }}
+		</a>
 	</td>
 </tr>

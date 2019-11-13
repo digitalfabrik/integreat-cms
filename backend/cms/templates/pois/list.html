@@ -16,7 +16,7 @@
         </form>
         {% if region.default_language == language %}
         <div class="w-3/4 flex flex-wrap justify-end">
-            <a href="{% url 'new_poi' region_slug=region.slug language_code=language.code %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'new_poi' region_slug=region.slug language_code=language.code %}" class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
 	            {% trans 'Create POI' %}
             </a>
         </div>
@@ -28,7 +28,7 @@
     <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white table-fixed">
         <thead>
             <tr class="border-b border-solid border-grey-light">
-                <th class="text-sm text-left uppercase py-3 px-2" style="width: 50px;">{% trans 'ID' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2" style="width: 50px;">{% trans 'ID' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2" style="width: 200px;">
                     <div class="lang-grid flags" style="white-space: nowrap;">
@@ -50,7 +50,7 @@
             {% include "pois/list_row.html" with poi=poi %}
         {% empty %}
             <tr>
-                <td colspan="6" class="px-2 py-3">
+                <td colspan="7" class="px-4 py-3">
 	                {% trans 'No POIs available yet.' %}
                 </td>
             </tr>

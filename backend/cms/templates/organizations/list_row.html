@@ -4,10 +4,14 @@
             {{ organization.name }}
         </a>
     </td>
-	<td class="pl-2">
-		{{ organization.slug }}
+	<td>
+        <a href="{% url 'edit_organization' organization_id=organization.id %}" class="block py-3 px-2 text-grey-darkest">
+            {{ organization.slug }}
+        </a>
 	</td>
-	<td class="pl-2">
-		{{ organization.thumbnail }}
+	<td class="pr-2">
+        <a href="{% url 'edit_organization' organization_id=organization.id %}" class="block py-3 px-2 text-grey-darkest">
+            {{ organization.thumbnail }}
+        </a>
 	</td>
 </tr>

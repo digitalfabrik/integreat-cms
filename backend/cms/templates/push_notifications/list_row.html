@@ -1,12 +1,14 @@
 {% load push_notification_filters %}
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
-    <td>
+    <td class="pl-2">
         <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
             {{ push_notification|translation:language }}
         </a>
     </td>
     <td>
-        {{ push_notification.channel }}
+        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+        	{{ push_notification.channel }}
+        </a>
     </td>
 	<td>
 		<div class="block py-3 px-2 text-grey-darkest">
@@ -19,7 +21,7 @@
 			</div>
 		</div>
 	</td>
-	<td>
+	<td class="px-2">
 		{% if push_notification.sent_date %}
 			{{ push_notification.sent_date }}
 		{% else %}

@@ -2,27 +2,27 @@
 {% load extra_filters %}
 
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
-	<td class="block py-3 px-2 text-grey-darkest">
+	<td class="block py-3 pl-4 pr-2 text-grey-darkest">
 		{% if extra_template in region_extra_templates %}
 			<b>{{ extra_template.name }}</b>
 		{% else %}
 			{{ extra_template.name }}
 		{% endif %}
 	</td>
-	<td>
+	<td class="px-2">
 		{% if extra_template in region_extra_templates %}
 			{{ region.extras|active_since:extra_template }}
 		{% else %}
 			<i data-feather="x"></i>
 		{% endif %}
 	</td>
-	<td>
+	<td class="px-2">
 		{% if extra_template in region_extra_templates %}
-			<a href="{% url 'deactivate_extra' region_slug=region.slug extra_template_slug=extra_template.slug %}" class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-red text-white">
+			<a href="{% url 'deactivate_extra' region_slug=region.slug extra_template_slug=extra_template.slug %}" class="inline-block px-3 rounded-sm bg-red text-white" style="padding-top: 7px; padding-bottom: 7px;">
 				{% trans 'Deactivate' %}
 			</a>
 		{% else %}
-			<a href="{% url 'activate_extra' region_slug=region.slug extra_template_slug=extra_template.slug %}" class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue text-white">
+			<a href="{% url 'activate_extra' region_slug=region.slug extra_template_slug=extra_template.slug %}" class="inline-block px-3 rounded-sm bg-blue text-white" style="padding-top: 7px; padding-bottom: 7px;">
 				{% trans 'Activate' %}
 			</a>
 		{% endif %}

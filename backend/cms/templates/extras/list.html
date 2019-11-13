@@ -16,7 +16,7 @@
         </form>
         {% if perms.cms.manage_extra_templates %}
         <div class="w-3/4 flex flex-wrap justify-end">
-            <a href="{% url 'extra_templates' %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'extra_templates' %}" class="bg-grey hover:bg-grey-dark cursor-pointer text-white font-bold py-2 px-4 rounded">
 	            {% trans 'Manage extra templates' %}
             </a>
         </div>
@@ -28,9 +28,9 @@
     <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white table-fixed">
         <thead>
             <tr class="border-b border-solid border-grey-light">
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Name' %}</th>
-                <th class="text-sm text-left uppercase py-3" style="width: 250px;">{% trans 'Active since' %}</th>
-                <th class="text-sm text-left uppercase py-3" style="width: 200px;">{% trans 'Actions' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 w-8/12">{% trans 'Name' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2 w-3/12">{% trans 'Active since' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 w-1/2" style="width: 200px;">{% trans 'Actions' %}</th>
             </tr>
         </thead>
         <tbody>

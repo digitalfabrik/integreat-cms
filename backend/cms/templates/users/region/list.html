@@ -9,7 +9,7 @@
             <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
         </form>
         <div class="w-1/2 flex flex-wrap justify-end">
-            <a href="{% url 'new_region_user' region_slug=region.slug %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'new_region_user' region_slug=region.slug %}" class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
 	            {% trans 'Create user' %}
             </a>
         </div>
@@ -33,7 +33,7 @@
             {% include "users/region/list_row.html" %}
         {% empty %}
             <tr>
-	            <td colspan="6" class="px-2 py-3">
+	            <td colspan="6" class="px-4 py-3">
 		            {% trans 'No users available yet.' %}
 	            </td>
             </tr>
