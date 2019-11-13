@@ -24,7 +24,7 @@
     </div>
 
     <div class="flex flex-wrap">
-	    <div class="w-1/2 pr-4">
+	    <div class="w-1/2 pr-2">
 		    {{form.errors}}
 		    <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
 				<div class="w-full p-4 rounded bg-blue-dark">
@@ -33,22 +33,22 @@
 				<div class="w-full p-4">
 
 					<!-- General Options for organization management -->
-                    <label for="name" class="font-bold block p-2 mb-2">{% trans "Organizationname" %}</label>
+                    <label for="id_name" class="font-bold block p-2 mb-1 cursor-pointer">{% trans "Organizationname" %}</label>
                     {% trans "Enter the organization's name here" as name_placeholder%}
                     {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
 
-                    <label for="slug" class="font-bold block p-2 mb-2">{% trans "Slug of the organization" %}</label>
+                    <label for="id_slug" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Slug of the organization" %}</label>
                     {% trans "Enter the organization's slug here" as slug_placeholder%}
                     {% render_field form.slug placeholder=slug_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
 
-                    <label for="thumbnail" class="font-bold block p-2 mb-2">{% trans "Thumbnail of the organization" %}</label>
+                    <label for="id_thumbnail" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Thumbnail of the organization" %}</label>
                     {% trans "Enter the organization's thumbnail here" as thumbnail_placeholder%}
                     {% render_field form.thumbnail placeholder=thumbnail_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
 
 				</div>
 			</div>
 		</div>
-	<div class="w-1/2 pr-4">
+	<div class="w-1/2 pl-2">
 		<div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
 			<div class="w-full p-4 rounded bg-blue-dark">
 				<h3 class="heading font-bold text-white">{% trans 'Extended Settings' %}</h3>
@@ -63,7 +63,7 @@
 							<svg class="w-1/4 h-1/4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 								<path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
 							</svg>
-							<span class="mt-2 text-base leading-normal">{% trans 'Set icon' %}</span>
+							<span class="mt-2 text-base leading-normal text-center">{% trans 'Set icon' %}</span>
 							<input type='filename' class="hidden" />
 						</label>
 					</div>
