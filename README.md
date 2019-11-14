@@ -2,6 +2,15 @@
 This project aims to develop a content management system tailored to the needs of municipalities to provide multilingual local information. Its goal is to be easy to use and easy to maintain over a long time. This project uses Python3 and Django 1.11 and is supposed to run on Ubuntu 18.04.
 
 ## TL;DR
+
+### Requirements
+Following packages are requiered for running the project (Install them with your package manager):
+* git
+* npm
+* python3
+* postgresql *OR* docker
+* python-virtualenv
+
 ### Installation
 ````
 git clone git@github.com:Integreat/cms-django.git
@@ -79,8 +88,9 @@ To import initial test data into the database, execute:
 ### 5. Running
 * While the database is running, create a first superuser:
 ```
-integreat-cms createsuperuser
+./dev-tools/create_superuser.sh
 ```
+* Default user is root with password: root1234
 * If you didn't use the `dev-tools/run.sh`-script in step 2.1,  fire up the CMS (If port 8000 is already in use, you might use 5000):
 ```
 integreat-cms runserver localhost:8000
