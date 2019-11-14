@@ -5,7 +5,26 @@
 {% load widget_tweaks %}
 {% load page_filters %}
 {% load rules %}
+{% load compress %}
 <form method="post">
+    {% compress js %}
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/fullscreen/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/autosave/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/link/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/preview/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
+
+    {% endcompress %}
+    {% compress css %}
+    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
+    {% endcompress%}
     {% csrf_token %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
@@ -109,7 +128,7 @@
                     {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                     <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
                     {% trans 'Insert content here' as text_placeholder%}
-                    {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded" %}
+                    {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded tinymce_textarea" %}
                     <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
                     {% render_field page_translation_form.minor_edit id="minor_edit" %}
                     <label for="minor_edit" class="text-s">{% trans 'This change does not require an update of the translations' %}</label>
