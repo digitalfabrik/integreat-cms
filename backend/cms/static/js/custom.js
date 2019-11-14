@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function(){ 
     tinymce.init({
-        selector: '.tinymce_textarea'
+        selector: '.tinymce_textarea',
+        plugins: "paste fullscreen autosave link preview media image",
+        min_height: 400
     });
 
     custom_file_field();
