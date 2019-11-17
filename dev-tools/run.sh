@@ -23,6 +23,9 @@ if nc -w1 localhost 5432; then
     cd $(dirname "$BASH_SOURCE")
     source ../.venv/bin/activate
 
+    # Check if npm dependencies are up to date
+    npx npm-check --update-all --skip-unused
+
     # Compile CSS
     npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
 
@@ -65,6 +68,9 @@ else
 
     cd $(dirname "$BASH_SOURCE")
     source ../.venv/bin/activate
+
+    # Check if npm dependencies are up to date and update if not
+    sudo -u $SUDO_USER npx npm-check --update-all --skip-unused
 
     # Compile CSS
     sudo -u $SUDO_USER npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
