@@ -23,6 +23,9 @@ if nc -w1 localhost 5432; then
     cd $(dirname "$BASH_SOURCE")
     source ../.venv/bin/activate
 
+    # Compile CSS
+    npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
+
     # Apply Compressing
     integreat-cms compress
 
@@ -63,6 +66,12 @@ else
     cd $(dirname "$BASH_SOURCE")
     source ../.venv/bin/activate
 
+    # Compile CSS
+    sudo -u $SUDO_USER npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
+
+    # Apply Compressing
+    sudo -u $SUDO_USER env PATH=$PATH integreat-cms compress
+
     # Re-generating translation file and compile it
     sudo -u $SUDO_USER env PATH=$PATH ./translate.sh
 
@@ -95,9 +104,6 @@ else
             ./loadtestdata.sh
         fi
     fi
-
-    # Apply Compressing
-    sudo -u $SUDO_USER env PATH=$PATH integreat-cms compress
 
     # Start Integreat CMS
     sudo -u $SUDO_USER env PATH=$PATH integreat-cms runserver localhost:8000 --settings=backend.docker_settings
