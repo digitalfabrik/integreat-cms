@@ -90,17 +90,21 @@
         </thead>
         <tbody>
         {% if pages %}
+            {% get_last_root_page pages as last_root_page %}
             {% recursetree pages %}
                 {% get_page_translation node language.code as page_translation %}
                 {% include "pages/tree_row.html" with page=node page_translation=page_translation %}
                 {% if not node.is_leaf_node %}
                     {{children}}
                 {% endif %}
+                {% if node == last_root_page %}
+                    <tr data-drop-id="{{ node.id }}" data-drop-position="right" class="drop drop-between h-3 hidden" title="test"><td colspan="9"><div><span></span></div></td></tr>
+                {% endif %}
             {% endrecursetree %}
         {% else %}
             <tr>
                 <td></td>
-                <td colspan="5" class="px-2 py-3">
+                <td colspan="8" class="px-2 py-3">
                     {% trans 'No pages available yet.' %}
                 </td>
             </tr>
@@ -108,4 +112,96 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+
+        // event handler for starting drag events
+        u('.drag').each(function(node) {
+            u(node).on('dragstart', dragstart);
+        });
+        function dragstart(event) {
+            // prepare the dragged page id for data transfer
+            event.dataTransfer.setData("text", u(event.target).attr("data-drag-id"));
+            // change appearance of dragged item
+            u(event.target).removeClass('text-grey-darkest');
+            u(event.target).addClass('text-blue-dark');
+            // show dropping regions between table rows
+            u('.drop-between').each(function(node)  {
+                u(node).closest('tr').removeClass("hidden");
+            });
+            // get descendants of dragged page
+            var descendants = JSON.parse(u(event.target).attr("data-page-descendants"));
+            // add event listeners for hovering over drop regions
+            u('.drop').each(function(node) {
+                // get target page id of the hovered drop region
+                var drop_id = parseInt(u(node).attr("data-drop-id"));
+                if (descendants.includes(drop_id)) {
+                    // if the target page is a descendant of the dragged page, disallow dropping it
+                    u(node).on('dragover', drop_disallow);
+                } else {
+                    // else, the move would be valid and dropping is allowed
+                    u(node).handle('dragover', drop_allow);
+                }
+            });
+        }
+
+        // event handlers for dragover events
+        function drop_allow(event) {
+            u(event.target.parentElement).closest('tr').addClass("drop-allow");
+        }
+        function drop_disallow(event) {
+            u(event.target.parentElement).closest('tr').addClass("drop-disallow");
+        }
+
+        // event handler for stopping drag events
+        u('.drag').each(function(node) {
+            u(node).handle('dragend', dragend);
+        });
+        function dragend(event) {
+            // hide the drop regions between table rows
+            u('.drop-between').each(function(node) {
+                u(node).closest('tr').addClass("hidden");
+            });
+            // remove event listeners for dragover events
+            u('.drop').each(function(node) {
+                u(node).off('dragover');
+            });
+            // change appearance of dragged item
+            u(event.target).removeClass('text-blue-dark');
+            u(event.target).addClass('text-grey-darkest');
+        }
+
+        // event handler for dragleave events
+        u('.drop').each(function(node) {
+            u(node).handle('dragleave', dragleave);
+        });
+        function dragleave(event) {
+            // remove hover effect on allowed or disallowed drop regions
+            var target = u(event.target.parentElement).closest('tr');
+            target.removeClass("drop-allow");
+            target.removeClass("drop-disallow");
+        }
+
+        // event handler for drop events
+        u('.drop').each(function(node) {
+            u(node).handle('drop', drop);
+        });
+        function drop(event) {
+            // prevent the table from collapsing again after successful drop
+            u('.drag').each(function(node) {
+                u(node).off('dragend');
+            });
+            // get dragged page id from data transfer
+            var page_id = event.dataTransfer.getData("text");
+            // get target page if from dropped region
+            var target = u(event.target.parentElement).closest('tr');
+            var target_id = target.attr("data-drop-id");
+            var position = target.attr("data-drop-position");
+            // call view to move a page (current location is the pages url)
+            window.location.href = window.location.href + page_id + "/move/" + target_id + "/" + position;
+        }
+
+    </script>
 {% endblock %}

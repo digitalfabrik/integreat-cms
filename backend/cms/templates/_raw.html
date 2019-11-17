@@ -21,10 +21,10 @@
 </head>
 <body>
     {% block raw_content %}{% endblock raw_content %}
-    <script>
-        feather.replace()
-    </script>
+    {% compress js %}
+    <script>feather.replace()</script>
     {% block javascript %}{% endblock %}
+    {% endcompress %}
 
 </body>
 </html>

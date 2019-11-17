@@ -209,6 +209,12 @@ urlpatterns = [
                         pages.download_page_xliff,
                         name='download_page'
                     ),
+                    # warning: the move url is also hardcoded in the javascript block of backend/cms/templates/pages/tree.html
+                    url(
+                        r'^move/(?P<target_id>[0-9]+)/(?P<position>[-\w]+)$',
+                        pages.move_page,
+                        name='move_page'
+                    ),
                 ])),
                 url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
             ])),
