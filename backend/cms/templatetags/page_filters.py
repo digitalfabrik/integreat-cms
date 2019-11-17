@@ -10,7 +10,7 @@ def get_page_translation(page, language_code):
 
 # Unify the language codes of backend and content languages
 @register.simple_tag
-def unify_laguage_code(language_code):
+def unify_language_code(language_code):
     if language_code == 'en-us':
         return 'en-gb'
     return language_code
