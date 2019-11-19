@@ -1,9 +1,10 @@
 {% load i18n %}
 {% load page_filters %}
-<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
+<tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-grey-lighter hover:bg-grey-lightest{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
     <td class="single_icon">
-        <span class="block py-3 pl-4 pr-2 cursor-move">
-            <i data-feather="move" class="text-grey-darkest"></i>
+        <span data-drag-id="{{ page.id }}" data-page-descendants="{{ page|get_descendants }}" class="drag text-grey-darkest block py-3 pl-4 pr-2 cursor-move" draggable="true">
+            <i data-feather="move"></i>
         </span>
     </td>
     <td class="pl-2">
@@ -31,7 +32,7 @@
         </a>
     </td>
     {% get_current_language as LANGUAGE_CODE %}
-    {% unify_laguage_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE != language.code %}
         {% get_page_translation page LANGUAGE_CODE as backend_translation %}
         <td>

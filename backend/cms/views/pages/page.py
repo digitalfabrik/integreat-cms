@@ -20,6 +20,8 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.views.static import serve
 
+from mptt.exceptions import InvalidMove
+
 from .page_form import PageForm, PageTranslationForm
 from ...constants import status
 from ...models import Page, PageTranslation, Region, Language
@@ -278,6 +280,29 @@ def upload_page(request, region_slug, language_code):
                 page_xliff_helper.import_xliff_file(file_path, request.user)
 
             page_xliff_helper.delete_tmp_in_xliff_folder(file_path)
+
+    return redirect('pages', **{
+        'region_slug': region_slug,
+        'language_code': language_code,
+    })
+
+
+@login_required
+@region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
+# pylint: disable=too-many-arguments
+def move_page(request, region_slug, language_code, page_id, target_id, position):
+
+    try:
+        page = Page.objects.get(id=page_id)
+        target = Page.objects.get(id=target_id)
+        page.move_to(target, position)
+        messages.success(request, _('The page "{page}" was successfully moved.').format(
+            page=page.get_first_translation([language_code]).title
+        ))
+    except (Page.DoesNotExist, ValueError, InvalidMove) as e:
+        messages.error(request, e)
+        logger.exception(e)
 
     return redirect('pages', **{
         'region_slug': region_slug,

@@ -227,6 +227,18 @@ h2.heading {
                 padding-left: 66px;
             }
         }
+
+        &.level-4 {
+            > td:first-child {
+                padding-left: 88px;
+            }
+        }
+
+        &.level-5 {
+            > td:first-child {
+                padding-left: 110px;
+            }
+        }
     }
 }
   
@@ -346,4 +358,42 @@ input[type=file].image-field {
 }
 .text-integreat {
     color: #fbda16;
+}
+
+/* classes for tree view drag and drop divs */
+.drop-on {
+    border-width: 2px !important;
+    &.drop-allow {
+        border-color: #3490dc;
+    }
+    &.drop-disallow {
+        border-color: #cc3333;
+    }
+}
+.drop-between {
+    div {
+        height: 2px;
+        width: calc(100% - 5px);
+        margin-left: 5px;
+    }
+    &.drop-allow div {
+        background-color: #3490dc;
+    }
+    &.drop-disallow div {
+        background-color: #cc3333;
+    }
+    span {
+        position: relative;
+        top: -3px;
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        display: block;
+    }
+    &.drop-allow span {
+        background-color: #3490dc;
+    }
+    &.drop-disallow span {
+        background-color: #cc3333;
+    }
 }
