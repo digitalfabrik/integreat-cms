@@ -1,13 +1,12 @@
 """
 Form for creating a region user object
 """
-
 import logging
 
 from django.contrib.auth import get_user_model
 
-from ...models.user_profile import UserProfile
 from .user_form import UserForm, UserProfileForm
+from ...models.user_profile import UserProfile
 
 
 logger = logging.getLogger(__name__)

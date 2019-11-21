@@ -2,13 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
 
 from .user_form import UserForm, UserProfileForm
-from ...models.user_profile import UserProfile
+from ...models import UserProfile
 from ...decorators import staff_required
 
 

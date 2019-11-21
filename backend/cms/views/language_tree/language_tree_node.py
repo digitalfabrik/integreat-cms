@@ -3,18 +3,17 @@
 Returns:
     [type]: [description]
 """
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.utils.translation import ugettext as _
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
+from django.views.generic import TemplateView
 
 from .language_tree_node_form import LanguageTreeNodeForm
-from ...models import Language, LanguageTreeNode, Region
 from ...decorators import region_permission_required
+from ...models import Language, LanguageTreeNode, Region
 
 
 @method_decorator(login_required, name='dispatch')

@@ -1,10 +1,10 @@
 """
 Form for creating an extra_template object
 """
-
 from django import forms
-from ...models.extra_template import ExtraTemplate
+
 from ..utils.slug_utils import generate_unique_slug
+from ...models.extra_template import ExtraTemplate
 
 
 class ExtraTemplateForm(forms.ModelForm):

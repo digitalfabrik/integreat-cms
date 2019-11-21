@@ -2,14 +2,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
 
 from .region_form import RegionForm
-from ...models.region import Region
 from ...decorators import staff_required
+from ...models.region import Region
 
 
 @method_decorator(login_required, name='dispatch')

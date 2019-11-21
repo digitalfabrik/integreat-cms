@@ -1,7 +1,6 @@
 """
 Functionality for providing archive with all pages
 """
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 

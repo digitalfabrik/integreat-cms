@@ -1,13 +1,13 @@
 """Model for Point of Interests
 
 """
-from django.db import models
-from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
 from django.utils import timezone
 
-from .region import Region
 from .language import Language
+from .region import Region
 from ..constants import status
 
 

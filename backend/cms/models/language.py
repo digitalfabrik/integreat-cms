@@ -1,15 +1,16 @@
 """
 Model to define a Language
 """
-
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
 from .region import Region
+
 
 class Language(models.Model):
     """

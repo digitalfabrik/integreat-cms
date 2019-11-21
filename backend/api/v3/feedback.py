@@ -1,4 +1,5 @@
 import json
+
 from django.http import HttpResponse
 
 from cms.models import Page, PageFeedback, PageTranslation

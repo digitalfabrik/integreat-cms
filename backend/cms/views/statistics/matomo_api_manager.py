@@ -3,8 +3,10 @@ Helper class to interact with the Matomo API
 """
 import re
 import requests
+
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+
 
 class MatomoApiManager:
     """

@@ -4,18 +4,19 @@ Raises:
     ValidationError: Raised when an value does not match the requirements
 """
 from datetime import datetime, time, date
-
 from dateutil.rrule import weekday, rrule
+
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
-from .region import Region
 from .language import Language
 from .poi import POI
+from .region import Region
 from ..constants import status, frequency
 
 

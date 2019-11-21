@@ -1,10 +1,9 @@
 """Models representing a page and page translation with content
 """
-
 import logging
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language
@@ -14,7 +13,6 @@ from mptt.models import MPTTModel, TreeForeignKey
 from .language import Language
 from .region import Region
 from ..constants import status
-
 
 logger = logging.getLogger(__name__)
 

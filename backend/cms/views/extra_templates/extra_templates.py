@@ -7,8 +7,8 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
 from .extra_template_form import ExtraTemplateForm
-from ...models.extra_template import ExtraTemplate
 from ...decorators import staff_required
+from ...models.extra_template import ExtraTemplate
 
 
 @method_decorator(login_required, name='dispatch')

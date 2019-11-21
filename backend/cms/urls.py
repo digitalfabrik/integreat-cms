@@ -7,21 +7,23 @@ from django.contrib.auth import views as auth_views
 
 from .views import analytics
 from .views import dashboard
-from .views import languages
+from .views import events
+from .views import extras
+from .views import extra_templates
 from .views import language_tree
+from .views import languages
 from .views import media
+from .views import organizations
 from .views import pages
 from .views import pois
 from .views import push_notifications
 from .views import organizations
-from .views import extras
-from .views import extra_templates
-from .views import settings
 from .views.settings import mfa
-from .views import statistics
 from .views import regions
 from .views import registration
 from .views import roles
+from .views import settings
+from .views import statistics
 from .views import users
 
 
@@ -238,6 +240,26 @@ urlpatterns = [
                     ),
                 ])),
                 url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
+            ])),
+        ])),
+        # TODO: Change destination for delete_event, add view_event
+        url(r'^events/', include([
+            url(r'^$', events.EventListView.as_view(), name='events'),
+            url(r'^(?P<language_code>[-\w]+)/', include([
+                url(r'^$', events.EventListView.as_view(), name='events'),
+                url(r'^new$', events.EventView.as_view(), name='new_event'),
+                url(r'^(?P<event_id>[0-9]+)/', include([
+                    url(
+                        r'^edit$',
+                        events.EventView.as_view(),
+                        name='edit_event'
+                    ),
+                    url(
+                        r'^delete$',
+                        events.EventView.as_view(),
+                        name='delete_event'
+                    ),
+                ])),
             ])),
         ])),
         url(r'^pois/', include([

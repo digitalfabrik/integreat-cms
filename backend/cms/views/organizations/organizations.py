@@ -1,14 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-from django.shortcuts import render
 
 from .organization_form import OrganizationForm
-from ...models.organization import Organization
 from ...decorators import staff_required
+from ...models.organization import Organization
 
 
 @method_decorator(login_required, name='dispatch')

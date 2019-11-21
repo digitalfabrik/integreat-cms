@@ -1,14 +1,13 @@
 import os
-import uuid
 import shutil
+import uuid
 
 from zipfile import ZipFile
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 from django.utils.text import slugify
 
-from cms.models import Page, PageTranslation
-
+from .models import Page, PageTranslation
 
 XLIFF_TAG = 'xliff'
 XLIFF_SRC_LANG_ATTRIBUTE_NAME = 'srcLang'

@@ -4,18 +4,16 @@ import re
 from zipfile import ZipFile
 from bs4 import BeautifulSoup
 
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 
-from .models import Region
-from .models import Page
-from .models import Language
-from .views.regions.region_form import RegionForm
-from .views.pages.page_form import PageForm
-from .views.languages.language_form import LanguageForm
-from .views.language_tree.language_tree_node_form import LanguageTreeNodeForm
-from .page_xliff_converter import PageXliffConverter, XliffValidationException, PageXliffHelper, XLIFFS_DIR
 from .constants import position, status, region_status
+from .models import Language, Page, Region
+from .page_xliff_converter import PageXliffConverter, XliffValidationException, PageXliffHelper, XLIFFS_DIR
+from .views.language_tree.language_tree_node_form import LanguageTreeNodeForm
+from .views.languages.language_form import LanguageForm
+from .views.pages.page_form import PageForm
+from .views.regions.region_form import RegionForm
 
 
 # pylint: disable=too-many-instance-attributes

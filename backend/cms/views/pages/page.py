@@ -3,30 +3,30 @@
 Returns:
     [type]: [description]
 """
-import os
-import uuid
 import json
 import logging
+import os
+import uuid
 
-from django.core.exceptions import PermissionDenied
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, JsonResponse
-from django.utils.translation import ugettext as _
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
+from django.views.generic import TemplateView
 from django.views.static import serve
 from mptt.exceptions import InvalidMove
 
 from .page_form import PageForm, PageTranslationForm
+
 from ...constants import status
+from ...decorators import region_permission_required, staff_required
 from ...models import Page, PageTranslation, Region, Language
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
-from ...decorators import region_permission_required, staff_required
-
 
 logger = logging.getLogger(__name__)
 

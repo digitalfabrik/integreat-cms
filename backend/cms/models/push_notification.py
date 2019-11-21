@@ -3,8 +3,8 @@
 from django.db import models
 from django.utils import timezone
 
-from .region import Region
 from .language import Language
+from .region import Region
 
 
 class PushNotification(models.Model):

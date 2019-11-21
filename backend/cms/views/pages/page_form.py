@@ -1,7 +1,6 @@
 """
 Form for creating a page object and page translation object
 """
-
 import logging
 
 from django import forms
@@ -9,10 +8,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 
-from ...models import Page, PageTranslation, Region
-from ...constants import position, status
 from ..utils.slug_utils import generate_unique_slug
-
+from ...constants import position, status
+from ...models import Page, PageTranslation, Region
 
 logger = logging.getLogger(__name__)
 

@@ -6,8 +6,8 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
-from ...models import Region, Extra, ExtraTemplate
 from ...decorators import region_permission_required
+from ...models import Region, Extra, ExtraTemplate
 
 
 @method_decorator(login_required, name='dispatch')
