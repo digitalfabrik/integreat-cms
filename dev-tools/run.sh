@@ -70,10 +70,10 @@ else
     source ../.venv/bin/activate
 
     # Check if npm dependencies are up to date and update if not
-    sudo -u $SUDO_USER npx npm-check --update-all --skip-unused
+    sudo -u $SUDO_USER env PATH=$PATH npx npm-check --update-all --skip-unused
 
     # Compile CSS
-    sudo -u $SUDO_USER npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
+    sudo -u $SUDO_USER env PATH=$PATH npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
 
     # Apply Compressing
     sudo -u $SUDO_USER env PATH=$PATH integreat-cms compress
