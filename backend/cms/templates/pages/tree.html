@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load mptt_tags %}
+{% load content_filters %}
 {% load page_filters %}
 {% load rules %}
 
@@ -92,7 +93,7 @@
         {% if pages %}
             {% get_last_root_page pages as last_root_page %}
             {% recursetree pages %}
-                {% get_page_translation node language.code as page_translation %}
+                {% get_translation node language.code as page_translation %}
                 {% include "pages/tree_row.html" with page=node page_translation=page_translation %}
                 {% if not node.is_leaf_node %}
                     {{children}}
