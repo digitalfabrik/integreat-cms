@@ -162,6 +162,7 @@ class EventTranslation(models.Model):
     Database object representing an event tranlsation
     """
 
+    event = models.ForeignKey(Event, related_name='translations', on_delete=models.CASCADE)
     status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     title = models.CharField(max_length=250)
     description = models.TextField()
@@ -170,7 +171,6 @@ class EventTranslation(models.Model):
     version = models.PositiveIntegerField(default=0)
     minor_edit = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
-    event = models.ForeignKey(Event, related_name='event_translations', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)

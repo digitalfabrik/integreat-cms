@@ -320,7 +320,7 @@ class PageXliffHelper:
         zip_file_path = None
         xliff_files = []
         if page and len(page.region.languages) > 1:
-            page_translations = list(page.page_translations.all())
+            page_translations = list(page.translations.all())
             language_page_translation_map = {}
             for page_translation in page_translations:
                 language_page_translation_map[page_translation.language.code] = page_translation
@@ -387,7 +387,7 @@ class PageXliffHelper:
                             break
                     if target_language:
                         slug = PageXliffHelper._get_page_translation_slug(page_xliff.title)
-                        source_page_translation = list(page.page_translations.all())[0]
+                        source_page_translation = list(page.translations.all())[0]
                         page_translation = PageTranslation.objects.create(
                             slug=slug,
                             title=page_xliff.title,
