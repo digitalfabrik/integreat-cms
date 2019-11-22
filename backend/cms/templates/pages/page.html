@@ -18,6 +18,8 @@
     <script src="{% static 'tinymce/plugins/preview/plugin.js' %}"></script>
     <script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
     <script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/code/plugin.js' %}"></script>
+    <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
 
     {% endcompress %}
     {% compress css %}
@@ -228,6 +230,22 @@
         {% endif %}
     {% endif %}
 {% endif %}
+{% endblock %}
+
+{% block javascript_nocompress %}
+<script>
+{% get_current_language as LANGUAGE_CODE %}
+document.addEventListener('DOMContentLoaded', function(){ 
+    tinymce.init({
+        selector: '.tinymce_textarea',
+        plugins: "code paste fullscreen autosave link preview media image",
+        min_height: 400,
+        language: '{{LANGUAGE_CODE|slice:"0:2"}}'
+    });
+
+    custom_file_field();
+}, false);
+</script>
 {% endblock %}
 
 {% block javascript %}
