@@ -19,7 +19,10 @@
     <script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
     <script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
     <script src="{% static 'tinymce/plugins/code/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
     <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
+
 
     {% endcompress %}
     {% compress css %}
@@ -238,7 +241,9 @@
 document.addEventListener('DOMContentLoaded', function(){ 
     tinymce.init({
         selector: '.tinymce_textarea',
-        plugins: "code paste fullscreen autosave link preview media image",
+        menubar: "edit view insert format tools",
+        plugins: "code paste fullscreen autosave link preview media image lists directionality",
+        toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl | aligncenter indent outdent | link image',
         min_height: 400,
         language: '{{LANGUAGE_CODE|slice:"0:2"}}'
     });
