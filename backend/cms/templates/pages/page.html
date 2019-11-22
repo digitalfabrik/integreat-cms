@@ -243,9 +243,26 @@ document.addEventListener('DOMContentLoaded', function(){
         selector: '.tinymce_textarea',
         menubar: "edit view insert format tools",
         plugins: "code paste fullscreen autosave link preview media image lists directionality",
-        toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl | aligncenter indent outdent | link image',
+        toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link image',
         min_height: 400,
-        language: '{{LANGUAGE_CODE|slice:"0:2"}}'
+        language: '{{LANGUAGE_CODE|slice:"0:2"}}',
+        setup: (editor) => {
+            editor.ui.registry.addButton('notranslate', 
+            {
+                tooltip: '{% trans 'Do not translate the selected text.' %}',
+                icon: 'permanent-pen',
+                onAction: () => {
+                editor.focus();
+                val = tinymce.activeEditor.dom.getAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", "yes");
+                console.log(editor.selection.getContent().length);
+                if(val == "no") {
+                    tinymce.activeEditor.dom.setAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", null);
+                } else if (editor.selection.getContent().length > 0) {
+                    editor.selection.setContent('<span translate="no">' + editor.selection.getContent() + '</span>');
+                }
+                }
+            })
+        }
     });
 
     custom_file_field();
