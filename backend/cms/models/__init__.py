@@ -35,3 +35,5 @@ from .configuration import Configuration
 from .organization import Organization
 
 from .user_profile import UserProfile
+
+from .user_mfa import UserMfa

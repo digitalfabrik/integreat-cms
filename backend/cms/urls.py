@@ -17,6 +17,7 @@ from .views import organizations
 from .views import extras
 from .views import extra_templates
 from .views import settings
+from .views.settings import mfa
 from .views import statistics
 from .views import regions
 from .views import registration
@@ -125,7 +126,16 @@ urlpatterns = [
     ])),
 
     url(r'^settings/$', settings.AdminSettingsView.as_view(), name='admin_settings'),
+    url(r'^user_settings/$', settings.UserSettingsView.as_view(), name='user_settings'),
+    url(r'^user_settings/mfa/register/$', mfa.register_mfa_key, name='user_settings_register_mfa_key'),
+    url(r'^user_settings/mfa/delete/(?P<key_id>\d+)$', mfa.DeleteMfaKey.as_view(), name='user_settings_delete_mfa_key'),
+    url(r'^user_settings/mfa/get_challenge/$', mfa.GetChallengeView.as_view(), name='user_settings_mfa_get_challenge'),
+    url(r'^user_settings/add_new_mfa_key/$', mfa.AddMfaKeyView.as_view(), name='user_settings_add_new_mfa_key'),
+    url(r'^user_settings/authenticate_modify_mfa/$', mfa.AuthenticateModifyMfaView.as_view(), name='user_settings_auth_modify_mfa'),
     url(r'^login/$', registration.login, name='login'),
+    url(r'^login/mfa/$', registration.mfa, name='login_mfa'),
+    url(r'^login/mfa/assert$', registration.mfaAssert, name='login_mfa_assert'),
+    url(r'^login/mfa/verify$', registration.mfaVerify, name='login_mfa_verify'),
     url(r'^logout/$', registration.logout, name='logout'),
     url(r'^password_reset/', include([
         url(

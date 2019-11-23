@@ -31,6 +31,9 @@ ALLOWED_HOSTS = [
     '0.0.0.0'
 ]
 
+# Needed for webauthn (this is a setting in case the application runs behind a proxy)
+HOSTNAME = 'localhost'
+BASE_URL = 'http://localhost:8000'
 
 # Application definition
 

@@ -1,13 +1,40 @@
 """
 Handling of login, logout and password reset functionality.
 """
+import random
+import string
+import json
+
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth import views as auth_views
+from django.contrib.auth import login as auth_login
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import redirect
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
+import webauthn
 
+from backend import settings
+
+def generate_challenge(challenge_len):
+    return ''.join([
+        random.SystemRandom().choice(string.ascii_letters + string.digits)
+        for i in range(challenge_len)
+    ])
+
+class MfaEnableAuthentication(auth_views.LoginView):
+    def form_valid(self, form):
+        """Security check complete. Log the user in."""
+
+        user = form.get_user()
+        if user.mfa_keys.count() > 0:
+            self.request.session['mfa_user_id'] = user.id
+            return redirect('login_mfa')
+        auth_login(self.request, form.get_user())
+        return redirect(self.get_success_url())
 
 def login(request):
     """View to provide login functionality
@@ -16,9 +43,85 @@ def login(request):
     Returns:
             HttpResponseRedirect: View function to render the Login page
     """
-    return auth_views.LoginView.as_view(
+    return MfaEnableAuthentication.as_view(
         template_name='registration/login.html')(request)
 
+def mfa(request):
+    """View to check 2FA authentication if applicable
+    Args:
+            request: Object representing the user call
+    Returns:
+            HttpResponseRedirect: View function to render the MFA page
+    """
+    return auth_views.LoginView.as_view(
+        template_name='registration/login_mfa.html')(request)
+
+def makeWebauthnUsers(user):
+    webauthn_users = []
+
+    for key in user.mfa_keys.all():
+        webauthn_users.append(webauthn.WebAuthnUser(
+            user.id, user.username, '%s %s' % (user.first_name, user.last_name), '',
+            str(key.key_id, "utf-8"), key.public_key, key.sign_count, settings.HOSTNAME))
+
+    return webauthn_users
+
+def mfaAssert(request):
+    if 'mfa_user_id' not in request.session:
+        return JsonResponse({'success': False, 'error': _('You need to log in first')})
+
+    if request.user.is_authenticated:
+        return JsonResponse({'success': False, 'error': _('You are already logged in')})
+    user = get_user_model().objects.get(id=request.session['mfa_user_id'])
+
+    challenge = generate_challenge(32)
+
+    request.session['challenge'] = challenge
+    webauthn_users = makeWebauthnUsers(user)
+
+    webauthn_assertion_options = webauthn.WebAuthnAssertionOptions(
+        webauthn_users, challenge)
+
+    return JsonResponse(webauthn_assertion_options.assertion_dict)
+
+def mfaVerify(request):
+    if 'mfa_user_id' not in request.session:
+        return JsonResponse({'success': False, 'error': _('You need to log in first')})
+
+    user = get_user_model().objects.get(id=request.session['mfa_user_id'])
+
+    challenge = request.session['challenge']
+    assertion_response = json.loads(request.body)
+    credential_id = assertion_response['id']
+    key = user.mfa_keys.get(key_id=credential_id.encode('ascii'))
+
+
+    webauthn_user = webauthn.WebAuthnUser(
+        user.id, user.username, '%s %s' % (user.first_name, user.last_name), '',
+        str(key.key_id, "utf-8"), str(key.public_key, "utf-8"), key.sign_count, settings.HOSTNAME)
+
+    webauthn_assertion_response = webauthn.WebAuthnAssertionResponse(
+        webauthn_user,
+        assertion_response,
+        challenge,
+        settings.BASE_URL)
+
+    try:
+        sign_count = webauthn_assertion_response.verify()
+    # webauthn does not export AuthenticationRejectedException which directly extends Exception
+    # as AuthenticationRejectedException is the only exception that can be raused by verify()
+    # it should be okay to just except Exception
+    # pylint: disable=broad-except
+    except Exception as exception:
+        return JsonResponse({'success': False, 'error': str(exception)})
+
+    # Update counter.
+    key.sign_count = sign_count
+    key.save()
+
+    auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+
+    return JsonResponse({'success': True})
 
 def logout(request):
     """View to provide logout functionality

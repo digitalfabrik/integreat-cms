@@ -1,0 +1,141 @@
+{% extends "_raw.html" %}
+{% load i18n %}
+{% block raw_content %}
+{% load static %}
+{% load widget_tweaks %}
+<div id="no-session" class="flex flex-wrap flex-col justify-center px-3 py-10">
+    <div class="mx-auto w-full max-w-xs">
+        <div class="mb-3" style="padding: 0 50px;">
+            <a href="/">
+                <img src="{% static 'images/integreat-logo.png' %}" alt="{% trans 'Integreat Logo' %}" class="w-full" />
+            </a>
+        </div>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="auth-error bg-red-lightest border-l-4 border-red text-red-dark px-4 py-3 mb-5 hidden" role="alert">
+                <p>{% trans 'Unable to verify your 2FA key, please try again.' %}</p>
+            </div>
+            <div class="mb-3">
+                {% include "messages.html" %}
+            </div>
+            <div class="mb-3">
+                {% trans 'Please authenticate using your 2FA key by following your browser instructions' %}
+            </div>
+        </div>
+        <p class="text-center text-grey text-xs">
+	        &copy;2018 Tür an Tür - Digital Factory gGmbH
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript_nocompress %}
+<script>
+    window.django_csrf_token = '{{ csrf_token }}';
+</script>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+    // Based on https://github.com/duo-labs/py_webauthn/blob/master/flask_demo/static/js/webauthn.js
+    function b64enc(buf) {
+        return base64js.fromByteArray(buf)
+                    .replace(/\+/g, "-")
+                    .replace(/\//g, "_")
+                    .replace(/=/g, "");
+    }
+
+    function b64RawEnc(buf) {
+        return base64js.fromByteArray(buf)
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_");
+    }
+
+    function hexEncode(buf) {
+        return Array.from(buf)
+            .map(function(x) {
+                return ("0" + x.toString(16)).substr(-2);
+            })
+            .join("");
+    }
+
+
+    const transformCredentialRequestOptions = (credentialRequestOptionsFromServer) => {
+        let {challenge, allowCredentials} = credentialRequestOptionsFromServer;
+
+        challenge = Uint8Array.from(
+            atob(challenge), c => c.charCodeAt(0));
+
+        allowCredentials = allowCredentials.map(credentialDescriptor => {
+            let {id} = credentialDescriptor;
+            id = id.replace(/\_/g, "/").replace(/\-/g, "+");
+            id = Uint8Array.from(atob(id), c => c.charCodeAt(0));
+            return Object.assign({}, credentialDescriptor, {id});
+        });
+
+        const transformedCredentialRequestOptions = Object.assign(
+            {},
+            credentialRequestOptionsFromServer,
+            {challenge, allowCredentials});
+
+        return transformedCredentialRequestOptions;
+    };
+
+    const transformAssertionForServer = (newAssertion) => {
+        const authData = new Uint8Array(newAssertion.response.authenticatorData);
+        const clientDataJSON = new Uint8Array(newAssertion.response.clientDataJSON);
+        const rawId = new Uint8Array(newAssertion.rawId);
+        const sig = new Uint8Array(newAssertion.response.signature);
+        const assertionClientExtensions = newAssertion.getClientExtensionResults();
+
+        return {
+            id: newAssertion.id,
+            rawId: b64enc(rawId),
+            type: newAssertion.type,
+            authData: b64RawEnc(authData),
+            clientData: b64RawEnc(clientDataJSON),
+            signature: hexEncode(sig),
+            assertionClientExtensions: JSON.stringify(assertionClientExtensions)
+        };
+    };
+
+    window.addEventListener('load', async () => {
+        try {
+            const webauthn_assert = await(await fetch('{% url "login_mfa_assert" %}')).json();
+            
+            const transformedCredentialRequestOptions = transformCredentialRequestOptions(
+                webauthn_assert);
+
+            // request the authenticator to create an assertion signature using the
+            // credential private key
+            let assertion;
+            assertion = await navigator.credentials.get({
+                publicKey: transformedCredentialRequestOptions,
+            });
+
+            // we now have an authentication assertion! encode the byte arrays contained
+            // in the assertion data as strings for posting to the server
+            const transformedAssertionForServer = transformAssertionForServer(assertion);
+
+            const result = await fetch("{% url 'login_mfa_verify' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': window.django_csrf_token
+                },
+                body: JSON.stringify(transformedAssertionForServer)
+            });
+            const data = await result.json();
+            if(data.success) {
+                location.href = "/"
+            } else {
+                document.querySelector('.auth-error').classList.remove('hidden');
+                setTimeout(() => location.href = '/', 2000);
+            }
+        } catch (e) {
+            document.querySelector('.auth-error').classList.remove('hidden');
+            setTimeout(() => location.href = '/', 2000);
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "_raw.html" %}
+{% load i18n %}
+{% block raw_content %}
+{% load static %}
+{% load widget_tweaks %}
+<div id="no-session" class="flex flex-wrap flex-col justify-center px-3 py-10">
+    <div class="mx-auto w-full max-w-xs">
+        <div class="mb-3" style="padding: 0 50px;">
+            <a href="/">
+                <img src="{% static 'images/integreat-logo.png' %}" alt="{% trans 'Integreat Logo' %}" class="w-full" />
+            </a>
+        </div>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                <div class="bg-red-lightest border-l-4 border-red text-red-dark px-4 py-3 mb-5" role="alert">
+                    <p>{% trans 'The password is incorrect.' %} {% trans 'Please try again.' %}</p>
+                </div>
+                {% endif %}
+                <div class="mb-6">
+                    <p>{% trans 'Please authenticate to change security related settings' %}</p>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
+	                    {% trans 'Password' %}
+                    </label>
+	                {% trans 'Password' as password_placeholder%}
+                    {% render_field form.password id="password" placeholder=password_placeholder class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" %}
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-integreat hover:bg-grey-dark hover:text-white text-grey-darkest font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+	                    {% trans 'Log in' %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
