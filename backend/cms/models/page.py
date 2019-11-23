@@ -11,7 +11,7 @@ from django.utils.translation import get_language
 
 from mptt.models import MPTTModel, TreeForeignKey
 
-from .language import Language, LanguageTreeNode
+from .language import Language
 from .region import Region
 from ..constants import status
 
