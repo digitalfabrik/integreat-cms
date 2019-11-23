@@ -11,7 +11,7 @@ from django.utils.translation import get_language
 
 from mptt.models import MPTTModel, TreeForeignKey
 
-from .language import Language, LanguageTreeNode
+from .language import Language
 from .region import Region
 from ..constants import status
 
@@ -143,7 +143,7 @@ class Page(MPTTModel):
     def best_language_title(self):
         page_translation = self.page_translations.filter(language__code=get_language())
         if not page_translation:
-            alt_code = LanguageTreeNode.objects.get(region__id=self.region.id).get_root().language.code
+            alt_code = self.region.default_language.code
             page_translation = self.page_translations.filter(language__code=alt_code)
         return page_translation.first().title
 
