@@ -257,7 +257,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 onAction: () => {
                 editor.focus();
                 val = tinymce.activeEditor.dom.getAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", "yes");
-                console.log(editor.selection.getContent().length);
                 if(val == "no") {
                     tinymce.activeEditor.dom.setAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", null);
                 } else if (editor.selection.getContent().length > 0) {
