@@ -1,0 +1,86 @@
+{% load i18n %}
+{% load rules %}
+{% load content_filters %}
+
+<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
+    <td style="padding-left: 10px">
+        {{ event.id }}
+    </td>
+    <td>
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+            {{ event_translation.version }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+            {{ event_translation.get_status_display }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code%}" class="block py-3 px-2 text-grey-darkest">
+            {% if event_translation %}
+                {{ event_translation.title }}
+            {% else %}
+                <i>{% trans 'Translation not available' %}</i>
+            {% endif %}
+        </a>
+    </td>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE != language.code %}
+        {% get_translation event LANGUAGE_CODE as backend_translation %}
+        <td>
+            <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block py-3 px-2 text-grey-darkest">
+                {% if backend_translation %}
+                    {{ backend_translation.title }}
+                {% else %}
+                    <i>{% trans 'Translation not available' %}</i>
+                {% endif %}
+            </a>
+        </td>
+    {% endif %}
+    <td>
+        <div class="block py-3 px-2 text-grey-darkest">
+            <div class="lang-grid">
+                {% for other_language in languages %}
+                    <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=other_language.code%}">
+                        <i data-feather="{% if other_language in event.languages %}edit-2{% else %}plus{% endif %}" class="text-grey-darkest"></i>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </td>
+    <td>
+        {% if event.location is not None %}
+            <!-- TODO: filter location for title in correct language, e.g. event.location|poi_translation_title:language -->
+            {{ event.location|title }}
+        {% else %}
+            {% trans 'Not specified' %}
+        {% endif %}
+    </td>
+    <td>
+        <i data-feather="calendar" style="vertical-align: middle;"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2" style="vertical-align: middle;"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+    </td>
+    <td>
+        <i data-feather="calendar" style="vertical-align: middle;"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2" style="vertical-align: middle;"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+    </td>
+    <td class="pl-2 pr-4">
+        <!-- TODO: add link to view event in web app -->
+        <a href="" class="py-3" style="padding-right:4px;">
+            <i data-feather="eye" class="text-grey-darkest"></i>
+        </a>
+        {% has_perm 'cms.edit_events' request.user as can_edit_event %}
+        {% if can_edit_event %}
+        <a href="{% url 'restore_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
+           style="padding-left:4px;padding-right:4px;" title="{% trans 'Restore event' %}">
+            <i data-feather="refresh-ccw" class="text-grey-darkest"></i>
+        </a>
+        {% endif %}
+        {% if user.is_superuser or user.is_staff %}
+        <a href="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
+           style="padding-left:4px;padding-right:4px;" title="{% trans 'Delete event' %}">
+            <i data-feather="trash-2" class="text-grey-darkest"></i>
+        </a>
+        {% endif %}
+    </td>
+</tr>
