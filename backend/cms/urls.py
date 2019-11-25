@@ -17,7 +17,6 @@ from .views import organizations
 from .views import pages
 from .views import pois
 from .views import push_notifications
-from .views import organizations
 from .views.settings import mfa
 from .views import regions
 from .views import registration
@@ -247,18 +246,13 @@ urlpatterns = [
             url(r'^$', events.EventListView.as_view(), name='events'),
             url(r'^(?P<language_code>[-\w]+)/', include([
                 url(r'^$', events.EventListView.as_view(), name='events'),
+                url(r'^archived$', events.EventListView.as_view(archived=True), name='events_archived'),
                 url(r'^new$', events.EventView.as_view(), name='new_event'),
                 url(r'^(?P<event_id>[0-9]+)/', include([
-                    url(
-                        r'^edit$',
-                        events.EventView.as_view(),
-                        name='edit_event'
-                    ),
-                    url(
-                        r'^delete$',
-                        events.EventView.as_view(),
-                        name='delete_event'
-                    ),
+                    url(r'^edit$', events.EventView.as_view(), name='edit_event'),
+                    url(r'^archive$', events.archive, name='archive_event'),
+                    url(r'^restore$', events.restore, name='restore_event'),
+                    url(r'^delete$', events.delete, name='delete_event'),
                 ])),
             ])),
         ])),
