@@ -1,8 +1,6 @@
 """
 Handling of login, logout and password reset functionality.
 """
-import random
-import string
 import json
 
 from django.contrib import messages
@@ -18,12 +16,7 @@ from django.http import JsonResponse
 import webauthn
 
 from backend import settings
-
-def generate_challenge(challenge_len):
-    return ''.join([
-        random.SystemRandom().choice(string.ascii_letters + string.digits)
-        for i in range(challenge_len)
-    ])
+from cms.views.utils.mfa_utils import generate_challenge
 
 class MfaEnableAuthentication(auth_views.LoginView):
     def form_valid(self, form):

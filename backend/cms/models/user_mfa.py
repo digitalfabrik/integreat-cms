@@ -14,6 +14,4 @@ class UserMfa(models.Model):
 
     class Meta:
         default_permissions = ()
-        constraints = [
-            models.UniqueConstraint(fields=['user', 'name'], name='unique_key_nickname')
-        ]
+        unique_together = (('user', 'name', ), )

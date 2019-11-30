@@ -48,33 +48,12 @@
 </script>
 {% endblock %}
 {% block javascript %}
+<script src="{% static 'js/mfa-utils.js' %}"></script>
 <script>
     // Based on https://github.com/duo-labs/py_webauthn/blob/master/flask_demo/static/js/webauthn.js
-    function b64enc(arrayBuffer) {
-        return base64js.fromByteArray(arrayBuffer)
-                   .replace(/\+/g, "-")
-                   .replace(/\//g, "_")
-                   .replace(/=/g, "");
-    }
-
     if(!navigator.credentials.create) {
         document.querySelector('.add-mfa').classList.add('hidden');
         document.querySelector('.mfa-not-supported').classList.remove('hidden');
-    }
-
-    function transformCredentialCreateOptions(credentialCreateOptionsFromServer) {
-        let {challenge, user} = credentialCreateOptionsFromServer;
-        user.id = Uint8Array.from(
-            credentialCreateOptionsFromServer.user.id, c => c.charCodeAt(0));
-
-        challenge = Uint8Array.from(
-            atob(credentialCreateOptionsFromServer.challenge), c => c.charCodeAt(0));
-        
-        const transformedCredentialCreateOptions = Object.assign(
-                {}, credentialCreateOptionsFromServer,
-                {challenge, user});
-
-        return transformedCredentialCreateOptions;
     }
 
     const addMfaForm = document.querySelector('form[data-action="add2FaKey"]');

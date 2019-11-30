@@ -1,6 +1,4 @@
 import time
-import random
-import string
 import json
 
 import webauthn
@@ -13,18 +11,11 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.hashers import check_password
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, redirect
+
 from cms.models import UserMfa
+from cms.views.utils.mfa_utils import generate_challenge
 from backend import settings
-
 from ....decorators import modify_mfa_authenticated
-
-
-def generate_challenge(challenge_len):
-    return ''.join([
-        random.SystemRandom().choice(string.ascii_letters + string.digits)
-        for i in range(challenge_len)
-    ])
-
 
 class AddMfaKeyForm(forms.Form):
     nickname = forms.CharField(max_length=255, required=True)
@@ -106,11 +97,11 @@ def register_mfa_key(request):
     webauthn_credential = webauthn_registration_response.verify()
 
     existing_key = request.user.mfa_keys.filter(name=json.loads(request.body)['nickname'])
-    if len(existing_key) > 0:
+    if existing_key.exists():
         return JsonResponse({'success': False, 'error': _('This nickname has already been used')})
 
     existing_key = request.user.mfa_keys.filter(key_id=webauthn_credential.credential_id)
-    if len(existing_key) > 0:
+    if existing_key.exists():
         return JsonResponse({'success': False, 'error': _('You already registered this key')})
 
     new_key = UserMfa(

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-30 11:40+0000\n"
+"POT-Creation-Date: 2019-11-30 12:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -174,10 +174,8 @@ msgid "Author Chat"
 msgstr "Autorenchat"
 
 #: templates/_base.html:94
-#, fuzzy
-#| msgid "General Settings"
 msgid "User Settings"
-msgstr "Allgemeine Einstellungen"
+msgstr "Benutzereinstellungen"
 
 #: templates/_base.html:98
 msgid "Django Administration"
@@ -438,7 +436,7 @@ msgstr "Extra-Vorlagen verwalten"
 msgid "Active since"
 msgstr "Aktiv seit"
 
-#: templates/extras/list.html:33 templates/settings/user.html:16
+#: templates/extras/list.html:33 templates/settings/user.html:18
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -1313,11 +1311,15 @@ msgstr "Passwort vergessen?"
 #: templates/registration/login_mfa.html:15
 msgid "Unable to verify your 2FA key, please try again."
 msgstr ""
+"Die 2-Faktor-Authentifizierung konnte nicht durchgeführt werden, bitte "
+"versuchen Sie es erneut."
 
 #: templates/registration/login_mfa.html:21
 msgid ""
 "Please authenticate using your 2FA key by following your browser instructions"
 msgstr ""
+"Bitte authentifizieren Sie sich mit ihrem zweiten Faktor, folgen Sie dazu "
+"den Instruktionen die im Browser angezeigt werden"
 
 #: templates/registration/password_reset_confirm.html:9
 msgid "Choose new password"
@@ -1435,102 +1437,124 @@ msgstr "Administrator-Einstellungen"
 #: templates/settings/mfa/add_key.html:16
 msgid "Something went wrong during 2FA registration"
 msgstr ""
+"Während der Registrierung eines neuen Schlüssels ist ein Fehler aufgetreten"
 
 #: templates/settings/mfa/add_key.html:20
 msgid ""
 "Please enter a nickname for your new key. This nickname can be used to find "
 "the correct key in case you need to revoke authentication."
 msgstr ""
+"Bitte wählen Sie einen Namen für den neuen Schlüssel. Dieser Name kann "
+"verwendet werden um den Schlüssel später zum Bearbeiten der Einstellungen zu "
+"identifizieren."
 
 #: templates/settings/mfa/add_key.html:24
 #: templates/settings/mfa/add_key.html:26
-#, fuzzy
-#| msgid "Native name"
 msgid "Nickname"
-msgstr "Nativer Name"
+msgstr "Schlüsselname"
 
 #: templates/settings/mfa/add_key.html:31
 msgid "Add 2FA key"
-msgstr ""
+msgstr "2FA Schlüssel hinzufügen"
 
 #: templates/settings/mfa/add_key.html:38 templates/settings/mfa/delete.html:37
 msgid "It seems like your browser does not support webauthn"
 msgstr ""
+"Ihr Browser unterstützt leider kein webauthn, es kann kein Schlüssel "
+"hinzugefügt werden"
 
 #: templates/settings/mfa/authenticate.html:18
-#, fuzzy
-#| msgid "The username or the password is incorrect."
 msgid "The password is incorrect."
-msgstr "Der Benutzername oder das Passwort ist falsch."
+msgstr "Das Passwort ist falsch."
 
 #: templates/settings/mfa/authenticate.html:22
 msgid "Please authenticate to change security related settings"
 msgstr ""
+"Bitte loggen Sie sich erneut ein, um sicherheitsrelevante Einstellungen zu "
+"bearbeiten."
 
 #: templates/settings/mfa/delete.html:18
 msgid "Remove the last key"
-msgstr ""
+msgstr "Entfernung des letzten Schlüssels"
 
 #: templates/settings/mfa/delete.html:19
 msgid ""
 "This is your last key, once removed you will be able to log in without a "
 "second factor"
 msgstr ""
+"Dies ist der letzte Schlüssel. Sobald dieser entfernt wurde, ist ein Login "
+"ohne zusätzliche Authentifizierung möglich"
 
 #: templates/settings/mfa/delete.html:21
 msgid "Remove key"
-msgstr ""
+msgstr "Schlüssel entfernen"
 
 #: templates/settings/mfa/delete.html:22
 msgid ""
 "Once you remove the key you will need to use one of the other available keys "
-"to log into your account. PLease make sure that you have at least one extra "
+"to log into your account. Please make sure that you have at least one extra "
 "key available to log in before removing this key."
 msgstr ""
+"Sobald Sie diesen Schlüssel entfernt haben müssen Sie sich mit einem der "
+"übrigen Schlüssel anmelden. Bitte stellen Sie sicher, dass ihnen mindestens "
+"einer der aktuell registrierten Schlüssel vorliegen bevor Sie diesen "
+"Schlüssel entfernen."
 
 #: templates/settings/mfa/delete.html:30
-#, fuzzy
-#| msgid "Delete page"
 msgid "Delete 2FA key"
-msgstr "Seite löschen"
+msgstr "Schlüssel entfernen"
 
 #: templates/settings/settings.html:11
 msgid "Settings for"
 msgstr "Einstellungen für"
 
 #: templates/settings/user.html:8
-#, fuzzy
-#| msgid "General Settings"
 msgid "User settings"
-msgstr "Allgemeine Einstellungen"
+msgstr "Benutzereinstellungen"
 
 #: templates/settings/user.html:9
 msgid "Registered 2FA key"
-msgstr ""
-
-#: templates/settings/user.html:13
-#, fuzzy
-#| msgid "Native name"
-msgid "Key name"
-msgstr "Nativer Name"
-
-#: templates/settings/user.html:14
-#, fuzzy
-#| msgid "Last Name"
-msgid "Last usage"
-msgstr "Nachname"
+msgstr "Hinterlegte 2-Faktor-Schlüssel"
 
 #: templates/settings/user.html:15
+msgid "Key name"
+msgstr "Schlüsselname"
+
+#: templates/settings/user.html:16
+msgid "Last usage"
+msgstr "Letzte verwendung"
+
+#: templates/settings/user.html:17
 msgid "Date added"
-msgstr ""
+msgstr "Hinzugefügt am"
 
-#: templates/settings/user.html:30
+#: templates/settings/user.html:32
 msgid "No 2FA keys have been added yet."
-msgstr ""
+msgstr "Es wurden noch keine 2-Faktor-Schlüssel hinzugefügt."
 
-#: templates/settings/user.html:36
+#: templates/settings/user.html:38
 msgid "Add a new 2FA key"
+msgstr "Neuen Schlüssel hinzufügen"
+
+#: templates/settings/user.html:42
+msgid ""
+"You can use your FIDO2 keys to secure your account. Once you added a key to "
+"your account you won't be able to log in without using the key."
 msgstr ""
+"Sie können einen FIDO2 2-Faktor-Schlüsssel verwenden um Ihren Account "
+"abzusichern. Sobald ein Schlüssel hinzugefügt wurde, ist ein Login nur noch "
+"mit diesem möglich."
+
+#: templates/settings/user.html:43
+msgid ""
+"To make sure that you don't loose access to your account when you loose your "
+"FIDO2 key it is recommended to add multiple keys. Just make sure to keep at "
+"least one key at a secure place."
+msgstr ""
+"Um sicherzustellen, dass Sie den Zugriff auf Ihren Account nicht verlieren, "
+"wenn Sie Ihren Sicherheitsschlüssel nicht mehr verwenden können, wird "
+"empfohlen mindestens einen weiteren Schlüssel zu hinterlegen. Diesen "
+"Ersatzschlüssel sollten Sie an einem sicheren Ort aufbewahren."
 
 #: templates/statistics/statistics_dashboard.html:14
 msgid "Page views"
@@ -1972,19 +1996,19 @@ msgstr "Region wurde erfolgreich gelöscht."
 msgid "The passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: views/registration/registration.py:71 views/registration/registration.py:89
+#: views/registration/registration.py:66 views/registration/registration.py:84
 msgid "You need to log in first"
-msgstr ""
+msgstr "Sie müssen sich zunäachst einloggen"
 
-#: views/registration/registration.py:74
+#: views/registration/registration.py:69
 msgid "You are already logged in"
-msgstr ""
+msgstr "Sie sind bereits eingeloggt"
 
-#: views/registration/registration.py:135
+#: views/registration/registration.py:130
 msgid "You have been successfully logged off."
 msgstr "Sie wurden erfolgreich abgemeldet."
 
-#: views/registration/registration.py:147
+#: views/registration/registration.py:142
 msgid ""
 "A message with instructions for resetting your password has been sent to the "
 "e-mail address provided."
@@ -1992,11 +2016,11 @@ msgstr ""
 "Eine Nachricht mit Anweisungen zum Zurücksetzen IhresPasswort wurde an die "
 "angegebene E-Mail Adresse geschickt."
 
-#: views/registration/registration.py:172
+#: views/registration/registration.py:167
 msgid "Your password has been successfully changed."
 msgstr "Ihr Passwort wurde erfolgreich geändert."
 
-#: views/registration/registration.py:173
+#: views/registration/registration.py:168
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 
@@ -2008,21 +2032,21 @@ msgstr "Rolle wurde erfolgreich gespeichert."
 msgid "Role created successfully"
 msgstr "Rolle wurde erfolgreich erstellt."
 
-#: views/settings/mfa/mfa.py:59
+#: views/settings/mfa/mfa.py:52
 #, fuzzy
 #| msgid "The username or the password is incorrect."
 msgid "The provided password is not correct"
 msgstr "Der Benutzername oder das Passwort ist falsch."
 
-#: views/settings/mfa/mfa.py:110
+#: views/settings/mfa/mfa.py:103
 #, fuzzy
 #| msgid "Maybe it's already been used."
 msgid "This nickname has already been used"
 msgstr "Vielleicht wurde er schon genutzt."
 
-#: views/settings/mfa/mfa.py:114
+#: views/settings/mfa/mfa.py:107
 msgid "You already registered this key"
-msgstr ""
+msgstr "Sie haben diesen Schlüssel bereits registriert"
 
 #: views/statistics/statistics.py:59
 msgid "Please enter a correct start and enddate"
