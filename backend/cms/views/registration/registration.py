@@ -2,6 +2,7 @@
 Handling of login, logout and password reset functionality.
 """
 import json
+import datetime
 
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
@@ -110,6 +111,7 @@ def mfaVerify(request):
 
     # Update counter.
     key.sign_count = sign_count
+    key.last_usage = datetime.datetime.now()
     key.save()
 
     auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
