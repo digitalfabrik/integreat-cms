@@ -293,25 +293,27 @@ document.addEventListener('DOMContentLoaded', function(){
         selector: '.tinymce_textarea',
         menubar: "edit view insert format icon",
         menu: {
-            icon: { title: "Icons", items: "pinicon wwwicon callicon clockicon aticon ideaicon"}
+            icon: { title: "Icons", items: "pinicon wwwicon callicon clockicon aticon ideaicon"},
+            format: { title: 'Format', items: 'bold italic underline strikethrough superscript | formats | forecolor backcolor | removeformat' }
         },
         plugins: "code paste fullscreen autosave link preview media image lists directionality",
-        toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link image',
+        toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate removeformat | aligncenter indent outdent | link image',
         min_height: 400,
+        content_css : '{% static "css/tinymce_custom.css" %}',
         language: '{{LANGUAGE_CODE|slice:"0:2"}}',
         setup: (editor) => {
             editor.ui.registry.addButton('notranslate', 
             {
                 tooltip: '{% trans 'Do not translate the selected text.' %}',
                 icon: 'permanent-pen',
-                onAction: () => {
-                editor.focus();
-                val = tinymce.activeEditor.dom.getAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", "yes");
-                if(val == "no") {
-                    tinymce.activeEditor.dom.setAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", null);
-                } else if (editor.selection.getContent().length > 0) {
-                    editor.selection.setContent('<span translate="no">' + editor.selection.getContent() + '</span>');
-                }
+                    onAction: () => {
+                    editor.focus();
+                    val = tinymce.activeEditor.dom.getAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", "yes");
+                    if(val == "no") {
+                        tinymce.activeEditor.dom.setAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", null);
+                    } else if (editor.selection.getContent().length > 0) {
+                        editor.selection.setContent('<span class="notranslate" translate="no">' + editor.selection.getContent() + '</span>');
+                    }
                 }
             }),
             
