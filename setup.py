@@ -31,6 +31,7 @@ setup(
         "requests",
         "rules",
         "six",
+        "webauthn",
     ],
     extras_require={
         "dev": [

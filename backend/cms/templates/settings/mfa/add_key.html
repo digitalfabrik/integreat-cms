@@ -1,0 +1,116 @@
+{% extends "_raw.html" %}
+{% load i18n %}
+{% block raw_content %}
+{% load static %}
+{% load widget_tweaks %}
+<div id="no-session" class="flex flex-wrap flex-col justify-center px-3 py-10">
+    <div class="mx-auto w-full max-w-xs">
+        <div class="mb-3" style="padding: 0 50px;">
+            <a href="/">
+                <img src="{% static 'images/integreat-logo.png' %}" alt="{% trans 'Integreat Logo' %}" class="w-full" />
+            </a>
+        </div>
+        <div class="add-mfa bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form data-action="add2FaKey">
+                <div class="bg-red-lightest border-l-4 border-red text-red-dark px-4 py-3 mb-5 hidden add-mfa-error" role="alert">
+                    <p>{% trans 'Something went wrong during 2FA registration' %}</p>
+                    <p class="add-mfa-error-msg"></p>
+                </div>
+                <div class="mb-6">
+                    <p>{% trans 'Please enter a nickname for your new key. This nickname can be used to find the correct key in case you need to revoke authentication.' %}</p>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="nickname">
+	                    {% trans 'Nickname' %}
+                    </label>
+	                {% trans 'Nickname' as nickname_placeholder%}
+                    {% render_field form.nickname id="nickname" placeholder=nickname_placeholder class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" %}
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-integreat hover:bg-grey-dark hover:text-white text-grey-darkest font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+	                    {% trans 'Add 2FA key' %}
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="mfa-not-supported bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 hidden">
+            <div class="mb-6">
+                <p>{% trans 'It seems like your browser does not support webauthn' %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript_nocompress %}
+<script>
+    window.django_csrf_token = '{{ csrf_token }}';
+</script>
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/mfa-utils.js' %}"></script>
+<script>
+    // Based on https://github.com/duo-labs/py_webauthn/blob/master/flask_demo/static/js/webauthn.js
+    if(!navigator.credentials.create) {
+        document.querySelector('.add-mfa').classList.add('hidden');
+        document.querySelector('.mfa-not-supported').classList.remove('hidden');
+    }
+
+    const addMfaForm = document.querySelector('form[data-action="add2FaKey"]');
+    const nicknameField = document.querySelector('input[name="nickname"]');
+
+    addMfaForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        try {
+            document.querySelector('.add-mfa-error').classList.add('hidden');
+            document.querySelector('.add-mfa-error-msg').textContent = '';
+            const webauthn_configuration = await(await fetch('/user_settings/mfa/get_challenge/')).json();
+            
+            const newAssertion = await navigator.credentials.create({
+                publicKey: transformCredentialCreateOptions(webauthn_configuration)
+            });            
+            
+            const attObj = new Uint8Array(
+                newAssertion.response.attestationObject);
+            const clientDataJSON = new Uint8Array(
+                newAssertion.response.clientDataJSON);
+            const rawId = new Uint8Array(
+                newAssertion.rawId);
+            
+            const registrationClientExtensions = newAssertion.getClientExtensionResults();
+
+            const formData = {
+                id: newAssertion.id,
+                rawId: b64enc(rawId),
+                type: newAssertion.type,
+                attObj: b64enc(attObj),
+                clientData: b64enc(clientDataJSON),
+                registrationClientExtensions: JSON.stringify(registrationClientExtensions)
+            };
+
+            const result = await fetch("{% url 'user_settings_register_mfa_key' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': window.django_csrf_token
+                },
+                body: JSON.stringify({
+                    assertion: formData,
+                    nickname: nicknameField.value
+                })
+            });
+            const data = await result.json();
+            if(data.success) {
+                location.href = "{% url 'user_settings' %}"
+            } else {
+                document.querySelector('.add-mfa-error').classList.remove('hidden');
+                document.querySelector('.add-mfa-error-msg').textContent = data.error;
+            }
+        } catch (e) {
+            console.error(e);
+            document.querySelector('.add-mfa-error').classList.remove('hidden');
+        }
+    });
+</script>
+{% endblock %}
