@@ -8,6 +8,7 @@ Following packages are requiered for running the project (Install them with your
 * git
 * npm
 * python3
+* python3-dev 
 * postgresql *OR* docker
 * python-virtualenv
 
