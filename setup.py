@@ -18,7 +18,7 @@ setup(
     install_requires=[
         "beautifulsoup4",
         "cffi",
-        "Django==2.2.7",
+        "Django==2.2.8",
         "django-filer",
         "django-mptt",
         "django-widget-tweaks",
