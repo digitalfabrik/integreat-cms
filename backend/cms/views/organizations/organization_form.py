@@ -1,8 +1,8 @@
 """
 Form for creating an organization object
 """
-
 from django import forms
+
 from ...models.organization import Organization
 
 

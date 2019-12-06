@@ -2,10 +2,11 @@
 Module for models storing feedback from front end users
 """
 from django.db import models
-from cms.models.page import Page
-from cms.models.region import Region
-from cms.models.extra import Extra
-from cms.models.event import Event
+
+from .event import Event
+from .extra import Extra
+from .page import Page
+from .region import Region
 
 
 class Feedback(models.Model):

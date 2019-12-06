@@ -1,19 +1,18 @@
 """
     Side by side view
 """
-
-from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.utils.translation import ugettext as _
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
+from django.views.generic import TemplateView
 
 from .page_form import PageTranslationForm
-from ...models import Page, Region, Language
 from ...decorators import region_permission_required
+from ...models import Page, Region, Language
 
 
 @method_decorator(login_required, name='dispatch')

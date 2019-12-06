@@ -7,15 +7,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
-from django.utils.translation import ugettext as _
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
+from django.views.generic import TemplateView
 
 from .poi_form import POIForm, POITranslationForm
-from ...models import POI, POITranslation, Region, Language
 from ...decorators import region_permission_required
-
+from ...models import POI, POITranslation, Region, Language
 
 logger = logging.getLogger(__name__)
 

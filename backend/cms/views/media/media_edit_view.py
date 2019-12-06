@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
 
 from ..utils.file_utils import save_file
-from ...models import DocumentForm, Document
-from ...models.region import Region
 from ...decorators import region_permission_required
+from ...models import DocumentForm, Document, Region
 
 
 @method_decorator(login_required, name='dispatch')

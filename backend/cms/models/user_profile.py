@@ -1,8 +1,8 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 
-from .region import Region
 from .organization import Organization
+from .region import Region
 
 
 class UserProfile(models.Model):

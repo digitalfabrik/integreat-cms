@@ -1,10 +1,9 @@
 """Models representing a page and page translation with content
 """
-
 import logging
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language
@@ -14,7 +13,6 @@ from mptt.models import MPTTModel, TreeForeignKey
 from .language import Language
 from .region import Region
 from ..constants import status
-
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +57,7 @@ class Page(MPTTModel):
 
     @property
     def languages(self):
-        page_translations = self.page_translations.prefetch_related('language').all()
+        page_translations = self.translations.prefetch_related('language').all()
         languages = []
         for page_translation in page_translations:
             if page_translation.language not in languages:
@@ -67,7 +65,7 @@ class Page(MPTTModel):
         return languages
 
     def get_translation(self, language_code):
-        return self.page_translations.filter(
+        return self.translations.filter(
             language__code=language_code
         ).first()
 
@@ -77,12 +75,12 @@ class Page(MPTTModel):
         if not priority_language_codes:
             priority_language_codes = []
         for language_code in priority_language_codes + ['en-us', 'de-de']:
-            if self.page_translations.filter(language__code=language_code).exists():
-                return self.page_translations.filter(language__code=language_code).first()
-        return self.page_translations.first()
+            if self.translations.filter(language__code=language_code).exists():
+                return self.translations.filter(language__code=language_code).first()
+        return self.translations.first()
 
     def get_public_translation(self, language_code):
-        return self.page_translations.filter(
+        return self.translations.filter(
             language__code=language_code,
             status=status.PUBLIC,
         ).first()
@@ -126,13 +124,13 @@ class Page(MPTTModel):
 
         if archived:
             pages = cls.objects.all().prefetch_related(
-                'page_translations'
+                'translations'
             ).filter(
                 region__slug=region_slug
             )
         else:
             pages = cls.objects.all().prefetch_related(
-                'page_translations'
+                'translations'
             ).filter(
                 region__slug=region_slug,
                 archived=False
@@ -164,7 +162,7 @@ class PageTranslation(models.Model):
         models : Class inherit of django-Models
     """
 
-    page = models.ForeignKey(Page, related_name='page_translations', on_delete=models.CASCADE)
+    page = models.ForeignKey(Page, related_name='translations', on_delete=models.CASCADE)
     language = models.ForeignKey(
         Language,
         related_name='page_translations',
@@ -217,21 +215,21 @@ class PageTranslation(models.Model):
 
     @property
     def latest_public_revision(self):
-        return self.page.page_translations.filter(
+        return self.page.translations.filter(
             language=self.language,
             status=status.PUBLIC,
         ).first()
 
     @property
     def latest_major_revision(self):
-        return self.page.page_translations.filter(
+        return self.page.translations.filter(
             language=self.language,
             minor_edit=False,
         ).first()
 
     @property
     def latest_major_public_revision(self):
-        return self.page.page_translations.filter(
+        return self.page.translations.filter(
             language=self.language,
             status=status.PUBLIC,
             minor_edit=False,
@@ -240,7 +238,7 @@ class PageTranslation(models.Model):
     @property
     def previous_revision(self):
         version = self.version - 1
-        return self.page.page_translations.filter(
+        return self.page.translations.filter(
             language=self.language,
             version=version,
         ).first()

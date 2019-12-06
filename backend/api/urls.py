@@ -1,15 +1,14 @@
 from django.conf.urls import include, url
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
 
 from .v3 import views
 from .v3.feedback import feedback
 from .v3.languages import languages
-from .v3.regions import regions, liveregions, hiddenregions, pushnew
 from .v3.pages import pages
 from .v3.push_notifications import sent_push_notifications
-
+from .v3.regions import regions, liveregions, hiddenregions, pushnew
 
 schema_view = get_schema_view(
     openapi.Info(

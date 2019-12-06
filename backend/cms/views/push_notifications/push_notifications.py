@@ -1,19 +1,17 @@
-from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
 
-from .push_notification_sender import PushNotificationSender
 from .push_notification_form import PushNotificationForm, PushNotificationTranslationForm
-from ...models.push_notification import PushNotification, PushNotificationTranslation
-from ...models.language import Language
-from ...models.region import Region
+from .push_notification_sender import PushNotificationSender
 from ...decorators import region_permission_required
+from ...models import Language, PushNotification, PushNotificationTranslation, Region
 
 
 @method_decorator(login_required, name='dispatch')

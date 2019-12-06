@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView
-from api.v3.serializers import LocationSerializer
 
+from api.v3.serializers import LocationSerializer
 from cms.models import POI
 
 

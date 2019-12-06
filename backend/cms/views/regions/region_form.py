@@ -1,14 +1,13 @@
 """
 Form for creating a region object
 """
-
 import logging
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from ...models import Region, Page, PageTranslation, LanguageTreeNode
 from ..utils.slug_utils import generate_unique_slug
+from ...models import Region, Page, PageTranslation, LanguageTreeNode
 
 logger = logging.getLogger(__name__)
 

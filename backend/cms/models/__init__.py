@@ -1,39 +1,28 @@
+from .configuration import Configuration
 from .event import Event
-from .event import RecurrenceRule
 from .event import EventTranslation
-
+from .event import RecurrenceRule
 from .extra import Extra
 from .extra_template import ExtraTemplate
-
-from .feedback import Feedback
-from .feedback import RegionFeedback
-from .feedback import PageFeedback
-from .feedback import TechnicalFeedback
-from .feedback import ExtraFeedback
 from .feedback import EventFeedback
+from .feedback import ExtraFeedback
+from .feedback import Feedback
+from .feedback import PageFeedback
+from .feedback import RegionFeedback
 from .feedback import SearchResultFeedback
-
-from .language import LanguageTreeNode
+from .feedback import TechnicalFeedback
 from .language import Language
-
-from .page import Page
-from .page import PageTranslation
-
-from .poi import POI
-from .poi import POITranslation
-
-from .push_notification import PushNotification
-from .push_notification import PushNotificationTranslation
-
-from .region import Region
-
+from .language import LanguageTreeNode
 from .media_models import Document
 from .media_models import DocumentForm
-
-from .configuration import Configuration
-
 from .organization import Organization
-
+from .page import Page
+from .page import PageTranslation
+from .poi import POI
+from .poi import POITranslation
+from .push_notification import PushNotification
+from .push_notification import PushNotificationTranslation
+from .region import Region
 from .user_profile import UserProfile
 
 from .user_mfa import UserMfa

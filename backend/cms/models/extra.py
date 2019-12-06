@@ -5,8 +5,8 @@ events that are usually provided by foreign services.
 from django.db import models
 from django.utils import timezone
 
-from .region import Region
 from .extra_template import ExtraTemplate
+from .region import Region
 from ..constants import postal_code
 
 

@@ -1,7 +1,7 @@
 import logging
 import requests
 
-from ...models.configuration import Configuration
+from ...models import Configuration
 
 
 # pylint: disable=too-few-public-methods

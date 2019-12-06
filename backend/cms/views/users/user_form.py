@@ -1,7 +1,6 @@
 """
 Form for creating a user object
 """
-
 import logging
 
 from django import forms

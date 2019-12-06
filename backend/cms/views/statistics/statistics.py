@@ -3,17 +3,16 @@ from datetime import date, timedelta
 # pylint: disable=redefined-builtin
 from requests.exceptions import ConnectionError, InvalidURL
 
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
+from django.views.generic import TemplateView
 
 from .matomo_api_manager import MatomoApiManager
-from ...models import Region
 from ...decorators import region_permission_required
-
+from ...models import Region
 
 
 @method_decorator(login_required, name='dispatch')

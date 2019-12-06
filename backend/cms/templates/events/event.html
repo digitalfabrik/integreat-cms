@@ -1,0 +1,348 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+{% load content_filters %}
+{% load rules %}
+{% load compress %}
+
+{% compress js %}
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/fullscreen/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/autosave/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/link/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/preview/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/code/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
+    <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
+{% endcompress %}
+{% compress css %}
+    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
+{% endcompress%}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap">
+        <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
+            <h2 class="heading font-normal">
+                {% if event_form.instance.id %}
+                    {% if event_translation_form.instance.id %}
+                        {% with event_translation_form.instance.title as event_title %}
+                        {% blocktrans %}Edit event "{{ event_title }}"{% endblocktrans %}
+                        {% endwith %}
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE != language.code %}
+                            {% get_translation event_form.instance LANGUAGE_CODE as backend_translation %}
+                            {% if backend_translation %}
+                                ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        {% trans 'Create new event translation' %}
+                    {% endif %}
+                {% else %}
+                    {% trans 'Create new event' %}
+                {% endif %}
+            </h2>
+        </div>
+        {% has_perm 'cms.edit_events' request.user as can_edit_event %}
+        {% if not event_form.instance.id or not event_form.instance.archived %}
+        <div class="w-1/5 flex justify-end mb-6">
+        {% if can_edit_event %}
+            <input type="submit" name="submit_draft" class="bg-grey hover:bg-grey-dark cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+        {% has_perm 'cms.publish_events' request.user as can_publish_event %}
+        {% if can_publish_event %}
+            <input type="submit" name="submit_public" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+        {% else %}
+            <input type="submit" name="submit_review" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+        {% endif %}
+        {% endif %}
+        </div>
+        {% endif %}
+        <div class="w-2/3 flex flex-wrap flex-col pr-2">
+            <ul class="flex flex-wrap" style="list-style: none;">
+                {% for other_language in languages %}
+                    <li class="mr-1 {% if other_language == language %}z-10{% endif %} -mb-1">
+                        <div class="bg-white text-blue-dark {% if other_language != language %}hover:bg-blue-dark hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg">
+                            <div class="border-b-2 border-white">
+                            {% if other_language == language %}
+                                <div class="py-2 px-4">
+                                    <i data-feather="{% if event_translation_form.instance.id %}edit-2{% else %}plus{% endif %}"></i>
+                                    <span style="vertical-align: super;">
+                                        {{ other_language.translated_name }}
+                                    </span>
+                                </div>
+                            {% else %}
+                                <a class="inline-block py-2 px-4" style="color: inherit;" href="{% url 'edit_event' event_id=event_form.instance.id region_slug=region.slug language_code=other_language.code %}">
+                                    <i data-feather="{% if other_language in event_form.instance.languages %}edit-2{% else %}plus{% endif %}"></i>
+                                    <span style="vertical-align: super;">
+                                        {{ other_language.translated_name }}
+                                    </span>
+                                </a>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="w-full mb-4 rounded border-2 border-blue-dark bg-white">
+                <div class="w-full p-4">
+                    {% if event_translation_form.instance.id %}
+                        <label for="events_enabled" class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                        {{ event_translation_form.instance.version }}<br>
+                        <label for="events_enabled" class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                        {{ event_translation_form.instance.get_status_display }}
+                    {% endif %}
+                    <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
+                    <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                        {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
+                        {% spaceless %}
+                            <div style="display: table; white-space: nowrap;">
+                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.code }}/events/</span>
+                                {% if event_translation_form.instance.ancestor_path %}
+                                    <span style="display: table-cell;">{{ event_translation_form.instance.ancestor_path }}/</span>
+                                {% endif %}
+                                <span style="display: table-cell; width: 100%;">{% render_field event_translation_form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
+                            </div>
+                        {% endspaceless %}
+                    </div>
+                    <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
+                    {% trans 'Insert title here' as title_placeholder %}
+                    {% render_field event_translation_form.title|add_error_class:"border-red" placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    <label class="block mb-2 mt-4 font-bold">{% trans 'Description' %}</label>
+                    {% trans 'Insert description here' as description_placeholder %}
+                    {% render_field event_translation_form.description|add_error_class:"border-red" placeholder=description_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded tinymce_textarea" %}
+                    <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
+                    {% render_field event_translation_form.minor_edit id="minor_edit" %}
+                    <label for="minor_edit" class="text-s">{% trans 'This change does not require an update of the translations' %}</label>
+                </div>
+            </div>
+        </div>
+        <div class="w-1/3 pl-4 flex flex-wrap flex-col">
+            <ul class="flex" style="list-style: none;">
+                <li class="z-10" style="margin-bottom: -0.1rem;">
+                    <div class="bg-white text-blue-dark border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg py-2 px-4">
+                    <div class="border-b-4 border-white">
+                    <i data-feather="flag"></i>
+                    <span style="vertical-align: super;">
+                        {% trans 'Settings for all translations' %}
+                    </span>
+                    </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="w-full mb-4 rounded border-2 border-solid border-blue-dark shadow bg-white">
+                <div class="w-full p-4">
+                        <h3 class="font-bold mb-3">{% trans 'Date' %}</h3>
+                        <div class="flex flex-wrap">
+                            <div class="w-1/2 pr-2">
+                                <label for="start_date" class="mb-2 block font-bold text-sm">{% trans 'Start' %}</label>
+                                {% render_field event_form.start_date|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            </div>
+                            <div class="w-1/2 pr-2">
+                                <label for="end_date" class="mb-2 block font-bold text-sm">{% trans 'End' %}</label>
+                                {% render_field event_form.end_date|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            </div>
+                        </div>
+                        <h3 class="font-bold mb-3 pt-4">{% trans 'Time' %}</h3>
+                        <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
+                            {% render_field event_form.is_all_day id="is_all_day-checkbox" %} {% trans 'All-day' %}
+                        </div>
+                        <div class="flex flex-wrap mb-3">
+                            <div class="time-field w-1/2 pr-2{% if event_form.instance.is_all_day %} hidden{% endif %}">
+                                <label for="start_time" class="mb-2 block font-bold text-sm">{% trans 'Start' %}</label>
+                                {% render_field event_form.start_time|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            </div>
+                            <div class="time-field w-1/2 pr-2{% if event_form.instance.is_all_day %} hidden{% endif %}">
+                                <label for="end_time" class="mb-2 block font-bold text-sm">{% trans 'End' %}</label>
+                                {% render_field event_form.end_time|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            </div>
+                        </div>
+                        <h3 class="font-bold mb-3 pt-4">{% trans 'Recurrence' %}</h3>
+                        <div class="checkbox-wrap relative my-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left: 0">
+                            {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
+                            <label for="is_recurring">{% trans 'Recurring' %}</label>
+                        </div>
+                        <div id="recurrence-rule"{% if not event_form.is_recurring.value %} class="hidden"{% endif %}>
+                            <label for="frequency" class="mt-4 mb-2 block font-bold text-sm">{% trans 'Frequency' %}</label>
+                            <div class="relative my-2">
+                                {% render_field recurrence_rule_form.frequency|add_error_class:"border-red" id="recurrence-frequency-select" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                                <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                                    <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                                </div>
+                            </div>
+                            <div id="recurrence-weekly"{% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %} class="hidden"{% endif %}>
+                                <label for="weekdays_for_weekly" class="mt-4 mb-2 block font-bold text-sm">{% trans 'Weekday' %}</label>
+                                <select name="weekdays_for_weekly" id="id_weekdays_for_weekly" multiple="multiple" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red{% endif %}">
+                                    {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
+                                    <option value="{{ choice_value }}"{% if not recurrence_rule_form.data|is_empty %}
+                                        {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %} selected="selected"{% endif %}
+                                    {% else %}
+                                        {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %} selected="selected"{% endif %}
+                                    {% endif %}>{{ choice_label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div id="recurrence-monthly"{% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %} class="hidden"{% endif %}>
+                                <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Week' %}</label>
+                                {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                                <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Weekday' %}</label>
+                                {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            </div>
+                            <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Interval' %}</label>
+                            {% render_field recurrence_rule_form.interval|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
+                                {% render_field recurrence_rule_form.has_recurrence_end_date id="recurrence-end-checkbox" %} {% trans 'Recurrence ends' %}
+                            </div>
+                            <div id="recurrence-end"{% if not recurrence_rule_form.data|is_empty %}
+                                {% if not recurrence_rule_form.data.has_recurrence_end_date %} class="hidden"{% endif %}
+                            {% else %}
+                                {% if not recurrence_rule_form.instance.recurrence_end_date %} class="hidden"{% endif %}
+                            {% endif %}>
+                                <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Recurrence end date' %}</label>
+                                {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            </div>
+                        </div>
+                        <h3 class="font-bold my-3">{% trans 'Where' %}</h3>
+                        <div class="checkbox-wrap relative my-2 pl-5" style="padding-top:2px;padding-bottom:2px;">
+                            <input class="leading-tight block absolute" style="top:5px;left:0;" type="checkbox" id="ignore-end">
+                            <label for="ignore-end">{% trans 'This event does not have a physical location' %}</label>
+                        </div>
+
+                        <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Address' %}</label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+                               type="text" placeholder="{% trans 'Name of event location' %}">
+                        <small class="text-sm italic block mb-2">
+                            {% trans 'Create an event location or start typing the name of an existing location' %}.
+                        </small>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+                               type="text" placeholder="{% trans 'Street' %}">
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+                               type="text" placeholder="{% trans 'City' %}">
+                        <div class="relative my-2">
+                            <select class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                                <option>{% trans 'Germany' %}</option>
+                            </select>
+                            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Map' %}</label>
+                        <i class="text-teal-dark">Google Map vs. OSM</i>
+                    <div class="pt-2 pb-4">
+                        <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
+                        {% render_field page_form.icon id="icon" class="image-field" %}
+                        <label for="icon" class="block w-full text-center font-bold bg-blue hover:bg-blue-dark focus:bg-blue-dark text-white font-bold py-2 px-4 rounded cursor-pointer relative">
+                            <i data-feather="upload" class="mr-2" style="vertical-align: middle;"></i>
+                            <span class="standard_text">{% trans 'Set icon' %}</span>
+                            <span class="filename"></span>
+                        </label>
+                    </div>
+                    {% if event_form.instance.id and can_edit_event %}
+                        <div class="pt-2 pb-4">
+                            {% if event_form.instance.archived %}
+                                <span class="block font-bold mb-4">{% trans 'Restore event' %}</span>
+                                <button class="w-full bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_restore_event_{{ event_form.instance.id }}')">
+                                    <i data-feather="refresh-ccw" class="mr-2" style="vertical-align: middle;"></i>
+                                    {% trans 'Restore this event' %}
+                                </button>
+                            {% else %}
+                                <span class="block font-bold mb-4">{% trans 'Archive event' %}</span>
+                                <button class="w-full bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_event_{{ event_form.instance.id }}')">
+                                    <i data-feather="archive" class="mr-2" style="vertical-align: middle;"></i>
+                                    {% trans 'Archive this event' %}
+                                </button>
+                            {% endif %}
+                        </div>
+                        {% if user.is_superuser or user.is_staff %}
+                            <div class="pt-2 pb-4">
+                                <span class="block font-bold mb-4">{% trans 'Delete event' %}</span>
+                                <button class="w-full bg-red hover:bg-red-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_event_{{ event_form.instance.id }}')">
+                                    <i data-feather="trash-2" class="mr-2" style="vertical-align: middle;"></i>
+                                    {% trans 'Delete this event' %}
+                                </button>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% if event_form.instance.id and can_edit_event %}
+    {% if event_form.instance.archived %}
+        {% include "./confirmation_popups/restore.html" with event=event_form.instance %}
+    {% else %}
+        {% include "./confirmation_popups/archive.html" with event=event_form.instance %}
+    {% endif %}
+    {% if user.is_superuser or user.is_staff %}
+        {% include "./confirmation_popups/delete.html" with event=event_form.instance %}
+    {% endif %}
+{% endif %}
+{% endblock %}
+
+{% block javascript_nocompress %}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        // event handler to show time fields
+        u("#is_all_day-checkbox").on('click', function(event) {
+            if (event.target.checked) {
+                u(".time-field").each(function(node) {
+                    u(node).addClass('hidden');
+                });
+            } else {
+                u(".time-field").each(function(node) {
+                    u(node).removeClass('hidden');
+                });
+            }
+        });
+        // event handler to show recurrence rule form
+        u("#recurrence-rule-checkbox").on('click', function(event){
+            if (event.target.checked) {
+                u("#recurrence-rule").removeClass('hidden');
+            } else {
+                u("#recurrence-rule").addClass('hidden');
+            }
+        });
+        // event handler to show fields for recurrence frequency
+        u("#recurrence-frequency-select").on('click', function(event){
+            if (event.target.value == 'WEEKLY') {
+                u("#recurrence-weekly").removeClass('hidden');
+                u("#recurrence-monthly").addClass('hidden');
+            } else if (event.target.value == 'MONTHLY') {
+                u("#recurrence-monthly").removeClass('hidden');
+                u("#recurrence-weekly").addClass('hidden');
+            } else {
+                u("#recurrence-weekly").addClass('hidden');
+                u("#recurrence-monthly").addClass('hidden');
+            }
+        });
+        // event handler to show recurrence end date
+        u("#recurrence-end-checkbox").on('click', function(event){
+            if (event.target.checked) {
+                u("#recurrence-end").removeClass('hidden');
+            } else {
+                u("#recurrence-end").addClass('hidden');
+            }
+        });
+    </script>
+{% endblock %}

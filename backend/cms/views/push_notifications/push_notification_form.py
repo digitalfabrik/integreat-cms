@@ -1,9 +1,9 @@
 """
 Form for creating a user object
 """
-
 from django import forms
-from ...models.push_notification import PushNotification, PushNotificationTranslation
+
+from ...models import PushNotification, PushNotificationTranslation
 
 
 class PushNotificationForm(forms.ModelForm):
