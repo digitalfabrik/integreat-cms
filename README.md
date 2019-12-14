@@ -4,13 +4,13 @@ This project aims to develop a content management system tailored to the needs o
 ## TL;DR
 
 ### Requirements
-Following packages are requiered for running the project (Install them with your package manager):
+Following packages are required for running the project (Install them with your package manager):
 * git
 * npm
 * python3
-* python3-dev 
-* postgresql *OR* docker
 * python-virtualenv
+* python3-dev (only on Ubuntu)
+* postgresql *OR* docker
 
 ### Installation
 ````
@@ -21,9 +21,9 @@ cd cms-django
 ### Running
 ````
 ./dev-tools/run.sh                  # start database and integreat-cms
-./dev-tools/migrate.sh              # migrate database
-./dev-tools/create_superuser.sh     # create root user for cms
 ````
+* Go to your browser and open the URL `http://localhost:8000`
+* Default user is "root" with password "root1234".
 
 ## Detailed instructions
 
@@ -44,20 +44,25 @@ source .venv/bin/activate
 ```
 Otherwise python dependency modules inside the venv can not be identified.
 
-
 ### 2. Internationalization (i18n)
-To make use of the translated backend, compile the django.po file as follows:
-
+This dev tool is a shortcut for all translation tasks:
+```
+./dev-tools/translate.sh
+```
+If you run into merge/rebase conflicts inside the translation file, use:
+```
+./dev-tools/resolve_translation_conflicts.sh
+```
+Alternatively, you can manage the translations manually.
+After you changed translated texts in the code, rebuild the .mo file with the following command:
+```
+integreat-cms makemessages -l de
+```
+To make use of the translations in the backend, compile the django.po file as follows:
 ```
 integreat-cms compilemessages
 ```
-
 If you are using a virtual python environment, be sure to use the ´--exclude´ parameter or execute this command in the backend or cms directory, otherwise all the translation files in your venv will be compiled, too.
-
-After you changed translated texts in the code, rebuild the .mo file with the following command:
-```
-integreat-cms makemessages -a
-```
 
 ### 2. Postgres database
 You can run Postgres either in a Docker container or on your local server.
@@ -87,37 +92,39 @@ To import initial test data into the database, execute:
 ```
 
 ### 5. Running
-* While the database is running, create a first superuser:
-```
-./dev-tools/create_superuser.sh
-```
-* Default user is root with password: root1234
-* If you didn't use the `dev-tools/run.sh`-script in step 2.1,  fire up the CMS (If port 8000 is already in use, you might use 5000):
+* If you didn't use the `dev-tools/run.sh`-script in step 2.1,  fire up the CMS (If port 8000 is already in use, you might use another one):
 ```
 integreat-cms runserver localhost:8000
 ```
 
 * Go to your browser and open the URL `http://localhost:8000`
+* Default user is "root" with password "root1234".
 
 You may need to activate the `virtualenv` explicitly via `source .venv/bin/activate`.
 
 ### 6. Testing
 Run Django unittest: `integreat-cms test cms/`
 
+### 7. Code quality
+To make sure your code matches the repository's quality standards, run pylint as follows:
+```
+./dev-tools/pylint.sh
+```
+
 ## Miscellaneous
 * Keep in mind that we are using Python 3.x, so use `python3` and `pip3` with any command
 * Access the Postgres database running in Docker container: `docker exec -it integreat_django_postgres psql -U integreat`
 * To ensure that you do not accidentally push your changes in `settings.py`, you can ignore the file locally via `git update-index --assume-unchanged ./backend/backend/settings.py`
 * Delete the database to start over again: `./dev-tools/prune_database.sh`
-* Create root superuser without email-address: `./dev-tools/create_superuser.sh`
+* Create root superuser: `./dev-tools/create_superuser.sh`
 
 ## Complete reset of the environment
 As the project is still in an early stage with a lot of changes to the database structure from different contributors, it can come in handy to reset the project completely. To do so, follow the this steps:
 1. Stop Django by pressing STRG+C
 4. Run `./dev-tools/prune_database.sh` 
-(If some of the files/directories are not accessible, delete them manually with `sudo rm -r DIRECTORY/FILE`
+(If some of the files/directories are not accessible, delete them manually with `sudo rm -rf DIRECTORY/FILE`
 
-After this steps, the project should be reseted completely. Follow the install instructions to keep it up running again.
+After this steps, the project should be reset completely. Follow the install instructions to keep it up running again.
 
 ## Packaging and installing on Ubuntu 18.04
 Packaging for Debian can be done with setuptools.
