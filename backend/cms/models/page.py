@@ -39,7 +39,7 @@ class Page(MPTTModel):
     region = models.ForeignKey(Region, related_name='pages', on_delete=models.CASCADE)
     archived = models.BooleanField(default=False)
     mirrored_page = models.ForeignKey('self', null=True, blank=True, on_delete=models.PROTECT)
-    mirrored_page_first = models.BooleanField(default=True)
+    mirrored_page_first = models.BooleanField(default=True, blank=True)
     editors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='editors', blank=True)
     publishers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='publishers', blank=True)
     created_date = models.DateTimeField(default=timezone.now)

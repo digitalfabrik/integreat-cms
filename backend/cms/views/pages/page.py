@@ -533,6 +533,6 @@ def save_mirrored_page(request):
         page.mirrored_page = None
     else:
         page.mirrored_page = Page.objects.get(id=int(decoded_json['mirrored_page']))
-        page.mirrored_page_first = int(decoded_json['mirrored_page_first']) == 1
+        page.mirrored_page_first = decoded_json['mirrored_page_first'] == 'True'
     page.save()
     return JsonResponse({'code': True})

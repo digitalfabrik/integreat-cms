@@ -183,10 +183,7 @@
                         </div>
                     </div>
                     <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
-                        <select id="mirrored_page_first" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
-                            <option value=1{% if page.mirrored_page_first %} selected{% endif %}>{% trans 'Embed before content' %}</option>
-                            <option value=0{% if not page.mirrored_page_first %} selected{% endif %}>{% trans 'Embed after content' %}</option>
-                        </select>
+                        {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>

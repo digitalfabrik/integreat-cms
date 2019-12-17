@@ -7,6 +7,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
+from django.utils.translation import ugettext as _
 
 from ..utils.slug_utils import generate_unique_slug
 from ...constants import position, status
@@ -59,10 +60,13 @@ class PageForm(forms.ModelForm):
     publishers = forms.ModelChoiceField(queryset=get_user_model().objects.all(), required=False)
     mirrored_page_region = forms.ModelChoiceField(queryset=Region.objects.all(), required=False)
     mirrored_page = MirrorPageField(queryset=Page.objects.all(), required=False)
-    mirrored_page_first = forms.TypedChoiceField(
-        coerce=lambda x: x == 'True',
-        choices=((False, 'False'), (True, 'True')),
-        widget=forms.RadioSelect)
+    TRUE_FALSE_CHOICES = (
+        (True, _('Embed mirrored page before this page')),
+        (False, _('Embed mirrored page after this page'))
+    )
+    mirrored_page_first = forms.ChoiceField(choices=TRUE_FALSE_CHOICES,
+                                            widget=forms.Select(),
+                                            required=True)
 
     class Meta:
         model = Page
@@ -116,10 +120,7 @@ class PageForm(forms.ModelForm):
             self.fields['parent'].initial = self.instance.parent
 
         self.mirrored_page = forms.ModelChoiceField(queryset=Page.objects.all(), required=False)
-        self.mirrored_page_first = forms.TypedChoiceField(
-            coerce=lambda x: x == 'True',
-            choices=((False, 'False'), (True, 'True')),
-            widget=forms.RadioSelect)
+
         if self.instance.mirrored_page:
             self.fields['mirrored_page'].queryset = Page.objects.filter(region=self.instance.mirrored_page.region)
             self.fields['mirrored_page'].initial = self.instance.mirrored_page
@@ -148,7 +149,6 @@ class PageForm(forms.ModelForm):
             # only update these values when page is created
             page.region = self.region
         page.archived = bool(self.data.get('submit_archive'))
-        page.mirrored_page_first = self.cleaned_data['mirrored_page_first']
         page.mirrored_page = self.cleaned_data['mirrored_page']
         page.save()
         page.move_to(self.cleaned_data['parent'], self.cleaned_data['position'])
