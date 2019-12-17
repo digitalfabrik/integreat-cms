@@ -366,6 +366,11 @@ document.addEventListener('DOMContentLoaded', function(){
                     editor.insertContent('<img src="{% static "svg/idea.svg" %}" style="width:1.5em">');
                 }
             });
+
+
+            editor.on('change', function (e) {
+                editor.save();
+            });
         }
     });
 
