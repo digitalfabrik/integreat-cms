@@ -66,7 +66,7 @@ class PageForm(forms.ModelForm):
     )
     mirrored_page_first = forms.ChoiceField(choices=TRUE_FALSE_CHOICES,
                                             widget=forms.Select(),
-                                            required=True)
+                                            required=False)
 
     class Meta:
         model = Page
