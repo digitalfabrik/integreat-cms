@@ -139,10 +139,10 @@ class Page(MPTTModel):
         return pages
 
     def best_language_title(self):
-        page_translation = self.page_translations.filter(language__code=get_language())
+        page_translation = self.translations.filter(language__code=get_language())
         if not page_translation:
             alt_code = self.region.default_language.code
-            page_translation = self.page_translations.filter(language__code=alt_code)
+            page_translation = self.translations.filter(language__code=alt_code)
         return page_translation.first().title
 
     class Meta:
