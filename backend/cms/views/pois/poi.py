@@ -110,6 +110,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
                     else:
                         messages.success(request, _('POI Translation was successfully saved.'))
             else:
+                poi = poi_instance
                 messages.info(request, _('No changes detected.'))
 
             return redirect('edit_poi', **{
