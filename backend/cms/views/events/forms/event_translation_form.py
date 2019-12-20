@@ -24,8 +24,12 @@ class EventTranslationForm(forms.ModelForm):
             'minor_edit',
         ]
 
-    def __init__(self, data=None, instance=None, disabled=False):
+    #pylint: disable=too-many-arguments
+    def __init__(self, data=None, instance=None, disabled=False, region=None, language=None):
         logger.info('EventTranslationForm instantiated with data %s and instance %s', data, instance)
+
+        self.region = region
+        self.language = language
 
         # To set the status value through the submit button, we have to overwrite the field value for status.
         # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
@@ -50,7 +54,7 @@ class EventTranslationForm(forms.ModelForm):
                 field.disabled = True
 
     #pylint: disable=arguments-differ
-    def save(self, event=None, language=None, user=None):
+    def save(self, event=None, user=None):
         logger.info('EventTranslationForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
 
         # Disable instant commit on saving because missing information would cause error
@@ -59,7 +63,7 @@ class EventTranslationForm(forms.ModelForm):
         if not self.instance.id:
             # set initial values for new events
             event_translation.event = event
-            event_translation.language = language
+            event_translation.language = self.language
             event_translation.creator = user
 
         # Only create new version if content changed
@@ -71,4 +75,7 @@ class EventTranslationForm(forms.ModelForm):
         return event_translation
 
     def clean_slug(self):
-        return generate_unique_slug(self, 'event')
+        unique_slug = generate_unique_slug(self, 'event')
+        self.data = self.data.copy()
+        self.data['slug'] = unique_slug
+        return unique_slug

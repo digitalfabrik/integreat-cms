@@ -97,6 +97,8 @@ class EventView(PermissionRequiredMixin, TemplateView):
         event_translation_form = EventTranslationForm(
             data=request.POST,
             instance=event_translation_instance,
+            region=region,
+            language=language,
         )
 
         if (
@@ -146,7 +148,6 @@ class EventView(PermissionRequiredMixin, TemplateView):
             )
             event_translation = event_translation_form.save(
                 event=event,
-                language=language,
                 user=request.user
             )
 

@@ -107,8 +107,12 @@ class Page(MPTTModel):
         return Page.objects.filter(archived=True, region__slug=region_slug).count()
 
     def __str__(self):
-        first_translation = self.get_first_translation()
-        return '(id: {}, slug: {} ({}))'.format(self.id, first_translation.slug, first_translation.language.code)
+        if self.id:
+            first_translation = self.get_first_translation()
+            if first_translation:
+                return '(id: {}, slug: {} ({}))'.format(self.id, first_translation.slug, first_translation.language.code)
+            return '(id: {})'.format(self.id)
+        return super(Page, self).__str__()
 
     @classmethod
     def get_tree(cls, region_slug, archived=False):
@@ -180,6 +184,10 @@ class PageTranslation(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     @property
+    def foreign_object(self):
+        return self.page
+
+    @property
     def ancestor_path(self):
         return '/'.join([
             ancestor.get_first_translation([self.language.code]).slug
@@ -188,9 +196,12 @@ class PageTranslation(models.Model):
 
     @property
     def permalink(self):
-        return '{}/{}/{}/{}'.format(
-            self.page.region.slug, self.language.code, self.ancestor_path, self.slug
-        )
+        return '/'.join([
+            self.page.region.slug,
+            self.language.code,
+            self.ancestor_path,
+            self.slug
+        ])
 
     @property
     def available_languages(self):
@@ -269,7 +280,9 @@ class PageTranslation(models.Model):
         return self.text + self.page.get_mirrored_text(self.language.code)
 
     def __str__(self):
-        return '(id: {}, lang: {}, slug: {})'.format(self.id, self.language.code, self.slug)
+        if self.id:
+            return '(id: {}, lang: {}, slug: {})'.format(self.id, self.language.code, self.slug)
+        return super(PageTranslation, self).__str__()
 
     class Meta:
         ordering = ['page', '-version']

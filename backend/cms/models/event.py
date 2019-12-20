@@ -172,10 +172,17 @@ class EventTranslation(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     @property
+    def foreign_object(self):
+        return self.event
+
+    @property
     def permalink(self):
-        return self.event.region.slug + '/' \
-               + self.language.code + '/' \
-               + self.slug + '/'
+        return '/'.join([
+            self.event.region.slug,
+            self.language.code,
+            'events',
+            self.slug
+        ])
 
     def __str__(self):
         return self.title
