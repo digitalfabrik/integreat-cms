@@ -6,8 +6,8 @@ from django.db import models
 from django.utils import timezone
 
 from .extra_template import ExtraTemplate
-from .region import Region
-from ..constants import postal_code
+from ..regions.region import Region
+from ...constants import postal_code
 
 
 class Extra(models.Model):

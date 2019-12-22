@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from ...decorators import staff_required
 from ...forms.organizations import OrganizationForm
-from ...models.organization import Organization
+from ...models import Organization
 
 
 @method_decorator(login_required, name='dispatch')

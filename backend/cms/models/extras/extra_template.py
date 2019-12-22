@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.utils import timezone
 
-from ..constants import postal_code
+from ...constants import postal_code
 
 
 class ExtraTemplate(models.Model):

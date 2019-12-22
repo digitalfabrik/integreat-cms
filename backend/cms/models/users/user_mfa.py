@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class UserMfa(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='mfa_keys', on_delete=models.CASCADE)

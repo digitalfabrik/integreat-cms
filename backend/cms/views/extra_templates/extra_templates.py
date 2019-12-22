@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 
 from ...decorators import staff_required
 from ...forms.extra_templates import ExtraTemplateForm
-from ...models.extra_template import ExtraTemplate
+from ...models import ExtraTemplate
 
 
 @method_decorator(login_required, name='dispatch')

@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 
 from ...decorators import staff_required
 from ...forms.regions import RegionForm
-from ...models.region import Region
+from ...models import Region
 
 
 @method_decorator(login_required, name='dispatch')

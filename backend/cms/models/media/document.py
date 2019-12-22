@@ -1,4 +1,3 @@
-from django import forms
 from django.db import models
 
 
@@ -18,10 +17,3 @@ class Document(models.Model):
 
     class Meta:
         default_permissions = ()
-
-
-class DocumentForm(forms.ModelForm):
-
-    class Meta:
-        model = Document
-        fields = ('description', 'document', )

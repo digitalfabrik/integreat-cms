@@ -1,10 +1,6 @@
 """Model for Push Notifications
 """
 from django.db import models
-from django.utils import timezone
-
-from .language import Language
-from .region import Region
 
 
 class PushNotification(models.Model):
@@ -13,7 +9,7 @@ class PushNotification(models.Model):
     Args:
         models : Databas model inherit from the standard django models
     """
-    region = models.ForeignKey(Region, related_name='push_notifications', on_delete=models.CASCADE)
+    region = models.ForeignKey('Region', related_name='push_notifications', on_delete=models.CASCADE)
     channel = models.CharField(max_length=60)
     draft = models.BooleanField(default=True)
     sent_date = models.DateTimeField(null=True, blank=True)
@@ -32,23 +28,3 @@ class PushNotification(models.Model):
             ('edit_push_notifications', 'Can edit push notification'),
             ('send_push_notifications', 'Can send push notification'),
         )
-
-
-class PushNotificationTranslation(models.Model):
-    """Class representing the Translation of a Push Notification
-
-    Args:
-        models : Database model inherit from the standard django models
-    """
-    title = models.CharField(max_length=250)
-    text = models.CharField(max_length=250)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    push_notification = models.ForeignKey(PushNotification, related_name='translations', on_delete=models.CASCADE)
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        default_permissions = ()

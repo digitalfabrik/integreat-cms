@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 
 from .organization import Organization
-from .region import Region
+from ..regions.region import Region
 
 
 class UserProfile(models.Model):

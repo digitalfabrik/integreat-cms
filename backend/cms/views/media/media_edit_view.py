@@ -4,7 +4,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
-from ...models import DocumentForm, Document, Region
+from ...forms.media import DocumentForm
+from ...models import Document, Region
 from ...utils.file_utils import save_file
 
 

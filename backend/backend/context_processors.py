@@ -1,4 +1,5 @@
-from cms.models.region import Region
+from cms.models import Region
+
 
 def region_slug_processor(request):
     region = Region.get_current_region(request)

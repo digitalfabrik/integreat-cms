@@ -1,4 +1,4 @@
-from ..models.media_models import DocumentForm
+from ..forms.media import DocumentForm
 
 
 def save_file(request):

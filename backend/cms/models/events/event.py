@@ -6,34 +6,12 @@ Raises:
 from datetime import datetime, time, date
 from dateutil.rrule import weekday, rrule
 
-from django.conf import settings
-from django.contrib.postgres.fields import ArrayField
-from django.core.validators import MinValueValidator
 from django.db import models
-from django.utils import timezone
 
-from .language import Language
-from .poi import POI
-from .region import Region
-from ..constants import status, frequency, weekdays, weeks
-
-
-class RecurrenceRule(models.Model):
-    """
-    Object to define the recurrence frequency
-    Args:
-        models ([type]): [description]
-    Raises:
-        ValidationError: Error raised when weekdays_for_weekly does not fit into the range
-        from 0 to 6 or when the value of weekdays_for_monthly isn't between -5 and 5.
-    """
-
-    frequency = models.CharField(max_length=7, choices=frequency.CHOICES, blank=True)
-    interval = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    weekdays_for_weekly = ArrayField(models.IntegerField(choices=weekdays.CHOICES), blank=True)
-    weekday_for_monthly = models.IntegerField(choices=weekdays.CHOICES, null=True, blank=True)
-    week_for_monthly = models.IntegerField(choices=weeks.CHOICES, null=True, blank=True)
-    recurrence_end_date = models.DateField(null=True, blank=True)
+from .recurrence_rule import RecurrenceRule
+from ..pois.poi import POI
+from ..regions.region import Region
+from ...constants import frequency
 
 
 class Event(models.Model):
@@ -147,46 +125,3 @@ class Event(models.Model):
             ('edit_events', 'Can edit events'),
             ('publish_events', 'Can publish events')
         )
-
-
-class EventTranslation(models.Model):
-    """
-    Database object representing an event translation
-    """
-
-    event = models.ForeignKey(Event, related_name='translations', on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
-    status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
-    title = models.CharField(max_length=250)
-    description = models.TextField()
-    language = models.ForeignKey(
-        Language,
-        related_name='event_translations',
-        on_delete=models.CASCADE
-    )
-    currently_in_translation = models.BooleanField(default=False)
-    version = models.PositiveIntegerField(default=0)
-    minor_edit = models.BooleanField(default=False)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
-
-    @property
-    def foreign_object(self):
-        return self.event
-
-    @property
-    def permalink(self):
-        return '/'.join([
-            self.event.region.slug,
-            self.language.code,
-            'events',
-            self.slug
-        ])
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        ordering = ['event', '-version']
-        default_permissions = ()

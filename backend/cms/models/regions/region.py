@@ -6,7 +6,7 @@ from django.db import models
 from django.http import Http404
 from django.utils import timezone
 
-from ..constants import region_status, administrative_division
+from ...constants import region_status, administrative_division
 
 
 class Region(models.Model):

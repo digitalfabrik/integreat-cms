@@ -3,7 +3,7 @@ Form for creating an organization object
 """
 from django import forms
 
-from ...models.organization import Organization
+from ...models import Organization
 
 
 class OrganizationForm(forms.ModelForm):
