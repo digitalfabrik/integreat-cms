@@ -7,8 +7,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .region_user_form import RegionUserForm, RegionUserProfileForm
 from ...decorators import region_permission_required
+from ...forms.users import RegionUserForm, RegionUserProfileForm
 from ...models import Region, UserProfile
 
 

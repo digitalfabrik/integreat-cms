@@ -21,10 +21,10 @@ from django.views.generic import TemplateView
 from django.views.static import serve
 from mptt.exceptions import InvalidMove
 
-from .page_form import PageForm, PageTranslationForm
 
 from ...constants import status
 from ...decorators import region_permission_required, staff_required
+from ...forms.pages import PageForm, PageTranslationForm
 from ...models import Page, PageTranslation, Region, Language
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 

@@ -7,8 +7,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .user_form import UserForm, UserProfileForm
 from ...models import UserProfile
+from ...forms.users import UserForm, UserProfileForm
 from ...decorators import staff_required
 
 

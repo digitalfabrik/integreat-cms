@@ -6,8 +6,8 @@ import logging
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from ..utils.slug_utils import generate_unique_slug
 from ...models import POI, POITranslation
+from ...utils.slug_utils import generate_unique_slug
 
 logger = logging.getLogger(__name__)
 

@@ -3,6 +3,7 @@ Handling of login, logout and password reset functionality.
 """
 import json
 import datetime
+import webauthn
 
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
@@ -14,10 +15,11 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
-import webauthn
 
 from backend import settings
-from cms.views.utils.mfa_utils import generate_challenge
+
+from ...utils.mfa_utils import generate_challenge
+
 
 class MfaEnableAuthentication(auth_views.LoginView):
     def form_valid(self, form):

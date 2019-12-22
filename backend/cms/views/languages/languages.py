@@ -6,8 +6,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .language_form import LanguageForm
 from ...decorators import staff_required
+from ...forms.languages import LanguageForm
 from ...models import Language
 
 

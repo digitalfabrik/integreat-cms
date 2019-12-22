@@ -10,10 +10,10 @@ from django.test import TestCase
 from .constants import position, status, region_status
 from .models import Language, Page, Region
 from .page_xliff_converter import PageXliffConverter, XliffValidationException, PageXliffHelper, XLIFFS_DIR
-from .views.language_tree.language_tree_node_form import LanguageTreeNodeForm
-from .views.languages.language_form import LanguageForm
-from .views.pages.page_form import PageForm
-from .views.regions.region_form import RegionForm
+from .forms.language_tree import LanguageTreeNodeForm
+from .forms.languages import LanguageForm
+from .forms.pages import PageForm
+from .forms.regions import RegionForm
 
 
 # pylint: disable=too-many-instance-attributes

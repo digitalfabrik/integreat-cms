@@ -1,1 +1,5 @@
-from .extras import ExtraListView, activate, deactivate
+from .extras import (
+    ExtraListView,
+    activate,
+    deactivate
+)

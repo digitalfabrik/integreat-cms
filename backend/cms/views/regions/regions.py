@@ -7,8 +7,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .region_form import RegionForm
 from ...decorators import staff_required
+from ...forms.regions import RegionForm
 from ...models.region import Region
 
 

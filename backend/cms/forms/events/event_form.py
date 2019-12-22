@@ -8,7 +8,7 @@ from datetime import time
 from django import forms
 from django.utils.translation import ugettext as _
 
-from ....models import Event
+from ...models import Event
 
 logger = logging.getLogger(__name__)
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-19 19:16+0000\n"
+"POT-Creation-Date: 2019-12-22 18:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -188,7 +188,7 @@ msgstr "Entwurf"
 msgid "Pending Review"
 msgstr "Review ausstehend"
 
-#: constants/status.py:11 views/pois/poi_form.py:71
+#: constants/status.py:11 forms/pois/poi_form.py:71
 msgid "Public"
 msgstr "Öffentlich"
 
@@ -235,6 +235,84 @@ msgstr "Dritte Woche"
 #: constants/weeks.py:13
 msgid "Fourth week"
 msgstr "Vierte Woche"
+
+#: forms/authentication/password_reset_form.py:13
+msgid "The passwords do not match."
+msgstr "Die Passwörter stimmen nicht überein."
+
+#: forms/events/event_form.py:79
+msgid "If the event is not all-day, the start time is required"
+msgstr ""
+"Wenn die Veranstaltung nicht ganztägig ist, muss eine Start-Uhrzeit "
+"angegeben werden"
+
+#: forms/events/event_form.py:85
+msgid "If the event is not all-day, the end time is required"
+msgstr ""
+"Wenn die Veranstaltung nicht ganztägig ist, muss eine End-Uhrzeit angegeben "
+"werden"
+
+#: forms/events/event_form.py:90 forms/events/event_form.py:96
+msgid "The end of the event can't be before the start of the event"
+msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
+
+#: forms/events/recurrence_rule_form.py:55
+msgid "No recurrence frequency selected"
+msgstr "Keine Häufigkeit der Wiederholung angegeben"
+
+#: forms/events/recurrence_rule_form.py:57
+msgid "No weekdays for weekly recurrence selected"
+msgstr "Keine Wochentage für die wöchentliche Wiederholung eingegeben"
+
+#: forms/events/recurrence_rule_form.py:60
+msgid "No weekday for monthly recurrence selected"
+msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
+
+#: forms/events/recurrence_rule_form.py:62
+msgid "No week for monthly recurrence selected"
+msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
+
+#: forms/events/recurrence_rule_form.py:66
+msgid "If the recurrence ends, the recurrence end date is required"
+msgstr ""
+"Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
+"erforderlich"
+
+#: forms/events/recurrence_rule_form.py:70
+msgid "The recurrence end date has to be after the event's start date"
+msgstr "Das Ende der Wiederholung muss nach dem Veranstaltungsbeginn sein"
+
+#: forms/language_tree/language_tree_node_form.py:62
+msgid ""
+"This region has already a default language.Please specify a source language "
+"for this language."
+msgstr ""
+"Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
+"Quell-Sprache für diese Sprache ein."
+
+#: forms/language_tree/language_tree_node_form.py:71
+msgid ""
+"The source language belongs to another region.Please specify a source "
+"language of this region."
+msgstr ""
+"Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
+"Quell-Sprache dieser Region ein."
+
+#: forms/pages/page_form.py:64
+msgid "Embed mirrored page before this page"
+msgstr "Gespiegelte Seite vor dieser Seite einbinden"
+
+#: forms/pages/page_form.py:65
+msgid "Embed mirrored page after this page"
+msgstr "Gespiegelte Seite nach dieser Seite einbinden"
+
+#: forms/pois/poi_form.py:72
+msgid "Private"
+msgstr "Privat"
+
+#: forms/regions/region_form.py:18
+msgid "Do no import initial content"
+msgstr "Keine Inhalte übernehmen"
 
 #: models/language.py:24
 msgid "Left to right"
@@ -2085,48 +2163,6 @@ msgstr "Veranstaltung wurde erfolgreich veröffentlicht."
 msgid "Event was successfully saved."
 msgstr "Veranstaltung wurde erfolgreich gespeichert."
 
-#: views/events/forms/event_form.py:79
-msgid "If the event is not all-day, the start time is required"
-msgstr ""
-"Wenn die Veranstaltung nicht ganztägig ist, muss eine Start-Uhrzeit "
-"angegeben werden"
-
-#: views/events/forms/event_form.py:85
-msgid "If the event is not all-day, the end time is required"
-msgstr ""
-"Wenn die Veranstaltung nicht ganztägig ist, muss eine End-Uhrzeit angegeben "
-"werden"
-
-#: views/events/forms/event_form.py:90 views/events/forms/event_form.py:96
-msgid "The end of the event can't be before the start of the event"
-msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
-
-#: views/events/forms/recurrence_rule_form.py:55
-msgid "No recurrence frequency selected"
-msgstr "Keine Häufigkeit der Wiederholung angegeben"
-
-#: views/events/forms/recurrence_rule_form.py:57
-msgid "No weekdays for weekly recurrence selected"
-msgstr "Keine Wochentage für die wöchentliche Wiederholung eingegeben"
-
-#: views/events/forms/recurrence_rule_form.py:60
-msgid "No weekday for monthly recurrence selected"
-msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
-
-#: views/events/forms/recurrence_rule_form.py:62
-msgid "No week for monthly recurrence selected"
-msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
-
-#: views/events/forms/recurrence_rule_form.py:66
-msgid "If the recurrence ends, the recurrence end date is required"
-msgstr ""
-"Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
-"erforderlich"
-
-#: views/events/forms/recurrence_rule_form.py:70
-msgid "The recurrence end date has to be after the event's start date"
-msgstr "Das Ende der Wiederholung muss nach dem Veranstaltungsbeginn sein"
-
 #: views/extra_templates/extra_templates.py:62
 msgid "Extra template saved successfully"
 msgstr "Extra-Vorlage wurde erfolgreich gespeichert."
@@ -2160,22 +2196,6 @@ msgstr "Sprach-Baum wurde erfolgreich gespeichert."
 #: views/language_tree/language_tree_node.py:63
 msgid "Language tree node was created successfully."
 msgstr "Sprach-Baum wurde erfolgreich erstellt."
-
-#: views/language_tree/language_tree_node_form.py:62
-msgid ""
-"This region has already a default language.Please specify a source language "
-"for this language."
-msgstr ""
-"Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
-"Quell-Sprache für diese Sprache ein."
-
-#: views/language_tree/language_tree_node_form.py:71
-msgid ""
-"The source language belongs to another region.Please specify a source "
-"language of this region."
-msgstr ""
-"Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
-"Quell-Sprache dieser Region ein."
 
 #: views/languages/languages.py:64
 msgid "Language saved successfully."
@@ -2283,14 +2303,6 @@ msgstr ""
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
 
-#: views/pages/page_form.py:64
-msgid "Embed mirrored page before this page"
-msgstr "Gespiegelte Seite vor dieser Seite einbinden"
-
-#: views/pages/page_form.py:65
-msgid "Embed mirrored page after this page"
-msgstr "Gespiegelte Seite nach dieser Seite einbinden"
-
 #: views/pages/pages.py:39
 msgid "Please create at least one language node before creating pages."
 msgstr ""
@@ -2335,10 +2347,6 @@ msgstr "POI Übersetzung wurde erfolgreich gespeichert."
 msgid "POI was successfully restored."
 msgstr "POI wurde erfolgreich wiederhergestellt."
 
-#: views/pois/poi_form.py:72
-msgid "Private"
-msgstr "Privat"
-
 #: views/pois/pois.py:39
 msgid "Please create at least one language node before creating pois."
 msgstr ""
@@ -2367,10 +2375,6 @@ msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert."
 msgid "Error occurred sending the push notification"
 msgstr "Push-Benachrichtigung konnte nicht gesendet werden"
 
-#: views/regions/region_form.py:18
-msgid "Do no import initial content"
-msgstr "Keine Inhalte übernehmen"
-
 #: views/regions/regions.py:103
 msgid "Region saved successfully."
 msgstr "Region wurde erfolgreich gespeichert."
@@ -2383,23 +2387,19 @@ msgstr "Region wurde erfolgreich erstellt."
 msgid "Region was successfully deleted."
 msgstr "Region wurde erfolgreich gelöscht."
 
-#: views/registration/forms.py:13
-msgid "The passwords do not match."
-msgstr "Die Passwörter stimmen nicht überein."
-
-#: views/registration/registration.py:65 views/registration/registration.py:83
+#: views/registration/registration.py:67 views/registration/registration.py:85
 msgid "You need to log in first"
 msgstr "Sie müssen sich zunäachst einloggen"
 
-#: views/registration/registration.py:68
+#: views/registration/registration.py:70
 msgid "You are already logged in"
 msgstr "Sie sind bereits eingeloggt"
 
-#: views/registration/registration.py:130
+#: views/registration/registration.py:132
 msgid "You have been successfully logged off."
 msgstr "Sie wurden erfolgreich abgemeldet."
 
-#: views/registration/registration.py:142
+#: views/registration/registration.py:144
 msgid ""
 "A message with instructions for resetting your password has been sent to the "
 "e-mail address provided."
@@ -2407,11 +2407,11 @@ msgstr ""
 "Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an die "
 "angegebene E-Mail Adresse geschickt."
 
-#: views/registration/registration.py:167
+#: views/registration/registration.py:169
 msgid "Your password has been successfully changed."
 msgstr "Ihr Passwort wurde erfolgreich geändert."
 
-#: views/registration/registration.py:168
+#: views/registration/registration.py:170
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 
@@ -2423,15 +2423,15 @@ msgstr "Rolle wurde erfolgreich gespeichert."
 msgid "Role created successfully"
 msgstr "Rolle wurde erfolgreich erstellt."
 
-#: views/settings/mfa/mfa.py:50
+#: views/settings/mfa/mfa.py:51
 msgid "The provided password is not correct"
 msgstr "Das angegebene Passwort ist falsch."
 
-#: views/settings/mfa/mfa.py:101
+#: views/settings/mfa/mfa.py:102
 msgid "This nickname has already been used"
 msgstr "Dieser Name wurde bereits genutzt."
 
-#: views/settings/mfa/mfa.py:105
+#: views/settings/mfa/mfa.py:106
 msgid "You already registered this key"
 msgstr "Sie haben diesen Schlüssel bereits registriert"
 

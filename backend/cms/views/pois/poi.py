@@ -12,8 +12,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .poi_form import POIForm, POITranslationForm
 from ...decorators import region_permission_required
+from ...forms.pois import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Region, Language
 
 logger = logging.getLogger(__name__)

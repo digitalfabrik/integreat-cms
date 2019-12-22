@@ -6,8 +6,8 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
-from .extra_template_form import ExtraTemplateForm
 from ...decorators import staff_required
+from ...forms.extra_templates import ExtraTemplateForm
 from ...models.extra_template import ExtraTemplate
 
 

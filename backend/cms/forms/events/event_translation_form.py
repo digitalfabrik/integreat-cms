@@ -5,9 +5,9 @@ import logging
 
 from django import forms
 
+from ...constants import status
+from ...models import EventTranslation
 from ...utils.slug_utils import generate_unique_slug
-from ....constants import status
-from ....models import EventTranslation
 
 logger = logging.getLogger(__name__)
 

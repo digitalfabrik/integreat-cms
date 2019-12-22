@@ -6,8 +6,8 @@ import logging
 from django import forms
 from django.utils.translation import ugettext as _
 
-from ....constants import weekdays, frequency
-from ....models import RecurrenceRule
+from ...constants import weekdays, frequency
+from ...models import RecurrenceRule
 
 logger = logging.getLogger(__name__)
 

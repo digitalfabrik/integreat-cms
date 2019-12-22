@@ -6,8 +6,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .organization_form import OrganizationForm
 from ...decorators import staff_required
+from ...forms.organizations import OrganizationForm
 from ...models.organization import Organization
 
 

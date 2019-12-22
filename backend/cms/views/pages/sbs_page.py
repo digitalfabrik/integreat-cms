@@ -10,8 +10,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .page_form import PageTranslationForm
 from ...decorators import region_permission_required
+from ...forms.pages import PageTranslationForm
 from ...models import Page, Region, Language
 
 

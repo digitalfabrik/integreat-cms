@@ -5,25 +5,27 @@ from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.contrib.auth import views as auth_views
 
-from .views import analytics
-from .views import dashboard
-from .views import events
-from .views import extras
-from .views import extra_templates
-from .views import language_tree
-from .views import languages
-from .views import media
-from .views import organizations
-from .views import pages
-from .views import pois
-from .views import push_notifications
-from .views.settings import mfa
-from .views import regions
-from .views import registration
-from .views import roles
-from .views import settings
-from .views import statistics
-from .views import users
+from .forms.authentication import PasswordResetConfirmForm
+from .views import (
+    analytics,
+    dashboard,
+    events,
+    extras,
+    extra_templates,
+    language_tree,
+    languages,
+    media,
+    organizations,
+    pages,
+    pois,
+    push_notifications,
+    regions,
+    registration,
+    roles,
+    settings,
+    statistics,
+    users
+)
 
 
 urlpatterns = [
@@ -128,11 +130,11 @@ urlpatterns = [
 
     url(r'^settings/$', settings.AdminSettingsView.as_view(), name='admin_settings'),
     url(r'^user_settings/$', settings.UserSettingsView.as_view(), name='user_settings'),
-    url(r'^user_settings/mfa/register/$', mfa.register_mfa_key, name='user_settings_register_mfa_key'),
-    url(r'^user_settings/mfa/delete/(?P<key_id>\d+)$', mfa.DeleteMfaKey.as_view(), name='user_settings_delete_mfa_key'),
-    url(r'^user_settings/mfa/get_challenge/$', mfa.GetChallengeView.as_view(), name='user_settings_mfa_get_challenge'),
-    url(r'^user_settings/add_new_mfa_key/$', mfa.AddMfaKeyView.as_view(), name='user_settings_add_new_mfa_key'),
-    url(r'^user_settings/authenticate_modify_mfa/$', mfa.AuthenticateModifyMfaView.as_view(), name='user_settings_auth_modify_mfa'),
+    url(r'^user_settings/mfa/register/$', settings.mfa.register_mfa_key, name='user_settings_register_mfa_key'),
+    url(r'^user_settings/mfa/delete/(?P<key_id>\d+)$', settings.mfa.DeleteMfaKey.as_view(), name='user_settings_delete_mfa_key'),
+    url(r'^user_settings/mfa/get_challenge/$', settings.mfa.GetChallengeView.as_view(), name='user_settings_mfa_get_challenge'),
+    url(r'^user_settings/add_new_mfa_key/$', settings.mfa.AddMfaKeyView.as_view(), name='user_settings_add_new_mfa_key'),
+    url(r'^user_settings/authenticate_modify_mfa/$', settings.mfa.AuthenticateModifyMfaView.as_view(), name='user_settings_auth_modify_mfa'),
     url(r'^login/$', registration.login, name='login'),
     url(r'^login/mfa/$', registration.mfa, name='login_mfa'),
     url(r'^login/mfa/assert$', registration.mfaAssert, name='login_mfa_assert'),
@@ -151,8 +153,7 @@ urlpatterns = [
         ),
         url(
             r'^(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
-            auth_views.PasswordResetConfirmView.as_view
-            (form_class=registration.forms.PasswordResetConfirmForm),
+            auth_views.PasswordResetConfirmView.as_view(form_class=PasswordResetConfirmForm),
             name='password_reset_confirm'
         ),
         url(

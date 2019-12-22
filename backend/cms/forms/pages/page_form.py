@@ -9,9 +9,9 @@ from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.utils.translation import ugettext as _
 
-from ..utils.slug_utils import generate_unique_slug
 from ...constants import position, status
 from ...models import Page, PageTranslation, Region
+from ...utils.slug_utils import generate_unique_slug
 
 logger = logging.getLogger(__name__)
 

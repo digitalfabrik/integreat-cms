@@ -8,9 +8,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .push_notification_form import PushNotificationForm, PushNotificationTranslationForm
 from .push_notification_sender import PushNotificationSender
 from ...decorators import region_permission_required
+from ...forms.push_notifications import PushNotificationForm, PushNotificationTranslationForm
 from ...models import Language, PushNotification, PushNotificationTranslation, Region
 
 
