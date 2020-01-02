@@ -1,7 +1,7 @@
-from .poi import (
-    POIView,
+from .poi_view import POIView
+from .poi_actions import (
     view_poi,
     archive_poi,
     restore_poi
 )
-from .pois import POIListView
+from .poi_list_view import POIListView

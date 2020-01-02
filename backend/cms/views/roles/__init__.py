@@ -1,7 +1,5 @@
 """
 Python standard Init-File
 """
-from .roles import (
-    RoleListView,
-    RoleView
-)
+from .role_list_view import RoleListView
+from .role_view import RoleView

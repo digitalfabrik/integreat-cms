@@ -13,28 +13,6 @@ from ...models import Organization
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(staff_required, name='dispatch')
-class OrganizationListView(PermissionRequiredMixin, TemplateView):
-    permission_required = 'cms.manage_organizations'
-    raise_exception = True
-
-    template_name = 'organizations/list.html'
-    base_context = {'current_menu_item': 'organizations'}
-
-    def get(self, request, *args, **kwargs):
-        organizations = Organization.objects.all()
-
-        return render(
-            request,
-            self.template_name,
-            {
-                **self.base_context,
-                'organizations': organizations
-            }
-        )
-
-
-@method_decorator(login_required, name='dispatch')
-@method_decorator(staff_required, name='dispatch')
 class OrganizationView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_organizations'
     raise_exception = True

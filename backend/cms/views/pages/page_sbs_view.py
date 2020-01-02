@@ -17,11 +17,11 @@ from ...models import Page, Region, Language
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
-class SBSPageView(PermissionRequiredMixin, TemplateView):
+class PageSideBySideView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.view_pages'
     raise_exception = True
 
-    template_name = 'pages/sbs_page.html'
+    template_name = 'pages/page_sbs.html'
     base_context = {'current_menu_item': 'pages'}
 
     def get(self, request, *args, **kwargs):

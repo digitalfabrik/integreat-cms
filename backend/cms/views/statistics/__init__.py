@@ -1,4 +1,4 @@
 """
 Python standard Init-File
 """
-from .statistics import AnalyticsView
+from .analytics_view import AnalyticsView

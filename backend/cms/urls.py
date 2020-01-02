@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 
 from .forms.authentication import PasswordResetConfirmForm
 from .views import (
+    authentication,
     analytics,
     dashboard,
     events,
@@ -20,7 +21,6 @@ from .views import (
     pois,
     push_notifications,
     regions,
-    registration,
     roles,
     settings,
     statistics,
@@ -135,11 +135,11 @@ urlpatterns = [
     url(r'^user_settings/mfa/get_challenge/$', settings.mfa.GetChallengeView.as_view(), name='user_settings_mfa_get_challenge'),
     url(r'^user_settings/add_new_mfa_key/$', settings.mfa.AddMfaKeyView.as_view(), name='user_settings_add_new_mfa_key'),
     url(r'^user_settings/authenticate_modify_mfa/$', settings.mfa.AuthenticateModifyMfaView.as_view(), name='user_settings_auth_modify_mfa'),
-    url(r'^login/$', registration.login, name='login'),
-    url(r'^login/mfa/$', registration.mfa, name='login_mfa'),
-    url(r'^login/mfa/assert$', registration.mfaAssert, name='login_mfa_assert'),
-    url(r'^login/mfa/verify$', registration.mfaVerify, name='login_mfa_verify'),
-    url(r'^logout/$', registration.logout, name='logout'),
+    url(r'^login/$', authentication.login, name='login'),
+    url(r'^login/mfa/$', authentication.mfa, name='login_mfa'),
+    url(r'^login/mfa/assert$', authentication.mfaAssert, name='login_mfa_assert'),
+    url(r'^login/mfa/verify$', authentication.mfaVerify, name='login_mfa_verify'),
+    url(r'^logout/$', authentication.logout, name='logout'),
     url(r'^password_reset/', include([
         url(
             r'$',
@@ -148,7 +148,7 @@ urlpatterns = [
         ),
         url(
             r'^done/$',
-            registration.password_reset_done,
+            authentication.password_reset_done,
             name='password_reset_done'
         ),
         url(
@@ -158,7 +158,7 @@ urlpatterns = [
         ),
         url(
             r'^complete/$',
-            registration.password_reset_complete,
+            authentication.password_reset_complete,
             name='password_reset_complete'
         ),
     ])),
@@ -209,7 +209,7 @@ urlpatterns = [
                     ),
                     url(
                         r'^sbs_edit$',
-                        pages.SBSPageView.as_view(),
+                        pages.PageSideBySideView.as_view(),
                         name='sbs_edit_page'
                     ),
                     url(
@@ -239,7 +239,7 @@ urlpatterns = [
                         name='move_page'
                     ),
                 ])),
-                url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
+                url(r'^archive$', pages.PageArchive.as_view(), name='page_archive'),
             ])),
         ])),
         # TODO: Change destination for delete_event, add view_event

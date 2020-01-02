@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -10,28 +9,6 @@ from django.views.generic import TemplateView
 from ...decorators import staff_required
 from ...forms.regions import RegionForm
 from ...models import Region
-
-
-@method_decorator(login_required, name='dispatch')
-@method_decorator(staff_required, name='dispatch')
-class RegionListView(PermissionRequiredMixin, TemplateView):
-    permission_required = 'cms.manage_regions'
-    raise_exception = True
-
-    template_name = 'regions/list.html'
-    base_context = {'current_menu_item': 'regions'}
-
-    def get(self, request, *args, **kwargs):
-        regions = Region.objects.all()
-
-        return render(
-            request,
-            self.template_name,
-            {
-                **self.base_context,
-                'regions': regions
-            }
-        )
 
 
 @method_decorator(login_required, name='dispatch')
@@ -107,18 +84,3 @@ class RegionView(PermissionRequiredMixin, TemplateView):
         return redirect('edit_region', **{
             'region_slug': region.slug,
         })
-
-@login_required
-@staff_required
-# pylint: disable=unused-argument
-def delete_region(request, *args, **kwargs):
-
-    if not request.user.has_perm('cms.manage_regions'):
-        raise PermissionDenied
-
-    region = Region.objects.get(slug=kwargs.get('region_slug'))
-    region.delete()
-
-    messages.success(request, _('Region was successfully deleted.'))
-
-    return redirect('regions')

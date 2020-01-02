@@ -32,6 +32,7 @@ class MfaEnableAuthentication(auth_views.LoginView):
         auth_login(self.request, form.get_user())
         return redirect(self.get_success_url())
 
+
 def login(request):
     """View to provide login functionality
     Args:
@@ -41,6 +42,7 @@ def login(request):
     """
     return MfaEnableAuthentication.as_view(
         template_name='registration/login.html')(request)
+
 
 def mfa(request):
     """View to check 2FA authentication if applicable
@@ -52,6 +54,7 @@ def mfa(request):
     return auth_views.LoginView.as_view(
         template_name='registration/login_mfa.html')(request)
 
+
 def makeWebauthnUsers(user):
     webauthn_users = []
 
@@ -61,6 +64,7 @@ def makeWebauthnUsers(user):
             str(key.key_id, "utf-8"), key.public_key, key.sign_count, settings.HOSTNAME))
 
     return webauthn_users
+
 
 def mfaAssert(request):
     if 'mfa_user_id' not in request.session:
@@ -79,6 +83,7 @@ def mfaAssert(request):
         webauthn_users, challenge)
 
     return JsonResponse(webauthn_assertion_options.assertion_dict)
+
 
 def mfaVerify(request):
     if 'mfa_user_id' not in request.session:
@@ -119,6 +124,7 @@ def mfaVerify(request):
     auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
     return JsonResponse({'success': True})
+
 
 def logout(request):
     """View to provide logout functionality

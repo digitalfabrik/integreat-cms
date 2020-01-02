@@ -1,7 +1,7 @@
 """
 Python standard Init-File
 """
-from .registration import (
+from .authentication_actions import (
     login,
     logout,
     password_reset_done,

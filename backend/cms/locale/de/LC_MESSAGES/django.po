@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-22 22:45+0000\n"
+"POT-Creation-Date: 2020-01-03 12:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -1241,7 +1241,7 @@ msgid "Delete page"
 msgstr "Seite löschen"
 
 #: templates/pages/page.html:224 templates/pages/tree_row.html:100
-#: views/pages/page.py:236
+#: views/pages/page_actions.py:93
 msgid "You cannot delete a page which has children."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -1742,7 +1742,7 @@ msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
 #: templates/registration/password_reset_form.html:14
-#: views/languages/languages.py:70
+#: views/languages/language_view.py:48
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -2064,6 +2064,35 @@ msgstr "Dies kann nicht rückgängig gemacht werden."
 msgid "Yes, delete this user now"
 msgstr "Ja, diesen Benutzer jetzt löschen"
 
+#: views/authentication/authentication_actions.py:71
+#: views/authentication/authentication_actions.py:90
+msgid "You need to log in first"
+msgstr "Sie müssen sich zunäachst einloggen"
+
+#: views/authentication/authentication_actions.py:74
+msgid "You are already logged in"
+msgstr "Sie sind bereits eingeloggt"
+
+#: views/authentication/authentication_actions.py:138
+msgid "You have been successfully logged off."
+msgstr "Sie wurden erfolgreich abgemeldet."
+
+#: views/authentication/authentication_actions.py:150
+msgid ""
+"A message with instructions for resetting your password has been sent to the "
+"e-mail address provided."
+msgstr ""
+"Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an die "
+"angegebene E-Mail Adresse geschickt."
+
+#: views/authentication/authentication_actions.py:175
+msgid "Your password has been successfully changed."
+msgstr "Ihr Passwort wurde erfolgreich geändert."
+
+#: views/authentication/authentication_actions.py:176
+msgid "You can now log in with your new password."
+msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
+
 #: views/error_handler/error_handler.py:7
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
@@ -2131,10 +2160,12 @@ msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
 
-#: views/events/event_view.py:132 views/pages/page.py:131
-#: views/pages/sbs_page.py:107 views/pois/poi.py:114
-#: views/regions/regions.py:90 views/users/region_users.py:113
-#: views/users/users.py:90
+#: views/events/event_view.py:132 views/pages/page_sbs_view.py:107
+#: views/pages/page_view.py:122 views/pois/poi_view.py:113
+#: views/regions/region_view.py:67 views/users/region_user_actions.py:113
+#: views/users/region_user_list_view.py:113 views/users/region_user_view.py:113
+#: views/users/user_actions.py:90 views/users/user_list_view.py:90
+#: views/users/user_view.py:90
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
@@ -2163,117 +2194,92 @@ msgstr "Veranstaltung wurde erfolgreich veröffentlicht."
 msgid "Event was successfully saved."
 msgstr "Veranstaltung wurde erfolgreich gespeichert."
 
-#: views/extra_templates/extra_templates.py:62
+#: views/extra_templates/extra_template_view.py:40
 msgid "Extra template saved successfully"
 msgstr "Extra-Vorlage wurde erfolgreich gespeichert."
 
-#: views/extra_templates/extra_templates.py:65
+#: views/extra_templates/extra_template_view.py:43
 msgid "Extra template created successfully"
 msgstr "Extra-Vorlage wurde erfolgreich erstellt."
 
-#: views/extra_templates/extra_templates.py:74
-#: views/language_tree/language_tree_node.py:69
-#: views/organizations/organizations.py:72 views/pages/page.py:119
-#: views/pages/sbs_page.py:109 views/pois/poi.py:122
-#: views/push_notifications/push_notifications.py:169
-#: views/regions/regions.py:79 views/roles/roles.py:71
-#: views/users/region_users.py:116 views/users/users.py:93
+#: views/extra_templates/extra_template_view.py:52
+#: views/language_tree/language_tree_node_view.py:69
+#: views/organizations/organization_view.py:50 views/pages/page_sbs_view.py:109
+#: views/pages/page_view.py:110 views/pois/poi_view.py:121
+#: views/push_notifications/push_notification_view.py:126
+#: views/regions/region_view.py:56 views/roles/role_view.py:49
+#: views/users/region_user_actions.py:116
+#: views/users/region_user_list_view.py:116 views/users/region_user_view.py:116
+#: views/users/user_actions.py:93 views/users/user_list_view.py:93
+#: views/users/user_view.py:93
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
 
-#: views/extras/extras.py:46
+#: views/extras/extra_actions.py:17
 msgid "was successfully activated."
 msgstr "wurde erfolgreich aktiviert."
 
-#: views/extras/extras.py:59
+#: views/extras/extra_actions.py:30
 msgid "was successfully deactivated."
 msgstr "wurde erfolgreich deaktiviert."
 
-#: views/language_tree/language_tree_node.py:60
+#: views/language_tree/language_tree_node_view.py:60
 msgid "Language tree node was saved successfully."
 msgstr "Sprach-Baum wurde erfolgreich gespeichert."
 
-#: views/language_tree/language_tree_node.py:63
+#: views/language_tree/language_tree_node_view.py:63
 msgid "Language tree node was created successfully."
 msgstr "Sprach-Baum wurde erfolgreich erstellt."
 
-#: views/languages/languages.py:64
+#: views/languages/language_view.py:42
 msgid "Language saved successfully."
 msgstr "Sprache wurde erfolgreich gespeichert."
 
-#: views/languages/languages.py:66
+#: views/languages/language_view.py:44
 msgid "Language created successfully"
 msgstr "Sprache wurde erfolgreich erstellt."
 
-#: views/organizations/organizations.py:62
+#: views/organizations/organization_view.py:40
 msgid "Organization created successfully"
 msgstr "Organisation wurde erfolgreich erstellt."
 
-#: views/organizations/organizations.py:65
+#: views/organizations/organization_view.py:43
 msgid "Organization saved successfully"
 msgstr "Organisation wurde erfolgreich gespeichert."
 
-#: views/pages/page.py:62
-msgid "You don't have the permission to edit this page."
-msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
-
-#: views/pages/page.py:151
-msgid "Page was successfully created and published."
-msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
-
-#: views/pages/page.py:153
-msgid "Page was successfully created."
-msgstr "Seite wurde erfolgreich erstellt."
-
-#: views/pages/page.py:156
-msgid "Translation was successfully created and published."
-msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
-
-#: views/pages/page.py:158 views/pages/sbs_page.py:103
-msgid "Translation was successfully created."
-msgstr "Übersetzung wurde erfolgreich erstellt."
-
-#: views/pages/page.py:161
-msgid "Translation was successfully published."
-msgstr "Übersetzung wurde erfolgreich veröffentlicht."
-
-#: views/pages/page.py:163 views/pages/sbs_page.py:105
-msgid "Translation was successfully saved."
-msgstr "Übersetzung wurde erfolgreich gespeichert."
-
-#: views/pages/page.py:183
+#: views/pages/page_actions.py:40
 msgid "Page was successfully archived."
 msgstr "Seite wurde erfolgreich archiviert."
 
-#: views/pages/page.py:202
+#: views/pages/page_actions.py:59
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page.py:239
+#: views/pages/page_actions.py:96
 msgid "Page was successfully deleted."
 msgstr "Seite wurde erfolgreich gelöscht."
 
-#: views/pages/page.py:299
+#: views/pages/page_actions.py:156
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: views/pages/page.py:368 views/pages/page.py:383
+#: views/pages/page_actions.py:225 views/pages/page_actions.py:240
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page.py:376
+#: views/pages/page_actions.py:233
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page.py:391
+#: views/pages/page_actions.py:248
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nurn veröffentlichen"
 
-#: views/pages/page.py:466
+#: views/pages/page_actions.py:323
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -2283,12 +2289,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:472
+#: views/pages/page_actions.py:329
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page.py:483
+#: views/pages/page_actions.py:340
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -2298,128 +2304,128 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen"
 
-#: views/pages/page.py:489
+#: views/pages/page_actions.py:346
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
 
-#: views/pages/pages.py:39
+#: views/pages/page_sbs_view.py:103 views/pages/page_view.py:149
+msgid "Translation was successfully created."
+msgstr "Übersetzung wurde erfolgreich erstellt."
+
+#: views/pages/page_sbs_view.py:105 views/pages/page_view.py:154
+msgid "Translation was successfully saved."
+msgstr "Übersetzung wurde erfolgreich gespeichert."
+
+#: views/pages/page_tree_view.py:39
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
 "verwalten."
 
-#: views/pages/pages.py:52
+#: views/pages/page_tree_view.py:52
 msgid "You don't have the permission to edit or create pages."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Seiten zu bearbeiten oder zu "
 "erstellen."
 
-#: views/pois/poi.py:96 views/pois/poi.py:144
+#: views/pages/page_view.py:53
+msgid "You don't have the permission to edit this page."
+msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
+
+#: views/pages/page_view.py:142
+msgid "Page was successfully created and published."
+msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pages/page_view.py:144
+msgid "Page was successfully created."
+msgstr "Seite wurde erfolgreich erstellt."
+
+#: views/pages/page_view.py:147
+msgid "Translation was successfully created and published."
+msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pages/page_view.py:152
+msgid "Translation was successfully published."
+msgstr "Übersetzung wurde erfolgreich veröffentlicht."
+
+#: views/pois/poi_actions.py:28 views/pois/poi_view.py:95
 msgid "POI was successfully archived."
 msgstr "POI wurde erfolgreich archiviert."
 
-#: views/pois/poi.py:99
-msgid "POI was successfully created and published."
-msgstr "POI wurde erfolgreich erstellt und veröffentlicht."
-
-#: views/pois/poi.py:101
-msgid "POI was successfully created."
-msgstr "POI wurde erfolgreich erstellt."
-
-#: views/pois/poi.py:104
-msgid "POI Translation was successfully created and published."
-msgstr "POI Übersetzung wurde erfolgreich erstellt und veröffentlicht."
-
-#: views/pois/poi.py:106
-msgid "POI Translation was successfully created."
-msgstr "POI Übersetzung wurde erfolgreich erstellt."
-
-#: views/pois/poi.py:109
-msgid "POI Translation was successfully published."
-msgstr "POI Übersetzung wurde erfolgreich veröffentlich."
-
-#: views/pois/poi.py:111
-msgid "POI Translation was successfully saved."
-msgstr "POI Übersetzung wurde erfolgreich gespeichert."
-
-#: views/pois/poi.py:161
+#: views/pois/poi_actions.py:45
 msgid "POI was successfully restored."
 msgstr "POI wurde erfolgreich wiederhergestellt."
 
-#: views/pois/pois.py:39
+#: views/pois/poi_list_view.py:39
 msgid "Please create at least one language node before creating pois."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie POIs verwalten."
 
-#: views/push_notifications/push_notifications.py:42
+#: views/pois/poi_view.py:98
+msgid "POI was successfully created and published."
+msgstr "POI wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pois/poi_view.py:100
+msgid "POI was successfully created."
+msgstr "POI wurde erfolgreich erstellt."
+
+#: views/pois/poi_view.py:103
+msgid "POI Translation was successfully created and published."
+msgstr "POI Übersetzung wurde erfolgreich erstellt und veröffentlicht."
+
+#: views/pois/poi_view.py:105
+msgid "POI Translation was successfully created."
+msgstr "POI Übersetzung wurde erfolgreich erstellt."
+
+#: views/pois/poi_view.py:108
+msgid "POI Translation was successfully published."
+msgstr "POI Übersetzung wurde erfolgreich veröffentlich."
+
+#: views/pois/poi_view.py:110
+msgid "POI Translation was successfully saved."
+msgstr "POI Übersetzung wurde erfolgreich gespeichert."
+
+#: views/push_notifications/push_notification_list_view.py:38
 msgid ""
 "Please create at least one language node before creating push notifications."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
 "Benachrichtigungen verwalten."
 
-#: views/push_notifications/push_notifications.py:115
+#: views/push_notifications/push_notification_view.py:72
 msgid "Push notification saved successfully."
 msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert."
 
-#: views/push_notifications/push_notifications.py:118
+#: views/push_notifications/push_notification_view.py:75
 msgid "Push notification created successfully."
 msgstr "Push-Benachrichtigung wurde erfolgreich erstellt."
 
-#: views/push_notifications/push_notifications.py:164
+#: views/push_notifications/push_notification_view.py:121
 msgid "Push notification was successfully sent."
 msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert."
 
-#: views/push_notifications/push_notifications.py:166
+#: views/push_notifications/push_notification_view.py:123
 msgid "Error occurred sending the push notification"
 msgstr "Push-Benachrichtigung konnte nicht gesendet werden"
 
-#: views/regions/regions.py:103
-msgid "Region saved successfully."
-msgstr "Region wurde erfolgreich gespeichert."
-
-#: views/regions/regions.py:105
-msgid "Region created successfully"
-msgstr "Region wurde erfolgreich erstellt."
-
-#: views/regions/regions.py:122
+#: views/regions/region_actions.py:22
 msgid "Region was successfully deleted."
 msgstr "Region wurde erfolgreich gelöscht."
 
-#: views/registration/registration.py:67 views/registration/registration.py:85
-msgid "You need to log in first"
-msgstr "Sie müssen sich zunäachst einloggen"
+#: views/regions/region_view.py:80
+msgid "Region saved successfully."
+msgstr "Region wurde erfolgreich gespeichert."
 
-#: views/registration/registration.py:70
-msgid "You are already logged in"
-msgstr "Sie sind bereits eingeloggt"
+#: views/regions/region_view.py:82
+msgid "Region created successfully"
+msgstr "Region wurde erfolgreich erstellt."
 
-#: views/registration/registration.py:132
-msgid "You have been successfully logged off."
-msgstr "Sie wurden erfolgreich abgemeldet."
-
-#: views/registration/registration.py:144
-msgid ""
-"A message with instructions for resetting your password has been sent to the "
-"e-mail address provided."
-msgstr ""
-"Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an die "
-"angegebene E-Mail Adresse geschickt."
-
-#: views/registration/registration.py:169
-msgid "Your password has been successfully changed."
-msgstr "Ihr Passwort wurde erfolgreich geändert."
-
-#: views/registration/registration.py:170
-msgid "You can now log in with your new password."
-msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
-
-#: views/roles/roles.py:62
+#: views/roles/role_view.py:40
 msgid "Role saved successfully"
 msgstr "Rolle wurde erfolgreich gespeichert."
 
-#: views/roles/roles.py:65
+#: views/roles/role_view.py:43
 msgid "Role created successfully"
 msgstr "Rolle wurde erfolgreich erstellt."
 
@@ -2435,22 +2441,22 @@ msgstr "Dieser Name wurde bereits genutzt."
 msgid "You already registered this key"
 msgstr "Sie haben diesen Schlüssel bereits registriert"
 
-#: views/statistics/statistics.py:58
+#: views/statistics/analytics_view.py:58
 msgid "Please enter a correct start and enddate"
 msgstr "Bitte fügen sie ein valides Start- und Enddatum für die Ansicht ein."
 
-#: views/statistics/statistics.py:80
+#: views/statistics/analytics_view.py:80
 msgid "Connection to Matomo could not be established"
 msgstr "Es konnte keine Verbindung zum Matomo hergestellt werden."
 
-#: views/statistics/statistics.py:83
+#: views/statistics/analytics_view.py:83
 msgid ""
 "The url you have entered is invalid. Please check the corresponding settings."
 msgstr ""
 "Die URL, die Sie eingegeben haben, ist inkorrekt. Bitte prüfen Sie die "
 "Einstellungen."
 
-#: views/statistics/statistics.py:86
+#: views/statistics/analytics_view.py:86
 msgid ""
 "There was an error during the establishment of a connection. Please check "
 "the region and the entered key."
@@ -2458,15 +2464,24 @@ msgstr ""
 "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen Sie "
 "Ihre Einstellungen."
 
-#: views/users/region_users.py:102 views/users/users.py:83
+#: views/users/region_user_actions.py:102
+#: views/users/region_user_list_view.py:102 views/users/region_user_view.py:102
+#: views/users/user_actions.py:83 views/users/user_list_view.py:83
+#: views/users/user_view.py:83
 msgid "User was successfully saved."
 msgstr "Benutzer wurde erfolgreich gespeichert."
 
-#: views/users/region_users.py:104 views/users/users.py:85
+#: views/users/region_user_actions.py:104
+#: views/users/region_user_list_view.py:104 views/users/region_user_view.py:104
+#: views/users/user_actions.py:85 views/users/user_list_view.py:85
+#: views/users/user_view.py:85
 msgid "User was successfully created."
 msgstr "Benutzer wurde erfolgreich erstellt."
 
-#: views/users/region_users.py:133 views/users/users.py:108
+#: views/users/region_user_actions.py:133
+#: views/users/region_user_list_view.py:133 views/users/region_user_view.py:133
+#: views/users/user_actions.py:108 views/users/user_list_view.py:108
+#: views/users/user_view.py:108
 msgid "User was successfully deleted."
 msgstr "Benutzer wurde erfolgreich gelöscht."
 
