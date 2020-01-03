@@ -41,7 +41,7 @@ def login(request):
             HttpResponseRedirect: View function to render the Login page
     """
     return MfaEnableAuthentication.as_view(
-        template_name='registration/login.html')(request)
+        template_name='authentication/login.html')(request)
 
 
 def mfa(request):
@@ -52,7 +52,7 @@ def mfa(request):
             HttpResponseRedirect: View function to render the MFA page
     """
     return auth_views.LoginView.as_view(
-        template_name='registration/login_mfa.html')(request)
+        template_name='authentication/login_mfa.html')(request)
 
 
 def makeWebauthnUsers(user):
@@ -160,7 +160,7 @@ def password_reset_confirm(request):
             PasswordChangeDoneView: Linked to Template to build view for user
     """
 
-    template = 'registration/password_reset_confirm.html'
+    template = 'authentication/password_reset_confirm.html'
     return auth_views.PasswordChangeDoneView(template_name=template)
 
 

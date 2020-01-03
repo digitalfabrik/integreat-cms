@@ -17,7 +17,7 @@ class ExtraTemplateView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_extra_templates'
     raise_exception = True
 
-    template_name = 'extra_templates/extra_template.html'
+    template_name = 'extra_templates/extra_template_form.html'
     base_context = {'current_menu_item': 'extra_templates'}
 
     def get(self, request, *args, **kwargs):

@@ -17,7 +17,7 @@ class OrganizationView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_organizations'
     raise_exception = True
 
-    template_name = 'organizations/organization.html'
+    template_name = 'organizations/organization_form.html'
     base_context = {'current_menu_item': 'organizations'}
 
     def get(self, request, *args, **kwargs):

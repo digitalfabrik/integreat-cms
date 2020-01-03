@@ -12,7 +12,7 @@ from ...utils.file_utils import save_file
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
 class MediaEditView(TemplateView):
-    template_name = 'media/edit.html'
+    template_name = 'media/media_form.html'
     base_context = {'current_menu_item': 'media'}
 
     def get(self, request, *args, **kwargs):

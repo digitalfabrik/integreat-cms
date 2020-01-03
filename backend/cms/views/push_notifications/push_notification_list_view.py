@@ -16,7 +16,7 @@ class PushNotificationListView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.view_push_notifications'
     raise_exception = True
 
-    template_name = 'push_notifications/list.html'
+    template_name = 'push_notifications/push_notification_list.html'
     base_context = {'current_menu_item': 'push_notifications'}
 
     def get(self, request, *args, **kwargs):

@@ -16,7 +16,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.view_pages'
     raise_exception = True
 
-    template_name = 'pages/tree.html'
+    template_name = 'pages/page_tree.html'
     base_context = {'current_menu_item': 'pages'}
 
     def get(self, request, *args, **kwargs):

@@ -22,7 +22,7 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_language_tree'
     raise_exception = True
 
-    template_name = 'language_tree/tree_node.html'
+    template_name = 'language_tree/language_tree_node_form.html'
     base_context = {'current_menu_item': 'language_tree'}
 
     def get(self, request, *args, **kwargs):

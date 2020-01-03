@@ -14,7 +14,7 @@ class LanguageListView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_languages'
     raise_exception = True
 
-    template_name = 'languages/list.html'
+    template_name = 'languages/language_list.html'
     base_context = {'current_menu_item': 'languages'}
 
     def get(self, request, *args, **kwargs):

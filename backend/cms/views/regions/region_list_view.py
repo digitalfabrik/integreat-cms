@@ -14,7 +14,7 @@ class RegionListView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_regions'
     raise_exception = True
 
-    template_name = 'regions/list.html'
+    template_name = 'regions/region_list.html'
     base_context = {'current_menu_item': 'regions'}
 
     def get(self, request, *args, **kwargs):

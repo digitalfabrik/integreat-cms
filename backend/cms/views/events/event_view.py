@@ -23,7 +23,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.view_events'
     raise_exception = True
 
-    template_name = 'events/event.html'
+    template_name = 'events/event_form.html'
 
     def get(self, request, *args, **kwargs):
         language = Language.objects.get(code=kwargs.get('language_code'))

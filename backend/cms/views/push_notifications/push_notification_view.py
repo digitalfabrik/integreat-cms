@@ -20,7 +20,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.view_push_notifications'
     raise_exception = True
 
-    template_name = 'push_notifications/push_notification.html'
+    template_name = 'push_notifications/push_notification_form.html'
     base_context = {'current_menu_item': 'push_notifications'}
     push_sender = PushNotificationSender()
 

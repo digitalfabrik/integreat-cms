@@ -34,7 +34,7 @@
         <tbody>
         {% if language_tree %}
             {% recursetree language_tree %}
-                {% include "language_tree/tree_row.html" with node=node %}
+                {% include "language_tree/language_tree_node.html" with node=node %}
                 {% if not node.is_leaf_node %}
                     {{children}}
                 {% endif %}
