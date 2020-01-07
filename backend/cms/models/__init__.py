@@ -1,3 +1,6 @@
+from .accommodation import Accommodation
+from .bed_target_group import BedTargetGroup
+from .beds import Beds
 from .configuration import Configuration
 from .event import Event
 from .event import EventTranslation
