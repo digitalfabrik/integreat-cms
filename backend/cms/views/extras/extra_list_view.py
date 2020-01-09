@@ -14,7 +14,7 @@ class ExtraListView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_extras'
     raise_exception = True
 
-    template_name = 'extras/list.html'
+    template_name = 'extras/extra_list.html'
     base_context = {'current_menu_item': 'extras'}
 
     def get(self, request, *args, **kwargs):
