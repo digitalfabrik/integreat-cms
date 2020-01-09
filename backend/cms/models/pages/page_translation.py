@@ -51,12 +51,12 @@ class PageTranslation(models.Model):
 
     @property
     def permalink(self):
-        return '/'.join([
+        return '/'.join(filter(None, [
             self.page.region.slug,
             self.language.code,
             self.ancestor_path,
             self.slug
-        ])
+        ]))
 
     @property
     def available_languages(self):
