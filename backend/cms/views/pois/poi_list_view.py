@@ -16,7 +16,7 @@ class POIListView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_pois'
     raise_exception = True
 
-    template_name = 'pois/list.html'
+    template_name = 'pois/poi_list.html'
     base_context = {'current_menu_item': 'pois'}
 
     def get(self, request, *args, **kwargs):
