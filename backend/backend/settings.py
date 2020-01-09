@@ -50,9 +50,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'easy_thumbnails',
     'filer',
-    'drf_yasg',
     'mptt',
-    'rest_framework',
     'rules.apps.AutodiscoverRulesConfig',
 ]
 
@@ -173,15 +171,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'cms/static/')
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login'
-
-# API FRAMEWORK
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
 
 # Miscellaneous
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
