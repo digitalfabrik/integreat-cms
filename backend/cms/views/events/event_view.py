@@ -9,9 +9,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from .forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...constants import status
 from ...decorators import region_permission_required
+from ...forms.events import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule
 
 logger = logging.getLogger(__name__)
@@ -23,7 +23,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.view_events'
     raise_exception = True
 
-    template_name = 'events/event.html'
+    template_name = 'events/event_form.html'
 
     def get(self, request, *args, **kwargs):
         language = Language.objects.get(code=kwargs.get('language_code'))

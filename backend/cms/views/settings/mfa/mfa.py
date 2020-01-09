@@ -12,10 +12,11 @@ from django.contrib.auth.hashers import check_password
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, redirect
 
-from cms.models import UserMfa
-from cms.views.utils.mfa_utils import generate_challenge
 from backend import settings
+
+from ....models import UserMfa
 from ....decorators import modify_mfa_authenticated
+from ....utils.mfa_utils import generate_challenge
 
 class AddMfaKeyForm(forms.Form):
     nickname = forms.CharField(max_length=255, required=True)

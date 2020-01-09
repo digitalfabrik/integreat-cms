@@ -1,4 +1,4 @@
 """
 Python standard Init-File
 """
-from .translation_coverage import TranslationCoverageView
+from .translation_coverage_view import TranslationCoverageView
