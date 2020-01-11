@@ -21,6 +21,7 @@ class POI(models.Model):
     country = models.CharField(max_length=250)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    archived = models.BooleanField(default=False)
 
     @classmethod
     def get_list_view(cls):

@@ -23,36 +23,26 @@ class POIForm(forms.ModelForm):
         model = POI
         fields = ['address', 'postcode', 'city', 'country', 'latitude', 'longitude']
 
-    def __init__(self, *args, **kwargs):
-
-        logger.info(
-            'New POIForm instantiated with args %s and kwargs %s',
-            args,
-            kwargs
-        )
-
-        # pop kwarg to make sure the super class does not get this param
-        self.region = kwargs.pop('region', None)
+    def __init__(self, data=None, instance=None, disabled=False):
+        logger.info('POIForm instantiated with data %s and instance %s', data, instance)
 
         # instantiate ModelForm
-        super(POIForm, self).__init__(*args, **kwargs)
+        super(POIForm, self).__init__(data=data, instance=instance)
 
+        # If form is disabled because the user has no permissions to edit the page, disable all form fields
+        if disabled:
+            for _, field in self.fields.items():
+                field.disabled = True
 
     # pylint: disable=arguments-differ
-    def save(self, *args, **kwargs):
+    def save(self, region=None):
+        logger.info('POIForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
 
-        logger.info(
-            'POIForm saved with args %s and kwargs %s',
-            args,
-            kwargs
-        )
-
-        # don't commit saving of ModelForm, because required fields are still missing
-        kwargs['commit'] = False
-        poi = super(POIForm, self).save(*args, **kwargs)
+        poi = super(POIForm, self).save(commit=False)
 
         if not self.instance.id:
             # only update these values when poi is created
-            poi.region = self.region
+            poi.region = region
+
         poi.save()
         return poi

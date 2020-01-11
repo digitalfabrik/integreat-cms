@@ -23,7 +23,7 @@ class POITranslation(models.Model):
                             on_delete=models.SET_NULL)
     status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     short_description = models.CharField(max_length=250)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     version = models.PositiveIntegerField(default=0)
     minor_edit = models.BooleanField(default=False)
@@ -46,4 +46,5 @@ class POITranslation(models.Model):
         ])
 
     class Meta:
+        ordering = ['poi', '-version']
         default_permissions = ()

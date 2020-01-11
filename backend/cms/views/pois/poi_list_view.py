@@ -16,8 +16,13 @@ class POIListView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.manage_pois'
     raise_exception = True
 
-    template_name = 'pois/poi_list.html'
-    base_context = {'current_menu_item': 'pois'}
+    template = 'pois/poi_list.html'
+    template_archived = 'pois/poi_list_archived.html'
+    archived = False
+
+    @property
+    def template_name(self):
+        return self.template_archived if self.archived else self.template
 
     def get(self, request, *args, **kwargs):
         # current region
@@ -36,18 +41,29 @@ class POIListView(PermissionRequiredMixin, TemplateView):
         else:
             messages.error(
                 request,
-                _('Please create at least one language node before creating pois.')
+                _('Please create at least one language node before creating POIs.')
             )
             return redirect('language_tree', **{
                 'region_slug': region_slug,
             })
 
+        if not request.user.has_perm('cms.edit_pois'):
+            messages.warning(request, _("You don't have the permission to edit or create POIs."))
+
+        if language != region.default_language:
+            messages.warning(
+                request,
+                _("You can only create POIs in the default language (%(language)s).")
+                % {'language': region.default_language.translated_name}
+            )
+
         return render(
             request,
             self.template_name,
             {
-                **self.base_context,
-                'pois': region.pois.all(),
+                'current_menu_item': 'pois',
+                'pois': region.pois.filter(archived=self.archived),
+                'archived_count': region.pois.filter(archived=True).count(),
                 'language': language,
                 'languages': region.languages,
             }
