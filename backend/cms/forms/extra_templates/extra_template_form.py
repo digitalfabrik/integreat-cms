@@ -30,7 +30,7 @@ class ExtraTemplateForm(forms.ModelForm):
         super(ExtraTemplateForm, self).__init__(*args, **kwargs)
 
     def clean_slug(self):
-        return generate_unique_slug(self)
+        return generate_unique_slug(self, 'extra-template')
 
     def clean_post_data(self):
         cleaned_post_data = self.cleaned_data['post_data']

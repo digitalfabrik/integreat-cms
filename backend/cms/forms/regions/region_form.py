@@ -74,7 +74,7 @@ class RegionForm(forms.ModelForm):
         return region
 
     def clean_slug(self):
-        return generate_unique_slug(self)
+        return generate_unique_slug(self, 'region')
 
 
 def duplicate_language_tree(source_region, target_region, source_parent_id=None, target_parent=None):
