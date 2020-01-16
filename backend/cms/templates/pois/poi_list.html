@@ -1,12 +1,24 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load rules %}
 {% load static %}
 
 {% block content %}
+{% has_perm 'cms.edit_pois' request.user as can_edit_poi %}
 <div class="table-header">
     <div class="flex flex-wrap">
         <div class="w-1/2">
             <h2 class="heading font-normal mb-2">{% trans 'Points of Interest' %}</h2>
+        </div>
+        <div class="w-1/2 flex flex-wrap flex-col justify-center">
+            <div class="flex flex-wrap justify-end">
+                <a href="{% url 'archived_pois' region_slug=region.slug language_code=language.code %}" class="font-bold text-xs text-grey-darkest block pb-2 hover:underline">
+                    {% trans 'Archived POIs' %}
+                    <span class="inline-block rounded-full bg-integreat text-grey-darkest px-2 py-1 text-xs font-bold">
+                        {{ archived_count }}
+                    </span>
+                </a>
+            </div>
         </div>
     </div>
     <div class="flex flex-wrap">
@@ -14,7 +26,7 @@
             <i data-feather="search" class="absolute"></i>
             <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
         </form>
-        {% if region.default_language == language %}
+        {% if can_edit_poi and region.default_language == language %}
         <div class="w-3/4 flex flex-wrap justify-end">
             <a href="{% url 'new_poi' region_slug=region.slug language_code=language.code %}" class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
 	            {% trans 'Create POI' %}
@@ -30,7 +42,7 @@
             <tr class="border-b border-solid border-grey-light">
                 <th class="text-sm text-left uppercase py-3 pl-4 pr-2" style="width: 50px;">{% trans 'ID' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2" style="width: 200px;">
+                <th class="text-sm text-left uppercase py-3 px-2">
                     <div class="lang-grid flags" style="white-space: nowrap;">
 	                    {% for lang in languages %}
 		                    <a href="{% url 'pois' region_slug=region.slug language_code=lang.code %}">
@@ -39,10 +51,11 @@
 	                    {% endfor %}
                     </div>
                 </th>
-                <th class="text-sm text-left uppercase py-3" style="width: 250px;">{% trans 'Address' %}</th>
-                <th class="text-sm text-left uppercase py-3" style="width: 200px;">{% trans 'Postal Code' %}</th>
-	            <th class="text-sm text-left uppercase py-3" style="width: 200px;">{% trans 'City' %}</th>
-	            <th class="text-sm text-left uppercase py-3" style="width: 200px;">{% trans 'Country' %}</th>
+                <th class="text-sm text-left uppercase py-3">{% trans 'Street' %}</th>
+                <th class="text-sm text-left uppercase py-3">{% trans 'Postal Code' %}</th>
+	            <th class="text-sm text-left uppercase py-3">{% trans 'City' %}</th>
+	            <th class="text-sm text-left uppercase py-3">{% trans 'Country' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
             </tr>
         </thead>
         <tbody>
@@ -58,4 +71,14 @@
         </tbody>
     </table>
 </div>
+{% if can_edit_poi %}
+    {% include "./confirmation_popups/archive_poi.html" %}
+{% endif %}
+{% if user.is_superuser or user.is_staff %}
+    {% include "./confirmation_popups/delete_poi.html" %}
+{% endif %}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/poi.js' %}"></script>
 {% endblock %}

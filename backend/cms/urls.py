@@ -261,33 +261,14 @@ urlpatterns = [
             url(r'^$', pois.POIListView.as_view(), name='pois'),
             url(r'^(?P<language_code>[-\w]+)/', include([
                 url(r'^$', pois.POIListView.as_view(), name='pois'),
+                url(r'^archived$', pois.POIListView.as_view(archived=True), name='archived_pois'),
                 url(r'^new$', pois.POIView.as_view(), name='new_poi'),
                 url(r'^(?P<poi_id>[0-9]+)/', include([
-                    url(
-                        r'^view$',
-                        pois.view_poi,
-                        name='view_poi'
-                    ),
-                    url(
-                        r'^edit$',
-                        pois.POIView.as_view(),
-                        name='edit_poi'
-                    ),
-                    url(
-                        r'^archive$',
-                        pois.archive_poi,
-                        name='archive_poi'
-                    ),
-                    url(
-                        r'^restore$',
-                        pois.restore_poi,
-                        name='restore_poi'
-                    ),
-                    url(
-                        r'^delete$',
-                        pois.POIView.as_view(),
-                        name='delete_poi'
-                    ),
+                    url(r'^view$', pois.view_poi, name='view_poi'),
+                    url(r'^edit$', pois.POIView.as_view(), name='edit_poi'),
+                    url(r'^archive$', pois.archive_poi, name='archive_poi'),
+                    url(r'^restore$', pois.restore_poi, name='restore_poi'),
+                    url(r'^delete$', pois.delete_poi, name='delete_poi'),
                 ])),
             ])),
         ])),

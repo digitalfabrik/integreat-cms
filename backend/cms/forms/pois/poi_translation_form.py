@@ -6,6 +6,7 @@ import logging
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from ...constants import status
 from ...models import POITranslation
 from ...utils.slug_utils import generate_unique_slug
 
@@ -28,42 +29,41 @@ class POITranslationForm(forms.ModelForm):
 
     class Meta:
         model = POITranslation
-        fields = ['title', 'short_description', 'status', 'description', 'slug', 'public']
+        fields = ['title', 'short_description', 'status', 'description', 'slug']
 
-    def __init__(self, *args, **kwargs):
+    #pylint: disable=too-many-arguments
+    def __init__(self, data=None, instance=None, disabled=False, region=None, language=None):
+        logger.info('POITranslationForm instantiated with data %s and instance %s', data, instance)
 
-        logger.info(
-            'New POITranslationForm with args %s and kwargs %s',
-            args,
-            kwargs
-        )
+        self.region = region
+        self.language = language
 
-        # pop kwarg to make sure the super class does not get this param
-        self.region = kwargs.pop('region', None)
-        self.language = kwargs.pop('language', None)
+        # To set the status value through the submit button, we have to overwrite the field value for status.
+        # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
+        # Check if POST data was submitted
+        if data:
+            # Copy QueryDict because it is immutable
+            data = data.copy()
+            # Update the POST field with the status corresponding to the submitted button
+            if 'submit_draft' in data:
+                data.update({'status': status.DRAFT})
+            elif 'submit_review' in data:
+                data.update({'status': status.REVIEW})
+            elif 'submit_public' in data:
+                data.update({'status': status.PUBLIC})
 
-        super(POITranslationForm, self).__init__(*args, **kwargs)
+        super(POITranslationForm, self).__init__(data=data, instance=instance)
 
-        self.fields['public'].widget = forms.Select(choices=self.PUBLIC_CHOICES)
+        # If form is disabled because the user has no permissions to edit the page, disable all form fields
+        if disabled:
+            for _, field in self.fields.items():
+                field.disabled = True
 
     # pylint: disable=arguments-differ
-    def save(self, *args, **kwargs):
+    def save(self, poi=None, user=None):
+        logger.info('POITranslationForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
 
-        logger.info(
-            'POITranslationForm saved with args %s and kwargs %s',
-            args,
-            kwargs
-        )
-
-        # pop kwarg to make sure the super class does not get this param
-        poi = kwargs.pop('poi', None)
-        user = kwargs.pop('user', None)
-
-        if not self.instance.id:
-            # don't commit saving of ModelForm, because required fields are still missing
-            kwargs['commit'] = False
-
-        poi_translation = super(POITranslationForm, self).save(*args, **kwargs)
+        poi_translation = super(POITranslationForm, self).save(commit=False)
 
         if not self.instance.id:
             # only update these values when poi translation is created
@@ -71,9 +71,16 @@ class POITranslationForm(forms.ModelForm):
             poi_translation.creator = user
             poi_translation.language = self.language
 
+        # Only create new version if content changed
+        if not {'slug', 'title', 'short_description', 'description'}.isdisjoint(self.changed_data):
+            poi_translation.version = poi_translation.version + 1
+            poi_translation.pk = None
         poi_translation.save()
 
         return poi_translation
 
     def clean_slug(self):
-        return generate_unique_slug(self, 'poi')
+        unique_slug = generate_unique_slug(self, 'poi')
+        self.data = self.data.copy()
+        self.data['slug'] = unique_slug
+        return unique_slug

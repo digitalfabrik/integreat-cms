@@ -43,7 +43,7 @@
             {% if events %}
                 {% for event in events %}
                     {% get_translation event language.code as event_translation %}
-                    {% include "events/events_list_archived_row.html" with event=event event_translation=event_translation %}
+                    {% include "events/event_list_archived_row.html" with event=event event_translation=event_translation %}
                 {% endfor %}
             {% else %}
                 <tr>

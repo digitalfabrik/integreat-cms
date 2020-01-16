@@ -9,7 +9,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, staff_required
 from ...models import POI
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,6 @@ logger = logging.getLogger(__name__)
 def archive_poi(request, poi_id, region_slug, language_code):
     poi = POI.objects.get(id=poi_id)
 
-    poi.public = False
     poi.archived = True
     poi.save()
 
@@ -47,6 +46,20 @@ def restore_poi(request, poi_id, region_slug, language_code):
     return redirect('pois', **{
                 'region_slug': region_slug,
                 'language_code': language_code,
+    })
+
+
+@login_required
+@staff_required
+def delete_poi(request, poi_id, region_slug, language_code):
+
+    poi = POI.objects.get(id=poi_id)
+    poi.delete()
+    messages.success(request, _('POI was successfully deleted.'))
+
+    return redirect('pois', **{
+        'region_slug': region_slug,
+        'language_code': language_code,
     })
 
 

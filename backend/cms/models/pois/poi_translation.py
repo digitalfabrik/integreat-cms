@@ -19,11 +19,14 @@ class POITranslation(models.Model):
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
-    poi = models.ForeignKey(POI, related_name='translations', null=True,
-                            on_delete=models.SET_NULL)
+    poi = models.ForeignKey(
+        POI,
+        related_name='translations',
+        on_delete=models.CASCADE
+    )
     status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     short_description = models.CharField(max_length=250)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     version = models.PositiveIntegerField(default=0)
     minor_edit = models.BooleanField(default=False)
@@ -46,4 +49,5 @@ class POITranslation(models.Model):
         ])
 
     class Meta:
+        ordering = ['poi', '-version']
         default_permissions = ()
