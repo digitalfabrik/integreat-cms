@@ -1,4 +1,5 @@
 from .accommodation import Accommodation
+from .accommodation import AccommodationTranslation
 from .bed_target_group import BedTargetGroup
 from .beds import Beds
 from .configuration import Configuration
