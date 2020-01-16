@@ -21,7 +21,7 @@ class EventTranslation(models.Model):
     slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
     status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     title = models.CharField(max_length=250)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     language = models.ForeignKey(
         Language,
         related_name='event_translations',
