@@ -159,11 +159,11 @@
                             {% render_field event_form.is_all_day id="is_all_day-checkbox" %} {% trans 'All-day' %}
                         </div>
                         <div class="flex flex-wrap mb-3">
-                            <div class="time-field w-1/2 pr-2{% if event_form.instance.is_all_day %} hidden{% endif %}">
+                            <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
                                 <label for="start_time" class="mb-2 block font-bold text-sm">{% trans 'Start' %}</label>
                                 {% render_field event_form.start_time|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                             </div>
-                            <div class="time-field w-1/2 pr-2{% if event_form.instance.is_all_day %} hidden{% endif %}">
+                            <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
                                 <label for="end_time" class="mb-2 block font-bold text-sm">{% trans 'End' %}</label>
                                 {% render_field event_form.end_time|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                             </div>
@@ -304,11 +304,26 @@
         u("#is_all_day-checkbox").on('click', function(event) {
             if (event.target.checked) {
                 u(".time-field").each(function(node) {
+                    // get plain javascript object of time input field
+                    let timeInputField = u(node).find('input').first()
+                    // only change behaviour when value is empty
+                    if (!timeInputField.getAttribute('value')) {
+                        // remove empty value attribute because it is no valid time value'
+                        timeInputField.removeAttribute('value');
+                        // remove required attribute
+                        timeInputField.removeAttribute('required');
+                    }
+                    // hide input field
                     u(node).addClass('hidden');
                 });
             } else {
                 u(".time-field").each(function(node) {
+                    // show input field
                     u(node).removeClass('hidden');
+                    // clear value
+                    u(node).find('input').attr('value', '');
+                    // make field required
+                    u(node).find('input').attr('required', true);
                 });
             }
         });
