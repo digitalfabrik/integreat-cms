@@ -1,15 +1,22 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load widget_tweaks %}
 {% load content_filters %}
 {% load rules %}
 {% load poi_filters %}
 {% load compress %}
-<form method="post">
-    {% compress js %}
+
+{% block css %}
+    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
+{% endblock %}
+
+{% block javascript_head %}
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/poi.js' %}"></script>
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
     <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
     <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
@@ -23,13 +30,10 @@
     <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
     <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
     <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
+{% endblock %}
 
-    {% endcompress %}
-    {% compress css %}
-    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
-    {% endcompress%}
+{% block content %}
+<form method="post">
     {% csrf_token %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
@@ -212,10 +216,6 @@
 {% if user.is_superuser or user.is_staff %}
     {% include "./confirmation_popups/delete_poi.html" %}
 {% endif %}
-{% endblock %}
-
-{% block javascript %}
-    <script src="{% static 'js/poi.js' %}"></script>
 {% endblock %}
 
 {% block javascript_nocompress %}

@@ -1,13 +1,19 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load widget_tweaks %}
 {% load content_filters %}
 {% load rules %}
 {% load compress %}
 
-{% compress js %}
+{% block css %}
+    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
+{% endblock %}
+
+{% block javascript_head %}
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
     <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
@@ -22,13 +28,9 @@
     <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
     <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
     <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
-{% endcompress %}
-{% compress css %}
-    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
-{% endcompress%}
+{% endblock %}
 
+{% block content %}
 <form method="post">
     {% csrf_token %}
     <div class="flex flex-wrap">

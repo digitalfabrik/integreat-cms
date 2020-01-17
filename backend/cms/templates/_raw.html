@@ -10,14 +10,16 @@
     <title>{% trans 'Integreat Backend' %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}">
     {% compress css %}
+    {% block css %}{% endblock %}
     <link href="{% static 'css/style.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/upload_form.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet"type="text/css">
+    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" type="text/css">
     {% endcompress %}
     {% compress js %}
     <script src="{% static 'umbrellajs/umbrella.js' %}"></script>
     <script src="{% static 'feather-icons/dist/feather.js' %}"></script>
     <script src="{% static 'base64-js/base64js.min.js' %}"></script>
+    {% block javascript_head %}{% endblock %}
     {% endcompress %}
 </head>
 <body>
@@ -27,6 +29,5 @@
     {% block javascript %}{% endblock %}
     {% endcompress %}
     {% block javascript_nocompress %}{% endblock %}
-
 </body>
 </html>

@@ -3,6 +3,10 @@
 {% load rules %}
 {% load static %}
 
+{% block javascript_head %}
+    <script src="{% static 'js/poi.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 {% has_perm 'cms.edit_pois' request.user as can_edit_poi %}
 <div class="table-header">
@@ -77,8 +81,4 @@
 {% if user.is_superuser or user.is_staff %}
     {% include "./confirmation_popups/delete_poi.html" %}
 {% endif %}
-{% endblock %}
-
-{% block javascript %}
-    <script src="{% static 'js/poi.js' %}"></script>
 {% endblock %}
