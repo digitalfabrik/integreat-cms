@@ -1,3 +1,5 @@
+/* start page mirroring */
+
 async function update_mirrored_pages_list(url, page_id, selected=""){
   if(u("#mirrored_page_region").first().value === "") {
     u('#mirrored_page_div').addClass('hidden');
@@ -38,8 +40,7 @@ async function update_mirrored_pages_list(url, page_id, selected=""){
     u('#mirrored_page_div').removeClass('hidden');
     u('#mirrored_page_first_div').removeClass('hidden');
   }
-};
-
+}
 
 async function save_mirrored_page(url, page_id){
   if((u("#mirrored_page_region").first().value === "") || (u("#mirrored_page").first().value === "")) {
@@ -64,33 +65,52 @@ async function save_mirrored_page(url, page_id){
       return res.text();
     }
   });
-};
-async function grant_edit_page_permission(url, page_id) {
-    update_page_permission(
-        url,
-        page_id,
-        u("#id_editors").first().value,
-        'edit'
+}
+
+/* end page mirroring */
+
+/* start page permissions */
+
+u(document).handle('DOMContentLoaded', set_page_permission_event_listeners);
+
+// function to set the page permission event listeners
+function set_page_permission_event_listeners() {
+
+    u('.grant-page-permission').each(function(node)  {
+        u(node).handle('click', grant_page_permission);
+    });
+    u('.revoke-page-permission').each(function(node)  {
+        u(node).handle('click', revoke_page_permission);
+    });
+
+}
+
+// function for granting page permissions
+async function grant_page_permission(event) {
+    let button = u(event.target).closest('button');
+    let user_id = button.parent().find('select').first().value;
+    // only submit ajax request when user is selected
+    if (user_id) {
+        await update_page_permission(
+            button.data('url'),
+            button.data('page-id'),
+            user_id,
+            button.data('permission'),
+        );
+    }
+}
+
+// function for revoking page permissions
+async function revoke_page_permission(event) {
+    let link = u(event.target).closest('a');
+    await update_page_permission(
+        link.attr('href'),
+        link.data('page-id'),
+        link.data('user-id'),
+        link.data('permission')
     );
 }
-// wrapper function for granting publish page permissions
-async function grant_publish_page_permission(url, page_id) {
-    update_page_permission(
-        url,
-        page_id,
-        u("#id_publishers").first().value,
-        'publish'
-    );
-}
-// wrapper function for revoking page permissions
-async function revoke_page_permission(url, page_id) {
-    update_page_permission(
-        url,
-        page_id,
-        u(this).data('user-id'),
-        u(this).data('permission')
-    );
-}
+
 // ajax call for updating the page permissions
 async function update_page_permission(url, page_id, user_id, permission) {
     const data = await fetch(url, {
@@ -99,12 +119,12 @@ async function update_page_permission(url, page_id, user_id, permission) {
             'X-CSRFToken': u('[name=csrfmiddlewaretoken]').first().value
         },
         body: JSON.stringify({
-            "page_id": page_id,
-            "user_id": user_id,
-            "permission": permission
+            'page_id': page_id,
+            'user_id': user_id,
+            'permission': permission
         })
     }).then(res => {
-        if (res.status != 200) {
+        if (res.status !== 200) {
             // return empty result if status is not ok
             return '';
         } else {
@@ -116,14 +136,11 @@ async function update_page_permission(url, page_id, user_id, permission) {
         // insert response into table
         u("#page_permission_table").html(data);
         // set new event listeners
-        u('.revoke-page-permission').each(function(node, i)  {
-            u(this).handle('click', revoke_page_permission);
-        });
-        u("#grant-edit-page-permission").handle('click', grant_edit_page_permission);
-        u("#grant-publish-page-permission").handle('click', grant_publish_page_permission);
+        set_page_permission_event_listeners();
+        // trigger icon replacement
         feather.replace();
     }
 
 }
 
-
+/* end page permissions */
