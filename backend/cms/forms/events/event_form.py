@@ -70,19 +70,25 @@ class EventForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(EventForm, self).clean()
+        logger.info('EventForm cleaned [1/2] with cleaned data %s', cleaned_data)
 
-        # If at least one of the time fields are missing, check if is_all_day is set
-        if not cleaned_data.get('start_time'):
-            if cleaned_data.get('is_all_day'):
-                cleaned_data['start_time'] = time.min
-            else:
+        # make self.data mutable to allow values to be changed manually
+        self.data = self.data.copy()
+
+        if cleaned_data.get('is_all_day'):
+            cleaned_data['start_time'] = time.min
+            self.data['start_time'] = time.min
+            # Strip seconds and microseconds because our time fields only has hours and minutes
+            cleaned_data['end_time'] = time.max.replace(second=0, microsecond=0)
+            self.data['end_time'] = time.max.replace(second=0, microsecond=0)
+        else:
+            # If at least one of the time fields are missing, show an error
+            if not cleaned_data.get('start_time'):
                 self.add_error('start_time', forms.ValidationError(_('If the event is not all-day, the start time is required'), code='required'))
-        if not cleaned_data.get('end_time'):
-            if cleaned_data.get('is_all_day'):
-                # Strip seconds and microseconds because our time fields only has hours and minutes
-                cleaned_data['end_time'] = time.max.replace(second=0, microsecond=0)
-            else:
+            if not cleaned_data.get('end_time'):
                 self.add_error('end_time', forms.ValidationError(_('If the event is not all-day, the end time is required'), code='required'))
+            elif cleaned_data['start_time'] == time.min and cleaned_data['end_time'] == time.max.replace(second=0, microsecond=0):
+                self.data['is_all_day'] = True
 
         if cleaned_data.get('end_date') and cleaned_data.get('start_date'):
             if cleaned_data.get('end_date') < cleaned_data.get('start_date'):
@@ -95,12 +101,6 @@ class EventForm(forms.ModelForm):
                     if cleaned_data.get('end_time') < cleaned_data.get('start_time'):
                         self.add_error('end_time', forms.ValidationError(_('The end of the event can\'t be before the start of the event'), code='invalid'))
 
-        return cleaned_data
+        logger.info('EventForm cleaned [2/2] with cleaned data %s', cleaned_data)
 
-    def has_changed(self):
-        # The change of all-day does not represent anything in the model
-        try:
-            self.changed_data.remove('is_all_day')
-        except ValueError:
-            pass
-        return super(EventForm, self).has_changed()
+        return cleaned_data
