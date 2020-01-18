@@ -1,3 +1,6 @@
+"""
+API-endpoint to deliver a JSON with all active languages of an region.
+"""
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 
@@ -5,6 +8,16 @@ from cms.models import Region
 
 
 def languages(_, region_slug):
+    """
+    Function to add all languages related to a region to a JSON.
+
+    Args:
+        _ : Originally the request paramenter, but is not used in this case.
+        region_slug ([String]): Slug to identify the desired region.
+
+    Returns:
+        [String]: JSON with all used languages in a region.
+    """
     try:
         region = Region.objects.get(slug=region_slug)
 
@@ -16,5 +29,6 @@ def languages(_, region_slug):
         }, region.language_tree_nodes.filter(active=True)))
         return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
     except ObjectDoesNotExist:
-        return HttpResponse(f'No Region found with name "{region_slug}".', content_type='text/plain',
+        return HttpResponse(f'No Region found with name "{region_slug}".',
+                            content_type='text/plain',
                             status=404)

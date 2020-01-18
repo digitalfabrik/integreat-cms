@@ -79,9 +79,9 @@ else
             echo ""
         fi
         # Migrate database
-        sudo -u $SUDO_USER env PATH=$PATH integreat-cms env PATH=$PATH makemigrations cms --settings=backend.docker_settings
-        sudo -u $SUDO_USER env PATH=$PATH integreat-cms env PATH=$PATH migrate --settings=backend.docker_settings
-        sudo -u $SUDO_USER env PATH=$PATH integreat-cms env PATH=$PATH loaddata ../backend/cms/fixtures/roles.json --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH=$PATH integreat-cms makemigrations cms --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH=$PATH integreat-cms migrate --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH=$PATH integreat-cms loaddata ../backend/cms/fixtures/roles.json --settings=backend.docker_settings
         # Stop the postgres database docker container
         docker stop integreat_django_postgres > /dev/null
     fi

@@ -1,5 +1,5 @@
 """
 Python standard Init-File
 """
-from .push_notifications import PushNotificationListView, PushNotificationView
-from .push_notification_form import PushNotificationForm, PushNotificationTranslationForm
+from .push_notification_list_view import PushNotificationListView
+from .push_notification_view import PushNotificationView

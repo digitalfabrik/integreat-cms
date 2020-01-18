@@ -1,0 +1,48 @@
+"""
+Form for creating a poi object and poi translation object
+"""
+import logging
+
+from django import forms
+
+from ...models import POI
+
+
+logger = logging.getLogger(__name__)
+
+
+class POIForm(forms.ModelForm):
+    """
+    DjangoForm Class, that can be rendered to create deliverable HTML
+
+    Args:
+        forms : Defines the form as an Model form related to a database object
+    """
+
+    class Meta:
+        model = POI
+        fields = ['address', 'postcode', 'city', 'country', 'latitude', 'longitude']
+
+    def __init__(self, data=None, instance=None, disabled=False):
+        logger.info('POIForm instantiated with data %s and instance %s', data, instance)
+
+        # instantiate ModelForm
+        super(POIForm, self).__init__(data=data, instance=instance)
+
+        # If form is disabled because the user has no permissions to edit the page, disable all form fields
+        if disabled:
+            for _, field in self.fields.items():
+                field.disabled = True
+
+    # pylint: disable=arguments-differ
+    def save(self, region=None):
+        logger.info('POIForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
+
+        poi = super(POIForm, self).save(commit=False)
+
+        if not self.instance.id:
+            # only update these values when poi is created
+            poi.region = region
+
+        poi.save()
+        return poi

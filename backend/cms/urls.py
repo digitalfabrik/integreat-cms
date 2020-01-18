@@ -5,25 +5,27 @@ from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.contrib.auth import views as auth_views
 
-from .views import analytics
-from .views import dashboard
-from .views import events
-from .views import extras
-from .views import extra_templates
-from .views import language_tree
-from .views import languages
-from .views import media
-from .views import organizations
-from .views import pages
-from .views import pois
-from .views import push_notifications
-from .views.settings import mfa
-from .views import regions
-from .views import registration
-from .views import roles
-from .views import settings
-from .views import statistics
-from .views import users
+from .forms.authentication import PasswordResetConfirmForm
+from .views import (
+    authentication,
+    analytics,
+    dashboard,
+    events,
+    extras,
+    extra_templates,
+    language_tree,
+    languages,
+    media,
+    organizations,
+    pages,
+    pois,
+    push_notifications,
+    regions,
+    roles,
+    settings,
+    statistics,
+    users
+)
 
 
 urlpatterns = [
@@ -128,16 +130,16 @@ urlpatterns = [
 
     url(r'^settings/$', settings.AdminSettingsView.as_view(), name='admin_settings'),
     url(r'^user_settings/$', settings.UserSettingsView.as_view(), name='user_settings'),
-    url(r'^user_settings/mfa/register/$', mfa.register_mfa_key, name='user_settings_register_mfa_key'),
-    url(r'^user_settings/mfa/delete/(?P<key_id>\d+)$', mfa.DeleteMfaKey.as_view(), name='user_settings_delete_mfa_key'),
-    url(r'^user_settings/mfa/get_challenge/$', mfa.GetChallengeView.as_view(), name='user_settings_mfa_get_challenge'),
-    url(r'^user_settings/add_new_mfa_key/$', mfa.AddMfaKeyView.as_view(), name='user_settings_add_new_mfa_key'),
-    url(r'^user_settings/authenticate_modify_mfa/$', mfa.AuthenticateModifyMfaView.as_view(), name='user_settings_auth_modify_mfa'),
-    url(r'^login/$', registration.login, name='login'),
-    url(r'^login/mfa/$', registration.mfa, name='login_mfa'),
-    url(r'^login/mfa/assert$', registration.mfaAssert, name='login_mfa_assert'),
-    url(r'^login/mfa/verify$', registration.mfaVerify, name='login_mfa_verify'),
-    url(r'^logout/$', registration.logout, name='logout'),
+    url(r'^user_settings/mfa/register/$', settings.mfa.register_mfa_key, name='user_settings_register_mfa_key'),
+    url(r'^user_settings/mfa/delete/(?P<key_id>\d+)$', settings.mfa.DeleteMfaKey.as_view(), name='user_settings_delete_mfa_key'),
+    url(r'^user_settings/mfa/get_challenge/$', settings.mfa.GetChallengeView.as_view(), name='user_settings_mfa_get_challenge'),
+    url(r'^user_settings/add_new_mfa_key/$', settings.mfa.AddMfaKeyView.as_view(), name='user_settings_add_new_mfa_key'),
+    url(r'^user_settings/authenticate_modify_mfa/$', settings.mfa.AuthenticateModifyMfaView.as_view(), name='user_settings_auth_modify_mfa'),
+    url(r'^login/$', authentication.login, name='login'),
+    url(r'^login/mfa/$', authentication.mfa, name='login_mfa'),
+    url(r'^login/mfa/assert$', authentication.mfaAssert, name='login_mfa_assert'),
+    url(r'^login/mfa/verify$', authentication.mfaVerify, name='login_mfa_verify'),
+    url(r'^logout/$', authentication.logout, name='logout'),
     url(r'^password_reset/', include([
         url(
             r'$',
@@ -146,18 +148,17 @@ urlpatterns = [
         ),
         url(
             r'^done/$',
-            registration.password_reset_done,
+            authentication.password_reset_done,
             name='password_reset_done'
         ),
         url(
             r'^(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
-            auth_views.PasswordResetConfirmView.as_view
-            (form_class=registration.forms.PasswordResetConfirmForm),
+            auth_views.PasswordResetConfirmView.as_view(form_class=PasswordResetConfirmForm),
             name='password_reset_confirm'
         ),
         url(
             r'^complete/$',
-            registration.password_reset_complete,
+            authentication.password_reset_complete,
             name='password_reset_complete'
         ),
     ])),
@@ -208,7 +209,7 @@ urlpatterns = [
                     ),
                     url(
                         r'^sbs_edit$',
-                        pages.SBSPageView.as_view(),
+                        pages.PageSideBySideView.as_view(),
                         name='sbs_edit_page'
                     ),
                     url(
@@ -238,7 +239,7 @@ urlpatterns = [
                         name='move_page'
                     ),
                 ])),
-                url(r'^archive$', pages.ArchivedPagesView.as_view(), name='archived_pages'),
+                url(r'^archive$', pages.PageArchive.as_view(), name='page_archive'),
             ])),
         ])),
         # TODO: Change destination for delete_event, add view_event
@@ -260,33 +261,14 @@ urlpatterns = [
             url(r'^$', pois.POIListView.as_view(), name='pois'),
             url(r'^(?P<language_code>[-\w]+)/', include([
                 url(r'^$', pois.POIListView.as_view(), name='pois'),
+                url(r'^archived$', pois.POIListView.as_view(archived=True), name='archived_pois'),
                 url(r'^new$', pois.POIView.as_view(), name='new_poi'),
                 url(r'^(?P<poi_id>[0-9]+)/', include([
-                    url(
-                        r'^view$',
-                        pois.view_poi,
-                        name='view_poi'
-                    ),
-                    url(
-                        r'^edit$',
-                        pois.POIView.as_view(),
-                        name='edit_poi'
-                    ),
-                    url(
-                        r'^archive$',
-                        pois.archive_poi,
-                        name='archive_poi'
-                    ),
-                    url(
-                        r'^restore$',
-                        pois.restore_poi,
-                        name='restore_poi'
-                    ),
-                    url(
-                        r'^delete$',
-                        pois.POIView.as_view(),
-                        name='delete_poi'
-                    ),
+                    url(r'^view$', pois.view_poi, name='view_poi'),
+                    url(r'^edit$', pois.POIView.as_view(), name='edit_poi'),
+                    url(r'^archive$', pois.archive_poi, name='archive_poi'),
+                    url(r'^restore$', pois.restore_poi, name='restore_poi'),
+                    url(r'^delete$', pois.delete_poi, name='delete_poi'),
                 ])),
             ])),
         ])),

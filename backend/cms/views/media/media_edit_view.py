@@ -3,15 +3,16 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from ..utils.file_utils import save_file
 from ...decorators import region_permission_required
-from ...models import DocumentForm, Document, Region
+from ...forms.media import DocumentForm
+from ...models import Document, Region
+from ...utils.file_utils import save_file
 
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
 class MediaEditView(TemplateView):
-    template_name = 'media/edit.html'
+    template_name = 'media/media_form.html'
     base_context = {'current_menu_item': 'media'}
 
     def get(self, request, *args, **kwargs):

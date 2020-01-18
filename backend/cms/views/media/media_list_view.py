@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
-from ...models import Document, Region
+from ...models import Document
 
 
 @method_decorator(login_required, name='dispatch')
@@ -24,15 +24,3 @@ class MediaListView(TemplateView):
                 'documents': documents
             }
         )
-
-
-@login_required
-@region_permission_required
-def delete_file(request, document_id, region_slug):
-    region = Region.objects.get(slug=region_slug)
-
-    if request.method == 'POST':
-        document = Document.objects.get(pk=document_id)
-        document.delete()
-
-    return redirect('media', **{'region_slug': region.slug})

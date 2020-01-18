@@ -19,12 +19,10 @@ setup(
     install_requires=[
         "beautifulsoup4",
         "cffi",
-        "Django==2.2.8",
+        "Django==2.2.9",
         "django-filer",
         "django-mptt",
         "django-widget-tweaks",
-        "djangorestframework",
-        "drf-yasg",
         "idna",
         "lxml",
         "psycopg2-binary",

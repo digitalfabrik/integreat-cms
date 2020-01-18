@@ -1,3 +1,3 @@
-from .admin_dashboard import AdminDashboardView
-from .dashboard import DashboardView
-from .redirect import RedirectView
+from .admin_dashboard_view import AdminDashboardView
+from .dashboard_view import DashboardView
+from .redirect_view import RedirectView

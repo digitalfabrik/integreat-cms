@@ -17,8 +17,8 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.view_events'
     raise_exception = True
 
-    template = 'events/list.html'
-    template_archived = 'events/list_archived.html'
+    template = 'events/event_list.html'
+    template_archived = 'events/event_list_archived.html'
     archived = False
 
     @property

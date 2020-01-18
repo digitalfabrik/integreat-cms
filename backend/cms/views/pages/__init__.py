@@ -1,9 +1,9 @@
 """
 Python standard Init-File
 """
-from .pages import PageTreeView
-from .page import (
-    PageView,
+from .page_tree_view import PageTreeView
+from .page_view import PageView
+from .page_actions import (
     archive_page,
     restore_page,
     view_page, delete_page,
@@ -15,5 +15,5 @@ from .page import (
     get_pages_list_ajax,
     save_mirrored_page
 )
-from .archive import ArchivedPagesView
-from .sbs_page import SBSPageView
+from .page_archive_view import PageArchive
+from .page_sbs_view import PageSideBySideView

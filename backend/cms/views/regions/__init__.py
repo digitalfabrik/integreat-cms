@@ -1,5 +1,6 @@
 """
 Python standard Init-File
 """
-from .regions import RegionListView, RegionView, delete_region
-from .region_form import RegionForm
+from .region_list_view import RegionListView
+from .region_view import RegionView
+from .region_actions import delete_region

@@ -21,6 +21,10 @@ function custom_file_field() {
     });
 }
 
+u(document).handle("DOMContentLoaded", function(e) {
+    u(".slug-error").closest("#slug-div").addClass("border-red");
+});
+
 function confirmation_popup(e, id) {
     e.preventDefault();
     u('#popup-overlay').removeClass('hidden');
