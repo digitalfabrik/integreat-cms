@@ -27,8 +27,8 @@ Please add docstrings in the sphinx format (see :doc:`sphinx-rtd-tutorial:docstr
 
 .. Hint::
 
-    In the model documentation, the parameter types are not required, because they are automatically derived from the
-    model field type. See :func:`~conf.process_django_models` for more information.
+    In the model documentation, the parameters are not required, because they are automatically derived from the
+    model field type.
 
 Whenever you want to document module/class attributes which are not parameters (i.e. because they are not passed to the
 ``__init__()``-function or contain static values), use inline comments::

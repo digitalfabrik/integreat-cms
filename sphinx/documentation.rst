@@ -66,7 +66,8 @@ Example:
 .. Note::
 
     If the cross-referenced documentation uses `custom text roles <https://docutils.sourceforge.io/docs/howto/rst-roles.html>`__,
-    the usage of these custom roles will only work after these roles have been registered in :func:`~conf.setup`.
+    the usage of these custom roles will only work after these roles have been registered in an extension's ``setup()``
+    (see :class:`sphinx.application.Sphinx`).
 
 
 .. Hint::
@@ -129,7 +130,7 @@ We use the following sphinx extensions:
 * :mod:`sphinx:sphinx.ext.linkcode` adds external links to the source code of documented modules, see
   :func:`~conf.linkcode_resolve`.
 
-* `sphinxcontrib_django <https://pypi.org/project/sphinxcontrib-django/>`__ adds improvements to the docstrings of
+* `sphinxcontrib_django2 <https://pypi.org/project/sphinxcontrib-django2/>`__ adds improvements to the docstrings of
   Django models and forms.
 
 * `sphinx_rtd_theme <https://pypi.org/project/sphinx-rtd-theme/>`__ is the theme we use for our documentation:
