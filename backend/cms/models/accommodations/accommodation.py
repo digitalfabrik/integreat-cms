@@ -21,6 +21,8 @@ class Accommodation(POI):
     intake_from = models.TimeField()
     intake_to = models.TimeField()
 
+    objects = models.Manager()
+
     @property
     def languages(self):
         accommodation_translations = self.accommodation_translations.prefetch_related('language').all()
