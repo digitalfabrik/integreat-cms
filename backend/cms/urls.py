@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 
 from .forms.authentication import PasswordResetConfirmForm
 from .views import (
+    accommodations,
     authentication,
     analytics,
     dashboard,
@@ -269,6 +270,21 @@ urlpatterns = [
                     url(r'^archive$', pois.archive_poi, name='archive_poi'),
                     url(r'^restore$', pois.restore_poi, name='restore_poi'),
                     url(r'^delete$', pois.delete_poi, name='delete_poi'),
+                ])),
+            ])),
+        ])),
+        url(r'^accommodations/', include([
+            url(r'^$', accommodations.AccommodationListView.as_view(), name='accommodations'),
+            url(r'^(?P<language_code>[-\w]+)/', include([
+                url(r'^$', accommodations.AccommodationListView.as_view(), name='accommodations'),
+                url(r'^archived$', accommodations.AccommodationListView.as_view(archived=True), name='archived_accommodations'),
+                url(r'^new$', accommodations.AccommodationView.as_view(), name='new_accommodation'),
+                url(r'^(?P<accommodation_id>[0-9]+)/', include([
+                    url(r'^view$', accommodations.view_accommodation, name='view_accommodation'),
+                    url(r'^edit$', accommodations.AccommodationView.as_view(), name='edit_accommodation'),
+                    url(r'^archive$', accommodations.archive_accommodation, name='archive_accommodation'),
+                    url(r'^restore$', accommodations.restore_accommodation, name='restore_accommodation'),
+                    url(r'^delete$', accommodations.delete_accommodation, name='delete_accommodation'),
                 ])),
             ])),
         ])),
