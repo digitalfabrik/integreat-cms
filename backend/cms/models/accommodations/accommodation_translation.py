@@ -11,7 +11,6 @@ class AccommodationTranslation(models.Model):
     """
     Translation of accommodation fields
     """
-    rules_of_accommodation = models.TextField()
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
     accommodation = models.ForeignKey(
@@ -22,14 +21,13 @@ class AccommodationTranslation(models.Model):
     )
     status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     short_description = models.CharField(max_length=250)
-    description = models.TextField()
-    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    description = models.TextField(blank=True)
+    language = models.ForeignKey(Language, related_name='accommodation_translations', on_delete=models.CASCADE)
     version = models.PositiveIntegerField(default=0)
     minor_edit = models.BooleanField(default=False)
-    public = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='accommodation_translations', null=True, on_delete=models.SET_NULL)
 
     @property
     def foreign_object(self):
@@ -45,4 +43,5 @@ class AccommodationTranslation(models.Model):
         ])
 
     class Meta:
+        ordering = ['accommodation', '-version']
         default_permissions = ()
