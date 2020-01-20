@@ -1,3 +1,4 @@
+{% load i18n %}
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
     <td class="pl-2">
         <a href="{% url 'edit_bed_target_group' bed_target_group_id=bed_target_group.id %}" class="block py-3 px-2 text-grey-darkest">
@@ -14,4 +15,11 @@
             {{ bed_target_group.description }}
         </a>
 	</td>
+    <td class="pl-2 pr-4">
+        {% if user.is_superuser or user.is_staff %}
+            <button title="{% trans 'Delete Bed Target Group' %}" class="confirmation-button py-3 pl-4" data-bed_target_group-id="{{ bed_target_group.id }}" data-bed_target_group-title="{{ bed_target_group}}" data-action="{% url 'delete_bed_target_group' bed_target_group_id=bed_target_group.id %}" data-confirmation-popup="#confirm-delete-bed_target_group">
+                <i data-feather="trash-2" class="text-grey-darkest"></i>
+            </button>
+        {% endif %}
+    </td>
 </tr>

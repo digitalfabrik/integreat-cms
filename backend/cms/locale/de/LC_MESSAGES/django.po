@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 12:26+0000\n"
+"POT-Creation-Date: 2020-01-20 13:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -844,6 +844,7 @@ msgstr ""
 
 #: templates/accommodations/accommodation_list.html:59
 #: templates/accommodations/accommodation_list_archived.html:34
+#: templates/bed_target_groups/bed_target_group_list.html:27
 #: templates/events/event_list.html:63
 #: templates/events/event_list_archived.html:39
 #: templates/pages/page_tree.html:89 templates/pois/poi_list.html:58
@@ -884,6 +885,7 @@ msgstr "Ja, diese Unterkunft jetzt archivieren"
 #: templates/accommodations/confirmation_popups/archive_accommodation.html:14
 #: templates/accommodations/confirmation_popups/delete_accommodation.html:14
 #: templates/accommodations/confirmation_popups/restore_accommodation.html:14
+#: templates/bed_target_groups/confirmation_popups/delete_bed_target_group.html:11
 #: templates/events/confirmation_popups/archive.html:13
 #: templates/events/confirmation_popups/delete.html:13
 #: templates/events/confirmation_popups/restore.html:13
@@ -1134,9 +1136,21 @@ msgstr "Name"
 msgid "Slug"
 msgstr "URL-Parameter"
 
-#: templates/bed_target_groups/bed_target_group_list.html:35
+#: templates/bed_target_groups/bed_target_group_list.html:36
 msgid "No bed target groups available yet."
 msgstr "Noch keine Betten-Kategorien vorhanden."
+
+#: templates/bed_target_groups/bed_target_group_list_row.html:20
+msgid "Delete Bed Target Group"
+msgstr "Betten-Kategorie löschen"
+
+#: templates/bed_target_groups/confirmation_popups/delete_bed_target_group.html:5
+msgid "Please confirm that you really want to delete this Bed Target Group"
+msgstr "Bitte bestätigen Sie, dass diese Betten-Kategorie gelöscht werden soll"
+
+#: templates/bed_target_groups/confirmation_popups/delete_bed_target_group.html:9
+msgid "Yes, delete this Bed Target Group now."
+msgstr "Ja, die Betten-Kategorie jetzt löschen."
 
 #: templates/error_handler/csrf_failure.html:6
 msgid "CSRF Error"
@@ -2578,15 +2592,19 @@ msgstr "Ihr Passwort wurde erfolgreich geändert."
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 
-#: views/bed_target_groups/bed_target_group_view.py:41
+#: views/bed_target_groups/bed_target_group_actions.py:17
+msgid "Bed Target Group was successfully deleted."
+msgstr "Betten-Kategorie wurde erfolgreich gelöscht."
+
+#: views/bed_target_groups/bed_target_group_view.py:42
 msgid "Bed target group saved successfully"
 msgstr "Betten-Kategorie wurde erfolgreich gespeichert."
 
-#: views/bed_target_groups/bed_target_group_view.py:43
+#: views/bed_target_groups/bed_target_group_view.py:44
 msgid "Bed target group created successfully"
 msgstr "Betten-Kategorie wurde erfolgreich erstellt."
 
-#: views/bed_target_groups/bed_target_group_view.py:49
+#: views/bed_target_groups/bed_target_group_view.py:50
 #: views/extra_templates/extra_template_view.py:52
 #: views/language_tree/language_tree_node_view.py:69
 #: views/organizations/organization_view.py:50 views/pages/page_sbs_view.py:109
@@ -2992,6 +3010,9 @@ msgstr "Benutzer wurde erfolgreich erstellt."
 #: views/users/user_view.py:108
 msgid "User was successfully deleted."
 msgstr "Benutzer wurde erfolgreich gelöscht."
+
+#~ msgid "All translations of this Bed Target Group will also be deleted."
+#~ msgstr "Alle Übersetzungen dieser Betten-Kategorie werden gelöscht."
 
 #~ msgid "Select multiple languages by holding the CTRL key."
 #~ msgstr "STRG-Taste gedrückt halten, um mehrere Sprachen auszuwählen."

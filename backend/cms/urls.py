@@ -124,7 +124,7 @@ urlpatterns = [
             ),
             url(
                 r'^delete$',
-                bed_target_groups.BedTargetGroupView.as_view(),
+                bed_target_groups.delete_bed_target_group,
                 name='delete_bed_target_group'
             ),
         ])),
