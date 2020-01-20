@@ -10,6 +10,7 @@ from .views import (
     accommodations,
     authentication,
     analytics,
+    bed_target_groups,
     dashboard,
     events,
     extras,
@@ -109,6 +110,22 @@ urlpatterns = [
                 r'^delete$',
                 organizations.OrganizationView.as_view(),
                 name='delete_organization'
+            ),
+        ])),
+    ])),
+    url(r'^bed_target_groups/', include([
+        url(r'^$', bed_target_groups.BedTargetGroupListView.as_view(), name='bed_target_groups'),
+        url(r'^new$', bed_target_groups.BedTargetGroupView.as_view(), name='new_bed_target_group'),
+        url(r'^(?P<bed_target_group_id>[0-9]+)/', include([
+            url(
+                r'^edit$',
+                bed_target_groups.BedTargetGroupView.as_view(),
+                name='edit_bed_target_group'
+            ),
+            url(
+                r'^delete$',
+                bed_target_groups.delete_bed_target_group,
+                name='delete_bed_target_group'
             ),
         ])),
     ])),
