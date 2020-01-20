@@ -7,6 +7,13 @@ from django.db import models
 from ..regions.region import Region
 
 
+# pylint: disable=too-few-public-methods
+class POIManager(models.Manager):
+    def get_queryset(self):
+        # only return true POIs, no accommodations
+        return super(POIManager, self).get_queryset().filter(accommodation__isnull=True)
+
+
 class POI(models.Model):
     """Object for Point of Interests
 
@@ -22,6 +29,8 @@ class POI(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     archived = models.BooleanField(default=False)
+
+    objects = POIManager()
 
     @classmethod
     def get_list_view(cls):

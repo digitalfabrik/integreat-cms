@@ -10,9 +10,11 @@ logger = logging.getLogger(__name__)
 
 def generate_unique_slug(form_object, foreign_model):
 
+    content_models = ['page', 'event', 'poi', 'accommodation']
+
     logger.info('generate_unique_slug()')
     logger.info('foreign_model: "%s"', foreign_model)
-    if foreign_model in ['page', 'event', 'poi']:
+    if foreign_model in content_models:
         logger.info('region: "%s"', form_object.region)
         logger.info('language: "%s"', form_object.language)
 
@@ -21,7 +23,7 @@ def generate_unique_slug(form_object, foreign_model):
     # if slug is empty, generate from title/name
     if not slug:
         # determine fallback field of the model
-        if foreign_model in ['page', 'event', 'poi']:
+        if foreign_model in content_models:
             fallback = 'title'
         else:
             fallback = 'name'
@@ -42,7 +44,7 @@ def generate_unique_slug(form_object, foreign_model):
     pre_filtered_objects = form_object.Meta.model.objects
 
     # if the foreign model is a content type (e.g. page, event or poi), make sure slug is unique per region and language
-    if foreign_model in ['page', 'event', 'poi']:
+    if foreign_model in content_models:
         pre_filtered_objects = pre_filtered_objects.filter(**{
             foreign_model + '__region': form_object.region,
             'language': form_object.language
@@ -53,7 +55,7 @@ def generate_unique_slug(form_object, foreign_model):
         # get other objects with same slug
         other_objects = pre_filtered_objects.filter(slug=unique_slug)
         if form_object.instance.id:
-            if foreign_model in ['page', 'event', 'poi']:
+            if foreign_model in content_models:
                 # other objects which are just other versions of this object are allowed to have the same slug
                 other_objects = other_objects.exclude(**{
                     foreign_model: form_object.instance.foreign_object,
