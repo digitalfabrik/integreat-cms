@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+<div class="table-header">
+    <div class="flex flex-wrap">
+        <div class="w-1/2 flex flex-wrap">
+            <h2> 
+            {% trans 'Manage bed target groups'%}
+            </h2>
+        </div>
+        <div class="w-1/2 flex flex-wrap justify-end">
+            <a href="{% url 'new_bed_target_group' %}" class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+	            {% trans 'Create bed target group' %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="table-listing">
+    <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-grey-light">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Name' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Slug' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Description' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bed_target_group in bed_target_groups %}
+            {% include "bed_target_groups/bed_target_group_list_row.html" %}
+        {% empty %}
+            <tr>
+	            <td colspan="6" class="px-4 py-3">
+		            {% trans 'No bed target groups available yet.' %}
+	            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

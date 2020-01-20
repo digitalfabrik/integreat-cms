@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 11:46+0000\n"
+"POT-Creation-Date: 2020-01-20 12:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -421,7 +421,7 @@ msgstr "Unterkünfte"
 msgid "Users"
 msgstr "Benutzer"
 
-#: templates/_base.html:153 templates/_base.html:210
+#: templates/_base.html:153 templates/_base.html:214
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -445,7 +445,7 @@ msgstr "Impressum"
 msgid "Language tree"
 msgstr "Sprach-Baum"
 
-#: templates/_base.html:177 templates/_base.html:214
+#: templates/_base.html:177 templates/_base.html:218
 #: templates/statistics/statistics_dashboard.html:62
 msgid "Settings"
 msgstr "Einstellungen"
@@ -474,6 +474,10 @@ msgid "Organizations"
 msgstr "Organisationen"
 
 #: templates/_base.html:206
+msgid "Bed Target Groups"
+msgstr "Betten-Kategorien"
+
+#: templates/_base.html:210
 msgid "Extra templates"
 msgstr "Extra-Vorlagen"
 
@@ -580,6 +584,7 @@ msgid "Insert short description here"
 msgstr "Kurzbeschreibung hier eingeben"
 
 #: templates/accommodations/accommodation_form.html:120
+#: templates/bed_target_groups/bed_target_group_list.html:26
 #: templates/events/event_form.html:122 templates/pois/poi_form.html:120
 msgid "Description"
 msgstr "Beschreibung"
@@ -1054,6 +1059,85 @@ msgstr "Womöglich ist diese E-Mail Adresse nicht im System vorhanden."
 msgid "E-mail address"
 msgstr "E-Mail Adresse"
 
+#: templates/bed_target_groups/bed_target_group_form.html:13
+#, python-format
+msgid "Edit bed target group \"%(bed_target_group_name)s\""
+msgstr "Betten-Kategorie \"%(bed_target_group_name)s\" bearbeiten"
+
+#: templates/bed_target_groups/bed_target_group_form.html:16
+msgid "Create new bed target group"
+msgstr "Neue Betten-Kategorie erstellen"
+
+#: templates/bed_target_groups/bed_target_group_form.html:21
+#: templates/extra_templates/extra_template_form.html:22
+#: templates/language_tree/language_tree_node_form.html:19
+#: templates/languages/language_form.html:21
+#: templates/organizations/organization_form.html:21
+#: templates/pages/page_sbs.html:38
+#: templates/push_notifications/push_notification_form.html:26
+#: templates/regions/region_form.html:21 templates/roles/role.html:21
+#: templates/users/admin/user.html:21 templates/users/region/user.html:21
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/bed_target_groups/bed_target_group_form.html:30
+#: templates/extra_templates/extra_template_form.html:34
+#: templates/organizations/organization_form.html:31
+#: templates/regions/region_form.html:31 templates/users/admin/user.html:31
+#: templates/users/region/user.html:31
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: templates/bed_target_groups/bed_target_group_form.html:35
+msgid "Bed target group name"
+msgstr "Name der Betten-Kategorie"
+
+#: templates/bed_target_groups/bed_target_group_form.html:36
+msgid "Enter the bed target group's name here"
+msgstr "Name der Betten-Kategorie hier eingeben"
+
+#: templates/bed_target_groups/bed_target_group_form.html:39
+msgid "Slug of the bed target group"
+msgstr "Alias der Betten-Kategorie"
+
+#: templates/bed_target_groups/bed_target_group_form.html:40
+msgid "Enter the bed target group's slug here"
+msgstr "URL-Parameter der Betten-Kategorie hier eingeben"
+
+#: templates/bed_target_groups/bed_target_group_form.html:43
+msgid "Description of the bed target group"
+msgstr "Beschreibung der Betten-Kategorie"
+
+#: templates/bed_target_groups/bed_target_group_form.html:44
+msgid "Enter the bed target group's description here"
+msgstr "Kurzbeschreibung der Betten-Kategorie hier eingeben"
+
+#: templates/bed_target_groups/bed_target_group_list.html:9
+msgid "Manage bed target groups"
+msgstr "Betten-Kategorien verwalten"
+
+#: templates/bed_target_groups/bed_target_group_list.html:14
+msgid "Create bed target group"
+msgstr "Neue Betten-Kategorie erstellen"
+
+#: templates/bed_target_groups/bed_target_group_list.html:24
+#: templates/extra_templates/extra_template_list.html:24
+#: templates/extras/extra_list.html:31 templates/media/media_list.html:22
+#: templates/organizations/organization_list.html:24
+#: templates/regions/region_list.html:29 templates/roles/list.html:24
+msgid "Name"
+msgstr "Name"
+
+#: templates/bed_target_groups/bed_target_group_list.html:25
+#: templates/extra_templates/extra_template_list.html:25
+#: templates/organizations/organization_list.html:25
+msgid "Slug"
+msgstr "URL-Parameter"
+
+#: templates/bed_target_groups/bed_target_group_list.html:35
+msgid "No bed target groups available yet."
+msgstr "Noch keine Betten-Kategorien vorhanden."
+
 #: templates/error_handler/csrf_failure.html:6
 msgid "CSRF Error"
 msgstr "CSRF Fehler"
@@ -1291,27 +1375,9 @@ msgstr "Extra-Vorlage \"%(extra_template_name)s\" bearbeiten"
 msgid "Create new extra template"
 msgstr "Neue Extra-Vorlage erstellen"
 
-#: templates/extra_templates/extra_template_form.html:22
-#: templates/language_tree/language_tree_node_form.html:19
-#: templates/languages/language_form.html:21
-#: templates/organizations/organization_form.html:21
-#: templates/pages/page_sbs.html:38
-#: templates/push_notifications/push_notification_form.html:26
-#: templates/regions/region_form.html:21 templates/roles/role.html:21
-#: templates/users/admin/user.html:21 templates/users/region/user.html:21
-msgid "Save"
-msgstr "Speichern"
-
 #: templates/extra_templates/extra_template_form.html:24
 msgid "Create"
 msgstr "Erstellen"
-
-#: templates/extra_templates/extra_template_form.html:34
-#: templates/organizations/organization_form.html:31
-#: templates/regions/region_form.html:31 templates/users/admin/user.html:31
-#: templates/users/region/user.html:31
-msgid "General Settings"
-msgstr "Allgemeine Einstellungen"
 
 #: templates/extra_templates/extra_template_form.html:39
 msgid "Extra name"
@@ -1373,18 +1439,6 @@ msgstr "Extra-Vorlagen"
 #: templates/extra_templates/extra_template_list.html:14
 msgid "Create extra template"
 msgstr "Neue Extra-Vorlage erstellen"
-
-#: templates/extra_templates/extra_template_list.html:24
-#: templates/extras/extra_list.html:31 templates/media/media_list.html:22
-#: templates/organizations/organization_list.html:24
-#: templates/regions/region_list.html:29 templates/roles/list.html:24
-msgid "Name"
-msgstr "Name"
-
-#: templates/extra_templates/extra_template_list.html:25
-#: templates/organizations/organization_list.html:25
-msgid "Slug"
-msgstr "URL-Parameter"
 
 #: templates/extra_templates/extra_template_list.html:26
 msgid "URL"
@@ -2524,6 +2578,28 @@ msgstr "Ihr Passwort wurde erfolgreich geändert."
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 
+#: views/bed_target_groups/bed_target_group_view.py:41
+msgid "Bed target group saved successfully"
+msgstr "Betten-Kategorie wurde erfolgreich gespeichert."
+
+#: views/bed_target_groups/bed_target_group_view.py:43
+msgid "Bed target group created successfully"
+msgstr "Betten-Kategorie wurde erfolgreich erstellt."
+
+#: views/bed_target_groups/bed_target_group_view.py:49
+#: views/extra_templates/extra_template_view.py:52
+#: views/language_tree/language_tree_node_view.py:69
+#: views/organizations/organization_view.py:50 views/pages/page_sbs_view.py:109
+#: views/pages/page_view.py:110
+#: views/push_notifications/push_notification_view.py:126
+#: views/regions/region_view.py:56 views/roles/role_view.py:49
+#: views/users/region_user_actions.py:116
+#: views/users/region_user_list_view.py:116 views/users/region_user_view.py:116
+#: views/users/user_actions.py:93 views/users/user_list_view.py:93
+#: views/users/user_view.py:93
+msgid "Errors have occurred."
+msgstr "Es sind Fehler aufgetreten."
+
 #: views/error_handler/error_handler.py:7
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
@@ -2623,19 +2699,6 @@ msgstr "Extra-Vorlage wurde erfolgreich gespeichert."
 #: views/extra_templates/extra_template_view.py:43
 msgid "Extra template created successfully"
 msgstr "Extra-Vorlage wurde erfolgreich erstellt."
-
-#: views/extra_templates/extra_template_view.py:52
-#: views/language_tree/language_tree_node_view.py:69
-#: views/organizations/organization_view.py:50 views/pages/page_sbs_view.py:109
-#: views/pages/page_view.py:110
-#: views/push_notifications/push_notification_view.py:126
-#: views/regions/region_view.py:56 views/roles/role_view.py:49
-#: views/users/region_user_actions.py:116
-#: views/users/region_user_list_view.py:116 views/users/region_user_view.py:116
-#: views/users/user_actions.py:93 views/users/user_list_view.py:93
-#: views/users/user_view.py:93
-msgid "Errors have occurred."
-msgstr "Es sind Fehler aufgetreten."
 
 #: views/extras/extra_actions.py:17
 msgid "was successfully activated."
