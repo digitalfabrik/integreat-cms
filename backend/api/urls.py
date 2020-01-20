@@ -9,6 +9,7 @@ from .v3.pages import pages
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import regions, liveregions, hiddenregions, pushnew
 from .v3.extras import extras
+from .v3.accommodations import accommodations
 
 urlpatterns = [
     url(r'regions/$', regions, name='regions'),
@@ -22,5 +23,6 @@ urlpatterns = [
         url(r'(?P<languages>[-\w]+)/feedback/$', feedback),
         url(r'(?P<language_code>[-\w]+)/pages/$', pages),
         url(r'(?P<language_code>[-\w]+)/extras/$', extras),
+        url(r'(?P<language_code>[-\w]+)/accommodations/$', accommodations)
     ])),
 ]
