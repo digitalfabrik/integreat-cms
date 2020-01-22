@@ -170,91 +170,98 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
 @region_permission_required
 @permission_required('cms.edit_pages', raise_exception=True)
 @permission_required('cms.grant_page_permissions', raise_exception=True)
+# pylint: disable=too-many-branches
 def grant_page_permission_ajax(request):
 
-    data = json.loads(request.body.decode('utf-8'))
-    permission = data.get('permission')
-    page_id = data.get('page_id')
-    user_id = data.get('user_id')
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        permission = data.get('permission')
+        page_id = data.get('page_id')
+        user_id = data.get('user_id')
 
-    logger.info(
-        'Ajax call: The user %s wants to grant the permission to %s page with id %s to user with id %s.',
-        request.user.username,
-        permission, page_id, user_id
-    )
-
-    page = Page.objects.get(id=page_id)
-    user = get_user_model().objects.get(id=user_id)
-
-    if not page.region.page_permissions_enabled:
         logger.info(
-            'Error: Page permissions are not activated for the region "%s".',
-            page.region
+            'Ajax call: The user %s wants to grant the permission to %s page with id %s to user with id %s.',
+            request.user.username,
+            permission, page_id, user_id
         )
-        raise PermissionDenied
 
-    if not request.user.has_perm('cms.grant_page_permissions'):
-        logger.info(
-            'Error: The user %s does not have the permission to grant page permissions.',
-            request.user.username
-        )
-        raise PermissionDenied
+        page = Page.objects.get(id=page_id)
+        user = get_user_model().objects.get(id=user_id)
 
-    if not (request.user.is_superuser or request.user.is_staff):
-        # additional checks if requesting user is no superuser or staff
-        if page.region not in request.user.profile.regions:
-            # requesting user can only grant permissions for pages of his region
+        if not page.region.page_permissions_enabled:
             logger.info(
-                'Error: The user %s cannot grant permissions for region %s.',
-                request.user.username,
-                page.region.name
-            )
-            raise PermissionDenied
-        if page.region not in user.profile.regions:
-            # user can only receive permissions for pages of his region
-            logger.info(
-                'Error: The user %s cannot receive permissions for region %s.',
-                user.username,
-                page.region.name
+                'Error: Page permissions are not activated for the region "%s".',
+                page.region
             )
             raise PermissionDenied
 
-    if permission == 'edit':
-        # check, if the user already has this permission
-        if user.has_perm('cms.edit_page', page):
-            message = _('Information: The user {user} has this permission already.').format(
-                user=user.username
+        if not request.user.has_perm('cms.grant_page_permissions'):
+            logger.info(
+                'Error: The user %s does not have the permission to grant page permissions.',
+                request.user.username
             )
-            level_tag = 'info'
+            raise PermissionDenied
+
+        if not (request.user.is_superuser or request.user.is_staff):
+            # additional checks if requesting user is no superuser or staff
+            if page.region not in request.user.profile.regions:
+                # requesting user can only grant permissions for pages of his region
+                logger.info(
+                    'Error: The user %s cannot grant permissions for region %s.',
+                    request.user.username,
+                    page.region.name
+                )
+                raise PermissionDenied
+            if page.region not in user.profile.regions:
+                # user can only receive permissions for pages of his region
+                logger.info(
+                    'Error: The user %s cannot receive permissions for region %s.',
+                    user.username,
+                    page.region.name
+                )
+                raise PermissionDenied
+
+        if permission == 'edit':
+            # check, if the user already has this permission
+            if user.has_perm('cms.edit_page', page):
+                message = _('Information: The user {user} has this permission already.').format(
+                    user=user.username
+                )
+                level_tag = 'info'
+            else:
+                # else grant the permission by adding the user to the editors of the page
+                page.editors.add(user)
+                page.save()
+                message = _('Success: The user {user} can now edit this page.').format(
+                    user=user.username
+                )
+                level_tag = 'success'
+        elif permission == 'publish':
+            # check, if the user already has this permission
+            if user.has_perm('cms.publish_page', page):
+                message = _('Information: The user {user} has this permission already.').format(
+                    user=user.username
+                )
+                level_tag = 'info'
+            else:
+                # else grant the permission by adding the user to the publishers of the page
+                page.publishers.add(user)
+                page.save()
+                message = _('Success: The user {user} can now publish this page.').format(
+                    user=user.username
+                )
+                level_tag = 'success'
         else:
-            # else grant the permission by adding the user to the editors of the page
-            page.editors.add(user)
-            page.save()
-            message = _('Success: The user {user} can now edit this page.').format(
-                user=user.username
+            logger.info(
+                'Error: The permission %s is not supported.',
+                permission
             )
-            level_tag = 'success'
-    elif permission == 'publish':
-        # check, if the user already has this permission
-        if user.has_perm('cms.publish_page', page):
-            message = _('Information: The user {user} has this permission already.').format(
-                user=user.username
-            )
-            level_tag = 'info'
-        else:
-            # else grant the permission by adding the user to the publishers of the page
-            page.publishers.add(user)
-            page.save()
-            message = _('Success: The user {user} can now publish this page.').format(
-                user=user.username
-            )
-            level_tag = 'success'
-    else:
-        logger.info(
-            'Error: The permission %s is not supported.',
-            permission
-        )
-        raise PermissionDenied
+            raise PermissionDenied
+    # pylint: disable=broad-except
+    except Exception as e:
+        logger.error(e)
+        message = _('An error has occurred. Please contact an administrator.')
+        level_tag = 'error'
 
     logger.info(message)
 
@@ -275,84 +282,90 @@ def grant_page_permission_ajax(request):
 # pylint: disable=too-many-branches
 def revoke_page_permission_ajax(request):
 
-    data = json.loads(request.body.decode('utf-8'))
-    permission = data.get('permission')
-    page_id = data.get('page_id')
-    page = Page.objects.get(id=page_id)
-    user = get_user_model().objects.get(id=data.get('user_id'))
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        permission = data.get('permission')
+        page_id = data.get('page_id')
+        page = Page.objects.get(id=page_id)
+        user = get_user_model().objects.get(id=data.get('user_id'))
 
-    logger.info(
-        'Ajax call: The user %s wants to revoke the permission to %s page with id %s from user %s.',
-        request.user.username,
-        permission,
-        page_id,
-        user.username
-    )
-
-    if not page.region.page_permissions_enabled:
         logger.info(
-            'Error: Page permissions are not activated for the region "%s".',
-            page.region
+            'Ajax call: The user %s wants to revoke the permission to %s page with id %s from user %s.',
+            request.user.username,
+            permission,
+            page_id,
+            user.username
         )
-        raise PermissionDenied
 
-    if not request.user.has_perm('cms.grant_page_permissions'):
-        logger.info(
-            'Error: The user %s does not have the permission to revoke page permissions.',
-            request.user.username
-        )
-        raise PermissionDenied
-
-    if not (request.user.is_superuser or request.user.is_staff):
-        # additional checks if requesting user is no superuser or staff
-        if page.region not in request.user.profile.regions:
-            # requesting user can only revoke permissions for pages of his region
+        if not page.region.page_permissions_enabled:
             logger.info(
-                'Error: The user %s cannot revoke permissions for region %s.',
-                request.user.username, page.region.name
+                'Error: Page permissions are not activated for the region "%s".',
+                page.region
             )
             raise PermissionDenied
 
-    if permission == 'edit':
-        if user in page.editors.all():
-            # revoke the permission by removing the user to the editors of the page
-            page.editors.remove(user)
-            page.save()
-        # check, if the user has this permission anyway
-        if user.has_perm('cms.edit_page', page):
-            message = _('Information: The user {user} has been removed from the editors of this page, '
-                        'but has the implicit permission to edit this page anyway.').format(
-                            user=user.username
-                        )
-            level_tag = 'info'
-        else:
-            message = _('Success: The user {user} cannot edit this page anymore.').format(
-                user=user.username
+        if not request.user.has_perm('cms.grant_page_permissions'):
+            logger.info(
+                'Error: The user %s does not have the permission to revoke page permissions.',
+                request.user.username
             )
-            level_tag = 'success'
-    elif permission == 'publish':
-        if user in page.publishers.all():
-            # revoke the permission by removing the user to the publishers of the page
-            page.publishers.remove(user)
-            page.save()
-        # check, if the user already has this permission
-        if user.has_perm('cms.publish_page', page):
-            message = _('Information: The user {user} has been removed from the publishers of this page, '
-                        'but has the implicit permission to publish this page anyway.').format(
-                            user=user.username
-                        )
-            level_tag = 'info'
+            raise PermissionDenied
+
+        if not (request.user.is_superuser or request.user.is_staff):
+            # additional checks if requesting user is no superuser or staff
+            if page.region not in request.user.profile.regions:
+                # requesting user can only revoke permissions for pages of his region
+                logger.info(
+                    'Error: The user %s cannot revoke permissions for region %s.',
+                    request.user.username, page.region.name
+                )
+                raise PermissionDenied
+
+        if permission == 'edit':
+            if user in page.editors.all():
+                # revoke the permission by removing the user to the editors of the page
+                page.editors.remove(user)
+                page.save()
+            # check, if the user has this permission anyway
+            if user.has_perm('cms.edit_page', page):
+                message = _('Information: The user {user} has been removed from the editors of this page, '
+                            'but has the implicit permission to edit this page anyway.').format(
+                                user=user.username
+                            )
+                level_tag = 'info'
+            else:
+                message = _('Success: The user {user} cannot edit this page anymore.').format(
+                    user=user.username
+                )
+                level_tag = 'success'
+        elif permission == 'publish':
+            if user in page.publishers.all():
+                # revoke the permission by removing the user to the publishers of the page
+                page.publishers.remove(user)
+                page.save()
+            # check, if the user already has this permission
+            if user.has_perm('cms.publish_page', page):
+                message = _('Information: The user {user} has been removed from the publishers of this page, '
+                            'but has the implicit permission to publish this page anyway.').format(
+                                user=user.username
+                            )
+                level_tag = 'info'
+            else:
+                message = _('Success: The user {user} cannot publish this page anymore.').format(
+                    user=user.username
+                )
+                level_tag = 'success'
         else:
-            message = _('Success: The user {user} cannot publish this page anymore.').format(
-                user=user.username
+            logger.info(
+                'Error: The permission %s is not supported.',
+                permission
             )
-            level_tag = 'success'
-    else:
-        logger.info(
-            'Error: The permission %s is not supported.',
-            permission
-        )
-        raise PermissionDenied
+            raise PermissionDenied
+    # pylint: disable=broad-except
+    except Exception as e:
+        logger.error(e)
+        message = _('An error has occurred. Please contact an administrator.')
+        level_tag = 'error'
 
     logger.info(message)
 
