@@ -3,11 +3,17 @@
 {% load poi_filters %}
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
-	<td class="py-3 px-2">
+	<td class="pl-4 pr-2 min">
 		{{ poi.id }}
 	</td>
+    <td class="pr-2 min">
+        {{ poi_translation.version }}
+    </td>
+    <td>
+        {{ poi_translation.get_status_display }}
+    </td>
 	<td>
-		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block text-gray-800">
 			{{ poi|poi_translation_title:language }}
 		</a>
 	</td>
@@ -34,24 +40,18 @@
 	<td>
 		{{ poi.country }}
 	</td>
-    <td class="pl-2 pr-4 flex">
+    <td class="pl-2 pr-4 min text-right">
         <!-- TODO: add link to view poi in web app -->
-        <a href="#" class="py-3" style="padding-right:4px;">
-            <i data-feather="eye" class="text-gray-800"></i>
+        <a href="#" class="py-3">
+            <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
-        {% has_perm 'cms.edit_pois' request.user as can_edit_poi %}
-        {% if can_edit_poi %}
-            <button title="{% trans 'Archive POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
-                <i data-feather="archive" class="text-gray-800"></i>
-            </button>
-        {% endif %}
+        <button title="{% trans 'Archive POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
+            <i data-feather="archive" class="inline-block text-gray-800"></i>
+        </button>
         {% if user.is_superuser or user.is_staff %}
             <button title="{% trans 'Delete POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
-                <i data-feather="trash-2" class="text-gray-800"></i>
+                <i data-feather="trash-2" class="inline-block text-gray-800"></i>
             </button>
         {% endif %}
     </td>
 </tr>
-{% if user.is_superuser or user.is_staff %}
-    {% include "./confirmation_popups/delete_poi.html" with poi=poi %}
-{% endif %}

@@ -66,11 +66,11 @@
     <table class="w-full mt-4 rounded border border-solid border-gray-light shadow bg-white table-auto">
         <thead>
             <tr class="border-b border-solid border-gray-light">
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4"></th>
-                <th class="text-sm text-left uppercase py-3 pl-4">{% trans 'ID' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2">{% trans 'Version' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2">{% trans 'Status' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"></th>
+                <th class="text-sm text-left uppercase py-3 pr-2 min">{% trans 'ID' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 min">{% trans 'Version' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
                 {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
                 {% if LANGUAGE_CODE != language.code %}
