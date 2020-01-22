@@ -83,7 +83,7 @@
     "fields": {
       "code": "en-us",
       "english_name": "English",
-      "native_name": "Deutsch",
+      "native_name": "English",
       "text_direction": "ltr",
       "created_date": "2019-08-12T07:50:24.635Z",
       "last_updated": "2019-08-12T07:50:24.636Z"
@@ -1140,6 +1140,121 @@
       "use_postal_code": "GET",
       "created_date": "2019-10-09T16:46:26.624Z",
       "last_updated": "2019-10-09T16:46:26.632Z"
+    }
+  },
+  {
+    "model": "cms.event",
+    "pk": 1,
+    "fields": {
+      "region": 1,
+      "location": null,
+      "start_date": "2030-01-01",
+      "start_time": "13:00:00",
+      "end_date": "2030-01-01",
+      "end_time": "15:00:00",
+      "recurrence_rule": 1,
+      "picture": "",
+      "archived": false
+    }
+  },
+  {
+    "model": "cms.recurrencerule",
+    "pk": 1,
+    "fields": {
+      "frequency": "WEEKLY",
+      "interval": 2,
+      "weekdays_for_weekly": "[\"1\", \"3\"]",
+      "weekday_for_monthly": null,
+      "week_for_monthly": null,
+      "recurrence_end_date": "2031-01-01"
+    }
+  },
+  {
+    "model": "cms.eventtranslation",
+    "pk": 1,
+    "fields": {
+      "event": 1,
+      "slug": "test-veranstaltung",
+      "status": "PUBLIC",
+      "title": "Test-Veranstaltung",
+      "description": "<p>Dies ist die Beschreibung einer Test-Veranstaltung.</p>",
+      "language": 1,
+      "currently_in_translation": false,
+      "version": 1,
+      "minor_edit": false,
+      "creator": 1,
+      "created_date": "2020-01-22T12:45:51.950Z",
+      "last_updated": "2020-01-22T12:46:33.967Z"
+    }
+  },
+  {
+    "model": "cms.eventtranslation",
+    "pk": 2,
+    "fields": {
+      "event": 1,
+      "slug": "test-event",
+      "status": "PUBLIC",
+      "title": "Test-Event",
+      "description": "<p>This is the description of a test-event.</p>",
+      "language": 2,
+      "currently_in_translation": false,
+      "version": 1,
+      "minor_edit": false,
+      "creator": 1,
+      "created_date": "2020-01-22T12:46:16.739Z",
+      "last_updated": "2020-01-22T12:46:16.746Z"
+    }
+  },
+  {
+    "model": "cms.poi",
+    "pk": 4,
+    "fields": {
+      "region": 1,
+      "address": "Test-Stra\u00dfe 3",
+      "postcode": "12345",
+      "city": "Augsburg",
+      "country": "Deutschland",
+      "latitude": 1.0,
+      "longitude": 1.0,
+      "archived": false
+    }
+  },
+  {
+    "model": "cms.poitranslation",
+    "pk": 1,
+    "fields": {
+      "title": "Test-Ort",
+      "slug": "test-ort",
+      "poi": 4,
+      "status": "PUBLIC",
+      "short_description": "Kurzbeschreibung des Test-Ortes",
+      "description": "<p>Beschreibung des Test-Ortes</p>",
+      "language": 1,
+      "version": 1,
+      "minor_edit": false,
+      "public": false,
+      "created_date": "2020-01-22T12:52:13.611Z",
+      "last_updated": "2020-01-22T12:52:13.616Z",
+      "creator": 1
+    }
+  },
+  {
+    "model": "cms.poitranslation",
+    "pk": 2,
+    "fields": {
+      "title": "Test location",
+      "slug": "test-location",
+      "poi": 4,
+      "status": "PUBLIC",
+      "short_description": "Short description of the test location",
+      "description": "<p>Description of the test location</p>",
+      "language": 2,
+      "version": 1,
+      "minor_edit": false,
+      "public": false,
+      "created_date": "2020-01-22T12:52:56.720Z",
+      "last_updated": "2020-01-22T12:52:56.726Z",
+      "creator": 1
     }
   }
 ]
