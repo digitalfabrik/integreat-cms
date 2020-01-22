@@ -29,10 +29,10 @@ class POITranslationForm(forms.ModelForm):
 
     class Meta:
         model = POITranslation
-        fields = ['title', 'short_description', 'status', 'description', 'slug']
+        fields = ['title', 'short_description', 'status', 'description', 'slug', 'minor_edit']
 
     #pylint: disable=too-many-arguments
-    def __init__(self, data=None, instance=None, disabled=False, region=None, language=None):
+    def __init__(self, data=None, instance=None, region=None, language=None):
         logger.info('POITranslationForm instantiated with data %s and instance %s', data, instance)
 
         self.region = region
@@ -47,15 +47,13 @@ class POITranslationForm(forms.ModelForm):
             # Update the POST field with the status corresponding to the submitted button
             if 'submit_draft' in data:
                 data.update({'status': status.DRAFT})
-            elif 'submit_review' in data:
-                data.update({'status': status.REVIEW})
             elif 'submit_public' in data:
                 data.update({'status': status.PUBLIC})
 
         super(POITranslationForm, self).__init__(data=data, instance=instance)
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
+        if instance and instance.poi.archived:
             for _, field in self.fields.items():
                 field.disabled = True
 

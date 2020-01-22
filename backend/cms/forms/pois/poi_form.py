@@ -23,14 +23,14 @@ class POIForm(forms.ModelForm):
         model = POI
         fields = ['address', 'postcode', 'city', 'country', 'latitude', 'longitude']
 
-    def __init__(self, data=None, instance=None, disabled=False):
+    def __init__(self, data=None, instance=None):
         logger.info('POIForm instantiated with data %s and instance %s', data, instance)
 
         # instantiate ModelForm
         super(POIForm, self).__init__(data=data, instance=instance)
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
+        if instance and instance.archived:
             for _, field in self.fields.items():
                 field.disabled = True
 

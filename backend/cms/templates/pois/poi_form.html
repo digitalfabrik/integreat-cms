@@ -60,15 +60,9 @@
             </h2>
         </div>
         <div class="w-1/5 flex justify-end mb-6">
-        {% has_perm 'cms.edit_poi' request.user poi_form.instance.id as can_edit_poi %}
-        {% if can_edit_poi %}
+        {% if not poi_form.instance.archived %}
             <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
-        {% endif %}
-        {% has_perm 'cms.publish_poi' request.user poi_form.instance.id as can_publish_poi %}
-        {% if can_publish_poi %}
             <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
-        {% else %}
-            <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
         {% endif %}
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
@@ -79,12 +73,12 @@
                             <div class="border-b-2 border-white">
                         {% if other_language == language %}
                             <div class="p-4">
-                            <i data-feather="{% if other_language in poi_form.instance.id.languages %}edit-2{% else %}plus{% endif %}" class="inline-block"></i>
-                            {{ other_language.translated_name }}
+                                <i data-feather="{% if other_language in poi_form.instance.languages %}edit-2{% else %}plus{% endif %}" class="inline-block"></i>
+                                {{ other_language.translated_name }}
                             </div>
                         {% else %}
                             <a class="block p-4" style="color: inherit;" href="{% url 'edit_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=other_language.code %}">
-                                <i data-feather="{% if other_language in poi_form.instance.id.languages %}edit-2{% else %}plus{% endif %}" class="inline-block"></i>
+                                <i data-feather="{% if other_language in poi_form.instance.languages %}edit-2{% else %}plus{% endif %}" class="inline-block"></i>
                                 {{ other_language.translated_name }}
                             </a>
                         {% endif %}
@@ -96,9 +90,9 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
                     {% if poi_translation_form.instance.id %}
-                        <label for="events_enabled" class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                        <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
                         {{ poi_translation_form.instance.version }}<br>
-                        <label for="events_enabled" class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                        <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
                         {{ poi_translation_form.instance.get_status_display }}
                     {% endif %}
                     <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
@@ -171,7 +165,7 @@
                             <span class="filename"></span>
                         </label>
                     </div>
-                    {% if poi_form.instance.id and can_edit_poi %}
+                    {% if poi_form.instance.id %}
                         <div class="pt-2 pb-4">
                             {% if poi_form.instance.archived %}
                             <span class="block font-bold mb-4">{% trans 'Restore POI' %}</span>
@@ -200,15 +194,15 @@
     </div>
 </form>
 
-{% if poi_form.instance.id and can_edit_poi %}
+{% if poi_form.instance.id %}
     {% if poi_form.instance.archived %}
         {% include "./confirmation_popups/restore_poi.html" %}
     {% else %}
         {% include "./confirmation_popups/archive_poi.html" %}
     {% endif %}
-{% endif %}
-{% if user.is_superuser or user.is_staff %}
-    {% include "./confirmation_popups/delete_poi.html" %}
+    {% if user.is_superuser or user.is_staff %}
+        {% include "./confirmation_popups/delete_poi.html" %}
+    {% endif %}
 {% endif %}
 {% endblock %}
 
@@ -291,7 +285,8 @@ document.addEventListener('DOMContentLoaded', function(){
                     editor.insertContent('<img src="{% static "svg/idea.svg" %}" style="width:1.5em">');
                 }
             });
-        }
+        }{% if poi_form.instance.archived %},
+        readonly : 1{% endif %}
     });
 
     custom_file_field();
