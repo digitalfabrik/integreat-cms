@@ -50,25 +50,17 @@ def transform_accommodation(accommodation: Accommodation, translation: Accommoda
             "slug": accommodation.institution.slug,
             "name": accommodation.institution.name,
             "thumbnail": accommodation.institution.thumbnail
-        }
+        },
+        'beds': [
+            {
+                'target_group': bed.target_group.name,
+                'num_beds': bed.num_beds,
+                'num_free_beds': bed.num_free_beds
+            }
+            for bed in accommodation.beds.all()
+        ]
+
     }
-    # TODO implement with beds information when available
-    # 'beds': [
-    #    {
-    #        'target_group': 'female_only',
-    #        'num_beds': 20,
-    #        'num_free_beds': 10
-    #    },
-    #    {
-    #        'target_group': 'families',
-    #        'num_beds': 10,
-    #        'num_free_beds': 2
-    #    },
-    #    {
-    #        'target_group': 'intoxicated',
-    #        'num_beds': 2,
-    #        'num_free_beds': 0
-    #    }
 
 
 def accommodations(request, region_slug, language_code):
