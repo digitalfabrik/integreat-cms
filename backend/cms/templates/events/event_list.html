@@ -11,9 +11,9 @@
             </div>
             <div class="w-1/2 flex flex-wrap flex-col justify-center">
                 <div class="flex flex-wrap justify-end">
-                    <a href="{% url 'events_archived' region_slug=region.slug language_code=language.code %}" class="font-bold text-xs text-grey-darkest block pb-2 hover:underline">
+                    <a href="{% url 'events_archived' region_slug=region.slug language_code=language.code %}" class="font-bold text-xs text-gray-800 block pb-2 hover:underline">
                         {% trans 'Archived events' %}
-                        <span class="inline-block rounded-full bg-integreat text-grey-darkest px-2 py-1 text-xs font-bold">
+                        <span class="inline-block rounded-full bg-integreat text-gray-800 px-2 py-1 text-xs font-bold">
                             {{ archived_count }}
                         </span>
                     </a>
@@ -28,7 +28,7 @@
             {% if region.default_language == language %}
             <div class="w-1/2 flex flex-wrap justify-end">
                 <a href="{% url 'new_event' region_slug=region.slug language_code=language.code %}"
-                   class="bg-grey-dark hover:bg-integreat hover:text-grey-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                   class="bg-gray-500 hover:bg-integreat hover:text-gray-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     {% trans 'Create event' %}
                 </a>
             </div>
@@ -36,9 +36,9 @@
         </div>
     </div>
     <div class="table-listing">
-        <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white">
+        <table class="w-full mt-4 rounded border border-solid border-gray-light shadow bg-white">
             <thead>
-            <tr class="border-b border-solid border-grey-light">
+            <tr class="border-b border-solid border-gray-light">
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'ID' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Version' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Status' %}</th>

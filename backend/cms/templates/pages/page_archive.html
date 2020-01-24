@@ -15,9 +15,9 @@
     </div>
 </div>
 <div class="table-listing">
-    <table class="w-full mt-4 rounded border border-solid border-grey-light shadow bg-white">
+    <table class="w-full mt-4 rounded border border-solid border-gray-light shadow bg-white">
         <thead>
-            <tr class="border-b border-solid border-grey-light">
+            <tr class="border-b border-solid border-gray-light">
                 <th class="text-sm text-left uppercase py-3 pl-4 pr-2 w-full">{% trans 'Title' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Operations' %}</th>
             </tr>
@@ -30,9 +30,9 @@
             			{{ page }}
             		</td>
                     <td class="pl-2 pr-4 py-3">
-                        <button title="{% trans 'Restore page' %}" class="text-grey-darkest flex flex-wrap" onclick="confirmation_popup(event, '#confirm_restore_page{{ page.id }}')">
+                        <button title="{% trans 'Restore page' %}" class="text-gray-800 flex flex-wrap" onclick="confirmation_popup(event, '#confirm_restore_page{{ page.id }}')">
                             <div>
-                                <i data-feather="refresh-ccw" class="text-grey-darkest"></i>
+                                <i data-feather="refresh-ccw" class="text-gray-800"></i>
                             </div>
                             <div class="pl-2">
                                 {% trans 'Restore' %}
@@ -40,16 +40,16 @@
                         </button>
 
                         <!-- confirmation popup -->
-                        <div id="confirm_restore_page{{ page.id }}" class="confirmation-popup flex-col justify-center max-w-sm fixed pin-t pin-b pin-r pin-l hidden">
-                            <div class="content bg-grey-light w-full p-4 shadow-md rounded">
+                        <div id="confirm_restore_page{{ page.id }}" class="confirmation-popup flex-col justify-center max-w-sm fixed inset-0 hidden">
+                            <div class="content bg-gray-light w-full p-4 shadow-md rounded">
                                 <h2>{% trans 'Please confirm that you really want to restore this page' %}</h2>
                                 <p class="mt-4 mb-6">
                                     {% trans 'All translations of this page will also be restored.' %}
                                 </p>
                                 <form method="post" action="{% url 'restore_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
                                     {% csrf_token %}
-                                    <input type="submit" class="inline-block cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, restore this page now.' %}" />
-                                    <button class="cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+                                    <input type="submit" class="inline-block cursor-pointer bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, restore this page now.' %}" />
+                                    <button class="cursor-pointer bg-red hover:bg-red-500 text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
                                         {% trans 'Cancel' %}
                                     </button>
                                 </form>

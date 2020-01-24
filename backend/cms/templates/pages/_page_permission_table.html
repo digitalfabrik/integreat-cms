@@ -4,22 +4,22 @@
 {% load i18n %}
     {% if permission_message %}
         {% if permission_message.level_tag == 'info' %}
-            <div class="bg-blue-lightest border-l-4 border-blue text-blue-dark px-4 py-3 my-2" role="alert">
+            <div class="bg-blue-100 border-l-4 border-blue text-blue-500 px-4 py-3 my-2" role="alert">
                 <p>{{permission_message.message}}</p>
             </div>
         {% endif %}
         {% if permission_message.level_tag == 'success' %}
-            <div class="bg-green-lightest border-l-4 border-green text-green-dark px-4 py-3 my-2" role="alert">
+            <div class="bg-green-100 border-l-4 border-green text-green-500 px-4 py-3 my-2" role="alert">
                 <p>{{ permission_message.message }}</p>
             </div>
         {% endif %}
         {% if permission_message.level_tag == 'warning' %}
-            <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark px-4 py-3 my-2" role="alert">
+            <div class="bg-orange-100 border-l-4 border-orange text-orange-500 px-4 py-3 my-2" role="alert">
                 <p>{{ permission_message.message }}</p>
             </div>
         {% endif %}
         {% if permission_message.level_tag == 'error' %}
-            <div class="bg-red-lightest border-l-4 border-red text-red-dark px-4 py-3 my-2" role="alert">
+            <div class="bg-red-100 border-l-4 border-red text-red-500 px-4 py-3 my-2" role="alert">
                 <p>{{ permission_message.message }}</p>
             </div>
         {% endif %}
@@ -32,7 +32,7 @@
     </div>
     <div class="px-2 py-2">
         {% for user in page.editors.all %}
-            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue text-white text-xl">
+            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-400text-white text-xl">
                 {{ user.username }}
                 <a class="revoke-page-permission" href="{% url 'revoke_page_permission_ajax' %}" data-user-id="{{ user.id }}" data-page-id="{{ page.id }}" data-permission="edit">
                     <i data-feather="x-circle" class="cursor-pointer ml-1 mb-0 align-middle text-white"></i>
@@ -46,12 +46,12 @@
                 {% trans 'Username' %}
             </label>
 		    <div class="relative my-2 w-full">
-	            {% render_field page_form.editors class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-	            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+	            {% render_field page_form.editors class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+	            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
 	                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
 	            </div>
 		    </div>
-            <button type="button" class="grant-page-permission bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 mt-2 rounded w-full" data-url="{% url 'grant_page_permission_ajax' %}" data-page-id="{{ page.id }}" data-permission="edit">
+            <button type="button" class="grant-page-permission bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded w-full" data-url="{% url 'grant_page_permission_ajax' %}" data-page-id="{{ page.id }}" data-permission="edit">
                 <i data-feather="plus-circle" class="align-middle"></i> {% trans 'Add to editors' %}
             </button>
     </div>
@@ -63,7 +63,7 @@
     </div>
     <div class="px-2 py-2">
         {% for user in page.publishers.all %}
-            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue text-white text-xl">
+            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-400text-white text-xl">
                 {{ user.username }}
                 <a class="revoke-page-permission" href="{% url 'revoke_page_permission_ajax' %}" data-user-id="{{ user.id }}" data-page-id="{{ page.id }}" data-permission="publish">
                     <i data-feather="x-circle" class="cursor-pointer ml-1 mb-0 align-middle text-white"></i>
@@ -77,12 +77,12 @@
             {% trans 'Username' %}
         </label>
 	    <div class="relative my-2 w-full">
-	        {% render_field page_form.publishers class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-	        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+	        {% render_field page_form.publishers class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+	        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
 	            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
 	        </div>
 	    </div>
-        <button type="button" class="grant-page-permission bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 mt-2 rounded w-full" data-url="{% url 'grant_page_permission_ajax' %}" data-page-id="{{ page.id }}" data-permission="publish">
+        <button type="button" class="grant-page-permission bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded w-full" data-url="{% url 'grant_page_permission_ajax' %}" data-page-id="{{ page.id }}" data-permission="publish">
             <i data-feather="plus-circle" class="align-middle"></i> {% trans 'Add to publishers' %}
         </button>
     </div>

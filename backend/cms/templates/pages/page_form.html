@@ -62,13 +62,13 @@
         <div class="w-1/5 flex justify-end mb-6">
         {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
         {% if can_edit_page %}
-            <input type="submit" name="submit_draft" class="bg-grey hover:bg-grey-dark cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+            <input type="submit" name="submit_draft" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
         {% endif %}
         {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
         {% if can_publish_page %}
-            <input type="submit" name="submit_public" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            <input type="submit" name="submit_public" class="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
         {% else %}
-            <input type="submit" name="submit_review" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+            <input type="submit" name="submit_review" class="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
         {% endif %}
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
@@ -77,7 +77,7 @@
             <ul class="flex flex-wrap" style="list-style: none;">
                 {% for other_language in languages %}
                     <li class="mr-1 {% if other_language == language %}z-10{% endif %} -mb-1">
-                        <div class="bg-white text-blue-dark {% if other_language != language %}hover:bg-blue-dark hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg">
+                        <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                             <div class="border-b-2 border-white">
                         {% if other_language == language %}
                             <div class="py-2 px-4">
@@ -101,7 +101,7 @@
                 {% if page %}
                     <li class="ml-5">
                         {% with language.code|add:'__'|add:language.code as sbs_language_code %}
-                        <a class="bg-white text-blue-dark hover:bg-blue-dark hover:text-white font-semibold inline-block py-2 px-4 border-l-2 border-t-2 border-r-2 border-blue-dark rounded-t-lg" href="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=sbs_language_code %}">
+                        <a class="bg-white text-blue-500 hover:bg-blue-500 hover:text-white font-semibold inline-block py-2 px-4 border-l-2 border-t-2 border-r-2 border-blue-500 rounded-t-lg" href="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=sbs_language_code %}">
                             <i data-feather="columns"></i>
                             <span style="vertical-align: super;">
                                 {% trans 'Side by side view' %}
@@ -111,7 +111,7 @@
                     </li>
                 {% endif %}
             </ul>
-            <div class="w-full mb-4 rounded border-2 border-blue-dark bg-white">
+            <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
                     {% if page_translation_form.instance.id %}
                         <label for="events_enabled" class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
@@ -120,7 +120,7 @@
                         {{ page_translation_form.instance.get_status_display }}
                     {% endif %}
                     <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
-                    <div class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">
+                    <div class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                         {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
                         {% spaceless %}
                             <div style="display: table; white-space: nowrap;">
@@ -134,10 +134,10 @@
                     </div>
                     <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
                     {% trans 'Insert title here' as title_placeholder%}
-                    {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    {% render_field page_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
                     {% trans 'Insert content here' as text_placeholder%}
-                    {% render_field page_translation_form.text placeholder=text_placeholder class="bg-grey-lighter w-full p-2 border border-grey-lighter focus:outline-none focus:bg-white focus:border-grey rounded tinymce_textarea" %}
+                    {% render_field page_translation_form.text placeholder=text_placeholder class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
                     <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
                     {% render_field page_translation_form.minor_edit id="minor_edit" %}
                     <label for="minor_edit" class="text-s">{% trans 'This change does not require an update of the translations' %}</label>
@@ -147,7 +147,7 @@
         <div class="w-1/3 pl-4 flex flex-wrap flex-col">
             <ul class="flex" style="list-style: none;">
                 <li class="z-10" style="margin-bottom: -0.1rem;">
-                    <div class="bg-white text-blue-dark border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg py-2 px-4">
+                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
                     <div class="border-b-4 border-white">
                     <i data-feather="flag"></i>
                     <span style="vertical-align: super;">
@@ -157,37 +157,37 @@
                     </div>
                 </li>
             </ul>
-            <div class="w-full mb-4 rounded border-2 border-solid border-blue-dark shadow bg-white">
+            <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                 <div class="w-full p-4">
                     <span class="font-bold mb-2 mt-4 block">{% trans 'Positioning' %}</span>
                     <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
                     <div class="relative my-2">
-                        {% render_field page_form.position placeholder="0" id="position" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% render_field page_form.position placeholder="0" id="position" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     </div>
                     <label for="parent" class="text-xs uppercase">{% trans 'Page' %}</label>
                     <div class="relative my-2">
-                        {% render_field page_form.parent id="parent" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                        {% render_field page_form.parent id="parent" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                     {% if page %}
                     <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
                     <div class="relative my-2">
-                        {% render_field page_form.mirrored_page_region id="mirrored_page_region" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                        {% render_field page_form.mirrored_page_region id="mirrored_page_region" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                     <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div">
-                        {% render_field page_form.mirrored_page id="mirrored_page" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                        {% render_field page_form.mirrored_page id="mirrored_page" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                     <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
-                        {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darkest py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
-                        <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darkest">
+                        {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                     <div class="pt-2 pb-4">
                         <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
                         {% render_field page_form.icon id="icon" class="image-field" %}
-                        <label for="icon" class="font-bold bg-blue hover:bg-blue-dark focus:bg-blue-dark text-white font-bold py-3 pl-10 pr-4 rounded cursor-pointer relative">
+                        <label for="icon" class="font-bold bg-blue-400 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-3 pl-10 pr-4 rounded cursor-pointer relative">
                             <i data-feather="upload"></i>
                             <span class="standard_text">{% trans 'Set icon' %}</span>
                             <span class="filename"></span>
@@ -214,7 +214,7 @@
                             {% if page.archived %}
                                 {% trans 'Page is archived.' %}
                             {% else %}
-                                <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_page_{{ page.id }}')">
+                                <button class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_page_{{ page.id }}')">
                                     {% trans 'Archive this page' %}
                                 </button>
                             {% endif %}
@@ -225,7 +225,7 @@
                                 {% if page.children.all %}
                                     {% trans 'You cannot delete a page which has children.' %}
                                 {% else %}
-                                    <button class="bg-red hover:bg-red-dark text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_page_{{ page.id }}')">
+                                    <button class="bg-red hover:bg-red-500 text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_page_{{ page.id }}')">
                                         {% trans 'Delete this page' %}
                                     </button>
                                 {% endif %}
