@@ -1,9 +1,6 @@
-*************
-Documentation
-*************
-
-Sphinx
-======
+**********************
+Documentation (Sphinx)
+**********************
 
 To generate this documentation, we use the Python documentation generator Sphinx (see :doc:`sphinx:usage/index`).
 

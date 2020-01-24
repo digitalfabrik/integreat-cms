@@ -1,6 +1,6 @@
-*******************
-Virtual Environment
-*******************
+****************************
+Virtual Environment (Pipenv)
+****************************
 
 All python dependencies are installed in a virtual Python environment (see :doc:`tutorial/venv`).
 

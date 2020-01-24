@@ -3,6 +3,8 @@ Code Style Guidelines
 *********************
 
 
+.. _black-code-style:
+
 Black
 -----
 
@@ -16,6 +18,8 @@ If you want to apply the code without committing, use our developer tool :github
 
     ./dev-tools/black.sh
 
+
+.. _pylint:
 
 Linting
 -------
