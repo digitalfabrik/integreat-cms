@@ -15,7 +15,7 @@ from django.views.generic import TemplateView
 from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.accommodations import AccommodationForm, AccommodationTranslationForm
-from ...models import Accommodation, AccommodationTranslation, Region, Language
+from ...models import Accommodation, AccommodationTranslation, Region, Language, Beds
 
 logger = logging.getLogger(__name__)
 
@@ -77,6 +77,7 @@ class AccommodationView(PermissionRequiredMixin, TemplateView):
         language = Language.objects.get(code=kwargs.get('language_code'))
 
         accommodation_instance = Accommodation.objects.filter(id=kwargs.get('accommodation_id')).first()
+
         accommodation_translation_instance = AccommodationTranslation.objects.filter(
             accommodation=accommodation_instance,
             language=language,

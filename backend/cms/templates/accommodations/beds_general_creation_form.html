@@ -1,0 +1,184 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+{% load content_filters %}
+{% load rules %}
+{% load accommodation_filters %}
+{% load compress %}
+<form class="form-horizontal" method="post">
+    {% compress js %}
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/fullscreen/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/autosave/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/link/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/preview/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/code/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
+    <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
+
+    {% endcompress %}
+    {% compress css %}
+    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
+    {% endcompress%}
+    {% csrf_token %}
+    <div class="flex flex-wrap">
+        <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
+            <h2 class="heading font-normal">
+                {% trans 'Bed management' %}
+            </h2>
+        </div>
+        <div class="w-1/5 flex justify-end mb-6">
+            {% has_perm 'cms.edit_accommodation' request.user accommodation_form.instance.id as can_edit_accommodation %}
+            {% if can_edit_accommodation %}
+                <input type="submit" name="submit_draft" class="bg-grey hover:bg-grey-dark cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+            {% endif %}
+            {% has_perm 'cms.publish_accommodation' request.user accommodation_form.instance.id as can_publish_accommodation %}
+            {% if can_publish_accommodation %}
+                <input type="submit" name="submit_public" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% else %}
+                <input type="submit" name="submit_review" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+            {% endif %}
+        </div>
+        <div class="w-2/3 flex flex-wrap flex-col pr-2">
+            <ul class="flex flex-wrap" style="list-style: none;">
+                <li class="mr-1 -mb-1">
+                    <div class="bg-white text-blue-dark  border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg">
+                        <div class="border-b-2 border-white">
+                            <div class="py-2 px-4">
+                                <span style="vertical-align: super;">
+                                    {{ 'General capacity' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="mr-1 -mb-1">
+                    <div class="bg-white text-blue-dark  border-l-2 border-t-2 border-r-2 border-blue-dark font-bold rounded-t-lg">
+                        <div class="border-b-2 border-white">
+                            <div class="py-2 px-4">
+                                <span style="vertical-align: super;">
+                                    {{ 'current capacity' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="w-full mb-4 rounded border-2 border-blue-dark bg-white">
+                <div class="w-full p-4">
+                    <span>{{ 'Total amount of Beds:' }} {{ beds_sum }}</span>
+                        <div class="form-rows">
+                            {{ formset.as_table }} 
+                            {{formset.management_form}}
+                            
+                            {% for form in formset %}
+                                <div class="row form-row spacer">
+                                    <div class="col-2">
+                                        <label>{{form.name.label}}</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="input-group">
+                                            {{form.name}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="input-group-append">
+                                <button class="add-form-row">+</button>
+                            </div>
+                        </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block javascript_nocompress %}
+<script>
+function updateElementIndex(el, prefix, ndx) {
+    let id_regex = new RegExp('(' + prefix + '-\\d+)')
+    let replacement = prefix + '-' + ndx
+
+    if ($(el).getAttribute("for")) $(el).getAttribute("for", $(el).getAttribute("for").replace(id_regex, replacement))
+    if (el.id) el.id = el.id.replace(id_regex, replacement)
+    if (el.name) el.name = el.name.replace(id_regex, replacement)
+}
+function cloneMore(selector, prefix) {
+    console.log('qweqwe')
+    let newElement = document.querySelector(selector).cloneNode(true)
+    let total = document.getElementById('id_' + prefix + '-TOTAL_FORMS').value
+
+    Array.from(newElement.querySelectorAll('input[type="number"]')).forEach((element) => {
+        let name = element.getAttribute('name').replace('-' + (total-1) + '-', '-' + total + '-');
+        let id = 'id_' + name;
+        setAttributes(element, {'name': name, 'id': id})
+        element.value = ''
+        element.removeAttribute('checked');
+    });
+    Array.from(newElement.querySelectorAll('label')).forEach((element) => {
+        let forValue = element.getAttribute('for');
+        if (forValue) {
+          forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+          setAttributes(element, {'for': forValue});
+        }
+    });
+    total++;
+    document.getElementById('id_' + prefix + '-TOTAL_FORMS').value = total
+    let sel = document.querySelector(selector)
+    sel.parentNode.insertBefore(newElement, sel.nextSibling);
+    let formRows = document.querySelector(selector).querySelectorAll('.form-row')
+    Array.from(formRows).pop()
+    let conditionRow = formRows
+    conditionRow = formRows
+    conditionRow[0].querySelector('.add-form-row')[.addEventListener('click', (e)=>{
+        
+                e.preventDefault();
+                cloneMore('.form-rows:last-child', 'form');
+                return false;
+            })
+
+    return false;
+}
+function setAttributes(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    let addForRrow = document.getElementsByClassName('add-form-row')
+    if(addForRrow.length > 0){
+        Array.from(addForRrow).forEach((element)=>{
+            element.addEventListener('click', (e)=>{
+                e.preventDefault();
+                cloneMore('.form-rows:last-child', 'form');
+                return false;
+            })
+        })
+    }
+
+    let removeFromRow = document.getElementsByClassName('remove-form-row')
+    if(removeFromRow.length > 0){
+        Array.from(removeFromRow).forEach((element) => {
+            element.addEventListener('click', (e) => {
+                e.preventDefault();
+                deleteForm('form', $(this));
+                return false;
+            })
+        })
+    }
+});
+
+
+</script>
+{% endblock %}
