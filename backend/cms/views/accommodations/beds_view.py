@@ -13,6 +13,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.forms.formsets import formset_factory
 from django.forms import modelformset_factory
+from django.forms.models import inlineformset_factory
 from django.db.models import Sum
 
 from ...forms.accommodations import BedsGeneralCreationForm
@@ -31,8 +32,7 @@ class BedsView(PermissionRequiredMixin, TemplateView):
     base_context = {'current_menu_item': 'beds'}
 
     def get(self, request, *args, **kwargs):
-        #BedsFormSet = formset_factory(BedsGeneralCreationForm, extra=1)
-        BedsFormSet = modelformset_factory(Beds, fields=('num_beds', 'num_free_beds'), extra=1)
+        BedsFormSet = inlineformset_factory(Accommodation, Beds, fields=('num_beds', 'num_free_beds'), extra=1)
         accommodation = Accommodation.objects.filter(id=kwargs.get('accommodation_id')).first()
 
         beds = accommodation.beds.all()
@@ -42,37 +42,24 @@ class BedsView(PermissionRequiredMixin, TemplateView):
             messages.warning(request, _("You don't have the permission to edit Beds."))
         else:
             disabled = False
-        
-        #formset = BedsFormSet(request.GET or None)
-        formset = BedsFormSet(request.GET or None, queryset=beds)
 
+        formset = BedsFormSet(request.GET or None, instance=accommodation)
         return render(request, self.template_name, {
             **self.base_context,
             'formset' : formset,
             'beds': beds,
             'beds_sum': beds_sum['num_beds__sum']
         })
-        # pylint: disable=too-many-branches,too-many-locals,unused-argument
+
     def post(self, request, *args, **kwargs):
         accommodation = Accommodation.objects.filter(id=kwargs.get('accommodation_id')).first()
-        beds = accommodation.beds.all()
-        BedsFormSet = modelformset_factory(Beds, fields=('num_beds', 'num_free_beds'))
+        BedsFormSet = inlineformset_factory(Accommodation, Beds, fields=('num_beds', 'num_free_beds'))
 
+        formset = BedsFormSet(request.POST, instance=accommodation)
 
-        formset = BedsFormSet(request.POST, queryset=beds)
-        bed_target_group = BedTargetGroup.objects.all().first()
-        bed_target_group.save()
         if formset.is_valid():
-            for form in formset:
-                num_beds = form.cleaned_data.get('num_beds')
-                num_free_beds = form.cleaned_data.get('num_free_beds')
-                if num_beds:
-                    Beds(
-                        num_beds=num_beds, 
-                        num_free_beds=num_free_beds,
-                        target_group=bed_target_group,
-                        accommodation_id=kwargs.get('accommodation_id')
-                        ).save()
-        return render(request, self.template_name, {
-            'formset': formset
-        })
+            formset.save()
+                
+            return render(request, self.template_name, {
+                'formset': formset
+            })
