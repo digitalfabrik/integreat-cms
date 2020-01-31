@@ -29,7 +29,7 @@ cd cms-django
 
 First of all, clone the project:
 ````
-git clone git@github.com:Integreat/cms-django.git
+git clone git@github.com/digitalfabrik/coldaid-backend.git
 cd cms-django
 ````
 
