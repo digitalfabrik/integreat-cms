@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 13:49+0000\n"
+"POT-Creation-Date: 2020-01-31 14:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Timo Ludwig <ludwig@integreat-app.de>\n"
 "Language-Team:\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: constants/administrative_division.py:20
-#: templates/accommodations/accommodation_form.html:151
+#: templates/accommodations/accommodation_form.html:221
 #: templates/accommodations/accommodation_list.html:57
 #: templates/accommodations/accommodation_list_archived.html:30
 #: templates/events/event_form.html:231 templates/pois/poi_form.html:151
@@ -323,9 +323,9 @@ msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
 
 #: models/accommodations/beds.py:27
-msgid "There cannot be more free beds than the total number of beds."
+msgid "There cannot be more beds allocated than totally available."
 msgstr ""
-"Es kann nicht mehr freie Betten geben als Betten insgesamt vorhanden sind."
+"Es können nicht mehr Betten belegt werden als insgesamt vorhanden sind."
 
 #: models/languages/language.py:19
 msgid "Left to right"
@@ -459,7 +459,7 @@ msgid "Regions"
 msgstr "Regionen"
 
 #: templates/_base.html:190
-#: templates/accommodations/accommodation_form.html:177
+#: templates/accommodations/accommodation_form.html:247
 #: templates/regions/region_form.html:205
 msgid "Languages"
 msgstr "Sprachen"
@@ -485,12 +485,12 @@ msgstr "Extra-Vorlagen"
 msgid "Integreat Backend"
 msgstr "Integreat CMS"
 
-#: templates/accommodations/accommodation_form.html:40
+#: templates/accommodations/accommodation_form.html:39
 #, python-format
 msgid "Edit Accommodation \"%(accommodation_title)s\""
 msgstr "Unterkunft \"%(accommodation_title)s\" bearbeiten"
 
-#: templates/accommodations/accommodation_form.html:47
+#: templates/accommodations/accommodation_form.html:46
 #: templates/events/event_form.html:47 templates/events/event_list.html:45
 #: templates/events/event_list.html:49
 #: templates/events/event_list_archived.html:21
@@ -500,21 +500,21 @@ msgstr "Unterkunft \"%(accommodation_title)s\" bearbeiten"
 msgid "Title in"
 msgstr "Titel auf"
 
-#: templates/accommodations/accommodation_form.html:51
+#: templates/accommodations/accommodation_form.html:50
 msgid "Create new Accommodation translation"
 msgstr "Neue Unterkunft-Übersetzung erstellen"
 
-#: templates/accommodations/accommodation_form.html:54
+#: templates/accommodations/accommodation_form.html:53
 msgid "Create new Accommodation"
 msgstr "Neue Unterkunft erstellen"
 
-#: templates/accommodations/accommodation_form.html:61
+#: templates/accommodations/accommodation_form.html:58
 #: templates/events/event_form.html:62 templates/pages/page_form.html:61
 #: templates/pois/poi_form.html:61
 msgid "Save as draft"
 msgstr "Als Entwurf speichern"
 
-#: templates/accommodations/accommodation_form.html:65
+#: templates/accommodations/accommodation_form.html:59
 #: templates/events/event_form.html:65
 #: templates/organizations/organization_form.html:22
 #: templates/pages/page_form.html:65 templates/pois/poi_form.html:65
@@ -522,13 +522,7 @@ msgstr "Als Entwurf speichern"
 msgid "Publish"
 msgstr "Veröffentlichen"
 
-#: templates/accommodations/accommodation_form.html:67
-#: templates/events/event_form.html:67 templates/pages/page_form.html:67
-#: templates/pois/poi_form.html:67
-msgid "Submit for review"
-msgstr "Zur Überprüfung vorlegen"
-
-#: templates/accommodations/accommodation_form.html:99
+#: templates/accommodations/accommodation_form.html:90
 #: templates/events/event_form.html:101 templates/events/event_list.html:43
 #: templates/events/event_list_archived.html:19
 #: templates/pages/page_form.html:113 templates/pages/page_tree.html:71
@@ -536,7 +530,7 @@ msgstr "Zur Überprüfung vorlegen"
 msgid "Version"
 msgstr "Version"
 
-#: templates/accommodations/accommodation_form.html:101
+#: templates/accommodations/accommodation_form.html:92
 #: templates/events/event_form.html:103 templates/events/event_list.html:44
 #: templates/events/event_list_archived.html:20
 #: templates/pages/page_form.html:115 templates/pages/page_tree.html:72
@@ -545,18 +539,18 @@ msgstr "Version"
 msgid "Status"
 msgstr "Status"
 
-#: templates/accommodations/accommodation_form.html:104
+#: templates/accommodations/accommodation_form.html:95
 #: templates/events/event_form.html:106 templates/pages/page_form.html:118
 #: templates/pois/poi_form.html:104 templates/regions/region_form.html:54
 msgid "Permalink"
 msgstr ""
 
-#: templates/accommodations/accommodation_form.html:106
+#: templates/accommodations/accommodation_form.html:97
 #: templates/pois/poi_form.html:106
 msgid " Leave blank to derive from title"
 msgstr " Freilassen, um vom Titel abzuleiten"
 
-#: templates/accommodations/accommodation_form.html:114
+#: templates/accommodations/accommodation_form.html:105
 #: templates/accommodations/accommodation_list.html:44
 #: templates/accommodations/accommodation_list_archived.html:26
 #: templates/events/event_form.html:119 templates/pages/page_archive.html:21
@@ -567,52 +561,103 @@ msgstr " Freilassen, um vom Titel abzuleiten"
 msgid "Title"
 msgstr "Titel"
 
-#: templates/accommodations/accommodation_form.html:115
+#: templates/accommodations/accommodation_form.html:106
 #: templates/events/event_form.html:120 templates/pages/page_form.html:132
 #: templates/pages/page_sbs.html:30 templates/pois/poi_form.html:115
 msgid "Insert title here"
 msgstr "Titel hier eingeben"
 
-#: templates/accommodations/accommodation_form.html:117
+#: templates/accommodations/accommodation_form.html:108
 #: templates/pois/poi_form.html:117
 msgid "Short description"
 msgstr "Kurzbeschreibung"
 
-#: templates/accommodations/accommodation_form.html:118
+#: templates/accommodations/accommodation_form.html:109
 #: templates/pois/poi_form.html:118
 msgid "Insert short description here"
 msgstr "Kurzbeschreibung hier eingeben"
 
-#: templates/accommodations/accommodation_form.html:120
+#: templates/accommodations/accommodation_form.html:111
 #: templates/bed_target_groups/bed_target_group_list.html:26
 #: templates/events/event_form.html:122 templates/pois/poi_form.html:120
 msgid "Description"
 msgstr "Beschreibung"
 
-#: templates/accommodations/accommodation_form.html:122
+#: templates/accommodations/accommodation_form.html:113
 #: templates/events/event_form.html:125 templates/pages/page_form.html:137
 #: templates/pois/poi_form.html:122
 msgid "Implications on other translations"
 msgstr "Auswirkungen auf andere Übersetzungen"
 
-#: templates/accommodations/accommodation_form.html:124
+#: templates/accommodations/accommodation_form.html:115
 #: templates/events/event_form.html:127 templates/pages/page_form.html:139
 #: templates/pois/poi_form.html:124
 msgid "This change does not require an update of the translations"
 msgstr "Diese Änderung erfordert keine angepasste Übersetzung"
 
-#: templates/accommodations/accommodation_form.html:135
+#: templates/accommodations/accommodation_form.html:124
+#: templates/accommodations/bed_management.html:34
+msgid "Beds"
+msgstr ""
+
+#: templates/accommodations/accommodation_form.html:138
+#: templates/accommodations/bed_management.html:46
+msgid "Target Group"
+msgstr "Betten-Kategorie"
+
+#: templates/accommodations/accommodation_form.html:139
+msgid "Number of beds"
+msgstr "Anzahl an vorhandenen Betten"
+
+#: templates/accommodations/accommodation_form.html:140
+msgid "Remove"
+msgstr "Entfernen"
+
+#: templates/accommodations/accommodation_form.html:165
+#: templates/accommodations/bed_management.html:73
+msgid "No beds available for this accommodation."
+msgstr "Für diese Unterkunft sind keine Betten verfügbar."
+
+#: templates/accommodations/accommodation_form.html:174
+#: templates/accommodations/bed_management.html:80
+msgid "Sum"
+msgstr "Summe"
+
+#: templates/accommodations/accommodation_form.html:182
+msgid "You cannot add more rows than there are bed target groups."
+msgstr ""
+"Sie können nicht mehr Zeilen hinzufügen, als es Betten-Kategorien gibt."
+
+#: templates/accommodations/accommodation_form.html:183
+msgid ""
+"In case you removed rows, you can only add them again after you saved the "
+"changes."
+msgstr ""
+"Falls Sie Zeilen entfernt haben, müssen sie die Änderungen erst speichern, "
+"bevor sie neue Zeilen hinzufügen können."
+
+#: templates/accommodations/accommodation_form.html:187
+msgid "Please add at least one bed target group before managing beds."
+msgstr ""
+"Bitte erstellen Sie mindestens eine Betten-Kategorie, bevor Sie Betten "
+"verwalten."
+
+#: templates/accommodations/accommodation_form.html:192
+msgid "Please save the accommodation first before managing beds."
+msgstr "Bitte speichern Sie die Unterkunft, bevor sie Betten verwalten."
+
+#: templates/accommodations/accommodation_form.html:205
 #: templates/events/event_form.html:138 templates/pages/page_form.html:150
 #: templates/pois/poi_form.html:135
 msgid "Settings for all translations"
 msgstr "Einstellungen für alle Übersetzungen"
 
-#: templates/accommodations/accommodation_form.html:144
+#: templates/accommodations/accommodation_form.html:214
 #: templates/events/event_form.html:222 templates/pois/poi_form.html:144
 msgid "Address"
 msgstr "Adresse"
 
-#: templates/accommodations/accommodation_form.html:145
+#: templates/accommodations/accommodation_form.html:215
 #: templates/accommodations/accommodation_list.html:55
 #: templates/accommodations/accommodation_list_archived.html:28
 #: templates/events/event_form.html:229 templates/pois/poi_form.html:145
@@ -620,12 +665,12 @@ msgstr "Adresse"
 msgid "Street"
 msgstr "Straße"
 
-#: templates/accommodations/accommodation_form.html:146
+#: templates/accommodations/accommodation_form.html:216
 #: templates/pois/poi_form.html:146
 msgid "Insert street here"
 msgstr "Straße hier eingeben"
 
-#: templates/accommodations/accommodation_form.html:148
+#: templates/accommodations/accommodation_form.html:218
 #: templates/accommodations/accommodation_list.html:56
 #: templates/accommodations/accommodation_list_archived.html:29
 #: templates/pois/poi_form.html:148 templates/pois/poi_list.html:55
@@ -633,17 +678,17 @@ msgstr "Straße hier eingeben"
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: templates/accommodations/accommodation_form.html:149
+#: templates/accommodations/accommodation_form.html:219
 #: templates/pois/poi_form.html:149
 msgid "Insert postal code here"
 msgstr "Postleitzahl hier eingeben"
 
-#: templates/accommodations/accommodation_form.html:152
+#: templates/accommodations/accommodation_form.html:222
 #: templates/pois/poi_form.html:152
 msgid "Insert city here"
 msgstr "Stadt hier eingeben"
 
-#: templates/accommodations/accommodation_form.html:154
+#: templates/accommodations/accommodation_form.html:224
 #: templates/accommodations/accommodation_list.html:58
 #: templates/accommodations/accommodation_list_archived.html:31
 #: templates/pois/poi_form.html:154 templates/pois/poi_list.html:57
@@ -651,101 +696,101 @@ msgstr "Stadt hier eingeben"
 msgid "Country"
 msgstr "Land"
 
-#: templates/accommodations/accommodation_form.html:155
+#: templates/accommodations/accommodation_form.html:225
 #: templates/pois/poi_form.html:155
 msgid "Insert country here"
 msgstr "Land hier eingeben"
 
-#: templates/accommodations/accommodation_form.html:159
+#: templates/accommodations/accommodation_form.html:229
 #: templates/pois/poi_form.html:159
 msgid "Position"
 msgstr "Position"
 
-#: templates/accommodations/accommodation_form.html:160
+#: templates/accommodations/accommodation_form.html:230
 #: templates/accommodations/accommodation_list_archived.html:32
 #: templates/pois/poi_form.html:160 templates/pois/poi_list_archived.html:31
 #: templates/regions/region_form.html:76
 msgid "Longitude"
 msgstr "Geographische Länge"
 
-#: templates/accommodations/accommodation_form.html:161
+#: templates/accommodations/accommodation_form.html:231
 #: templates/pois/poi_form.html:161
 msgid "Insert longitude here"
 msgstr "Geographische Länge hier eingeben"
 
-#: templates/accommodations/accommodation_form.html:163
+#: templates/accommodations/accommodation_form.html:233
 #: templates/accommodations/accommodation_list_archived.html:33
 #: templates/pois/poi_form.html:163 templates/pois/poi_list_archived.html:32
 #: templates/regions/region_form.html:73
 msgid "Latitude"
 msgstr "Geographische Breite"
 
-#: templates/accommodations/accommodation_form.html:164
+#: templates/accommodations/accommodation_form.html:234
 #: templates/pois/poi_form.html:164
 msgid "Insert latitude here"
 msgstr "Geographische Breite hier eingeben"
 
-#: templates/accommodations/accommodation_form.html:168
+#: templates/accommodations/accommodation_form.html:238
 #: templates/accommodations/accommodation_list.html:54
 #: templates/accommodations/accommodation_list_archived.html:27
 msgid "Institution"
 msgstr "Träger"
 
-#: templates/accommodations/accommodation_form.html:169
+#: templates/accommodations/accommodation_form.html:239
 msgid "Which institution runs the accommodation?"
 msgstr "Welche Träger-Organisation betreibt die Unterkunft?"
 
-#: templates/accommodations/accommodation_form.html:171
+#: templates/accommodations/accommodation_form.html:241
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: templates/accommodations/accommodation_form.html:173
+#: templates/accommodations/accommodation_form.html:243
 msgid "Mobile number"
 msgstr "Mobilfunknummer"
 
-#: templates/accommodations/accommodation_form.html:178
+#: templates/accommodations/accommodation_form.html:248
 msgid "Which languages are spoken?"
 msgstr "Welche Sprachen werden gesprochen?"
 
-#: templates/accommodations/accommodation_form.html:182
+#: templates/accommodations/accommodation_form.html:252
 msgid "Conditions"
 msgstr "Bedingungen"
 
-#: templates/accommodations/accommodation_form.html:185
+#: templates/accommodations/accommodation_form.html:255
 msgid "WC available?"
 msgstr "WC vorhanden?"
 
-#: templates/accommodations/accommodation_form.html:189
+#: templates/accommodations/accommodation_form.html:259
 msgid "Shower available?"
 msgstr "Duschen vorhanden?"
 
-#: templates/accommodations/accommodation_form.html:193
+#: templates/accommodations/accommodation_form.html:263
 msgid "Animals allowed?"
 msgstr "Tiere erlaubt?"
 
-#: templates/accommodations/accommodation_form.html:197
+#: templates/accommodations/accommodation_form.html:267
 msgid "Intoxicated persons allowed?"
 msgstr "Berauschte Personen erlaubt?"
 
-#: templates/accommodations/accommodation_form.html:201
+#: templates/accommodations/accommodation_form.html:271
 msgid "Intake hours"
 msgstr "Aufnahmezeiten"
 
-#: templates/accommodations/accommodation_form.html:204
+#: templates/accommodations/accommodation_form.html:274
 msgid "From"
 msgstr "Von"
 
-#: templates/accommodations/accommodation_form.html:208
+#: templates/accommodations/accommodation_form.html:278
 msgid "To"
 msgstr "Bis"
 
-#: templates/accommodations/accommodation_form.html:214
+#: templates/accommodations/accommodation_form.html:284
 #: templates/events/event_form.html:247 templates/pages/page_form.html:199
 #: templates/pois/poi_form.html:168 templates/regions/region_form.html:81
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/accommodations/accommodation_form.html:218
+#: templates/accommodations/accommodation_form.html:288
 #: templates/events/event_form.html:251
 #: templates/organizations/organization_form.html:66
 #: templates/pages/page_form.html:203 templates/pois/poi_form.html:172
@@ -753,72 +798,72 @@ msgstr "Icon"
 msgid "Set icon"
 msgstr "Icon festlegen"
 
-#: templates/accommodations/accommodation_form.html:225
-#: templates/accommodations/accommodation_form.html:226
+#: templates/accommodations/accommodation_form.html:295
+#: templates/accommodations/accommodation_form.html:296
 msgid "Restore Accommodation"
 msgstr "Unterkunft wiederherstellen"
 
-#: templates/accommodations/accommodation_form.html:227
+#: templates/accommodations/accommodation_form.html:297
 msgid "Restore this Accommodation"
 msgstr "Diese Unterkunft wiederherstellen"
 
-#: templates/accommodations/accommodation_form.html:230
-#: templates/accommodations/accommodation_form.html:231
+#: templates/accommodations/accommodation_form.html:300
+#: templates/accommodations/accommodation_form.html:301
 #: templates/accommodations/accommodation_list_row.html:47
 msgid "Archive Accommodation"
 msgstr "Unterkunft archivieren"
 
-#: templates/accommodations/accommodation_form.html:232
+#: templates/accommodations/accommodation_form.html:302
 msgid "Archive this Accommodation"
 msgstr "Diese Unterkunft archivieren"
 
-#: templates/accommodations/accommodation_form.html:238
-#: templates/accommodations/accommodation_form.html:239
-#: templates/accommodations/accommodation_list_row.html:52
+#: templates/accommodations/accommodation_form.html:308
+#: templates/accommodations/accommodation_form.html:309
+#: templates/accommodations/accommodation_list_row.html:51
 msgid "Delete Accommodation"
 msgstr "Unterkunft löschen"
 
-#: templates/accommodations/accommodation_form.html:240
+#: templates/accommodations/accommodation_form.html:310
 msgid "Delete this Accommodation"
 msgstr "Diese Unterkunft löschen"
 
-#: templates/accommodations/accommodation_form.html:286
+#: templates/accommodations/accommodation_form.html:357
 #: templates/events/event_form.html:380 templates/pages/page_form.html:309
 #: templates/pois/poi_form.html:240
 msgid "Do not translate the selected text."
 msgstr "Der markierte Text wird nicht übersetzt."
 
-#: templates/accommodations/accommodation_form.html:305
+#: templates/accommodations/accommodation_form.html:376
 #: templates/events/event_form.html:399 templates/pages/page_form.html:328
 #: templates/pois/poi_form.html:259
 msgid "Location"
 msgstr "Ort"
 
-#: templates/accommodations/accommodation_form.html:312
+#: templates/accommodations/accommodation_form.html:383
 #: templates/events/event_form.html:406 templates/pages/page_form.html:335
 #: templates/pois/poi_form.html:266
 msgid "Link"
 msgstr "Link"
 
-#: templates/accommodations/accommodation_form.html:319
+#: templates/accommodations/accommodation_form.html:390
 #: templates/events/event_form.html:413 templates/pages/page_form.html:342
 #: templates/pois/poi_form.html:273
 msgid "Phone"
 msgstr "Telefon"
 
-#: templates/accommodations/accommodation_form.html:326
+#: templates/accommodations/accommodation_form.html:397
 #: templates/events/event_form.html:420 templates/pages/page_form.html:349
 #: templates/pois/poi_form.html:280
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
-#: templates/accommodations/accommodation_form.html:333
+#: templates/accommodations/accommodation_form.html:404
 #: templates/events/event_form.html:427 templates/pages/page_form.html:356
 #: templates/pois/poi_form.html:287
 msgid "Email"
 msgstr "Email"
 
-#: templates/accommodations/accommodation_form.html:340
+#: templates/accommodations/accommodation_form.html:411
 #: templates/events/event_form.html:434 templates/pages/page_form.html:363
 #: templates/pois/poi_form.html:294
 msgid "Hint"
@@ -869,6 +914,44 @@ msgstr "POI Wiederherstellen"
 #: templates/pois/poi_list_row.html:49
 msgid "Delete POI"
 msgstr "POI löschen"
+
+#: templates/accommodations/accommodation_list_row.html:44
+msgid "Manage Beds"
+msgstr "Bettenverwaltung"
+
+#: templates/accommodations/bed_management.html:14
+#, python-format
+msgid "Bed management of \"%(accommodation_title)s\""
+msgstr "Betten-Management für \"%(accommodation_title)s\""
+
+#: templates/accommodations/bed_management.html:18
+#: templates/bed_target_groups/bed_target_group_form.html:21
+#: templates/extra_templates/extra_template_form.html:22
+#: templates/language_tree/language_tree_node_form.html:19
+#: templates/languages/language_form.html:21
+#: templates/organizations/organization_form.html:21
+#: templates/pages/page_sbs.html:38
+#: templates/push_notifications/push_notification_form.html:26
+#: templates/regions/region_form.html:21 templates/roles/role.html:21
+#: templates/users/admin/user.html:21 templates/users/region/user.html:21
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/accommodations/bed_management.html:23
+msgid ""
+"Please add at least one bed target group configuration for this "
+"accommodation before managing beds."
+msgstr ""
+"Bitte erstellen Sie mindestens eine Betten-Konfiguration für diese "
+"Unterkunft, bevor Sie Betten verwalten."
+
+#: templates/accommodations/bed_management.html:47
+msgid "Total number of beds"
+msgstr "Gesamtanzahl Betten"
+
+#: templates/accommodations/bed_management.html:48
+msgid "Number of allocated beds"
+msgstr "Anzahl an belegten Betten"
 
 #: templates/accommodations/confirmation_popups/archive_accommodation.html:5
 msgid "Please confirm that you really want to archive this Accommodation"
@@ -1070,18 +1153,6 @@ msgstr "Betten-Kategorie \"%(bed_target_group_name)s\" bearbeiten"
 msgid "Create new bed target group"
 msgstr "Neue Betten-Kategorie erstellen"
 
-#: templates/bed_target_groups/bed_target_group_form.html:21
-#: templates/extra_templates/extra_template_form.html:22
-#: templates/language_tree/language_tree_node_form.html:19
-#: templates/languages/language_form.html:21
-#: templates/organizations/organization_form.html:21
-#: templates/pages/page_sbs.html:38
-#: templates/push_notifications/push_notification_form.html:26
-#: templates/regions/region_form.html:21 templates/roles/role.html:21
-#: templates/users/admin/user.html:21 templates/users/region/user.html:21
-msgid "Save"
-msgstr "Speichern"
-
 #: templates/bed_target_groups/bed_target_group_form.html:30
 #: templates/extra_templates/extra_template_form.html:34
 #: templates/organizations/organization_form.html:31
@@ -1218,6 +1289,11 @@ msgstr "Neue Event-Übersetzung erstellen"
 #: templates/events/event_form.html:54
 msgid "Create new event"
 msgstr "Veranstaltung erstellen"
+
+#: templates/events/event_form.html:67 templates/pages/page_form.html:67
+#: templates/pois/poi_form.html:67
+msgid "Submit for review"
+msgstr "Zur Überprüfung vorlegen"
 
 #: templates/events/event_form.html:108 templates/pages/page_form.html:120
 #: templates/regions/region_form.html:56
@@ -2488,7 +2564,6 @@ msgid "Cannot generate slug from %(fallback)s."
 msgstr ""
 
 #: views/accommodations/accommodation_actions.py:27
-#: views/accommodations/accommodation_view.py:132
 msgid "Accommodation was successfully archived."
 msgstr "Unterkunft wurde erfolgreich archiviert."
 
@@ -2520,16 +2595,7 @@ msgid ""
 msgstr ""
 "Sie können Unterkünfte nur in der Standard-Sprache (%(language)s) anlegen"
 
-#: views/accommodations/accommodation_view.py:48
-msgid "You don't have the permission to edit this Accommodation."
-msgstr ""
-"Sie haben nicht die nötige Berechtigung, um diese Unterkunft zu bearbeiten."
-
-#: views/accommodations/accommodation_view.py:51
-msgid "You cannot edit this Accommodation because it is archived."
-msgstr "Sie können diese Unterkunft nicht bearbeiten, weil sie archiviert ist."
-
-#: views/accommodations/accommodation_view.py:114
+#: views/accommodations/accommodation_view.py:127
 #: views/events/event_view.py:132 views/pages/page_sbs_view.py:107
 #: views/pages/page_view.py:122 views/pois/poi_view.py:114
 #: views/regions/region_view.py:67 views/users/region_user_actions.py:113
@@ -2539,29 +2605,21 @@ msgstr "Sie können diese Unterkunft nicht bearbeiten, weil sie archiviert ist."
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
-#: views/accommodations/accommodation_view.py:135
+#: views/accommodations/accommodation_view.py:145
 msgid "Accommodation was successfully created and published."
 msgstr "Unterkunft wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/accommodations/accommodation_view.py:137
+#: views/accommodations/accommodation_view.py:147
 msgid "Accommodation was successfully created."
 msgstr "Unterkunft wurde erfolgreich erstellt."
 
-#: views/accommodations/accommodation_view.py:145
-msgid "Accommodation Translation was successfully created and published."
-msgstr "Unterkunft-Übersetzung wurde erfolgreich erstellt und veröffentlicht."
+#: views/accommodations/accommodation_view.py:154
+msgid "Accommodation was successfully published."
+msgstr "Unterkunft wurde erfolgreich veröffentlicht."
 
-#: views/accommodations/accommodation_view.py:147
-msgid "Accommodation Translation was successfully created."
-msgstr "Unterkunft-Übersetzung wurde erfolgreich erstellt."
-
-#: views/accommodations/accommodation_view.py:150
-msgid "Accommodation Translation was successfully published."
-msgstr "Unterkunft-Übersetzung wurde erfolgreich veröffentlicht."
-
-#: views/accommodations/accommodation_view.py:152
-msgid "Accommodation Translation was successfully saved."
-msgstr "Unterkunft-Übersetzung wurde erfolgreich gespeichert."
+#: views/accommodations/accommodation_view.py:156
+msgid "Accommodation was successfully saved."
+msgstr "Unterkunft wurde erfolgreich gespeichert."
 
 #: views/authentication/authentication_actions.py:71
 #: views/authentication/authentication_actions.py:90
@@ -3010,6 +3068,37 @@ msgstr "Benutzer wurde erfolgreich erstellt."
 #: views/users/user_view.py:108
 msgid "User was successfully deleted."
 msgstr "Benutzer wurde erfolgreich gelöscht."
+
+#~ msgid "Bed management"
+#~ msgstr "Bettenverwaltung"
+
+#~ msgid "You don't have the permission to edit this Accommodation."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um diese Unterkunft zu "
+#~ "bearbeiten."
+
+#~ msgid "You cannot edit this Accommodation because it is archived."
+#~ msgstr ""
+#~ "Sie können diese Unterkunft nicht bearbeiten, weil sie archiviert ist."
+
+#~ msgid "Accommodation Translation was successfully created and published."
+#~ msgstr ""
+#~ "Unterkunft-Übersetzung wurde erfolgreich erstellt und veröffentlicht."
+
+#~ msgid "Accommodation Translation was successfully created."
+#~ msgstr "Unterkunft-Übersetzung wurde erfolgreich erstellt."
+
+#~ msgid "Accommodation Translation was successfully published."
+#~ msgstr "Unterkunft-Übersetzung wurde erfolgreich veröffentlicht."
+
+#~ msgid "Accommodation Translation was successfully saved."
+#~ msgstr "Unterkunft-Übersetzung wurde erfolgreich gespeichert."
+
+#~ msgid "Delete"
+#~ msgstr "Löschen"
+
+#~ msgid "You don't have the permission to manage Beds."
+#~ msgstr "Sie haben nicht die nötige Berechtigung, um Betten zu verwalten."
 
 #~ msgid "All translations of this Bed Target Group will also be deleted."
 #~ msgstr "Alle Übersetzungen dieser Betten-Kategorie werden gelöscht."
