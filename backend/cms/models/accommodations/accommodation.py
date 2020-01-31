@@ -33,7 +33,7 @@ class Accommodation(POI):
 
     def get_translation(self, language_code):
         try:
-            accommodation_translation = self.accommodation_translations.get(language__code=language_code)
+            accommodation_translation = self.accommodation_translations.filter(language__code=language_code).first()
         except ObjectDoesNotExist:
             accommodation_translation = None
         return accommodation_translation
