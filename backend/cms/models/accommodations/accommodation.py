@@ -17,9 +17,15 @@ class Accommodation(POI):
     shower_available = models.BooleanField(default=False)
     animals_allowed = models.BooleanField(default=False)
     intoxicated_allowed = models.BooleanField(default=False)
+    female_only = models.BooleanField(default=False)
+    male_only = models.BooleanField(default=False)
+    families_welcome = models.BooleanField(default=False)
+    kids_welcome = models.BooleanField(default=False)
     spoken_languages = models.ManyToManyField(Language, related_name='accommodations')
     intake_from = models.TimeField()
     intake_to = models.TimeField()
+    open_from = models.TimeField()
+    open_to = models.TimeField()
 
     objects = models.Manager()
 

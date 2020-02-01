@@ -35,17 +35,25 @@ class AccommodationForm(forms.ModelForm):
             'shower_available',
             'animals_allowed',
             'intoxicated_allowed',
+            'female_only',
+            'male_only',
+            'families_welcome',
+            'kids_welcome',
             'spoken_languages',
             'intake_from',
             'intake_to',
+            'open_from',
+            'open_to',
         ]
         widgets = {
             'spoken_languages': forms.CheckboxSelectMultiple(),
             'intake_from': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
             'intake_to': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
+            'open_from': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
+            'open_to': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
         }
 
-    def __init__(self, data=None, instance=None, disabled=False):
+    def __init__(self, data=None, instance=None):
         logger.info('AccommodationForm instantiated with data %s and instance %s', data, instance)
 
         # instantiate ModelForm
@@ -54,11 +62,6 @@ class AccommodationForm(forms.ModelForm):
         self.fields['spoken_languages'].choices = [
             (language.id, language.translated_name) for language in Language.objects.all()
         ]
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
 
     # pylint: disable=arguments-differ
     def save(self, region=None):

@@ -266,10 +266,39 @@
                             {% render_field accommodation_form.intoxicated_allowed %}
                             <label for="id_intoxicated_allowed">{% trans 'Intoxicated persons allowed?' %}</label>
                         </div>
+                        <div class="cursor-pointer mt-4 mb-1 text-s">
+                            {% render_field accommodation_form.female_only %}
+                            <label for="id_female_only">{% trans 'Only women allowed?' %}</label>
+                        </div>
+                        <div class="cursor-pointer mt-4 mb-1 text-s">
+                            {% render_field accommodation_form.male_only %}
+                            <label for="id_male_only">{% trans 'Only men allowed?' %}</label>
+                        </div>
+                        <div class="cursor-pointer mt-4 mb-1 text-s">
+                            {% render_field accommodation_form.families_welcome %}
+                            <label for="id_families_welcome">{% trans 'Families welcome?' %}</label>
+                        </div>
+                        <div class="cursor-pointer mt-4 mb-1 text-s">
+                            {% render_field accommodation_form.kids_welcome %}
+                            <label for="id_kids_welcome">{% trans 'Kids welcome?' %}</label>
+                        </div>
+                    </div>
+                    <div class="pt-2 pb-4">
+                        <span class="block font-bold mb-4">{% trans 'Opening hours' %}</span>
+                        <div class="flex flex-wrap">
+                            <div class="w-1/2 pr-2">
+                                <label for="id_open_from" class="mb-2 block font-bold text-sm">{% trans 'From' %}</label>
+                                {% render_field accommodation_form.open_from|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            </div>
+                            <div class="w-1/2 pr-2">
+                                <label for="id_open_to" class="mb-2 block font-bold text-sm">{% trans 'To' %}</label>
+                                {% render_field accommodation_form.open_to|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                            </div>
+                        </div>
                     </div>
                     <div class="pt-2 pb-4">
                         <span class="block font-bold mb-4">{% trans 'Intake hours' %}</span>
-                            <div class="flex flex-wrap">
+                        <div class="flex flex-wrap">
                             <div class="w-1/2 pr-2">
                                 <label for="id_intake_from" class="mb-2 block font-bold text-sm">{% trans 'From' %}</label>
                                 {% render_field accommodation_form.intake_from|add_error_class:"border-red" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
