@@ -1,1309 +1,1448 @@
 [
-  {
-    "model": "auth.user",
-    "pk": 1,
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": true,
-      "username": "root",
-      "first_name": "Root",
-      "last_name": "User",
-      "email": "root@root.root",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "groups": [],
-      "user_permissions": []
-    }
-  },
-  {
-    "model": "cms.region",
-    "pk": 1,
-    "fields": {
-      "name": "Augsburg",
-      "slug": "augsburg",
-      "status": "ACTIVE",
-      "administrative_division": "CITY",
-      "aliases": "[\"Haunstetten\",\"Friedberg\"]",
-      "events_enabled": true,
-      "push_notifications_enabled": true,
-      "push_notification_channels": "[\"\"]",
-      "latitude": 48.36882,
-      "longitude": 10.8958715,
-      "postal_code": "86150",
-      "admin_mail": "augsburg@integreat-app.de",
-      "created_date": "2019-08-12T07:48:17.997Z",
-      "last_updated": "2019-08-12T07:48:17.998Z",
-      "statistics_enabled": false,
-      "matomo_url": "",
-      "matomo_token": "",
-      "matomo_ssl_verify": true
-    }
-  },
-  {
-    "model": "cms.region",
-    "pk": 2,
-    "fields": {
-      "name": "N\u00fcrnberg",
-      "slug": "nurnberg",
-      "status": "ACTIVE",
-      "administrative_division": "CITY",
-      "aliases": "[\"Schwabach\",\"Lauf an der Pegnitz\"]",
-      "events_enabled": true,
-      "push_notifications_enabled": true,
-      "push_notification_channels": "[\"\"]",
-      "latitude": 49.455288,
-      "longitude": 11.0766198,
-      "postal_code": "90403",
-      "admin_mail": "nuernberg@integreat-app.de",
-      "created_date": "2019-08-12T07:50:05.572Z",
-      "last_updated": "2019-08-12T07:50:05.573Z",
-      "statistics_enabled": false,
-      "matomo_url": "",
-      "matomo_token": "",
-      "matomo_ssl_verify": true
-    }
-  },
-  {
-    "model": "cms.language",
-    "pk": 1,
-    "fields": {
-      "code": "de-de",
-      "english_name": "German",
-      "native_name": "Deutsch",
-      "text_direction": "ltr",
-      "created_date": "2019-08-12T07:50:18.139Z",
-      "last_updated": "2019-08-12T07:50:18.140Z"
-    }
-  },
-  {
-    "model": "cms.language",
-    "pk": 2,
-    "fields": {
-      "code": "en-us",
-      "english_name": "English",
-      "native_name": "Deutsch",
-      "text_direction": "ltr",
-      "created_date": "2019-08-12T07:50:24.635Z",
-      "last_updated": "2019-08-12T07:50:24.636Z"
-    }
-  },
-  {
-    "model": "cms.language",
-    "pk": 3,
-    "fields": {
-      "code": "ar-ma",
-      "english_name": "Arabic",
-      "native_name": "العربية",
-      "text_direction": "rtl",
-      "created_date": "2019-08-12T07:51:29.233Z",
-      "last_updated": "2019-08-12T07:51:29.233Z"
-    }
-  },
-  {
-    "model": "cms.language",
-    "pk": 4,
-    "fields": {
-      "code": "fa-ir",
-      "english_name": "Farsi",
-      "native_name": "فارسی",
-      "text_direction": "rtl",
-      "created_date": "2019-08-12T07:52:21.399Z",
-      "last_updated": "2019-08-12T07:52:21.400Z"
-    }
-  },
-  {
-    "model": "cms.languagetreenode",
-    "pk": 1,
-    "fields": {
-      "language": 1,
-      "parent": null,
-      "region": 1,
-      "active": true,
-      "created_date": "2019-08-12T07:52:34.183Z",
-      "last_updated": "2019-08-12T07:52:34.187Z",
-      "lft": 1,
-      "rght": 8,
-      "tree_id": 1,
-      "level": 0
-    }
-  },
-  {
-    "model": "cms.languagetreenode",
-    "pk": 2,
-    "fields": {
-      "language": 2,
-      "parent": 1,
-      "region": 1,
-      "active": true,
-      "created_date": "2019-08-12T07:52:44.617Z",
-      "last_updated": "2019-08-12T07:52:44.629Z",
-      "lft": 2,
-      "rght": 7,
-      "tree_id": 1,
-      "level": 1
-    }
-  },
-  {
-    "model": "cms.languagetreenode",
-    "pk": 3,
-    "fields": {
-      "language": 3,
-      "parent": 2,
-      "region": 1,
-      "active": true,
-      "created_date": "2019-08-12T07:52:52.560Z",
-      "last_updated": "2019-08-12T07:52:52.564Z",
-      "lft": 3,
-      "rght": 4,
-      "tree_id": 1,
-      "level": 2
-    }
-  },
-  {
-    "model": "cms.languagetreenode",
-    "pk": 4,
-    "fields": {
-      "language": 4,
-      "parent": 2,
-      "region": 1,
-      "active": true,
-      "created_date": "2019-08-12T07:53:00.429Z",
-      "last_updated": "2019-08-12T07:53:00.441Z",
-      "lft": 5,
-      "rght": 6,
-      "tree_id": 1,
-      "level": 2
-    }
-  },
-  {
-    "model": "cms.languagetreenode",
-    "pk": 5,
-    "fields": {
-      "language": 1,
-      "parent": null,
-      "region": 2,
-      "active": true,
-      "created_date": "2019-08-12T07:53:15.051Z",
-      "last_updated": "2019-08-12T07:53:15.053Z",
-      "lft": 1,
-      "rght": 8,
-      "tree_id": 2,
-      "level": 0
-    }
-  },
-  {
-    "model": "cms.languagetreenode",
-    "pk": 6,
-    "fields": {
-      "language": 2,
-      "parent": 5,
-      "region": 2,
-      "active": true,
-      "created_date": "2019-08-12T07:53:28.892Z",
-      "last_updated": "2019-08-12T07:53:28.898Z",
-      "lft": 2,
-      "rght": 7,
-      "tree_id": 2,
-      "level": 1
-    }
-  },
-  {
-    "model": "cms.languagetreenode",
-    "pk": 7,
-    "fields": {
-      "language": 3,
-      "parent": 6,
-      "region": 2,
-      "active": true,
-      "created_date": "2019-08-12T07:53:43.197Z",
-      "last_updated": "2019-08-12T07:53:43.201Z",
-      "lft": 3,
-      "rght": 6,
-      "tree_id": 2,
-      "level": 2
-    }
-  },
-  {
-    "model": "cms.languagetreenode",
-    "pk": 8,
-    "fields": {
-      "language": 4,
-      "parent": 7,
-      "region": 2,
-      "active": true,
-      "created_date": "2019-08-12T07:53:50.363Z",
-      "last_updated": "2019-08-12T07:53:50.374Z",
-      "lft": 4,
-      "rght": 5,
-      "tree_id": 2,
-      "level": 3
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 1,
-    "fields": {
-      "page": 1,
-      "slug": "willkommen",
-      "title": "Willkommen",
-      "status": "PUBLIC",
-      "text": "Willkommen in Augsburg",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T07:57:42.436Z",
-      "last_updated": "2019-08-12T07:57:42.456Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 2,
-    "fields": {
-      "page": 2,
-      "slug": "willkommen-in-augsburg",
-      "title": "Willkommen in Augsburg",
-      "status": "PUBLIC",
-      "text": "Liebe Neub\u00fcrgerin,\r\nlieber Neub\u00fcrger,\r\n\r\nherzlich willkommen in Augsburg!\r\n\r\nSie sind in einer vielf\u00e4ltigen und weltoffenen Stadt angekommen. Fast 300.000 Menschen aus rund 170 verschiedene Nationen leben hier gut zusammen. Ich freue mich, dass Sie in der Friedensstadt Augsburg einen neuen Lebensmittelpunkt gefunden haben.\r\n\r\nDas eigene Land zu verlassen und der Umzug in ein anderes Land bedeuten eine gro\u00dfe Umstellung. Nach der Ankunft stellen sich viele allt\u00e4gliche Fragen zu Wohnung oder Unterkunft, Schule und Arbeit, sozialen und kulturellen Kontakten. Auch die Orientierung in einer fremden Kultur stellt eine gro\u00dfe Herausforderung dar.\r\n\r\nDie Integreat-App ist ein Gemeinschaftsprojekt der Stadt Augsburg in Zusammenarbeit mit T\u00fcr an T\u00fcr \u2013 Digital Factory gGmbH, die ihr technisches Know-how zur Verf\u00fcgung stellt. Unterst\u00fctzt wird das Vorhaben durch den Integrationsbeirat und die AFF- association des familles francophones.\r\n\r\nMit der App m\u00f6chten wir Ihnen helfen, das Leben in Augsburg besser zu verstehen und kennenzulernen. Sie soll ein Beitrag dazu sein, dass Sie sich bald angekommen f\u00fchlen und willkommen in unserer Stadtgesellschaft sind. Hier finden Sie wichtige Adressen, allgemeine Anlaufstellen sowie Hilfsangebote in besonderen Lebenslagen.\r\n\r\nIch hoffe sehr, dass wir Sie beim Einleben in Augsburg mit der App unterst\u00fctzen k\u00f6nnen. Ich w\u00fcnsche Ihnen, dass Sie bald erste Kontakte kn\u00fcpfen und voller Zuversicht auf Ihre pers\u00f6nliche Zukunft in unserer gemeinsamen Stadt blicken werden.\r\n\r\nDr. Kurt Gribl\r\n\r\nOberb\u00fcrgermeister\r\nder Stadt Augsburg",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T07:58:36.305Z",
-      "last_updated": "2019-08-12T08:05:51.712Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 3,
-    "fields": {
-      "page": 3,
-      "slug": "uber-die-app-integreat-augsburg",
-      "title": "\u00dcber die App Integreat Augsburg",
-      "status": "PUBLIC",
-      "text": "Dieser Leitfaden unterst\u00fctzt Sie in Ihrem Alltag in Augsburg. Sie finden hier wichtige Adressen, Ansprechpartner und Tipps und Tricks, die Ihnen bei der Orientierung in Augsburg helfen k\u00f6nnen.\r\n\r\nIhr Alltagsguide hat mehrere Kapitel. Jedes Kapitel bearbeitet ein anderes Thema. Sie finden zum Beispiel Informationen zu \u00c4rzten, Schulen, Deutschkursen oder anderen Institutionen. Es gibt auch ein Kapitel mit Ideen, was Sie in Ihrer Freizeit machen k\u00f6nnen. Die Informationen und Freizeitangebote \u00e4ndern sich und wir aktualisieren  diese Seite regelm\u00e4\u00dfig. Deswegen ist es sehr gut, wenn Sie oft in Ihre mobile App schauen und sich \u00fcber aktuelle Aktionen und Veranstaltungen informieren.\r\n\r\nSie k\u00f6nnen diese App auch offline benutzen, wenn Sie keinen Internet-Zugang haben. Wenn Sie wieder online sind, aktualisiert sich die App von selbst.\r\n\r\nWir hoffen sehr, dass wir Ihren Aufenthalt hier in Augsburg mit dieser App vereinfachen k\u00f6nnen. Wir freuen uns, Sie hier in der Friedensstadt Augsburg begr\u00fc\u00dfen zu d\u00fcrfen.\r\n\r\n \r\n\r\nBildungskoordinatorinnen f\u00fcr Neuzugewanderte",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T07:59:21.581Z",
-      "last_updated": "2019-08-12T08:05:45.631Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 4,
-    "fields": {
-      "page": 4,
-      "slug": "wissenswertes-uber-augsburg",
-      "title": "Wissenswertes \u00fcber Augsburg",
-      "status": "PUBLIC",
-      "text": "Augsburg liegt im S\u00fcdwesten Bayerns. Bis M\u00fcnchen sind es ungef\u00e4hr 60 km. Augsburg hat circa 298.255 Einwohner und ist die drittgr\u00f6\u00dfte Stadt Bayerns. Die gr\u00f6\u00dfte Stadt in Bayern ist M\u00fcnchen und die zweitgr\u00f6\u00dfte Stadt N\u00fcrnberg. Ein r\u00f6mischer Kaiser mit dem Namen Augustus hat Augsburg vor mehr als 2000 Jahren zwischen den Fl\u00fcssen Lech und Wertach gegr\u00fcndet. Augsburg hat sogar einen eigenen Feiertag \u2013 am 8. August feiert die Stadt das Augsburger Hohe Friedensfest. Das Fest ist ein Zeichen f\u00fcr Religionsfreiheit und f\u00fcr Frieden zwischen den Religionen.\r\n\r\nIn Augsburg gibt es viele interessante und sch\u00f6ne Orte. Aber besonders sch\u00f6n und ber\u00fchmt sind das Rathaus mit dem Goldenen Saal, die Fuggerei als \u00e4lteste Sozialsiedlung der Welt und der Augsburger Dom. Sehenswert ist auch die Anfang des 20. Jh. gebaute Synagoge, die zu den sch\u00f6nsten in Europa geh\u00f6rt.  Vom Perlachturm, einem der h\u00f6chsten Geb\u00e4ude in Augsburg, bekommen Sie eine wunderbare Aussicht auf die Stadt. Beim sch\u00f6nen Wetter kann man von der Aussichtsplattform sogar die Alpen sehen. Wer Tiere sehen m\u00f6chte, ist im Augsburger ZOO richtig aufgehoben. Wer Ruhe und Entspannung sucht, findet sie zum Beispiel im zentrumsnahen Hofgarten. Auch das Botanische Garten bietet, neben den \u00fcber 3000 Pflanzenarten, sch\u00f6ne und ruhige Pl\u00e4tze zum Erholen. An sonnigen Tagen lohnt es sich an den Ufern von Lech oder Wertach spazieren zu gehen oder Fahrad zu fahren. Im Norden Augsburgs flie\u00dfen die beiden Fl\u00fcsse zusammen. Dieses gebiet heisst  Wolfzahnau und ist zum Landschaftsschutzgebiet erkl\u00e4rt worden. Auch dort gehen die Augsburgerinnen und Augsburger gerne spazieren.\r\n\r\nEin \u00dcberblick \u00fcber Augsburger Parkanlagen und Ruheoasen finden Sie hier.\r\n\r\nM\u00f6gen Sie Fu\u00dfball? Augsburgs Fu\u00dfballmannschaft, der FC Augsburg, spielt seit 2011 in der 1. Bundesliga und hat 2015/2016 sogar in der Euro-League gespielt.\r\n\r\nBrauchen Sie Tipps f\u00fcr Ihre Freizeit, dann schauen Sie die n\u00e4chsten Seiten an. Hier finden Sie viele Ideen, was Sie in Ihrer Freizeit in Augsburg machen k\u00f6nnen.\r\n\r\nSchlagworte: Sehensw\u00fcrdigkeiten, Attraktion, Tourismus",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T07:59:50.954Z",
-      "last_updated": "2019-08-12T08:05:39.369Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 5,
-    "fields": {
-      "page": 5,
-      "slug": "stadtplan",
-      "title": "Stadtplan",
-      "status": "PUBLIC",
-      "text": "Sie suchen einen Stadtplan?\r\n\r\n-    Einen Stadtplan von Augsburg als App finden Sie unter www.maps.me\r\n     Als Erstes m\u00fcssen Sie die App downloaden.\r\n     Der Stadtplan ist kostenlos.\r\n     Er funktioniert offline und hat eine Navigationsfunktion.\r\n-    Einen klassischen Stadtplan der Stadt Augsburg finden Sie im Internet unter www.stadtplan.augsburg.de",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:01:13.169Z",
-      "last_updated": "2019-08-12T08:01:13.187Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 6,
-    "fields": {
-      "page": 6,
-      "slug": "kontakt-zu-app-team-augsburg",
-      "title": "Kontakt zu App Team Augsburg",
-      "status": "PUBLIC",
-      "text": "Wenn Sie Fragen haben oder uns etwas mitteilen m\u00f6chten, schreiben Sie uns oder rufen Sie uns an:\r\n\r\nBildungskoordination f\u00fcr Neuzugewanderte\r\n\r\nStadt Augsburg\r\nB\u00fcro f\u00fcr Migration, Interkultur und Vielfalt\r\nAmt f\u00fcr Kinder, Jugend und Familie\r\n 082132434494 oder 082132434493\r\n bildungskoordination@augsburg.de\r\n\r\nSchlagworte: Bildungskoordination, Kontakt, App Team Augsburg, Fragen, Anregungen, Verbesserungsvorschlag, Kritik, Lob",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:01:42.253Z",
-      "last_updated": "2019-08-12T08:01:42.279Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 7,
-    "fields": {
-      "page": 1,
-      "slug": "welcome",
-      "title": "Welcome",
-      "status": "PUBLIC",
-      "text": "Welcome to Augsburg",
-      "language": 2,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:02:48.827Z",
-      "last_updated": "2019-08-12T08:02:48.852Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 8,
-    "fields": {
-      "page": 3,
-      "slug": "about-the-integreat-app-augsburg",
-      "title": "About the Integreat App Augsburg",
-      "status": "PUBLIC",
-      "text": "Welcome to Augsburg!\r\n\r\nThis guide will support you in your everyday life in Augsburg. Here you will find important addresses, contact persons, and tips and tricks to help you orientate yourself better in Augsburg.\r\n\r\nThis everyday guide has several chapters. Every chapter deals with a different subject. For example, you will find information on doctors, schools, German courses and other institutions.There is also a chapter with ideas for what you can do in your spare time.The information and leisure options change often, so we update them regularly. That's why it is a good idea to take a regular look at your mobile app and get information about current activities and events.\r\n\r\nYou can also use this app offline for when you have no internet access. The app will update automatically when you are back online again.\r\n\r\nWe hope that this app makes your life in Augsburg a little bit easier.We look forward to welcoming you here in the Peace City of Augsburg.\r\n\r\nBMFSFJ_DemokratieLeben",
-      "language": 2,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:03:48.554Z",
-      "last_updated": "2019-08-12T08:03:48.584Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 9,
-    "fields": {
-      "page": 4,
-      "slug": "trivia-about-augsburg",
-      "title": "Trivia about Augsburg",
-      "status": "PUBLIC",
-      "text": "Augsburg is located in the southwest of Bavaria. It is about 60km to Munich. Augsburg has approximately 284,000 inhabitants and is the third largest city in Bavaria. The largest city in Bavaria is Munich and the second largest city Nuremberg. A Roman emperor named Augustus founded Augsburg more than 2000 years ago, between the rivers Lech and Wertach. Augsburg even has its own holiday - on 8 August, the city celebrates the Augsburger Hohe Friedensfest. The festival symbolises religious freedom and peace between religions.\r\n\r\nIn Augsburg there are many interesting and beautiful places.But especially beautiful and famous are the city hall with its Golden Hall, the Fuggerei, which is the oldest social housing complex in the world, and Augsburg Cathedral.\r\n\r\nDo you like football?Augsburg's football team, FC Augsburg, offers you 90 minutes of excitement.Since 2011, FC Augsburg has played in the top division of the Bundesliga and, since 2015-16, in the Europa League.\r\n\r\nIf you need tips for your leisure time, then take a look at the next few websites. Here you will find many ideas for what you can do in your free time in Augsburg.These websites are continuously updated by their hosts.",
-      "language": 2,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:04:39.710Z",
-      "last_updated": "2019-08-12T08:04:39.746Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 10,
-    "fields": {
-      "page": 5,
-      "slug": "city-map",
-      "title": "City Map",
-      "status": "PUBLIC",
-      "text": "Are you looking for a city map? Here is a street map of Augsburg. The street map is free of charge.It works offline and has a navigation feature.\r\n\r\nHow to get the map: Download the MAPS.ME app.The app can be found in Google Play on Android.It is free.How it works:Download a map of your federal state.Augsburg is located in Bavaria. Then download the city map for Augsburg: Download from MAPS.ME in Google Play on Android or in the App Store.\r\n\r\nAre you looking for a classic-style map of the City of Augsburg? You can find one online on www.stadtplan.augsburg.de",
-      "language": 2,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:05:26.597Z",
-      "last_updated": "2019-08-12T08:05:26.616Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 11,
-    "fields": {
-      "page": 1,
-      "slug": "\u06af\u0627\u0645-\u0646\u062e\u0633\u062a",
-      "title": "\u06af\u0627\u0645 \u0646\u062e\u0633\u062a",
-      "status": "PUBLIC",
-      "text": "\u06af\u0627\u0645 \u0646\u062e\u0633\u062a",
-      "language": 4,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:08:37.158Z",
-      "last_updated": "2019-08-12T08:08:37.172Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 12,
-    "fields": {
-      "page": 5,
-      "slug": "\u0646\u0642\u0634\u0647-\u0634\u0647\u0631",
-      "title": "\u0646\u0642\u0634\u0647 \u0634\u0647\u0631",
-      "status": "PUBLIC",
-      "text": "\u0622\u06cc\u0627 \u0628\u0647 \u0646\u0642\u0634\u0647 \u0634\u0647\u0631 \u0646\u06cc\u0627\u0632 \u062f\u0627\u0631\u06cc\u062f\u061f \u062f\u0631 \u0627\u06cc\u0646\u062c\u0627 \u0628\u0647 \u06cc\u06a9 \u0646\u0642\u0634\u0647 \u0627\u0632 \u0634\u0647\u0631 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u062f\u0633\u062a\u0631\u0633\u06cc \u067e\u06cc\u062f\u0627 \u0645\u06cc \u06a9\u0646\u06cc\u062f. \u0646\u0642\u0634\u0647 \u0634\u0647\u0631 \u0631\u0627\u06cc\u06af\u0627\u0646 \u0627\u0633\u062a. \u0627\u06cc\u0646 \u0646\u0642\u0634\u0647 \u0628\u062f\u0648\u0646 \u0646\u06cc\u0627\u0632 \u0628\u0647 \u0627\u062a\u0635\u0627\u0644 \u0628\u0647 \u0627\u06cc\u0646\u062a\u0631\u0646\u062a \u0647\u0645 \u06a9\u0627\u0631 \u0645\u06cc \u06a9\u0646\u062f \u0648 \u0642\u0627\u0628\u0644\u06cc\u062a \u062c\u0647\u062a \u06cc\u0627\u0628\u06cc \u0647\u0645 \u062f\u0627\u0631\u062f.\r\n\r\n\u0646\u0642\u0634\u0647 \u0634\u0647\u0631 \u0631\u0627 \u0628\u0647 \u0627\u06cc\u0646 \u062a\u0631\u062a\u06cc\u0628 \u0645\u06cc \u062a\u0648\u0627\u0646\u06cc\u062f \u0628\u062f\u0633\u062a \u0622\u0648\u0631\u06cc\u062f:\r\n\u0627\u067e MAPS.ME \u0631\u0627 \u062f\u0627\u0646\u0644\u0648\u062f \u06a9\u0646\u06cc\u062f. \u0627\u06cc\u0646 \u0627\u067e \u062f\u0631 \u067e\u0644\u06cc \u0627\u0633\u062a\u0648\u0631 \u0627\u0646\u062f\u0631\u0648\u06cc\u062f \u0645\u0648\u062c\u0648\u062f \u0627\u0633\u062a. \u0627\u06cc\u0646 \u0627\u067e \u0631\u0627\u06cc\u06af\u0627\u0646 \u0627\u0633\u062a.\r\n\r\n\u0628\u0647 \u0627\u06cc\u0646 \u0634\u06a9\u0644 \u06a9\u0627\u0631 \u0645\u06cc \u06a9\u0646\u062f:\r\n\u0646\u0642\u0634\u0647 \u0627\u06cc\u0627\u0644\u062a \u062e\u0648\u062f \u0631\u0627 \u062f\u0627\u0646\u0644\u0648\u062f \u06a9\u0646\u06cc\u062f. \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u062f\u0631 \u0627\u06cc\u0627\u0644\u062a \u0628\u0627\u06cc\u0631\u0646 (\u0628\u0627\u0648\u0627\u0631\u06cc\u0627) \u0642\u0631\u0627\u0631 \u062f\u0627\u0631\u062f. \u0633\u067e\u0633 \u0646\u0642\u0634\u0647 \u0634\u0647\u0631 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u0631\u0627 \u062f\u0627\u0646\u0644\u0648\u062f \u0646\u0645\u0627\u06cc\u06cc\u062f.\r\n\r\n\u062f\u0627\u0644\u0648\u062f MAPS.ME \u062f\u0631 \u067e\u0644\u06cc \u0627\u0633\u062a\u0648\u0631 \u0627\u0646\u062f\u0631\u0648\u06cc\u062f\r\n\u0627\u06af\u0631 \u062f\u0646\u0628\u0627\u0644 \u06cc\u06a9 \u0646\u0642\u0634\u0647 \u0633\u0627\u062f\u0647 \u0627\u0632 \u0634\u0647\u0631 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u0647\u0633\u062a\u06cc\u062f\r\n\u0645\u06cc \u062a\u0648\u0627\u0646\u06cc\u062f \u0622\u0646 \u0631\u0627 \u062f\u0631 \u0627\u06cc\u0646\u062a\u0631\u0646\u062a \u062f\u0631 \u0627\u06cc\u0646 \u0622\u062f\u0631\u0633 \u067e\u06cc\u062f\u0627 \u06a9\u0646\u06cc\u062fwww.stadtplan.augsburg.de",
-      "language": 4,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:08:54.805Z",
-      "last_updated": "2019-08-12T08:08:54.855Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 13,
-    "fields": {
-      "page": 1,
-      "slug": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a-\u0627\u0644\u0648\u0635\u0648\u0644",
-      "title": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0648\u0635\u0648\u0644",
-      "status": "PUBLIC",
-      "text": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0648\u0635\u0648\u0644",
-      "language": 3,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:09:45.042Z",
-      "last_updated": "2019-08-12T08:09:45.052Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 14,
-    "fields": {
-      "page": 2,
-      "slug": "\u0645\u0631\u062d\u0628\u0627-\u0628\u0643\u0645-\u0641\u064a-\u0645\u062f\u064a\u0646\u0629-\u0623\u0648\u062c\u0633\u0628\u0648\u0631\u062c",
-      "title": "\u0645\u0631\u062d\u0628\u064b\u0627 \u0628\u0643\u0645 \u0641\u064a \u0645\u062f\u064a\u0646\u0629 \u0623\u0648\u062c\u0633\u0628\u0648\u0631\u062c",
-      "status": "PUBLIC",
-      "text": "\u0645\u0631\u062d\u0628\u064b\u0627 \u0628\u0643\u0645 \u0641\u064a \u0645\u062f\u064a\u0646\u0629 \u0623\u0648\u062c\u0633\u0628\u0648\u0631\u062c !\r\n\r\n\u0645\u0646 \u0623\u062c\u0644 \u062f\u0639\u0645\u0643\u0645 \u0643\u0637\u0627\u0644\u0628\u0649 \u0648\u0637\u0627\u0644\u0628\u0627\u062a \u0644\u062c\u0648\u0621 \u0643\u064f\u062a\u0628\u062a \u0647\u0630\u0647 \u0627\u0644\u062e\u0637\u0648\u0637 \u0627\u0644\u0625\u0631\u0634\u0627\u062f\u064a\u0629 \u0627\u0644\u062e\u0627\u0635\u0629 \u0628\u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u064a\u0648\u0645\u064a\u0629 \u0641\u064a \u0645\u062f\u064a\u0646\u062a\u0646\u0627. \u0641\u0636\u0644\u064b\u0627 \u0639\u0646 \u0627\u0644\u0645\u0648\u0638\u0641\u064a\u0646 \u0627\u0644\u0645\u062e\u062a\u0635\u064a\u0646 \u0648\u0627\u0644\u0639\u0646\u0627\u0648\u064a\u0646 \u0627\u0644\u0647\u0627\u0645\u0629 \u062a\u062c\u062f\u0648\u0646 \u0646\u0635\u0627\u0626\u062d \u062a\u0633\u0627\u0639\u062f\u0643\u0645 \u0639\u0646\u062f \u0627\u0644\u062e\u0637\u0648\u0627\u062a \u0627\u0644\u0623\u0648\u0644\u0649.\r\n\r\n\u064a\u062a\u0643\u0648\u0646 \u0627\u0644\u062f\u0644\u064a\u0644 \u0627\u0644\u064a\u0648\u0645\u0649 \u0627\u0644\u0630\u0649 \u0628\u064a\u0646 \u0623\u064a\u062f\u064a\u0643\u0645 \u0645\u0646 \u0639\u062f\u0629 \u0641\u0635\u0648\u0644 \u064a\u062a\u0646\u0627\u0648\u0644 \u0643\u0644 \u0645\u0646\u0647\u0627 \u0645\u0648\u0636\u0648\u0639\u0627\u062a \u0645\u062e\u062a\u0644\u0641\u0629. \u0641\u0628\u0627\u0644\u0625\u0636\u0627\u0641\u0629 \u0625\u0644\u0649 \u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0639\u0646 \u0627\u0644\u0623\u0637\u0628\u0627\u0621 \u0648\u0627\u0644\u0645\u062f\u0631\u0633\u0629 \u0648\u062f\u0648\u0631\u0627\u062a \u062a\u0639\u0644\u0645 \u0627\u0644\u0644\u063a\u0629 \u0627\u0644\u0623\u0644\u0645\u0627\u0646\u064a\u0629 \u0648\u0639\u0631\u0636 \u0645\u062e\u062a\u0644\u0641 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a \u062e\u0635\u0635\u0646\u0627 \u0644\u0643\u0645 \u0641\u0635\u0644\u064b\u0627 \u0643\u0627\u0645\u0644\u064b\u0627 \u0639\u0646 \u0627\u0644\u062a\u0631\u0641\u064a\u0647 \u0641\u064a \u0645\u062f\u064a\u0646\u0629 \u0623\u0648\u062c\u0633\u0628\u0631\u062c. \u0648\u0646\u0638\u0631\u064b\u0627 \u0644\u0623\u0646 \u0647\u0630\u0627 \u0627\u0644\u0639\u0631\u0636 \u064a\u062a\u062c\u062f\u062f \u0628\u0625\u0633\u062a\u0645\u0631\u0627\u0631 \u0641\u0645\u0646 \u0627\u0644\u0645\u0641\u064a\u062f \u063a\u0627\u0644\u0628\u064b\u0627 \u0625\u0644\u0642\u0627\u0621 \u0646\u0638\u0631\u0629 \u0639\u0644\u0649 \u062a\u0637\u0628\u064a\u0642 \u0627\u0644\u0647\u0627\u062a\u0641 \u0627\u0644\u0645\u062d\u0645\u0648\u0644 \u0644\u0644\u0625\u0637\u0644\u0627\u0639 \u0639\u0644\u0649 \u0627\u0644\u0623\u0646\u0634\u0637\u0629 \u0648\u0627\u0644\u0623\u062d\u062f\u0627\u062b \u0627\u0644\u062c\u0627\u0631\u064a\u0629.\r\n\r\n\u0648\u0646\u0623\u0645\u0644 \u0645\u0633\u0627\u0639\u062f\u062a\u0643\u0645 \u0641\u064a \u062e\u0637\u0648\u0627\u062a \u0627\u0644\u0628\u062f\u0621 \u0628\u0625\u0633\u062a\u0639\u0645\u0627\u0644 \u062f\u0644\u064a\u0644 \u0627\u0644\u0647\u0627\u062a\u0641 \u0627\u0644\u0645\u062d\u0645\u0648\u0644 \u0627\u0644\u0645\u062a\u0648\u0641\u0631 \u0648\u0646\u062a\u0637\u0644\u0639 \u0625\u0644\u0649 \u0627\u0644\u062a\u0631\u062d\u064a\u0628 \u0628\u0643\u0645 \u0641\u064a \u0623\u0648\u062c\u0633\u0628\u0631\u062c \u0645\u062f\u064a\u0646\u0629 \u0627\u0644\u0641\u0648\u062c\u0631\u0632.",
-      "language": 3,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:10:22.985Z",
-      "last_updated": "2019-08-12T08:10:23.049Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 15,
-    "fields": {
-      "page": 3,
-      "slug": "\u0645\u0631\u062d\u0628\u0627-\u0628\u0643\u0645-\u0641\u064a-\u0645\u062f\u064a\u0646\u0629-\u0623\u0648\u062c\u0633\u0628\u0648\u0631\u062c",
-      "title": "\u0645\u0631\u062d\u0628\u064b\u0627 \u0628\u0643\u0645 \u0641\u064a \u0645\u062f\u064a\u0646\u0629 \u0623\u0648\u062c\u0633\u0628\u0648\u0631\u062c",
-      "status": "PUBLIC",
-      "text": "\u0645\u0631\u062d\u0628\u064b\u0627 \u0628\u0643\u0645 \u0641\u064a \u0645\u062f\u064a\u0646\u0629 \u0623\u0648\u062c\u0633\u0628\u0648\u0631\u062c !\r\n\r\n\u0645\u0646 \u0623\u062c\u0644 \u062f\u0639\u0645\u0643\u0645 \u0643\u0637\u0627\u0644\u0628\u0649 \u0648\u0637\u0627\u0644\u0628\u0627\u062a \u0644\u062c\u0648\u0621 \u0643\u064f\u062a\u0628\u062a \u0647\u0630\u0647 \u0627\u0644\u062e\u0637\u0648\u0637 \u0627\u0644\u0625\u0631\u0634\u0627\u062f\u064a\u0629 \u0627\u0644\u062e\u0627\u0635\u0629 \u0628\u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u064a\u0648\u0645\u064a\u0629 \u0641\u064a \u0645\u062f\u064a\u0646\u062a\u0646\u0627. \u0641\u0636\u0644\u064b\u0627 \u0639\u0646 \u0627\u0644\u0645\u0648\u0638\u0641\u064a\u0646 \u0627\u0644\u0645\u062e\u062a\u0635\u064a\u0646 \u0648\u0627\u0644\u0639\u0646\u0627\u0648\u064a\u0646 \u0627\u0644\u0647\u0627\u0645\u0629 \u062a\u062c\u062f\u0648\u0646 \u0646\u0635\u0627\u0626\u062d \u062a\u0633\u0627\u0639\u062f\u0643\u0645 \u0639\u0646\u062f \u0627\u0644\u062e\u0637\u0648\u0627\u062a \u0627\u0644\u0623\u0648\u0644\u0649.\r\n\r\n\u064a\u062a\u0643\u0648\u0646 \u0627\u0644\u062f\u0644\u064a\u0644 \u0627\u0644\u064a\u0648\u0645\u0649 \u0627\u0644\u0630\u0649 \u0628\u064a\u0646 \u0623\u064a\u062f\u064a\u0643\u0645 \u0645\u0646 \u0639\u062f\u0629 \u0641\u0635\u0648\u0644 \u064a\u062a\u0646\u0627\u0648\u0644 \u0643\u0644 \u0645\u0646\u0647\u0627 \u0645\u0648\u0636\u0648\u0639\u0627\u062a \u0645\u062e\u062a\u0644\u0641\u0629. \u0641\u0628\u0627\u0644\u0625\u0636\u0627\u0641\u0629 \u0625\u0644\u0649 \u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0639\u0646 \u0627\u0644\u0623\u0637\u0628\u0627\u0621 \u0648\u0627\u0644\u0645\u062f\u0631\u0633\u0629 \u0648\u062f\u0648\u0631\u0627\u062a \u062a\u0639\u0644\u0645 \u0627\u0644\u0644\u063a\u0629 \u0627\u0644\u0623\u0644\u0645\u0627\u0646\u064a\u0629 \u0648\u0639\u0631\u0636 \u0645\u062e\u062a\u0644\u0641 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a \u062e\u0635\u0635\u0646\u0627 \u0644\u0643\u0645 \u0641\u0635\u0644\u064b\u0627 \u0643\u0627\u0645\u0644\u064b\u0627 \u0639\u0646 \u0627\u0644\u062a\u0631\u0641\u064a\u0647 \u0641\u064a \u0645\u062f\u064a\u0646\u0629 \u0623\u0648\u062c\u0633\u0628\u0631\u062c. \u0648\u0646\u0638\u0631\u064b\u0627 \u0644\u0623\u0646 \u0647\u0630\u0627 \u0627\u0644\u0639\u0631\u0636 \u064a\u062a\u062c\u062f\u062f \u0628\u0625\u0633\u062a\u0645\u0631\u0627\u0631 \u0641\u0645\u0646 \u0627\u0644\u0645\u0641\u064a\u062f \u063a\u0627\u0644\u0628\u064b\u0627 \u0625\u0644\u0642\u0627\u0621 \u0646\u0638\u0631\u0629 \u0639\u0644\u0649 \u062a\u0637\u0628\u064a\u0642 \u0627\u0644\u0647\u0627\u062a\u0641 \u0627\u0644\u0645\u062d\u0645\u0648\u0644 \u0644\u0644\u0625\u0637\u0644\u0627\u0639 \u0639\u0644\u0649 \u0627\u0644\u0623\u0646\u0634\u0637\u0629 \u0648\u0627\u0644\u0623\u062d\u062f\u0627\u062b \u0627\u0644\u062c\u0627\u0631\u064a\u0629.\r\n\r\n\u0648\u0646\u0623\u0645\u0644 \u0645\u0633\u0627\u0639\u062f\u062a\u0643\u0645 \u0641\u064a \u062e\u0637\u0648\u0627\u062a \u0627\u0644\u0628\u062f\u0621 \u0628\u0625\u0633\u062a\u0639\u0645\u0627\u0644 \u062f\u0644\u064a\u0644 \u0627\u0644\u0647\u0627\u062a\u0641 \u0627\u0644\u0645\u062d\u0645\u0648\u0644 \u0627\u0644\u0645\u062a\u0648\u0641\u0631 \u0648\u0646\u062a\u0637\u0644\u0639 \u0625\u0644\u0649 \u0627\u0644\u062a\u0631\u062d\u064a\u0628 \u0628\u0643\u0645 \u0641\u064a \u0623\u0648\u062c\u0633\u0628\u0631\u062c \u0645\u062f\u064a\u0646\u0629 \u0627\u0644\u0641\u0648\u062c\u0631\u0632.",
-      "language": 3,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:11:24.417Z",
-      "last_updated": "2019-08-12T08:11:24.443Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 16,
-    "fields": {
-      "page": 3,
-      "slug": "\u0628\u0647-\u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af-\u062e\u0648\u0634-\u0622\u0645\u062f\u06cc\u062f",
-      "title": "\u0628\u0647 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u062e\u0648\u0634 \u0622\u0645\u062f\u06cc\u062f",
-      "status": "PUBLIC",
-      "text": "\u0628\u0647 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u062e\u0648\u0634 \u0622\u0645\u062f\u06cc\u062f!\r\n\r\n\u0627\u06cc\u0646 \u0631\u0627\u0647\u0646\u0645\u0627 \u0634\u0645\u0627 \u0631\u0627 \u062f\u0631 \u0627\u0646\u062c\u0627\u0645 \u0627\u0645\u0648\u0631 \u0631\u0648\u0632\u0645\u0631\u0647 \u062a\u0627\u0646 \u062f\u0631 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u06cc\u0627\u0631\u06cc \u0645\u06cc \u06a9\u0646\u062f. \u0627\u06cc\u0646\u062c\u0627 \u0645\u06cc \u062a\u0648\u0627\u0646\u06cc\u062f \u0646\u0627\u0645 \u0648 \u0646\u0634\u0627\u0646\u06cc \u0647\u0627\u06cc \u0645\u0647\u0645 \u0648 \u0646\u06cc\u0632 \u0646\u06a9\u0627\u062a \u0645\u0641\u06cc\u062f\u06cc \u0631\u0627 \u067e\u06cc\u062f\u0627 \u06a9\u0646\u06cc\u062f \u06a9\u0647 \u0634\u0645\u0627 \u0631\u0627 \u062f\u0631 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u0631\u0627\u0647\u0646\u0645\u0627\u06cc\u06cc \u0645\u06cc \u06a9\u0646\u0646\u062f.\r\n\r\n\u0627\u06cc\u0646 \u0631\u0627\u0647\u0646\u0645\u0627 \u0686\u0646\u062f \u0641\u0635\u0644 \u062f\u0627\u0631\u062f. \u0648 \u0647\u0631 \u0641\u0635\u0644 \u0628\u0647 \u062a\u0648\u0636\u06cc\u062d \u06cc\u06a9 \u0645\u0648\u0636\u0648\u0639 \u0627\u062e\u062a\u0635\u0627\u0635 \u062f\u0627\u0631\u062f. \u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u0645\u062b\u0627\u0644 \u062f\u0631 \u0627\u06cc\u0646 \u0631\u0627\u0647\u0646\u0645\u0627 \u0627\u0637\u0644\u0627\u0639\u0627\u062a\u06cc \u062f\u0631 \u0645\u0648\u0631\u062f \u067e\u0632\u0634\u06a9\u0627\u0646\u060c \u0645\u062f\u0627\u0631\u0633\u060c \u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0632\u0628\u0627\u0646 \u0622\u0644\u0645\u0627\u0646\u06cc \u0648 \u0627\u062f\u0627\u0631\u0647 \u062c\u0627\u062a \u0622\u0644\u0645\u0627\u0646 \u0645\u0648\u062c\u0648\u062f \u0627\u0633\u062a. \u062f\u0631 \u0627\u06cc\u0646 \u0631\u0627\u0647\u0646\u0645\u0627 \u0647\u0645\u0686\u0646\u06cc\u0646 \u06cc\u06a9 \u0628\u062e\u0634 \u062f\u0631\u0628\u0627\u0631\u0647 \u0627\u0645\u06a9\u0627\u0646\u0627\u062a \u0645\u0648\u062c\u0648\u062f \u0628\u0631\u0627\u06cc \u06af\u0630\u0631\u0627\u0646\u062f\u0646 \u0627\u0648\u0642\u0627\u062a \u0641\u0631\u0627\u063a\u062a \u062a\u0646\u0638\u06cc\u0645 \u0634\u062f\u0647 \u0627\u0633\u062a. \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0645\u0631\u0628\u0648\u0637 \u0628\u0647 \u0627\u0648\u0642\u0627\u062a \u0641\u0631\u0627\u063a\u062a \u0645\u0645\u06a9\u0646 \u0627\u0633\u062a \u0645\u0631\u062a\u0628 \u062a\u063a\u06cc\u06cc\u0631 \u06a9\u0646\u062f \u0648 \u0645\u0627 \u0627\u06cc\u0646 \u062a\u063a\u06cc\u06cc\u0631\u0627\u062a \u0631\u0627 \u062f\u0631  \u0627\u06cc\u0646 \u0635\u0641\u062d\u0647 \u0628\u0631\u0648\u0632 \u0631\u0633\u0627\u0646\u06cc \u062e\u0648\u0627\u0647\u06cc\u0645 \u06a9\u0631\u062f. \u0628\u0647 \u0647\u0645\u06cc\u0646 \u062e\u0627\u0637\u0631 \u062a\u0648\u0636\u06cc\u0647 \u0645\u06cc \u06a9\u0646\u06cc\u0645 \u0645\u0631\u062a\u0628 \u0628\u0647 \u0633\u0627\u06cc\u062a \u0633\u0631 \u0628\u0632\u0646\u06cc\u062f \u06cc\u0627 \u0627\u067e \u062e\u0648\u062f \u0631\u0627 \u0686\u06a9 \u06a9\u0646\u06cc\u062f \u062a\u0627 \u0627\u0632 \u062a\u0627\u0632\u0647 \u062a\u0631\u06cc\u0646 \u0627\u062e\u0628\u0627\u0631 \u0648 \u0628\u0631\u0646\u0627\u0645\u0647 \u0647\u0627 \u0645\u0637\u0644\u0627\u0639 \u0634\u0648\u06cc\u062f.\r\n\r\n\u0645\u0627 \u0627\u0645\u06cc\u062f\u0648\u0627\u0631\u06cc\u0645 \u0628\u0627 \u0627\u06cc\u0646 \u0627\u067e \u0628\u062a\u0648\u0627\u0646\u06cc\u0645 \u0631\u0648\u0632\u0647\u0627\u06cc \u0627\u0648\u0644 \u0627\u0642\u0627\u0645\u062a \u0634\u0645\u0627 \u0631\u0627 \u062f\u0631 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u0631\u0627\u062d\u062a \u062a\u0631 \u0648 \u0628\u0639\u062f \u0627\u0632 \u0627\u06cc\u0646 \u0632\u0646\u062f\u06af\u06cc \u062f\u0631 \u0622\u0648\u06af\u0633\u0628\u0648\u0631\u06af \u0631\u0627 \u0628\u0631\u0627\u06cc\u062a\u0627\u0646 \u062f\u0644\u067e\u0630\u06cc\u0631 \u062a\u0631 \u0646\u0645\u0627\u06cc\u06cc\u0645. \u0628\u0633\u06cc\u0627\u0631 \u062e\u0631\u0633\u0646\u062f\u06cc\u0645 \u0627\u0632 \u0627\u06cc\u0646\u06a9\u0647 \u0628\u0647 \u0634\u0645\u0627 \u062f\u0631 \u0634\u0647\u0631 \u0635\u0644\u062d \u0648 \u062f\u0648\u0633\u062a\u06cc\u060c \u0622\u06af\u0633\u0628\u0648\u0631\u06af \u062e\u0648\u0634 \u0622\u0645\u062f \u0628\u06af\u0648\u06cc\u06cc\u0645.",
-      "language": 4,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:11:53.038Z",
-      "last_updated": "2019-08-12T08:11:53.052Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 17,
-    "fields": {
-      "page": 4,
-      "slug": "\u0627\u0644\u062d\u064a\u0627\u0629-\u0641\u064a-\u0623\u0648\u062c\u0633\u0628\u0631\u062c",
-      "title": "\u0627\u0644\u062d\u064a\u0627\u0629 \u0641\u064a \u0623\u0648\u062c\u0633\u0628\u0631\u062c",
-      "status": "PUBLIC",
-      "text": "\u062a\u0642\u0639 \u0623\u0648\u062c\u0633\u0628\u0631\u062c \u0641\u064a \u062c\u0646\u0648\u0628 \u063a\u0631\u0628 \u0628\u0627\u0641\u0627\u0631\u064a\u0627 \u0648\u062a\u0628\u0639\u062f \u0639\u0646 \u0645\u062f\u064a\u0646\u0629 \u0645\u064a\u0648\u0646\u062e \u062d\u0648\u0627\u0644\u0649 60 \u0643\u0645. \u0628\u062d\u0648\u0627\u0644\u0649 284.000 \u0646\u0633\u0645\u0629 \u062a\u0639\u062f \u0623\u0648\u062c\u0633\u0628\u0631\u062c \u062b\u0627\u0644\u062b \u0623\u0643\u0628\u0631 \u0645\u062f\u064a\u0646\u0629 \u0641\u064a \u0628\u0627\u0641\u0627\u0631\u064a\u0627 \u0628\u0639\u062f \u0645\u064a\u0648\u0646\u062e \u0648\u0646\u0648\u0631\u0646\u0628\u0631\u062c. . \u0648\u064a\u0639\u0648\u062f \u0625\u0633\u0645 \u0627\u0644\u0645\u062f\u064a\u0646\u0629 \u0625\u0644\u0649 \u0627\u0644\u0642\u064a\u0635\u0631 \u0627\u0644\u0631\u0648\u0645\u0627\u0646\u0649 \u0623\u063a\u0633\u0637\u0633 \u0627\u0644\u0630\u0649 \u0623\u0633\u0633 \u0627\u0644\u0645\u062f\u064a\u0646\u0629 \u0628\u064a\u0646 \u0627\u0644\u0623\u0646\u0647\u0627\u0631 \u0648\u0627\u0644\u0641\u0631\u062a \u0623\u062e (\u0646\u0647\u0631) \u0642\u0628\u0644 \u0623\u0643\u062b\u0631 \u0645\u0646 2000 \u0639\u0627\u0645. \u062a\u0646\u0641\u0631\u062f \u0645\u062f\u064a\u0646\u0629 \u0623\u0648\u062c\u0633\u0628\u0631\u062c \u0639\u0646 \u0628\u0642\u064a\u0629 \u0645\u062f\u0646 \u0623\u0644\u0645\u0627\u0646\u064a\u0627 \u0628\u0627\u0644\u0625\u062d\u062a\u0641\u0627\u0644 \u0643\u0644 \u0639\u0627\u0645 \u0628\u0645\u0647\u0631\u062c\u0627\u0646 \u0623\u0648\u062c\u0633\u0628\u0631\u062c \u0627\u0644\u0623\u0639\u0644\u0649 \u0644\u0644\u0633\u0644\u0627\u0645 \u0627\u0644\u0630\u0649 \u064a\u0639\u0628\u0631\u062a\u0639\u0628\u064a\u0631\u064e\u0627 \u062a\u0627\u0645\u064e\u0627 \u0639\u0646 \u062d\u0631\u064a\u0629 \u0627\u0644\u0623\u062f\u064a\u0627\u0646 \u0648\u0627\u0644\u0633\u0644\u0627\u0645 \u0628\u064a\u0646\u0647\u0627.\r\n\r\n\u0645\u0646 \u0627\u0644\u062c\u062f\u064a\u0631 \u0628\u0627\u0644\u0645\u0634\u0627\u0647\u062f\u0629 \u0647\u0648 \u0645\u062c\u0644\u0633 \u0627\u0644\u0645\u062f\u064a\u0646\u0629 \u0628\u0635\u0627\u0644\u062a\u0647 \u0627\u0644\u0630\u0647\u0628\u064a\u0629 \u0648\u0627\u0644\u0640 Fuggerei \" \u0633\u0643\u0646 \u0625\u062c\u062a\u0645\u0627\u0639\u0649\" \u0643\u0648\u0627\u062d\u062f\u0629 \u0645\u0646 \u0623\u0642\u062f\u0645 \u0627\u0644\u0645\u0633\u0627\u0643\u0646 \u0627\u0644\u0625\u062c\u062a\u0645\u0627\u0639\u064a\u0629 \u0628\u0627\u0644\u0645\u062f\u064a\u0646\u0629 \u0648\u0627\u0643\u062a\u062f\u0631\u0627\u0626\u064a\u0629 \u0623\u0648\u062c\u0633\u0628\u0631\u062c. \u0648\u0645\u0634\u062c\u0639\u0649 \u0643\u0631\u0629 \u0627\u0644\u0642\u062f\u0645 \u064a\u0645\u0643\u0646\u0647\u0645 \u0645\u062a\u0627\u0628\u0639\u0629 \u0641\u0631\u064a\u0642 \u0623\u0648\u062c\u0633\u0628\u0631\u062c \u0627\u0644\u0631\u064a\u0627\u0636\u0649 \u0627\u0644\u0630\u0649 \u064a\u0644\u0639\u0628 \u0641\u064a \u0627\u0644\u062f\u0648\u0631\u0649 \u0627\u0644\u0645\u0645\u062a\u0627\u0632 \u0627\u0644\u0623\u0644\u0645\u0627\u0646\u0649 \u0645\u0646\u0630 2011 \u0648\u064a\u0634\u0627\u0631\u0643 \u0639\u0644\u0649 \u0627\u0644\u0635\u0639\u064a\u062f \u0627\u0644\u062f\u0648\u0644\u0649 \u0641\u064a \u062f\u0648\u0631\u0649 \u0623\u0628\u0637\u0627\u0644 \u0623\u0648\u0631\u0628\u0627 \u0645\u0646\u0630 2015.\r\n\r\n\u0641\u064a \u0627\u0644\u0641\u0642\u0631\u0629 \u0627\u0644\u062a\u0627\u0644\u064a\u0629 \u062a\u062c\u062f\u0648\u0646 \u0639\u062f\u062f \u0645\u0646 \u0625\u0645\u0643\u0627\u0646\u064a\u0627\u062a \u0642\u0636\u0627\u0621 \u0623\u0648\u0642\u0627\u062a \u0627\u0644\u0641\u0631\u0627\u063a \u0641\u064a \u0645\u062f\u064a\u0646\u0629 \u0623\u0648\u062c\u0633\u0628\u0631\u062c \u0648\u0645\u062d\u064a\u0637\u0647\u0627. \u064a\u062a\u0645 \u062a\u062d\u062f\u064a\u062b \u0647\u0630\u0627 \u0627\u0644\u0645\u062c\u0627\u0644 \u0628\u0625\u0633\u062a\u0645\u0631\u0627\u0631 \u0648\u064a\u0639\u062a\u0646\u0649 \u0628\u0647 \u0627\u0644\u0639\u0627\u0645\u0644\u0648\u0646 \u0623\u0646\u0641\u0633\u0647\u0645.\r\n\r\n\u0627\u062e\u0631 \u062a\u062d\u062f\u064a\u062b: \u0669 \u062f\u064a\u0633\u0645\u0628\u0631 \u0662\u0660\u0661\u0667",
-      "language": 3,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:13:41.021Z",
-      "last_updated": "2019-08-12T08:13:41.049Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 18,
-    "fields": {
-      "page": 7,
-      "slug": "willkommen",
-      "title": "Willkommen",
-      "status": "PUBLIC",
-      "text": "Willkommen in N\u00fcrnberg",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:17:48.342Z",
-      "last_updated": "2019-08-12T08:17:48.382Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 19,
-    "fields": {
-      "page": 8,
-      "slug": "willkommen-in-nurnberg",
-      "title": "Willkommen in N\u00fcrnberg!",
-      "status": "PUBLIC",
-      "text": "Willkommen in N\u00fcrnberg\r\n\r\nSehr geehrte Damen und Herren,\r\n\r\nals B\u00fcrgermeister der Stadt N\u00fcrnberg m\u00f6chte ich mich heute pers\u00f6nlich an Sie wenden und Sie in unserer Stadt begr\u00fc\u00dfen.\r\n\r\nUnsere Stadt, in der \u00fcber 500 000 Menschen leben, hat eine lange Geschichte. Zu allen Zeiten sind Menschen hierher eingewandert und sind heimisch geworden. Sie werden feststellen, dass unsere Gesellschaft von Vielfalt gepr\u00e4gt ist: \u00dcber zwei F\u00fcnftel der N\u00fcrnberger Bev\u00f6lkerung sind selbst eingewandert oder haben famili\u00e4re Wurzeln au\u00dferhalb Deutschlands. Sie haben hier ein Zuhause, Nachbarn und Freunde gefunden, manche von ihnen f\u00fcr einige Zeit und manche auf Dauer.Wir w\u00fcnschen Ihnen, dass Sie sich schnell bei uns einleben. Dazu geh\u00f6ren zun\u00e4chst das Erlernen unserer Sprache und ein Einfinden in unsere Werte und unsere Kultur.\r\n\r\nZu unserer Willkommenskultur geh\u00f6rt ein positiver und offener Umgang mit der Vielfalt in unserer Stadt. Dies umfasst Toleranz und Achtung gegen\u00fcber Menschen mit anderen nationalen und kulturellen Wurzeln.\r\n\r\nAls Stadt des Friedens und der Menschenrechte sieht N\u00fcrnberg sich den Menschenrechten in ganz besonderer Weise verpflichtet. Gegenseitiger Respekt und Wertsch\u00e4tzung unserer Mitmenschen sind Grundvoraussetzungen f\u00fcr ein friedliches und solidarisches Zusammenleben. Ein umfassender Schutz vor Diskriminierung geh\u00f6rt ebenso dazu wie der Schutz der schwachen und verletzlichen Gruppen in unserer Gesellschaft wie Kinder und alte Menschen, Fl\u00fcchtlinge oder Menschen mit Behinderungen.\r\n\r\nAuf dieser Basis w\u00fcnsche ich uns, dass uns das Zusammenleben in N\u00fcrnberg gut gelingt und dass wir respektvoll miteinander umgehen.\r\n\r\nIhr Dr. Ulrich Maly\r\nOberb\u00fcrgermeister der Stadt N\u00fcrnberg",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:18:09.766Z",
-      "last_updated": "2019-08-12T08:27:30.183Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 20,
-    "fields": {
-      "page": 9,
-      "slug": "zusammenleben-in-deutschland",
-      "title": "Zusammenleben in Deutschland",
-      "status": "PUBLIC",
-      "text": "Das Grundgesetz\r\n\r\nIn jedem Land gibt es Regeln, an die sich alle Menschen halten m\u00fcssen. Das wichtigste Gesetz f\u00fcr Deutschland ist das Grundgesetz. Es ist eine Sammlung von 146 Artikeln. Jeder Artikel steht f\u00fcr ein Gesetz, also eine Regel. Diese Regeln bestimmen das Zusammenleben in Deutschland. Die Grundrechte sch\u00fctzen den Freiheitsraum jedes Einzelnen. Sie sind in den Artikeln 1 bis 19 des Grundgesetzes festgelegt (Grundrechtskatalog).\r\n\r\nSchutz der Menschenw\u00fcrde\r\nArtikel 1\r\n(1) Die W\u00fcrde des Menschen ist unantastbar. Sie zu achten und zu sch\u00fctzen ist Verpflichtung aller staatlichen Gewalt.\r\n(...)\r\n\r\nRecht auf Freiheit der Person\r\nArtikel 2\r\n(1) Jeder hat das Recht auf die freie Entfaltung seiner Pers\u00f6nlichkeit, soweit er nicht die Rechte anderer verletzt und nicht gegen die verfassungsm\u00e4\u00dfige Ordnung oder das Sittengesetz verst\u00f6\u00dft.\r\n(...)\r\n\r\n Auch das Recht auf sexuelle Selbstbestimmung ist damit gemeint. Das bedeutet: Jeder Mensch darf f\u00fcr sich selbst entscheiden, bei welchen sexuellen Handlungen er mitmachen will und niemand darf zu etwas gezwungen werden, was er nicht m\u00f6chte. Mehr Infos: \u00bb\u00bb Sexuelle Selbstbestimmung\r\n\r\nGleichheit vor dem Gesetz\r\nArtikel 3\r\n(1) Alle Menschen sind vor dem Gesetz gleich.\r\n\r\n(2) M\u00e4nner und Frauen sind gleichberechtigt. Der Staat f\u00f6rdert die tats\u00e4chliche Durchsetzung der Gleichberechtigung von Frauen und M\u00e4nnern und wirkt auf die Beseitigung bestehender Nachteile hin.\r\n\r\n www.zanzu.de\r\n\r\n(3) Niemand darf wegen seines Geschlechtes, seiner Abstammung, seiner Rasse, seiner Sprache, seiner Heimat und Herkunft, seines Glaubens, seiner religi\u00f6sen oder politischen Anschauungen benachteiligt oder bevorzugt werden. Niemand darf wegen seiner Behinderung benachteiligt werden.\r\n\r\nGlaubens-, Gewissens- und Bekenntnisfreiheit\r\nArtikel 4\r\n(1) Die Freiheit des Glaubens, des Gewissens und die Freiheit des religi\u00f6sen und weltanschaulichen Bekenntnisses sind unverletzlich.\r\n(...)\r\n\r\nFreiheit von Meinung, Kunst und Wissenschaft\r\nArtikel 5\r\n(1) Jeder hat das Recht, seine Meinung in Wort, Schrift und Bild frei zu \u00e4u\u00dfern und zu verbreiten und sich aus allgemein zug\u00e4nglichen Quellen ungehindert zu unterrichten. Die Pressefreiheit und die Freiheit der Berichterstattung durch Rundfunk und Film werden gew\u00e4hrleistet. Eine Zensur findet nicht statt.\r\n(...)\r\n\r\nSchutz von Ehe und Familie und von Kindern nicht verheirateter Eltern\r\nArtikel 6\r\n(1) Ehe und Familie stehen unter dem besonderen Schutze der staatlichen Ordnung.\r\n(...)\r\n\r\nHier finden Sie das Grundgesetz in 11 Sprachen:* \u00bb\u00bbArabisch, \u00bb\u00bbChinesisch, \u00bb\u00bbEnglisch, \u00bb\u00bbFranz\u00f6sisch, \u00bb\u00bbItalienisch, \u00bb\u00bbPersisch, \u00bb\u00bbPolnisch, \u00bb\u00bbRussisch, \u00bb\u00bbSerbisch, \u00bb\u00bbSpanisch, \u00bb\u00bbT\u00fcrkisch und nat\u00fcrlich auf \u00bb\u00bbDeutsch.\r\n\r\n*Eine derartige Sprachvielfalt konnte auf keiner anderen Homepage gefunden werden.\r\n\r\nWie der deutsche Rechtsstaat funktioniert, wird in dem Film anschaulich dargestellt:  \u00bb\u00bbDeutsch, \u00bb\u00bbDari, \u00bb\u00bbArabisch, \u00bb\u00bbEnglisch, \u00bb\u00bbFranz\u00f6sisch, \u00bb\u00bbPaschtu, \u00bb\u00bbUrdu.\r\nAllgemeine Erkl\u00e4rung der Menschenrechte\r\n\r\nMenschenrechte sind wichtige Rechte, die immer und f\u00fcr alle Menschen auf der ganzen Welt gelten. Menschenrechte sind Rechte, die jeder Mensch aufgrund seines Menschseins hat. Sie sch\u00fctzen die W\u00fcrde eines jeden Menschen und stehen allen Menschen gleicherma\u00dfen zu ohne irgendeinen Unterschied, etwa nach \u201e (\u2026) Hautfarbe, Geschlecht, Sprache, Religion, politischer oder sonstiger Anschauung, nationaler oder sozialer Herkunft, Verm\u00f6gen, Geburt oder sonstigem Stand.\u201c (Art. 2. der Allgemeinen Erkl\u00e4rung der Menschenrechte der Vereinten Nationen vom 10.12.1948)\r\n\r\nEs gibt 30 Rechte. Die wichtigsten sind:\r\n\r\n    Alle Menschen sind gleich viel wert.\r\n    Jeder Mensch darf eine eigene Meinung haben.\r\n    Recht auf Frieden und Sicherheit.\r\n\r\nBesuchen Sie die Stra\u00dfe der Menschenrechte! Jedes der Elemente in der Stra\u00dfe der Menschenrechte tr\u00e4gt in Kurzform einen der Menschenrechtsartikel in deutscher und einer anderen Sprache. Die \u201eStra\u00dfe der Menschenrechte\" ist sowohl eine Anklage gegen die Verbrechen der Nationalsozialisten als auch eine zu Stein gewordene Mahnung an die Menschen, dass die Menschenrechte auch heute noch in vielen Staaten der Erde massiv verletzt werden.\r\n\r\nStra\u00dfe der Menschenrechte\r\n Kart\u00e4usergasse 1, 90402 N\u00fcrnberg\r\nKinderrechte\r\n\r\nKinder brauchen besonderen Schutz und deshalb auch besondere Rechte. Festgeschrieben sind die einzelnen Kinderrechte in der Kinderrechtskonvention. Sie wurde 1989 von der UN-Generalversammlung verabschiedet und anschlie\u00dfend von 193 Staaten ratifiziert. Insgesamt umfasst die UN- Kinderrechtskonvention 54 Artikel.\r\n\r\nIm N\u00fcrnberger Stadtpark gibt es die Stra\u00dfe der Kinderrechte. Hier k\u00f6nnen Kinder spielerisch an acht Stationen mehr \u00fcber ihre Rechte erfahren. Mehr Informationen finden Sie hier: \u00bb\u00bbFreizeitangebote f\u00fcr Kinder und Jugendliche.\r\n\r\n\"Kinder haben auch Rechte\" ist das Jahresthema vom B\u00fcndnis f\u00fcr Familie in N\u00fcrnberg. Mehr Informationen zu Kinderrechten in N\u00fcrnberg: \u00bb\u00bbKinderrechte in N\u00fcrnberg\r\n\r\nDie 10 wichtige Kinderrechte finden Sie hier anschaulich erkl\u00e4rt:  \u00bb\u00bbArabisch und \u00bb\u00bbPersisch.",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:18:36.113Z",
-      "last_updated": "2019-08-12T08:27:25.680Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 21,
-    "fields": {
-      "page": 10,
-      "slug": "wissenswertes-uber-nurnberg",
-      "title": "Wissenswertes \u00fcber N\u00fcrnberg",
-      "status": "PUBLIC",
-      "text": "N\u00fcrnberg liegt im Bundesland Bayern und im Bezirk Mittelfranken. N\u00fcrnberg hat \u00fcber 500.000 Einwohner und ist nach M\u00fcnchen die zweitgr\u00f6\u00dfte Stadt in Bayern. Quer durch das Stadtgebiet flie\u00dft ein Fluss mit dem Namen Pegnitz.\r\n\r\nIn N\u00fcrnberg gibt es viele interessante und sch\u00f6ne Orte. Aber besonders bekannt ist N\u00fcrnberg wegen seiner mittelalterlichen Burg (Kaiserburg), dem Germanischen Nationalmuseum und seinem Christkindlesmarkt auf dem Hauptmarkt.\r\n\r\nDie Stadt N\u00fcrnberg wurde im Jahr 1050 erstmals in einer kaiserlichen Urkunde erw\u00e4hnt. Der Name N\u00fcrnberg kommt von \u201eNorenberc\u201c, was \u201efelsiger Berg\u201c bedeutet. \u201eFelsiger Berg\u201c deshalb, weil die N\u00fcrnberger Burg auf einem Sandsteinfelsen erbaut wurde. Der Weg die Burgstra\u00dfe hinauf ist sehr steil, lohnt sich aber! Von dem Aussichtsplatz hat man einen tollen Blick \u00fcber die Stadt. Dieser Teil der Burg kostet keinen Eintritt.\r\n\r\nViel Interessantes \u00fcber die N\u00fcrnberger Stadtgeschichte erf\u00e4hrt man im Stadtmuseum, dem Fembohaus. Mit dem \u00bb\u00bbN\u00fcrnberg-Pass kostet der Eintritt nur 1,50 Euro.\r\n\r\nEine sehr ber\u00fchmter N\u00fcrnberger ist Albrecht D\u00fcrer. Er lebte von 1497 bis 1528. Er war Maler, Mathematiker und Kunsthistoriker. Heute erinnert noch viel an Albrecht D\u00fcrer. Es gibt zum Beispiel den Albrecht-D\u00fcrer-Platz mit einem Standbild von ihm und sein ehemaliges Wohnhaus ist heute ein Museum, das Albrecht-D\u00fcrer-Haus.\r\n\r\nBekannt ist N\u00fcrnberg auch f\u00fcr Spielzeug. Deshalb findet auch in N\u00fcrnberg die gr\u00f6\u00dfte Spielwarenmesse der Welt statt. Seit dem Mittelalter wird in N\u00fcrnberg Spielzeug hergestellt. Im Spielzeugmuseum l\u00e4sst sich die Geschichte des Spielzeugs in N\u00fcrnberg und der Welt bestaunen. Auch hier zahlen Personen mit \u00bb\u00bbN\u00fcrnberg-Pass nur 1,50 Eintritt!\r\n\r\nN\u00fcrnberg ist auch bekannt f\u00fcr Lebkuchen und Bratw\u00fcrste. Ein Lebkuchen ist ein Geb\u00e4ck mit vielen Gew\u00fcrzen. Sie werden nach geheimem Rezept bereits seit dem 14. Jahrhundert produziert und sind in der ganzen Welt bekannt. N\u00fcrnberg wird auch die \"Stadt der Lebkuchen\" genannt. Auch die Bratw\u00fcrste werden nach gesch\u00fctztem Rezept hergestellt und als Markenprodukt in die ganze Welt verkauft. \u00dcberall in der Stadt findet man kleine Buden, die \"Drei im Weggla\" verkaufen. Das bedeutet drei N\u00fcrnberger Bratw\u00fcrste in einem Br\u00f6tchen.\r\n\r\nIn N\u00fcrnberg startete am 7. Dezember 1835 die erste Dampflok Deutschlands auf der Strecke von N\u00fcrnberg nach F\u00fcrth. Damit war das Industriezeitalter f\u00fcr N\u00fcrnberg eingel\u00e4utet. Die Dampflok hie\u00df \"Adler\" und kann noch heute im Verkehrsmuseum besichtigt werden.\r\n\r\nN\u00fcrnberg ist auch als Stadt der Reichsparteitage bekannt. W\u00e4hrend der Zeit des Nationalsozialismus entstand in N\u00fcrnberg das Reichsparteitagsgel\u00e4nde, um die Parteitage der NSDAP mit Hunderttausenden Teilnehmern abzuhalten. Noch heute k\u00f6nnen gro\u00dfe Teile der Anlage besichtigt werden, zudem informiert das Dokumentationszentrum Reichsparteitagsgel\u00e4nde detailliert \u00fcber die historischen Ereignisse. Heute finden auf diesem Gel\u00e4nde gro\u00dfe Konzertveranstaltungen und Autorennen statt.\r\n\r\nNach Ende des 2. Weltkrieges mussten sich f\u00fchrende Vertreter des Nationalsozialistischen Regimes vor dem Internationalen Milit\u00e4rgerichtshof f\u00fcr ihre Verbrechen verantworten. Diese \"N\u00fcrnberger Prozesse\" stellten die Grundlage f\u00fcr eine Weiterentwicklung des V\u00f6lkerrechts dar und sind im Museum Memorium N\u00fcrnberger Prozesse dokumentiert.\r\n\r\nAls weitere Erinnerung an die Verbrechen der Nationalsozialisten mahnt die Stra\u00dfe der Menschenrechte mit den auf 27 S\u00e4ulen eingravierten Menschenrechtsartikeln, in verschiedenen Sprachen, an die heutige Situation in vielen Staaten und ruft zu einem friedlichen Miteinander der Kulturen auf.",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:19:10.521Z",
-      "last_updated": "2019-08-12T08:27:20.623Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 22,
-    "fields": {
-      "page": 11,
-      "slug": "stadtplan",
-      "title": "Stadtplan",
-      "status": "PUBLIC",
-      "text": "Sie suchen eine bestimmte Adresse oder einen interessanten Punkt in N\u00fcrnberg?! MAPS-Me bietet eine Navigationsfunktion, ist kostenlos und offline nutzbar.\r\n\r\nSo bekommen Sie den Stadtplan:\r\n\r\n    Downloaden Sie die App MAPS.ME. Sie finden die App im Android PlayStore. Sie ist kostenlos.\r\n    Downloaden Sie eine Karte Ihres Bundeslandes. N\u00fcrnberg liegt in Bayern.\r\n    Downloaden Sie dann den Stadtplan f\u00fcr N\u00fcrnberg: \u00bb\u00bbDownload von MAPS.ME im Android PlayStore oder im App Store.",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:19:48.980Z",
-      "last_updated": "2019-08-12T08:27:16.550Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 23,
-    "fields": {
-      "page": 12,
-      "slug": "uber-integreat",
-      "title": "\u00dcber Integreat",
-      "status": "PUBLIC",
-      "text": "Dieser Leitfaden unterst\u00fctzt Sie in Ihrem Alltag in N\u00fcrnberg. Sie finden hier wichtige Adressen, Ansprechpartner und Tipps und Tricks, die Ihnen bei der Orientierung in N\u00fcrnberg helfen k\u00f6nnen.\r\n\r\nIhr Alltagsguide hat mehrere Kapitel. Jedes Kapitel bearbeitet ein anderes Thema. Sie finden zum Beispiel Informationen zu \u00c4rzten, Schulen, Deutschkursen oder anderen Institutionen. Es gibt auch ein Kapitel mit Ideen, was Sie in Ihrer Freizeit machen k\u00f6nnen. Die Informationen und Freizeitangebote \u00e4ndern sich und wir aktualisieren regelm\u00e4\u00dfig. Deswegen ist es sehr gut, wenn Sie oft in Ihre mobile App schauen und sich \u00fcber aktuelle Aktionen und Veranstaltungen informieren.\r\n\r\nSie k\u00f6nnen diese App auch offline benutzen, wenn Sie keinen Internet-Zugang haben. Wenn Sie wieder online sind, aktualisiert sich die App von selbst.\r\n\r\nWir hoffen sehr, dass wir Ihren Aufenthalt hier in N\u00fcrnberg mit dieser App vereinfachen k\u00f6nnen. Wir freuen uns, Sie hier in N\u00fcrnberg, der Stadt des Friedens und der Menschenrechte, begr\u00fc\u00dfen zu d\u00fcrfen.\r\n\r\nBMFSFJ_DemokratieLeben",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:20:16.705Z",
-      "last_updated": "2019-08-12T08:27:11.677Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 24,
-    "fields": {
-      "page": 13,
-      "slug": "aufenthaltstitel",
-      "title": "Aufenthaltstitel",
-      "status": "PUBLIC",
-      "text": "Jeder Ausl\u00e4nder hat einen \u201eAusweis\u201c. Der Ausweis gibt Auskunft \u00fcber den Status und ob Einschr\u00e4nkungen der Erwerbst\u00e4tigkeit zu beachten sind (Wann darf ich arbeiten?).\r\nEs gibt 5 verschiedene Dokumente:\r\n1. Ankunftsnachweis\r\n\r\nStatus: Asylbegehrende\r\nHintergrund: Wird Ausl\u00e4ndern ausgestellt, die um Asyl begehrt haben. G\u00fcltig f\u00fcr die Zeit zwischen Meldung als Asylbegehrender und offizieller Asylantragstellung beim Bundesamt f\u00fcr Migration und Fl\u00fcchtlinge (BAMF).\r\n\r\nAnkunftsnachweis\r\n2. Aufenthaltsgestattung\r\n\r\nStatus: Asylsuchende\r\nHintergrund: Wird zur Durchf\u00fchrung eines Asylverfahrens bis zur Entscheidung des Bundesamtes f\u00fcr Migration und Fl\u00fcchtlinge (BAMF) ausgestellt.\r\n\r\nDer Ausweis f\u00fcr Asylsuchende enth\u00e4lt Auflagen zu Besch\u00e4ftigung, Wohnsituation und anf\u00e4nglicher r\u00e4umlicher Beschr\u00e4nkung.\r\n\r\n    Ist eine Arbeitsgenehmigung notwendig, kann diese bei der \u00bb\u00bbAusl\u00e4nderbeh\u00f6rde beantragt werden (Arbeitgeber oder Arbeitnehmer)\r\n    Zust\u00e4ndig bei Vermittlung in Arbeit: \u00bb\u00bbAgentur f\u00fcr Arbeit\r\n\r\n3. Fiktionsbescheinigung\r\n\r\nStatus: Anerkannte Fl\u00fcchtlinge\r\nHintergrund: Dokument f\u00fcr den \u00dcbergang ab positivem Entscheid Asylverfahren bis zur Erteilung der Aufenthaltserlaubnis.\r\n\r\n4. Aufenthaltserlaubnis\r\n\r\nStatus: Anerkannte Fl\u00fcchtlinge\r\nHintergrund: positive Asylentscheidung\r\n\r\nDie Aufenthaltserlaubnis ist ein zeitlich befristeter Aufenthaltstitel. Sie wird zu den im Aufenthaltsgesetz genannten Zwecken erteilt (z.B. Aufenthalt aus humanit\u00e4ren Gr\u00fcnden).\r\n\r\n    Grundlage f\u00fcr st\u00e4ndiges Aufenthaltsrecht\r\n    Er\u00f6ffnet die M\u00f6glichkeit eines sp\u00e4teren unbefristeten Aufenthaltsrechts (Niederlassungserlaubnis)\r\n    Uneingeschr\u00e4nkter Zugang zum Arbeitsmarkt ohne Arbeitsgenehmigung\r\n    Zust\u00e4ndigkeit f\u00fcr die Vermittlung in Arbeit oder finanzielle Leistungen: \u00bb\u00bbJobcenter\r\n\r\n5. Duldung\r\n\r\nStatus: Geduldete\r\nHintergrund: Negative Asylentscheidung\r\n\r\n Eine Duldung ist eine Aussetzung der Abschiebung und kein rechtm\u00e4\u00dfiger Aufenthalt! Sie wird erteilt, wenn eine Abschiebung aus rechtlichen, tats\u00e4chlichen, humanit\u00e4ren, pers\u00f6nlichen Gr\u00fcnden unm\u00f6glich ist.\r\n\r\n    Generelle Duldungsregelung f\u00fcr bestimme Gruppen durch Anordnung der obersten Landesbeh\u00f6rde f\u00fcr die Dauer von l\u00e4ngstens 3 Monaten m\u00f6glich (\u201eAbschiebungsstopp\u201c)\r\n    Arbeitsgenehmigung ist grunds\u00e4tzlich notwendig, Beantragung bei der \u00bb\u00bbAusl\u00e4nderbeh\u00f6rde (Arbeitgeber oder Arbeitnehmer)\r\n    Zust\u00e4ndig bei Vermittlung in Arbeit: \u00bb\u00bbAgentur f\u00fcr Arbeit\r\n\r\n \r\n\r\n(Stand Januar 2017)",
-      "language": 1,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:20:43.653Z",
-      "last_updated": "2019-08-12T08:27:07.546Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 25,
-    "fields": {
-      "page": 7,
-      "slug": "\u0627\u0644\u062a\u0631\u062d\u064a\u0628",
-      "title": "\u0627\u0644\u062a\u0631\u062d\u064a\u0628",
-      "status": "PUBLIC",
-      "text": "\u0627\u0644\u062a\u0631\u062d\u064a\u0628",
-      "language": 3,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:22:18.585Z",
-      "last_updated": "2019-08-12T08:22:18.602Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 26,
-    "fields": {
-      "page": 8,
-      "slug": "\u0645\u0631\u062d\u0628\u0627-\u0628\u0643\u0645-\u0641\u064a-\u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a",
-      "title": "\u0645\u0631\u062d\u0628\u064b\u0627 \u0628\u0643\u0645 \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a!",
-      "status": "PUBLIC",
-      "text": "\u0645\u0631\u062d\u0628\u064b\u0627 \u0628\u0643\u0645 \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a\r\n\r\n\u0627\u0644\u0633\u064a\u062f\u0627\u062a \u0648\u0627\u0644\u0633\u0627\u062f\u0629\u060c\r\n\r\n\u064a\u0633\u0631\u0646\u064a\u060c \u0643\u0639\u0645\u062f\u0629 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0623\u0646 \u0623\u062a\u062d\u062f\u064a\u062b \u0625\u0644\u064a\u0643\u0645 \u0627\u0644\u064a\u0648\u0645 \u0628\u0646\u0641\u0633\u064a \u0648\u0623\u0631\u062d\u0628 \u0628\u0643\u0645 \u0641\u064a \u0645\u062f\u064a\u0646\u062a\u0646\u0627.\r\n\r\n\u062a\u062a\u0645\u062a\u0639 \u0645\u062f\u064a\u0646\u062a\u0646\u0627\u060c \u0627\u0644\u062a\u064a \u064a\u0639\u064a\u0634 \u0628\u0647\u0627 \u0642\u0631\u0627\u0628\u0629 500000 \u0646\u0633\u064e\u0645\u0629\u060c \u0628\u062a\u0627\u0631\u064a\u062e \u0639\u0631\u064a\u0642. \u0641\u0641\u064a \u0643\u0644 \u0632\u0645\u0627\u0646 \u064a\u0623\u062a\u064a \u0627\u0644\u0645\u0647\u0627\u062c\u0631\u0648\u0646 \u0625\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0645\u062f\u064a\u0646\u0629 \u0648\u064a\u0635\u0628\u062d\u0648\u0646 \u0645\u0646 \u0623\u0647\u0644\u0647\u0627.\u062d\u064a\u062b \u064a\u0631\u0648\u0646 \u0637\u0627\u0628\u0639 \u0627\u0644\u062a\u0646\u0648\u0651\u0639 \u0627\u0644\u0630\u064a \u064a\u062a\u0633\u0645 \u0628\u0647 \u0645\u062c\u062a\u0645\u0639\u0646\u0627:\u0641\u0623\u0643\u062b\u0631 \u0645\u0646 \u062e\u064f\u0645\u0633\u064a \u0633\u0643\u0627\u0646 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0645\u0646 \u0627\u0644\u0645\u0647\u0627\u062c\u0631\u064a\u0646 \u0623\u0648 \u0645\u0646 \u0623\u0635\u0648\u0644 \u0645\u0634\u0627\u0628\u0647\u0629 \u062e\u0627\u0631\u062c \u0623\u0644\u0645\u0627\u0646\u064a\u0627. \u0644\u0642\u062f \u0648\u062c\u062f\u062a\u0645 \u0647\u0646\u0627 \u0627\u0644\u0628\u064a\u062a\u060c \u0648\u0627\u0644\u062c\u064a\u0631\u0627\u0646\u060c \u0648\u0627\u0644\u0623\u0635\u062f\u0642\u0627\u0621\u060c \u0628\u0635\u0641\u0629 \u0645\u0624\u0642\u062a\u0629 \u0644\u0628\u0639\u0636\u0643\u0645 \u0648\u0628\u0635\u0641\u0629 \u062f\u0627\u0626\u0645\u0629 \u0644\u0644\u0628\u0639\u0636 \u0627\u0644\u0622\u062e\u0631. \u0646\u062a\u0645\u0646\u0649 \u0644\u0643\u0645 \u0623\u0646 \u062a\u062a\u0623\u0642\u0644\u0645\u0648\u0627 \u0645\u0639 \u0648\u062c\u0648\u062f\u0643\u0645 \u0628\u064a\u0646\u0646\u0627 \u0633\u0631\u064a\u0639\u064b\u0627. \u0648\u0645\u0645\u0627 \u0633\u064a\u0633\u0627\u0639\u062f\u0643\u0645 \u0639\u0644\u0649 \u0630\u0644\u0643\u060c \u062a\u0639\u0644\u0645 \u0644\u063a\u062a\u0646\u0627 \u0648\u0641\u0647\u0645 \u0642\u064a\u0645\u0646\u0627 \u0648\u062b\u0642\u0627\u0641\u062a\u0646\u0627.\r\n\r\n\u0648\u0645\u0646 \u0636\u0645\u0646 \u062b\u0642\u0627\u0641\u062a\u0646\u0627 \u0627\u0644\u062a\u0631\u062d\u064a\u0628\u064a\u0629\u060c \u0646\u0648\u0641\u0631 \u0644\u0643\u0645 \u0628\u064a\u0626\u0629 \u0625\u064a\u062c\u0627\u0628\u064a\u0629 \u0648\u0645\u0641\u062a\u0648\u062d\u0629 \u0645\u0644\u064a\u0626\u0629 \u0628\u0627\u0644\u062a\u0646\u0648\u0639 \u0641\u064a \u0645\u062f\u064a\u0646\u062a\u0646\u0627. \u0648\u0627\u0644\u062a\u064a \u062a\u062d\u062b \u0639\u0644\u0649 \u0627\u0644\u062a\u0633\u0627\u0645\u062d \u0648\u0645\u0631\u0627\u0639\u0627\u0629 \u0627\u0644\u0622\u062e\u0631\u064a\u0646 \u0645\u0646 \u0627\u0644\u062c\u0630\u0648\u0631 \u0627\u0644\u0642\u0648\u0645\u064a\u0629 \u0648\u0627\u0644\u062b\u0642\u0627\u0641\u064a\u0629 \u0627\u0644\u0623\u062e\u0631\u0649.\r\n\r\n\u0648\u0628\u0648\u0635\u0641\u0646\u0627 \u0645\u062f\u064a\u0646\u0629 \u0627\u0644\u0633\u0644\u0627\u0645 \u0648\u062d\u0642\u0648\u0642 \u0627\u0644\u0625\u0646\u0633\u0627\u0646\u060c \u062a\u0644\u062a\u0632\u0645 \u0645\u062f\u064a\u0646\u0629 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0628\u062d\u0642\u0648\u0642 \u0627\u0644\u0625\u0646\u0633\u0627\u0646 \u0639\u0644\u0649 \u0646\u062d\u0648 \u062e\u0627\u0635 \u0644\u0644\u063a\u0627\u064a\u0629.\u0641\u0627\u0644\u0627\u062d\u062a\u0631\u0627\u0645 \u0648\u0627\u0644\u062a\u0642\u062f\u064a\u0631 \u0627\u0644\u0645\u062a\u0628\u0627\u062f\u0644 \u062a\u062c\u0627\u0647 \u0645\u0646 \u062d\u0648\u0644\u0646\u0627 \u0645\u0646 \u0627\u0644\u0628\u0634\u0631 \u0647\u0648 \u0627\u0644\u0645\u0642\u0648\u0651\u0645 \u0627\u0644\u0631\u0626\u064a\u0633\u064a \u0644\u0646\u062a\u0639\u0627\u064a\u0634 \u0645\u0639\u064b\u0627 \u0641\u064a \u0633\u0644\u0627\u0645 \u0648\u062a\u0636\u0627\u0645\u0646. \u0648\u062a\u0634\u0645\u0644 \u0642\u064a\u0645\u0646\u0627 \u0623\u064a\u0636\u064b\u0627 \u0627\u0644\u062d\u0645\u0627\u064a\u0629 \u0627\u0644\u0643\u0627\u0645\u0644\u0629 \u0645\u0646 \u0627\u0644\u062a\u0641\u0631\u0642\u0629 \u0648\u0643\u0630\u0644\u0643 \u062d\u0645\u0627\u064a\u0629 \u0627\u0644\u0623\u0642\u0644\u064a\u0627\u062a \u0648\u0627\u0644\u0645\u062c\u0645\u0648\u0639\u0627\u062a \u0627\u0644\u0636\u0639\u064a\u0641\u0629 \u0641\u064a \u0645\u062c\u062a\u0645\u0639\u0646\u0627 \u0645\u062b\u0644 \u0627\u0644\u0623\u0637\u0641\u0627\u0644 \u0648\u0643\u0628\u0627\u0631 \u0627\u0644\u0633\u0646\u060c \u0623\u0648 \u0627\u0644\u0644\u0627\u062c\u0626\u064a\u0646\u060c \u0623\u0648 \u0627\u0644\u0623\u0634\u062e\u0627\u0635 \u0630\u0648\u064a \u0627\u0644\u0625\u0639\u0627\u0642\u0629.\r\n\r\n\u0648\u0639\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u0623\u0633\u0627\u0633\u060c \u0623\u062a\u0645\u0646\u0649 \u0623\u0646 \u0646\u062a\u0645\u0643\u0646 \u0645\u0646 \u0627\u0644\u062a\u0639\u0627\u064a\u0634 \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0628\u0646\u062c\u0627\u062d \u0648\u0623\u0646 \u0646\u062a\u0623\u0642\u0644\u0645 \u0645\u0639\u064b\u0627 \u0628\u0643\u0644 \u0627\u062d\u062a\u0631\u0627\u0645.\r\n\r\n\u062a\u062d\u064a\u0627\u062a\u064a\u060c \u062f. \u0623\u0648\u0644\u0631\u064a\u0634 \u0645\u0627\u0644\u064a\r\n\r\n\u0639\u0645\u062f\u0629 \u0645\u062f\u064a\u0646\u0629 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a\r\n\r\n\u0627\u062e\u0631 \u062a\u062d\u062f\u064a\u062b: \u0663\u0661 \u0623\u063a\u0633\u0637\u0633 \u0662\u0660\u0661\u0667",
-      "language": 3,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:22:31.256Z",
-      "last_updated": "2019-08-12T08:22:31.270Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 27,
-    "fields": {
-      "page": 7,
-      "slug": "welcome",
-      "title": "Welcome",
-      "status": "PUBLIC",
-      "text": "Welcome",
-      "language": 2,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:23:17.979Z",
-      "last_updated": "2019-08-12T08:23:17.994Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 28,
-    "fields": {
-      "page": 9,
-      "slug": "community-life-in-germany",
-      "title": "Community Life in Germany",
-      "status": "PUBLIC",
-      "text": "The Basic Law\r\n\r\nIn every country, there are rules that everyone has to adhere to. The most important law in Germany is the Basic Law. It is a collection of 146 articles. Every article stands for a law \u2013 i.e., a rule.These rules govern community life in Germany.The fundamental rights protect the freedom of each individual. They are stipulated in Articles 1 to 19 of the Basic Law (Catalogue of Fundamental Rights).\r\n\r\nProtection of Human Dignity\r\n\r\nArticle 1\r\n\r\n(1) Human dignity shall be inviolable. To respect and protect it shall be the duty of all state authority.\r\n\r\n(...)\r\n\r\nPersonal Freedoms\r\n\r\nArticle 2\r\n\r\n(1) Every person shall have the right to free development of his personality insofar as s/he does not violate the rights of others or offend against the constitutional order or the moral law.\r\n\r\n(...)\r\n\r\nThis also means the right to sexual self-determination. This means: All human beings can decide for themselves which sexual acts they wants to participate in and nobody can be forced to do something they do not want to do. More information: \u00bb\u00bb Sexual Self-Determination\r\n\r\nEquality Before the Law\r\n\r\nArticle 3\r\n\r\n(1) All persons shall be equal before the law.\r\n\r\n(2) Men and women shall have equal rights. The state shall promote the actual implementation of equal rights for women and men and take steps to eliminate disadvantages that now exist.\r\n\r\n www.zanzu.de\r\n\r\n(3) No person shall be favoured or disfavoured because of sex, parentage, race, language, homeland and origin, faith, or religious or political opinions. No person shall be disfavoured because of disability.\r\n\r\nFreedom of Faith, Conscience and Creed\r\n\r\nArticle 4\r\n\r\n(1) Freedom of faith and of conscience, and freedom to profess a religious or philosophical creed, shall be inviolable.\r\n\r\n(...)\r\n\r\nFreedom of Expression\r\n\r\nArticle 5\r\n\r\n(1) Every person shall have the right freely to express and disseminate her/his opinions in speech, writing, and pictures and to inform herself/himself without hindrance from generally accessible sources. Freedom of the press and freedom of reporting by means of broadcasts and films shall be guaranteed. There shall be no censorship.\r\n\r\n(...)\r\n\r\nMarriage and the Family; Children Born Outside of Marriage\r\n\r\nArticle 6\r\n\r\n(1) Marriage and the family shall enjoy the special protection of the state.\r\n\r\n(...)\r\n\r\nHere you can find the Basic Law in 11 languages:* \u00bb\u00bbArabic, \u00bb\u00bbChinese, \u00bb\u00bbEnglish, \u00bb\u00bbFrench, \u00bb\u00bbItalian, \u00bb\u00bbPersian, \u00bb\u00bbPolish, \u00bb\u00bbRussian, \u00bb\u00bbSerbian, \u00bb\u00bbSpanish, \u00bb\u00bbTurkish and of course in \u00bb\u00bbGerman.\r\n\r\n*It was not possible to find this kind of linguistic diversity on any other website.\r\n\r\nHow the German legal state works is illustrated visually in this film: \u00bb\u00bbGerman, \u00bb\u00bbDari, \u00bb\u00bbArabic, \u00bb\u00bbEnglish, \u00bb\u00bbFrench, \u00bb\u00bbPashto, \u00bb\u00bbUrdu.\r\nUniversal Declaration of Human Rights\r\n\r\nHuman rights are important rights that apply to everyone all over the world. Human rights are rights that every person has because of their humanity. They protect the dignity of every human being and apply to every person equally, regardless of \"race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth or other status.\" (Article 2. of the United Nations' Universal Declaration of Human Rights, issued on 10/12/1948)\r\n\r\nThere are 30 rights. The most important are:\r\n\r\n    All people are of equal value.\r\n    Everyone is allowed to have their own opinion.\r\n    Right to peace and safety.\r\n\r\nVisit the Road of Human Rights! Each of the elements in the Road of Human Rights takes one of the human rights articles in German and in another language. The Road of Human Rights is both a denunciation of the crimes committed by the Nazis and a reminder that human rights are still being severely violated in many countries worldwide.\r\n\r\nRoad of Human Rights (Stra\u00dfe der Menschenrechte)\r\n Kart\u00e4usergasse 1, 90402 N\u00fcrnberg\r\nChildren's Rights\r\n\r\nChildren need extra protection, which is why they also have special rights. The individual children's rights are stipulated in the Convention on the Rights of the Child. This was adopted by the UN General Assembly in 1989 and subsequently ratified by 193 countries. The UN Convention on the Rights of the Child includes 54 articles.\r\n\r\nIn Nuremberg City Park can be found the Road of Children\u2019s Rights. Here, children can learn more about their rights at eight different points. You can find more information here: \u00bb\u00bbActivities for Children and Teenagers.\r\n\r\nChildren Have Rights Too is the annual theme of the Alliance for Family in Nuremberg. More information on children's rights in Nuremberg: \u00bb\u00bbChildren's Rights in Nuremberg\r\n\r\nThe 10 most important Children\u2019s rights are visually explained here:\u00bb\u00bbArabic and \u00bb\u00bbPersian.",
-      "language": 2,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:23:59.016Z",
-      "last_updated": "2019-08-12T08:23:59.042Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 29,
-    "fields": {
-      "page": 12,
-      "slug": "about-integreat",
-      "title": "About Integreat",
-      "status": "PUBLIC",
-      "text": "This guide will support you in your everyday life in Nuremberg. You will find important addresses, contact persons and tips and tricks to help you to orient yourself better in Nuremberg.\r\n\r\nYour daily guide has several chapters. Every chapter deals with a different subject. For example, you will find information on doctors, schools, German courses or other institutions. There is also a chapter with ideas on what you can do in your spare time. The information and leisure offers are changing and we update them regularly. That's why it is a good idea to take a regular look at your mobile app and get information about current activities and events.\r\n\r\nYou can also use this app offline. The app will update automatically when you are back online again.\r\n\r\nWe hope that this app makes your life in Nuremberg a little bit easier. We are looking forward to welcoming you here in Nuremberg, the city of peace and human rights.",
-      "language": 2,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:24:36.073Z",
-      "last_updated": "2019-08-12T08:24:36.101Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 30,
-    "fields": {
-      "page": 10,
-      "slug": "trivia-about-nuremberg",
-      "title": "Trivia about Nuremberg",
-      "status": "PUBLIC",
-      "text": "Nuremberg is located in the province of Bavaria and in the district of Middle Franconia. Nuremberg has over 500,000 inhabitants and is the second largest city in Bavaria after Munich. A river called the Pegnitz flows straight through the city.\r\n\r\nIn Nuremberg there are many interesting and beautiful places. Nuremberg is particularly well-known for its medieval castle (Kaiserburg), theGerman National Museum and its Christkindlesmarkt on the Hauptmarkt.\r\n\r\nThe city of Nuremberg was mentioned for the first time in an imperial document in 1050. The name Nuremberg comes from \"Norenberc\", meaning \"rocky mountain\". \u201cRocky mountain\", because the Nuremberg castle was built on a sandstone cliff. The path up to the castle road is very steep, but worth it! From the viewpoint you have a great view over the city.This part of the castle is free to enter.\r\n\r\nThere is a lot of interesting information to be learnt about Nuremberg\u2019s history in the City Museum, the Fembohaus. With the \u00bb\u00bbNuremberg pass the entry fee is only \u20ac1.50.\r\n\r\nA very famous resident of Nuremberg is Albrecht D\u00fcrer. He lived from 1497 to 1528. He was a painter, mathematician and art historian. There is a still a lot to remind us of Albrecht D\u00fcrer today. For example, there is the Albrecht-D\u00fcrer-Platz with a statue of him and his former home has been turned into a museum, the Albrecht-D\u00fcrer-Haus.\r\n\r\nNuremberg is also well known for toys. This is why Nuremberg is home to the largest toy trade fair in the world. Toys have been manufactured in Nuremberg since the Middle Ages. In theToy Museumyou can admire the history of toys both in Nuremberg and the world. Anyone with the \u00bb\u00bbNuremberg pass also pays an entry price of only 1.50!\r\n\r\nNuremberg is also famous for gingerbread and bratwurst. Gingerbread is a biscuit baked with many spices. It has been produced with a secret recipe since the 14th century and is famous worldwide. Nuremberg is also called the \"city of gingerbread\". Bratwurst sausages are also made according to a secret recipe and sold as a branded product all over the world. You can find small booths selling \u201cDrei im Weggla\u201d all over the city. That means three Nuremberg bratwurst in a bun.\r\n\r\nThe first German steam locomotive started its journey from Nuremberg to F\u00fcrth in Nuremberg on 7 December 1835.This was the beginning of the industrial age for Nuremberg. The steam locomotive was called \"Adler\" and can still be seen today in the Transport Museum.\r\n\r\nNuremberg is also known as the city of the Nuremberg Rally.During the time of National Socialism, the Nazi party rally grounds were set up in Nuremberg to hold the party conferences of the NSDAP with hundreds of thousands of participants.Even today, large parts of the complex can be visited, as well as the Reich\u2019s Party Rally Grounds Documentation Centre, which offers detailed information about the historical events. Today, large concerts and motor races take place on this site.\r\n\r\nAfter the end of the Second World War, leading representatives of the National Socialist regime had to take responsibility for their crimes before the International Military Court.These \"Nuremberg Trials\" formed the basis for a further development of international law and are documented in the Museum Memorium N\u00fcrnberger Prozesse .\r\n\r\nAs a reminder of the crimes committed by the National Socialists,the Human Rights Trail with the human rights articles engraved on 27 pillars in various languages, reminds us of the current situation in many countries and calls for a peaceful coexistence of cultures.",
-      "language": 2,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:25:07.388Z",
-      "last_updated": "2019-08-12T08:25:07.407Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 31,
-    "fields": {
-      "page": 10,
-      "slug": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a-\u0642\u064a\u0645\u0629-\u0639\u0646-\u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a",
-      "title": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0642\u064a\u0651\u0645\u0629 \u0639\u0646 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a",
-      "status": "PUBLIC",
-      "text": "\u062a\u0642\u0639 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0641\u064a \u0627\u0644\u0645\u0642\u0627\u0637\u0639\u0629 \u0627\u0644\u0627\u062a\u062d\u0627\u062f\u064a\u0629 \u0628\u0627\u0641\u0627\u0631\u064a\u0627 \u0648\u0628\u0645\u0646\u0637\u0642\u0629 \u0648\u0633\u0637 \u0641\u0631\u0627\u0646\u0643\u0646. \u064a\u0639\u064a\u0634 \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0623\u0643\u062b\u0631 \u0645\u0646 500000 \u0646\u0633\u064e\u0645\u0629\u060c \u0648\u0647\u064a \u062b\u0627\u0646\u064a \u0623\u0643\u0628\u0631 \u0645\u062f\u064a\u0646\u0629 \u0641\u064a \u0628\u0627\u0641\u0627\u0631\u064a\u0627 \u0628\u0639\u062f \u0645\u064a\u0648\u0646\u064a\u062e. \u0648\u064a\u062a\u062f\u0641\u0642 \u0639\u0628\u0631 \u0627\u0644\u0645\u062f\u064a\u0646\u0629 \u0646\u0647\u0631 \u064a\u064f\u0633\u0645\u0649 \"\u0628\u064a\u063a\u0646\u064a\u062a\u0633\".\r\n\r\n\u0647\u0646\u0627\u0643 \u0623\u0631\u0628\u0639\u0629 \u0623\u0645\u0627\u0643\u0646 \u062c\u0645\u064a\u0644\u0629 \u0648\u0645\u062b\u064a\u0631\u0629 \u0644\u0644\u0627\u0647\u062a\u0645\u0627\u0645 \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a. \u0648\u0644\u0643\u0646 \u062a\u0634\u062a\u0647\u0631 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0628\u0634\u0643\u0644 \u062e\u0627\u0635\u0628\u0642\u0644\u0639\u0629 \u0627\u0644\u0639\u0635\u0648\u0631 \u0627\u0644\u0648\u0633\u0637\u0649 (\u0643\u0627\u064a\u0632\u0631\u0628\u0648\u0631\u063a), \u0648\u0627\u0644\u0645\u062a\u062d\u0641 \u0627\u0644\u0642\u0648\u0645\u064a \u0627\u0644\u062c\u0631\u0645\u0627\u0646\u064a \u0648 \u0633\u0648\u0642 \u0627\u0644\u0643\u0631\u064a\u0633\u0645\u0627\u0633\u0628\u0627\u0644\u0633\u0648\u0642 \u0627\u0644\u0631\u0626\u064a\u0633\u064a.\r\n\r\n\u064f\u0630\u064f\u0643\u0631\u062a \u0645\u062f\u064a\u0646\u0629 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0641\u064a \u0627\u0644\u0634\u0647\u0627\u062f\u0627\u062a \u0627\u0644\u0625\u0645\u0628\u0631\u0627\u0637\u0648\u0631\u064a\u0629 \u0644\u0623\u0648\u0644 \u0645\u0631\u0629 \u0639\u0627\u0645 1050. \u0648\u0627\u0633\u0645 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0645\u0634\u062a\u0642 \u0645\u0646 \u0643\u0644\u0645\u0629 \"Norenberc\" (\u0646\u0648\u0631\u0646\u0628\u064a\u0631\u0643) \u0648\u062a\u0639\u0646\u064a \"\u0627\u0644\u062c\u0628\u0644 \u0627\u0644\u0635\u062e\u0631\u064a\". \u0648\u064a\u0631\u062c\u0639 \u0627\u0633\u0645 \"\u0627\u0644\u062c\u064a\u0644 \u0627\u0644\u0635\u062e\u0631\u064a\" \u0625\u0644\u0649 \u0623\u0646 \u0642\u0644\u0639\u0629 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0642\u062f \u0628\u064f\u0646\u064a\u062a \u0639\u0644\u0649 \u0635\u062e\u0631\u0629 \u0631\u0645\u0644\u064a\u0629. \u0648\u0627\u0644\u0637\u0631\u064a\u0642 \u0646\u062d\u0648 \u0634\u0627\u0631\u0639 \u0627\u0644\u0642\u0644\u0639\u0629 \u0645\u0646\u062d\u062f\u0631 \u0644\u0644\u063a\u0627\u064a\u0629\u060c \u0644\u0643\u0646\u0647 \u064a\u0633\u062a\u062d\u0642 \u0627\u0644\u0639\u0646\u0627\u0621! \u0648\u0645\u0646 \u0641\u0648\u0642 \u0645\u064a\u062f\u0627\u0646 \u0623\u0648\u0633\u0632\u064a\u0634\u062a \u0628\u0644\u0627\u062a\u0633 \u064a\u0645\u0643\u0646\u0643\u0645 \u0627\u0644\u0627\u0633\u062a\u0645\u062a\u0627\u0639 \u0628\u0645\u0646\u0638\u0631 \u0631\u0627\u0626\u0639 \u0644\u0644\u0645\u062f\u064a\u0646\u0629.\u0648\u064a\u0643\u0648\u0646 \u062f\u062e\u0648\u0644 \u0647\u0630\u0627 \u0627\u0644\u062c\u0632\u0621 \u0645\u0646 \u0627\u0644\u0642\u0644\u0639\u0629 \u0645\u062c\u0627\u0646\u064a\u064b\u0627.\r\n\r\n\u064a\u0645\u0643\u0646\u0643\u0645 \u0645\u0639\u0631\u0641\u0629 \u0627\u0644\u0643\u062b\u064a\u0631 \u0645\u0646 \u0627\u0644\u0623\u0645\u0648\u0631 \u0627\u0644\u0634\u064a\u0651\u0642\u0629 \u062d\u0648\u0644 \u062a\u0627\u0631\u064a\u062e \u0645\u062f\u064a\u0646\u0629 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0641\u064a \u0645\u062a\u062d\u0641 \u0627\u0644\u0645\u062f\u064a\u0646\u0629 \u0641\u064a\u0645\u0628\u0648\u0647\u0627\u0648\u0633. \u0648\u0628\u0627\u0633\u062a\u062e\u062f\u0627\u0645 <<\u062c\u0648\u0627\u0632 \u0627\u0644\u0645\u0631\u0648\u0631 \u0625\u0644\u0649 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a>> \u0633\u064a\u0643\u0644\u0641\u0643\u0645 \u0627\u0644\u062f\u062e\u0648\u0644 1.50 \u064a\u0648\u0631\u0648 \u0641\u0642\u0637.\r\n\r\n\"\u0623\u0644\u0628\u0631\u064a\u0634\u062a \u062f\u0648\u0631\u0631\" \u0647\u0648 \u0623\u062d\u062f \u0623\u0634\u0647\u0631 \u0623\u0628\u0646\u0627\u0621 \u0645\u062f\u064a\u0646\u0629 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a. \u0644\u0642\u062f \u0648\u064f\u0644\u062f \u0639\u0627\u0645 1497 \u0648\u062a\u0648\u0641\u064a \u0639\u0627\u0645 1528. \u0648\u0643\u0627\u0646 \u0631\u0633\u0651\u0627\u0645\u064b\u0627\u060c \u0648\u0639\u0627\u0644\u0645 \u0631\u064a\u0627\u0636\u064a\u0627\u062a\u060c \u0648\u0645\u0624\u0631\u062e \u0641\u0646\u064a. \u0648\u062d\u062a\u0649 \u0627\u0644\u064a\u0648\u0645 \u0644\u0627 \u0632\u0627\u0644\u062a \u0647\u0646\u0627\u0643 \u0627\u0644\u0643\u062b\u064a\u0631 \u0645\u0646 \u0627\u0644\u0623\u0645\u0648\u0631 \u0627\u0644\u062a\u064a \u062a\u0630\u0643\u0631\u0646\u0627 \u0628\u0640\"\u0623\u0644\u0628\u0631\u064a\u0634\u062a \u062f\u0648\u0631\u0631\". \u0641\u0639\u0644\u0649 \u0633\u0628\u064a\u0644 \u0627\u0644\u0645\u062b\u0627\u0644\u060c \u0647\u0646\u0627\u0643 \u0645\u064a\u062f\u0627\u0646 \u0623\u0644\u0628\u0631\u064a\u0634\u062a \u062f\u0648\u0631\u0631 \u0648\u0627\u0644\u0630\u064a \u064a\u0636\u0645 \u062a\u0645\u062b\u0627\u0644\u0627\u064b \u0644\u0647\u060c \u0648\u0627\u0644\u064a\u0648\u0645 \u0623\u0635\u0628\u062d \u0645\u0646\u0632\u0644\u0647 \u0627\u0644\u0633\u0627\u0628\u0642 \u0645\u062a\u062d\u0641\u064b\u0627\u060c \u0648\u064a\u064f\u0639\u0631\u0641 \u0628\u0627\u0633\u0645\u0628\u064a\u062a \u0623\u0644\u0628\u0631\u064a\u0634\u062a \u062f\u0648\u0631\u0631.\r\n\r\n\u0643\u0645\u0627 \u062a\u0634\u062a\u0647\u0631 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0623\u064a\u0636\u064b\u0627 \u0628\u0627\u0644\u0644\u0639\u0628. \u0644\u0630\u0644\u0643 \u064a\u064f\u0642\u0627\u0645 \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0623\u0643\u0628\u0631 \u0645\u0639\u0631\u0636 \u0644\u0644\u0639\u0628 \u0641\u064a \u0627\u0644\u0639\u0627\u0644\u0645. \u0648\u0645\u0646\u0630 \u0627\u0644\u0639\u0635\u0648\u0631 \u0627\u0644\u0648\u0633\u0637\u0649\u060c \u062a\u0642\u0648\u0645 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0628\u062a\u0635\u0646\u064a\u0639 \u0627\u0644\u0644\u0639\u0628. \u0641\u064a\u0645\u062a\u062d\u0641 \u0627\u0644\u0644\u0639\u0628 \u0633\u064a\u064f\u062f\u0647\u0634\u0643\u0645 \u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0644\u0639\u0628 \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0648\u0641\u064a \u0627\u0644\u0639\u0627\u0644\u0645. \u0648\u0647\u0646\u0627 \u0623\u064a\u0636\u064b\u0627 \u064a\u0633\u062f\u062f \u062d\u0627\u0645\u0644\u0648 <<\u062c\u0648\u0627\u0632 \u0627\u0644\u0645\u0631\u0648\u0631 \u0625\u0644\u0649 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a>> \u0645\u0628\u0644\u063a 1.50 \u064a\u0648\u0631\u0648 \u0641\u0642\u0637!\r\n\r\n\u0643\u0645\u0627 \u062a\u0634\u062a\u0647\u0631 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0623\u064a\u0636\u064b\u0627 \u0628\u0643\u0639\u0643 \u0627\u0644\u0632\u0646\u062c\u0628\u064a\u0644 \u0648\u0627\u0644\u0646\u0642\u0627\u0646\u0642 \u0627\u0644\u0645\u0642\u0644\u064a\u0629. \u0643\u0639\u0643 \u0627\u0644\u0632\u0646\u062c\u0628\u064a\u0644 \u0647\u0648 \u0643\u0639\u0643 \u064a\u062d\u062a\u0648\u064a \u0639\u0644\u0649 \u0627\u0644\u0643\u062b\u064a\u0631 \u0645\u0646 \u0627\u0644\u062a\u0648\u0627\u0628\u0644. \u0648\u064a\u062a\u0645 \u062a\u062d\u0636\u064a\u0631\u0647\u0627 \u0645\u0646 \u0648\u0635\u0641\u0629 \u0633\u0631\u064a\u0629 \u0645\u0646\u0630 \u0627\u0644\u0642\u0631\u0646 \u0627\u0644\u0631\u0627\u0628\u0639 \u0639\u0634\u0631 \u0648\u0647\u064a \u0645\u0634\u0647\u0648\u0631\u0629 \u0641\u064a \u0627\u0644\u0639\u0627\u0644\u0645 \u0628\u0623\u0643\u0645\u0644\u0647. \u062d\u062a\u0649 \u0623\u064f\u0637\u0644\u0642 \u0639\u0644\u0649 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0627\u0633\u0645 \"\u0645\u062f\u064a\u0646\u0629 \u0643\u0639\u0643 \u0627\u0644\u0632\u0646\u062c\u0628\u064a\u0644\". \u0643\u0645\u0627 \u064a\u062a\u0645 \u0625\u0646\u062a\u0627\u062c \u0627\u0644\u0646\u0642\u0627\u0646\u0642 \u0627\u0644\u0645\u0642\u0644\u064a\u0629 \u0645\u0646 \u0648\u0635\u0641\u0629 \u0645\u062e\u0641\u064a\u0651\u0629 \u0648\u062a\u064f\u0628\u0627\u0639 \u0641\u064a \u0627\u0644\u0639\u0627\u0644\u0645 \u0628\u0623\u0643\u0645\u0644\u0647 \u0643\u0633\u0644\u0639\u0629 \u062a\u062c\u0627\u0631\u064a\u0629 \u0645\u0639\u0631\u0648\u0641\u0629. \u0648\u0641\u064a \u0643\u0644 \u0623\u0646\u062d\u0627\u0621 \u0627\u0644\u0645\u062f\u064a\u0646\u0629\u060c \u062a\u062c\u062f\u0648\u0646 \u0623\u0643\u0648\u0627\u062e\u064b\u0627 \u0635\u063a\u064a\u0631\u0629\u060c \u062a\u0628\u064a\u0639 \u0646\u0642\u0627\u0646\u0642 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0627\u0644\u0634\u0647\u064a\u0631\u0629 \"Drei im Weggla\". \u0648\u0647\u064a \u0639\u0628\u0627\u0631\u0629 \u0639\u0646 \u0646\u0642\u0627\u0646\u0642 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0641\u064a \u0627\u0644\u062e\u0628\u0632 \u0627\u0644\u0635\u063a\u064a\u0631.\r\n\r\n\u0628\u062f\u0623 \u0623\u0648\u0644 \u0642\u0637\u0627\u0631 \u0628\u062e\u0627\u0631\u064a \u0641\u064a \u0623\u0644\u0645\u0627\u0646\u064a\u0627 \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0641\u064a 7 \u062f\u064a\u0633\u0645\u0628\u0631 1835 \u0648\u0643\u0627\u0646 \u064a\u063a\u0637\u064a \u0627\u0644\u0645\u0633\u0627\u0641\u0629 \u0645\u0646 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0625\u0644\u0649 \u0641\u0648\u0631\u062a.\u0648\u0628\u0630\u0644\u0643 \u0628\u062f\u0623 \u0627\u0644\u0639\u0635\u064a\u0631 \u0627\u0644\u0635\u0646\u0627\u0639\u064a \u0644\u0645\u062f\u064a\u0646\u0629 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a. \u0648\u0642\u062f \u0623\u064f\u0637\u0644\u0642 \u0639\u0644\u0649 \u0627\u0644\u0642\u0637\u0627\u0631 \u0627\u0644\u0628\u062e\u0627\u0631\u064a \u0627\u0633\u0645 \"\u0627\u0644\u0646\u0633\u0631\" \u0648\u064a\u0645\u0643\u0646 \u0645\u0634\u0627\u0647\u062f\u062a\u0647 \u0627\u0644\u064a\u0648\u0645 \u0641\u064a\u0645\u062a\u062d\u0641 \u0648\u0633\u0627\u0626\u0644 \u0627\u0644\u0646\u0642\u0644.\r\n\r\n\u062a\u0634\u062a\u0647\u0631 \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a \u0623\u064a\u0636\u064b\u0627 \u0628\u0623\u0646\u0647\u0627 \u0645\u062f\u064a\u0646\u0629 \u0627\u0644\u0643\u0648\u0646\u063a\u0631\u0633 \u0627\u0644\u0646\u0627\u0632\u064a.\u062e\u0644\u0627\u0644 \u0627\u0644\u0639\u0647\u062f \u0627\u0644\u0646\u0627\u0631\u064a \u062a\u0645 \u0625\u0646\u0634\u0627\u0621 \u0645\u0628\u0646\u0649 \u0627\u0644\u0643\u0648\u0646\u063a\u0631\u0633 \u0627\u0644\u0646\u0627\u0632\u064a \u0641\u064a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a\u060c \u0644\u064a\u0643\u0648\u0646 \u0645\u0642\u0631\u064b\u0627 \u0644\u0644\u0645\u0624\u062a\u0645\u0631 \u0627\u0644\u062d\u0632\u0628\u064a \u0644\u0644\u062d\u0632\u0628 \u0627\u0644\u0646\u0627\u0632\u064a \u0627\u0644\u0630\u064a \u0643\u0627\u0646 \u064a\u0636\u0645 \u0645\u0626\u0627\u062a \u0627\u0644\u0622\u0644\u0627\u0641 \u0645\u0646 \u0627\u0644\u0623\u0639\u0636\u0627\u0621.\u0648\u062d\u062a\u0649 \u0627\u0644\u064a\u0648\u0645 \u0644\u0627 \u0632\u0627\u0644 \u0645\u0646 \u0627\u0644\u0645\u0645\u0643\u0646 \u0632\u064a\u0627\u0631\u0629 \u062c\u0632\u0621 \u0643\u0628\u064a\u0631 \u0645\u0646 \u0627\u0644\u0645\u0643\u0627\u0646\u060c \u0643\u0645\u0627 \u064a\u0642\u062f\u0645 \u0645\u0631\u0643\u0632 \u0627\u0644\u062a\u0648\u062b\u064a\u0642 \u0628\u0645\u0628\u0646\u0649 \u0627\u0644\u0643\u0648\u0646\u063a\u0631\u0633 \u0627\u0644\u0646\u0627\u0632\u064a\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0645\u0641\u0635\u0651\u0644\u0629 \u062d\u0648\u0644 \u0627\u0644\u0623\u062d\u062f\u0627\u062b \u0627\u0644\u062a\u0627\u0631\u064a\u062e\u064a\u0629. \u0623\u0645\u0627 \u0627\u0644\u064a\u0648\u0645 \u0641\u062a\u064f\u0642\u0627\u0645 \u0641\u064a \u0630\u0644\u0643 \u0627\u0644\u0645\u0643\u0627\u0646 \u0623\u062d\u062f\u0627\u062b \u0645\u0648\u0633\u064a\u0642\u064a\u0629 \u0643\u0628\u0631\u0649 \u0648\u0633\u0628\u0627\u0642\u0627\u062a \u0644\u0644\u0633\u064a\u0627\u0631\u0627\u062a.\r\n\r\n\u0628\u0639\u062f \u0627\u0646\u062a\u0647\u0627\u0621 \u0627\u0644\u062d\u0631\u0628 \u0627\u0644\u0639\u0627\u0644\u0645\u064a\u0629 \u0627\u0644\u062b\u0627\u0646\u064a\u0629\u060c \u0643\u0627\u0646 \u0644\u0632\u0627\u0645\u064b\u0627 \u0639\u0644\u0649 \u0643\u0628\u0627\u0631 \u0645\u0645\u062b\u0644\u064a \u0627\u0644\u0646\u0638\u0627\u0645 \u0627\u0644\u0646\u0627\u0632\u064a \u0627\u0644\u0645\u062b\u0648\u0644 \u0623\u0645\u0627\u0645 \u0645\u062d\u0643\u0645\u0629 \u0627\u0644\u0646\u0638\u0627\u0645 \u0627\u0644\u0639\u0633\u0643\u0631\u064a \u0627\u0644\u062f\u0648\u0644\u064a\u0629 \u0644\u0644\u0631\u062f\u0651 \u0639\u0644\u0649 \u062c\u0631\u0627\u0626\u0645\u0647\u0645.\u0648\u062a\u0645\u062b\u0644 \"\u0645\u062d\u0627\u0643\u0645\u0627\u062a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a\" \u0647\u0630\u0647 \u0623\u0633\u0627\u0633\u064b\u0627 \u0644\u0645\u0648\u0627\u0635\u0644\u0629 \u062a\u0637\u0648\u064a\u0631 \u0627\u0644\u0642\u0627\u0646\u0648\u0646 \u0627\u0644\u062f\u0648\u0644\u064a \u0648\u0647\u064a \u0645\u0648\u062b\u0642\u0629 \u0641\u064a \u0645\u062a\u062d\u0641 \u0627\u0644\u0645\u0639\u0631\u0636 \u0627\u0644\u062a\u0630\u0643\u0627\u0631\u064a \u0644\u0645\u062d\u0627\u0643\u0645\u0627\u062a \u0646\u0648\u0631\u0646\u0628\u064a\u0631\u063a .\r\n\r\n\u0648\u0643\u062a\u0630\u0643\u0627\u0631 \u0622\u062e\u0631 \u0628\u062c\u0631\u0627\u0626\u0645 \u0627\u0644\u0646\u0627\u0632\u064a\u0629\u060c \u064a\u0630\u0643\u0631\u0646\u0627 \u0634\u0627\u0631\u0639 \u062d\u0642\u0648\u0642 \u0627\u0644\u0625\u0646\u0633\u0627\u0646 \u0627\u0644\u0630\u064a \u064a\u0636\u0645 27 \u0639\u0645\u0648\u062f\u064b\u0627 \u062d\u064f\u0641\u0631\u062a \u0639\u0644\u064a\u0647\u0645 \u0645\u0648\u0627\u062f \u062d\u0642\u0648\u0642 \u0627\u0644\u0625\u0646\u0633\u0627\u0646\u060c \u0628\u0644\u063a\u0627\u062a \u0645\u062e\u062a\u0644\u0641\u0629\u060c \u0628\u0627\u0644\u0648\u0636\u0639 \u0627\u0644\u062d\u0627\u0644\u064a \u0641\u064a \u0627\u0644\u0639\u062f\u064a\u062f \u0645\u0646 \u0627\u0644\u062f\u0648\u0644 \u0648\u064a\u062f\u0639\u0648 \u0625\u0644\u0649 \u062a\u0639\u0627\u064a\u0634 \u0627\u0644\u062b\u0642\u0627\u0641\u0627\u062a \u0645\u0639\u064b\u0627 \u0641\u064a \u0633\u0644\u0627\u0645.\r\n\r\n\u0627\u062e\u0631 \u062a\u062d\u062f\u064a\u062b: \u0663\u0661 \u0623\u063a\u0633\u0637\u0633 \u0662\u0660\u0661\u0667",
-      "language": 3,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:25:47.171Z",
-      "last_updated": "2019-08-12T08:25:47.203Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 32,
-    "fields": {
-      "page": 7,
-      "slug": "\u062e\u0648\u0634-\u0622\u0645\u062f\u06cc\u062f",
-      "title": "\u062e\u0648\u0634 \u0622\u0645\u062f\u06cc\u062f",
-      "status": "PUBLIC",
-      "text": "\u062e\u0648\u0634 \u0622\u0645\u062f\u06cc\u062f",
-      "language": 4,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:26:21.704Z",
-      "last_updated": "2019-08-12T08:26:21.723Z"
-    }
-  },
-  {
-    "model": "cms.pagetranslation",
-    "pk": 33,
-    "fields": {
-      "page": 12,
-      "slug": "\u062f\u0631\u0628\u0627\u0631\u0647-integreat",
-      "title": "\u062f\u0631\u0628\u0627\u0631\u0647 Integreat",
-      "status": "PUBLIC",
-      "text": "\u0627\u06cc\u0646 \u0631\u0627\u0647\u0646\u0645\u0627\u060c \u062f\u0631 \u0632\u0646\u062f\u06af\u06cc \u0631\u0648\u0632\u0645\u0631\u0647 \u062f\u0631 \u0646\u0648\u0631\u0646\u0628\u0631\u06af \u0628\u0647 \u0634\u0645\u0627 \u06a9\u0645\u06a9 \u0645\u06cc \u06a9\u0646\u062f. \u0634\u0645\u0627 \u062f\u0631 \u0622\u0646 \u0646\u0634\u0627\u0646\u06cc \u0647\u0627\u06cc \u0645\u0647\u0645\u060c \u0645\u0631\u0627\u06a9\u0632 \u067e\u0627\u0633\u062e\u06af\u0648\u06cc\u06cc \u0648 \u0646\u06a9\u0627\u062a \u0648 \u0631\u0648\u0634 \u0647\u0627\u06cc\u06cc \u0631\u0627 \u067e\u06cc\u062f\u0627 \u0645\u06cc \u06a9\u0646\u06cc\u062f \u06a9\u0647 \u0628\u0631\u0627\u06cc \u062a\u062b\u0628\u06cc\u062a \u0634\u062f\u0646 \u062f\u0631 \u0646\u0648\u0631\u0646\u0628\u0631\u06af \u0628\u0647 \u0634\u0645\u0627 \u06a9\u0645\u06a9 \u0645\u06cc \u06a9\u0646\u0646\u062f.\u200f\r\n\r\n\u0627\u06cc\u0646 \u0631\u0627\u0647\u0646\u0645\u0627\u06cc \u0645\u0633\u0627\u0626\u0644 \u0631\u0648\u0632\u0645\u0631\u0647 \u0686\u0646\u062f\u06cc\u0646 \u0628\u062e\u0634 \u062f\u0627\u0631\u062f. \u0647\u0631 \u0628\u062e\u0634 \u0628\u0647 \u0645\u0648\u0636\u0648\u0639 \u0645\u062a\u0641\u0627\u0648\u062a\u06cc \u0645\u06cc \u067e\u0631\u062f\u0627\u0632\u062f. \u0634\u0645\u0627 \u0645\u062b\u0644\u0627 \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0645\u0631\u0628\u0648\u0637 \u0628\u0647 \u067e\u0632\u0634\u06a9\u0627\u0646\u060c \u0645\u062f\u0627\u0631\u0633\u060c \u062f\u0648\u0631\u0647 \u0647\u0627\u06cc \u0622\u0644\u0645\u0627\u0646\u06cc \u06cc\u0627 \u0645\u0648\u0633\u0633\u0627\u062a \u062f\u06cc\u06af\u0631 \u0631\u0627 \u067e\u06cc\u062f\u0627 \u0645\u06cc \u06a9\u0646\u06cc\u062f. \u0647\u0645\u0686\u0646\u06cc\u0646 \u0628\u062e\u0634\u06cc \u0627\u0632 \u0622\u0646 \u0645\u0631\u0628\u0648\u0637 \u0627\u0633\u062a \u0628\u0647 \u06a9\u0627\u0631\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0634\u0645\u0627 \u062f\u0631 \u0627\u0648\u0642\u0627\u062a \u0641\u0631\u0627\u063a\u062a \u0645\u06cc \u062a\u0648\u0627\u0646\u06cc\u062f \u0627\u0646\u062c\u0627\u0645 \u062f\u0647\u06cc\u062f. \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0648 \u0627\u0645\u06a9\u0627\u0646\u0627\u062a \u0627\u0648\u0642\u0627\u062a \u0641\u0631\u0627\u063a\u062a \u062a\u063a\u06cc\u06cc\u0631 \u0645\u06cc \u06a9\u0646\u0646\u062f \u0648 \u0645\u0627 \u0645\u0631\u062a\u0628 \u0622\u0646\u0647\u0627 \u0631\u0627 \u0628\u0647 \u0631\u0648\u0632 \u0645\u06cc \u06a9\u0646\u06cc\u0645. \u0628\u0647 \u0647\u0645\u06cc\u0646 \u062f\u0644\u06cc\u0644 \u0628\u0633\u06cc\u0627\u0631 \u062e\u0648\u0628 \u0627\u0633\u062a \u0627\u06af\u0631 \u0634\u0645\u0627 \u0645\u0631\u062a\u0628 \u062f\u0631 \u0627\u067e\u0644\u06cc\u06a9\u06cc\u0634\u0646 \u062a\u0644\u0641\u0646 \u0647\u0645\u0631\u0627\u0647 \u062e\u0648\u062f \u0646\u06af\u0627\u0647 \u06a9\u0646\u06cc\u062f \u0648 \u062f\u0631\u0628\u0627\u0631\u0647 \u0631\u0648\u06cc\u062f\u0627\u062f\u0647\u0627 \u0648 \u0628\u0631\u0646\u0627\u0645\u0647 \u0647\u0627\u06cc \u0631\u0648\u0632 \u0645\u0637\u0644\u0639 \u0634\u0648\u06cc\u062f.\u200f\r\n\r\n\u0627\u06af\u0631 \u0628\u0647 \u0627\u06cc\u0646\u062a\u0631\u0646\u062a \u062f\u0633\u062a\u0631\u0633\u06cc \u0646\u062f\u0627\u0631\u06cc\u062f\u060c \u0645\u06cc \u062a\u0648\u0627\u0646\u06cc\u062f \u0627\u0632 \u0627\u06cc\u0646 \u0627\u067e\u0644\u06cc\u06a9\u06cc\u0634\u0646 \u0628\u0647 \u0635\u0648\u0631\u062a \u0622\u0641\u0644\u0627\u06cc\u0646 \u0646\u06cc\u0632 \u0627\u0633\u062a\u0641\u0627\u062f\u0647 \u06a9\u0646\u06cc\u062f. \u0647\u0646\u06af\u0627\u0645\u06cc \u06a9\u0647 \u062f\u0648\u0628\u0627\u0631\u0647 \u0622\u0646\u0644\u0627\u06cc\u0646 \u0634\u062f\u06cc\u062f\u060c \u0627\u067e\u0644\u06cc\u06a9\u06cc\u0634\u0646 \u0628\u0635\u0648\u0631\u062a \u062e\u0648\u062f\u06a9\u0627\u0631 \u0628\u0647 \u0631\u0648\u0632 \u0645\u06cc \u0634\u0648\u062f.\u200f\r\n\r\n\u0628\u0633\u06cc\u0627\u0631 \u0627\u0645\u06cc\u062f\u0648\u0627\u0631\u06cc\u0645 \u06a9\u0647 \u0628\u0627 \u0627\u06cc\u0646 \u0627\u067e\u0644\u06cc\u06a9\u06cc\u0634\u0646\u060c \u0628\u062a\u0648\u0627\u0646\u06cc\u0645 \u0627\u0642\u0627\u0645\u062a \u0634\u0645\u0627 \u0631\u0627 \u062f\u0631 \u0646\u0648\u0631\u0646\u0628\u0631\u06af \u0622\u0633\u0627\u0646 \u06a9\u0646\u06cc\u0645. \u062e\u0648\u0634\u062d\u0627\u0644 \u0645\u06cc \u0634\u0648\u06cc\u0645 \u06a9\u0647 \u0628\u0647 \u0634\u0645\u0627 \u062f\u0631 \u0646\u0648\u0631\u0646\u0628\u0631\u06af\u060c \u0634\u0647\u0631 \u0635\u0644\u062d \u0648 \u062d\u0642\u0648\u0642 \u0628\u0634\u0631\u060c \u062e\u0648\u0634 \u0622\u0645\u062f \u0628\u06af\u0648\u06cc\u06cc\u0645.\u200f\r\n\r\nBMFSFJ_DemokratieLeben",
-      "language": 4,
-      "currently_in_translation": false,
-      "version": 1,
-      "minor_edit": false,
-      "creator": 1,
-      "created_date": "2019-08-12T08:26:50.465Z",
-      "last_updated": "2019-08-12T08:26:50.483Z"
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 1,
-    "fields": {
-      "parent": null,
-      "icon": "",
-      "region": 1,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T07:57:42.432Z",
-      "last_updated": "2019-08-12T08:09:45.047Z",
-      "lft": 1,
-      "rght": 12,
-      "tree_id": 1,
-      "level": 0,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 2,
-    "fields": {
-      "parent": 1,
-      "icon": "",
-      "region": 1,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T07:58:36.298Z",
-      "last_updated": "2019-08-12T08:10:23.031Z",
-      "lft": 6,
-      "rght": 7,
-      "tree_id": 1,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 3,
-    "fields": {
-      "parent": 1,
-      "icon": "",
-      "region": 1,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T07:59:21.571Z",
-      "last_updated": "2019-08-12T08:11:53.048Z",
-      "lft": 4,
-      "rght": 5,
-      "tree_id": 1,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 4,
-    "fields": {
-      "parent": 1,
-      "icon": "",
-      "region": 1,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T07:59:50.923Z",
-      "last_updated": "2019-08-12T08:13:41.042Z",
-      "lft": 2,
-      "rght": 3,
-      "tree_id": 1,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 5,
-    "fields": {
-      "parent": 1,
-      "icon": "",
-      "region": 1,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:01:13.162Z",
-      "last_updated": "2019-08-12T08:08:54.846Z",
-      "lft": 8,
-      "rght": 9,
-      "tree_id": 1,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 6,
-    "fields": {
-      "parent": 1,
-      "icon": "",
-      "region": 1,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:01:42.227Z",
-      "last_updated": "2019-08-12T08:01:42.271Z",
-      "lft": 10,
-      "rght": 11,
-      "tree_id": 1,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 7,
-    "fields": {
-      "parent": null,
-      "icon": "",
-      "region": 2,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:17:48.337Z",
-      "last_updated": "2019-08-12T08:26:21.713Z",
-      "lft": 1,
-      "rght": 14,
-      "tree_id": 2,
-      "level": 0,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 8,
-    "fields": {
-      "parent": 7,
-      "icon": "",
-      "region": 2,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:18:09.754Z",
-      "last_updated": "2019-08-12T08:27:30.170Z",
-      "lft": 2,
-      "rght": 3,
-      "tree_id": 2,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 9,
-    "fields": {
-      "parent": 7,
-      "icon": "",
-      "region": 2,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:18:36.107Z",
-      "last_updated": "2019-08-12T08:27:25.672Z",
-      "lft": 4,
-      "rght": 5,
-      "tree_id": 2,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 10,
-    "fields": {
-      "parent": 7,
-      "icon": "",
-      "region": 2,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:19:10.505Z",
-      "last_updated": "2019-08-12T08:27:20.613Z",
-      "lft": 6,
-      "rght": 7,
-      "tree_id": 2,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 11,
-    "fields": {
-      "parent": 7,
-      "icon": "",
-      "region": 2,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:19:48.948Z",
-      "last_updated": "2019-08-12T08:27:16.540Z",
-      "lft": 8,
-      "rght": 9,
-      "tree_id": 2,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 12,
-    "fields": {
-      "parent": 7,
-      "icon": "",
-      "region": 2,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:20:16.690Z",
-      "last_updated": "2019-08-12T08:27:11.670Z",
-      "lft": 10,
-      "rght": 11,
-      "tree_id": 2,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.page",
-    "pk": 13,
-    "fields": {
-      "parent": 7,
-      "icon": "",
-      "region": 2,
-      "archived": false,
-      "mirrored_page": null,
-      "created_date": "2019-08-12T08:20:43.643Z",
-      "last_updated": "2019-08-12T08:27:07.539Z",
-      "lft": 12,
-      "rght": 13,
-      "tree_id": 2,
-      "level": 1,
-      "editors": [],
-      "publishers": []
-    }
-  },
-  {
-    "model": "cms.extratemplate",
-    "pk": 1,
-    "fields": {
-      "name": "Sprungbrett",
-      "slug": "sprungbrett",
-      "thumbnail": "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg",
-      "url": "https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=",
-      "post_data": {},
-      "use_postal_code": "GET",
-      "created_date": "2019-10-09T16:42:45.256Z",
-      "last_updated": "2019-10-09T16:44:36.254Z"
-    }
-  },
-  {
-    "model": "cms.extratemplate",
-    "pk": 2,
-    "fields": {
-      "name": "Lehrstellenradar",
-      "slug": "lehrstellen-radar",
-      "thumbnail": "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/lehrstellen-radar.jpg",
-      "url": "https://www.lehrstellen-radar.de/5100,0,lsrlist.html",
-      "post_data": {
-        "search-ls": "1",
-        "search-pr": "1",
-        "search-radius": "50"
+   {
+     "model": "auth.user",
+     "pk": 1,
+     "fields": {
+       "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+       "last_login": null,
+       "is_superuser": true,
+       "username": "root",
+       "first_name": "Root",
+       "last_name": "User",
+       "email": "root@root.root",
+       "is_staff": true,
+       "is_active": true,
+       "date_joined": "2019-11-13T09:21:34.960Z",
+       "groups": [],
+       "user_permissions": []
+     }
+   },
+   {
+      "model" : "cms.language",
+      "pk" : 1,
+      "fields" : {
+         "created_date" : "2019-08-12T07:50:18.139Z",
+         "last_updated" : "2019-08-12T07:50:18.140Z",
+         "native_name" : "Deutsch",
+         "english_name" : "German",
+         "text_direction" : "ltr",
+         "code" : "de-de"
+      }
+   },
+   {
+      "model" : "cms.language",
+      "pk" : 2,
+      "fields" : {
+         "last_updated" : "2019-08-12T07:50:24.636Z",
+         "created_date" : "2019-08-12T07:50:24.635Z",
+         "native_name" : "Deutsch",
+         "text_direction" : "ltr",
+         "english_name" : "English",
+         "code" : "en-us"
+      }
+   },
+   {
+      "pk" : 3,
+      "model" : "cms.language",
+      "fields" : {
+         "created_date" : "2019-08-12T07:51:29.233Z",
+         "last_updated" : "2019-08-12T07:51:29.233Z",
+         "native_name" : "العربية",
+         "english_name" : "Arabic",
+         "text_direction" : "rtl",
+         "code" : "ar-ma"
+      }
+   },
+   {
+      "fields" : {
+         "code" : "fa-ir",
+         "text_direction" : "rtl",
+         "english_name" : "Farsi",
+         "native_name" : "فارسی",
+         "last_updated" : "2019-08-12T07:52:21.400Z",
+         "created_date" : "2019-08-12T07:52:21.399Z"
       },
-      "use_postal_code": "POST",
-      "created_date": "2019-10-09T16:44:06.983Z",
-      "last_updated": "2019-10-09T16:44:06.992Z"
-    }
-  },
-  {
-    "model": "cms.extratemplate",
-    "pk": 3,
-    "fields": {
-      "name": "IHK Lehrstellenb\u00f6rse",
-      "slug": "ihk-lehrstellenboerse",
-      "thumbnail": "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/ihk-lehrstellenboerse.png",
-      "url": "https://www.ihk-lehrstellenboerse.de/joboffers/search.html?distance=1&location=",
-      "post_data": {},
-      "use_postal_code": "GET",
-      "created_date": "2019-10-09T16:45:39.575Z",
-      "last_updated": "2019-10-09T16:45:39.582Z"
-    }
-  },
-  {
-    "model": "cms.extratemplate",
-    "pk": 4,
-    "fields": {
-      "name": "IHK Praktikumsb\u00f6rse",
-      "slug": "ihk-praktikumsboerse",
-      "thumbnail": "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/ihk-praktikumsboerse.png",
-      "url": "https://www.ihk-lehrstellenboerse.de/praktikum/suche?distance=1&location=",
-      "post_data": {},
-      "use_postal_code": "GET",
-      "created_date": "2019-10-09T16:46:26.624Z",
-      "last_updated": "2019-10-09T16:46:26.632Z"
-    }
-  },
-  {
-    "model": "cms.organization",
-    "pk": 1,
-    "fields": {
-      "name": "Berliner Stadtmission",
-      "slug": "berliner-stadtmission",
-      "thumbnail": "",
-      "created_date": "2020-01-20T09:05:04.511Z",
-      "last_updated": "2020-01-20T09:05:04.513Z"
-    }
-  },
-  {
-    "model": "cms.poi",
-    "pk": 1,
-    "fields": {
-      "region": 1,
-      "address": "Lehrter Stra\u00dfe 68",
-      "postcode": "10557",
-      "city": "Berlin",
-      "country": "Deutschland",
-      "latitude": 1.0,
-      "longitude": 1.0,
-      "archived": false
-    }
-  },
-  {
-    "model": "cms.poi",
-    "pk": 2,
-    "fields": {
-      "region": 1,
-      "address": "Kopenhagener Str. 29",
-      "postcode": "13407",
-      "city": "Berlin",
-      "country": "Deutschland",
-      "latitude": 1.0,
-      "longitude": 1.0,
-      "archived": false
-    }
-  },
-  {
-    "model": "cms.poi",
-    "pk": 3,
-    "fields": {
-      "region": 1,
-      "address": "Am Containerbahnhof hinter dem Ring-Center (Frankfurter Allee)",
-      "postcode": "10365",
-      "city": "Berlin",
-      "country": "Deutschland",
-      "latitude": 1.0,
-      "longitude": 1.0,
-      "archived": false
-    }
-  },
-  {
-    "model": "cms.accommodation",
-    "pk": 1,
-    "fields": {
-      "institution": 1,
-      "phone_number": "(030) 690 33",
-      "mobile_number": "",
-      "wc_available": true,
-      "shower_available": true,
-      "animals_allowed": true,
-      "intoxicated_allowed": false,
-      "intake_from": "21:00:00",
-      "intake_to": "21:30:00",
-      "spoken_languages": [
-        1,
-        2
-      ]
-    }
-  },
-  {
-    "model": "cms.accommodation",
-    "pk": 2,
-    "fields": {
-      "institution": 1,
-      "phone_number": "030/690 33-4",
-      "mobile_number": "",
-      "wc_available": true,
-      "shower_available": true,
-      "animals_allowed": true,
-      "intoxicated_allowed": false,
-      "intake_from": "21:00:00",
-      "intake_to": "00:00:00",
-      "spoken_languages": [
-        1,
-        2
-      ]
-    }
-  },
-  {
-    "model": "cms.accommodation",
-    "pk": 3,
-    "fields": {
-      "institution": 1,
-      "phone_number": "",
-      "mobile_number": "",
-      "wc_available": true,
-      "shower_available": true,
-      "animals_allowed": true,
-      "intoxicated_allowed": false,
-      "intake_from": "20:00:00",
-      "intake_to": "00:00:00",
-      "spoken_languages": [
-        1,
-        2
-      ]
-    }
-  },
-  {
-    "model": "cms.accommodationtranslation",
-    "pk": 1,
-    "fields": {
-      "title": "Not\u00fcbernachtung I",
-      "slug": "not\u00fcbernachtung-i",
-      "accommodation": 1,
-      "status": "PUBLIC",
-      "short_description": "Not\u00fcbernachtung I der Berliner Stadtmission",
-      "description": "<ul>\r\n<li>Einlass von 21:00 bis 21:30 Uhr und 23-4 Uhr</li>\r\n<li>125 Schlafpl&auml;tze</li>\r\n<li>soziale Beratung von Mo bis Fr ab 07:00 Uhr</li>\r\n<li>medizinische Betreuung von Mo bis Fr, 21:00 bis 24:00 Uhr</li>\r\n</ul>",
-      "language": 1,
-      "version": 1,
-      "minor_edit": false,
-      "created_date": "2020-01-20T09:06:45.023Z",
-      "last_updated": "2020-01-20T09:46:08.857Z",
-      "creator": 1
-    }
-  },
-  {
-    "model": "cms.accommodationtranslation",
-    "pk": 2,
-    "fields": {
-      "title": "Not\u00fcbernachtung II",
-      "slug": "not\u00fcbernachtung-ii",
-      "accommodation": 2,
-      "status": "PUBLIC",
-      "short_description": "Not\u00fcbernachtung II der Berliner Stadtmission",
-      "description": "<p>Die Not&uuml;bernachtung in der Kopenhagener Stra&szlig;e gew&auml;hrt 52 G&auml;sten einen Schlafplatz.</p>\r\n<p>&nbsp;</p>\r\n<p>E-Mail: <a class=\"email\" title=\"E-Mail schreiben\" href=\"mailto:neugebauer@berliner-stadtmission.de\">neugebauer(at)berliner-stadtmission.de</a></p>",
-      "language": 1,
-      "version": 1,
-      "minor_edit": false,
-      "created_date": "2020-01-20T09:45:49.667Z",
-      "last_updated": "2020-01-20T09:45:57.309Z",
-      "creator": 1
-    }
-  },
-  {
-    "model": "cms.accommodationtranslation",
-    "pk": 3,
-    "fields": {
-      "title": "Not\u00fcbernachtung III",
-      "slug": "not\u00fcbernachtung-iii",
-      "accommodation": 3,
-      "status": "PUBLIC",
-      "short_description": "Not\u00fcbernachtung III der Berliner Stadtmission",
-      "description": "<ul>\r\n<li>Am Containerbahnhof 1 (hinter dem Ring-Center Frankfurter Allee)<br />10367 Berlin</li>\r\n<li>Einlass ab 20 Uhr</li>\r\n<li>120 Schlafpl&auml;tze</li>\r\n<li>f&uuml;r Frauen (24 Pl&auml;tze) und M&auml;nner (96 Pl&auml;tze)</li>\r\n<li>Haustiere erlaubt</li>\r\n<li>ge&ouml;ffnet bis 27.04.2019</li>\r\n<li>4-5 mal w&ouml;chentlich soziale Beratung</li>\r\n<li>3 mal w&ouml;chentlich medizinische Betreuung</li>\r\n</ul>",
-      "language": 1,
-      "version": 1,
-      "minor_edit": false,
-      "created_date": "2020-01-20T09:48:20.605Z",
-      "last_updated": "2020-01-20T09:48:43.673Z",
-      "creator": 1
-    }
-  }
+      "model" : "cms.language",
+      "pk" : 4
+   },
+   {
+      "fields" : {
+         "name" : "Berliner Stadtmission",
+         "thumbnail" : "",
+         "slug" : "berliner-stadtmission",
+         "created_date" : "2020-01-20T09:05:04.511Z",
+         "last_updated" : "2020-01-20T09:05:04.513Z"
+      },
+      "pk" : 1,
+      "model" : "cms.organization"
+   },
+   {
+      "fields" : {
+         "longitude" : 10.8958715,
+         "latitude" : 48.36882,
+         "push_notifications_enabled" : true,
+         "status" : "ACTIVE",
+         "matomo_token" : "",
+         "postal_code" : "86150",
+         "push_notification_channels" : "[\"\"]",
+         "last_updated" : "2019-08-12T07:48:17.998Z",
+         "admin_mail" : "augsburg@integreat-app.de",
+         "aliases" : "[\"Haunstetten\", \"Friedberg\"]",
+         "name" : "Augsburg",
+         "statistics_enabled" : false,
+         "matomo_url" : "",
+         "events_enabled" : true,
+         "created_date" : "2019-08-12T07:48:17.997Z",
+         "matomo_ssl_verify" : true,
+         "administrative_division" : "CITY",
+         "slug" : "augsburg",
+         "page_permissions_enabled" : false
+      },
+      "model" : "cms.region",
+      "pk" : 1
+   },
+   {
+      "fields" : {
+         "status" : "ACTIVE",
+         "matomo_token" : "",
+         "postal_code" : "90403",
+         "push_notification_channels" : "[\"\"]",
+         "last_updated" : "2019-08-12T07:50:05.573Z",
+         "aliases" : "[\"Schwabach\", \"Lauf an der Pegnitz\"]",
+         "admin_mail" : "nuernberg@integreat-app.de",
+         "name" : "Nürnberg",
+         "statistics_enabled" : false,
+         "longitude" : 11.0766198,
+         "latitude" : 49.455288,
+         "push_notifications_enabled" : true,
+         "events_enabled" : true,
+         "administrative_division" : "CITY",
+         "matomo_ssl_verify" : true,
+         "created_date" : "2019-08-12T07:50:05.572Z",
+         "slug" : "nurnberg",
+         "page_permissions_enabled" : false,
+         "matomo_url" : ""
+      },
+      "model" : "cms.region",
+      "pk" : 2
+   },
+   {
+      "fields" : {
+         "push_notifications_enabled" : true,
+         "latitude" : 1,
+         "longitude" : 1,
+         "statistics_enabled" : false,
+         "admin_mail" : "berlin@integreat-app.de",
+         "name" : "Berlin",
+         "aliases" : "[\"Berlin\"]",
+         "postal_code" : "10115",
+         "last_updated" : "2020-02-01T18:18:49.304Z",
+         "push_notification_channels" : "[]",
+         "status" : "ACTIVE",
+         "matomo_token" : "",
+         "matomo_url" : "",
+         "page_permissions_enabled" : false,
+         "slug" : "berlin",
+         "administrative_division" : "CITY",
+         "matomo_ssl_verify" : true,
+         "created_date" : "2020-02-01T18:18:21Z",
+         "events_enabled" : true
+      },
+      "pk" : 3,
+      "model" : "cms.region"
+   },
+   {
+      "model" : "cms.poi",
+      "pk" : 1,
+      "fields" : {
+         "longitude" : 1,
+         "country" : "Deutschland",
+         "latitude" : 1,
+         "region" : 3,
+         "archived" : false,
+         "postcode" : "10557",
+         "address" : "Lehrter Straße 68",
+         "city" : "Berlin"
+      }
+   },
+   {
+      "fields" : {
+         "city" : "Berlin",
+         "address" : "Kopenhagener Str. 29",
+         "postcode" : "13407",
+         "region" : 3,
+         "latitude" : 1,
+         "archived" : false,
+         "longitude" : 1,
+         "country" : "Deutschland"
+      },
+      "pk" : 2,
+      "model" : "cms.poi"
+   },
+   {
+      "pk" : 3,
+      "model" : "cms.poi",
+      "fields" : {
+         "longitude" : 1,
+         "country" : "Deutschland",
+         "archived" : false,
+         "region" : 3,
+         "latitude" : 1,
+         "address" : "Am Containerbahnhof hinter dem Ring-Center (Frankfurter Allee)",
+         "postcode" : "10365",
+         "city" : "Berlin"
+      }
+   },
+   {
+      "pk" : 1,
+      "model" : "cms.accommodation",
+      "fields" : {
+         "shower_available" : true,
+         "mobile_number" : "",
+         "intoxicated_allowed" : false,
+         "intake_to" : "21:30:00",
+         "spoken_languages" : [
+            1,
+            2
+         ],
+         "wc_available" : true,
+         "phone_number" : "(030) 690 33",
+         "intake_from" : "21:00:00",
+         "animals_allowed" : true,
+         "institution" : 1
+      }
+   },
+   {
+      "fields" : {
+         "animals_allowed" : true,
+         "institution" : 1,
+         "intake_from" : "21:00:00",
+         "phone_number" : "030/690 33-4",
+         "spoken_languages" : [
+            1,
+            2
+         ],
+         "wc_available" : true,
+         "intake_to" : "00:00:00",
+         "intoxicated_allowed" : false,
+         "mobile_number" : "",
+         "shower_available" : true
+      },
+      "pk" : 2,
+      "model" : "cms.accommodation"
+   },
+   {
+      "model" : "cms.accommodation",
+      "pk" : 3,
+      "fields" : {
+         "intoxicated_allowed" : false,
+         "mobile_number" : "",
+         "shower_available" : true,
+         "wc_available" : true,
+         "spoken_languages" : [
+            1,
+            2
+         ],
+         "intake_to" : "00:00:00",
+         "phone_number" : "",
+         "institution" : 1,
+         "animals_allowed" : true,
+         "intake_from" : "20:00:00"
+      }
+   },
+   {
+      "pk" : 1,
+      "model" : "cms.accommodationtranslation",
+      "fields" : {
+         "creator" : 1,
+         "short_description" : "Notübernachtung I der Berliner Stadtmission",
+         "minor_edit" : false,
+         "created_date" : "2020-01-20T09:06:45.023Z",
+         "last_updated" : "2020-02-01T18:27:21.745Z",
+         "status" : "PUBLIC",
+         "title" : "Notübernachtung I",
+         "version" : 1,
+         "language" : 1,
+         "accommodation" : 1,
+         "slug" : "notübernachtung-i",
+         "description" : "<ul>\r\n<li>Einlass von 21:00 bis 21:30 Uhr und 23-4 Uhr</li>\r\n<li>125 Schlafpl&auml;tze</li>\r\n<li>soziale Beratung von Mo bis Fr ab 07:00 Uhr</li>\r\n<li>medizinische Betreuung von Mo bis Fr, 21:00 bis 24:00 Uhr</li>\r\n</ul>"
+      }
+   },
+   {
+      "fields" : {
+         "creator" : 1,
+         "short_description" : "Notübernachtung II der Berliner Stadtmission",
+         "minor_edit" : false,
+         "created_date" : "2020-01-20T09:45:49.667Z",
+         "last_updated" : "2020-02-01T18:27:07.498Z",
+         "status" : "PUBLIC",
+         "title" : "Notübernachtung II",
+         "version" : 1,
+         "language" : 1,
+         "accommodation" : 2,
+         "slug" : "notübernachtung-ii",
+         "description" : "<p>Die Not&uuml;bernachtung in der Kopenhagener Stra&szlig;e gew&auml;hrt 52 G&auml;sten einen Schlafplatz.</p>\r\n<p>&nbsp;</p>\r\n<p>E-Mail: <a class=\"email\" title=\"E-Mail schreiben\" href=\"mailto:neugebauer@berliner-stadtmission.de\">neugebauer(at)berliner-stadtmission.de</a></p>"
+      },
+      "model" : "cms.accommodationtranslation",
+      "pk" : 2
+   },
+   {
+      "fields" : {
+         "minor_edit" : false,
+         "creator" : 1,
+         "short_description" : "Notübernachtung III der Berliner Stadtmission",
+         "accommodation" : 3,
+         "slug" : "notübernachtung-iii",
+         "description" : "<ul>\r\n<li>Am Containerbahnhof 1 (hinter dem Ring-Center Frankfurter Allee)<br />10367 Berlin</li>\r\n<li>Einlass ab 20 Uhr</li>\r\n<li>120 Schlafpl&auml;tze</li>\r\n<li>f&uuml;r Frauen (24 Pl&auml;tze) und M&auml;nner (96 Pl&auml;tze)</li>\r\n<li>Haustiere erlaubt</li>\r\n<li>ge&ouml;ffnet bis 27.04.2019</li>\r\n<li>4-5 mal w&ouml;chentlich soziale Beratung</li>\r\n<li>3 mal w&ouml;chentlich medizinische Betreuung</li>\r\n</ul>",
+         "language" : 1,
+         "status" : "DRAFT",
+         "title" : "Notübernachtung III",
+         "version" : 1,
+         "created_date" : "2020-01-20T09:48:20.605Z",
+         "last_updated" : "2020-02-01T18:26:48.331Z"
+      },
+      "model" : "cms.accommodationtranslation",
+      "pk" : 3
+   },
+   {
+      "model" : "cms.bedtargetgroup",
+      "pk" : 1,
+      "fields" : {
+         "name" : "Male",
+         "slug" : "male",
+         "description" : ""
+      }
+   },
+   {
+      "fields" : {
+         "name" : "Female",
+         "slug" : "female",
+         "description" : ""
+      },
+      "pk" : 2,
+      "model" : "cms.bedtargetgroup"
+   },
+   {
+      "fields" : {
+         "description" : "",
+         "slug" : "mixed",
+         "name" : "mixed"
+      },
+      "pk" : 3,
+      "model" : "cms.bedtargetgroup"
+   },
+   {
+      "model" : "cms.beds",
+      "pk" : 1,
+      "fields" : {
+         "num_beds" : 24,
+         "accommodation" : 3,
+         "num_beds_allocated" : 3,
+         "target_group" : 2
+      }
+   },
+   {
+      "fields" : {
+         "target_group" : 1,
+         "num_beds_allocated" : 4,
+         "accommodation" : 3,
+         "num_beds" : 96
+      },
+      "model" : "cms.beds",
+      "pk" : 2
+   },
+   {
+      "model" : "cms.beds",
+      "pk" : 3,
+      "fields" : {
+         "num_beds" : 52,
+         "target_group" : 3,
+         "num_beds_allocated" : 0,
+         "accommodation" : 2
+      }
+   },
+   {
+      "pk" : 4,
+      "model" : "cms.beds",
+      "fields" : {
+         "accommodation" : 1,
+         "num_beds_allocated" : 0,
+         "target_group" : 3,
+         "num_beds" : 125
+      }
+   },
+   {
+      "fields" : {
+         "created_date" : "2019-10-09T16:42:45.256Z",
+         "last_updated" : "2019-10-09T16:44:36.254Z",
+         "url" : "https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=",
+         "post_data" : {},
+         "thumbnail" : "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg",
+         "use_postal_code" : "GET",
+         "name" : "Sprungbrett",
+         "slug" : "sprungbrett"
+      },
+      "model" : "cms.extratemplate",
+      "pk" : 1
+   },
+   {
+      "model" : "cms.extratemplate",
+      "pk" : 2,
+      "fields" : {
+         "url" : "https://www.lehrstellen-radar.de/5100,0,lsrlist.html",
+         "last_updated" : "2019-10-09T16:44:06.992Z",
+         "created_date" : "2019-10-09T16:44:06.983Z",
+         "slug" : "lehrstellen-radar",
+         "use_postal_code" : "POST",
+         "name" : "Lehrstellenradar",
+         "post_data" : {
+            "search-radius" : "50",
+            "search-ls" : "1",
+            "search-pr" : "1"
+         },
+         "thumbnail" : "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/lehrstellen-radar.jpg"
+      }
+   },
+   {
+      "fields" : {
+         "last_updated" : "2019-10-09T16:45:39.582Z",
+         "created_date" : "2019-10-09T16:45:39.575Z",
+         "url" : "https://www.ihk-lehrstellenboerse.de/joboffers/search.html?distance=1&location=",
+         "slug" : "ihk-lehrstellenboerse",
+         "thumbnail" : "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/ihk-lehrstellenboerse.png",
+         "name" : "IHK Lehrstellenbörse",
+         "use_postal_code" : "GET",
+         "post_data" : {}
+      },
+      "model" : "cms.extratemplate",
+      "pk" : 3
+   },
+   {
+      "fields" : {
+         "url" : "https://www.ihk-lehrstellenboerse.de/praktikum/suche?distance=1&location=",
+         "last_updated" : "2019-10-09T16:46:26.632Z",
+         "created_date" : "2019-10-09T16:46:26.624Z",
+         "slug" : "ihk-praktikumsboerse",
+         "use_postal_code" : "GET",
+         "thumbnail" : "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/ihk-praktikumsboerse.png",
+         "post_data" : {},
+         "name" : "IHK Praktikumsbörse"
+      },
+      "pk" : 4,
+      "model" : "cms.extratemplate"
+   },
+   {
+      "model" : "cms.page",
+      "pk" : 1,
+      "fields" : {
+         "parent" : null,
+         "mirrored_page_first" : true,
+         "archived" : false,
+         "region" : 1,
+         "publishers" : [],
+         "lft" : 1,
+         "last_updated" : "2019-08-12T08:09:45.047Z",
+         "created_date" : "2019-08-12T07:57:42.432Z",
+         "tree_id" : 1,
+         "editors" : [],
+         "mirrored_page" : null,
+         "level" : 0,
+         "icon" : "",
+         "rght" : 12
+      }
+   },
+   {
+      "fields" : {
+         "mirrored_page_first" : true,
+         "parent" : 1,
+         "archived" : false,
+         "region" : 1,
+         "publishers" : [],
+         "lft" : 6,
+         "created_date" : "2019-08-12T07:58:36.298Z",
+         "last_updated" : "2019-08-12T08:10:23.031Z",
+         "editors" : [],
+         "level" : 1,
+         "mirrored_page" : null,
+         "icon" : "",
+         "tree_id" : 1,
+         "rght" : 7
+      },
+      "model" : "cms.page",
+      "pk" : 2
+   },
+   {
+      "fields" : {
+         "rght" : 5,
+         "tree_id" : 1,
+         "editors" : [],
+         "level" : 1,
+         "mirrored_page" : null,
+         "icon" : "",
+         "last_updated" : "2019-08-12T08:11:53.048Z",
+         "created_date" : "2019-08-12T07:59:21.571Z",
+         "publishers" : [],
+         "region" : 1,
+         "lft" : 4,
+         "archived" : false,
+         "parent" : 1,
+         "mirrored_page_first" : true
+      },
+      "model" : "cms.page",
+      "pk" : 3
+   },
+   {
+      "pk" : 4,
+      "model" : "cms.page",
+      "fields" : {
+         "rght" : 3,
+         "level" : 1,
+         "editors" : [],
+         "mirrored_page" : null,
+         "icon" : "",
+         "tree_id" : 1,
+         "created_date" : "2019-08-12T07:59:50.923Z",
+         "last_updated" : "2019-08-12T08:13:41.042Z",
+         "publishers" : [],
+         "lft" : 2,
+         "region" : 1,
+         "archived" : false,
+         "mirrored_page_first" : true,
+         "parent" : 1
+      }
+   },
+   {
+      "fields" : {
+         "archived" : false,
+         "lft" : 8,
+         "publishers" : [],
+         "region" : 1,
+         "parent" : 1,
+         "mirrored_page_first" : true,
+         "tree_id" : 1,
+         "level" : 1,
+         "editors" : [],
+         "icon" : "",
+         "mirrored_page" : null,
+         "rght" : 9,
+         "last_updated" : "2019-08-12T08:08:54.846Z",
+         "created_date" : "2019-08-12T08:01:13.162Z"
+      },
+      "pk" : 5,
+      "model" : "cms.page"
+   },
+   {
+      "pk" : 6,
+      "model" : "cms.page",
+      "fields" : {
+         "last_updated" : "2019-08-12T08:01:42.271Z",
+         "created_date" : "2019-08-12T08:01:42.227Z",
+         "rght" : 11,
+         "tree_id" : 1,
+         "editors" : [],
+         "mirrored_page" : null,
+         "level" : 1,
+         "icon" : "",
+         "parent" : 1,
+         "mirrored_page_first" : true,
+         "publishers" : [],
+         "lft" : 10,
+         "region" : 1,
+         "archived" : false
+      }
+   },
+   {
+      "model" : "cms.page",
+      "pk" : 7,
+      "fields" : {
+         "rght" : 14,
+         "tree_id" : 2,
+         "icon" : "",
+         "editors" : [],
+         "level" : 0,
+         "mirrored_page" : null,
+         "last_updated" : "2019-08-12T08:26:21.713Z",
+         "created_date" : "2019-08-12T08:17:48.337Z",
+         "lft" : 1,
+         "publishers" : [],
+         "region" : 2,
+         "archived" : false,
+         "parent" : null,
+         "mirrored_page_first" : true
+      }
+   },
+   {
+      "fields" : {
+         "created_date" : "2019-08-12T08:18:09.754Z",
+         "last_updated" : "2019-08-12T08:27:30.170Z",
+         "rght" : 3,
+         "mirrored_page" : null,
+         "editors" : [],
+         "level" : 1,
+         "icon" : "",
+         "tree_id" : 2,
+         "mirrored_page_first" : true,
+         "parent" : 7,
+         "publishers" : [],
+         "lft" : 2,
+         "region" : 2,
+         "archived" : false
+      },
+      "model" : "cms.page",
+      "pk" : 8
+   },
+   {
+      "fields" : {
+         "rght" : 5,
+         "level" : 1,
+         "editors" : [],
+         "mirrored_page" : null,
+         "icon" : "",
+         "tree_id" : 2,
+         "created_date" : "2019-08-12T08:18:36.107Z",
+         "last_updated" : "2019-08-12T08:27:25.672Z",
+         "lft" : 4,
+         "publishers" : [],
+         "region" : 2,
+         "archived" : false,
+         "mirrored_page_first" : true,
+         "parent" : 7
+      },
+      "model" : "cms.page",
+      "pk" : 9
+   },
+   {
+      "model" : "cms.page",
+      "pk" : 10,
+      "fields" : {
+         "last_updated" : "2019-08-12T08:27:20.613Z",
+         "created_date" : "2019-08-12T08:19:10.505Z",
+         "tree_id" : 2,
+         "editors" : [],
+         "level" : 1,
+         "mirrored_page" : null,
+         "icon" : "",
+         "rght" : 7,
+         "parent" : 7,
+         "mirrored_page_first" : true,
+         "archived" : false,
+         "region" : 2,
+         "publishers" : [],
+         "lft" : 6
+      }
+   },
+   {
+      "fields" : {
+         "archived" : false,
+         "publishers" : [],
+         "lft" : 8,
+         "region" : 2,
+         "mirrored_page_first" : true,
+         "parent" : 7,
+         "level" : 1,
+         "editors" : [],
+         "mirrored_page" : null,
+         "icon" : "",
+         "tree_id" : 2,
+         "rght" : 9,
+         "created_date" : "2019-08-12T08:19:48.948Z",
+         "last_updated" : "2019-08-12T08:27:16.540Z"
+      },
+      "model" : "cms.page",
+      "pk" : 11
+   },
+   {
+      "fields" : {
+         "parent" : 7,
+         "mirrored_page_first" : true,
+         "publishers" : [],
+         "region" : 2,
+         "lft" : 10,
+         "archived" : false,
+         "last_updated" : "2019-08-12T08:27:11.670Z",
+         "created_date" : "2019-08-12T08:20:16.690Z",
+         "rght" : 11,
+         "tree_id" : 2,
+         "editors" : [],
+         "mirrored_page" : null,
+         "level" : 1,
+         "icon" : ""
+      },
+      "model" : "cms.page",
+      "pk" : 12
+   },
+   {
+      "fields" : {
+         "parent" : 7,
+         "mirrored_page_first" : true,
+         "archived" : false,
+         "region" : 2,
+         "publishers" : [],
+         "lft" : 12,
+         "last_updated" : "2019-08-12T08:27:07.539Z",
+         "created_date" : "2019-08-12T08:20:43.643Z",
+         "tree_id" : 2,
+         "editors" : [],
+         "mirrored_page" : null,
+         "level" : 1,
+         "icon" : "",
+         "rght" : 13
+      },
+      "pk" : 13,
+      "model" : "cms.page"
+   },
+   {
+      "fields" : {
+         "rght" : 8,
+         "language" : 1,
+         "tree_id" : 1,
+         "level" : 0,
+         "last_updated" : "2019-08-12T07:52:34.187Z",
+         "active" : true,
+         "created_date" : "2019-08-12T07:52:34.183Z",
+         "region" : 1,
+         "lft" : 1,
+         "parent" : null
+      },
+      "pk" : 1,
+      "model" : "cms.languagetreenode"
+   },
+   {
+      "model" : "cms.languagetreenode",
+      "pk" : 2,
+      "fields" : {
+         "parent" : 1,
+         "lft" : 2,
+         "region" : 1,
+         "created_date" : "2019-08-12T07:52:44.617Z",
+         "active" : true,
+         "last_updated" : "2019-08-12T07:52:44.629Z",
+         "rght" : 7,
+         "level" : 1,
+         "tree_id" : 1,
+         "language" : 2
+      }
+   },
+   {
+      "model" : "cms.languagetreenode",
+      "pk" : 3,
+      "fields" : {
+         "parent" : 2,
+         "lft" : 3,
+         "region" : 1,
+         "active" : true,
+         "last_updated" : "2019-08-12T07:52:52.564Z",
+         "created_date" : "2019-08-12T07:52:52.560Z",
+         "tree_id" : 1,
+         "language" : 3,
+         "level" : 2,
+         "rght" : 4
+      }
+   },
+   {
+      "fields" : {
+         "parent" : 2,
+         "region" : 1,
+         "lft" : 5,
+         "created_date" : "2019-08-12T07:53:00.429Z",
+         "last_updated" : "2019-08-12T07:53:00.441Z",
+         "active" : true,
+         "level" : 2,
+         "language" : 4,
+         "tree_id" : 1,
+         "rght" : 6
+      },
+      "model" : "cms.languagetreenode",
+      "pk" : 4
+   },
+   {
+      "pk" : 5,
+      "model" : "cms.languagetreenode",
+      "fields" : {
+         "last_updated" : "2019-08-12T07:53:15.053Z",
+         "active" : true,
+         "created_date" : "2019-08-12T07:53:15.051Z",
+         "language" : 1,
+         "tree_id" : 2,
+         "level" : 0,
+         "rght" : 8,
+         "parent" : null,
+         "region" : 2,
+         "lft" : 1
+      }
+   },
+   {
+      "pk" : 6,
+      "model" : "cms.languagetreenode",
+      "fields" : {
+         "lft" : 2,
+         "region" : 2,
+         "parent" : 5,
+         "rght" : 7,
+         "language" : 2,
+         "tree_id" : 2,
+         "level" : 1,
+         "last_updated" : "2019-08-12T07:53:28.898Z",
+         "active" : true,
+         "created_date" : "2019-08-12T07:53:28.892Z"
+      }
+   },
+   {
+      "pk" : 7,
+      "model" : "cms.languagetreenode",
+      "fields" : {
+         "region" : 2,
+         "lft" : 3,
+         "parent" : 6,
+         "rght" : 6,
+         "level" : 2,
+         "tree_id" : 2,
+         "language" : 3,
+         "created_date" : "2019-08-12T07:53:43.197Z",
+         "active" : true,
+         "last_updated" : "2019-08-12T07:53:43.201Z"
+      }
+   },
+   {
+      "fields" : {
+         "rght" : 5,
+         "tree_id" : 2,
+         "language" : 4,
+         "level" : 3,
+         "last_updated" : "2019-08-12T07:53:50.374Z",
+         "active" : true,
+         "created_date" : "2019-08-12T07:53:50.363Z",
+         "lft" : 4,
+         "region" : 2,
+         "parent" : 7
+      },
+      "model" : "cms.languagetreenode",
+      "pk" : 8
+   },
+   {
+      "fields" : {
+         "parent" : null,
+         "lft" : 1,
+         "region" : 3,
+         "created_date" : "2020-02-01T18:25:48.839Z",
+         "last_updated" : "2020-02-01T18:25:48.840Z",
+         "active" : true,
+         "level" : 0,
+         "tree_id" : 3,
+         "language" : 1,
+         "rght" : 4
+      },
+      "pk" : 9,
+      "model" : "cms.languagetreenode"
+   },
+   {
+      "model" : "cms.languagetreenode",
+      "pk" : 10,
+      "fields" : {
+         "last_updated" : "2020-02-01T18:26:12.125Z",
+         "active" : true,
+         "created_date" : "2020-02-01T18:26:12.118Z",
+         "language" : 2,
+         "tree_id" : 3,
+         "level" : 1,
+         "rght" : 3,
+         "parent" : 9,
+         "lft" : 2,
+         "region" : 3
+      }
+   },
+   {
+      "fields" : {
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 1,
+         "version" : 1,
+         "title" : "Willkommen",
+         "status" : "PUBLIC",
+         "text" : "Willkommen in Augsburg",
+         "last_updated" : "2019-08-12T07:57:42.456Z",
+         "created_date" : "2019-08-12T07:57:42.436Z",
+         "slug" : "willkommen",
+         "currently_in_translation" : false,
+         "language" : 1
+      },
+      "model" : "cms.pagetranslation",
+      "pk" : 1
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 2,
+      "fields" : {
+         "creator" : 1,
+         "page" : 2,
+         "minor_edit" : false,
+         "created_date" : "2019-08-12T07:58:36.305Z",
+         "last_updated" : "2019-08-12T08:05:51.712Z",
+         "title" : "Willkommen in Augsburg",
+         "text" : "Liebe Neubürgerin,\r\nlieber Neubürger,\r\n\r\nherzlich willkommen in Augsburg!\r\n\r\nSie sind in einer vielfältigen und weltoffenen Stadt angekommen. Fast 300.000 Menschen aus rund 170 verschiedene Nationen leben hier gut zusammen. Ich freue mich, dass Sie in der Friedensstadt Augsburg einen neuen Lebensmittelpunkt gefunden haben.\r\n\r\nDas eigene Land zu verlassen und der Umzug in ein anderes Land bedeuten eine große Umstellung. Nach der Ankunft stellen sich viele alltägliche Fragen zu Wohnung oder Unterkunft, Schule und Arbeit, sozialen und kulturellen Kontakten. Auch die Orientierung in einer fremden Kultur stellt eine große Herausforderung dar.\r\n\r\nDie Integreat-App ist ein Gemeinschaftsprojekt der Stadt Augsburg in Zusammenarbeit mit Tür an Tür – Digital Factory gGmbH, die ihr technisches Know-how zur Verfügung stellt. Unterstützt wird das Vorhaben durch den Integrationsbeirat und die AFF- association des familles francophones.\r\n\r\nMit der App möchten wir Ihnen helfen, das Leben in Augsburg besser zu verstehen und kennenzulernen. Sie soll ein Beitrag dazu sein, dass Sie sich bald angekommen fühlen und willkommen in unserer Stadtgesellschaft sind. Hier finden Sie wichtige Adressen, allgemeine Anlaufstellen sowie Hilfsangebote in besonderen Lebenslagen.\r\n\r\nIch hoffe sehr, dass wir Sie beim Einleben in Augsburg mit der App unterstützen können. Ich wünsche Ihnen, dass Sie bald erste Kontakte knüpfen und voller Zuversicht auf Ihre persönliche Zukunft in unserer gemeinsamen Stadt blicken werden.\r\n\r\nDr. Kurt Gribl\r\n\r\nOberbürgermeister\r\nder Stadt Augsburg",
+         "status" : "PUBLIC",
+         "version" : 1,
+         "language" : 1,
+         "currently_in_translation" : false,
+         "slug" : "willkommen-in-augsburg"
+      }
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 3,
+      "fields" : {
+         "minor_edit" : false,
+         "page" : 3,
+         "creator" : 1,
+         "slug" : "uber-die-app-integreat-augsburg",
+         "language" : 1,
+         "currently_in_translation" : false,
+         "version" : 1,
+         "title" : "Über die App Integreat Augsburg",
+         "text" : "Dieser Leitfaden unterstützt Sie in Ihrem Alltag in Augsburg. Sie finden hier wichtige Adressen, Ansprechpartner und Tipps und Tricks, die Ihnen bei der Orientierung in Augsburg helfen können.\r\n\r\nIhr Alltagsguide hat mehrere Kapitel. Jedes Kapitel bearbeitet ein anderes Thema. Sie finden zum Beispiel Informationen zu Ärzten, Schulen, Deutschkursen oder anderen Institutionen. Es gibt auch ein Kapitel mit Ideen, was Sie in Ihrer Freizeit machen können. Die Informationen und Freizeitangebote ändern sich und wir aktualisieren  diese Seite regelmäßig. Deswegen ist es sehr gut, wenn Sie oft in Ihre mobile App schauen und sich über aktuelle Aktionen und Veranstaltungen informieren.\r\n\r\nSie können diese App auch offline benutzen, wenn Sie keinen Internet-Zugang haben. Wenn Sie wieder online sind, aktualisiert sich die App von selbst.\r\n\r\nWir hoffen sehr, dass wir Ihren Aufenthalt hier in Augsburg mit dieser App vereinfachen können. Wir freuen uns, Sie hier in der Friedensstadt Augsburg begrüßen zu dürfen.\r\n\r\n \r\n\r\nBildungskoordinatorinnen für Neuzugewanderte",
+         "status" : "PUBLIC",
+         "last_updated" : "2019-08-12T08:05:45.631Z",
+         "created_date" : "2019-08-12T07:59:21.581Z"
+      }
+   },
+   {
+      "pk" : 4,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "last_updated" : "2019-08-12T08:05:39.369Z",
+         "created_date" : "2019-08-12T07:59:50.954Z",
+         "version" : 1,
+         "title" : "Wissenswertes über Augsburg",
+         "text" : "Augsburg liegt im Südwesten Bayerns. Bis München sind es ungefähr 60 km. Augsburg hat circa 298.255 Einwohner und ist die drittgrößte Stadt Bayerns. Die größte Stadt in Bayern ist München und die zweitgrößte Stadt Nürnberg. Ein römischer Kaiser mit dem Namen Augustus hat Augsburg vor mehr als 2000 Jahren zwischen den Flüssen Lech und Wertach gegründet. Augsburg hat sogar einen eigenen Feiertag – am 8. August feiert die Stadt das Augsburger Hohe Friedensfest. Das Fest ist ein Zeichen für Religionsfreiheit und für Frieden zwischen den Religionen.\r\n\r\nIn Augsburg gibt es viele interessante und schöne Orte. Aber besonders schön und berühmt sind das Rathaus mit dem Goldenen Saal, die Fuggerei als älteste Sozialsiedlung der Welt und der Augsburger Dom. Sehenswert ist auch die Anfang des 20. Jh. gebaute Synagoge, die zu den schönsten in Europa gehört.  Vom Perlachturm, einem der höchsten Gebäude in Augsburg, bekommen Sie eine wunderbare Aussicht auf die Stadt. Beim schönen Wetter kann man von der Aussichtsplattform sogar die Alpen sehen. Wer Tiere sehen möchte, ist im Augsburger ZOO richtig aufgehoben. Wer Ruhe und Entspannung sucht, findet sie zum Beispiel im zentrumsnahen Hofgarten. Auch das Botanische Garten bietet, neben den über 3000 Pflanzenarten, schöne und ruhige Plätze zum Erholen. An sonnigen Tagen lohnt es sich an den Ufern von Lech oder Wertach spazieren zu gehen oder Fahrad zu fahren. Im Norden Augsburgs fließen die beiden Flüsse zusammen. Dieses gebiet heisst  Wolfzahnau und ist zum Landschaftsschutzgebiet erklärt worden. Auch dort gehen die Augsburgerinnen und Augsburger gerne spazieren.\r\n\r\nEin Überblick über Augsburger Parkanlagen und Ruheoasen finden Sie hier.\r\n\r\nMögen Sie Fußball? Augsburgs Fußballmannschaft, der FC Augsburg, spielt seit 2011 in der 1. Bundesliga und hat 2015/2016 sogar in der Euro-League gespielt.\r\n\r\nBrauchen Sie Tipps für Ihre Freizeit, dann schauen Sie die nächsten Seiten an. Hier finden Sie viele Ideen, was Sie in Ihrer Freizeit in Augsburg machen können.\r\n\r\nSchlagworte: Sehenswürdigkeiten, Attraktion, Tourismus",
+         "status" : "PUBLIC",
+         "currently_in_translation" : false,
+         "language" : 1,
+         "slug" : "wissenswertes-uber-augsburg",
+         "creator" : 1,
+         "page" : 4,
+         "minor_edit" : false
+      }
+   },
+   {
+      "fields" : {
+         "minor_edit" : false,
+         "page" : 5,
+         "creator" : 1,
+         "slug" : "stadtplan",
+         "currently_in_translation" : false,
+         "language" : 1,
+         "status" : "PUBLIC",
+         "text" : "Sie suchen einen Stadtplan?\r\n\r\n-    Einen Stadtplan von Augsburg als App finden Sie unter www.maps.me\r\n     Als Erstes müssen Sie die App downloaden.\r\n     Der Stadtplan ist kostenlos.\r\n     Er funktioniert offline und hat eine Navigationsfunktion.\r\n-    Einen klassischen Stadtplan der Stadt Augsburg finden Sie im Internet unter www.stadtplan.augsburg.de",
+         "title" : "Stadtplan",
+         "version" : 1,
+         "created_date" : "2019-08-12T08:01:13.169Z",
+         "last_updated" : "2019-08-12T08:01:13.187Z"
+      },
+      "model" : "cms.pagetranslation",
+      "pk" : 5
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 6,
+      "fields" : {
+         "page" : 6,
+         "minor_edit" : false,
+         "creator" : 1,
+         "language" : 1,
+         "currently_in_translation" : false,
+         "slug" : "kontakt-zu-app-team-augsburg",
+         "last_updated" : "2019-08-12T08:01:42.279Z",
+         "created_date" : "2019-08-12T08:01:42.253Z",
+         "version" : 1,
+         "status" : "PUBLIC",
+         "text" : "Wenn Sie Fragen haben oder uns etwas mitteilen möchten, schreiben Sie uns oder rufen Sie uns an:\r\n\r\nBildungskoordination für Neuzugewanderte\r\n\r\nStadt Augsburg\r\nBüro für Migration, Interkultur und Vielfalt\r\nAmt für Kinder, Jugend und Familie\r\n 082132434494 oder 082132434493\r\n bildungskoordination@augsburg.de\r\n\r\nSchlagworte: Bildungskoordination, Kontakt, App Team Augsburg, Fragen, Anregungen, Verbesserungsvorschlag, Kritik, Lob",
+         "title" : "Kontakt zu App Team Augsburg"
+      }
+   },
+   {
+      "pk" : 7,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "last_updated" : "2019-08-12T08:02:48.852Z",
+         "created_date" : "2019-08-12T08:02:48.827Z",
+         "version" : 1,
+         "title" : "Welcome",
+         "text" : "Welcome to Augsburg",
+         "status" : "PUBLIC",
+         "language" : 2,
+         "currently_in_translation" : false,
+         "slug" : "welcome",
+         "creator" : 1,
+         "page" : 1,
+         "minor_edit" : false
+      }
+   },
+   {
+      "pk" : 8,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "creator" : 1,
+         "page" : 3,
+         "minor_edit" : false,
+         "last_updated" : "2019-08-12T08:03:48.584Z",
+         "created_date" : "2019-08-12T08:03:48.554Z",
+         "version" : 1,
+         "title" : "About the Integreat App Augsburg",
+         "text" : "Welcome to Augsburg!\r\n\r\nThis guide will support you in your everyday life in Augsburg. Here you will find important addresses, contact persons, and tips and tricks to help you orientate yourself better in Augsburg.\r\n\r\nThis everyday guide has several chapters. Every chapter deals with a different subject. For example, you will find information on doctors, schools, German courses and other institutions.There is also a chapter with ideas for what you can do in your spare time.The information and leisure options change often, so we update them regularly. That's why it is a good idea to take a regular look at your mobile app and get information about current activities and events.\r\n\r\nYou can also use this app offline for when you have no internet access. The app will update automatically when you are back online again.\r\n\r\nWe hope that this app makes your life in Augsburg a little bit easier.We look forward to welcoming you here in the Peace City of Augsburg.\r\n\r\nBMFSFJ_DemokratieLeben",
+         "status" : "PUBLIC",
+         "language" : 2,
+         "currently_in_translation" : false,
+         "slug" : "about-the-integreat-app-augsburg"
+      }
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 9,
+      "fields" : {
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 4,
+         "version" : 1,
+         "title" : "Trivia about Augsburg",
+         "status" : "PUBLIC",
+         "text" : "Augsburg is located in the southwest of Bavaria. It is about 60km to Munich. Augsburg has approximately 284,000 inhabitants and is the third largest city in Bavaria. The largest city in Bavaria is Munich and the second largest city Nuremberg. A Roman emperor named Augustus founded Augsburg more than 2000 years ago, between the rivers Lech and Wertach. Augsburg even has its own holiday - on 8 August, the city celebrates the Augsburger Hohe Friedensfest. The festival symbolises religious freedom and peace between religions.\r\n\r\nIn Augsburg there are many interesting and beautiful places.But especially beautiful and famous are the city hall with its Golden Hall, the Fuggerei, which is the oldest social housing complex in the world, and Augsburg Cathedral.\r\n\r\nDo you like football?Augsburg's football team, FC Augsburg, offers you 90 minutes of excitement.Since 2011, FC Augsburg has played in the top division of the Bundesliga and, since 2015-16, in the Europa League.\r\n\r\nIf you need tips for your leisure time, then take a look at the next few websites. Here you will find many ideas for what you can do in your free time in Augsburg.These websites are continuously updated by their hosts.",
+         "last_updated" : "2019-08-12T08:04:39.746Z",
+         "created_date" : "2019-08-12T08:04:39.710Z",
+         "slug" : "trivia-about-augsburg",
+         "language" : 2,
+         "currently_in_translation" : false
+      }
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 10,
+      "fields" : {
+         "version" : 1,
+         "title" : "City Map",
+         "text" : "Are you looking for a city map? Here is a street map of Augsburg. The street map is free of charge.It works offline and has a navigation feature.\r\n\r\nHow to get the map: Download the MAPS.ME app.The app can be found in Google Play on Android.It is free.How it works:Download a map of your federal state.Augsburg is located in Bavaria. Then download the city map for Augsburg: Download from MAPS.ME in Google Play on Android or in the App Store.\r\n\r\nAre you looking for a classic-style map of the City of Augsburg? You can find one online on www.stadtplan.augsburg.de",
+         "status" : "PUBLIC",
+         "last_updated" : "2019-08-12T08:05:26.616Z",
+         "created_date" : "2019-08-12T08:05:26.597Z",
+         "slug" : "city-map",
+         "currently_in_translation" : false,
+         "language" : 2,
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 5
+      }
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 11,
+      "fields" : {
+         "slug" : "گام-نخست",
+         "language" : 4,
+         "currently_in_translation" : false,
+         "version" : 1,
+         "text" : "گام نخست",
+         "status" : "PUBLIC",
+         "title" : "گام نخست",
+         "last_updated" : "2019-08-12T08:08:37.172Z",
+         "created_date" : "2019-08-12T08:08:37.158Z",
+         "minor_edit" : false,
+         "page" : 1,
+         "creator" : 1
+      }
+   },
+   {
+      "fields" : {
+         "page" : 5,
+         "minor_edit" : false,
+         "creator" : 1,
+         "currently_in_translation" : false,
+         "language" : 4,
+         "slug" : "نقشه-شهر",
+         "created_date" : "2019-08-12T08:08:54.805Z",
+         "last_updated" : "2019-08-12T08:08:54.855Z",
+         "text" : "آیا به نقشه شهر نیاز دارید؟ در اینجا به یک نقشه از شهر آوگسبورگ دسترسی پیدا می کنید. نقشه شهر رایگان است. این نقشه بدون نیاز به اتصال به اینترنت هم کار می کند و قابلیت جهت یابی هم دارد.\r\n\r\nنقشه شهر را به این ترتیب می توانید بدست آورید:\r\nاپ MAPS.ME را دانلود کنید. این اپ در پلی استور اندروید موجود است. این اپ رایگان است.\r\n\r\nبه این شکل کار می کند:\r\nنقشه ایالت خود را دانلود کنید. آوگسبورگ در ایالت بایرن (باواریا) قرار دارد. سپس نقشه شهر آوگسبورگ را دانلود نمایید.\r\n\r\nدالود MAPS.ME در پلی استور اندروید\r\nاگر دنبال یک نقشه ساده از شهر آوگسبورگ هستید\r\nمی توانید آن را در اینترنت در این آدرس پیدا کنیدwww.stadtplan.augsburg.de",
+         "title" : "نقشه شهر",
+         "status" : "PUBLIC",
+         "version" : 1
+      },
+      "pk" : 12,
+      "model" : "cms.pagetranslation"
+   },
+   {
+      "pk" : 13,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "creator" : 1,
+         "page" : 1,
+         "minor_edit" : false,
+         "last_updated" : "2019-08-12T08:09:45.052Z",
+         "created_date" : "2019-08-12T08:09:45.042Z",
+         "version" : 1,
+         "text" : "معلومات الوصول",
+         "title" : "معلومات الوصول",
+         "status" : "PUBLIC",
+         "currently_in_translation" : false,
+         "language" : 3,
+         "slug" : "معلومات-الوصول"
+      }
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 14,
+      "fields" : {
+         "currently_in_translation" : false,
+         "language" : 3,
+         "slug" : "مرحبا-بكم-في-مدينة-أوجسبورج",
+         "created_date" : "2019-08-12T08:10:22.985Z",
+         "last_updated" : "2019-08-12T08:10:23.049Z",
+         "title" : "مرحبًا بكم في مدينة أوجسبورج",
+         "text" : "مرحبًا بكم في مدينة أوجسبورج !\r\n\r\nمن أجل دعمكم كطالبى وطالبات لجوء كُتبت هذه الخطوط الإرشادية الخاصة بالحياة اليومية في مدينتنا. فضلًا عن الموظفين المختصين والعناوين الهامة تجدون نصائح تساعدكم عند الخطوات الأولى.\r\n\r\nيتكون الدليل اليومى الذى بين أيديكم من عدة فصول يتناول كل منها موضوعات مختلفة. فبالإضافة إلى معلومات عن الأطباء والمدرسة ودورات تعلم اللغة الألمانية وعرض مختلف المؤسسات خصصنا لكم فصلًا كاملًا عن الترفيه في مدينة أوجسبرج. ونظرًا لأن هذا العرض يتجدد بإستمرار فمن المفيد غالبًا إلقاء نظرة على تطبيق الهاتف المحمول للإطلاع على الأنشطة والأحداث الجارية.\r\n\r\nونأمل مساعدتكم في خطوات البدء بإستعمال دليل الهاتف المحمول المتوفر ونتطلع إلى الترحيب بكم في أوجسبرج مدينة الفوجرز.",
+         "status" : "PUBLIC",
+         "version" : 1,
+         "page" : 2,
+         "minor_edit" : false,
+         "creator" : 1
+      }
+   },
+   {
+      "pk" : 15,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "page" : 3,
+         "minor_edit" : false,
+         "creator" : 1,
+         "currently_in_translation" : false,
+         "language" : 3,
+         "slug" : "مرحبا-بكم-في-مدينة-أوجسبورج",
+         "created_date" : "2019-08-12T08:11:24.417Z",
+         "last_updated" : "2019-08-12T08:11:24.443Z",
+         "status" : "PUBLIC",
+         "text" : "مرحبًا بكم في مدينة أوجسبورج !\r\n\r\nمن أجل دعمكم كطالبى وطالبات لجوء كُتبت هذه الخطوط الإرشادية الخاصة بالحياة اليومية في مدينتنا. فضلًا عن الموظفين المختصين والعناوين الهامة تجدون نصائح تساعدكم عند الخطوات الأولى.\r\n\r\nيتكون الدليل اليومى الذى بين أيديكم من عدة فصول يتناول كل منها موضوعات مختلفة. فبالإضافة إلى معلومات عن الأطباء والمدرسة ودورات تعلم اللغة الألمانية وعرض مختلف المؤسسات خصصنا لكم فصلًا كاملًا عن الترفيه في مدينة أوجسبرج. ونظرًا لأن هذا العرض يتجدد بإستمرار فمن المفيد غالبًا إلقاء نظرة على تطبيق الهاتف المحمول للإطلاع على الأنشطة والأحداث الجارية.\r\n\r\nونأمل مساعدتكم في خطوات البدء بإستعمال دليل الهاتف المحمول المتوفر ونتطلع إلى الترحيب بكم في أوجسبرج مدينة الفوجرز.",
+         "title" : "مرحبًا بكم في مدينة أوجسبورج",
+         "version" : 1
+      }
+   },
+   {
+      "fields" : {
+         "version" : 1,
+         "text" : "به آوگسبورگ خوش آمدید!\r\n\r\nاین راهنما شما را در انجام امور روزمره تان در آوگسبورگ یاری می کند. اینجا می توانید نام و نشانی های مهم و نیز نکات مفیدی را پیدا کنید که شما را در آوگسبورگ راهنمایی می کنند.\r\n\r\nاین راهنما چند فصل دارد. و هر فصل به توضیح یک موضوع اختصاص دارد. به عنوان مثال در این راهنما اطلاعاتی در مورد پزشکان، مدارس، کلاس های زبان آلمانی و اداره جات آلمان موجود است. در این راهنما همچنین یک بخش درباره امکانات موجود برای گذراندن اوقات فراغت تنظیم شده است. اطلاعات مربوط به اوقات فراغت ممکن است مرتب تغییر کند و ما این تغییرات را در  این صفحه بروز رسانی خواهیم کرد. به همین خاطر توضیه می کنیم مرتب به سایت سر بزنید یا اپ خود را چک کنید تا از تازه ترین اخبار و برنامه ها مطلاع شوید.\r\n\r\nما امیدواریم با این اپ بتوانیم روزهای اول اقامت شما را در آوگسبورگ راحت تر و بعد از این زندگی در آوگسبورگ را برایتان دلپذیر تر نماییم. بسیار خرسندیم از اینکه به شما در شهر صلح و دوستی، آگسبورگ خوش آمد بگوییم.",
+         "title" : "به آوگسبورگ خوش آمدید",
+         "status" : "PUBLIC",
+         "last_updated" : "2019-08-12T08:11:53.052Z",
+         "created_date" : "2019-08-12T08:11:53.038Z",
+         "slug" : "به-آوگسبورگ-خوش-آمدید",
+         "language" : 4,
+         "currently_in_translation" : false,
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 3
+      },
+      "model" : "cms.pagetranslation",
+      "pk" : 16
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 17,
+      "fields" : {
+         "page" : 4,
+         "minor_edit" : false,
+         "creator" : 1,
+         "language" : 3,
+         "currently_in_translation" : false,
+         "slug" : "الحياة-في-أوجسبرج",
+         "last_updated" : "2019-08-12T08:13:41.049Z",
+         "created_date" : "2019-08-12T08:13:41.021Z",
+         "version" : 1,
+         "title" : "الحياة في أوجسبرج",
+         "text" : "تقع أوجسبرج في جنوب غرب بافاريا وتبعد عن مدينة ميونخ حوالى 60 كم. بحوالى 284.000 نسمة تعد أوجسبرج ثالث أكبر مدينة في بافاريا بعد ميونخ ونورنبرج. . ويعود إسم المدينة إلى القيصر الرومانى أغسطس الذى أسس المدينة بين الأنهار والفرت أخ (نهر) قبل أكثر من 2000 عام. تنفرد مدينة أوجسبرج عن بقية مدن ألمانيا بالإحتفال كل عام بمهرجان أوجسبرج الأعلى للسلام الذى يعبرتعبيرَا تامَا عن حرية الأديان والسلام بينها.\r\n\r\nمن الجدير بالمشاهدة هو مجلس المدينة بصالته الذهبية والـ Fuggerei \" سكن إجتماعى\" كواحدة من أقدم المساكن الإجتماعية بالمدينة واكتدرائية أوجسبرج. ومشجعى كرة القدم يمكنهم متابعة فريق أوجسبرج الرياضى الذى يلعب في الدورى الممتاز الألمانى منذ 2011 ويشارك على الصعيد الدولى في دورى أبطال أوربا منذ 2015.\r\n\r\nفي الفقرة التالية تجدون عدد من إمكانيات قضاء أوقات الفراغ في مدينة أوجسبرج ومحيطها. يتم تحديث هذا المجال بإستمرار ويعتنى به العاملون أنفسهم.\r\n\r\nاخر تحديث: ٩ ديسمبر ٢٠١٧",
+         "status" : "PUBLIC"
+      }
+   },
+   {
+      "fields" : {
+         "minor_edit" : false,
+         "page" : 7,
+         "creator" : 1,
+         "slug" : "willkommen",
+         "language" : 1,
+         "currently_in_translation" : false,
+         "status" : "PUBLIC",
+         "title" : "Willkommen",
+         "text" : "Willkommen in Nürnberg",
+         "version" : 1,
+         "created_date" : "2019-08-12T08:17:48.342Z",
+         "last_updated" : "2019-08-12T08:17:48.382Z"
+      },
+      "pk" : 18,
+      "model" : "cms.pagetranslation"
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 19,
+      "fields" : {
+         "slug" : "willkommen-in-nurnberg",
+         "language" : 1,
+         "currently_in_translation" : false,
+         "version" : 1,
+         "text" : "Willkommen in Nürnberg\r\n\r\nSehr geehrte Damen und Herren,\r\n\r\nals Bürgermeister der Stadt Nürnberg möchte ich mich heute persönlich an Sie wenden und Sie in unserer Stadt begrüßen.\r\n\r\nUnsere Stadt, in der über 500 000 Menschen leben, hat eine lange Geschichte. Zu allen Zeiten sind Menschen hierher eingewandert und sind heimisch geworden. Sie werden feststellen, dass unsere Gesellschaft von Vielfalt geprägt ist: Über zwei Fünftel der Nürnberger Bevölkerung sind selbst eingewandert oder haben familiäre Wurzeln außerhalb Deutschlands. Sie haben hier ein Zuhause, Nachbarn und Freunde gefunden, manche von ihnen für einige Zeit und manche auf Dauer.Wir wünschen Ihnen, dass Sie sich schnell bei uns einleben. Dazu gehören zunächst das Erlernen unserer Sprache und ein Einfinden in unsere Werte und unsere Kultur.\r\n\r\nZu unserer Willkommenskultur gehört ein positiver und offener Umgang mit der Vielfalt in unserer Stadt. Dies umfasst Toleranz und Achtung gegenüber Menschen mit anderen nationalen und kulturellen Wurzeln.\r\n\r\nAls Stadt des Friedens und der Menschenrechte sieht Nürnberg sich den Menschenrechten in ganz besonderer Weise verpflichtet. Gegenseitiger Respekt und Wertschätzung unserer Mitmenschen sind Grundvoraussetzungen für ein friedliches und solidarisches Zusammenleben. Ein umfassender Schutz vor Diskriminierung gehört ebenso dazu wie der Schutz der schwachen und verletzlichen Gruppen in unserer Gesellschaft wie Kinder und alte Menschen, Flüchtlinge oder Menschen mit Behinderungen.\r\n\r\nAuf dieser Basis wünsche ich uns, dass uns das Zusammenleben in Nürnberg gut gelingt und dass wir respektvoll miteinander umgehen.\r\n\r\nIhr Dr. Ulrich Maly\r\nOberbürgermeister der Stadt Nürnberg",
+         "title" : "Willkommen in Nürnberg!",
+         "status" : "PUBLIC",
+         "last_updated" : "2019-08-12T08:27:30.183Z",
+         "created_date" : "2019-08-12T08:18:09.766Z",
+         "minor_edit" : false,
+         "page" : 8,
+         "creator" : 1
+      }
+   },
+   {
+      "pk" : 20,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 9,
+         "title" : "Zusammenleben in Deutschland",
+         "text" : "Das Grundgesetz\r\n\r\nIn jedem Land gibt es Regeln, an die sich alle Menschen halten müssen. Das wichtigste Gesetz für Deutschland ist das Grundgesetz. Es ist eine Sammlung von 146 Artikeln. Jeder Artikel steht für ein Gesetz, also eine Regel. Diese Regeln bestimmen das Zusammenleben in Deutschland. Die Grundrechte schützen den Freiheitsraum jedes Einzelnen. Sie sind in den Artikeln 1 bis 19 des Grundgesetzes festgelegt (Grundrechtskatalog).\r\n\r\nSchutz der Menschenwürde\r\nArtikel 1\r\n(1) Die Würde des Menschen ist unantastbar. Sie zu achten und zu schützen ist Verpflichtung aller staatlichen Gewalt.\r\n(...)\r\n\r\nRecht auf Freiheit der Person\r\nArtikel 2\r\n(1) Jeder hat das Recht auf die freie Entfaltung seiner Persönlichkeit, soweit er nicht die Rechte anderer verletzt und nicht gegen die verfassungsmäßige Ordnung oder das Sittengesetz verstößt.\r\n(...)\r\n\r\n Auch das Recht auf sexuelle Selbstbestimmung ist damit gemeint. Das bedeutet: Jeder Mensch darf für sich selbst entscheiden, bei welchen sexuellen Handlungen er mitmachen will und niemand darf zu etwas gezwungen werden, was er nicht möchte. Mehr Infos: »» Sexuelle Selbstbestimmung\r\n\r\nGleichheit vor dem Gesetz\r\nArtikel 3\r\n(1) Alle Menschen sind vor dem Gesetz gleich.\r\n\r\n(2) Männer und Frauen sind gleichberechtigt. Der Staat fördert die tatsächliche Durchsetzung der Gleichberechtigung von Frauen und Männern und wirkt auf die Beseitigung bestehender Nachteile hin.\r\n\r\n www.zanzu.de\r\n\r\n(3) Niemand darf wegen seines Geschlechtes, seiner Abstammung, seiner Rasse, seiner Sprache, seiner Heimat und Herkunft, seines Glaubens, seiner religiösen oder politischen Anschauungen benachteiligt oder bevorzugt werden. Niemand darf wegen seiner Behinderung benachteiligt werden.\r\n\r\nGlaubens-, Gewissens- und Bekenntnisfreiheit\r\nArtikel 4\r\n(1) Die Freiheit des Glaubens, des Gewissens und die Freiheit des religiösen und weltanschaulichen Bekenntnisses sind unverletzlich.\r\n(...)\r\n\r\nFreiheit von Meinung, Kunst und Wissenschaft\r\nArtikel 5\r\n(1) Jeder hat das Recht, seine Meinung in Wort, Schrift und Bild frei zu äußern und zu verbreiten und sich aus allgemein zugänglichen Quellen ungehindert zu unterrichten. Die Pressefreiheit und die Freiheit der Berichterstattung durch Rundfunk und Film werden gewährleistet. Eine Zensur findet nicht statt.\r\n(...)\r\n\r\nSchutz von Ehe und Familie und von Kindern nicht verheirateter Eltern\r\nArtikel 6\r\n(1) Ehe und Familie stehen unter dem besonderen Schutze der staatlichen Ordnung.\r\n(...)\r\n\r\nHier finden Sie das Grundgesetz in 11 Sprachen:* »»Arabisch, »»Chinesisch, »»Englisch, »»Französisch, »»Italienisch, »»Persisch, »»Polnisch, »»Russisch, »»Serbisch, »»Spanisch, »»Türkisch und natürlich auf »»Deutsch.\r\n\r\n*Eine derartige Sprachvielfalt konnte auf keiner anderen Homepage gefunden werden.\r\n\r\nWie der deutsche Rechtsstaat funktioniert, wird in dem Film anschaulich dargestellt:  »»Deutsch, »»Dari, »»Arabisch, »»Englisch, »»Französisch, »»Paschtu, »»Urdu.\r\nAllgemeine Erklärung der Menschenrechte\r\n\r\nMenschenrechte sind wichtige Rechte, die immer und für alle Menschen auf der ganzen Welt gelten. Menschenrechte sind Rechte, die jeder Mensch aufgrund seines Menschseins hat. Sie schützen die Würde eines jeden Menschen und stehen allen Menschen gleichermaßen zu ohne irgendeinen Unterschied, etwa nach „ (…) Hautfarbe, Geschlecht, Sprache, Religion, politischer oder sonstiger Anschauung, nationaler oder sozialer Herkunft, Vermögen, Geburt oder sonstigem Stand.“ (Art. 2. der Allgemeinen Erklärung der Menschenrechte der Vereinten Nationen vom 10.12.1948)\r\n\r\nEs gibt 30 Rechte. Die wichtigsten sind:\r\n\r\n    Alle Menschen sind gleich viel wert.\r\n    Jeder Mensch darf eine eigene Meinung haben.\r\n    Recht auf Frieden und Sicherheit.\r\n\r\nBesuchen Sie die Straße der Menschenrechte! Jedes der Elemente in der Straße der Menschenrechte trägt in Kurzform einen der Menschenrechtsartikel in deutscher und einer anderen Sprache. Die „Straße der Menschenrechte\" ist sowohl eine Anklage gegen die Verbrechen der Nationalsozialisten als auch eine zu Stein gewordene Mahnung an die Menschen, dass die Menschenrechte auch heute noch in vielen Staaten der Erde massiv verletzt werden.\r\n\r\nStraße der Menschenrechte\r\n Kartäusergasse 1, 90402 Nürnberg\r\nKinderrechte\r\n\r\nKinder brauchen besonderen Schutz und deshalb auch besondere Rechte. Festgeschrieben sind die einzelnen Kinderrechte in der Kinderrechtskonvention. Sie wurde 1989 von der UN-Generalversammlung verabschiedet und anschließend von 193 Staaten ratifiziert. Insgesamt umfasst die UN- Kinderrechtskonvention 54 Artikel.\r\n\r\nIm Nürnberger Stadtpark gibt es die Straße der Kinderrechte. Hier können Kinder spielerisch an acht Stationen mehr über ihre Rechte erfahren. Mehr Informationen finden Sie hier: »»Freizeitangebote für Kinder und Jugendliche.\r\n\r\n\"Kinder haben auch Rechte\" ist das Jahresthema vom Bündnis für Familie in Nürnberg. Mehr Informationen zu Kinderrechten in Nürnberg: »»Kinderrechte in Nürnberg\r\n\r\nDie 10 wichtige Kinderrechte finden Sie hier anschaulich erklärt:  »»Arabisch und »»Persisch.",
+         "status" : "PUBLIC",
+         "version" : 1,
+         "created_date" : "2019-08-12T08:18:36.113Z",
+         "last_updated" : "2019-08-12T08:27:25.680Z",
+         "slug" : "zusammenleben-in-deutschland",
+         "language" : 1,
+         "currently_in_translation" : false
+      }
+   },
+   {
+      "pk" : 21,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 10,
+         "title" : "Wissenswertes über Nürnberg",
+         "status" : "PUBLIC",
+         "text" : "Nürnberg liegt im Bundesland Bayern und im Bezirk Mittelfranken. Nürnberg hat über 500.000 Einwohner und ist nach München die zweitgrößte Stadt in Bayern. Quer durch das Stadtgebiet fließt ein Fluss mit dem Namen Pegnitz.\r\n\r\nIn Nürnberg gibt es viele interessante und schöne Orte. Aber besonders bekannt ist Nürnberg wegen seiner mittelalterlichen Burg (Kaiserburg), dem Germanischen Nationalmuseum und seinem Christkindlesmarkt auf dem Hauptmarkt.\r\n\r\nDie Stadt Nürnberg wurde im Jahr 1050 erstmals in einer kaiserlichen Urkunde erwähnt. Der Name Nürnberg kommt von „Norenberc“, was „felsiger Berg“ bedeutet. „Felsiger Berg“ deshalb, weil die Nürnberger Burg auf einem Sandsteinfelsen erbaut wurde. Der Weg die Burgstraße hinauf ist sehr steil, lohnt sich aber! Von dem Aussichtsplatz hat man einen tollen Blick über die Stadt. Dieser Teil der Burg kostet keinen Eintritt.\r\n\r\nViel Interessantes über die Nürnberger Stadtgeschichte erfährt man im Stadtmuseum, dem Fembohaus. Mit dem »»Nürnberg-Pass kostet der Eintritt nur 1,50 Euro.\r\n\r\nEine sehr berühmter Nürnberger ist Albrecht Dürer. Er lebte von 1497 bis 1528. Er war Maler, Mathematiker und Kunsthistoriker. Heute erinnert noch viel an Albrecht Dürer. Es gibt zum Beispiel den Albrecht-Dürer-Platz mit einem Standbild von ihm und sein ehemaliges Wohnhaus ist heute ein Museum, das Albrecht-Dürer-Haus.\r\n\r\nBekannt ist Nürnberg auch für Spielzeug. Deshalb findet auch in Nürnberg die größte Spielwarenmesse der Welt statt. Seit dem Mittelalter wird in Nürnberg Spielzeug hergestellt. Im Spielzeugmuseum lässt sich die Geschichte des Spielzeugs in Nürnberg und der Welt bestaunen. Auch hier zahlen Personen mit »»Nürnberg-Pass nur 1,50 Eintritt!\r\n\r\nNürnberg ist auch bekannt für Lebkuchen und Bratwürste. Ein Lebkuchen ist ein Gebäck mit vielen Gewürzen. Sie werden nach geheimem Rezept bereits seit dem 14. Jahrhundert produziert und sind in der ganzen Welt bekannt. Nürnberg wird auch die \"Stadt der Lebkuchen\" genannt. Auch die Bratwürste werden nach geschütztem Rezept hergestellt und als Markenprodukt in die ganze Welt verkauft. Überall in der Stadt findet man kleine Buden, die \"Drei im Weggla\" verkaufen. Das bedeutet drei Nürnberger Bratwürste in einem Brötchen.\r\n\r\nIn Nürnberg startete am 7. Dezember 1835 die erste Dampflok Deutschlands auf der Strecke von Nürnberg nach Fürth. Damit war das Industriezeitalter für Nürnberg eingeläutet. Die Dampflok hieß \"Adler\" und kann noch heute im Verkehrsmuseum besichtigt werden.\r\n\r\nNürnberg ist auch als Stadt der Reichsparteitage bekannt. Während der Zeit des Nationalsozialismus entstand in Nürnberg das Reichsparteitagsgelände, um die Parteitage der NSDAP mit Hunderttausenden Teilnehmern abzuhalten. Noch heute können große Teile der Anlage besichtigt werden, zudem informiert das Dokumentationszentrum Reichsparteitagsgelände detailliert über die historischen Ereignisse. Heute finden auf diesem Gelände große Konzertveranstaltungen und Autorennen statt.\r\n\r\nNach Ende des 2. Weltkrieges mussten sich führende Vertreter des Nationalsozialistischen Regimes vor dem Internationalen Militärgerichtshof für ihre Verbrechen verantworten. Diese \"Nürnberger Prozesse\" stellten die Grundlage für eine Weiterentwicklung des Völkerrechts dar und sind im Museum Memorium Nürnberger Prozesse dokumentiert.\r\n\r\nAls weitere Erinnerung an die Verbrechen der Nationalsozialisten mahnt die Straße der Menschenrechte mit den auf 27 Säulen eingravierten Menschenrechtsartikeln, in verschiedenen Sprachen, an die heutige Situation in vielen Staaten und ruft zu einem friedlichen Miteinander der Kulturen auf.",
+         "version" : 1,
+         "created_date" : "2019-08-12T08:19:10.521Z",
+         "last_updated" : "2019-08-12T08:27:20.623Z",
+         "slug" : "wissenswertes-uber-nurnberg",
+         "language" : 1,
+         "currently_in_translation" : false
+      }
+   },
+   {
+      "fields" : {
+         "slug" : "stadtplan",
+         "language" : 1,
+         "currently_in_translation" : false,
+         "version" : 1,
+         "text" : "Sie suchen eine bestimmte Adresse oder einen interessanten Punkt in Nürnberg?! MAPS-Me bietet eine Navigationsfunktion, ist kostenlos und offline nutzbar.\r\n\r\nSo bekommen Sie den Stadtplan:\r\n\r\n    Downloaden Sie die App MAPS.ME. Sie finden die App im Android PlayStore. Sie ist kostenlos.\r\n    Downloaden Sie eine Karte Ihres Bundeslandes. Nürnberg liegt in Bayern.\r\n    Downloaden Sie dann den Stadtplan für Nürnberg: »»Download von MAPS.ME im Android PlayStore oder im App Store.",
+         "status" : "PUBLIC",
+         "title" : "Stadtplan",
+         "last_updated" : "2019-08-12T08:27:16.550Z",
+         "created_date" : "2019-08-12T08:19:48.980Z",
+         "minor_edit" : false,
+         "page" : 11,
+         "creator" : 1
+      },
+      "model" : "cms.pagetranslation",
+      "pk" : 22
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 23,
+      "fields" : {
+         "page" : 12,
+         "minor_edit" : false,
+         "creator" : 1,
+         "language" : 1,
+         "currently_in_translation" : false,
+         "slug" : "uber-integreat",
+         "last_updated" : "2019-08-12T08:27:11.677Z",
+         "created_date" : "2019-08-12T08:20:16.705Z",
+         "version" : 1,
+         "text" : "Dieser Leitfaden unterstützt Sie in Ihrem Alltag in Nürnberg. Sie finden hier wichtige Adressen, Ansprechpartner und Tipps und Tricks, die Ihnen bei der Orientierung in Nürnberg helfen können.\r\n\r\nIhr Alltagsguide hat mehrere Kapitel. Jedes Kapitel bearbeitet ein anderes Thema. Sie finden zum Beispiel Informationen zu Ärzten, Schulen, Deutschkursen oder anderen Institutionen. Es gibt auch ein Kapitel mit Ideen, was Sie in Ihrer Freizeit machen können. Die Informationen und Freizeitangebote ändern sich und wir aktualisieren regelmäßig. Deswegen ist es sehr gut, wenn Sie oft in Ihre mobile App schauen und sich über aktuelle Aktionen und Veranstaltungen informieren.\r\n\r\nSie können diese App auch offline benutzen, wenn Sie keinen Internet-Zugang haben. Wenn Sie wieder online sind, aktualisiert sich die App von selbst.\r\n\r\nWir hoffen sehr, dass wir Ihren Aufenthalt hier in Nürnberg mit dieser App vereinfachen können. Wir freuen uns, Sie hier in Nürnberg, der Stadt des Friedens und der Menschenrechte, begrüßen zu dürfen.\r\n\r\nBMFSFJ_DemokratieLeben",
+         "title" : "Über Integreat",
+         "status" : "PUBLIC"
+      }
+   },
+   {
+      "pk" : 24,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "created_date" : "2019-08-12T08:20:43.653Z",
+         "last_updated" : "2019-08-12T08:27:07.546Z",
+         "title" : "Aufenthaltstitel",
+         "text" : "Jeder Ausländer hat einen „Ausweis“. Der Ausweis gibt Auskunft über den Status und ob Einschränkungen der Erwerbstätigkeit zu beachten sind (Wann darf ich arbeiten?).\r\nEs gibt 5 verschiedene Dokumente:\r\n1. Ankunftsnachweis\r\n\r\nStatus: Asylbegehrende\r\nHintergrund: Wird Ausländern ausgestellt, die um Asyl begehrt haben. Gültig für die Zeit zwischen Meldung als Asylbegehrender und offizieller Asylantragstellung beim Bundesamt für Migration und Flüchtlinge (BAMF).\r\n\r\nAnkunftsnachweis\r\n2. Aufenthaltsgestattung\r\n\r\nStatus: Asylsuchende\r\nHintergrund: Wird zur Durchführung eines Asylverfahrens bis zur Entscheidung des Bundesamtes für Migration und Flüchtlinge (BAMF) ausgestellt.\r\n\r\nDer Ausweis für Asylsuchende enthält Auflagen zu Beschäftigung, Wohnsituation und anfänglicher räumlicher Beschränkung.\r\n\r\n    Ist eine Arbeitsgenehmigung notwendig, kann diese bei der »»Ausländerbehörde beantragt werden (Arbeitgeber oder Arbeitnehmer)\r\n    Zuständig bei Vermittlung in Arbeit: »»Agentur für Arbeit\r\n\r\n3. Fiktionsbescheinigung\r\n\r\nStatus: Anerkannte Flüchtlinge\r\nHintergrund: Dokument für den Übergang ab positivem Entscheid Asylverfahren bis zur Erteilung der Aufenthaltserlaubnis.\r\n\r\n4. Aufenthaltserlaubnis\r\n\r\nStatus: Anerkannte Flüchtlinge\r\nHintergrund: positive Asylentscheidung\r\n\r\nDie Aufenthaltserlaubnis ist ein zeitlich befristeter Aufenthaltstitel. Sie wird zu den im Aufenthaltsgesetz genannten Zwecken erteilt (z.B. Aufenthalt aus humanitären Gründen).\r\n\r\n    Grundlage für ständiges Aufenthaltsrecht\r\n    Eröffnet die Möglichkeit eines späteren unbefristeten Aufenthaltsrechts (Niederlassungserlaubnis)\r\n    Uneingeschränkter Zugang zum Arbeitsmarkt ohne Arbeitsgenehmigung\r\n    Zuständigkeit für die Vermittlung in Arbeit oder finanzielle Leistungen: »»Jobcenter\r\n\r\n5. Duldung\r\n\r\nStatus: Geduldete\r\nHintergrund: Negative Asylentscheidung\r\n\r\n Eine Duldung ist eine Aussetzung der Abschiebung und kein rechtmäßiger Aufenthalt! Sie wird erteilt, wenn eine Abschiebung aus rechtlichen, tatsächlichen, humanitären, persönlichen Gründen unmöglich ist.\r\n\r\n    Generelle Duldungsregelung für bestimme Gruppen durch Anordnung der obersten Landesbehörde für die Dauer von längstens 3 Monaten möglich („Abschiebungsstopp“)\r\n    Arbeitsgenehmigung ist grundsätzlich notwendig, Beantragung bei der »»Ausländerbehörde (Arbeitgeber oder Arbeitnehmer)\r\n    Zuständig bei Vermittlung in Arbeit: »»Agentur für Arbeit\r\n\r\n \r\n\r\n(Stand Januar 2017)",
+         "status" : "PUBLIC",
+         "version" : 1,
+         "language" : 1,
+         "currently_in_translation" : false,
+         "slug" : "aufenthaltstitel",
+         "creator" : 1,
+         "page" : 13,
+         "minor_edit" : false
+      }
+   },
+   {
+      "pk" : 25,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 7,
+         "version" : 1,
+         "title" : "الترحيب",
+         "status" : "PUBLIC",
+         "text" : "الترحيب",
+         "last_updated" : "2019-08-12T08:22:18.602Z",
+         "created_date" : "2019-08-12T08:22:18.585Z",
+         "slug" : "الترحيب",
+         "language" : 3,
+         "currently_in_translation" : false
+      }
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 26,
+      "fields" : {
+         "created_date" : "2019-08-12T08:22:31.256Z",
+         "last_updated" : "2019-08-12T08:22:31.270Z",
+         "status" : "PUBLIC",
+         "text" : "مرحبًا بكم في نورنبيرغ\r\n\r\nالسيدات والسادة،\r\n\r\nيسرني، كعمدة نورنبيرغ أن أتحديث إليكم اليوم بنفسي وأرحب بكم في مدينتنا.\r\n\r\nتتمتع مدينتنا، التي يعيش بها قرابة 500000 نسَمة، بتاريخ عريق. ففي كل زمان يأتي المهاجرون إلى هذه المدينة ويصبحون من أهلها.حيث يرون طابع التنوّع الذي يتسم به مجتمعنا:فأكثر من خُمسي سكان نورنبيرغ من المهاجرين أو من أصول مشابهة خارج ألمانيا. لقد وجدتم هنا البيت، والجيران، والأصدقاء، بصفة مؤقتة لبعضكم وبصفة دائمة للبعض الآخر. نتمنى لكم أن تتأقلموا مع وجودكم بيننا سريعًا. ومما سيساعدكم على ذلك، تعلم لغتنا وفهم قيمنا وثقافتنا.\r\n\r\nومن ضمن ثقافتنا الترحيبية، نوفر لكم بيئة إيجابية ومفتوحة مليئة بالتنوع في مدينتنا. والتي تحث على التسامح ومراعاة الآخرين من الجذور القومية والثقافية الأخرى.\r\n\r\nوبوصفنا مدينة السلام وحقوق الإنسان، تلتزم مدينة نورنبيرغ بحقوق الإنسان على نحو خاص للغاية.فالاحترام والتقدير المتبادل تجاه من حولنا من البشر هو المقوّم الرئيسي لنتعايش معًا في سلام وتضامن. وتشمل قيمنا أيضًا الحماية الكاملة من التفرقة وكذلك حماية الأقليات والمجموعات الضعيفة في مجتمعنا مثل الأطفال وكبار السن، أو اللاجئين، أو الأشخاص ذوي الإعاقة.\r\n\r\nوعلى هذا الأساس، أتمنى أن نتمكن من التعايش في نورنبيرغ بنجاح وأن نتأقلم معًا بكل احترام.\r\n\r\nتحياتي، د. أولريش مالي\r\n\r\nعمدة مدينة نورنبيرغ\r\n\r\nاخر تحديث: ٣١ أغسطس ٢٠١٧",
+         "title" : "مرحبًا بكم في نورنبيرغ!",
+         "version" : 1,
+         "currently_in_translation" : false,
+         "language" : 3,
+         "slug" : "مرحبا-بكم-في-نورنبيرغ",
+         "creator" : 1,
+         "page" : 8,
+         "minor_edit" : false
+      }
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 27,
+      "fields" : {
+         "last_updated" : "2019-08-12T08:23:17.994Z",
+         "created_date" : "2019-08-12T08:23:17.979Z",
+         "version" : 1,
+         "title" : "Welcome",
+         "text" : "Welcome",
+         "status" : "PUBLIC",
+         "currently_in_translation" : false,
+         "language" : 2,
+         "slug" : "welcome",
+         "creator" : 1,
+         "page" : 7,
+         "minor_edit" : false
+      }
+   },
+   {
+      "fields" : {
+         "language" : 2,
+         "currently_in_translation" : false,
+         "slug" : "community-life-in-germany",
+         "created_date" : "2019-08-12T08:23:59.016Z",
+         "last_updated" : "2019-08-12T08:23:59.042Z",
+         "text" : "The Basic Law\r\n\r\nIn every country, there are rules that everyone has to adhere to. The most important law in Germany is the Basic Law. It is a collection of 146 articles. Every article stands for a law – i.e., a rule.These rules govern community life in Germany.The fundamental rights protect the freedom of each individual. They are stipulated in Articles 1 to 19 of the Basic Law (Catalogue of Fundamental Rights).\r\n\r\nProtection of Human Dignity\r\n\r\nArticle 1\r\n\r\n(1) Human dignity shall be inviolable. To respect and protect it shall be the duty of all state authority.\r\n\r\n(...)\r\n\r\nPersonal Freedoms\r\n\r\nArticle 2\r\n\r\n(1) Every person shall have the right to free development of his personality insofar as s/he does not violate the rights of others or offend against the constitutional order or the moral law.\r\n\r\n(...)\r\n\r\nThis also means the right to sexual self-determination. This means: All human beings can decide for themselves which sexual acts they wants to participate in and nobody can be forced to do something they do not want to do. More information: »» Sexual Self-Determination\r\n\r\nEquality Before the Law\r\n\r\nArticle 3\r\n\r\n(1) All persons shall be equal before the law.\r\n\r\n(2) Men and women shall have equal rights. The state shall promote the actual implementation of equal rights for women and men and take steps to eliminate disadvantages that now exist.\r\n\r\n www.zanzu.de\r\n\r\n(3) No person shall be favoured or disfavoured because of sex, parentage, race, language, homeland and origin, faith, or religious or political opinions. No person shall be disfavoured because of disability.\r\n\r\nFreedom of Faith, Conscience and Creed\r\n\r\nArticle 4\r\n\r\n(1) Freedom of faith and of conscience, and freedom to profess a religious or philosophical creed, shall be inviolable.\r\n\r\n(...)\r\n\r\nFreedom of Expression\r\n\r\nArticle 5\r\n\r\n(1) Every person shall have the right freely to express and disseminate her/his opinions in speech, writing, and pictures and to inform herself/himself without hindrance from generally accessible sources. Freedom of the press and freedom of reporting by means of broadcasts and films shall be guaranteed. There shall be no censorship.\r\n\r\n(...)\r\n\r\nMarriage and the Family; Children Born Outside of Marriage\r\n\r\nArticle 6\r\n\r\n(1) Marriage and the family shall enjoy the special protection of the state.\r\n\r\n(...)\r\n\r\nHere you can find the Basic Law in 11 languages:* »»Arabic, »»Chinese, »»English, »»French, »»Italian, »»Persian, »»Polish, »»Russian, »»Serbian, »»Spanish, »»Turkish and of course in »»German.\r\n\r\n*It was not possible to find this kind of linguistic diversity on any other website.\r\n\r\nHow the German legal state works is illustrated visually in this film: »»German, »»Dari, »»Arabic, »»English, »»French, »»Pashto, »»Urdu.\r\nUniversal Declaration of Human Rights\r\n\r\nHuman rights are important rights that apply to everyone all over the world. Human rights are rights that every person has because of their humanity. They protect the dignity of every human being and apply to every person equally, regardless of \"race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth or other status.\" (Article 2. of the United Nations' Universal Declaration of Human Rights, issued on 10/12/1948)\r\n\r\nThere are 30 rights. The most important are:\r\n\r\n    All people are of equal value.\r\n    Everyone is allowed to have their own opinion.\r\n    Right to peace and safety.\r\n\r\nVisit the Road of Human Rights! Each of the elements in the Road of Human Rights takes one of the human rights articles in German and in another language. The Road of Human Rights is both a denunciation of the crimes committed by the Nazis and a reminder that human rights are still being severely violated in many countries worldwide.\r\n\r\nRoad of Human Rights (Straße der Menschenrechte)\r\n Kartäusergasse 1, 90402 Nürnberg\r\nChildren's Rights\r\n\r\nChildren need extra protection, which is why they also have special rights. The individual children's rights are stipulated in the Convention on the Rights of the Child. This was adopted by the UN General Assembly in 1989 and subsequently ratified by 193 countries. The UN Convention on the Rights of the Child includes 54 articles.\r\n\r\nIn Nuremberg City Park can be found the Road of Children’s Rights. Here, children can learn more about their rights at eight different points. You can find more information here: »»Activities for Children and Teenagers.\r\n\r\nChildren Have Rights Too is the annual theme of the Alliance for Family in Nuremberg. More information on children's rights in Nuremberg: »»Children's Rights in Nuremberg\r\n\r\nThe 10 most important Children’s rights are visually explained here:»»Arabic and »»Persian.",
+         "title" : "Community Life in Germany",
+         "status" : "PUBLIC",
+         "version" : 1,
+         "page" : 9,
+         "minor_edit" : false,
+         "creator" : 1
+      },
+      "pk" : 28,
+      "model" : "cms.pagetranslation"
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 29,
+      "fields" : {
+         "language" : 2,
+         "currently_in_translation" : false,
+         "slug" : "about-integreat",
+         "created_date" : "2019-08-12T08:24:36.073Z",
+         "last_updated" : "2019-08-12T08:24:36.101Z",
+         "text" : "This guide will support you in your everyday life in Nuremberg. You will find important addresses, contact persons and tips and tricks to help you to orient yourself better in Nuremberg.\r\n\r\nYour daily guide has several chapters. Every chapter deals with a different subject. For example, you will find information on doctors, schools, German courses or other institutions. There is also a chapter with ideas on what you can do in your spare time. The information and leisure offers are changing and we update them regularly. That's why it is a good idea to take a regular look at your mobile app and get information about current activities and events.\r\n\r\nYou can also use this app offline. The app will update automatically when you are back online again.\r\n\r\nWe hope that this app makes your life in Nuremberg a little bit easier. We are looking forward to welcoming you here in Nuremberg, the city of peace and human rights.",
+         "title" : "About Integreat",
+         "status" : "PUBLIC",
+         "version" : 1,
+         "page" : 12,
+         "minor_edit" : false,
+         "creator" : 1
+      }
+   },
+   {
+      "fields" : {
+         "title" : "Trivia about Nuremberg",
+         "text" : "Nuremberg is located in the province of Bavaria and in the district of Middle Franconia. Nuremberg has over 500,000 inhabitants and is the second largest city in Bavaria after Munich. A river called the Pegnitz flows straight through the city.\r\n\r\nIn Nuremberg there are many interesting and beautiful places. Nuremberg is particularly well-known for its medieval castle (Kaiserburg), theGerman National Museum and its Christkindlesmarkt on the Hauptmarkt.\r\n\r\nThe city of Nuremberg was mentioned for the first time in an imperial document in 1050. The name Nuremberg comes from \"Norenberc\", meaning \"rocky mountain\". “Rocky mountain\", because the Nuremberg castle was built on a sandstone cliff. The path up to the castle road is very steep, but worth it! From the viewpoint you have a great view over the city.This part of the castle is free to enter.\r\n\r\nThere is a lot of interesting information to be learnt about Nuremberg’s history in the City Museum, the Fembohaus. With the »»Nuremberg pass the entry fee is only €1.50.\r\n\r\nA very famous resident of Nuremberg is Albrecht Dürer. He lived from 1497 to 1528. He was a painter, mathematician and art historian. There is a still a lot to remind us of Albrecht Dürer today. For example, there is the Albrecht-Dürer-Platz with a statue of him and his former home has been turned into a museum, the Albrecht-Dürer-Haus.\r\n\r\nNuremberg is also well known for toys. This is why Nuremberg is home to the largest toy trade fair in the world. Toys have been manufactured in Nuremberg since the Middle Ages. In theToy Museumyou can admire the history of toys both in Nuremberg and the world. Anyone with the »»Nuremberg pass also pays an entry price of only 1.50!\r\n\r\nNuremberg is also famous for gingerbread and bratwurst. Gingerbread is a biscuit baked with many spices. It has been produced with a secret recipe since the 14th century and is famous worldwide. Nuremberg is also called the \"city of gingerbread\". Bratwurst sausages are also made according to a secret recipe and sold as a branded product all over the world. You can find small booths selling “Drei im Weggla” all over the city. That means three Nuremberg bratwurst in a bun.\r\n\r\nThe first German steam locomotive started its journey from Nuremberg to Fürth in Nuremberg on 7 December 1835.This was the beginning of the industrial age for Nuremberg. The steam locomotive was called \"Adler\" and can still be seen today in the Transport Museum.\r\n\r\nNuremberg is also known as the city of the Nuremberg Rally.During the time of National Socialism, the Nazi party rally grounds were set up in Nuremberg to hold the party conferences of the NSDAP with hundreds of thousands of participants.Even today, large parts of the complex can be visited, as well as the Reich’s Party Rally Grounds Documentation Centre, which offers detailed information about the historical events. Today, large concerts and motor races take place on this site.\r\n\r\nAfter the end of the Second World War, leading representatives of the National Socialist regime had to take responsibility for their crimes before the International Military Court.These \"Nuremberg Trials\" formed the basis for a further development of international law and are documented in the Museum Memorium Nürnberger Prozesse .\r\n\r\nAs a reminder of the crimes committed by the National Socialists,the Human Rights Trail with the human rights articles engraved on 27 pillars in various languages, reminds us of the current situation in many countries and calls for a peaceful coexistence of cultures.",
+         "status" : "PUBLIC",
+         "version" : 1,
+         "created_date" : "2019-08-12T08:25:07.388Z",
+         "last_updated" : "2019-08-12T08:25:07.407Z",
+         "slug" : "trivia-about-nuremberg",
+         "currently_in_translation" : false,
+         "language" : 2,
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 10
+      },
+      "pk" : 30,
+      "model" : "cms.pagetranslation"
+   },
+   {
+      "pk" : 31,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "slug" : "معلومات-قيمة-عن-نورنبيرغ",
+         "language" : 3,
+         "currently_in_translation" : false,
+         "status" : "PUBLIC",
+         "title" : "معلومات قيّمة عن نورنبيرغ",
+         "text" : "تقع نورنبيرغ في المقاطعة الاتحادية بافاريا وبمنطقة وسط فرانكن. يعيش في نورنبيرغ أكثر من 500000 نسَمة، وهي ثاني أكبر مدينة في بافاريا بعد ميونيخ. ويتدفق عبر المدينة نهر يُسمى \"بيغنيتس\".\r\n\r\nهناك أربعة أماكن جميلة ومثيرة للاهتمام في نورنبيرغ. ولكن تشتهر نورنبيرغ بشكل خاصبقلعة العصور الوسطى (كايزربورغ), والمتحف القومي الجرماني و سوق الكريسماسبالسوق الرئيسي.\r\n\r\nُذُكرت مدينة نورنبيرغ في الشهادات الإمبراطورية لأول مرة عام 1050. واسم نورنبيرغ مشتق من كلمة \"Norenberc\" (نورنبيرك) وتعني \"الجبل الصخري\". ويرجع اسم \"الجيل الصخري\" إلى أن قلعة نورنبيرغ قد بُنيت على صخرة رملية. والطريق نحو شارع القلعة منحدر للغاية، لكنه يستحق العناء! ومن فوق ميدان أوسزيشت بلاتس يمكنكم الاستمتاع بمنظر رائع للمدينة.ويكون دخول هذا الجزء من القلعة مجانيًا.\r\n\r\nيمكنكم معرفة الكثير من الأمور الشيّقة حول تاريخ مدينة نورنبيرغ في متحف المدينة فيمبوهاوس. وباستخدام <<جواز المرور إلى نورنبيرغ>> سيكلفكم الدخول 1.50 يورو فقط.\r\n\r\n\"ألبريشت دورر\" هو أحد أشهر أبناء مدينة نورنبيرغ. لقد وُلد عام 1497 وتوفي عام 1528. وكان رسّامًا، وعالم رياضيات، ومؤرخ فني. وحتى اليوم لا زالت هناك الكثير من الأمور التي تذكرنا بـ\"ألبريشت دورر\". فعلى سبيل المثال، هناك ميدان ألبريشت دورر والذي يضم تمثالاً له، واليوم أصبح منزله السابق متحفًا، ويُعرف باسمبيت ألبريشت دورر.\r\n\r\nكما تشتهر نورنبيرغ أيضًا باللعب. لذلك يُقام في نورنبيرغ أكبر معرض للعب في العالم. ومنذ العصور الوسطى، تقوم نورنبيرغ بتصنيع اللعب. فيمتحف اللعب سيُدهشكم تاريخ اللعب في نورنبيرغ وفي العالم. وهنا أيضًا يسدد حاملو <<جواز المرور إلى نورنبيرغ>> مبلغ 1.50 يورو فقط!\r\n\r\nكما تشتهر نورنبيرغ أيضًا بكعك الزنجبيل والنقانق المقلية. كعك الزنجبيل هو كعك يحتوي على الكثير من التوابل. ويتم تحضيرها من وصفة سرية منذ القرن الرابع عشر وهي مشهورة في العالم بأكمله. حتى أُطلق على نورنبيرغ اسم \"مدينة كعك الزنجبيل\". كما يتم إنتاج النقانق المقلية من وصفة مخفيّة وتُباع في العالم بأكمله كسلعة تجارية معروفة. وفي كل أنحاء المدينة، تجدون أكواخًا صغيرة، تبيع نقانق نورنبيرغ الشهيرة \"Drei im Weggla\". وهي عبارة عن نقانق نورنبيرغ في الخبز الصغير.\r\n\r\nبدأ أول قطار بخاري في ألمانيا في نورنبيرغ في 7 ديسمبر 1835 وكان يغطي المسافة من نورنبيرغ إلى فورت.وبذلك بدأ العصير الصناعي لمدينة نورنبيرغ. وقد أُطلق على القطار البخاري اسم \"النسر\" ويمكن مشاهدته اليوم فيمتحف وسائل النقل.\r\n\r\nتشتهر نورنبيرغ أيضًا بأنها مدينة الكونغرس النازي.خلال العهد الناري تم إنشاء مبنى الكونغرس النازي في نورنبيرغ، ليكون مقرًا للمؤتمر الحزبي للحزب النازي الذي كان يضم مئات الآلاف من الأعضاء.وحتى اليوم لا زال من الممكن زيارة جزء كبير من المكان، كما يقدم مركز التوثيق بمبنى الكونغرس النازيمعلومات مفصّلة حول الأحداث التاريخية. أما اليوم فتُقام في ذلك المكان أحداث موسيقية كبرى وسباقات للسيارات.\r\n\r\nبعد انتهاء الحرب العالمية الثانية، كان لزامًا على كبار ممثلي النظام النازي المثول أمام محكمة النظام العسكري الدولية للردّ على جرائمهم.وتمثل \"محاكمات نورنبيرغ\" هذه أساسًا لمواصلة تطوير القانون الدولي وهي موثقة في متحف المعرض التذكاري لمحاكمات نورنبيرغ .\r\n\r\nوكتذكار آخر بجرائم النازية، يذكرنا شارع حقوق الإنسان الذي يضم 27 عمودًا حُفرت عليهم مواد حقوق الإنسان، بلغات مختلفة، بالوضع الحالي في العديد من الدول ويدعو إلى تعايش الثقافات معًا في سلام.\r\n\r\nاخر تحديث: ٣١ أغسطس ٢٠١٧",
+         "version" : 1,
+         "created_date" : "2019-08-12T08:25:47.171Z",
+         "last_updated" : "2019-08-12T08:25:47.203Z",
+         "minor_edit" : false,
+         "page" : 10,
+         "creator" : 1
+      }
+   },
+   {
+      "pk" : 32,
+      "model" : "cms.pagetranslation",
+      "fields" : {
+         "created_date" : "2019-08-12T08:26:21.704Z",
+         "last_updated" : "2019-08-12T08:26:21.723Z",
+         "status" : "PUBLIC",
+         "title" : "خوش آمدید",
+         "text" : "خوش آمدید",
+         "version" : 1,
+         "language" : 4,
+         "currently_in_translation" : false,
+         "slug" : "خوش-آمدید",
+         "creator" : 1,
+         "page" : 7,
+         "minor_edit" : false
+      }
+   },
+   {
+      "model" : "cms.pagetranslation",
+      "pk" : 33,
+      "fields" : {
+         "creator" : 1,
+         "minor_edit" : false,
+         "page" : 12,
+         "text" : "این راهنما، در زندگی روزمره در نورنبرگ به شما کمک می کند. شما در آن نشانی های مهم، مراکز پاسخگویی و نکات و روش هایی را پیدا می کنید که برای تثبیت شدن در نورنبرگ به شما کمک می کنند.‏\r\n\r\nاین راهنمای مسائل روزمره چندین بخش دارد. هر بخش به موضوع متفاوتی می پردازد. شما مثلا اطلاعات مربوط به پزشکان، مدارس، دوره های آلمانی یا موسسات دیگر را پیدا می کنید. همچنین بخشی از آن مربوط است به کارهایی که شما در اوقات فراغت می توانید انجام دهید. اطلاعات و امکانات اوقات فراغت تغییر می کنند و ما مرتب آنها را به روز می کنیم. به همین دلیل بسیار خوب است اگر شما مرتب در اپلیکیشن تلفن همراه خود نگاه کنید و درباره رویدادها و برنامه های روز مطلع شوید.‏\r\n\r\nاگر به اینترنت دسترسی ندارید، می توانید از این اپلیکیشن به صورت آفلاین نیز استفاده کنید. هنگامی که دوباره آنلاین شدید، اپلیکیشن بصورت خودکار به روز می شود.‏\r\n\r\nبسیار امیدواریم که با این اپلیکیشن، بتوانیم اقامت شما را در نورنبرگ آسان کنیم. خوشحال می شویم که به شما در نورنبرگ، شهر صلح و حقوق بشر، خوش آمد بگوییم.‏\r\n\r\nBMFSFJ_DemokratieLeben",
+         "title" : "درباره Integreat",
+         "status" : "PUBLIC",
+         "version" : 1,
+         "created_date" : "2019-08-12T08:26:50.465Z",
+         "last_updated" : "2019-08-12T08:26:50.483Z",
+         "slug" : "درباره-integreat",
+         "language" : 4,
+         "currently_in_translation" : false
+      }
+   }
 ]
