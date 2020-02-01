@@ -10,6 +10,10 @@ def transform_accommodation(accommodation: Accommodation, translation: Accommoda
         'description': translation.description,
         'short_description': translation.short_description,
         'opening_hours': {
+            'from': accommodation.open_from,
+            'to': accommodation.open_to
+        },
+        'intake_hours': {
             'from': accommodation.intake_from,
             'to': accommodation.intake_to
         },
@@ -33,11 +37,10 @@ def transform_accommodation(accommodation: Accommodation, translation: Accommoda
         'rules': {
             'animals': accommodation.animals_allowed,
             'shelter_seeking_person_intoxicated': accommodation.intoxicated_allowed,
-            # TODO The following fields are dummy for now
-            'female_only': False,
-            'families_welcome': False,
-            'male_only': False,
-            'kids_welcome': False
+            'female_only': accommodation.female_only,
+            'families_welcome': accommodation.families_welcome,
+            'male_only': accommodation.male_only,
+            'kids_welcome': accommodation.kids_welcome
         },
         'spoken_languages': [
             {
@@ -55,7 +58,8 @@ def transform_accommodation(accommodation: Accommodation, translation: Accommoda
             {
                 'target_group': bed.target_group.name,
                 'num_beds': bed.num_beds,
-                'num_free_beds': bed.num_free_beds
+                'num_free_beds': bed.num_beds - bed.num_beds_allocated,
+                'num_allocated_beds': bed.num_beds_allocated
             }
             for bed in accommodation.beds.all()
         ]
