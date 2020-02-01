@@ -4,6 +4,7 @@ Form for creating an organization object
 from django import forms
 
 from ...models import BedTargetGroup
+from ...utils.slug_utils import generate_unique_slug
 
 
 class BedTargetGroupForm(forms.ModelForm):
@@ -17,3 +18,6 @@ class BedTargetGroupForm(forms.ModelForm):
     class Meta:
         model = BedTargetGroup
         fields = ['name', 'slug', 'description']
+
+    def clean_slug(self):
+        return generate_unique_slug(self, 'bed_target_group')
