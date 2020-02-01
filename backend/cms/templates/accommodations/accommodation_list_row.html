@@ -1,5 +1,4 @@
 {% load i18n %}
-{% load rules %}
 {% load accommodation_filters %}
 
 <tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
@@ -39,17 +38,17 @@
 	</td>
     <td class="pl-2 pr-4">
         <!-- TODO: add link to view accommodation in web app -->
-        <a href="#" class="py-3" style="padding-right:4px;">
+        <a href="#" class="py-3">
             <i data-feather="eye" class="text-grey-darkest"></i>
         </a>
-        {% has_perm 'cms.edit_accommodations' request.user as can_edit_accommodation %}
-        {% if can_edit_accommodation %}
-            <button title="{% trans 'Archive Accommodation' %}" class="confirmation-button py-3 pl-4" data-accommodation-id="{{ accommodation.id }}" data-accommodation-title="{{ accommodation|accommodation_translation_title:language }}" data-action="{% url 'archive_accommodation' accommodation_id=accommodation.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-accommodation">
-                <i data-feather="archive" class="text-grey-darkest"></i>
-            </button>
-        {% endif %}
+	    <a href="{% url 'manage_beds' accommodation_id=accommodation.id region_slug=region.slug language_code=language.code %}" class="py-3 pl-2" title="{% trans 'Manage Beds' %}">
+		    <i data-feather="moon" class="text-grey-darkest"></i>
+	    </a>
+	    <button title="{% trans 'Archive Accommodation' %}" class="confirmation-button py-3 pl-2" data-accommodation-id="{{ accommodation.id }}" data-accommodation-title="{{ accommodation|accommodation_translation_title:language }}" data-action="{% url 'archive_accommodation' accommodation_id=accommodation.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-accommodation">
+		    <i data-feather="archive" class="text-grey-darkest"></i>
+	    </button>
         {% if user.is_superuser or user.is_staff %}
-            <button title="{% trans 'Delete Accommodation' %}" class="confirmation-button py-3 pl-4" data-accommodation-id="{{ accommodation.id }}" data-accommodation-title="{{ accommodation|accommodation_translation_title:language }}" data-action="{% url 'delete_accommodation' accommodation_id=accommodation.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-accommodation">
+            <button title="{% trans 'Delete Accommodation' %}" class="confirmation-button py-3 pl-2" data-accommodation-id="{{ accommodation.id }}" data-accommodation-title="{{ accommodation|accommodation_translation_title:language }}" data-action="{% url 'delete_accommodation' accommodation_id=accommodation.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-accommodation">
                 <i data-feather="trash-2" class="text-grey-darkest"></i>
             </button>
         {% endif %}

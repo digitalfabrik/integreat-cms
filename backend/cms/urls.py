@@ -302,6 +302,7 @@ urlpatterns = [
                     url(r'^archive$', accommodations.archive_accommodation, name='archive_accommodation'),
                     url(r'^restore$', accommodations.restore_accommodation, name='restore_accommodation'),
                     url(r'^delete$', accommodations.delete_accommodation, name='delete_accommodation'),
+                    url(r'^beds', accommodations.BedsView.as_view(), name='manage_beds')
                 ])),
             ])),
         ])),
