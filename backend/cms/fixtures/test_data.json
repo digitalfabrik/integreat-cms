@@ -66,6 +66,30 @@
     }
   },
   {
+    "model": "cms.region",
+    "pk": 3,
+    "fields": {
+      "name": "Berlin",
+      "slug": "berlin",
+      "status": "ACTIVE",
+      "administrative_division": "CITY",
+      "aliases": "[\"Friedrichshain\",\"Kreuzberg\",\"Charlottenburg\",\"Neukölln\",\"Schöneberg\",\"Wedding\",\"Pankow\"]",
+      "events_enabled": true,
+      "push_notifications_enabled": true,
+      "push_notification_channels": "[\"\"]",
+      "latitude": 52.519513,
+      "longitude": 13.406629,
+      "postal_code": "86150",
+      "admin_mail": "berlin@integreat-app.de",
+      "created_date": "2019-08-12T07:48:17.997Z",
+      "last_updated": "2019-08-12T07:48:17.998Z",
+      "statistics_enabled": false,
+      "matomo_url": "",
+      "matomo_token": "",
+      "matomo_ssl_verify": true
+    }
+  },
+  {
     "model": "cms.language",
     "pk": 1,
     "fields": {
@@ -239,6 +263,70 @@
       "rght": 5,
       "tree_id": 2,
       "level": 3
+    }
+  },
+  {
+    "model": "cms.languagetreenode",
+    "pk": 9,
+    "fields": {
+      "language": 1,
+      "parent": null,
+      "region": 3,
+      "active": true,
+      "created_date": "2019-08-12T07:52:34.183Z",
+      "last_updated": "2019-08-12T07:52:34.187Z",
+      "lft": 1,
+      "rght": 8,
+      "tree_id": 1,
+      "level": 0
+    }
+  },
+  {
+    "model": "cms.languagetreenode",
+    "pk": 10,
+    "fields": {
+      "language": 2,
+      "parent": 1,
+      "region": 3,
+      "active": true,
+      "created_date": "2019-08-12T07:52:44.617Z",
+      "last_updated": "2019-08-12T07:52:44.629Z",
+      "lft": 2,
+      "rght": 7,
+      "tree_id": 1,
+      "level": 1
+    }
+  },
+  {
+    "model": "cms.languagetreenode",
+    "pk": 11,
+    "fields": {
+      "language": 3,
+      "parent": 2,
+      "region": 3,
+      "active": true,
+      "created_date": "2019-08-12T07:52:52.560Z",
+      "last_updated": "2019-08-12T07:52:52.564Z",
+      "lft": 3,
+      "rght": 4,
+      "tree_id": 1,
+      "level": 2
+    }
+  },
+  {
+    "model": "cms.languagetreenode",
+    "pk": 12,
+    "fields": {
+      "language": 4,
+      "parent": 2,
+      "region": 3,
+      "active": true,
+      "created_date": "2019-08-12T07:53:00.429Z",
+      "last_updated": "2019-08-12T07:53:00.441Z",
+      "lft": 5,
+      "rght": 6,
+      "tree_id": 1,
+      "level": 2
     }
   },
   {
@@ -1154,16 +1242,27 @@
     }
   },
   {
+    "model": "cms.organization",
+    "pk": 2,
+    "fields": {
+      "name": "Berliner Kältehilfe",
+      "slug": "berliner-kaeltehilfe",
+      "thumbnail": "",
+      "created_date": "2020-01-20T09:05:04.511Z",
+      "last_updated": "2020-01-20T09:05:04.513Z"
+    }
+  },
+  {
     "model": "cms.poi",
     "pk": 1,
     "fields": {
-      "region": 1,
+      "region": 3,
       "address": "Lehrter Stra\u00dfe 68",
       "postcode": "10557",
       "city": "Berlin",
       "country": "Deutschland",
-      "latitude": 1.0,
-      "longitude": 1.0,
+      "latitude": 52.526600,
+      "longitude": 13.363036,
       "archived": false
     }
   },
@@ -1171,13 +1270,13 @@
     "model": "cms.poi",
     "pk": 2,
     "fields": {
-      "region": 1,
+      "region": 3,
       "address": "Kopenhagener Str. 29",
       "postcode": "13407",
       "city": "Berlin",
       "country": "Deutschland",
-      "latitude": 1.0,
-      "longitude": 1.0,
+      "latitude": 52.548804,
+      "longitude": 13.403535,
       "archived": false
     }
   },
@@ -1185,13 +1284,27 @@
     "model": "cms.poi",
     "pk": 3,
     "fields": {
-      "region": 1,
+      "region": 3,
       "address": "Am Containerbahnhof hinter dem Ring-Center (Frankfurter Allee)",
       "postcode": "10365",
       "city": "Berlin",
       "country": "Deutschland",
-      "latitude": 1.0,
-      "longitude": 1.0,
+      "latitude": 52.515349,
+      "longitude": 13.475935,
+      "archived": false
+    }
+  },
+  {
+    "model": "cms.poi",
+    "pk": 4,
+    "fields": {
+      "region": 3,
+      "address": "Franklinstr. 27a",
+      "postcode": "10587",
+      "city": "Berlin",
+      "country": "Deutschland",
+      "latitude": 52.518993,
+      "longitude": 13.325534,
       "archived": false
     }
   },
@@ -1259,6 +1372,27 @@
     }
   },
   {
+    "model": "cms.accommodation",
+    "pk": 4,
+    "fields": {
+      "institution": 2,
+      "phone_number": "030 391 27 22",
+      "mobile_number": "",
+      "wc_available": true,
+      "shower_available": true,
+      "animals_allowed": true,
+      "intoxicated_allowed": false,
+      "intake_from": "18:00:00",
+      "intake_to": "21:30:00",
+      "open_from": "18:00:00",
+      "open_to": "08:00:00",
+      "spoken_languages": [
+        1,
+        2
+      ]
+    }
+  },
+  {
     "model": "cms.accommodationtranslation",
     "pk": 1,
     "fields": {
@@ -1310,6 +1444,101 @@
       "created_date": "2020-01-20T09:48:20.605Z",
       "last_updated": "2020-01-20T09:48:43.673Z",
       "creator": 1
+    }
+  },
+  {
+    "model": "cms.accommodationtranslation",
+    "pk": 4,
+    "fields": {
+      "title": "Not\u00fcbernachtung Franklinstra\u00dfe",
+      "slug": "not\u00fcbernachtung-franklinstrasse",
+      "accommodation": 4,
+      "status": "PUBLIC",
+      "short_description": "Not\u00fcbernachtung in der Franklinstra\u00dfe",
+      "description": "<ul>\r\n<li>Einlass von 18:00 bis 21:30 Uhr</li>\r\n</ul>",
+      "language": 1,
+      "version": 1,
+      "minor_edit": false,
+      "created_date": "2020-01-20T09:06:45.023Z",
+      "last_updated": "2020-01-20T09:46:08.857Z",
+      "creator": 1
+    }
+  },
+  {
+    "model": "cms.bedtargetgroup",
+    "pk": 1,
+    "fields": {
+      "name": "Männer",
+      "slug": "male",
+      "description": ""
+    }
+  },
+  {
+    "model": "cms.bedtargetgroup",
+    "pk": 2,
+    "fields": {
+      "name": "Frauen",
+      "slug": "female",
+      "description": ""
+    }
+  },
+  {
+    "model": "cms.bedtargetgroup",
+    "pk": 3,
+    "fields": {
+      "name": "Gemischt",
+      "slug": "mixed",
+      "description": ""
+    }
+  },
+  {
+    "model": "cms.beds",
+    "pk": 1,
+    "fields": {
+      "num_beds": 24,
+      "accommodation": 3,
+      "num_beds_allocated": 3,
+      "target_group": 2
+    }
+  },
+  {
+    "model": "cms.beds",
+    "pk": 2,
+    "fields": {
+      "target_group": 1,
+      "num_beds_allocated": 4,
+      "accommodation": 3,
+      "num_beds": 96
+    }
+  },
+  {
+    "model": "cms.beds",
+    "pk": 3,
+    "fields": {
+      "num_beds": 52,
+      "target_group": 3,
+      "num_beds_allocated": 0,
+      "accommodation": 2
+    }
+  },
+  {
+    "model": "cms.beds",
+    "pk": 4,
+    "fields": {
+      "accommodation": 1,
+      "num_beds_allocated": 0,
+      "target_group": 3,
+      "num_beds": 125
+    }
+  },
+  {
+    "model": "cms.beds",
+    "pk": 5,
+    "fields": {
+      "accommodation": 4,
+      "num_beds_allocated": 10,
+      "target_group": 3,
+      "num_beds": 60
     }
   }
 ]
