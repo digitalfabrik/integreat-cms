@@ -20,6 +20,7 @@ setup(
         "beautifulsoup4",
         "cffi",
         "Django==2.2.9",
+        "django-cors-headers",
         "django-filer",
         "django-mptt",
         "django-widget-tweaks",
