@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>cms.views.settings.mfa package &#8212; coldaid 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cms.views.statistics package" href="cms.views.statistics.html" />
+    <link rel="prev" title="cms.views.settings package" href="cms.views.settings.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cms-views-settings-mfa-package">
+<h1>cms.views.settings.mfa package<a class="headerlink" href="#cms-views-settings-mfa-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cms.views.settings.mfa.mfa">
+<span id="cms-views-settings-mfa-mfa-module"></span><h2>cms.views.settings.mfa.mfa module<a class="headerlink" href="#module-cms.views.settings.mfa.mfa" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cms.views.settings.mfa.mfa.AddMfaKeyForm">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AddMfaKeyForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">field_order=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.forms.Form</span></code></p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nickname</span></code>: Nickname (<code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code>)</p></li>
+</ul>
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.AddMfaKeyForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cms.views.settings.mfa.mfa.AddMfaKeyView">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AddMfaKeyView</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.FormView</span></code></p>
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.AddMfaKeyView.dispatch">
+<code class="sig-name descname">dispatch</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cms.views.settings.mfa.mfa.AddMfaKeyView.form_class">
+<code class="sig-name descname">form_class</code><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cms.views.settings.mfa.mfa.AddMfaKeyForm" title="cms.views.settings.mfa.mfa.AddMfaKeyForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddMfaKeyForm</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.views.settings.mfa.mfa.AddMfaKeyView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'settings/mfa/add_key.html'</em><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AuthenticateModifyMfaView</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.FormView</span></code></p>
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.dispatch">
+<code class="sig-name descname">dispatch</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_class">
+<code class="sig-name descname">form_class</code><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cms.views.settings.mfa.mfa.AuthenticationForm" title="cms.views.settings.mfa.mfa.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_valid">
+<code class="sig-name descname">form_valid</code><span class="sig-paren">(</span><em class="sig-param">form</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, redirect to the supplied URL.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.success_url">
+<code class="sig-name descname">success_url</code><em class="property"> = '/user_settings/add_new_mfa_key/'</em><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'settings/mfa/authenticate.html'</em><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cms.views.settings.mfa.mfa.AuthenticationForm">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AuthenticationForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">field_order=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticationForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.forms.Form</span></code></p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code>: Password (<code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code>)</p></li>
+</ul>
+<dl class="attribute">
+<dt id="cms.views.settings.mfa.mfa.AuthenticationForm.attrs">
+<code class="sig-name descname">attrs</code><em class="property"> = {'required': True, 'type': 'password'}</em><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticationForm.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.AuthenticationForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticationForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cms.views.settings.mfa.mfa.DeleteMfaKey">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">DeleteMfaKey</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></p>
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.DeleteMfaKey.dispatch">
+<code class="sig-name descname">dispatch</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.DeleteMfaKey.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.DeleteMfaKey.post">
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cms.views.settings.mfa.mfa.DeleteMfaKey.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'settings/mfa/delete.html'</em><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cms.views.settings.mfa.mfa.GetChallengeView">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">GetChallengeView</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.GetChallengeView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.GetChallengeView.dispatch">
+<code class="sig-name descname">dispatch</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.GetChallengeView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.views.settings.mfa.mfa.GetChallengeView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">request</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.GetChallengeView.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cms.views.settings.mfa.mfa.register_mfa_key">
+<code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">register_mfa_key</code><span class="sig-paren">(</span><em class="sig-param">request</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.views.settings.mfa.mfa.register_mfa_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-cms.views.settings.mfa">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cms.views.settings.mfa" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">coldaid</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cms.models.html">cms.models package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cms.views.html">cms.views package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cms.views.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cms.views.accommodations.html">cms.views.accommodations package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">cms.views.analytics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">cms.views.authentication package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.bed_target_groups.html">cms.views.bed_target_groups package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html">cms.views.dashboard package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.error_handler.html">cms.views.error_handler package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html">cms.views.events package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.extra_templates.html">cms.views.extra_templates package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.extras.html">cms.views.extras package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">cms.views.language_tree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.languages.html">cms.views.languages package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">cms.views.media package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">cms.views.organizations package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html">cms.views.pages package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">cms.views.pois package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html">cms.views.push_notifications package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html">cms.views.regions package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.roles.html">cms.views.roles package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cms.views.settings.html">cms.views.settings package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.statistics.html">cms.views.statistics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html">cms.views.users package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.html#module-cms.views">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cms.views.html">cms.views package</a><ul>
+  <li><a href="cms.views.settings.html">cms.views.settings package</a><ul>
+      <li>Previous: <a href="cms.views.settings.html" title="previous chapter">cms.views.settings package</a></li>
+      <li>Next: <a href="cms.views.statistics.html" title="next chapter">cms.views.statistics package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, TU-Berlin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cms.views.settings.mfa.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
