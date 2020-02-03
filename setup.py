@@ -32,6 +32,8 @@ setup(
         "rules",
         "six",
         "webauthn",
+        "sphinx",
+        "sphinxcontrib-django",
     ],
     extras_require={
         "dev": [

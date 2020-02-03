@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>cms.forms.regions package &#8212; coldaid 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cms-forms-regions-package">
+<h1>cms.forms.regions package<a class="headerlink" href="#cms-forms-regions-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cms.forms.regions.region_form">
+<span id="cms-forms-regions-region-form-module"></span><h2>cms.forms.regions.region_form module<a class="headerlink" href="#module-cms.forms.regions.region_form" title="Permalink to this headline">¶</a></h2>
+<p>Form for creating a region object</p>
+<dl class="class">
+<dt id="cms.forms.regions.region_form.RegionForm">
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">RegionForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<dl class="method">
+<dt id="cms.forms.regions.region_form.RegionForm.clean_slug">
+<code class="sig-name descname">clean_slug</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.clean_slug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.forms.regions.region_form.RegionForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.forms.regions.region_form.RegionForm.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
+a save_m2m() method to the form which can be called after the instance
+is saved manually at a later time. Return the model instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cms.forms.regions.region_form.duplicate_language_tree">
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_language_tree</code><span class="sig-paren">(</span><em class="sig-param">source_region</em>, <em class="sig-param">target_region</em>, <em class="sig-param">source_parent_id=None</em>, <em class="sig-param">target_parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_language_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to duplicate the language tree of one region to another.</p>
+<p>Usage: duplicate_language_tree(source_region, target_region)</p>
+<p>This is a recursive function to walk the whole language tree. It starts at root level with the default parent None.
+The recursion is necessary because the new nodes need their correct (also duplicated) parent node.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param source_region</dt>
+<dd class="field-odd"><p>The region from which the language tree should be duplicated</p>
+</dd>
+<dt class="field-even">param target_region</dt>
+<dd class="field-even"><p>The region to which the language tree should be added</p>
+</dd>
+<dt class="field-odd">param source_parent_id</dt>
+<dd class="field-odd"><p>The current parent node id of the recursion</p>
+</dd>
+<dt class="field-even">param target_parent</dt>
+<dd class="field-even"><p>The node of the target region which is the duplicate of the source parent node</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="cms.forms.regions.region_form.duplicate_media">
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_media</code><span class="sig-paren">(</span><em class="sig-param">source_region</em>, <em class="sig-param">target_region</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cms.forms.regions.region_form.duplicate_pages">
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_pages</code><span class="sig-paren">(</span><em class="sig-param">source_region</em>, <em class="sig-param">target_region</em>, <em class="sig-param">source_parent_id=None</em>, <em class="sig-param">target_parent=None</em>, <em class="sig-param">level=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to duplicate all pages of one region to another.</p>
+<p>Usage: duplicate_pages(source_region, target_region)</p>
+<p>This is a recursive function to walk the whole page tree. It starts at root level with the default parent None.
+The recursion is necessary because the new pages need their correct (also duplicated) parent page.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param source_region</dt>
+<dd class="field-odd"><p>The region from which the pages should be duplicated</p>
+</dd>
+<dt class="field-even">param target_region</dt>
+<dd class="field-even"><p>The region to which the pages should be added</p>
+</dd>
+<dt class="field-odd">param source_parent_id</dt>
+<dd class="field-odd"><p>The current parent page id of the recursion</p>
+</dd>
+<dt class="field-even">param target_parent</dt>
+<dd class="field-even"><p>The page of the target region which is the duplicate of the source parent page</p>
+</dd>
+<dt class="field-odd">param level</dt>
+<dd class="field-odd"><p>recursion level to get a pretty log output</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.forms.regions">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cms.forms.regions" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">coldaid</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cms.models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.html">cms.views package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, TU-Berlin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cms.forms.regions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

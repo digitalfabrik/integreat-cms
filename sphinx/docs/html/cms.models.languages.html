@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Languages Module &#8212; coldaid 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Media Module" href="cms.models.media.html" />
+    <link rel="prev" title="Feedback Module" href="cms.models.feedback.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="languages-module">
+<h1>Languages Module<a class="headerlink" href="#languages-module" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cms.models.languages.language">
+<span id="language-model"></span><h2>Language Model<a class="headerlink" href="#module-cms.models.languages.language" title="Permalink to this headline">¶</a></h2>
+<p>Model to define a Language</p>
+<dl class="class">
+<dt id="cms.models.languages.language.Language">
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.languages.language.</code><code class="sig-name descname">Language</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language.Language" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Class to define language database objects</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>models : Database model inherit from the standard django models</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>AutoField</em>) – Id</p></li>
+<li><p><strong>code</strong> (<em>CharField</em>) – Code</p></li>
+<li><p><strong>native_name</strong> (<em>CharField</em>) – Native name</p></li>
+<li><p><strong>english_name</strong> (<em>CharField</em>) – English name</p></li>
+<li><p><strong>text_direction</strong> (<em>CharField</em>) – Text direction</p></li>
+<li><p><strong>created_date</strong> (<em>DateTimeField</em>) – Created date</p></li>
+<li><p><strong>last_updated</strong> (<em>DateTimeField</em>) – Last updated</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.DIRECTION">
+<code class="sig-name descname">DIRECTION</code><em class="property"> = (('ltr', 'Left to right'), ('rtl', 'Right to left'))</em><a class="headerlink" href="#cms.models.languages.language.Language.DIRECTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="cms.models.languages.language.Language.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#cms.models.languages.language.Language.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cms.models.languages.language.Language.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#cms.models.languages.language.Language.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.accommodation_translations">
+<code class="sig-name descname">accommodation_translations</code><a class="headerlink" href="#cms.models.languages.language.Language.accommodation_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.accommodations.html#cms.models.accommodations.accommodation_translation.AccommodationTranslation" title="cms.models.accommodations.accommodation_translation.AccommodationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccommodationTranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.accommodations">
+<code class="sig-name descname">accommodations</code><a class="headerlink" href="#cms.models.languages.language.Language.accommodations" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> spoken languages, accesses the M2M <a class="reference internal" href="cms.models.accommodations.html#cms.models.accommodations.accommodation.Accommodation" title="cms.models.accommodations.accommodation.Accommodation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Accommodation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.code">
+<code class="sig-name descname">code</code><a class="headerlink" href="#cms.models.languages.language.Language.code" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.created_date">
+<code class="sig-name descname">created_date</code><a class="headerlink" href="#cms.models.languages.language.Language.created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> created date</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.english_name">
+<code class="sig-name descname">english_name</code><a class="headerlink" href="#cms.models.languages.language.Language.english_name" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> english name</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.event_translations">
+<code class="sig-name descname">event_translations</code><a class="headerlink" href="#cms.models.languages.language.Language.event_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language.Language.get_next_by_created_date">
+<code class="sig-name descname">get_next_by_created_date</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.DateTimeField: created_date&gt;</em>, <em class="sig-param">is_next=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language.Language.get_next_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds next instance based on <a class="reference internal" href="#cms.models.languages.language.Language.created_date" title="cms.models.languages.language.Language.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language.Language.get_next_by_last_updated">
+<code class="sig-name descname">get_next_by_last_updated</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.DateTimeField: last_updated&gt;</em>, <em class="sig-param">is_next=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language.Language.get_next_by_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds next instance based on <a class="reference internal" href="#cms.models.languages.language.Language.last_updated" title="cms.models.languages.language.Language.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language.Language.get_previous_by_created_date">
+<code class="sig-name descname">get_previous_by_created_date</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.DateTimeField: created_date&gt;</em>, <em class="sig-param">is_next=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language.Language.get_previous_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds previous instance based on <a class="reference internal" href="#cms.models.languages.language.Language.created_date" title="cms.models.languages.language.Language.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language.Language.get_previous_by_last_updated">
+<code class="sig-name descname">get_previous_by_last_updated</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.DateTimeField: last_updated&gt;</em>, <em class="sig-param">is_next=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language.Language.get_previous_by_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds previous instance based on <a class="reference internal" href="#cms.models.languages.language.Language.last_updated" title="cms.models.languages.language.Language.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language.Language.get_text_direction_display">
+<code class="sig-name descname">get_text_direction_display</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.CharField: text_direction&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language.Language.get_text_direction_display" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Shows the label of the <a class="reference internal" href="#cms.models.languages.language.Language.text_direction" title="cms.models.languages.language.Language.text_direction"><code class="xref py py-attr docutils literal notranslate"><span class="pre">text_direction</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#cms.models.languages.language.Language.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> ID</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.language_tree_nodes">
+<code class="sig-name descname">language_tree_nodes</code><a class="headerlink" href="#cms.models.languages.language.Language.language_tree_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.last_updated">
+<code class="sig-name descname">last_updated</code><a class="headerlink" href="#cms.models.languages.language.Language.last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> last updated</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.native_name">
+<code class="sig-name descname">native_name</code><a class="headerlink" href="#cms.models.languages.language.Language.native_name" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> native name</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.objects">
+<code class="sig-name descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#cms.models.languages.language.Language.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.page_translations">
+<code class="sig-name descname">page_translations</code><a class="headerlink" href="#cms.models.languages.language.Language.page_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.poitranslation_set">
+<code class="sig-name descname">poitranslation_set</code><a class="headerlink" href="#cms.models.languages.language.Language.poitranslation_set" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.pushnotificationtranslation_set">
+<code class="sig-name descname">pushnotificationtranslation_set</code><a class="headerlink" href="#cms.models.languages.language.Language.pushnotificationtranslation_set" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.push_notifications.html#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationTranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language.Language.text_direction">
+<code class="sig-name descname">text_direction</code><a class="headerlink" href="#cms.models.languages.language.Language.text_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> text direction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language.Language.translated_name">
+<em class="property">property </em><code class="sig-name descname">translated_name</code><a class="headerlink" href="#cms.models.languages.language.Language.translated_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.models.languages.language_tree_node">
+<span id="languagetreenode-model"></span><h2>LanguageTreeNode Model<a class="headerlink" href="#module-cms.models.languages.language_tree_node" title="Permalink to this headline">¶</a></h2>
+<p>Model to define a Language</p>
+<dl class="class">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode">
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.languages.language_tree_node.</code><code class="sig-name descname">LanguageTreeNode</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mptt.models.MPTTModel</span></code></p>
+<p>Class defining a LanguageTree database object.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>MPTTModel ([type]): Inheritance of MPTT library to create hierarchically organized data</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>AutoField</em>) – Id</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
+<li><p><strong>parent</strong> (TreeForeignKey to <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>) – Parent</p></li>
+<li><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region</p></li>
+<li><p><strong>active</strong> (<em>BooleanField</em>) – Active</p></li>
+<li><p><strong>created_date</strong> (<em>DateTimeField</em>) – Created date</p></li>
+<li><p><strong>last_updated</strong> (<em>DateTimeField</em>) – Last updated</p></li>
+<li><p><strong>lft</strong> (<em>PositiveIntegerField</em>) – Lft</p></li>
+<li><p><strong>rght</strong> (<em>PositiveIntegerField</em>) – Rght</p></li>
+<li><p><strong>tree_id</strong> (<em>PositiveIntegerField</em>) – Tree id</p></li>
+<li><p><strong>level</strong> (<em>PositiveIntegerField</em>) – Level</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="exception">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.active">
+<code class="sig-name descname">active</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.active" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> active</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.children">
+<code class="sig-name descname">children</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.children" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> parent, accesses the M2M <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.code">
+<em class="property">property </em><code class="sig-name descname">code</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.created_date">
+<code class="sig-name descname">created_date</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> created date</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.depth">
+<em class="property">property </em><code class="sig-name descname">depth</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide level of inheritance</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Int : Number of ancestors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.english_name">
+<em class="property">property </em><code class="sig-name descname">english_name</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.english_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_next_by_created_date">
+<code class="sig-name descname">get_next_by_created_date</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.DateTimeField: created_date&gt;</em>, <em class="sig-param">is_next=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_next_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds next instance based on <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode.created_date" title="cms.models.languages.language_tree_node.LanguageTreeNode.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_next_by_last_updated">
+<code class="sig-name descname">get_next_by_last_updated</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.DateTimeField: last_updated&gt;</em>, <em class="sig-param">is_next=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_next_by_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds next instance based on <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode.last_updated" title="cms.models.languages.language_tree_node.LanguageTreeNode.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_created_date">
+<code class="sig-name descname">get_previous_by_created_date</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.DateTimeField: created_date&gt;</em>, <em class="sig-param">is_next=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds previous instance based on <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode.created_date" title="cms.models.languages.language_tree_node.LanguageTreeNode.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_last_updated">
+<code class="sig-name descname">get_previous_by_last_updated</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">field=&lt;django.db.models.fields.DateTimeField: last_updated&gt;</em>, <em class="sig-param">is_next=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds previous instance based on <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode.last_updated" title="cms.models.languages.language_tree_node.LanguageTreeNode.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> ID</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.language">
+<code class="sig-name descname">language</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.language" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the <a class="reference internal" href="#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.language_id">
+<code class="sig-name descname">language_id</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.language_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.last_updated">
+<code class="sig-name descname">last_updated</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> last updated</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.level">
+<code class="sig-name descname">level</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.level" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> level</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.lft">
+<code class="sig-name descname">lft</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.lft" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> lft</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.native_name">
+<em class="property">property </em><code class="sig-name descname">native_name</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.native_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.parent">
+<code class="sig-name descname">parent</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> parent, accesses the <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.parent_id">
+<code class="sig-name descname">parent_id</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.parent_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> parent</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.region">
+<code class="sig-name descname">region</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.region" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> region, accesses the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.region_id">
+<code class="sig-name descname">region_id</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.region_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> region</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.rght">
+<code class="sig-name descname">rght</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.rght" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> rght</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.text_direction">
+<em class="property">property </em><code class="sig-name descname">text_direction</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.text_direction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.translated_name">
+<em class="property">property </em><code class="sig-name descname">translated_name</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.translated_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.tree_id">
+<code class="sig-name descname">tree_id</code><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.tree_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> tree id</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.models.languages">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cms.models.languages" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">coldaid</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cms.models.html">Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cms.models.accommodations.html">Accommodation Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.config.html">Configs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.events.html">Event Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.extras.html">Extras Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.feedback.html">Feedback Module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Languages Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.models.languages.language">Language Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.models.languages.language_tree_node">LanguageTreeNode Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.models.languages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.media.html">Media Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.pages.html">Pages Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.pois.html">POI Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.push_notifications.html">PushNotification Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.regions.html">Regions Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.users.html">User Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.html#module-cms.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.html">cms.views package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cms.models.html">Models</a><ul>
+      <li>Previous: <a href="cms.models.feedback.html" title="previous chapter">Feedback Module</a></li>
+      <li>Next: <a href="cms.models.media.html" title="next chapter">Media Module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, TU-Berlin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cms.models.languages.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

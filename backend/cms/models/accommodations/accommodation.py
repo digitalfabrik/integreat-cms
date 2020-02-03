@@ -8,7 +8,7 @@ from ..pois.poi import POI
 
 class Accommodation(POI):
     """
-    A special kind of POI which is used for the cold aid functionality
+    A special kind of :class:`cms.models.pois.poi.POI` which is used for the cold aid functionality
     """
     institution = models.ForeignKey(Organization, related_name='accommodations', null=False, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=25, blank=True)
