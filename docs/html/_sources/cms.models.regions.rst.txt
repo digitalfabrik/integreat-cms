@@ -1,10 +1,10 @@
-cms.models.regions package
+Regions Module
 ==========================
 
 Submodules
 ----------
 
-cms.models.regions.region module
+Region Model
 --------------------------------
 
 .. automodule:: cms.models.regions.region

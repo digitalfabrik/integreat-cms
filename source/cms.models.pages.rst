@@ -1,10 +1,10 @@
-cms.models.pages package
+Pages Module
 ========================
 
 Submodules
 ----------
 
-cms.models.pages.page module
+Page Model
 ----------------------------
 
 .. automodule:: cms.models.pages.page
@@ -12,7 +12,7 @@ cms.models.pages.page module
    :undoc-members:
    :show-inheritance:
 
-cms.models.pages.page\_translation module
+PageTranslation Model
 -----------------------------------------
 
 .. automodule:: cms.models.pages.page_translation

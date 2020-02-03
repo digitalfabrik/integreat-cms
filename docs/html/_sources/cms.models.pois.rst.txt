@@ -1,10 +1,10 @@
-cms.models.pois package
+POI Module
 =======================
 
 Submodules
 ----------
 
-cms.models.pois.poi module
+POI Model
 --------------------------
 
 .. automodule:: cms.models.pois.poi
@@ -12,7 +12,7 @@ cms.models.pois.poi module
    :undoc-members:
    :show-inheritance:
 
-cms.models.pois.poi\_translation module
+POITranslationModel
 ---------------------------------------
 
 .. automodule:: cms.models.pois.poi_translation

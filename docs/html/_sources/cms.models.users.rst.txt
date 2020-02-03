@@ -1,10 +1,10 @@
-cms.models.users package
+User Module
 ========================
 
 Submodules
 ----------
 
-cms.models.users.organization module
+Organization Model
 ------------------------------------
 
 .. automodule:: cms.models.users.organization
@@ -12,7 +12,7 @@ cms.models.users.organization module
    :undoc-members:
    :show-inheritance:
 
-cms.models.users.user\_mfa module
+UserMFA Model
 ---------------------------------
 
 .. automodule:: cms.models.users.user_mfa
@@ -20,7 +20,7 @@ cms.models.users.user\_mfa module
    :undoc-members:
    :show-inheritance:
 
-cms.models.users.user\_profile module
+UserProfile Model
 -------------------------------------
 
 .. automodule:: cms.models.users.user_profile

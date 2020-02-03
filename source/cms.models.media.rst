@@ -1,10 +1,10 @@
-cms.models.media package
+Media Module
 ========================
 
 Submodules
 ----------
 
-cms.models.media.document module
+Media Model
 --------------------------------
 
 .. automodule:: cms.models.media.document

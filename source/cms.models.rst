@@ -1,9 +1,6 @@
 Models
 ==================
 
-Subpackages
------------
-
 .. toctree::
 
    cms.models.accommodations
