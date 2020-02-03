@@ -1,10 +1,10 @@
-Models
+Accommodation Module
 =================================
 
 Submodules
 ----------
 
-Accommodation
+Accommodation Model
 ----------------------------------------------
 
 .. automodule:: cms.models.accommodations.accommodation
@@ -12,7 +12,7 @@ Accommodation
    :undoc-members:
    :show-inheritance:
 
-AccommodationTranslation
+AccommodationTranslation Model
 -----------------------------------------------------------
 
 .. automodule:: cms.models.accommodations.accommodation_translation
@@ -20,7 +20,7 @@ AccommodationTranslation
    :undoc-members:
    :show-inheritance:
 
-BedTargetGroup
+BedTargetGroup Model
 ---------------------------------------------------
 
 .. automodule:: cms.models.accommodations.bed_target_group
@@ -28,7 +28,7 @@ BedTargetGroup
    :undoc-members:
    :show-inheritance:
 
-Beds
+Beds Model
 -------------------------------------
 
 .. automodule:: cms.models.accommodations.beds

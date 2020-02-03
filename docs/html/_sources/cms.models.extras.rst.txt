@@ -1,10 +1,10 @@
-cms.models.extras package
+Extras Module
 =========================
 
 Submodules
 ----------
 
-cms.models.extras.extra module
+Extra Model
 ------------------------------
 
 .. automodule:: cms.models.extras.extra
@@ -12,7 +12,7 @@ cms.models.extras.extra module
    :undoc-members:
    :show-inheritance:
 
-cms.models.extras.extra\_template module
+ExtraTemplate Model
 ----------------------------------------
 
 .. automodule:: cms.models.extras.extra_template

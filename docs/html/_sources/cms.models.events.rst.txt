@@ -1,10 +1,10 @@
-cms.models.events package
+Event Models
 =========================
 
 Submodules
 ----------
 
-cms.models.events.event module
+Event
 ------------------------------
 
 .. automodule:: cms.models.events.event
@@ -12,7 +12,7 @@ cms.models.events.event module
    :undoc-members:
    :show-inheritance:
 
-cms.models.events.event\_translation module
+EventTranslation
 -------------------------------------------
 
 .. automodule:: cms.models.events.event_translation
@@ -20,7 +20,7 @@ cms.models.events.event\_translation module
    :undoc-members:
    :show-inheritance:
 
-cms.models.events.recurrence\_rule module
+ReccurenceRule
 -----------------------------------------
 
 .. automodule:: cms.models.events.recurrence_rule

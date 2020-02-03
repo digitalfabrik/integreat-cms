@@ -1,10 +1,10 @@
-cms.models.config package
+Configs
 =========================
 
 Submodules
 ----------
 
-cms.models.config.configuration module
+Configuration
 --------------------------------------
 
 .. automodule:: cms.models.config.configuration

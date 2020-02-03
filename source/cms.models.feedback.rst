@@ -1,10 +1,10 @@
-cms.models.feedback package
+Feedback Module
 ===========================
 
 Submodules
 ----------
 
-cms.models.feedback.event\_feedback module
+EventFeedback Model
 ------------------------------------------
 
 .. automodule:: cms.models.feedback.event_feedback
@@ -12,7 +12,7 @@ cms.models.feedback.event\_feedback module
    :undoc-members:
    :show-inheritance:
 
-cms.models.feedback.extra\_feedback module
+ExtraFeedback Model
 ------------------------------------------
 
 .. automodule:: cms.models.feedback.extra_feedback
@@ -20,7 +20,7 @@ cms.models.feedback.extra\_feedback module
    :undoc-members:
    :show-inheritance:
 
-cms.models.feedback.feedback module
+Feedback module
 -----------------------------------
 
 .. automodule:: cms.models.feedback.feedback
@@ -28,7 +28,7 @@ cms.models.feedback.feedback module
    :undoc-members:
    :show-inheritance:
 
-cms.models.feedback.page\_feedback module
+PageFeedback Model
 -----------------------------------------
 
 .. automodule:: cms.models.feedback.page_feedback
@@ -36,7 +36,7 @@ cms.models.feedback.page\_feedback module
    :undoc-members:
    :show-inheritance:
 
-cms.models.feedback.region\_feedback module
+RegionFeedback Model
 -------------------------------------------
 
 .. automodule:: cms.models.feedback.region_feedback
@@ -44,7 +44,7 @@ cms.models.feedback.region\_feedback module
    :undoc-members:
    :show-inheritance:
 
-cms.models.feedback.search\_result\_feedback module
+SearchResult Model
 ---------------------------------------------------
 
 .. automodule:: cms.models.feedback.search_result_feedback
@@ -52,7 +52,7 @@ cms.models.feedback.search\_result\_feedback module
    :undoc-members:
    :show-inheritance:
 
-cms.models.feedback.technical\_feedback module
+TechnicalFeedback Model
 ----------------------------------------------
 
 .. automodule:: cms.models.feedback.technical_feedback

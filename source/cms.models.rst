@@ -1,4 +1,4 @@
-cms.models package
+Models
 ==================
 
 Subpackages
@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
    cms.models.accommodations
+   cms.models.config
    cms.models.events
    cms.models.extras
    cms.models.feedback

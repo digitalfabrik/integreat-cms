@@ -1,10 +1,10 @@
-cms.models.languages package
+Languages Module
 ============================
 
 Submodules
 ----------
 
-cms.models.languages.language module
+Language Model
 ------------------------------------
 
 .. automodule:: cms.models.languages.language
@@ -12,7 +12,7 @@ cms.models.languages.language module
    :undoc-members:
    :show-inheritance:
 
-cms.models.languages.language\_tree\_node module
+LanguageTreeNode Model
 ------------------------------------------------
 
 .. automodule:: cms.models.languages.language_tree_node
