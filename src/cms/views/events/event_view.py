@@ -12,7 +12,8 @@ from django.views.generic import TemplateView
 from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.events import EventForm, EventTranslationForm, RecurrenceRuleForm
-from ...models import Region, Language, Event, EventTranslation, RecurrenceRule
+from ...forms.pois import POIForm, POITranslationForm
+from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI, POITranslation
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +26,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
 
     template_name = 'events/event_form.html'
 
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         language = Language.objects.get(code=kwargs.get('language_code'))
 
@@ -35,6 +37,11 @@ class EventView(PermissionRequiredMixin, TemplateView):
             language=language
         ).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(event=event_instance).first()
+        poi_instance = POI.objects.filter(event=event_instance).first()
+        poi_translation_instance = POITranslation.objects.filter(
+            poi=poi_instance,
+            language=language
+        ).first()
 
         # Make form disabled if user has no permission to edit the page
         if not request.user.has_perm('cms.edit_events'):
@@ -58,12 +65,20 @@ class EventView(PermissionRequiredMixin, TemplateView):
             instance=recurrence_rule_instance,
             disabled=disabled
         )
+        poi_form = POIForm(
+            instance=poi_instance,
+        )
+        poi_translation_form = POITranslationForm(
+            instance=poi_translation_instance,
+        )
 
         return render(request, self.template_name, {
             'current_menu_item': 'events',
             'event_form': event_form,
             'event_translation_form': event_translation_form,
             'recurrence_rule_form': recurrence_rule_form,
+            'poi_form': poi_form,
+            'poi_translation_form': poi_translation_form,
             'language': language,
             'languages': Region.get_current_region(request).languages if event_instance else [language],
         })

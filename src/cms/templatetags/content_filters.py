@@ -17,6 +17,9 @@ def get_translation(instance, language_code):
 def translated_language_name(language_code):
     return Language.objects.get(code=language_code).translated_name
 
+@register.simple_tag
+def get_language(language_code):
+    return Language.objects.get(code=language_code)
 
 # Unify the language codes of backend and content languages
 @register.simple_tag

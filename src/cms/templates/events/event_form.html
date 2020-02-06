@@ -260,26 +260,17 @@
                         </div>
 
                         <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Address' %}</label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
-                               type="text" placeholder="{% trans 'Name of event location' %}">
+                        {% trans 'Name of event location' as poi_title_placeholder %}
+                        {% render_field poi_translation_form.title|add_error_class:"border-red-500" placeholder=poi_title_placeholder class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
                         <small class="text-sm italic block mb-2">
                             {% trans 'Create an event location or start typing the name of an existing location' %}.
                         </small>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
-                               type="text" placeholder="{% trans 'Street' %}">
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
-                               type="text" placeholder="{% trans 'City' %}">
-                        <div class="relative my-2">
-                            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                                <option>{% trans 'Germany' %}</option>
-                            </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 20 20">
-                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                </svg>
-                            </div>
-                        </div>
+                        {% trans 'Street' as street_placeholder %}
+                        {% render_field poi_form.address|add_error_class:"border-red-500" placeholder=street_placeholder class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% trans 'City' as city_placeholder %}
+                        {% render_field poi_form.city|add_error_class:"border-red-500" placeholder=city_placeholder class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                        {% trans 'Country' as country_placeholder %}
+                        {% render_field poi_form.country|add_error_class:"border-red-500" placeholder=country_placeholder class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
 
                         <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Map' %}</label>
                         <i class="text-teal-500">Google Map vs. OSM</i>
