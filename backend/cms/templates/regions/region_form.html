@@ -19,7 +19,7 @@
         </div>
         <div class="w-3/5 flex justify-end">
             <input type="submit" name="submit_save" class="cursor-pointer bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
-            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            <input type="submit" name="submit_publish" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
         </div>
     </div>
 
@@ -83,7 +83,7 @@
                         <img class="flex w-2/3 p-2 pl-0 h-40 justify-start" src="https://tailwindcss.com/img/card-top.jpg" />
                         <div class="flex h-48 w-1/3 p-2 pr-0 justify-end">
                             {% render_field form.icon id="icon" class="image-field" %}
-                            <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-400hover:text-white">
+                            <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500hover:text-white">
                                 <svg class="w-1/4 h-1/4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                                 </svg>
@@ -176,7 +176,7 @@
     </div>
 {% if form.instance.id %}
     <div class="pt-2 pb-4">
-        <button class="bg-red hover:bg-red-500 text-white font-bold py-3 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_region')">
+        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_region')">
             {% with form.instance.name as region_name %}
                 {% blocktrans %}Delete region "{{ region_name }}"{% endblocktrans %}
             {% endwith %}
@@ -211,8 +211,8 @@
 
         <form method="post" action="{% url 'delete_region' region_slug=form.instance.slug %}">
             {% csrf_token %}
-            <input type="submit" class="inline-block cursor-pointer bg-red hover:bg-red-500 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, delete this region now' %}" />
-            <button class="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+            <input type="submit" class="inline-block cursor-pointer bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, delete this region now' %}" />
+            <button class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
                 {% trans 'Cancel' %}
             </button>
         </form>

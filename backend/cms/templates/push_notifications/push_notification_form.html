@@ -23,13 +23,13 @@
             </h2>
         </div>
         <div class="w-3/5 flex justify-end">
-            <input type="submit" name="submit_save" class="{% if public %}bg-blue-400 hover:bg-blue-600{% else %}bg-gray-400 hover:bg-gray-500{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
-            <input type="submit" name="submit_send" class="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save & Send' %}" />
+            <input type="submit" name="submit_save" class="{% if public %}bg-blue-500 hover:bg-blue-600{% else %}bg-gray-400 hover:bg-gray-500{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
+            <input type="submit" name="submit_send" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save & Send' %}" />
         </div>
     </div>
 
     {% if push_notification.sent_date %}
-        <div class="bg-blue-100 border-l-4 border-blue text-blue-500 px-4 py-3 mb-5" role="alert">
+        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-500 px-4 py-3 mb-5" role="alert">
             {% with push_notification.sent_date as push_notification_sent_date %}
             <p>{% blocktrans %}This push notification has already been sent on the {{ push_notification_sent_date }}.{% endblocktrans %}</p>
             {% endwith %}

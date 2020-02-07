@@ -18,11 +18,11 @@
 	</td>
 	<td class="px-2">
 		{% if extra_template in region_extra_templates %}
-			<a href="{% url 'deactivate_extra' region_slug=region.slug extra_template_slug=extra_template.slug %}" class="inline-block px-3 rounded-sm bg-red text-white" style="padding-top: 7px; padding-bottom: 7px;">
+			<a href="{% url 'deactivate_extra' region_slug=region.slug extra_template_slug=extra_template.slug %}" class="inline-block px-3 rounded-sm bg-red-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
 				{% trans 'Deactivate' %}
 			</a>
 		{% else %}
-			<a href="{% url 'activate_extra' region_slug=region.slug extra_template_slug=extra_template.slug %}" class="inline-block px-3 rounded-sm bg-blue-400text-white" style="padding-top: 7px; padding-bottom: 7px;">
+			<a href="{% url 'activate_extra' region_slug=region.slug extra_template_slug=extra_template.slug %}" class="inline-block px-3 rounded-sm bg-blue-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
 				{% trans 'Activate' %}
 			</a>
 		{% endif %}

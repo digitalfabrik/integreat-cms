@@ -48,8 +48,8 @@
                                 </p>
                                 <form method="post" action="{% url 'restore_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
                                     {% csrf_token %}
-                                    <input type="submit" class="inline-block cursor-pointer bg-blue-400 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, restore this page now.' %}" />
-                                    <button class="cursor-pointer bg-red hover:bg-red-500 text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+                                    <input type="submit" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, restore this page now.' %}" />
+                                    <button class="cursor-pointer bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
                                         {% trans 'Cancel' %}
                                     </button>
                                 </form>
