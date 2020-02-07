@@ -18,30 +18,30 @@
             </h2>
         </div>
         <div class="w-3/5 flex justify-end">
-            <input type="submit" name="submit" class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+            <input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
         </div>
     </div>
 
     <div class="flex flex-wrap">
 	    <div class="w-full">
 		    {{form.errors}}
-		    <div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
-				<div class="w-full p-4 rounded bg-blue-dark">
+		    <div class="w-full mb-4 rounded border border-solid border-gray-light shadow bg-white">
+				<div class="w-full p-4 rounded bg-blue-500">
 					<h3 class="heading font-bold text-white">{% trans "Name of the Role" %}</h3>
 				</div>
 				<div class="w-full p-4">
                     {% trans "Enter the role's name here" as name_placeholder%}
-                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 				</div>
 			</div>
 		</div>
 	<div class="w-full">
-		<div class="w-full mb-4 rounded border border-solid border-grey-light shadow bg-white">
-			<div class="w-full p-4 rounded bg-blue-dark">
+		<div class="w-full mb-4 rounded border border-solid border-gray-light shadow bg-white">
+			<div class="w-full p-4 rounded bg-blue-500">
 				<h3 class="heading font-bold text-white">{% trans "Permissions of the role" %}</h3>
 			</div>
 			<div class="w-full p-4">
-				{% render_field form.permissions class="appearance-none block w-full bg-grey-lighter text-xl text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" %}
+				{% render_field form.permissions class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 			</div>
 		</div>
 	</div>

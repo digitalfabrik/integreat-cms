@@ -9,9 +9,9 @@
     </div>
     <div class="flex flex-row flex-wrap flex-grow mt-2">
         <div class="md:w-3/4 p-3">
-            <div class="bg-grey-lightest border border-grey rounded shadow">
-                <div class="border-b border-grey-dark p-3">
-                    <h2 class="text-grey-darkest">{% trans 'Page views' %}</h2>
+            <div class="bg-gray-100 border border-gray-400 rounded shadow">
+                <div class="border-b border-gray-500 p-3">
+                    <h2 class="text-gray-800">{% trans 'Page views' %}</h2>
                 </div>
                 <div class="p-5 bg-white">
                     <canvas id="visitor-chart" class="chartjs"></canvas>
@@ -57,15 +57,15 @@
             </div>
         </div>
         <div class="md:w-1/4 p-3 pb-0">
-            <div class="bg-grey-lightest border border-grey rounded shadow">
-                <div class="border-b border-grey-dark p-3">
-                    <h2 class="text-grey-darkest">{% trans 'Settings' %}</h2>
+            <div class="bg-gray-100 border border-gray-400 rounded shadow">
+                <div class="border-b border-gray-500 p-3">
+                    <h2 class="text-gray-800">{% trans 'Settings' %}</h2>
                 </div>
                 <form class="px-8 pt-6 pb-8">
-                    <h3 class="text-grey-darkest m-2">{% trans 'Select start time' %}:</h3>
-                    <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" type="date" name="start_date" />
-                    <h3 class="text-grey-darkest m-2">{% trans 'Select end time' %}:</h3>
-                    <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" type="date" name="end_date" />
+                    <h3 class="text-gray-800 m-2">{% trans 'Select start time' %}:</h3>
+                    <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline" type="date" name="start_date" />
+                    <h3 class="text-gray-800 m-2">{% trans 'Select end time' %}:</h3>
+                    <input class="shadow m-2 appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline" type="date" name="end_date" />
                     <fieldset>
                         <div class="w-full m-2">
                             <input type="radio" id="viewmonth" name="peri" value="day" checked>
@@ -76,21 +76,21 @@
                             <label for="viewyear">{% trans 'Year view' %}</label>
                         </div>
                     </fieldset>                    
-                    <input type="submit" name="submit_save" class="cursor-pointer bg-blue hover:bg-grey-dark text-white font-bold py-3 px-4 rounded m-2" value="{% trans 'Customize view' %}" />
+                    <input type="submit" name="submit_save" class="cursor-pointer bg-blue-500hover:bg-gray-500 text-white font-bold py-3 px-4 rounded m-2" value="{% trans 'Customize view' %}" />
                 </form>
             </div>
-            <div class="bg-grey-lightest border border-grey mt-3 rounded shadow">
-                <div class="border-b border-grey-dark p-3">
-                    <h2 class="text-grey-darkest">{% trans 'Export' %}</h2>
+            <div class="bg-gray-100 border border-gray-400 mt-3 rounded shadow">
+                <div class="border-b border-gray-500 p-3">
+                    <h2 class="text-gray-800">{% trans 'Export' %}</h2>
                 </div>
                 <div class="px-8 pt-6 pb-8">
                     <label>{% trans 'Choose format' %}</label>
-                    <select id="exports" class="mt-4 block appearance-none w-full bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow focus:outline-none focus:shadow-outline">  
+                    <select id="exports" class="mt-4 block appearance-none w-full bg-white border border-gray-light hover:border-gray-400 px-4 py-2 pr-8 rounded shadow focus:outline-none focus:shadow-outline">
                         <option value="empty" selected>-- {% trans 'please select' %} --</option>
                         <option value="image">{% trans 'Image/PNG' %}</option>
                         <option value="csv">{% trans 'Table Document/CSV' %}</option>
                     </select>
-                    <button class="mt-4 bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" id="ex" onclick="export_Chart()">{% trans 'Export' %}</button>
+                    <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" id="ex" onclick="export_Chart()">{% trans 'Export' %}</button>
                 </div>            
             </div>
         </div>

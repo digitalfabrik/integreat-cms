@@ -1,15 +1,15 @@
 {% load i18n %}
 <!-- confirmation popup for deleting event with id {{ event.id }}-->
-<div id="confirm_delete_event_{{ event.id }}" class="confirmation-popup flex-col justify-center max-w-sm fixed pin-t pin-b pin-r pin-l hidden">
-	<div class="content bg-grey-light w-full p-4 shadow-md rounded">
+<div id="confirm_delete_event_{{ event.id }}" class="confirmation-popup flex-col justify-center max-w-sm fixed inset-0 hidden">
+	<div class="content bg-gray-light w-full p-4 shadow-md rounded">
 		<h2>{% trans 'Please confirm that you really want to delete this event' %}</h2>
 		<p class="mt-4 mb-6">
 			{% trans 'All translations of this event will also be deleted.' %}
 		</p>
 		<form method="post" action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}">
 			{% csrf_token %}
-			<input type="submit" class="inline-block cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, delete this event now.' %}" />
-			<button class="cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
+			<input type="submit" class="inline-block cursor-pointer bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, delete this event now.' %}" />
+			<button class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
 				{% trans 'Cancel' %}
 			</button>
 		</form>

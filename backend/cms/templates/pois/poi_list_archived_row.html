@@ -2,12 +2,12 @@
 {% load rules %}
 {% load poi_filters %}
 
-<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
 	<td class="py-3 px-2">
 		{{ poi.id }}
 	</td>
 	<td>
-		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
 			{{ poi|poi_translation_title:language }}
 		</a>
 	</td>
@@ -29,16 +29,16 @@
     <td>
         {{ poi.latitude }}
     </td>
-    <td class="pl-2 pr-4">
+    <td class="pl-2 pr-4 flex">
         {% has_perm 'cms.edit_pois' request.user as can_edit_poi %}
         {% if can_edit_poi %}
             <button title="{% trans 'Restore POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'restore_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-poi">
-                <i data-feather="refresh-ccw" class="text-grey-darkest"></i>
+                <i data-feather="refresh-ccw" class="text-gray-800"></i>
             </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
             <button title="{% trans 'Delete POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
-                <i data-feather="trash-2" class="text-grey-darkest"></i>
+                <i data-feather="trash-2" class="text-gray-800"></i>
             </button>
         {% endif %}
     </td>

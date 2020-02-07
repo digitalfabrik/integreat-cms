@@ -1,7 +1,7 @@
 {% load i18n %}
 <!-- generic confirmation popup for restoring pois -->
-<div id="confirm-restore-poi" class="confirmation-popup flex-col justify-center max-w-sm fixed pin-t pin-b pin-r pin-l hidden">
-    <div class="content bg-grey-light w-full p-4 shadow-md rounded">
+<div id="confirm-restore-poi" class="confirmation-popup flex-col justify-center max-w-sm fixed inset-0 hidden">
+    <div class="content bg-gray-light w-full p-4 shadow-md rounded">
         <h2>{% trans 'Please confirm that you really want to restore this POI' %}</h2>
         <h3 class="poi-title text-center mt-4 mb-6"></h3>
         <p class="mt-4 mb-6">
@@ -9,8 +9,8 @@
         </p>
         <form method="post" action="#">
             {% csrf_token %}
-            <input type="submit" class="inline-block cursor-pointer bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, restore this POI now.' %}" />
-            <button class="cursor-pointer bg-red hover:bg-red-dark text-white font-bold py-3 px-4 rounded">
+            <input type="submit" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, restore this POI now.' %}" />
+            <button class="cursor-pointer bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded">
                 {% trans 'Cancel' %}
             </button>
         </form>

@@ -1,21 +1,21 @@
 {% load push_notification_filters %}
-<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td class="pl-2">
-        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
             {{ push_notification|translation:language }}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
         	{{ push_notification.channel }}
         </a>
     </td>
 	<td>
-		<div class="block py-3 px-2 text-grey-darkest">
+		<div class="block py-3 px-2 text-gray-800">
 			<div class="lang-grid">
 				{% for other_language in languages %}
 				<a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=other_language.code %}">
-					<i data-feather="{% if push_notification|translation:other_language %}edit-2{% else %}plus{% endif %}" class="text-grey-darkest"></i>
+					<i data-feather="{% if push_notification|translation:other_language %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
 				</a>
 				{% endfor %}
 			</div>
@@ -25,7 +25,7 @@
 		{% if push_notification.sent_date %}
 			{{ push_notification.sent_date }}
 		{% else %}
-			<i data-feather="x" class="text-grey-darkest"></i>
+			<i data-feather="x" class="text-gray-800"></i>
 		{% endif %}
 	</td>
 </tr>

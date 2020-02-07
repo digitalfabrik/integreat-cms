@@ -2,21 +2,21 @@
 {% load rules %}
 {% load poi_filters %}
 
-<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest">
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
 	<td class="py-3 px-2">
 		{{ poi.id }}
 	</td>
 	<td>
-		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-grey-darkest">
+		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
 			{{ poi|poi_translation_title:language }}
 		</a>
 	</td>
 	<td>
-		<div class="block py-3 px-2 text-grey-darkest">
+		<div class="block py-3 px-2 text-gray-800">
 			<div class="lang-grid">
 				{% for other_language in languages %}
 					<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=other_language.code %}">
-						<i data-feather="{% if other_language in poi.languages %}edit-2{% else %}plus{% endif %}" class="text-grey-darkest"></i>
+						<i data-feather="{% if other_language in poi.languages %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
 					</a>
 				{% endfor %}
 			</div>
@@ -34,20 +34,20 @@
 	<td>
 		{{ poi.country }}
 	</td>
-    <td class="pl-2 pr-4">
+    <td class="pl-2 pr-4 flex">
         <!-- TODO: add link to view poi in web app -->
         <a href="#" class="py-3" style="padding-right:4px;">
-            <i data-feather="eye" class="text-grey-darkest"></i>
+            <i data-feather="eye" class="text-gray-800"></i>
         </a>
         {% has_perm 'cms.edit_pois' request.user as can_edit_poi %}
         {% if can_edit_poi %}
             <button title="{% trans 'Archive POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
-                <i data-feather="archive" class="text-grey-darkest"></i>
+                <i data-feather="archive" class="text-gray-800"></i>
             </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
             <button title="{% trans 'Delete POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
-                <i data-feather="trash-2" class="text-grey-darkest"></i>
+                <i data-feather="trash-2" class="text-gray-800"></i>
             </button>
         {% endif %}
     </td>

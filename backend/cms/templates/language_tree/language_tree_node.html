@@ -1,21 +1,21 @@
 {% load i18n %}
 
-<tr class="border-t border-solid border-grey-lighter hover:bg-grey-lightest{% if node.depth > 0 %} child level-{{node.depth}}{% endif %}">
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100{% if node.depth > 0 %} child level-{{node.depth}}{% endif %}">
     <td class="single_icon">
         <span class="block py-3 pl-4 pr-2 cursor-move">
-            <i data-feather="move" class="text-grey-darkest"></i>
+            <i data-feather="move" class="text-gray-800"></i>
         </span>
     </td>
 	<td>
-		<a href="{% url 'edit_language_tree_node' language_tree_node_id=node.id region_slug=region.slug %}" class="block py-3 px-2 text-grey-darkest">
+		<a href="{% url 'edit_language_tree_node' language_tree_node_id=node.id region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
 			{{ node.translated_name }}
 		</a>
 	</td>
-    <td class="pl-2 pr-4" width="125">
+    <td class="pl-2 pr-4 flex" width="125">
 	    {% if node.active %}
-		    <i data-feather="check" class="text-grey-darkest"></i>
+		    <i data-feather="check" class="text-gray-800"></i>
 	    {% else %}
-		    <i data-feather="x" class="text-grey-darkest"></i>
+		    <i data-feather="x" class="text-gray-800"></i>
 	    {% endif %}
     </td>
 </tr>
