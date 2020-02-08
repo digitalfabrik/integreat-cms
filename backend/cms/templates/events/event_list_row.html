@@ -59,31 +59,31 @@
         {% endif %}
     </td>
     <td>
-        <i data-feather="calendar" style="vertical-align: middle;"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2" style="vertical-align: middle;"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+        <i data-feather="calendar" class="inline-block"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
     </td>
     <td>
-        <i data-feather="calendar" style="vertical-align: middle;"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2" style="vertical-align: middle;"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+        <i data-feather="calendar" class="inline-block"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
     <td class="pl-2 pr-4 flex">
         <!-- TODO: add link to view event in web app -->
-        <a href="" class="py-3" style="padding-right:4px;">
-            <i data-feather="eye" class="text-gray-800"></i>
+        <a href="" class="py-3 px-2">
+            <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if can_edit_event %}
-        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3 px-2"
            style="padding-left:4px;padding-right:4px;" title="{% trans 'Edit event' %}">
-            <i data-feather="edit" class="text-gray-800"></i>
+            <i data-feather="edit" class="inline-block text-gray-800"></i>
         </a>
-        <a href="{% url 'archive_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
+        <a href="{% url 'archive_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3 px-2"
            style="padding-left:4px;padding-right:4px;" title="{% trans 'Archive event' %}">
-            <i data-feather="archive" class="text-gray-800"></i>
+            <i data-feather="archive" class="inline-block text-gray-800"></i>
         </a>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
-        <a href="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
+        <a href="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3 px-2"
            style="padding-left:4px;padding-right:4px;" title="{% trans 'Delete event' %}">
-            <i data-feather="trash-2" class="text-gray-800"></i>
+            <i data-feather="trash-2" class="inline-block text-gray-800"></i>
         </a>
         {% endif %}
     </td>
