@@ -144,3 +144,28 @@ async function update_page_permission(url, page_id, user_id, permission) {
 }
 
 /* end page permissions */
+
+/* begin side by side view */
+u(document).handle('DOMContentLoaded', function() {
+    u('#side-by-side-select').handle('change', function (event) {
+        console.log(event);
+        let value = event.target.value;
+        console.log(event.target);
+        console.log(event.target.value);
+        if (value !== '') {
+            u('#side-by-side-link').attr('href', value);
+            u('#side-by-side-link').removeClass('bg-blue-400');
+            u('#side-by-side-link').removeClass('pointer-events-none');
+            u('#side-by-side-link').addClass('bg-blue-500');
+            u('#side-by-side-link').addClass('hover:bg-blue-600');
+        } else {
+            u('#side-by-side-link').first().removeAttribute('href');
+            u('#side-by-side-link').removeClass('bg-blue-500');
+            u('#side-by-side-link').removeClass('hover:bg-blue-600');
+            u('#side-by-side-link').addClass('bg-blue-400');
+            u('#side-by-side-link').addClass('pointer-events-none');
+        }
+    });
+});
+
+/* end side by side view */
