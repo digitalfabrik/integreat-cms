@@ -1,12 +1,11 @@
 """
-A view representing an instance of a point of interest. POIs can be added, changed or retrieved via this view.
+A view representing an instance of a point of interest. POIs can be created or updated via this view.
 """
 import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -32,7 +31,6 @@ class POIView(PermissionRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
 
         region = Region.objects.get(slug=kwargs.get('region_slug'))
-
         language = Language.objects.get(code=kwargs.get('language_code'))
 
         # get poi and translation objects if they exist
@@ -42,24 +40,11 @@ class POIView(PermissionRequiredMixin, TemplateView):
             language=language,
         ).first()
 
-        # Make form disabled if user has no permission to edit the page
-        if not request.user.has_perm('cms.edit_pois'):
-            disabled = True
-            messages.warning(request, _("You don't have the permission to edit this POI."))
-        elif poi and poi.archived:
-            disabled = True
+        if poi and poi.archived:
             messages.warning(request, _("You cannot edit this POI because it is archived."))
-        else:
-            disabled = False
 
-        poi_form = POIForm(
-            instance=poi,
-            disabled=disabled,
-        )
-        poi_translation_form = POITranslationForm(
-            instance=poi_translation,
-            disabled=disabled,
-        )
+        poi_form = POIForm(instance=poi)
+        poi_translation_form = POITranslationForm(instance=poi_translation)
 
         return render(request, self.template_name, {
             **self.base_context,
@@ -81,6 +66,13 @@ class POIView(PermissionRequiredMixin, TemplateView):
             poi=poi_instance,
             language=language,
         ).first()
+
+        if poi_instance and poi_instance.archived:
+            return redirect('edit_poi', **{
+                'poi_id': poi_instance.id,
+                'region_slug': region.slug,
+                'language_code': language.code,
+            })
 
         poi_form = POIForm(
             request.POST,
@@ -115,41 +107,24 @@ class POIView(PermissionRequiredMixin, TemplateView):
 
         else:
 
-            if poi_translation_form.instance.status == status.PUBLIC:
-                if not request.user.has_perm('cms.publish_pois'):
-                    raise PermissionDenied
+            poi = poi_form.save(region=region)
+            poi_translation_form.save(poi=poi, user=request.user)
 
-            poi = poi_form.save(
-                region=region,
-            )
-            poi_translation = poi_translation_form.save(
-                poi=poi,
-                user=request.user,
-            )
-            published = poi_translation.public and 'public' in poi_translation_form.changed_data
-            if poi_form.data.get('submit_archive'):
-                # archive button has been submitted
-                messages.success(request, _('POI was successfully archived.'))
-            elif not poi_instance:
+            published = poi_translation_form.instance.status == status.PUBLIC
+            if not poi_instance:
                 if published:
                     messages.success(request, _('POI was successfully created and published.'))
                 else:
                     messages.success(request, _('POI was successfully created.'))
-                    return redirect('edit_poi', **{
-                        'poi_id': poi.id,
-                        'region_slug': region.slug,
-                        'language_code': language.code,
-                    })
-            elif not poi_translation_instance:
-                if published:
-                    messages.success(request, _('POI Translation was successfully created and published.'))
-                else:
-                    messages.success(request, _('POI Translation was successfully created.'))
+                return redirect('edit_poi', **{
+                    'poi_id': poi.id,
+                    'region_slug': region.slug,
+                    'language_code': language.code,
+                })
+            if published:
+                messages.success(request, _('POI was successfully published.'))
             else:
-                if published:
-                    messages.success(request, _('POI Translation was successfully published.'))
-                else:
-                    messages.success(request, _('POI Translation was successfully saved.'))
+                messages.success(request, _('POI was successfully saved.'))
 
         return render(request, self.template_name, {
             **self.base_context,

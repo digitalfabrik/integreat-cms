@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load rules %}
 {% load static %}
+{% load content_filters %}
 
 {% block javascript_head %}
     <script src="{% static 'js/poi.js' %}"></script>
@@ -23,23 +24,24 @@
 </div>
 
 <div class="table-listing">
-    <table class="w-full mt-4 rounded border border-solid border-gray-light shadow bg-white table-fixed">
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-fixed">
         <thead>
-            <tr class="border-b border-solid border-gray-light">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2" style="width: 50px;">{% trans 'ID' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title' %}</th>
+            <tr class="border-b border-solid border-gray-200">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'ID' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 min">{% trans 'Version' %}</th>
+                <th class="text-sm text-left uppercase py-3">{% trans 'Status' %}</th>
+                <th class="text-sm text-left uppercase py-3">{% trans 'Title' %}</th>
                 <th class="text-sm text-left uppercase py-3">{% trans 'Street' %}</th>
                 <th class="text-sm text-left uppercase py-3">{% trans 'Postal Code' %}</th>
 	            <th class="text-sm text-left uppercase py-3">{% trans 'City' %}</th>
                 <th class="text-sm text-left uppercase py-3">{% trans 'Country' %}</th>
-                <th class="text-sm text-left uppercase py-3">{% trans 'Longitude' %}</th>
-                <th class="text-sm text-left uppercase py-3">{% trans 'Latitude' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
+                <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
             </tr>
         </thead>
         <tbody>
         {% for poi in pois %}
-            {% include "pois/poi_list_archived_row.html" with poi=poi %}
+            {% get_translation poi language.code as poi_translation %}
+            {% include "pois/poi_list_archived_row.html" %}
         {% empty %}
             <tr>
                 <td colspan="7" class="px-4 py-3">
@@ -50,10 +52,7 @@
         </tbody>
     </table>
 </div>
-{% has_perm 'cms.edit_pois' request.user as can_edit_poi %}
-{% if can_edit_poi %}
-    {% include "./confirmation_popups/restore_poi.html" %}
-{% endif %}
+{% include "./confirmation_popups/restore_poi.html" %}
 {% if user.is_superuser or user.is_staff %}
     {% include "./confirmation_popups/delete_poi.html" %}
 {% endif %}

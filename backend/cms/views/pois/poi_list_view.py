@@ -47,9 +47,6 @@ class POIListView(PermissionRequiredMixin, TemplateView):
                 'region_slug': region_slug,
             })
 
-        if not request.user.has_perm('cms.edit_pois'):
-            messages.warning(request, _("You don't have the permission to edit or create POIs."))
-
         if language != region.default_language:
             messages.warning(
                 request,
