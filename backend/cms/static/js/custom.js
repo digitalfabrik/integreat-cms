@@ -22,7 +22,7 @@ function custom_file_field() {
 }
 
 u(document).handle("DOMContentLoaded", function(e) {
-    u(".slug-error").closest("#slug-div").addClass("border-red");
+    u(".slug-error").closest("#slug-div").addClass("border-red-500");
 });
 
 function confirmation_popup(e, id) {
