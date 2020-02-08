@@ -48,9 +48,14 @@ class PageView(PermissionRequiredMixin, TemplateView):
         ).first()
 
         # Make form disabled if user has no permission to edit the page
-        disabled = not request.user.has_perm('cms.edit_page', page)
-        if disabled:
+        if not request.user.has_perm('cms.edit_page', page):
+            disabled = True
             messages.warning(request, _("You don't have the permission to edit this page."))
+        elif page and page.archived:
+            disabled = True
+            messages.warning(request, _("You cannot edit this page because it is archived."))
+        else:
+            disabled = False
 
         page_form = PageForm(
             instance=page,
