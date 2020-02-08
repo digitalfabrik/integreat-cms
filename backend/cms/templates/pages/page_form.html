@@ -344,7 +344,8 @@ document.addEventListener('DOMContentLoaded', function(){
                     editor.insertContent('<img src="{% static "svg/idea.svg" %}" style="width:1.5em">');
                 }
             });
-        }
+        }{% has_perm 'cms.edit_page' request.user page as can_edit_page %}{% if not can_edit_page or page_form.instance.id and page_form.instance.archived %},
+        readonly : 1{% endif %}
     });
 
     custom_file_field();
