@@ -61,14 +61,16 @@
         </div>
         <div class="w-1/5 flex justify-end mb-6">
         {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
-        {% if can_edit_page %}
-            <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
-        {% endif %}
-        {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
-        {% if can_publish_page %}
-            <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
-        {% else %}
-            <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+        {% if not page_form.instance.id or not page_form.instance.archived %}
+            {% if can_edit_page %}
+                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+            {% endif %}
+            {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
+            {% if can_publish_page %}
+                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% else %}
+                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+            {% endif %}
         {% endif %}
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
@@ -344,7 +346,8 @@ document.addEventListener('DOMContentLoaded', function(){
                     editor.insertContent('<img src="{% static "svg/idea.svg" %}" style="width:1.5em">');
                 }
             });
-        }
+        }{% has_perm 'cms.edit_page' request.user page as can_edit_page %}{% if not can_edit_page or page_form.instance.id and page_form.instance.archived %},
+        readonly : 1{% endif %}
     });
 
     custom_file_field();

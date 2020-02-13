@@ -59,15 +59,15 @@
         </div>
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if not event_form.instance.id or not event_form.instance.archived %}
-        <div class="w-1/5 flex justify-end mb-6">
-        {% if can_edit_event %}
-            <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
-        {% has_perm 'cms.publish_events' request.user as can_publish_event %}
-        {% if can_publish_event %}
-            <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
-        {% else %}
-            <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
-        {% endif %}
+            <div class="w-1/5 flex justify-end mb-6">
+            {% if can_edit_event %}
+                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+            {% has_perm 'cms.publish_events' request.user as can_publish_event %}
+            {% if can_publish_event %}
+                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% else %}
+                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+            {% endif %}
         {% endif %}
         </div>
         {% endif %}
@@ -433,7 +433,8 @@ document.addEventListener('DOMContentLoaded', function(){
                     editor.insertContent('<img src="{% static "svg/idea.svg" %}" style="width:1.5em">');
                 }
             });
-        }
+        }{% has_perm 'cms.edit_events' request.user as can_edit_event %}{% if not can_edit_event or event_form.instance.id and event_form.instance.archived %},
+            readonly : 1{% endif %}
     });
 
     custom_file_field();
