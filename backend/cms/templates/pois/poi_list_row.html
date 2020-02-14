@@ -1,22 +1,44 @@
 {% load i18n %}
 {% load rules %}
-{% load poi_filters %}
+{% load content_filters %}
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
 	<td class="pl-4 pr-2 min">
 		{{ poi.id }}
 	</td>
-    <td class="pr-2 min">
-        {{ poi_translation.version }}
+    <td>
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {{ poi_translation.version }}
+        </a>
     </td>
     <td>
-        {{ poi_translation.get_status_display }}
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {{ poi_translation.get_status_display }}
+        </a>
     </td>
 	<td>
 		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" class="block text-gray-800">
-			{{ poi|poi_translation_title:language }}
+			{%  if poi_translation %}
+                {{ poi_translation.title }}
+            {% else %}
+                <i>{% trans 'Translation not available' %}</i>
+            {% endif %}
 		</a>
 	</td>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE != language.code %}
+        {% get_translation poi LANGUAGE_CODE as backend_translation %}
+        <td>
+            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+                {% if backend_translation %}
+                    {{ backend_translation.title }}
+                {% else %}
+                    <i>{% trans 'Translation not available' %}</i>
+                {% endif %}
+            </a>
+        </td>
+    {% endif %}
 	<td>
 		<div class="block py-3 px-2 text-gray-800">
 			<div class="lang-grid">
@@ -45,11 +67,11 @@
         <a href="#" class="py-3">
             <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
-        <button title="{% trans 'Archive POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
+        <button title="{% trans 'Archive POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi_translation.title }}" data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
             <i data-feather="archive" class="inline-block text-gray-800"></i>
         </button>
         {% if user.is_superuser or user.is_staff %}
-            <button title="{% trans 'Delete POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi|poi_translation_title:language }}" data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
+            <button title="{% trans 'Delete POI' %}" class="confirmation-button py-3 pl-4" data-poi-id="{{ poi.id }}" data-poi-title="{{ poi_translation.title }}" data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
                 <i data-feather="trash-2" class="inline-block text-gray-800"></i>
             </button>
         {% endif %}
