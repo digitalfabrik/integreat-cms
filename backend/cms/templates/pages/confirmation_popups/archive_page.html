@@ -1,18 +1,19 @@
 {% load i18n %}
-<!-- confirmation popup for archiving page with id {{ page.id }}-->
-<div id="confirm_archive_page_{{ page.id }}" class="confirmation-popup flex-col justify-center max-w-sm fixed inset-0 hidden">
-	<div class="content bg-gray-200 w-full p-4 shadow-md rounded">
-		<h2>{% trans 'Please confirm that you really want to archive this page' %}</h2>
-		<p class="mt-4 mb-6">
-			{% trans 'All translations of this page will also be archived.' %}
-		</p>
-		<form method="post" action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
-			{% csrf_token %}
-			<input type="submit" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, archive this page now.' %}" />
-			<button class="cursor-pointer bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
-				{% trans 'Cancel' %}
-			</button>
-		</form>
-	</div>
+<!-- generic confirmation popup for archiving pages -->
+<div id="confirm-archive-page" class="confirmation-popup flex-col justify-center max-w-sm fixed inset-0 hidden">
+    <div class="content bg-gray-200 w-full p-4 shadow-md rounded">
+        <h2>{% trans 'Please confirm that you really want to archive this page' %}</h2>
+        <h3 class="confirmation-title text-center mt-4 mb-6"></h3>
+        <p class="mt-4 mb-6">
+            {% trans 'All translations of this page will also be archived.' %}
+        </p>
+        <form method="post" action="#">
+            {% csrf_token %}
+            <input type="submit" class="block w-full cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mb-2 rounded" value="{% trans 'Yes, archive this page now.' %}" />
+            <button class="w-full cursor-pointer bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded">
+                {% trans 'Cancel' %}
+            </button>
+        </form>
+    </div>
 </div>
 <!------------------------>

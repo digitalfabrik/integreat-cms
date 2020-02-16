@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block javascript_head %}
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/page.js' %}"></script>
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
@@ -225,11 +226,14 @@
                     </div>
                     {% if page and can_edit_page %}
                         <div class="pt-2 pb-4">
-                            <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
                             {% if page.archived %}
-                                {% trans 'Page is archived.' %}
+                                <span class="block font-bold mb-4">{% trans 'Restore page' %}</span>
+                                <button title="{% trans 'Restore page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}" data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-page">
+                                    <i data-feather="refresh-ccw" class="inline-block mr-2"></i> {% trans 'Restore this page' %}
+                                </button>
                             {% else %}
-                                <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_archive_page_{{ page.id }}')">
+                                <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
+                                <button title="{% trans 'Archive page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}" data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-page">
                                     <i data-feather="archive" class="inline-block mr-2"></i>
                                     {% trans 'Archive this page' %}
                                 </button>
@@ -241,7 +245,7 @@
                                 {% if page.children.all %}
                                     {% trans 'You cannot delete a page which has children.' %}
                                 {% else %}
-                                    <button class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_page_{{ page.id }}')">
+                                    <button title="{% trans 'Delete page' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}" data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-page">
                                         <i data-feather="trash-2" class="inline-block mr-2"></i>
                                         {% trans 'Delete this page' %}
                                     </button>
@@ -256,10 +260,14 @@
 </form>
 
 {% if page %}
-    {% include "./confirmation_popups/archive_page.html" with page=page %}
+    {% if page.archived %}
+        {% include "./confirmation_popups/restore_page.html" %}
+    {% else %}
+        {% include "./confirmation_popups/archive_page.html" %}
+    {% endif %}
     {% if user.is_superuser or user.is_staff %}
         {% if not page.children.all %}
-            {% include "./confirmation_popups/delete_page.html" with page=page %}
+            {% include "./confirmation_popups/delete_page.html" %}
         {% endif %}
     {% endif %}
 {% endif %}

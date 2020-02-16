@@ -81,40 +81,34 @@
             {{ page_translation.last_updated }}
         </a>
     </td>
-    <td class="pl-2 pr-4 flex">
+    <td class="pl-2 pr-4 text-right min">
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
            target="_blank"
-           title="{% trans 'View page' %}" class="py-3" style="padding-right:4px;">
-            <i data-feather="eye" class="text-gray-800"></i>
+           title="{% trans 'View page' %}" class="py-3 px-2">
+            <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
-            <i data-feather="edit" class="text-gray-800"></i>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3 px-2">
+            <i data-feather="edit" class="inline-block text-gray-800"></i>
         </a>
 
-        <button title="{% trans 'Archive page' %}" class="py-3" style="padding-left:4px;" onclick="confirmation_popup(event, '#confirm_archive_page_{{ page.id }}')">
-            <i data-feather="archive" class="text-gray-800"></i>
+        <button title="{% trans 'Archive page' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if page_translation %}{{ page_translation.title }}{% endif %}" data-action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-page">
+            <i data-feather="archive" class="inline-block text-gray-800"></i>
         </button>
         {% if user.is_superuser or user.is_staff %}
             {% if page.children.all %}
-                <button title="{% trans 'You cannot delete a page which has children.' %}" class="py-3" style="padding-left:4px;">
-                    <i data-feather="trash-2" class="text-gray-400"></i>
+                <button title="{% trans 'You cannot delete a page which has children.' %}" class="py-3 px-2">
+                    <i data-feather="trash-2" class="inline-block text-gray-400"></i>
                 </button>
             {% else %}
-                <button title="{% trans 'Delete page' %}" class="py-3" style="padding-left:4px;" onclick="confirmation_popup(event, '#confirm_delete_page_{{ page.id }}')">
-                    <i data-feather="trash-2" class="text-gray-800"></i>
+                <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if page_translation %}{{ page_translation.title }}{% endif %}" data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-page">
+                    <i data-feather="trash-2" class="inline-block text-gray-800"></i>
                 </button>
             {% endif %}
         {% endif %}
         <a href="{% url 'download_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
-           title="{% trans 'Download page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
-             <i data-feather="download" class="text-gray-800"></i>
+           title="{% trans 'Download page' %}" class="py-3 px-2">
+             <i data-feather="download" class="inline-block text-gray-800"></i>
         </a>
     </td>
 </tr>
-{% include "./confirmation_popups/archive_page.html" with page=page %}
-{% if user.is_superuser or user.is_staff %}
-    {% if not page.children.all %}
-        {% include "./confirmation_popups/delete_page.html" with page=page %}
-    {% endif %}
-{% endif %}
