@@ -3,5 +3,6 @@ from .event_list_view import EventListView
 from .event_actions import (
     archive,
     restore,
-    delete
+    delete,
+    search_poi_ajax
 )
