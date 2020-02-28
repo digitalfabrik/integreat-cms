@@ -3,6 +3,10 @@
 {% load static %}
 {% load content_filters %}
 
+{% block javascript_head %}
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="table-header">
         <div class="flex flex-wrap">
@@ -56,4 +60,8 @@
             </tbody>
         </table>
     </div>
+    {% include "./confirmation_popups/restore_event.html" %}
+    {% if user.is_superuser or user.is_staff %}
+        {% include "./confirmation_popups/delete_event.html" %}
+    {% endif %}
 {% endblock content %}

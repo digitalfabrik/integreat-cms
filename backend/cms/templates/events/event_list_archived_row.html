@@ -71,16 +71,14 @@
         </a>
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if can_edit_event %}
-        <a href="{% url 'restore_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
-           style="padding-left:4px;padding-right:4px;" title="{% trans 'Restore event' %}">
-            <i data-feather="refresh-ccw" class="text-gray-800"></i>
-        </a>
+            <button title="{% trans 'Restore event' %}" class="confirmation-button py-3 pl-4" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'restore_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-event">
+                <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
+            </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
-        <a href="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
-           style="padding-left:4px;padding-right:4px;" title="{% trans 'Delete event' %}">
-            <i data-feather="trash-2" class="text-gray-800"></i>
-        </a>
+            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 pl-4" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-event">
+                <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+            </button>
         {% endif %}
     </td>
 </tr>

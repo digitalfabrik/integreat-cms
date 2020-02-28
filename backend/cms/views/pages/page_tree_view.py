@@ -16,8 +16,13 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.view_pages'
     raise_exception = True
 
-    template_name = 'pages/page_tree.html'
-    base_context = {'current_menu_item': 'pages'}
+    template = 'pages/page_tree.html'
+    template_archived = 'pages/page_tree_archived.html'
+    archived = False
+
+    @property
+    def template_name(self):
+        return self.template_archived if self.archived else self.template
 
     def get(self, request, *args, **kwargs):
         # current region
@@ -43,7 +48,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
             })
 
         # all pages of the current region in the current language
-        pages = Page.get_tree(region_slug)
+        pages = Page.get_tree(region_slug, archived=self.archived)
 
         # all other languages of current region
         languages = region.languages
@@ -55,7 +60,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                'current_menu_item': 'pages',
                 'pages': pages,
                 'archived_count': Page.archived_count(region_slug),
                 'language': language,

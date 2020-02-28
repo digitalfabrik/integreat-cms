@@ -195,6 +195,7 @@ urlpatterns = [
             url(r'^(?P<language_code>[-\w]+)/', include([
                 url(r'^$', pages.PageTreeView.as_view(), name='pages'),
                 url(r'^new$', pages.PageView.as_view(), name='new_page'),
+                url(r'^archived$', pages.PageTreeView.as_view(archived=True), name='archived_pages'),
                 url(r'^upload$', pages.upload_page, name='upload_page'),
                 url(r'^(?P<page_id>[0-9]+)/', include([
                     url(
@@ -239,7 +240,6 @@ urlpatterns = [
                         name='move_page'
                     ),
                 ])),
-                url(r'^archive$', pages.PageArchive.as_view(), name='page_archive'),
             ])),
         ])),
         # TODO: Change destination for delete_event, add view_event

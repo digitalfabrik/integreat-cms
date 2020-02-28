@@ -125,21 +125,12 @@ class Page(MPTTModel):
             [pages]: Array of pages connected with their relations
         """
 
-        if archived:
-            pages = cls.objects.all().prefetch_related(
-                'translations'
-            ).filter(
-                region__slug=region_slug
-            )
-        else:
-            pages = cls.objects.all().prefetch_related(
-                'translations'
-            ).filter(
-                region__slug=region_slug,
-                archived=False
-            )
-
-        return pages
+        return cls.objects.all().prefetch_related(
+            'translations'
+        ).filter(
+            region__slug=region_slug,
+            archived=archived
+        )
 
     def best_language_title(self):
         page_translation = self.translations.filter(language__code=get_language())

@@ -15,5 +15,4 @@ from .page_actions import (
     get_pages_list_ajax,
     save_mirrored_page
 )
-from .page_archive_view import PageArchive
 from .page_sbs_view import PageSideBySideView
