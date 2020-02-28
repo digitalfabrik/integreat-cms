@@ -22,5 +22,5 @@ function custom_file_field() {
 }
 
 u(document).handle("DOMContentLoaded", function(e) {
-    u(".slug-error").closest("#slug-div").addClass("border-red");
+    u(".slug-error").closest("#slug-div").addClass("border-red-500");
 });
