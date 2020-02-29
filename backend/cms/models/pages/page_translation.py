@@ -130,9 +130,12 @@ class PageTranslation(models.Model):
         """
         Combines the text from the PageTranslation with the text from the mirrored page.
         """
+        attached_text = self.page.get_mirrored_text(self.language.code)
+        if attached_text is None:
+            return self.text
         if self.page.mirrored_page_first:
-            return self.page.get_mirrored_text(self.language.code) + self.text
-        return self.text + self.page.get_mirrored_text(self.language.code)
+            return attached_text + self.text
+        return self.text + attached_text
 
     def __str__(self):
         if self.id:
