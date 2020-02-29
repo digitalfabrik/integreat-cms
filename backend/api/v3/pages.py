@@ -23,7 +23,7 @@ def transform_page(page_translation):
         'title': page_translation.title,
         'modified_gmt': page_translation.last_updated,
         'excerpt': page_translation.text,
-        'content': page_translation.text,
+        'content': page_translation.combined_text,
         'parent': parent,
         'order': page_translation.page.lft, # use left edge indicator of mptt model for order
         'available_languages': page_translation.available_languages,
