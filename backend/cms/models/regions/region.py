@@ -15,11 +15,12 @@ class Region(models.Model):
     """
 
     name = models.CharField(max_length=200)
+    common_id = models.CharField(max_length=48, blank=True)  # Public unique IDs like German Gemeindeschluessel
     slug = models.SlugField(max_length=200, unique=True, blank=True, allow_unicode=True)
     status = models.CharField(max_length=8, choices=region_status.CHOICES, default=region_status.HIDDEN)
 
     administrative_division = models.CharField(max_length=24, choices=administrative_division.CHOICES, default=administrative_division.RURAL_DISTRICT)
-    aliases = ArrayField(models.CharField(max_length=60), blank=True)
+    aliases = models.TextField(blank=True)
 
     events_enabled = models.BooleanField(default=True)
     push_notifications_enabled = models.BooleanField(default=True)

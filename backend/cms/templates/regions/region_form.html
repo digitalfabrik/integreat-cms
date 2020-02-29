@@ -43,10 +43,10 @@
                     <label for="id_name" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Name of the region" %}</label>
                     {% trans "Enter the region's name here" as name_placeholder%}
                     {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-
+                    <label for="id_name" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Common Region Identifier" %}</label>
+                    {% render_field form.common_id class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     <label for="id_aliases" class="font-bold block p-2 mt-5 cursor-pointer">{% trans 'Region aliases' %}</label>
-                    <label for="id_aliases" class="block px-2 py-1 text-s cursor-pointer">{% trans 'This can be e.g. municipalities in this region.' %}</label>
-                    <label for="id_aliases" class="block px-2 py-1 mb-2 text-s cursor-pointer">{% trans 'Enter multiple aliases separated by commas.' %}</label>
+                    <label for="id_aliases" class="block px-2 py-1 mb-2 text-s cursor-pointer">{% trans 'Aliases JSON object. If empty, the CMS will try to fill this automatically.' %}</label>
                     {% trans 'Enter region aliases here' as aliases_placeholder%}
                     {% render_field form.aliases placeholder=aliases_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 

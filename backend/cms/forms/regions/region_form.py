@@ -5,7 +5,9 @@ import logging
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.apps import apps
 
+from gvz_api.utils import GvzRegion
 from ...models import Region, Page, PageTranslation, LanguageTreeNode
 from ...utils.slug_utils import generate_unique_slug
 
@@ -23,6 +25,7 @@ class RegionForm(forms.ModelForm):
         model = Region
         fields = [
             'name',
+            'common_id',
             'slug',
             'events_enabled',
             'push_notifications_enabled',
@@ -51,6 +54,7 @@ class RegionForm(forms.ModelForm):
             self.cleaned_data
         )
 
+
         # Only duplicate content if region is created and a region was selected
         duplicate_region = not self.instance.id and self.cleaned_data['duplicated_region']
 
@@ -72,6 +76,20 @@ class RegionForm(forms.ModelForm):
             duplicate_media(source_region, region)
 
         return region
+
+    def clean(self):
+        cleaned_data = super(RegionForm, self).clean()
+        if apps.get_app_config('gvz_api').api_available:
+            gvz_region = GvzRegion(region_name=cleaned_data['name'],
+                                   region_key=cleaned_data['common_id'],
+                                   region_type=cleaned_data['administrative_division'])
+            if gvz_region.aliases and cleaned_data['aliases'] == '':
+                cleaned_data['aliases'] = gvz_region.aliases
+            if gvz_region.longitude and cleaned_data['longitude'] == 0.0:
+                cleaned_data['longitude'] = gvz_region.longitude
+            if gvz_region.latitude and cleaned_data['latitude'] == 0.0:
+                cleaned_data['latitude'] = gvz_region.latitude
+        return cleaned_data
 
     def clean_slug(self):
         return generate_unique_slug(self, 'region')
