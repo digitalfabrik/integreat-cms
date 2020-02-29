@@ -232,3 +232,6 @@ COMPRESS_PRECOMPILERS = (
 )
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
+
+# GVZ (Gemeindeverzeichnis) API URL
+GVZ_API_URL = "http://gvz.integreat-app.de/api/"
