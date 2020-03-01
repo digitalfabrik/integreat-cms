@@ -9,7 +9,7 @@
             </div>
         {% endif %}
         {% if permission_message.level_tag == 'success' %}
-            <div class="bg-green-100 border-l-4 border-green-500text-green-500 px-4 py-3 my-2" role="alert">
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-500 px-4 py-3 my-2" role="alert">
                 <p>{{ permission_message.message }}</p>
             </div>
         {% endif %}
@@ -19,7 +19,7 @@
             </div>
         {% endif %}
         {% if permission_message.level_tag == 'error' %}
-            <div class="bg-red-100 border-l-4 border-red text-red-500 px-4 py-3 my-2" role="alert">
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2" role="alert">
                 <p>{{ permission_message.message }}</p>
             </div>
         {% endif %}
@@ -32,7 +32,7 @@
     </div>
     <div class="px-2 py-2">
         {% for user in page.editors.all %}
-            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500text-white text-xl">
+            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500 text-white text-xl">
                 {{ user.username }}
                 <a class="revoke-page-permission" href="{% url 'revoke_page_permission_ajax' %}" data-user-id="{{ user.id }}" data-page-id="{{ page.id }}" data-permission="edit">
                     <i data-feather="x-circle" class="cursor-pointer ml-1 mb-0 align-middle text-white"></i>
@@ -63,7 +63,7 @@
     </div>
     <div class="px-2 py-2">
         {% for user in page.publishers.all %}
-            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500text-white text-xl">
+            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500 text-white text-xl">
                 {{ user.username }}
                 <a class="revoke-page-permission" href="{% url 'revoke_page_permission_ajax' %}" data-user-id="{{ user.id }}" data-page-id="{{ page.id }}" data-permission="publish">
                     <i data-feather="x-circle" class="cursor-pointer ml-1 mb-0 align-middle text-white"></i>

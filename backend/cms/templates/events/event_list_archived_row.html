@@ -3,7 +3,7 @@
 {% load content_filters %}
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
-    <td style="padding-left: 10px">
+    <td class="px-2 min">
         {{ event.id }}
     </td>
     <td>
@@ -59,28 +59,26 @@
         {% endif %}
     </td>
     <td>
-        <i data-feather="calendar" style="vertical-align: middle;"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2" style="vertical-align: middle;"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+        <i data-feather="calendar" class="inline-block"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
     </td>
     <td>
-        <i data-feather="calendar" style="vertical-align: middle;"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2" style="vertical-align: middle;"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+        <i data-feather="calendar" class="inline-block"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
-    <td class="pl-2 pr-4 flex">
+    <td class="pl-2 pr-4 flex min">
         <!-- TODO: add link to view event in web app -->
-        <a href="" class="py-3" style="padding-right:4px;">
-            <i data-feather="eye" class="text-gray-800"></i>
+        <a href="" class="py-3 px-2">
+            <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if can_edit_event %}
-        <a href="{% url 'restore_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
-           style="padding-left:4px;padding-right:4px;" title="{% trans 'Restore event' %}">
-            <i data-feather="refresh-ccw" class="text-gray-800"></i>
-        </a>
+            <button title="{% trans 'Restore event' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'restore_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-event">
+                <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
+            </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
-        <a href="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3"
-           style="padding-left:4px;padding-right:4px;" title="{% trans 'Delete event' %}">
-            <i data-feather="trash-2" class="text-gray-800"></i>
-        </a>
+            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-event">
+                <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+            </button>
         {% endif %}
     </td>
 </tr>

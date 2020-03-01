@@ -16,7 +16,7 @@
 
 {% block javascript_head %}
     <script src="{% static 'js/custom.js' %}"></script>
-    <script src="{% static 'js/poi.js' %}"></script>
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
     <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
     <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
@@ -107,10 +107,10 @@
                     </div>
                     <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
                     {% trans 'Insert title here' as title_placeholder%}
-                    {% render_field poi_translation_form.title|add_error_class:"border-red" placeholder=title_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    {% render_field poi_translation_form.title|add_error_class:"border-red-500" placeholder=title_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     <label class="block mb-2 mt-4 font-bold">{% trans 'Short description' %}</label>
                     {% trans 'Insert short description here' as short_description_placeholder%}
-                    {% render_field poi_translation_form.short_description|add_error_class:"border-red" placeholder=short_description_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" placeholder=short_description_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     <label class="block mb-2 mt-4 font-bold">{% trans 'Description' %}</label>
                     {% render_field poi_translation_form.description class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
                     <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
@@ -136,29 +136,29 @@
                         <span class="block mb-2 font-bold">{% trans 'Address' %}</span>
                         <label for="id_address" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Street' %}</label>
                         {% trans 'Insert street here' as street_placeholder%}
-                        {% render_field poi_form.address|add_error_class:"border-red" placeholder=street_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        {% render_field poi_form.address|add_error_class:"border-red-500" placeholder=street_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         <label for="id_postcode" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Postal Code' %}</label>
                         {% trans 'Insert postal code here' as postal_code_placeholder%}
-                        {% render_field poi_form.postcode|add_error_class:"border-red" placeholder=postal_code_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        {% render_field poi_form.postcode|add_error_class:"border-red-500" placeholder=postal_code_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         <label for="id_city" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'City' %}</label>
                         {% trans 'Insert city here' as city_placeholder%}
-                        {% render_field poi_form.city|add_error_class:"border-red" placeholder=city_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        {% render_field poi_form.city|add_error_class:"border-red-500" placeholder=city_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         <label for="id_country" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Country' %}</label>
                         {% trans 'Insert country here' as country_placeholder%}
-                        {% render_field poi_form.country|add_error_class:"border-red" placeholder=country_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        {% render_field poi_form.country|add_error_class:"border-red-500" placeholder=country_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     </div>
                     <div class="pt-2 pb-4">
                         <span class="block mb-2 font-bold">{% trans 'Position' %}</span>
                         <label for="id_longitude" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Longitude' %}</label>
                         {% trans 'Insert longitude here' as longitude_placeholder%}
-                        {% render_field poi_form.longitude|add_error_class:"border-red" placeholder=longitude_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        {% render_field poi_form.longitude|add_error_class:"border-red-500" placeholder=longitude_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         <label for="id_latitude" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Latitude' %}</label>
                         {% trans 'Insert latitude here' as latitude_placeholder%}
-                        {% render_field poi_form.latitude|add_error_class:"border-red" placeholder=latitude_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        {% render_field poi_form.latitude|add_error_class:"border-red-500" placeholder=latitude_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     </div>
                     <div class="pt-2 pb-4">
                         <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
-                        {% render_field poi_form.icon|add_error_class:"border-red" id="icon" class="image-field" %}
+                        {% render_field poi_form.icon|add_error_class:"border-red-500" id="icon" class="image-field" %}
                         <label for="icon" class="w-full block text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-3 px-4 rounded cursor-pointer relative">
                             <i data-feather="upload" class="inline-block mr-2"></i>
                             <span class="standard_text">{% trans 'Set icon' %}</span>
@@ -169,12 +169,12 @@
                         <div class="pt-2 pb-4">
                             {% if poi_form.instance.archived %}
                             <span class="block font-bold mb-4">{% trans 'Restore POI' %}</span>
-                                <button title="{% trans 'Restore POI' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-poi-id="{{ poi_form.instance.id }}" data-poi-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-poi">
+                                <button title="{% trans 'Restore POI' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-poi">
                                     <i data-feather="refresh-ccw" class="inline-block mr-2"></i> {% trans 'Restore this POI' %}
                                 </button>
                             {% else %}
                                 <span class="block font-bold mb-4">{% trans 'Archive POI' %}</span>
-                                <button title="{% trans 'Archive POI' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-poi-id="{{ poi_form.instance.id }}" data-poi-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
+                                <button title="{% trans 'Archive POI' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
                                     <i data-feather="archive" class="inline-block mr-2"></i> {% trans 'Archive this POI' %}
                                 </button>
                             {% endif %}
@@ -182,7 +182,7 @@
                         {% if user.is_superuser or user.is_staff %}
                             <div class="pt-2 pb-4">
                                 <span class="block font-bold mb-4">{% trans 'Delete POI' %}</span>
-                                <button title="{% trans 'Delete POI' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" data-poi-id="{{ poi_form.instance.id }}" data-poi-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
+                                <button title="{% trans 'Delete POI' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
                                     <i data-feather="trash-2" class="inline-block mr-2"></i> {% trans 'Delete this POI' %}
                                 </button>
                             </div>

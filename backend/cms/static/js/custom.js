@@ -22,19 +22,5 @@ function custom_file_field() {
 }
 
 u(document).handle("DOMContentLoaded", function(e) {
-    u(".slug-error").closest("#slug-div").addClass("border-red");
+    u(".slug-error").closest("#slug-div").addClass("border-red-500");
 });
-
-function confirmation_popup(e, id) {
-    e.preventDefault();
-    u('#popup-overlay').removeClass('hidden');
-    u(id).removeClass('hidden');
-    u(id).addClass('flex');
-}
-
-function close_confirmation_popup(e) {
-    e.preventDefault();
-    u('#popup-overlay').addClass('hidden');
-    u('.confirmation-popup').removeClass('flex');
-    u('.confirmation-popup').addClass('hidden');
-}

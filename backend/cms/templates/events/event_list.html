@@ -3,6 +3,10 @@
 {% load static %}
 {% load content_filters %}
 
+{% block javascript_head %}
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="table-header">
         <div class="flex flex-wrap">
@@ -39,8 +43,8 @@
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'ID' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Version' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'ID' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'Version' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
@@ -60,7 +64,7 @@
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Event location' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Start' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'End' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
             </tr>
             </thead>
             <tbody>
@@ -80,4 +84,8 @@
             </tbody>
         </table>
     </div>
+    {% include "./confirmation_popups/archive_event.html" %}
+    {% if user.is_superuser or user.is_staff %}
+        {% include "./confirmation_popups/delete_event.html" %}
+    {% endif %}
 {% endblock content %}

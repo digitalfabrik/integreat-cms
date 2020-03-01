@@ -6,6 +6,10 @@
 {% load page_filters %}
 {% load rules %}
 
+{% block javascript_head %}
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="table-header">
     <div class="flex flex-wrap">
@@ -14,7 +18,7 @@
         </div>
         <div class="w-1/2 flex flex-wrap flex-col justify-center">
             <div class="flex flex-wrap justify-end">
-                <a href="{% url 'page_archive' region_slug=region.slug language_code=language.code %}" class="font-bold text-xs text-gray-800 block pb-2 hover:underline">
+                <a href="{% url 'archived_pages' region_slug=region.slug language_code=language.code %}" class="font-bold text-xs text-gray-800 block pb-2 hover:underline">
                     {% trans 'Archived pages' %}
                     <span class="inline-block rounded-full bg-integreat text-gray-800 px-2 py-1 text-xs font-bold">
                         {{ archived_count }}
@@ -86,7 +90,7 @@
                     </div>
                 </th>
                 <th class="text-sm text-left uppercase py-3 pl-2">{% trans 'Last updated' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
+                <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
             </tr>
         </thead>
         <tbody>
@@ -113,6 +117,10 @@
         </tbody>
     </table>
 </div>
+{% include "./confirmation_popups/archive_page.html" %}
+{% if user.is_superuser or user.is_staff %}
+    {% include "./confirmation_popups/delete_page.html" %}
+{% endif %}
 {% endblock %}
 
 {% block javascript %}
