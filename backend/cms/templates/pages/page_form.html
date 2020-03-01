@@ -84,12 +84,49 @@
                             <div class="border-b-2 border-white">
                         {% if other_language == language %}
                             <div class="p-4">
-                                <i data-feather="{% if other_language in page.languages %}edit-2{% else %}plus{% endif %}" class="inline-block"></i>
+                                {% if other_language in page.languages %}
+                                    {% if page_translation_form.instance.is_outdated %}
+                                        <span title="{% trans 'Translation outdated' %}">
+                                            <i data-feather="alert-triangle" class="inline-block"></i>
+                                        </span>
+                                    {% elif page_translation_form.instance.currently_in_translation %}
+                                        <span title="{% trans 'Currently in translation' %}">
+                                            <i data-feather="clock" class="inline-block"></i>
+                                        </span>
+                                    {% else %}
+                                        <span title="{% trans 'Translation up-to-date' %}">
+                                            <i data-feather="check" class="inline-block"></i>
+                                        </span>
+                                    {% endif %}
+                                {% else %}
+                                    <span title="{% trans 'Translation missing' %}">
+                                        <i data-feather="x" class="inline-block"></i>
+                                    </span>
+                                {% endif %}
                                 {{ other_language.translated_name }}
                             </div>
                         {% else %}
                             <a class="p-4 block" style="color: inherit;" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}">
-                                <i data-feather="{% if other_language in page.languages %}edit-2{% else %}plus{% endif %}" class="inline-block"></i>
+                                {% if other_language in page.languages %}
+                                    {% get_translation page_form.instance other_language.code as other_page_translation %}
+                                    {% if other_page_translation.is_outdated %}
+                                        <span title="{% trans 'Translation outdated' %}">
+                                            <i data-feather="alert-triangle" class="inline-block"></i>
+                                        </span>
+                                    {% elif other_page_translation.currently_in_translation %}
+                                        <span title="{% trans 'Currently in translation' %}">
+                                            <i data-feather="clock" class="inline-block"></i>
+                                        </span>
+                                    {% else %}
+                                        <span title="{% trans 'Translation up-to-date' %}">
+                                            <i data-feather="check" class="inline-block"></i>
+                                        </span>
+                                    {% endif %}
+                                {% else %}
+                                    <span title="{% trans 'Translation missing' %}">
+                                        <i data-feather="x" class="inline-block"></i>
+                                    </span>
+                                {% endif %}
                                 {{ other_language.translated_name }}
                             </a>
                         {% endif %}
@@ -101,9 +138,9 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
                     {% if page_translation_form.instance.id %}
-                        <label for="events_enabled" class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                        <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
                         {{ page_translation_form.instance.version }}<br>
-                        <label for="events_enabled" class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                        <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
                         {{ page_translation_form.instance.get_status_display }}
                     {% endif %}
                     <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
