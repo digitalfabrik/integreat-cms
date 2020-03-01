@@ -14,7 +14,7 @@ if nc -w1 localhost 5432; then
             exit 1
         else
             # Call this script again as the user who executed sudo
-            sudo -u $SUDO_USER env PATH=$PATH $0
+            sudo -u $SUDO_USER env PATH="$PATH" $0
             # Exit with code of subprocess
             exit $?
         fi
@@ -53,7 +53,7 @@ else
     if ! [ $(id -u) = 0 ]; then
         echo "This script needs root privileges to connect to the docker deamon. It will be automatically restarted with sudo." >&2
         # Call this script again as root
-        sudo env PATH=$PATH $0
+        sudo env PATH="$PATH" $0
         # Exit with code of subprocess
         exit $?
     elif [ -z "$SUDO_USER" ]; then
@@ -70,16 +70,16 @@ else
     source ../.venv/bin/activate
 
     # Check if npm dependencies are up to date and update if not
-    sudo -u $SUDO_USER env PATH=$PATH npx npm-check --update-all --skip-unused
+    sudo -u $SUDO_USER env PATH="$PATH" npx npm-check --update-all --skip-unused
 
     # Compile CSS
-    sudo -u $SUDO_USER env PATH=$PATH npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
+    sudo -u $SUDO_USER env PATH="$PATH" npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
 
     # Apply Compressing
-    sudo -u $SUDO_USER env PATH=$PATH integreat-cms compress
+    sudo -u $SUDO_USER env PATH="$PATH" integreat-cms compress
 
     # Re-generating translation file and compile it
-    sudo -u $SUDO_USER env PATH=$PATH ./translate.sh
+    sudo -u $SUDO_USER env PATH="$PATH" ./translate.sh
 
     # Check if postgres database container is already running
     if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
@@ -112,7 +112,7 @@ else
     fi
 
     # Start Integreat CMS
-    sudo -u $SUDO_USER env PATH=$PATH integreat-cms runserver localhost:8000 --settings=backend.docker_settings
+    sudo -u $SUDO_USER env PATH="$PATH" integreat-cms runserver localhost:8000 --settings=backend.docker_settings
 
     # Stop the postgres database docker container
     docker stop integreat_django_postgres > /dev/null

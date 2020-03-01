@@ -34,7 +34,7 @@ if [ $(id -u) = 0 ]; then
         exit 1
     else
         # Call this script again as the user who executed sudo
-        sudo -u $SUDO_USER env PATH=$PATH $0
+        sudo -u $SUDO_USER env PATH="$PATH" $0
         # Exit with code of subprocess
         exit $?
     fi
