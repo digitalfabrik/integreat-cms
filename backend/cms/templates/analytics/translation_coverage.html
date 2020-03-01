@@ -1,10 +1,15 @@
 {% extends "_base.html" %}
+{% load static %}
 {% load i18n %}
-{% block content %}
 
+{% block javascript_head %}
+<script src="{% static 'chart.js/dist/Chart.js' %}"></script>
+{% endblock %}
+
+{% block content %}
 <div class="row">
     <div class="col-sm-12">
-        <h2 class="heading font-normal mb-2">{% trans 'Statistics' %}</h2>
+        <h2 class="heading font-normal mb-2">{% trans 'Translation Report' %}</h2>
     </div>
     <div class="flex flex-row flex-wrap flex-grow mt-2">
         <div class="md:w-3/4 p-3">
@@ -26,25 +31,34 @@
                         var graph = new Chart(chart, {
                             "type": "bar",
                             "data": {
-                                "labels": [{% for lang in coverages %}"{{lang.1}}",{% endfor %}],
+                                "labels": [{% for language in languages %}"{{language.translated_name}}",{% endfor %}],
                                 "datasets": [
                                     {
-                                        "label": "Translated",
+                                        "label": " {% trans 'Translations up-to-date' %}",
                                         "lineTension": 0,
-                                        "data": [{% for lang in coverages %}"{{lang.3}}",{% endfor %}],
+                                        "data": [{% for language in languages %}"{{ language.num_page_translations_up_to_date }}",{% endfor %}],
                                         "type": "bar",
                                         "fill": true,
-                                        "borderColor": "#008000",
-                                        "backgroundColor": "#008000",
+                                        "borderColor": "#48bb78",
+                                        "backgroundColor": "#48bb78",
                                     },
                                     {
-                                        "label": "Need to be translated",
+                                        "label": " {% trans 'Translations outdated' %}",
                                         "lineTension": 0,
-                                        "data": [{% for lang in coverages %}{{lang.4}},{% endfor %}],
+                                        "data": [{% for language in languages %}"{{ language.num_page_translations_outdated }}",{% endfor %}],
                                         "type": "bar",
                                         "fill": true,
-                                        "borderColor": "#C0D6E4",
-                                        "backgroundColor": "#C0D6E4",},
+                                        "borderColor": "#ed8936",
+                                        "backgroundColor": "#ed8936",
+                                    },
+                                    {
+                                        "label": " {% trans 'Translations missing' %}",
+                                        "lineTension": 0,
+                                        "data": [{% for language in languages %}"{{ language.num_page_translations_missing }}",{% endfor %}],
+                                        "type": "bar",
+                                        "fill": true,
+                                        "borderColor": "#f56565",
+                                        "backgroundColor": "#f56565",},
 
                                     ]},
                             "options": {
