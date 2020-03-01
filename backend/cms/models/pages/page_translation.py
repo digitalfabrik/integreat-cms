@@ -120,7 +120,7 @@ class PageTranslation(models.Model):
             return True
         self_revision = self.latest_major_public_revision
         source_revision = source_translation.latest_major_public_revision
-        # If on of the translations has no major public revision, it cannot be outdated
+        # If one of the translations has no major public revision, it cannot be outdated
         if not self_revision or not source_revision:
             return False
         return self_revision.last_updated < source_revision.last_updated
@@ -134,9 +134,21 @@ class PageTranslation(models.Model):
             return self.page.get_mirrored_text(self.language.code) + self.text
         return self.text + self.page.get_mirrored_text(self.language.code)
 
+    @classmethod
+    def get_translations(cls, region, language):
+        return cls.objects.filter(page__region=region, language=language).distinct('page')
+
+    @classmethod
+    def get_outdated_translations(cls, region, language):
+        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.is_outdated]
+
+    @classmethod
+    def get_up_to_date_translations(cls, region, language):
+        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if not t.is_outdated]
+
     def __str__(self):
         if self.id:
-            return '(id: {}, lang: {}, slug: {})'.format(self.id, self.language.code, self.slug)
+            return '(id: {}, page_id: {}, lang: {}, version: {}, slug: {})'.format(self.id, self.page.id, self.language.code, self.version, self.slug)
         return super(PageTranslation, self).__str__()
 
     class Meta:
