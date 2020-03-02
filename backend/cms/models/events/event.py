@@ -11,7 +11,7 @@ from django.db import models
 from .recurrence_rule import RecurrenceRule
 from ..pois.poi import POI
 from ..regions.region import Region
-from ...constants import frequency
+from ...constants import frequency, status
 
 
 class Event(models.Model):
@@ -116,6 +116,12 @@ class Event(models.Model):
                                     until=until)
             return [x for x in occurrences if start <= x <= end or start <= x + event_span <= end]
         return [event_start] if start <= event_start <= end or start <= event_end <= end else []
+
+    def get_public_translation(self, language_code):
+        return self.translations.filter(
+            language__code=language_code,
+            status=status.PUBLIC,
+        ).first()
 
     class Meta:
         ordering = ['start_date', 'start_time']

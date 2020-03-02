@@ -84,23 +84,29 @@
                             <div class="border-b-2 border-white">
                         {% if other_language == language %}
                             <div class="p-4">
-                                {% if other_language in page.languages %}
-                                    {% if page_translation_form.instance.is_outdated %}
-                                        <span title="{% trans 'Translation outdated' %}">
-                                            <i data-feather="alert-triangle" class="inline-block"></i>
-                                        </span>
-                                    {% elif page_translation_form.instance.currently_in_translation %}
-                                        <span title="{% trans 'Currently in translation' %}">
-                                            <i data-feather="clock" class="inline-block"></i>
-                                        </span>
+                                {% if page %}
+                                    {% if other_language in page.languages %}
+                                        {% if page_translation_form.instance.is_outdated %}
+                                            <span title="{% trans 'Translation outdated' %}">
+                                                <i data-feather="alert-triangle" class="inline-block"></i>
+                                            </span>
+                                        {% elif page_translation_form.instance.currently_in_translation %}
+                                            <span title="{% trans 'Currently in translation' %}">
+                                                <i data-feather="clock" class="inline-block"></i>
+                                            </span>
+                                        {% else %}
+                                            <span title="{% trans 'Translation up-to-date' %}">
+                                                <i data-feather="check" class="inline-block"></i>
+                                            </span>
+                                        {% endif %}
                                     {% else %}
-                                        <span title="{% trans 'Translation up-to-date' %}">
-                                            <i data-feather="check" class="inline-block"></i>
+                                        <span title="{% trans 'Translation missing' %}">
+                                            <i data-feather="x" class="inline-block"></i>
                                         </span>
                                     {% endif %}
                                 {% else %}
-                                    <span title="{% trans 'Translation missing' %}">
-                                        <i data-feather="x" class="inline-block"></i>
+                                    <span title="{% trans 'Create Translation' %}">
+                                        <i data-feather="plus" class="inline-block"></i>
                                     </span>
                                 {% endif %}
                                 {{ other_language.translated_name }}

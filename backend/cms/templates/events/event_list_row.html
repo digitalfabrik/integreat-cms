@@ -44,7 +44,26 @@
             <div class="lang-grid">
                 {% for other_language in languages %}
                     <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=other_language.code%}">
-                        <i data-feather="{% if other_language in event.languages %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
+                        {% get_translation event other_language.code as other_translation %}
+                        {% if other_translation %}
+                            {% if other_translation.currently_in_translation %}
+                                <span title="{% trans 'Currently in translation' %}">
+                                    <i data-feather="clock" class="text-gray-800"></i>
+                                </span>
+                            {% elif other_translation.is_outdated %}
+                                <span title="{% trans 'Translation outdated' %}">
+                                    <i data-feather="alert-triangle" class="text-gray-800"></i>
+                                </span>
+                            {% else %}
+                                <span title="{% trans 'Translation up-to-date' %}">
+                                    <i data-feather="check" class="text-gray-800"></i>
+                                </span>
+                            {% endif %}
+                        {% else %}
+                            <span title="{% trans 'Translation missing' %}">
+                                <i data-feather="x" class="text-gray-800"></i>
+                            </span>
+                        {% endif %}
                     </a>
                 {% endfor %}
             </div>
