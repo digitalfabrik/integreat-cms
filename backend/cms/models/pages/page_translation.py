@@ -111,6 +111,9 @@ class PageTranslation(models.Model):
 
     @property
     def is_outdated(self):
+        # If the page translation is currently in translation, it is defined as not outdated
+        if self.currently_in_translation:
+            return False
         source_translation = self.source_translation
         # If self.language is the root language, this translation can never be outdated
         if not source_translation:
@@ -124,6 +127,10 @@ class PageTranslation(models.Model):
         if not self_revision or not source_revision:
             return False
         return self_revision.last_updated < source_revision.last_updated
+
+    @property
+    def is_up_to_date(self):
+        return not self.currently_in_translation and not self.is_outdated
 
     @property
     def combined_text(self):
@@ -142,12 +149,16 @@ class PageTranslation(models.Model):
         return cls.objects.filter(page__region=region, language=language).distinct('page')
 
     @classmethod
-    def get_outdated_translations(cls, region, language):
-        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.is_outdated]
+    def get_up_to_date_translations(cls, region, language):
+        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.is_up_to_date]
 
     @classmethod
-    def get_up_to_date_translations(cls, region, language):
-        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if not t.is_outdated]
+    def get_current_translations(cls, region, language):
+        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.currently_in_translation]
+
+    @classmethod
+    def get_outdated_translations(cls, region, language):
+        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.is_outdated]
 
     def __str__(self):
         if self.id:

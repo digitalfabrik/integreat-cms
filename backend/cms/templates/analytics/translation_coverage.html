@@ -43,6 +43,15 @@
                                         "backgroundColor": "#48bb78",
                                     },
                                     {
+                                        "label": " {% trans 'Currently in translation' %}",
+                                        "lineTension": 0,
+                                        "data": [{% for language in languages %}"{{ language.num_page_translations_currently_in_translation }}",{% endfor %}],
+                                        "type": "bar",
+                                        "fill": true,
+                                        "borderColor": "#4299e1",
+                                        "backgroundColor": "#4299e1",
+                                    },
+                                    {
                                         "label": " {% trans 'Translations outdated' %}",
                                         "lineTension": 0,
                                         "data": [{% for language in languages %}"{{ language.num_page_translations_outdated }}",{% endfor %}],
