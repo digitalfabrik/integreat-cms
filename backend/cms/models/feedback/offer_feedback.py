@@ -4,14 +4,14 @@ Module for models storing feedback from front end users
 from django.db import models
 
 from .feedback import Feedback
-from ..extras.extra import Extra
+from ..offers.offer import Offer
 
 
-class ExtraFeedback(Feedback):
+class OfferFeedback(Feedback):
     """
-    Feedback on extras (extra model)
+    Feedback on offers (offer model)
     """
-    extra = models.ForeignKey(Extra, on_delete=models.CASCADE)
+    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
 
     class Meta:
         default_permissions = ()

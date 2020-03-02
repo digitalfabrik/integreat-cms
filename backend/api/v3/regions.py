@@ -1,7 +1,7 @@
 from django.db.models import Exists, OuterRef
 from django.http import JsonResponse, HttpResponse
 
-from cms.models import Region, Extra, Language
+from cms.models import Region, Offer, Language
 from cms.constants import region_status
 
 
@@ -14,7 +14,7 @@ def transform_region(region):
         'prefix': region.get_administrative_division_display(),
         'name_without_prefix': region.name,
         'plz': region.postal_code,
-        'extras': region.extras_enabled,
+        'offers': region.offers_enabled,
         'events': region.events_enabled,
         'push-notifications': region.push_notifications_enabled,
         'longitude': region.longitude,
@@ -30,7 +30,7 @@ def transform_region_by_status(region):
         'prefix': region.get_administrative_division_display(),
         'name_without_prefix': region.name,
         'plz': region.postal_code,
-        'extras': region.extras_enabled,
+        'offers': region.offers_enabled,
         'events': region.events_enabled,
         'push-notifications': region.push_notifications_enabled,
         'longitude': region.longitude,
@@ -41,21 +41,21 @@ def transform_region_by_status(region):
 def regions(_):
     result = list(map(
         transform_region,
-        Region.objects.exclude(status=region_status.ARCHIVED).annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
+        Region.objects.exclude(status=region_status.ARCHIVED).annotate(offers_enabled=Exists(Offer.objects.filter(region=OuterRef('pk'))))
     ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 def liveregions(_):
     result = list(map(
         transform_region_by_status,
-        Region.objects.filter(status=region_status.ACTIVE).annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
+        Region.objects.filter(status=region_status.ACTIVE).annotate(offers_enabled=Exists(Offer.objects.filter(region=OuterRef('pk'))))
     ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 
 def hiddenregions(_):
     result = list(map(
         transform_region_by_status,
-        Region.objects.filter(status=region_status.HIDDEN).annotate(extras_enabled=Exists(Extra.objects.filter(region=OuterRef('pk'))))
+        Region.objects.filter(status=region_status.HIDDEN).annotate(offers_enabled=Exists(Offer.objects.filter(region=OuterRef('pk'))))
     ))
     return JsonResponse(result, safe=False)  # Turn off Safe-Mode to allow serializing arrays
 

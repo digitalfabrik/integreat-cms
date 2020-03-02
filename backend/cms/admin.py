@@ -7,8 +7,8 @@ from django.contrib import admin
 
 from .models import Event
 from .models import EventTranslation
-from .models import Extra
-from .models import ExtraTemplate
+from .models import Offer
+from .models import OfferTemplate
 from .models import Language
 from .models import LanguageTreeNode
 from .models import Organization
@@ -21,8 +21,8 @@ from .models import RecurrenceRule
 
 admin.site.register(Event)
 admin.site.register(EventTranslation)
-admin.site.register(Extra)
-admin.site.register(ExtraTemplate)
+admin.site.register(Offer)
+admin.site.register(OfferTemplate)
 admin.site.register(Language)
 admin.site.register(LanguageTreeNode)
 admin.site.register(Organization)

@@ -1,4 +1,4 @@
-"""Model to represent an Extra
+"""Model to represent an Offer
 """
 from django.db import models
 from django.contrib.postgres.fields import JSONField
@@ -7,8 +7,8 @@ from django.utils import timezone
 from ...constants import postal_code
 
 
-class ExtraTemplate(models.Model):
-    """Model class for representing an Extra database object
+class OfferTemplate(models.Model):
+    """Model class for representing an Offer database object
 
     Args:
         models : Databas model inherit from the standard django models
@@ -34,5 +34,5 @@ class ExtraTemplate(models.Model):
     class Meta:
         default_permissions = ()
         permissions = (
-            ('manage_extra_templates', 'Can manage extra templates'),
+            ('manage_offer_templates', 'Can manage offer templates'),
         )
