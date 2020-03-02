@@ -88,7 +88,9 @@ class Page(MPTTModel):
         """
         This content needs to be added when delivering content to end users
         """
-        return self.mirrored_page.get_translation(language_code).text
+        if self.mirrored_page:
+            return self.mirrored_page.get_translation(language_code).text
+        return None
 
     def get_absolute_url(self):
         return reverse('edit_page', kwargs={
