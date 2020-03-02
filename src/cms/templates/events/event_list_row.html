@@ -4,21 +4,21 @@
 {% load poi_filters %}
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
-    <td style="padding-left: 10px">
+    <td>
         {{ event.id }}
     </td>
     <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block text-gray-800">
             {{ event_translation.version }}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block text-gray-800">
             {{ event_translation.get_status_display }}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code%}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code%}" class="block text-gray-800">
             {% if event_translation %}
                 {{ event_translation.title }}
             {% else %}
@@ -33,7 +33,7 @@
         {% if backend_language %}
             {% get_translation event LANGUAGE_CODE as backend_translation %}
             <td>
-                <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+                <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block text-gray-800">
                     {% if backend_translation %}
                         {{ backend_translation.title }}
                     {% else %}
@@ -44,7 +44,7 @@
         {% endif %}
     {% endif %}
     <td>
-        <div class="block py-3 px-2 text-gray-800">
+        <div class="block text-gray-800">
             <div class="lang-grid">
                 {% for other_language in languages %}
                     <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=other_language.code%}">
@@ -87,17 +87,17 @@
     <td>
         <i data-feather="calendar" class="inline-block"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
-    <td class="pl-2 pr-4 flex">
+    <td class="min flex">
         <!-- TODO: add link to view event in web app -->
-        <a href="" class="py-3 px-2">
+        <a href="">
             <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3 px-2" title="{% trans 'Edit event' %}">
-                <i data-feather="edit" class="text-gray-800"></i>
+            <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="ml-4" title="{% trans 'Edit event' %}">
+                <i data-feather="edit" class="inline-block text-gray-800"></i>
             </a>
-            <button title="{% trans 'Archive event' %}" class="confirmation-button py-3 px-2" 
+            <button title="{% trans 'Archive event' %}" class="confirmation-button ml-4"
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}" 
@@ -106,7 +106,7 @@
             </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
-            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2" 
+            <button title="{% trans 'Delete event' %}" class="confirmation-button ml-4"
                 data-confirmation-title="{{ delete_dialog_title }}"
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"

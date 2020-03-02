@@ -7,7 +7,7 @@
     <td class="single_icon">
         <span data-drag-id="{{ page.id }}"
               data-node-descendants="{{ page|get_descendants }}"
-              class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 block py-3 pl-4 pr-2"
+              class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 block"
               {% if enable_drag_and_drop %}
               draggable="true"
               {% else %}
@@ -20,12 +20,12 @@
         <input type="checkbox" name="page_selected" value="{{ page.id }}">
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block text-gray-800">
             {{ page_translation.get_status_display }}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block text-gray-800">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -40,7 +40,7 @@
         {% if backend_language %}
             {% get_translation page LANGUAGE_CODE as backend_translation %}
             <td>
-                <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+                <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block text-gray-800">
                     <div class="translation-title">
                         {% if backend_translation %}
                             {% if not backend_translation.currently_in_translation %}
@@ -60,7 +60,7 @@
         {% endif %}
     {% endif %}
     <td class="whitespace-no-wrap">
-        <div class="block py-3 px-2 text-gray-800">
+        <div class="block text-gray-800">
             <div class="lang-grid">
                 {% for other_language in languages %}
                     <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}"
@@ -98,21 +98,21 @@
         </div>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block text-gray-800">
             {{ page_translation.last_updated }}
         </a>
     </td>
-    <td class="pl-2 pr-4 text-right min">
+    <td class="px-2 text-right min">
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
-           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="py-3 px-2">
+           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}">
             <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3 px-2">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="ml-4">
             <i data-feather="edit" class="inline-block text-gray-800"></i>
         </a>
 
-        <button title="{% trans 'Archive page' %}" class="confirmation-button py-3 px-2"
+        <button title="{% trans 'Archive page' %}" class="confirmation-button ml-4"
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ page.best_language_title }}"
@@ -121,7 +121,7 @@
         </button>
         {% if user.is_superuser or user.is_staff %}
             {% if page.children.all %}
-                <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="py-3 px-2">
+                <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="ml-4">
                     <i data-feather="trash-2" class="inline-block text-gray-400"></i>
                 </button>
             {% else %}
