@@ -14,7 +14,7 @@ def activate(request, region_slug, offer_template_slug):
     region = Region.objects.get(slug=region_slug)
     template = OfferTemplate.objects.get(slug=offer_template_slug)
     Offer.objects.create(region=region, template=template)
-    messages.success(request, 'Offer "' + template.name + '" ' + _('was successfully activated.'))
+    messages.success(request, _('Offer "%(offer_name)s" was successfully activated.') % {'offer_name': template.name})
     return redirect('offers', **{
         'region_slug': region_slug,
     })
@@ -27,7 +27,7 @@ def deactivate(request, region_slug, offer_template_slug):
     template = OfferTemplate.objects.get(slug=offer_template_slug)
     offer = Offer.objects.filter(region=region, template=template).first()
     offer.delete()
-    messages.success(request, 'Offer "' + template.name + '" ' + _('was successfully deactivated.'))
+    messages.success(request, _('Offer "%(offer_name)s" was successfully deactivated.') % {'offer_name': template.name})
     return redirect('offers', **{
         'region_slug': region_slug,
     })

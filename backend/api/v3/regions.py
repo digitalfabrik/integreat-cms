@@ -14,7 +14,7 @@ def transform_region(region):
         'prefix': region.get_administrative_division_display(),
         'name_without_prefix': region.name,
         'plz': region.postal_code,
-        'offers': region.offers_enabled,
+        'extras': region.offers_enabled,
         'events': region.events_enabled,
         'push-notifications': region.push_notifications_enabled,
         'longitude': region.longitude,
