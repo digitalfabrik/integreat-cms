@@ -3,10 +3,10 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from ...utils.media_utils import attach_file
 from ...decorators import region_permission_required
 from ...forms import DocumentForm
-from ...models import Document, Region
-from ...utils.file_utils import save_file
+from ...models import Document, Region, Directory
 
 
 @method_decorator(login_required, name="dispatch")
@@ -37,7 +37,9 @@ class MediaEditView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        region = Region.get_current_region(request)
+        slug = kwargs.get("region_slug")
+        directory_id = kwargs.get("directory_id")
+        region = Region.objects.get(slug=slug)
         document_id = kwargs.get("document_id")
         form = DocumentForm()
         if document_id != "0":
@@ -51,6 +53,8 @@ class MediaEditView(TemplateView):
                 **self.base_context,
                 "form": form,
                 "region_slug": region.slug,
+                "directory_id": directory_id,
+                "document_id": document_id,
             },
         )
 
@@ -75,8 +79,32 @@ class MediaEditView(TemplateView):
         # current region
         region = Region.get_current_region(request)
 
-        result = save_file(request)
+        directory_id = int(kwargs.get("directory_id"))
+        document_id = kwargs.get("document_id")
+        directory = None
+        if directory_id != 0:
+            directory = Directory.objects.get(id=directory_id)
 
-        if result.get("status") == 1:
-            return redirect("media", **{"region_slug": region.slug})
-        return render(request, self.template_name, {"form": result.get("form")})
+        form = DocumentForm()
+
+        if "upload" in request.FILES:
+            document = Document()
+            document.region = region
+            document.path = directory
+            document.name = request.FILES["upload"].name
+            attach_file(document, request.FILES["upload"])
+            document.save()
+            return redirect(
+                "media", **{"region_slug": region.slug, "directory_id": directory_id}
+            )
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "region_slug": region.slug,
+                "directory_id": directory_id,
+                "document_id": document_id,
+            },
+        )

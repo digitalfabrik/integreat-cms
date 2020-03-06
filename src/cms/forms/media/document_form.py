@@ -1,5 +1,6 @@
 from ..custom_model_form import CustomModelForm
 from ...models import Document
+from django import forms
 
 
 class DocumentForm(CustomModelForm):
@@ -15,8 +16,6 @@ class DocumentForm(CustomModelForm):
 
         #: The model of this :class:`django.forms.ModelForm`
         model = Document
-        #: The fields of the model which should be handled by this form
-        fields = (
-            "description",
-            "document",
-        )
+        fields = ()
+
+    upload = forms.FileField()

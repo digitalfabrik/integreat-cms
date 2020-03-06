@@ -21,6 +21,52 @@ from ..offers.offer_template import OfferTemplate
 class Region(models.Model):
     """
     Data model representing region.
+
+    :param id: The database id of the region
+    :param common_id: The `community identification number
+                      <https://en.wikipedia.org/wiki/Community_Identification_Number>`_ of the region (public unique IDs
+                      like `Gemeindeschlüssel <https://de.wikipedia.org/wiki/Amtlicher_Gemeindeschl%C3%BCssel>`_ in
+                      Germany)
+    :param name: The name of the region
+    :param slug: The slug of the region (unique string identifier without spaces and special characters)
+    :param status: The status of the region  (choices: :mod:`cms.constants.region_status`)
+    :param administrative_division: The `administrative division
+                                    <https://en.wikipedia.org/wiki/Administrative_division>`_ of the region (choices:
+                                    :mod:`cms.constants.administrative_division`)
+    :param aliases: The aliases of the region (e.g. smaller municipalities in that area)
+    :param events_enabled: Whether or not events are enabled in the region
+    :param push_notifications_enabled: Whether or not push notifications are enabled in the region
+    :param push_notification_channels: If push notifications are enabled, this field contains an array of strings which
+                                       denote the push notification channels of the region
+    :param latitude: The latitude coordinate of an approximate center of the region
+    :param longitude: The longitude coordinate of an approximate center of the region
+    :param postal_code: The postal code of the region
+    :param admin_mail: The email address of the region's administrator
+    :param statistics_enabled: Whether or not statistics are enabled for the region
+    :param matomo_url: If statistics are enabled, this contains the matomo url of the region
+    :param matomo_token: If statistics are enabled, this contains the secret matomo access token of the region
+    :param matomo_ssl_verify: If statistics are enabled, this field denotes whether matomo should use ssl
+    :param page_permissions_enabled: Whether or not page-specific permissions_are enabled for this region. This adds the
+                                     possibility to add single users to the ``editors`` or ``publishers`` of a
+                                     :class:`~cms.models.pages.page.Page` which grants them the permissions on the
+                                     object-instances.
+    :param created_date: The date and time when the region was created
+    :param last_updated: The date amd time when the region was last updated
+
+    Reverse relationships:
+
+    :param users: The user profiles of all users of this region
+    :param language_tree_nodes: All language tree nodes of this region
+    :param pages: The pages of this region
+    :param events: The events of this region
+    :param pois: The pois of this region
+    :param offers: The offers of this region
+    :param push_notifications: All push notifications of this region
+    :param feedback: Feedback to this region
+    :param event_list_feedback: Feedback to the events of this region
+    :param offer_list_feedback: Feedback to the offers of this region
+    :param documents: The documents of this region
+    :param media_directories: The document directories of this region
     """
 
     name = models.CharField(max_length=200, verbose_name=_("name"))

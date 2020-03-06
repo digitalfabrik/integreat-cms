@@ -47,7 +47,19 @@ module.exports = {
           },
           "ts-loader",
         ],
-        exclude: /node_modules/,
+        exclude:  /node_modules/,
+      },
+      {
+        test: /\.jsx?$/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"],
+            },
+          }
+        ],
+        exclude: /node_modules\/(?!chart\.js|htmldiff-js)/,
       },
       {
         test: /\.(woff(2)?|ttf|eot|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,

@@ -871,10 +871,15 @@ urlpatterns = [
                     ),
                 ),
                 url(
-                    r"^media/",
+                    r"^media/(?P<directory_id>[0-9]+)/",
                     include(
                         [
                             url(r"^$", media.MediaListView.as_view(), name="media"),
+                            url(
+                                r"^create_directory$",
+                                media.CreateDirectoryView.as_view(),
+                                name="create_directory",
+                            ),
                             url(
                                 r"^(?P<document_id>[0-9]+)/",
                                 include(

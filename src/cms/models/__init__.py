@@ -26,6 +26,7 @@ from .languages.language import Language
 from .languages.language_tree_node import LanguageTreeNode
 
 from .media.document import Document
+from .media.directory import Directory
 
 from .pages.page import Page
 from .pages.page_translation import PageTranslation

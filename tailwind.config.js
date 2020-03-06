@@ -51,6 +51,9 @@ module.exports = {
         '116': '29rem',
         '160': '40rem',
       },
+      gridTemplateColumns: {
+        'gallery': 'repeat(auto-fill, minmax(180px, 1fr))',
+      }
     },
   },
   variants: {

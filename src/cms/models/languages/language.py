@@ -11,6 +11,25 @@ from ...utils.translation_utils import ugettext_many_lazy as __
 class Language(models.Model):
     """
     Data model representing a content language.
+
+    :param id: The database id of the language
+    :param code: The bcp47 code of the language (see `RFC 5646 <https://tools.ietf.org/html/bcp47>`_). The recommended
+                 minimum buffer is 35 (see `Section 4.4.1. <https://tools.ietf.org/html/bcp47#section-4.4.1>`_). It's
+                 unlikely that we have language codes longer than 8 characters though.
+    :param native_name: The native name of the language
+    :param english_name: The name of the language in English
+    :param text_direction: The text direction of the language (choices: :mod:`cms.constants.text_directions`)
+    :param created_date: The date and time when the language was created
+    :param last_updated: The date and time when the language was last updated
+
+    Reverse relationships:
+
+    :param language_tree_nodes: All language tree nodes of this language
+    :param page_translations: All page translations in this language
+    :param event_translations: All event translations in this language
+    :param poi_translations: All poi translations in this language
+    :param push_notification_translations: All push notification translations in this language
+    :param document_meta_data: All meta data of documents in this language
     """
 
     slug = models.SlugField(
