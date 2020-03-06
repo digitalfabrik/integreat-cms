@@ -11,8 +11,8 @@ from .views import (
     analytics,
     dashboard,
     events,
-    extras,
-    extra_templates,
+    offers,
+    offer_templates,
     language_tree,
     languages,
     media,
@@ -111,19 +111,19 @@ urlpatterns = [
             ),
         ])),
     ])),
-    url(r'^extra_templates/', include([
-        url(r'^$', extra_templates.ExtraTemplateListView.as_view(), name='extra_templates'),
-        url(r'^new$', extra_templates.ExtraTemplateView.as_view(), name='new_extra_template'),
-        url(r'^(?P<extra_template_id>[0-9]+)/', include([
+    url(r'^offer_templates/', include([
+        url(r'^$', offer_templates.OfferTemplateListView.as_view(), name='offer_templates'),
+        url(r'^new$', offer_templates.OfferTemplateView.as_view(), name='new_offer_template'),
+        url(r'^(?P<offer_template_id>[0-9]+)/', include([
             url(
                 r'^edit$',
-                extra_templates.ExtraTemplateView.as_view(),
-                name='edit_extra_template'
+                offer_templates.OfferTemplateView.as_view(),
+                name='edit_offer_template'
             ),
             url(
                 r'^delete$',
-                extra_templates.ExtraTemplateView.as_view(),
-                name='delete_extra_templates'
+                offer_templates.OfferTemplateView.as_view(),
+                name='delete_offer_templates'
             ),
         ])),
     ])),
@@ -286,18 +286,18 @@ urlpatterns = [
                 ])),
             ])),
         ])),
-        url(r'^extras/', include([
-            url(r'^$', extras.ExtraListView.as_view(), name='extras'),
-            url(r'^(?P<extra_template_slug>[-\w]+)/', include([
+        url(r'^offers/', include([
+            url(r'^$', offers.OfferListView.as_view(), name='offers'),
+            url(r'^(?P<offer_template_slug>[-\w]+)/', include([
                 url(
                     r'^activate$',
-                    extras.activate,
-                    name='activate_extra'
+                    offers.activate,
+                    name='activate_offer'
                 ),
                 url(
                     r'^deactivate$',
-                    extras.deactivate,
-                    name='deactivate_extra'
+                    offers.deactivate,
+                    name='deactivate_offer'
                 ),
             ])),
         ])),

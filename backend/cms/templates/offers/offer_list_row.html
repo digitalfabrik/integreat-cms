@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load offer_filters %}
+
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+	<td class="block py-3 pl-4 pr-2 text-gray-800">
+		{% if offer_template in region_offer_templates %}
+			<b>{{ offer_template.name }}</b>
+		{% else %}
+			{{ offer_template.name }}
+		{% endif %}
+	</td>
+	<td class="px-2">
+		{% if offer_template in region_offer_templates %}
+			{{ region.offers|active_since:offer_template }}
+		{% else %}
+			<i data-feather="x"></i>
+		{% endif %}
+	</td>
+	<td class="px-2">
+		{% if offer_template in region_offer_templates %}
+			<a href="{% url 'deactivate_offer' region_slug=region.slug offer_template_slug=offer_template.slug %}" class="inline-block px-3 rounded-sm bg-red-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
+				{% trans 'Deactivate' %}
+			</a>
+		{% else %}
+			<a href="{% url 'activate_offer' region_slug=region.slug offer_template_slug=offer_template.slug %}" class="inline-block px-3 rounded-sm bg-blue-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
+				{% trans 'Activate' %}
+			</a>
+		{% endif %}
+	</td>
+</tr>

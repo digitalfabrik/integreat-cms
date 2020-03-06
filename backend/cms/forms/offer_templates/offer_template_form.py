@@ -1,13 +1,13 @@
 """
-Form for creating an extra_template object
+Form for creating an offer_template object
 """
 from django import forms
 
-from ...models import ExtraTemplate
+from ...models import OfferTemplate
 from ...utils.slug_utils import generate_unique_slug
 
 
-class ExtraTemplateForm(forms.ModelForm):
+class OfferTemplateForm(forms.ModelForm):
     """
     DjangoForm Class, that can be rendered to create deliverable HTML
 
@@ -16,7 +16,7 @@ class ExtraTemplateForm(forms.ModelForm):
     """
 
     class Meta:
-        model = ExtraTemplate
+        model = OfferTemplate
         fields = [
             'name',
             'slug',
@@ -27,10 +27,10 @@ class ExtraTemplateForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        super(ExtraTemplateForm, self).__init__(*args, **kwargs)
+        super(OfferTemplateForm, self).__init__(*args, **kwargs)
 
     def clean_slug(self):
-        return generate_unique_slug(self, 'extra-template')
+        return generate_unique_slug(self, 'offer-template')
 
     def clean_post_data(self):
         cleaned_post_data = self.cleaned_data['post_data']

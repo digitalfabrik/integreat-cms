@@ -1,22 +1,22 @@
 """
-Integreat extras are extended features beyond pages and
+Integreat offers are extended features beyond pages and
 events that are usually provided by foreign services.
 """
 from django.db import models
 from django.utils import timezone
 
-from .extra_template import ExtraTemplate
+from .offer_template import OfferTemplate
 from ..regions.region import Region
 from ...constants import postal_code
 
 
-class Extra(models.Model):
+class Offer(models.Model):
     """
-    An extra (addon) is activated per region. For each extra,
+    An offer (addon) is activated per region. For each offer,
     a template exists which can be used during activation.
     """
-    region = models.ForeignKey(Region, related_name='extras', on_delete=models.CASCADE)
-    template = models.ForeignKey(ExtraTemplate, related_name='extras', on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, related_name='offers', on_delete=models.CASCADE)
+    template = models.ForeignKey(OfferTemplate, related_name='offers', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -49,5 +49,5 @@ class Extra(models.Model):
         unique_together = (('region', 'template', ), )
         default_permissions = ()
         permissions = (
-            ('manage_extras', 'Can manage extras'),
+            ('manage_offers', 'Can manage offers'),
         )

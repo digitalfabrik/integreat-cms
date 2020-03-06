@@ -4,11 +4,11 @@ from .events.event import Event
 from .events.event_translation import EventTranslation
 from .events.recurrence_rule import RecurrenceRule
 
-from .extras.extra import Extra
-from .extras.extra_template import ExtraTemplate
+from .offers.offer import Offer
+from .offers.offer_template import OfferTemplate
 
 from .feedback.event_feedback import EventFeedback
-from .feedback.extra_feedback import ExtraFeedback
+from .feedback.offer_feedback import OfferFeedback
 from .feedback.feedback import Feedback
 from .feedback.page_feedback import PageFeedback
 from .feedback.region_feedback import RegionFeedback

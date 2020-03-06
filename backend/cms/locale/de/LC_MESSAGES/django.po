@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-02 14:14+0000\n"
+"POT-Creation-Date: 2020-03-06 15:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -325,11 +325,10 @@ msgstr "Links nach Rechts"
 msgid "Right to left"
 msgstr "Rechts nach Links"
 
-#: templates/_base.html:11 templates/extras/extra_list.html:15
-#: templates/language_tree/language_tree.html:15
-#: templates/media/media_list.html:8 templates/pages/page_tree.html:33
-#: templates/pages/page_tree_archived.html:21 templates/pois/poi_list.html:31
-#: templates/pois/poi_list_archived.html:21
+#: templates/_base.html:11 templates/language_tree/language_tree.html:15
+#: templates/media/media_list.html:8 templates/offers/offer_list.html:15
+#: templates/pages/page_tree.html:33 templates/pages/page_tree_archived.html:21
+#: templates/pois/poi_list.html:31 templates/pois/poi_list_archived.html:21
 #: templates/push_notifications/push_notification_list.html:9
 #: templates/regions/region_list.html:14 templates/users/admin/list.html:14
 #: templates/users/region/list.html:9
@@ -416,9 +415,9 @@ msgstr "Push-Benachrichtigungen"
 msgid "PDF Export"
 msgstr "PDF Export"
 
-#: templates/_base.html:161 templates/extras/extra_list.html:9
-msgid "Extras"
-msgstr "Extras"
+#: templates/_base.html:161 templates/offers/offer_list.html:9
+msgid "Offers"
+msgstr "Angebote"
 
 #: templates/_base.html:165
 msgid "Imprint"
@@ -455,8 +454,8 @@ msgid "Organizations"
 msgstr "Organisationen"
 
 #: templates/_base.html:202
-msgid "Extra templates"
-msgstr "Extra-Vorlagen"
+msgid "Offer templates"
+msgstr "Angebots-Vorlagen"
 
 #: templates/_raw.html:10
 msgid "Integreat Backend"
@@ -978,8 +977,8 @@ msgstr "Veranstaltungsort"
 
 #: templates/events/event_list.html:67
 #: templates/events/event_list_archived.html:43
-#: templates/extra_templates/extra_template_list.html:29
 #: templates/languages/language_list.html:31
+#: templates/offer_templates/offer_template_list.html:29
 #: templates/organizations/organization_list.html:27
 #: templates/pages/page_tree.html:93 templates/pages/page_tree_archived.html:48
 #: templates/pois/poi_list.html:69 templates/pois/poi_list_archived.html:43
@@ -1018,154 +1017,6 @@ msgstr "Nicht festgelegt"
 msgid "Edit event"
 msgstr "Veranstaltung bearbeiten"
 
-#: templates/extra_templates/extra_template_form.html:13
-#, python-format
-msgid "Edit extra template \"%(extra_template_name)s\""
-msgstr "Extra-Vorlage \"%(extra_template_name)s\" bearbeiten"
-
-#: templates/extra_templates/extra_template_form.html:16
-msgid "Create new extra template"
-msgstr "Neue Extra-Vorlage erstellen"
-
-#: templates/extra_templates/extra_template_form.html:22
-#: templates/language_tree/language_tree_node_form.html:19
-#: templates/languages/language_form.html:21
-#: templates/organizations/organization_form.html:21
-#: templates/pages/page_sbs.html:38
-#: templates/push_notifications/push_notification_form.html:26
-#: templates/regions/region_form.html:21 templates/roles/role.html:21
-#: templates/users/admin/user.html:21 templates/users/region/user.html:21
-msgid "Save"
-msgstr "Speichern"
-
-#: templates/extra_templates/extra_template_form.html:24
-msgid "Create"
-msgstr "Erstellen"
-
-#: templates/extra_templates/extra_template_form.html:34
-#: templates/organizations/organization_form.html:30
-#: templates/regions/region_form.html:30 templates/users/admin/user.html:31
-#: templates/users/region/user.html:31
-msgid "General Settings"
-msgstr "Allgemeine Einstellungen"
-
-#: templates/extra_templates/extra_template_form.html:39
-msgid "Extra name"
-msgstr "Extra Name"
-
-#: templates/extra_templates/extra_template_form.html:40
-msgid "Enter the extra's name here"
-msgstr "Name des Extras hier eingeben"
-
-#: templates/extra_templates/extra_template_form.html:43
-msgid "Slug of the extra"
-msgstr "Alias des Extras"
-
-#: templates/extra_templates/extra_template_form.html:44
-msgid "Leave blank to generate unique slug from name"
-msgstr ""
-"Dieses Feld freilassen, um einen eindeutigen Alias aus dem Namen zu "
-"generieren"
-
-#: templates/extra_templates/extra_template_form.html:47
-msgid "URL of the extra"
-msgstr "URL des Extras"
-
-#: templates/extra_templates/extra_template_form.html:48
-msgid "Enter the extra's url here"
-msgstr "URL des Extras hier eingeben"
-
-#: templates/extra_templates/extra_template_form.html:51
-msgid "Thumbnail of the extra"
-msgstr "Thumbnail des Extras"
-
-#: templates/extra_templates/extra_template_form.html:52
-msgid "Enter the extra's thumbnail here"
-msgstr "URL des Extra-Thumbnails hier eingeben"
-
-#: templates/extra_templates/extra_template_form.html:60
-#: templates/organizations/organization_form.html:53
-#: templates/regions/region_form.html:109 templates/users/admin/user.html:67
-#: templates/users/region/user.html:67
-msgid "Extended Settings"
-msgstr "Erweiterte Einstellungen"
-
-#: templates/extra_templates/extra_template_form.html:63
-msgid "Post data of the extra in JSON (optional)"
-msgstr "Post-Parameter des Extras im JSON-Formt (optional)"
-
-#: templates/extra_templates/extra_template_form.html:64
-msgid "Enter the extra's post data in JSON here"
-msgstr "Post-Parameter des Extras hier im JSON-Formt eingeben"
-
-#: templates/extra_templates/extra_template_form.html:71
-msgid "Does the extra make use of its region's postal code?"
-msgstr "Verwendet das Extra die PLZ seiner Region?"
-
-#: templates/extra_templates/extra_template_list.html:9
-msgid "Extra Templates"
-msgstr "Extra-Vorlagen"
-
-#: templates/extra_templates/extra_template_list.html:14
-msgid "Create extra template"
-msgstr "Neue Extra-Vorlage erstellen"
-
-#: templates/extra_templates/extra_template_list.html:24
-#: templates/extras/extra_list.html:31 templates/media/media_list.html:22
-#: templates/organizations/organization_list.html:24
-#: templates/regions/region_list.html:29 templates/roles/list.html:24
-msgid "Name"
-msgstr "Name"
-
-#: templates/extra_templates/extra_template_list.html:25
-#: templates/organizations/organization_list.html:25
-msgid "Slug"
-msgstr "URL-Parameter"
-
-#: templates/extra_templates/extra_template_list.html:26
-msgid "URL"
-msgstr "URL"
-
-#: templates/extra_templates/extra_template_list.html:27
-#: templates/languages/language_list.html:30 templates/pages/page_tree.html:92
-#: templates/regions/region_list.html:33
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
-
-#: templates/extra_templates/extra_template_list.html:28
-#: templates/languages/language_list.html:29
-#: templates/regions/region_list.html:32
-msgid "Created"
-msgstr "Erstellt"
-
-#: templates/extra_templates/extra_template_list.html:38
-msgid "No extra templates available yet."
-msgstr "Noch keine Extra-Vorlagen vorhanden."
-
-#: templates/extras/extra_list.html:20
-msgid "Manage extra templates"
-msgstr "Extra-Vorlagen verwalten"
-
-#: templates/extras/extra_list.html:32
-msgid "Active since"
-msgstr "Aktiv seit"
-
-#: templates/extras/extra_list.html:33 templates/settings/user.html:18
-msgid "Actions"
-msgstr "Aktionen"
-
-#: templates/extras/extra_list.html:42
-msgid "No extras available yet."
-msgstr "Noch keine Extras vorhanden."
-
-#: templates/extras/extra_list_row.html:22
-msgid "Deactivate"
-msgstr "Deaktivieren"
-
-#: templates/extras/extra_list_row.html:26
-msgid "Activate"
-msgstr "Aktivieren"
-
 #: templates/language_tree/language_tree.html:19
 msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
@@ -1187,6 +1038,17 @@ msgstr "Knoten bearbeiten"
 #: templates/language_tree/language_tree_node_form.html:14
 msgid "Add language"
 msgstr "Sprache hinzufügen"
+
+#: templates/language_tree/language_tree_node_form.html:19
+#: templates/languages/language_form.html:21
+#: templates/offer_templates/offer_template_form.html:22
+#: templates/organizations/organization_form.html:21
+#: templates/pages/page_sbs.html:38
+#: templates/push_notifications/push_notification_form.html:26
+#: templates/regions/region_form.html:21 templates/roles/role.html:21
+#: templates/users/admin/user.html:21 templates/users/region/user.html:21
+msgid "Save"
+msgstr "Speichern"
 
 #: templates/language_tree/language_tree_node_form.html:37
 #: templates/pages/page_form.html:185
@@ -1253,6 +1115,18 @@ msgstr "Sprache hinzufügen"
 msgid "Name in"
 msgstr "Name auf"
 
+#: templates/languages/language_list.html:29
+#: templates/offer_templates/offer_template_list.html:28
+#: templates/regions/region_list.html:32
+msgid "Created"
+msgstr "Erstellt"
+
+#: templates/languages/language_list.html:30
+#: templates/offer_templates/offer_template_list.html:27
+#: templates/pages/page_tree.html:92 templates/regions/region_list.html:33
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
 #: templates/languages/language_list.html:40
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
@@ -1269,9 +1143,135 @@ msgstr "Zurück"
 msgid "Upload File"
 msgstr "Datei hochladen"
 
+#: templates/media/media_list.html:22
+#: templates/offer_templates/offer_template_list.html:24
+#: templates/offers/offer_list.html:31
+#: templates/organizations/organization_list.html:24
+#: templates/regions/region_list.html:29 templates/roles/list.html:24
+msgid "Name"
+msgstr "Name"
+
 #: templates/media/media_list.html:24
 msgid "Operations"
 msgstr "Optionen"
+
+#: templates/offer_templates/offer_template_form.html:13
+#, python-format
+msgid "Edit offer template \"%(offer_template_name)s\""
+msgstr "Angebots-Vorlage \"%(offer_template_name)s\" bearbeiten"
+
+#: templates/offer_templates/offer_template_form.html:16
+msgid "Create new offer template"
+msgstr "Neue Angebots-Vorlage erstellen"
+
+#: templates/offer_templates/offer_template_form.html:24
+msgid "Create"
+msgstr "Erstellen"
+
+#: templates/offer_templates/offer_template_form.html:34
+#: templates/organizations/organization_form.html:30
+#: templates/regions/region_form.html:30 templates/users/admin/user.html:31
+#: templates/users/region/user.html:31
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: templates/offer_templates/offer_template_form.html:39
+msgid "Offer name"
+msgstr "Name des Angebots"
+
+#: templates/offer_templates/offer_template_form.html:40
+msgid "Enter the offer's name here"
+msgstr "Name des Angebots hier eingeben"
+
+#: templates/offer_templates/offer_template_form.html:43
+msgid "Slug of the offer"
+msgstr "Alias des Angebots"
+
+#: templates/offer_templates/offer_template_form.html:44
+msgid "Leave blank to generate unique slug from name"
+msgstr ""
+"Dieses Feld freilassen, um einen eindeutigen Alias aus dem Namen zu "
+"generieren"
+
+#: templates/offer_templates/offer_template_form.html:47
+msgid "URL of the offer"
+msgstr "URL des Angebots"
+
+#: templates/offer_templates/offer_template_form.html:48
+msgid "Enter the offer's url here"
+msgstr "URL des Angebots hier eingeben"
+
+#: templates/offer_templates/offer_template_form.html:51
+msgid "Thumbnail of the offer"
+msgstr "Thumbnail des Angebots"
+
+#: templates/offer_templates/offer_template_form.html:52
+msgid "Enter the offer's thumbnail here"
+msgstr "URL des Angebots-Thumbnails hier eingeben"
+
+#: templates/offer_templates/offer_template_form.html:60
+#: templates/organizations/organization_form.html:53
+#: templates/regions/region_form.html:109 templates/users/admin/user.html:67
+#: templates/users/region/user.html:67
+msgid "Extended Settings"
+msgstr "Erweiterte Einstellungen"
+
+#: templates/offer_templates/offer_template_form.html:63
+msgid "Post data of the offer in JSON (optional)"
+msgstr "Post-Parameter des Angebots im JSON-Formt (optional)"
+
+#: templates/offer_templates/offer_template_form.html:64
+msgid "Enter the offer's post data in JSON here"
+msgstr "Post-Parameter des Angebots hier im JSON-Formt eingeben"
+
+#: templates/offer_templates/offer_template_form.html:71
+msgid "Does the offer make use of its region's postal code?"
+msgstr "Verwendet das Angebot die PLZ seiner Region?"
+
+#: templates/offer_templates/offer_template_list.html:9
+msgid "Offer Templates"
+msgstr "Angebots-Vorlagen"
+
+#: templates/offer_templates/offer_template_list.html:14
+msgid "Create offer template"
+msgstr "Neue Angebots-Vorlage erstellen"
+
+#: templates/offer_templates/offer_template_list.html:25
+#: templates/organizations/organization_list.html:25
+msgid "Slug"
+msgstr "URL-Parameter"
+
+#: templates/offer_templates/offer_template_list.html:26
+msgid "URL"
+msgstr "URL"
+
+#: templates/offer_templates/offer_template_list.html:38
+msgid "No offer templates available yet."
+msgstr "Noch keine Angebots-Vorlagen vorhanden."
+
+#: templates/offers/offer_list.html:20
+msgid "Manage offer templates"
+msgstr "Angebots-Vorlagen verwalten"
+
+#: templates/offers/offer_list.html:32
+msgid "Active since"
+msgstr "Aktiv seit"
+
+#: templates/offers/offer_list.html:33 templates/settings/user.html:18
+msgid "Actions"
+msgstr "Aktionen"
+
+#: templates/offers/offer_list.html:42
+msgid "No offers available yet."
+msgstr "Noch keine Angebots vorhanden."
+
+#: templates/offers/offer_list_row.html:22
+msgid "Deactivate"
+msgstr "Deaktivieren"
+
+#: templates/offers/offer_list_row.html:26
+msgid "Activate"
+msgstr "Aktivieren"
 
 #: templates/organizations/organization_form.html:13
 #, python-format
@@ -2375,16 +2375,16 @@ msgstr "Veranstaltung wurde erfolgreich veröffentlicht."
 msgid "Event was successfully saved."
 msgstr "Veranstaltung wurde erfolgreich gespeichert."
 
-#: views/extra_templates/extra_template_view.py:40
-msgid "Extra template saved successfully"
-msgstr "Extra-Vorlage wurde erfolgreich gespeichert."
+#: views/language_tree/language_tree_node_view.py:60
+msgid "Language tree node was saved successfully."
+msgstr "Sprach-Baum wurde erfolgreich gespeichert."
 
-#: views/extra_templates/extra_template_view.py:43
-msgid "Extra template created successfully"
-msgstr "Extra-Vorlage wurde erfolgreich erstellt."
+#: views/language_tree/language_tree_node_view.py:63
+msgid "Language tree node was created successfully."
+msgstr "Sprach-Baum wurde erfolgreich erstellt."
 
-#: views/extra_templates/extra_template_view.py:52
 #: views/language_tree/language_tree_node_view.py:69
+#: views/offer_templates/offer_template_view.py:52
 #: views/organizations/organization_view.py:50 views/pages/page_sbs_view.py:109
 #: views/pages/page_view.py:115
 #: views/push_notifications/push_notification_view.py:126
@@ -2396,22 +2396,6 @@ msgstr "Extra-Vorlage wurde erfolgreich erstellt."
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
 
-#: views/extras/extra_actions.py:17
-msgid "was successfully activated."
-msgstr "wurde erfolgreich aktiviert."
-
-#: views/extras/extra_actions.py:30
-msgid "was successfully deactivated."
-msgstr "wurde erfolgreich deaktiviert."
-
-#: views/language_tree/language_tree_node_view.py:60
-msgid "Language tree node was saved successfully."
-msgstr "Sprach-Baum wurde erfolgreich gespeichert."
-
-#: views/language_tree/language_tree_node_view.py:63
-msgid "Language tree node was created successfully."
-msgstr "Sprach-Baum wurde erfolgreich erstellt."
-
 #: views/languages/language_view.py:42
 msgid "Language saved successfully."
 msgstr "Sprache wurde erfolgreich gespeichert."
@@ -2419,6 +2403,24 @@ msgstr "Sprache wurde erfolgreich gespeichert."
 #: views/languages/language_view.py:44
 msgid "Language created successfully"
 msgstr "Sprache wurde erfolgreich erstellt."
+
+#: views/offer_templates/offer_template_view.py:40
+msgid "Offer template saved successfully"
+msgstr "Angebots-Vorlage wurde erfolgreich gespeichert."
+
+#: views/offer_templates/offer_template_view.py:43
+msgid "Offer template created successfully"
+msgstr "Angebots-Vorlage wurde erfolgreich erstellt."
+
+#: views/offers/offer_actions.py:17
+#, python-format
+msgid "Offer \"%(offer_name)s\" was successfully activated."
+msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich aktiviert."
+
+#: views/offers/offer_actions.py:30
+#, python-format
+msgid "Offer \"%(offer_name)s\" was successfully deactivated."
+msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich deaktiviert."
 
 #: views/organizations/organization_view.py:40
 msgid "Organization created successfully"
