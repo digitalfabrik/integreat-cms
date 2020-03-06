@@ -111,6 +111,13 @@ To make sure your code matches the repository's quality standards, run pylint as
 ./dev-tools/pylint.sh
 ```
 
+### 8. Developer Documentation
+If you change models, functions or docstrings, make sure to update the corresponding developer documentation:
+```
+./dev-tools/generate_documentation.sh
+```
+This scans the source code for changed definitions and docstrings, generates intermediate .rst files and compiles them to the html documentation in /docs.
+
 ## Miscellaneous
 * Keep in mind that we are using Python 3.x, so use `python3` and `pip3` with any command
 * Access the Postgres database running in Docker container: `docker exec -it integreat_django_postgres psql -U integreat`

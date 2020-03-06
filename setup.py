@@ -40,6 +40,9 @@ setup(
             "pylint",
             "pylint-django",
             "pylint_runner",
+            "sphinx",
+            "sphinxcontrib-django",
+            "sphinx_rtd_theme",
         ]
     },
     author="Integreat App Project",

@@ -26,8 +26,8 @@ coverage.xml
 *.mo
 
 # Migrations
-src/api/migrations/*
-src/cms/migrations/*
+src/api/migrations/
+src/cms/migrations/
 
 # Compressed JS & CSS Files
 src/cms/static/CACHE/
@@ -40,7 +40,12 @@ src/cms/static/css/style.css.map
 *.pot
 
 # Sphinx documentation
-docs/_build/
+docs/.doctrees/
+docs/_sources/
+docs/.buildinfo
+docs/objects.inv
+sphinx/*.rst
+!sphinx/index.rst
 
 # Miscellaneous
 .vscode
@@ -49,10 +54,10 @@ docs/_build/
 cms-django.iml
 
 # Media Library
-src/media/*
+src/media/
 
 # XLIFF files folder
-**/xliffs/
+src/xliffs/
 
 # Postgres folder
 .postgres

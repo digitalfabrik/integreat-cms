@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cms.forms package &mdash; integreat-cms 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cms.forms.authentication package" href="cms.forms.authentication.html" />
+    <link rel="prev" title="cms.constants package" href="cms.constants.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="backend.html">backend package</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cms.html">cms package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cms.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html">cms.constants package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">cms.forms package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.html">cms.models package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html">cms.templatetags package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html">cms.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.html">cms.views package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.admin">cms.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.apps">cms.apps module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">cms.decorators module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">cms.page_xliff_converter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">cms.rules module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.tests">cms.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">cms.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">api package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gvz_api.html">gvz_api package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">integreat-cms</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="cms.html">cms package</a> &raquo;</li>
+        
+      <li>cms.forms package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cms-forms-package">
+<h1>cms.forms package<a class="headerlink" href="#cms-forms-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.authentication.html">cms.forms.authentication package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.authentication.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">cms.forms.authentication.password_reset_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.events.html">cms.forms.events package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.events.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_form">cms.forms.events.event_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_translation_form">cms.forms.events.event_translation_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.recurrence_rule_form">cms.forms.events.recurrence_rule_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.language_tree.html">cms.forms.language_tree package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.language_tree.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.language_tree.html#module-cms.forms.language_tree.language_tree_node_form">cms.forms.language_tree.language_tree_node_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.language_tree.html#module-cms.forms.language_tree">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.languages.html">cms.forms.languages package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.languages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.languages.html#module-cms.forms.languages.language_form">cms.forms.languages.language_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.languages.html#module-cms.forms.languages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.media.html">cms.forms.media package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.media.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">cms.forms.media.document_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.offer_templates.html">cms.forms.offer_templates package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.offer_templates.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.offer_templates.html#module-cms.forms.offer_templates.offer_template_form">cms.forms.offer_templates.offer_template_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.offer_templates.html#module-cms.forms.offer_templates">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.organizations.html">cms.forms.organizations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.organizations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.organizations.html#module-cms.forms.organizations.organization_form">cms.forms.organizations.organization_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.organizations.html#module-cms.forms.organizations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.pages.html">cms.forms.pages package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_form">cms.forms.pages.page_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_translation_form">cms.forms.pages.page_translation_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.pois.html">cms.forms.pois package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pois.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois.poi_form">cms.forms.pois.poi_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois.poi_translation_form">cms.forms.pois.poi_translation_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.push_notifications.html">cms.forms.push_notifications package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.push_notifications.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">cms.forms.push_notifications.push_notification_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.regions.html">cms.forms.regions package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.regions.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.regions.html#module-cms.forms.regions.region_form">cms.forms.regions.region_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.regions.html#module-cms.forms.regions">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.roles.html">cms.forms.roles package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.roles.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.role_form">cms.forms.roles.role_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.users.html">cms.forms.users package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.users.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">cms.forms.users.region_user_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">cms.forms.users.region_user_profile_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_form">cms.forms.users.user_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">cms.forms.users.user_profile_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-cms.forms">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cms.forms" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cms.forms.authentication.html" class="btn btn-neutral float-right" title="cms.forms.authentication package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cms.constants.html" class="btn btn-neutral float-left" title="cms.constants package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Integreat
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
