@@ -7,14 +7,14 @@ from setuptools import find_packages, setup
 setup(
     name="integreat_cms",
     version="0.0.13",
-    packages=find_packages("backend"),
-    package_dir={'':'backend'},
+    packages=find_packages("src"),
+    package_dir={'':'src'},
     include_package_data=True,
-    scripts=['backend/integreat-cms'],
+    scripts=['src/integreat-cms-cli'],
     data_files= [("lib/integreat-{}".format(root), [os.path.join(root, f) for f in files])
-                 for root, dirs, files in os.walk('backend/cms/templates/')] +
+                 for root, dirs, files in os.walk('src/cms/templates/')] +
                 [("lib/integreat-{}".format(root), [os.path.join(root, f) for f in files])
-                 for root, dirs, files in os.walk('backend/cms/static/')] +
+                 for root, dirs, files in os.walk('src/cms/static/')] +
                 [('usr/lib/systemd/system/', ['systemd/integreat-cms@.service'])],
     install_requires=[
         "beautifulsoup4",

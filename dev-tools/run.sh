@@ -27,10 +27,10 @@ if nc -w1 localhost 5432; then
     npx npm-check --update-all --skip-unused
 
     # Compile CSS
-    npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
+    npx lessc -clean-css ../src/cms/static/css/style.less  ../src/cms/static/css/style.min.css
 
     # Apply Compressing
-    integreat-cms compress
+    integreat-cms-cli compress
 
     # Re-generating translation file and compile it
     ./translate.sh
@@ -39,7 +39,7 @@ if nc -w1 localhost 5432; then
     ./migrate.sh
 
     # Start Integreat CMS
-    integreat-cms runserver localhost:8000
+    integreat-cms-cli runserver localhost:8000
 
 else
 
@@ -73,10 +73,10 @@ else
     sudo -u $SUDO_USER env PATH="$PATH" npx npm-check --update-all --skip-unused
 
     # Compile CSS
-    sudo -u $SUDO_USER env PATH="$PATH" npx lessc -clean-css ../backend/cms/static/css/style.less  ../backend/cms/static/css/style.min.css
+    sudo -u $SUDO_USER env PATH="$PATH" npx lessc -clean-css ../src/cms/static/css/style.less  ../src/cms/static/css/style.min.css
 
     # Apply Compressing
-    sudo -u $SUDO_USER env PATH="$PATH" integreat-cms compress
+    sudo -u $SUDO_USER env PATH="$PATH" integreat-cms-cli compress
 
     # Re-generating translation file and compile it
     sudo -u $SUDO_USER env PATH="$PATH" ./translate.sh
@@ -112,7 +112,7 @@ else
     fi
 
     # Start Integreat CMS
-    sudo -u $SUDO_USER env PATH="$PATH" integreat-cms runserver localhost:8000 --settings=backend.docker_settings
+    sudo -u $SUDO_USER env PATH="$PATH" integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
 
     # Stop the postgres database docker container
     docker stop integreat_django_postgres > /dev/null
