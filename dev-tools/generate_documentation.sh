@@ -6,7 +6,7 @@
 if [ $(id -u) = 0 ]; then
     # Check if script was invoked by the root user or with sudo
     if [ -z "$SUDO_USER" ]; then
-        echo "Please do not execute install.sh as your root user because it would set the wrong file permissions of your virtual environment." >&2
+        echo "Please do not execute generate_documentation.sh as your root user because it would set the wrong file permissions of the documentation files." >&2
         exit 1
     else
         # Call this script again as the user who executed sudo

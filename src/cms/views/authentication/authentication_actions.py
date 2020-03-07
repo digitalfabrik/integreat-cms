@@ -35,10 +35,9 @@ class MfaEnableAuthentication(auth_views.LoginView):
 
 def login(request):
     """View to provide login functionality
-    Args:
-            request: Object representing the user call
-    Returns:
-            HttpResponseRedirect: View function to render the Login page
+
+    :param request: Object representing the user call
+    :return: HttpResponseRedirect: View function to render the Login page
     """
     return MfaEnableAuthentication.as_view(
         template_name='authentication/login.html')(request)
@@ -46,10 +45,9 @@ def login(request):
 
 def mfa(request):
     """View to check 2FA authentication if applicable
-    Args:
-            request: Object representing the user call
-    Returns:
-            HttpResponseRedirect: View function to render the MFA page
+
+    :param request: Object representing the user call
+    :return: HttpResponseRedirect: View function to render the MFA page
     """
     return auth_views.LoginView.as_view(
         template_name='authentication/login_mfa.html')(request)
@@ -128,10 +126,9 @@ def mfaVerify(request):
 
 def logout(request):
     """View to provide logout functionality
-    Args:
-            request: Object representing the user call
-    Returns:
-            HttpResponseRedirect: Redirect to the login page after logout
+
+    :param request: Object representing the user call
+    :return: HttpResponseRedirect: Redirect to the login page after logout
     """
 
     django_logout(request)
@@ -141,10 +138,9 @@ def logout(request):
 
 def password_reset_done(request):
     """View linked to the Password reset functionality
-    Args:
-            request: Object representing the user call
-    Returns:
-            HttpResponseRedirect: Redirect after password reset
+
+    :param request: Object representing the user call
+    :return: HttpResponseRedirect: Redirect after password reset
     """
 
     messages.info(request, (_('A message with instructions for resetting your password '
@@ -154,10 +150,9 @@ def password_reset_done(request):
 
 def password_reset_confirm(request):
     """View linked to the Password reset functionality
-    Args:
-            request: Object representing the user call
-    Returns:
-            PasswordChangeDoneView: Linked to Template to build view for user
+
+    :param request: Object representing the user call
+    :return: PasswordChangeDoneView: Linked to Template to build view for user
     """
 
     template = 'authentication/password_reset_confirm.html'
@@ -166,10 +161,9 @@ def password_reset_confirm(request):
 
 def password_reset_complete(request):
     """View linked to the Password reset functionality
-    Args:
-            request: Object representing the user call
-    Returns:
-            HttpResponseRedirect: Redirect to login page after password is reseted
+
+    :param request: Object representing the user call
+    :return: HttpResponseRedirect: Redirect to login page after password is reseted
     """
 
     messages.success(request, (_('Your password has been successfully changed.')/

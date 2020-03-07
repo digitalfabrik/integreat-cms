@@ -653,19 +653,14 @@ Expects start &lt; end
 <dt id="cms.models.events.recurrence_rule.RecurrenceRule">
 <em class="property">class </em><code class="sig-prename descclassname">cms.models.events.recurrence_rule.</code><code class="sig-name descname">RecurrenceRule</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Object to define the recurrence frequency
-Args:</p>
-<blockquote>
-<div><p>models ([type]): [description]</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Raises:</dt><dd><p>ValidationError: Error raised when weekdays_for_weekly does not fit into the range
+<p>Object to define the recurrence frequency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValidationError</strong> – Error raised when weekdays_for_weekly does not fit into the range
 from 0 to 6 or when the value of weekdays_for_monthly isn’t between -5 and 5.</p>
 </dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
 <li><p><strong>id</strong> (<em>AutoField</em>) – Id</p></li>
 <li><p><strong>frequency</strong> (<em>CharField</em>) – Frequency</p></li>
 <li><p><strong>interval</strong> (<em>IntegerField</em>) – Interval</p></li>

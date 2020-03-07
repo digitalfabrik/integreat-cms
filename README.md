@@ -112,6 +112,20 @@ To make sure your code matches the repository's quality standards, run pylint as
 ```
 
 ### 8. Developer Documentation
+Required syntax of docstrings ([more information here](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html)):
+```
+"""[Summary]
+
+:param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+:type [ParamName]: [ParamType](, optional)
+...
+:raises [ErrorType]: [ErrorDescription]
+...
+:return: [ReturnDescription]
+:rtype: [ReturnType]
+"""
+```
+
 If you change models, functions or docstrings, make sure to update the corresponding developer documentation:
 ```
 ./dev-tools/generate_documentation.sh

@@ -13,10 +13,8 @@ from ...constants import frequency, weekdays, weeks
 class RecurrenceRule(models.Model):
     """
     Object to define the recurrence frequency
-    Args:
-        models ([type]): [description]
-    Raises:
-        ValidationError: Error raised when weekdays_for_weekly does not fit into the range
+
+    :raises ValidationError: Error raised when weekdays_for_weekly does not fit into the range
         from 0 to 6 or when the value of weekdays_for_monthly isn't between -5 and 5.
     """
 
