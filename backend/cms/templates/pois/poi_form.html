@@ -73,12 +73,55 @@
                             <div class="border-b-2 border-white">
                         {% if other_language == language %}
                             <div class="p-4">
-                                <i data-feather="{% if other_language in poi_form.instance.languages %}edit-2{% else %}plus{% endif %}" class="inline-block"></i>
+                                {% if poi_form.instance %}
+                                    {% if other_language in poi_form.instance.languages %}
+                                        {% if poi_translation_form.instance.is_outdated %}
+                                            <span title="{% trans 'Translation outdated' %}">
+                                                <i data-feather="alert-triangle" class="inline-block"></i>
+                                            </span>
+                                        {% elif poi_translation_form.instance.currently_in_translation %}
+                                            <span title="{% trans 'Currently in translation' %}">
+                                                <i data-feather="clock" class="inline-block"></i>
+                                            </span>
+                                        {% else %}
+                                            <span title="{% trans 'Translation up-to-date' %}">
+                                                <i data-feather="check" class="inline-block"></i>
+                                            </span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span title="{% trans 'Translation missing' %}">
+                                            <i data-feather="x" class="inline-block"></i>
+                                        </span>
+                                    {% endif %}
+                                {% else %}
+                                    <span title="{% trans 'Create Translation' %}">
+                                        <i data-feather="plus" class="inline-block"></i>
+                                    </span>
+                                {% endif %}
                                 {{ other_language.translated_name }}
                             </div>
                         {% else %}
                             <a class="block p-4" style="color: inherit;" href="{% url 'edit_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=other_language.code %}">
-                                <i data-feather="{% if other_language in poi_form.instance.languages %}edit-2{% else %}plus{% endif %}" class="inline-block"></i>
+                                {% if other_language in poi_form.instance.languages %}
+                                    {% get_translation poi_form.instance other_language.code as other_poi_translation %}
+                                    {% if other_poi_translation.is_outdated %}
+                                        <span title="{% trans 'Translation outdated' %}">
+                                            <i data-feather="alert-triangle" class="inline-block"></i>
+                                        </span>
+                                    {% elif other_poi_translation.currently_in_translation %}
+                                        <span title="{% trans 'Currently in translation' %}">
+                                            <i data-feather="clock" class="inline-block"></i>
+                                        </span>
+                                    {% else %}
+                                        <span title="{% trans 'Translation up-to-date' %}">
+                                            <i data-feather="check" class="inline-block"></i>
+                                        </span>
+                                    {% endif %}
+                                {% else %}
+                                    <span title="{% trans 'Translation missing' %}">
+                                        <i data-feather="x" class="inline-block"></i>
+                                    </span>
+                                {% endif %}
                                 {{ other_language.translated_name }}
                             </a>
                         {% endif %}

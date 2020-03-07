@@ -1,10 +1,10 @@
 """Model for Point of Interests
 
 """
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 from ..regions.region import Region
+from ...constants import status
 
 
 class POI(models.Model):
@@ -52,8 +52,12 @@ class POI(models.Model):
         return languages
 
     def get_translation(self, language_code):
-        try:
-            poi_translation = self.translations.get(language__code=language_code)
-        except ObjectDoesNotExist:
-            poi_translation = None
-        return poi_translation
+        return self.translations.filter(
+            language__code=language_code
+        ).first()
+
+    def get_public_translation(self, language_code):
+        return self.translations.filter(
+            language__code=language_code,
+            status=status.PUBLIC,
+        ).first()
