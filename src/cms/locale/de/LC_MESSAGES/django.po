@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-07 11:34+0000\n"
+"POT-Creation-Date: 2020-03-07 15:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -317,6 +317,14 @@ msgstr "Privat"
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
 
+#: forms/users/user_password_form.py:61
+msgid "Your old password is not correct."
+msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
+
+#: forms/users/user_password_form.py:64
+msgid "The new passwords do not match."
+msgstr "Die Passwörter stimmen nicht überein."
+
 #: models/languages/language.py:19
 msgid "Left to right"
 msgstr "Links nach Rechts"
@@ -517,7 +525,7 @@ msgstr "Benutzername"
 #: templates/authentication/password_reset_confirm.html:22
 #: templates/authentication/password_reset_confirm.html:24
 #: templates/settings/mfa/authenticate.html:26
-#: templates/settings/mfa/authenticate.html:28
+#: templates/settings/mfa/authenticate.html:28 templates/settings/user.html:28
 msgid "Password"
 msgstr "Passwort"
 
@@ -1296,7 +1304,7 @@ msgstr "Angebots-Vorlagen verwalten"
 msgid "Active since"
 msgstr "Aktiv seit"
 
-#: templates/offers/offer_list.html:33 templates/settings/user.html:18
+#: templates/offers/offer_list.html:33 templates/settings/user.html:64
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -2065,31 +2073,76 @@ msgstr "Einstellungen für"
 msgid "User settings"
 msgstr "Benutzereinstellungen"
 
-#: templates/settings/user.html:9
-msgid "Registered 2FA key"
-msgstr "Hinterlegte 2-Faktor-Schlüssel"
+#: templates/settings/user.html:13 templates/users/admin/list.html:31
+#: templates/users/region/list.html:26
+msgid "E-mail-address"
+msgstr "E-Mail Adresse"
 
-#: templates/settings/user.html:15
+#: templates/settings/user.html:18
+msgid "Your E-mail-address"
+msgstr "Ihre E-Mail Adresse"
+
+#: templates/settings/user.html:19
+msgid "Enter your e-mail-address here"
+msgstr "Ihre E-Mail-Adresse hier eingeben"
+
+#: templates/settings/user.html:22
+msgid "Change e-mail-address"
+msgstr "E-Mail Adresse ändern"
+
+#: templates/settings/user.html:33
+msgid "Your old Password"
+msgstr "Ihr bisheriges Passwort"
+
+#: templates/settings/user.html:34
+msgid "Enter your old password here"
+msgstr "Ihr bisheriges Passwort hier eingeben"
+
+#: templates/settings/user.html:36
+msgid "Your new Password"
+msgstr "Ihr neues Passwort"
+
+#: templates/settings/user.html:37
+msgid "Enter your new password here"
+msgstr "Ihr neues Passwort hier eingeben"
+
+#: templates/settings/user.html:39
+msgid "Confirm your new Password"
+msgstr "Neues Passwort bestätigen"
+
+#: templates/settings/user.html:40
+msgid "Confirm your new password here"
+msgstr "Ihr neues Passwort erneut eingeben"
+
+#: templates/settings/user.html:47
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: templates/settings/user.html:55
+msgid "Two-Factor-Authentication"
+msgstr "2-Faktor-Authentifizierung"
+
+#: templates/settings/user.html:61
 msgid "Key name"
 msgstr "Schlüsselname"
 
-#: templates/settings/user.html:16
+#: templates/settings/user.html:62
 msgid "Last usage"
 msgstr "Letzte verwendung"
 
-#: templates/settings/user.html:17
+#: templates/settings/user.html:63
 msgid "Date added"
 msgstr "Hinzugefügt am"
 
-#: templates/settings/user.html:32
+#: templates/settings/user.html:78
 msgid "No 2FA keys have been added yet."
 msgstr "Es wurden noch keine 2-Faktor-Schlüssel hinzugefügt."
 
-#: templates/settings/user.html:38
+#: templates/settings/user.html:84
 msgid "Add a new 2FA key"
 msgstr "Neuen Schlüssel hinzufügen"
 
-#: templates/settings/user.html:42
+#: templates/settings/user.html:88
 msgid ""
 "You can use your FIDO2 keys to secure your account. Once you added a key to "
 "your account you won't be able to log in without using the key."
@@ -2098,7 +2151,7 @@ msgstr ""
 "abzusichern. Sobald ein Schlüssel hinzugefügt wurde, ist ein Login nur noch "
 "mit diesem möglich."
 
-#: templates/settings/user.html:43
+#: templates/settings/user.html:89
 msgid ""
 "To make sure that you don't loose access to your account when you loose your "
 "FIDO2 key it is recommended to add multiple keys. Just make sure to keep at "
@@ -2169,10 +2222,6 @@ msgstr "Vorname"
 #: templates/users/admin/list.html:30 templates/users/region/list.html:25
 msgid "Last Name"
 msgstr "Nachname"
-
-#: templates/users/admin/list.html:31 templates/users/region/list.html:26
-msgid "E-mail-address"
-msgstr "E-Mail Adresse"
 
 #: templates/users/admin/list.html:32 templates/users/admin/user.html:97
 #: templates/users/region/list.html:27 templates/users/region/user.html:82
@@ -2362,7 +2411,9 @@ msgstr ""
 
 #: views/events/event_view.py:132 views/pages/page_sbs_view.py:107
 #: views/pages/page_view.py:127 views/pois/poi_view.py:106
-#: views/regions/region_view.py:67 views/users/region_user_actions.py:113
+#: views/regions/region_view.py:67 views/settings/user_settings_view.py:54
+#: views/settings/user_settings_view.py:74
+#: views/users/region_user_actions.py:113
 #: views/users/region_user_list_view.py:113 views/users/region_user_view.py:113
 #: views/users/user_actions.py:90 views/users/user_list_view.py:90
 #: views/users/user_view.py:90
@@ -2657,6 +2708,14 @@ msgstr "Dieser Name wurde bereits genutzt."
 msgid "You already registered this key"
 msgstr "Sie haben diesen Schlüssel bereits registriert"
 
+#: views/settings/user_settings_view.py:57
+msgid "E-mail-address was successfully saved."
+msgstr "E-Mail-Adresse wurde erfolgreich geändert."
+
+#: views/settings/user_settings_view.py:79
+msgid "Password was successfully saved."
+msgstr "Passwort wurde erfolgreich geändert."
+
 #: views/statistics/analytics_view.py:58
 msgid "Please enter a correct start and enddate"
 msgstr "Bitte fügen sie ein valides Start- und Enddatum für die Ansicht ein."
@@ -2700,6 +2759,15 @@ msgstr "Benutzer wurde erfolgreich erstellt."
 #: views/users/user_view.py:108
 msgid "User was successfully deleted."
 msgstr "Benutzer wurde erfolgreich gelöscht."
+
+#~ msgid "Save e-mail-address"
+#~ msgstr "E-Mail Adresse speichern"
+
+#~ msgid "Save password"
+#~ msgstr "Passwort ändern"
+
+#~ msgid "Registered 2FA key"
+#~ msgstr "Hinterlegte 2-Faktor-Schlüssel"
 
 #~ msgid "Edit translation"
 #~ msgstr "Diese Übersetzung bearbeiten"
