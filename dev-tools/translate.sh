@@ -21,10 +21,10 @@ cd $(dirname "$BASH_SOURCE")
 source ../.venv/bin/activate
 
 # Change directory to make sure to ignore files in the venv
-cd ../backend/cms
+cd ../src/cms
 
 # Re-generating translation file
-integreat-cms makemessages -l de
+integreat-cms-cli makemessages -l de
 
 # Ignore POT-Creation-Date of otherwise unchanged translation file
 if git diff --shortstat locale/de/LC_MESSAGES/django.po | grep -q "1 file changed, 1 insertion(+), 1 deletion(-)"; then
@@ -32,4 +32,4 @@ if git diff --shortstat locale/de/LC_MESSAGES/django.po | grep -q "1 file change
 fi
 
 # Compile translation file
-integreat-cms compilemessages
+integreat-cms-cli compilemessages

@@ -16,14 +16,14 @@ pipeline {
       parallel {
         stage('Linting') {
           steps {
-            sh '. .venv/bin/activate && cd backend && pylint_runner'
+            sh '. .venv/bin/activate && cd src && pylint_runner'
           }
         }
         stage('Test Cases') {
           steps {
             withCredentials([usernamePassword(credentialsId: 'cms_django_database', passwordVariable: 'CMS_DJANGO_DATABASE_PASSWORD', usernameVariable: 'CMS_DJANGO_DATABASE_USER')]) {
-                sh '. .venv/bin/activate && integreat-cms makemigrations cms && integreat-cms migrate'
-                sh '. .venv/bin/activate && integreat-cms test cms'
+                sh '. .venv/bin/activate && integreat-cms-cli makemigrations cms && integreat-cms-cli migrate'
+                sh '. .venv/bin/activate && integreat-cms-cli test cms'
             }
           }
         }

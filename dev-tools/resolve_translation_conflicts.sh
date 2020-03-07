@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd $(dirname "$BASH_SOURCE")/../backend/cms/locale/de/LC_MESSAGES
+cd $(dirname "$BASH_SOURCE")/../src/cms/locale/de/LC_MESSAGES
 
 # Replace git conflict markers
 sed -i -E -e 's/<<<<<<< HEAD//g' django.po

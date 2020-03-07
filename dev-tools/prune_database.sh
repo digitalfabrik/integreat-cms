@@ -54,4 +54,4 @@ else
 fi
 
 # Remove migrations
-rm -rfv $(dirname "$BASH_SOURCE")/../backend/cms/migrations
+rm -rfv $(dirname "$BASH_SOURCE")/../src/cms/migrations
