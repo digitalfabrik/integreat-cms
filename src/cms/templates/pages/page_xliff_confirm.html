@@ -1,0 +1,50 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load mptt_tags %}
+{% load content_filters %}
+{% load page_filters %}
+{% load rules %}
+
+{% block javascript_head %}
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<style>
+.diff {
+    max-width: 100%;
+    background-color: #fff;
+    min-height: 1em;
+}
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+</style>
+<div class="xliff-confirm">
+    <div class="m-4">
+      <form action="{% url 'confirm_xliff_import' region_slug=region.slug language_code=language.code%}" method="POST">
+        <h2 class="heading pb-4">{% trans 'Review XLIFF Import' %}</h2>
+        <p class="pb-4">{% trans 'Please review the changes that will be done to the page translations below.' %}</p>
+        <input type="submit" value="{% trans 'Confirm' %}" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-2 px-4 rounded p-4">
+        <input type="button" value="{% trans 'Abort' %}" onclick="window.location='{% url 'pages' region_slug=region.slug language_code=language.code %}';" class="inline-block cursor-pointer bg-red-500 hover:bg-red-600 text-white h-full font-bold py-2 px-4 rounded p-4">
+        <input type="hidden" value={{ upload_dir }} name="upload_dir">
+        {% csrf_token %}
+      </form>
+    </div>
+    {% for xliff_diff in translation_diffs %}
+    <div class="border border-green-500 m-4">
+        <h2 class="heading font-normal m-4">XLIFF {% trans 'file' %}: {{ xliff_diff.xliff_name }}</h2>
+        {% if xliff_diff.current_version_newer %}<p class="text-red-700 m-4">{% trans 'Warning: the translation has been updated since the XLIFF was exported.' %}</p>{% endif %}
+        <h2 class="heading font-normal m-4">{% trans 'Title' %}</h2>
+        <pre class="diff m-4 p-4">{% if xliff_diff.title_diff %}{{xliff_diff.title_diff }}{% else %}{% trans 'No change' %}{% endif %}</pre>
+        <h2 class="heading font-normal m-4">{% trans 'Content' %}</h2>
+        <pre class="diff m-4 p-4">{% if xliff_diff.content_diff %}{{xliff_diff.content_diff }}{% else %}{% trans 'No change' %}{% endif %}</pre>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

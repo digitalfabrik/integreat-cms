@@ -28,7 +28,6 @@ setup(
         ('usr/lib/systemd/system/', ['systemd/integreat-cms@.service'])
     ],
     install_requires=[
-        'beautifulsoup4',
         'cffi',
         'Django~=2.2.13',
         'django-cors-headers',

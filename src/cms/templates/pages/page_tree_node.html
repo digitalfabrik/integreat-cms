@@ -9,14 +9,7 @@
         </span>
     </td>
     <td class="pl-2">
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
-            {{ page.id }}
-        </a>
-    </td>
-    <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
-            {{ page_translation.version }}
-        </a>
+        <input type="checkbox" name="page_selected" value="{{ page.id }}">
     </td>
     <td>
         <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
@@ -109,9 +102,5 @@
                 </button>
             {% endif %}
         {% endif %}
-        <a href="{% url 'download_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
-           title="{% trans 'Download page' %}" class="py-3 px-2">
-             <i data-feather="download" class="inline-block text-gray-800"></i>
-        </a>
     </td>
 </tr>

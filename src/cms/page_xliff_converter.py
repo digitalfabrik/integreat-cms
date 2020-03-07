@@ -1,280 +1,295 @@
 import os
-import shutil
 import uuid
+import datetime
+import difflib
 
 from zipfile import ZipFile
-from bs4 import BeautifulSoup, NavigableString, Tag
-
+from lxml import etree
 from django.utils.text import slugify
 
-from .models import Page, PageTranslation
+from .models import Page, PageTranslation, Language
 
-XLIFF_TAG = 'xliff'
-XLIFF_SRC_LANG_ATTRIBUTE_NAME = 'srcLang'
-XLIFF_TRG_LANG_ATTRIBUTE_NAME = 'trgLang'
-
-PAGE_XLIFF_TEMPLATE = '''
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="{src_lang}" trgLang="{trg_lang}">
-    <page id="{page_id}">
-        {title}
-        {text}
-    </page>
-</xliff>
-'''
-PAGE_TAG = 'page'
-PAGE_TITLE_TAG = 'page-title'
-PAGE_TITLE_BEGIN_TAG = '<page-title>'
-PAGE_TITLE_END_TAG = '</page-title>'
-PAGE_TITLE_TEMPLATE = '''<page-title>{0}</page-title>'''
-
-PAGE_TEXT_TAG = 'page-text'
-PAGE_TEXT_BEGIN_TAG = '<page-text>'
-PAGE_TEXT_END_TAG = '</page-text>'
-PAGE_TEXT_TEMPLATE = '<page-text>{0}</page-text>'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 XLIFFS_DIR = os.path.join(BASE_DIR, 'xliffs')
 
-TRANSLATION_UNIT_TEMPLATE = '''
-    <unit>
-        <segment>
-            <source>{0}</source>
-            <target>{1}</target>
-        </segment>
-    </unit>
-'''
-ENGLISH_LANGUAGE_CODE = 'en-us'
 
-class XliffValidationException(Exception):
-    pass
+class TranslationXliffConverter: # pylint: disable=R0902
+    """
+    Class to handle transition between XLIFF 2.0 XML files and PageTranslation model
+    """
+    PAGE_XLIFF_TEMPLATE = (
+        b'<?xml version="1.0" encoding="utf-8" standalone="no"?>'
+        b'<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0"><file></file></xliff>'
+    )
 
-# pylint: disable=too-few-public-methods
-class PageXliff:
-    def __init__(self, page_id, language_code, title, text):
-        self.page_id = page_id
-        self.language_code = language_code
-        self.title = title
-        self.text = text
+    def __init__(self, src_lang=None, tgt_lang=None, xliff_code=None):
+        """
+        Builds an LXML ETree from either the template or xliff_code parameter
 
+        :param src_lang: source language of translation
+        :type src_lang: cms.models.languages.language.Language
+        :param tgt_lang: target language of translation
+        :type tgt_lang: cms.models.languages.language.Language
+        :param xliff_code: XML Code of XLIFF file to import
+        :type xliff_code: str
+        """
+        self.src_lang = src_lang
+        self.tgt_lang = tgt_lang
+        self.elem_files = None
+        self.elem_title = None
+        self.elem_content = None
+        self.elem_trans_version = None
+        self.page_id = None
 
-class PageXliffConverter:
-    @staticmethod
-    def _add_navigable_string_to_empty_tag(soup):
-        for el in list(soup.descendants):
-            if isinstance(el, Tag) and not list(el.children) and el.name not in ('br',):
-                el.append(NavigableString(' '))
-
-    @staticmethod
-    def _replace_all_navigable_strings(soup):
-        for el in list(soup.descendants):
-            if isinstance(el, NavigableString):
-                el.replaceWith(NavigableString('###'))
-
-
-    @staticmethod
-    def _trim_tag_navigable_string(element):
-        for child in list(element.children):
-            if isinstance(child, NavigableString):
-                child.replaceWith(NavigableString(child.string.strip()))
-
-    @staticmethod
-    def _trim_unit_source_target_tag_navigable_string(source_data):
-        bs = BeautifulSoup(source_data, 'xml')
-        elements = []
-        elements.extend(list(bs.find_all('source')))
-        elements.extend(list(bs.find_all('target')))
-        for element in elements:
-            PageXliffConverter._trim_tag_navigable_string(element)
-
-        return str(bs.find())
-
-    @staticmethod
-    def _compare_structure_and_return_source_target(source, target):
-        if target is None:
-            return False, source, target
-
-        source_soup = BeautifulSoup(source, 'xml')
-        target_soup = BeautifulSoup(target, 'xml')
-        source_prettify = source_soup.prettify()
-        target_prettify = target_soup.prettify()
-        PageXliffConverter._add_navigable_string_to_empty_tag(source_soup)
-        PageXliffConverter._add_navigable_string_to_empty_tag(target_soup)
-        PageXliffConverter._replace_all_navigable_strings(source_soup)
-        PageXliffConverter._replace_all_navigable_strings(target_soup)
-
-        comparing_source = source_soup.prettify()
-        comparing_target = target_soup.prettify()
-
-        return comparing_source == comparing_target, source_prettify, target_prettify
-
-    @staticmethod
-    def _replace_navigable_string_with_unit(ns_element, source, target=''):
-        if source:
-            unit = TRANSLATION_UNIT_TEMPLATE.format(source, target)
-            temp_soup = BeautifulSoup(unit, 'xml')
-            ns_element.replaceWith(temp_soup.find())
-
-    @staticmethod
-    def _replace_source_target_unit(source_element, target_element):
-        source_children = list(source_element.children)
-        target_children = list(target_element.children)
-        tag_elements = []
-        for source_child, target_child in zip(source_children, target_children):
-            if isinstance(source_child, NavigableString) and isinstance(target_child, NavigableString):
-                PageXliffConverter._replace_navigable_string_with_unit(
-                    source_child, source_child.string.strip(), target_child.string.strip())
-            else:
-                tag_elements.append((source_child, target_child,))
-
-        for source_tag, target_tag in tag_elements:
-            PageXliffConverter._replace_source_target_unit(source_tag, target_tag)
-
-    @staticmethod
-    def _replace_source_unit(element):
-        children = list(element.children)
-        tag_elements = []
-        for child in children:
-            if isinstance(child, NavigableString):
-                PageXliffConverter._replace_navigable_string_with_unit(child, child.string.strip())
-            else:
-                tag_elements.append(child)
-
-        for tag in tag_elements:
-            PageXliffConverter._replace_source_unit(tag)
-
-    def html_to_xliff(self, source, target=None):
-        compare_result, compare_source, compare_target = self._compare_structure_and_return_source_target(
-            source=source,
-            target=target
-        )
-        source_soup = BeautifulSoup(compare_source, 'xml')
-        if compare_result:
-            target_soup = BeautifulSoup(compare_target, 'xml')
-            self._replace_source_target_unit(source_soup, target_soup)
+        if xliff_code is None:
+            self.xliff = etree.fromstring(self.PAGE_XLIFF_TEMPLATE)
+            self.add_language_attributes()
         else:
-            self._replace_source_unit(source_soup)
-        result = self._trim_unit_source_target_tag_navigable_string(source_soup.find().prettify())
-        result = result.replace('<target/>', '<target></target>').replace('<source/>', '<source></source>')
-        return result
+            self.xliff = etree.fromstring(xliff_code)
+        self.parse_xliff_meta()
+        self.parse_xliff_content()
 
-    @staticmethod
-    def xliff_to_html(xliff, target=True):
-        bs = BeautifulSoup(xliff, "xml")
-        elements = bs.find_all('unit')
-        content_tag = 'target'
-        if not target:
-            content_tag = 'source'
+    def parse_xliff_meta(self):
+        """
+        Get meta information from XLIFF file
+        """
+        file_elements = self.xliff.xpath("//x:file", namespaces={'x': "urn:oasis:names:tc:xliff:document:2.0"})
+        if len(file_elements) == 1:
+            self.elem_file = file_elements[0]
 
-        for element in elements:
-            content_element = element.find(content_tag)
-            if content_element:
-                element.replace_with(NavigableString(content_element.get_text()))
+        if self.tgt_lang is None:
+            tgt_langs = Language.objects.filter(code=self.xliff.attrib["trgLang"])
+            if len(tgt_langs) == 1:
+                self.tgt_lang = tgt_langs[0]
 
-        result = bs.prettify()
+        if self.src_lang is None:
+            src_langs = Language.objects.filter(code=self.xliff.attrib["srcLang"])
+            if len(src_langs) == 1:
+                self.src_lang = src_langs[0]
 
-        return result.replace('<?xml version="1.0" encoding="utf-8"?>', '')
+        if self.elem_file is not None and 'original' in self.elem_file.attrib:
+            self.page_id = int(self.elem_file.attrib["original"])
 
-    def page_translation_to_xliff(self, source_translation_page, target_language_code):
-        result = ""
-        source_language_code = source_translation_page.language.code
-        if source_translation_page and source_language_code != target_language_code:
-            target_translation_page = source_translation_page.page.get_translation(target_language_code)
-            if target_translation_page:
-                title = self.html_to_xliff(
-                    PAGE_TITLE_TEMPLATE.format(source_translation_page.title),
-                    PAGE_TITLE_TEMPLATE.format(target_translation_page.title)
-                )
-                text = self.html_to_xliff(
-                    PAGE_TEXT_TEMPLATE.format(source_translation_page.text),
-                    PAGE_TEXT_TEMPLATE.format(target_translation_page.text)
-                )
-            else:
-                title = self.html_to_xliff(
-                    PAGE_TITLE_TEMPLATE.format(source_translation_page.title)
-                )
-                text = self.html_to_xliff(
-                    PAGE_TEXT_TEMPLATE.format(source_translation_page.text)
-                )
+    def validate_meta_info(self):
+        """
+        Validate if XLIFF meta information is present
 
-            result = PAGE_XLIFF_TEMPLATE.format(src_lang=source_language_code,
-                                                trg_lang=target_language_code,
-                                                page_id=source_translation_page.page.id,
-                                                title=title,
-                                                text=text)
-        return result
+        :return: all required meta data (languages, page id, file element) available
+        :rtype: bool
+        """
+        if self.elem_file is None or self.tgt_lang is None or self.src_lang is None or self.page_id is None:
+            return False
+        return True
 
-    # pylint: disable=too-many-locals
-    def xliff_to_page_xliff(self, xliff, target=True):
-        bs = BeautifulSoup(xliff, 'xml')
-        xliff_element = bs.find(XLIFF_TAG)
-        page_xliff = None
-        error_messages = []
-        if xliff_element and 'srcLang' in xliff_element.attrs and 'trgLang' in xliff_element.attrs:
-            language_code = xliff_element['srcLang']
-            if target:
-                language_code = xliff_element['trgLang']
-            page_element = xliff_element.find(PAGE_TAG)
-            if page_element and 'id' in page_element.attrs:
-                page_id = page_element['id']
-                title_element = page_element.find(PAGE_TITLE_TAG)
-                text_element = page_element.find(PAGE_TEXT_TAG)
+    def parse_xliff_content(self):
+        """
+        Extract content elements from xliff
+        """
+        namespaces = {'x': "urn:oasis:names:tc:xliff:document:2.0"}
 
-                if title_element and text_element:
-                    title = self.xliff_to_html(title_element.prettify(), target=target)
-                    title = title.replace(PAGE_TITLE_BEGIN_TAG, '').replace(PAGE_TITLE_END_TAG, '').strip()
+        xpath_title = "//x:file/x:unit[@id=\"title\"]/x:segment/x:target"
+        xpath_content = "//x:file/x:unit[@id=\"content\"]/x:segment/x:target"
+        xpath_trans_version = "//x:file/x:notes/x:note[@id=\"tgt_version\"]"
 
-                    text = self.xliff_to_html(text_element.prettify(), target=target)
-                    temp_bs = BeautifulSoup(text, 'xml')
-                    temp_strings = list(temp_bs.stripped_strings)
-                    if temp_strings:
-                        text = text.replace(PAGE_TEXT_BEGIN_TAG, '').replace(PAGE_TEXT_END_TAG, '').strip()
-                    else:
-                        text = ''
-                    page_xliff = PageXliff(page_id=page_id, language_code=language_code, title=title, text=text)
-                else:
-                    error_messages.append('cannot find page title or text tag')
+        elem_title = self.xliff.xpath(xpath_title, namespaces=namespaces)
+        if len(elem_title) == 1:
+            self.elem_title = elem_title[0]
+        elem_content = self.xliff.xpath(xpath_content, namespaces=namespaces)
+        if len(elem_content) == 1:
+            self.elem_content = elem_content[0]
+        elem_trans_version = self.xliff.xpath(xpath_trans_version, namespaces=namespaces)
+        if len(elem_trans_version) == 1:
+            self.elem_trans_version = elem_trans_version[0]
 
-            else:
-                error_messages.append('cannot find page tag or page id not exists.')
-        else:
-            error_messages.append('cannot find xliff tag or srcLang and trgLang not exists.')
+    def validate_content(self):
+        """
+        Validate if content data is present
 
-        if error_messages:
-            raise XliffValidationException('\n'.join(error_messages))
+        :return: content and title elements are available
+        :rtype: bool
+        """
+        if self.elem_title is None or self.elem_content is None or self.elem_trans_version is None:
+            return False
+        return True
 
-        return page_xliff
+    def add_language_attributes(self):
+        """
+        If possible, add the srcLang and trgLang attributes to the xliff element
+
+        :return: language attributes were added
+        :rtype: bool
+        """
+        if self.src_lang is not None and self.tgt_lang is not None:
+            self.xliff.attrib["srcLang"] = self.src_lang.code
+            self.xliff.attrib["trgLang"] = self.tgt_lang.code
+            return True
+        return False
+
+    def translation_to_xliff(self, page_id, src_trans, tgt_trans, xliff_id):
+        """
+        Create a XLIFF that contains a page translation
+        Add origin attribute with page id as value to file element. as this id is unique
+        across all regions, it can be used to import a XLIFF file.
+
+        :param page_id: the id of the page to which the translation is related
+        :type page_id: int
+        :param src_trans: source language page translation
+        :type src_trans: cms.models.pages.page_translation.PageTranslation
+        :param tgt_trans: target language page translation
+        :type tgt_trans: cms.models.pages.page_translation.PageTranslation
+        :param xliff_id: XLIFF ID
+        :type xliff_id: str
+        :return: UTF-8 encoded XML
+        :rtype: str
+        """
+        self.elem_file.attrib["original"] = str(page_id)
+        notes = {"translation_id": xliff_id, "source_slug": src_trans.slug, "src_version": src_trans.version,
+                 "tgt_version": tgt_trans.version, "page_id": page_id}
+        self.add_notes(notes)
+        self.add_translation_unit("title", src_trans.title, tgt_trans.title)
+        self.add_translation_unit("content", src_trans.text, tgt_trans.text)
+        return self.get_xml().decode("utf-8")
+
+    def add_notes(self, notes):
+        """
+        Add notes section with additional information to XLIFF
+
+        :param notes: key-value-pairs of notes
+        :type notes: dict
+        """
+        notes_element = etree.SubElement(self.elem_file, "notes")
+
+        for item in notes:
+            note = etree.SubElement(notes_element, "note")
+            note.attrib["id"] = item
+            note.text = str(notes[item])
+
+    def add_translation_unit(self, unit_id, source_text, target_text):
+        """
+        Add a translation unit to the file element
+
+        :param unit_id: value for the unit id attribute
+        :type unit_id: str
+        :param source_text: source text to be translated
+        :type source_text: str
+        :param target_text: already available translation
+        :type target_text: str
+        """
+        unit = etree.SubElement(self.elem_file, "unit")
+        unit.attrib["id"] = unit_id
+        segment = etree.SubElement(unit, "segment")
+        source = etree.SubElement(segment, "source")
+        source.text = etree.CDATA(source_text)
+        target = etree.SubElement(segment, "target")
+        target.text = etree.CDATA(target_text)
+
+    def xliff_to_translation_data(self):
+        """
+        Read a XLIFF file that contains a page translation
+
+        :return: if successful, the content for the translation
+        :rtype: dict or None
+        """
+        if not self.validate_content() or not self.validate_meta_info():
+            return None
+
+        return {
+            "title": self.elem_title.text,
+            "content": self.elem_content.text,
+            "page_id": self.page_id,
+            "tgt_lang_code": self.tgt_lang.code,
+            "src_lang_code": self.src_lang.code,
+            "tgt_version": self.elem_trans_version.text}
+
+    def get_xml(self):
+        """
+        Turn LXML Element Tree to readable XML code
+
+        :return: pretty printed XML source code
+        :rtype: str
+        """
+        return etree.tostring(self.xliff, pretty_print=True)
 
 
-class PageXliffHelper:
-    def __init__(self, converter=None):
-        if converter:
-            self.converter = converter
-        else:
-            self.converter = PageXliffConverter()
+class PageXliffHelper():
+    """
+    Wrapper and helper methods for reading/writing XLIFF files and saving PageTranslation
+    """
+    def __init__(self, src_lang=None, tgt_lang=None):
+        """
+        :param src_lang: source language of translation
+        :type src_lang: cms.models.languages.language.Language
+        :param tgt_lang: target language of translation
+        :type tgt_lang: cms.models.languages.language.Language
+        """
+        if src_lang is not None:
+            self.src_lang = src_lang
+        if tgt_lang is not None:
+            self.tgt_lang = tgt_lang
 
     @staticmethod
     def save_file(content, file_path):
+        """
+        Write text to file
+
+        :param content: content of file
+        :type content: str
+        :param file_path: path to newly created file
+        :type file_path: str
+        """
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(content)
 
-    def export_page_translation_xliff(self, source_translation_page, target_language_code, filename=None):
+    def export_page_translation_xliff(self, page):
+        """
+        Create XLIFF file for source page translation and target language
 
-        if not filename:
-            filename = f'page_{source_translation_page.page.id}_{source_translation_page.language.code}_{target_language_code}.xliff'
+        :param page: page of translation that should be exported
+        :type page: cms.models.pages.page.Page
+        :return: file path to XLIFF file
+        :rtype: string or None
+        """
+        converter = TranslationXliffConverter(self.src_lang, self.tgt_lang)
 
-        file_path = None
+        src_trans = PageTranslation.objects.filter(page=page, language=self.src_lang).first()
+        if not src_trans:
+            return None
+        tgt_trans = PageTranslation.objects.filter(page=page, language=self.tgt_lang).first()
+        if not tgt_trans:
+            tgt_trans = PageTranslation(
+                title="",
+                text="",
+                status=src_trans.status,
+                language=self.tgt_lang,
+                page=page)
 
-        xliff_content = self.converter.page_translation_to_xliff(source_translation_page, target_language_code)
+        region_slug = page.region.slug
+        slug = src_trans.slug
+
+        # properties that make a translation unique: page id, target language, source version
+        xliff_id = self.tgt_lang.code + "_" + str(page.id) + "_" + str(src_trans.version)
+
+        filename = f"{region_slug}_{self.src_lang.code}__{xliff_id}__{slug}.xliff"
+        xliff_content = converter.translation_to_xliff(page.id, src_trans, tgt_trans, xliff_id)
 
         if xliff_content:
             file_path = os.path.join(XLIFFS_DIR, str(uuid.uuid4()), filename)
             self.save_file(xliff_content, file_path)
-
-        return file_path
+            return file_path
+        return None
 
     @staticmethod
     def _create_zip_file(source_file_paths, zip_file_path):
+        """
+        Create zip file from list of source files
+
+        :param source_file_paths: list of files to be zipped
+        :type source_file_paths: list
+        :param zip_file_path: path to zipped file
+        :type zip_file_path: str
+        """
         os.makedirs(os.path.dirname(zip_file_path), exist_ok=True)
         with ZipFile(zip_file_path, 'w') as zip_file:
             for file_path in source_file_paths:
@@ -282,77 +297,36 @@ class PageXliffHelper:
                     file_name = file_path.split(os.sep)[-1]
                     zip_file.write(file_path, arcname=file_name)
 
-    @staticmethod
-    def delete_tmp_in_xliff_folder(file_path):
-        if file_path.startswith(XLIFFS_DIR):
-            folder = os.path.dirname(file_path)
-            files = os.listdir(folder)
-            if len(files) == 1 and os.path.join(folder, files[0]) == file_path:
-                shutil.rmtree(folder)
+    def pages_to_zipped_xliffs(self, region, pages):
+        """
+        Export a list of page IDs to a zip file containing XLIFFs for a specified target language
 
-    @staticmethod
-    def _get_xliff_directions(languages, default_language):
-        source_target_langs = []
-        english_language = None
-        for language in languages:
-            if language.code == ENGLISH_LANGUAGE_CODE:
-                english_language = language
-                break
-
-        if default_language.code == ENGLISH_LANGUAGE_CODE or not english_language:
-            for language in languages:
-                if language != default_language:
-                    source_target_langs.append((default_language.code, language.code,))
-        else:
-            for language in languages:
-                if language != default_language:
-                    if language.code == ENGLISH_LANGUAGE_CODE:
-                        source_target_langs.append((default_language.code, ENGLISH_LANGUAGE_CODE,))
-                    else:
-                        source_target_langs.append((ENGLISH_LANGUAGE_CODE, language.code,))
-
-        return source_target_langs
-
-
-    def export_page_xliffs_to_zip(self, page):
-        zip_file_path = None
-        xliff_files = []
-        if page and len(page.region.languages) > 1:
-            page_translations = list(page.translations.all())
-            language_page_translation_map = {}
-            for page_translation in page_translations:
-                language_page_translation_map[page_translation.language.code] = page_translation
-
-            default_language = page.region.default_language
-            if not default_language or default_language.code not in language_page_translation_map:
-                default_language = page_translations[0].language
-                source_page_translation = page_translations[0]
-            elif default_language.code in language_page_translation_map:
-                source_page_translation = language_page_translation_map[default_language.code]
-
-            xliff_directions = self._get_xliff_directions(page.region.languages, default_language)
-
-            for source_language_code, target_language_code in xliff_directions:
-                if source_language_code in language_page_translation_map:
-                    xliff_files.append(
-                        self.export_page_translation_xliff(language_page_translation_map[source_language_code],
-                                                           target_language_code))
-                elif target_language_code != source_page_translation.language.code:
-                    xliff_files.append(
-                        self.export_page_translation_xliff(source_page_translation, target_language_code))
-
-            zip_file_name = f"page_{page.id}.zip"
-            zip_file_path = os.path.join(XLIFFS_DIR, 'pages', str(uuid.uuid4()), zip_file_name)
-            self._create_zip_file(xliff_files, zip_file_path)
-
-            # delete xliff files after created zip file
-            for xliff_file in xliff_files:
-                self.delete_tmp_in_xliff_folder(xliff_file)
-
-        return zip_file_path
+        :param region: region from which the XLIFFs should be exported
+        :type region: cms.models.regions.region.Region
+        :param pages: list of pages which should be translated
+        :type pages: list [ cms.models.pages.page.Page ]
+        """
+        xliff_paths = []
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+        zip_name = f"{region.slug}_{timestamp}_{self.src_lang.code}_{self.tgt_lang.code}.zip"
+        for page in pages:
+            xliff_path = self.export_page_translation_xliff(page)
+            if xliff_path is not None:
+                xliff_paths.append(xliff_path)
+        zip_path = os.path.join(XLIFFS_DIR, str(uuid.uuid4()), zip_name)
+        self._create_zip_file(xliff_paths, zip_path)
+        return zip_path
 
     @staticmethod
     def _get_page_translation_slug(title):
+        """
+        Create slug (readable unique identifier) for page translation from title
+
+        :param title: title of page translation
+        :type title: str
+        :return: slug
+        :rtype: str
+        """
         slug = slugify(title)
         if PageTranslation.objects.filter(slug=slug).exists():
             old_slug = slug
@@ -362,76 +336,133 @@ class PageXliffHelper:
                 slug = old_slug + '-' + str(i)
                 if not PageTranslation.objects.filter(slug=slug).exists():
                     break
-
         return slug
 
     @staticmethod
-    def save_page_xliff(page_xliff, user):
-        result = False
-        try:
-            if page_xliff.page_id and page_xliff.title and page_xliff.text and page_xliff.language_code:
-                page = Page.objects.get(id=int(page_xliff.page_id))
-                page_translation = page.get_translation(page_xliff.language_code)
-                if page_translation:
-                    page_translation.title = page_xliff.title
-                    page_translation.text = page_xliff.text
-                    page_translation.slug = PageXliffHelper._get_page_translation_slug(page_xliff.title)
+    def save_page_translation(trans_fields, user):
+        """
+        Save XLIFF input to page translation
 
-                elif page.languages:
-                    target_language = None
-                    for language in page.region.languages:
-                        if page_xliff.language_code == language.code:
-                            target_language = language
-                            break
-                    if target_language:
-                        slug = PageXliffHelper._get_page_translation_slug(page_xliff.title)
-                        source_page_translation = list(page.translations.all())[0]
-                        page_translation = PageTranslation.objects.create(
-                            slug=slug,
-                            title=page_xliff.title,
-                            text=page_xliff.text,
-                            status=source_page_translation.status,
-                            language=target_language,
-                            public=source_page_translation.public,
-                            page=page,
-                            creator=user
-                        )
+        :param trans_fields: translated fields extracted from XLIFF file
+        :type trans_fields: dict
+        :param user: author of translations
+        :type user: django.contrib.auth.models.User
+        :return: failure/success for each page or overall failed
+        :rtype: list or bool
+        """
+        page = Page.objects.filter(id=int(trans_fields["page_id"])).first()
+        tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_code"]).first()
+        src_lang = Language.objects.filter(code=trans_fields["src_lang_code"]).first()
+        if tgt_lang is None or src_lang is None or page is None:
+            return False
+        tgt_trans = PageTranslation.objects.filter(page=page, language=tgt_lang).first()
+        src_trans = PageTranslation.objects.filter(page=page, language=src_lang).first()
+        if src_trans is None:
+            return False
+        if tgt_trans is None:
+            tgt_trans = PageTranslation(language=tgt_lang, page=page, version=0)
+        else:
+            tgt_trans.version = tgt_trans.version + 1
+        tgt_trans.creator = user
+        tgt_trans.title = trans_fields["title"]
+        tgt_trans.text = trans_fields["content"]
+        tgt_trans.slug = PageXliffHelper._get_page_translation_slug(tgt_trans.title)
+        if tgt_trans.save():
+            return True
+        return False
 
-                if page_translation:
-                    page_translation.save()
-                    result = True
-        # pylint: disable=broad-except
-        except Exception:
-            pass
+    def import_xliff_files(self, xliff_paths, user):
+        """
+        Import single (usually translated) XLIFF file and
+        save to page translation.
 
+        :param xliff_paths: paths to XLIFF files
+        :type xliff_paths: list [ str ]
+        :param user: author of page
+        :type user: int
+        :return: failure/success
+        :rtype: bool
+        """
+        result = []
+        for xliff_path in xliff_paths:
+            if xliff_path.startswith(XLIFFS_DIR) and xliff_path.endswith(('.xlf', '.xliff')) and os.path.isfile(xliff_path):
+                with open(xliff_path, 'r', encoding='utf-8') as f:
+                    xliff_content = f.read()
+                    converter = TranslationXliffConverter(xliff_code=xliff_content)
+                    trans_fields = converter.xliff_to_translation_data()
+                    if trans_fields is not None:
+                        result.append((xliff_path, self.save_page_translation(trans_fields, user)))
+                    else:
+                        result.append((xliff_path, False))
         return result
 
-    def import_xliff_file(self, file_path, user):
-        result = False
-        if file_path.startswith(XLIFFS_DIR) and file_path.endswith(('.xlf', '.xliff')) and os.path.isfile(file_path):
-            with open(file_path, 'r', encoding='utf-8') as f:
-                xliff_content = f.read()
-                page_xliff = self.converter.xliff_to_page_xliff(xliff_content)
-                if page_xliff:
-                    result = self.save_page_xliff(page_xliff, user)
+    @staticmethod
+    def extract_zip_file(zip_file_path):
+        """
+        Extract zip file and return file paths of content
 
-        return result
+        :param zip_file_path: path to zip file
+        :type zip_file_path: str
+        :return: list of filenames
+        :rtype: list
+        """
+        file_paths = []
+        with ZipFile(zip_file_path, 'r') as zip_ref:
+            zip_ref.extractall(os.path.dirname(zip_file_path))
+            for file_name in zip_ref.namelist():
+                file_paths.append(os.path.join(os.path.dirname(zip_file_path), file_name))
+        return file_paths
 
-    def import_xliffs_zip_file(self, zip_file_path, user):
-        results = []
+    def generate_xliff_import_diff(self, xliff_paths):
+        """
+        Generate diff between XLIFF content and current translation content
 
-        if zip_file_path.startswith(XLIFFS_DIR) and zip_file_path.endswith('.zip') and os.path.isfile(zip_file_path):
-            with ZipFile(zip_file_path, 'r') as zip_file:
-                for file_name in zip_file.namelist():
-                    if file_name.endswith(('.xliff', '.xlf',)):
-                        with zip_file.open(file_name) as f:
-                            try:
-                                xliff_content = f.read()
-                                page_xliff = self.converter.xliff_to_page_xliff(xliff_content)
-                                if page_xliff:
-                                    results.append((file_name, self.save_page_xliff(page_xliff, user),))
-                                else:
-                                    results.append((file_name, False,))
-                            except XliffValidationException:
-                                results.append((file_name, False,))
-        return results
+        :param xliff_paths: list of paths to XLIFF files
+        :type xliff_paths: [ str ]
+        :return: dictionaries containing diffs between XLIFF and current translation versions
+        :rtype: list [ dict ]
+        """
+        diffs = []
+        for xliff_path in xliff_paths:
+            if xliff_path.endswith(('.xlf', '.xliff')) and os.path.isfile(xliff_path):
+                with open(xliff_path, 'r', encoding='utf-8') as f:
+                    xliff_content = f.read()
+                    converter = TranslationXliffConverter(xliff_code=xliff_content)
+                    trans_fields = converter.xliff_to_translation_data()
+                    if trans_fields is None:
+                        continue
+                    diffs.append(self.generate_translation_diff(trans_fields, os.path.basename(xliff_path)))
+        return diffs
+
+    @staticmethod
+    def generate_translation_diff(trans_fields, xliff_name):
+        """
+        Generate diff to current translation from translation fields dictionary
+
+        :param trans_fields: content extracted from XLIFF
+        :type trans_fields: dict
+        :param xliff_name: file name of XLIFF
+        :type xliff_name: str
+        :return: dictionary containing diff between XLIFF and current translation version
+        :rtype: dict
+        """
+        page = Page.objects.filter(id=int(trans_fields["page_id"])).first()
+        tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_code"]).first()
+        if tgt_lang is None or page is None:
+            return False
+        tgt_trans = PageTranslation.objects.filter(page=page, language=tgt_lang).first()
+        if tgt_trans is None:
+            tgt_trans = PageTranslation()
+            tgt_trans.title = ""
+            tgt_trans.text = ""
+
+        old_lines_content = tgt_trans.text.splitlines()
+        new_lines_content = trans_fields["content"].splitlines()
+        result_diff = {
+            "title": tgt_trans.title,
+            "title_diff": '\n'.join(difflib.unified_diff([tgt_trans.title], [trans_fields["title"]], "cms", "xliff", lineterm='')),
+            "content_diff": '\n'.join(difflib.unified_diff(old_lines_content, new_lines_content, "cms", "xliff", lineterm='')),
+            "current_version_newer": tgt_trans.version > int(trans_fields["tgt_version"]),
+            "xliff_name": xliff_name
+        }
+        return result_diff
