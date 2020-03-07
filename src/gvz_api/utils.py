@@ -12,9 +12,13 @@ logger = logging.getLogger(__name__)
 
 class GvzApiWrapper():
     """
-    Class that wraps around the GVZ API
+    Class that wraps around the GVZ (Gemeindeverzeichnis) API
     """
+
     api_url = settings.GVZ_API_URL
+    """
+    The URL to the external GVZ API
+    """
 
     def search(self, region_name):
         """
@@ -22,6 +26,7 @@ class GvzApiWrapper():
 
         :param region_name: name of a region (city name, county name, etc)
         :type region_name: str
+
         :return: JSON search results defined in the GVZ API
         :rtype: str
         """
@@ -38,6 +43,7 @@ class GvzApiWrapper():
 
         :param region_key: official ID for a region, i.e. Gemeindeschlüssel
         :type region_key: str
+
         :return: dictionary containing longitude, latitude, type, key, name
         :rtype: dict
         """
@@ -61,6 +67,7 @@ class GvzApiWrapper():
 
         :param region_key: official ID for a region, i.e. Gemeindeschlüssel
         :type region_key: str
+
         :return: list of children dictionaries
         :rtype: list
         """
@@ -76,9 +83,10 @@ class GvzApiWrapper():
         """
         Map Integreat CMS region types to Gemeindeverzeichnis region types.
 
-        :param region_type: administrative division type of a region
-        :param type: str
-        :return: administrative division type
+        :param region_type: type of a region
+        :type region_type: str
+
+        :return: administrative division of the region
         :rtype: cms.constants.administrative_division
         """
         if region_type in ("Stadt", "Kreisfreie Stadt"):
@@ -96,6 +104,7 @@ class GvzApiWrapper():
 
         :param region_details: dictionary with region details
         :type region_details: dict
+
         :return: indicates if a region is not interesting
         :rtype: bool
         """
@@ -111,8 +120,10 @@ class GvzApiWrapper():
 
         :param region_name: name of a region (city name, county name, etc)
         :type region_name: str
-        :param region_type: administrative division type of region
+
+        :param region_type: administrative division type of region, defaults to None
         :type region_type: cms.constants.administrative_division
+
         :return: JSON search results defined in the GVZ API
         :rtype: str
         """
@@ -153,11 +164,13 @@ class GvzRegion():
     Represents a region in the GVZ, initial values will be retrieved
     from API on initialization.
 
-    :param region_key: official ID for a region, i.e. Gemeindeschlüssel
+    :param region_key: official ID for a region, i.e. Gemeindeschlüssel, defaults to None
     :type region_key: str
-    :param region_name: name of a region (city name, county name, etc)
+
+    :param region_name: name of a region (city name, county name, etc), defaults to None
     :type region_name: str
-    :param region_type: administrative division type of region
+
+    :param region_type: administrative division type of region, defaults to None
     :type region_type: cms.constants.administrative_division
     """
 

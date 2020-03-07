@@ -102,7 +102,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-api.v3.pages">api.v3.pages module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-api.v3.push_notifications">api.v3.push_notifications module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-api.v3.regions">api.v3.regions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-api.v3">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -113,7 +112,6 @@
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">api.tests module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">api.urls module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.views">api.views module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#module-api">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -183,8 +181,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="api-v3-package">
-<h1>api.v3 package<a class="headerlink" href="#api-v3-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-api.v3">
+<span id="api-v3-package"></span><h1>api.v3 package<a class="headerlink" href="#module-api.v3" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -194,6 +192,18 @@
 <dt id="api.v3.feedback.FeedbackData">
 <em class="property">class </em><code class="sig-prename descclassname">api.v3.feedback.</code><code class="sig-name descname">FeedbackData</code><span class="sig-paren">(</span><em class="sig-param">page_id</em>, <em class="sig-param">permalink</em>, <em class="sig-param">comment</em>, <em class="sig-param">emotion</em><span class="sig-paren">)</span><a class="headerlink" href="#api.v3.feedback.FeedbackData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is a generic api representation of cms feedback incl. its meta information stored in the database.
+It is used to examine feedback sent to the feedback api endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page_id</strong> (<em>int</em>) – The id of the page this feedback is referring to, if empty the permalink is required, defaults to None</p></li>
+<li><p><strong>permalink</strong> (<em>str</em>) – The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to ‘’</p></li>
+<li><p><strong>comment</strong> (<em>int</em>) – The descriptive feedback string, defaults to ‘’</p></li>
+<li><p><strong>emotion</strong> (<em>int</em>) – The emotion of the feedback, can be one of [‘Pos’, ‘Neg’, ‘NA’], defaults to ‘NA’</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="method">
 <dt id="api.v3.feedback.FeedbackData.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">page_id</em>, <em class="sig-param">permalink</em>, <em class="sig-param">comment</em>, <em class="sig-param">emotion</em><span class="sig-paren">)</span><a class="headerlink" href="#api.v3.feedback.FeedbackData.__init__" title="Permalink to this definition">¶</a></dt>
@@ -335,9 +345,6 @@ todo: To be removed on deploy.</p>
 <code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">transform_region_by_status</code><span class="sig-paren">(</span><em class="sig-param">region</em><span class="sig-paren">)</span><a class="headerlink" href="#api.v3.regions.transform_region_by_status" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="module-api.v3">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-api.v3" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

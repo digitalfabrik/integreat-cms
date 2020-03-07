@@ -1,3 +1,12 @@
+"""
+This module contains the possible status of translations:
+
+* ``DRAFT``: Draft
+
+* ``REVIEW``: Pending Review
+
+* ``PUBLIC``: Public
+"""
 from django.utils.translation import ugettext_lazy as _
 
 

@@ -1,3 +1,20 @@
+"""
+This module contains all string representations of weekdays, used by events:
+
+* ``MONDAY``: Monday
+
+* ``TUESDAY``: Tuesday
+
+* ``WEDNESDAY``: Wednesday
+
+* ``THURSDAY``: Thursday
+
+* ``FRIDAY``: Friday
+
+* ``SATURDAY``: Saturday
+
+* ``SUNDAY``: Sunday
+"""
 from django.utils.translation import ugettext_lazy as _
 
 
