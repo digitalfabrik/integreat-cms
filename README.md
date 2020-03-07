@@ -103,7 +103,7 @@ integreat-cms runserver localhost:8000
 You may need to activate the `virtualenv` explicitly via `source .venv/bin/activate`.
 
 ### 6. Testing
-Run Django unittest: `integreat-cms test cms/`
+Run tests: `./dev-tools/test.sh`
 
 ### 7. Code quality
 To make sure your code matches the repository's quality standards, run pylint as follows:
