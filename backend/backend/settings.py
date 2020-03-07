@@ -39,6 +39,7 @@ BASE_URL = 'http://localhost:8000'
 
 INSTALLED_APPS = [
     'cms.apps.CmsConfig',
+    'gvz_api.apps.GvzApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -232,3 +233,7 @@ COMPRESS_PRECOMPILERS = (
 )
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
+
+# GVZ (Gemeindeverzeichnis) API URL
+GVZ_API_URL = "http://gvz.integreat-app.de/api/"
+GVZ_API_ENABLED = True
