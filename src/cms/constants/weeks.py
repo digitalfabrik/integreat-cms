@@ -1,3 +1,14 @@
+"""
+This module contains all string representations of a month's week, used by events:
+
+* ``FIRST``: First week of the month
+
+* ``SECOND``: Second week of the month
+
+* ``THIRD``: Third week of the month
+
+* ``FOURTH``: Fourth week of the month
+"""
 from django.utils.translation import ugettext_lazy as _
 
 

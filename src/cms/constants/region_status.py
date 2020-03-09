@@ -1,3 +1,12 @@
+"""
+This module contains the possible status of regions:
+
+* ``ACTIVE``: Active
+
+* ``HIDDEN``: Hidden
+
+* ``ARCHIVED``: Archived
+"""
 from django.utils.translation import ugettext_lazy as _
 
 

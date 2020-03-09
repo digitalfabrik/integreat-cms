@@ -1,3 +1,31 @@
+"""
+This module contains all string representations of months, used by events:
+
+* ``JANUARY``: January
+
+* ``FEBRUARY``: February
+
+* ``MARCH``: March
+
+* ``APRIL``: April
+
+* ``MAY``: May
+
+* ``JUNE``: June
+
+* ``JULY``: July
+
+* ``AUGUST``: August
+
+* ``SEPTEMBER``: September
+
+* ``OCTOBER``: October
+
+* ``NOVEMBER``: November
+
+* ``DECEMBER``: December
+
+"""
 from django.utils.translation import ugettext_lazy as _
 
 

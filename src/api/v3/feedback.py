@@ -6,6 +6,23 @@ from cms.models import Page, PageFeedback, PageTranslation
 
 
 class FeedbackData:
+    """
+    This class is a generic api representation of cms feedback incl. its meta information stored in the database.
+    It is used to examine feedback sent to the feedback api endpoint.
+
+    :param page_id: The id of the page this feedback is referring to, if empty the permalink is required, defaults to None
+    :type page_id: int
+
+    :param permalink: The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to ''
+    :type permalink: str
+
+    :param comment: The descriptive feedback string, defaults to ''
+    :type comment: int
+
+    :param emotion: The emotion of the feedback, can be one of ['Pos', 'Neg', 'NA'], defaults to 'NA'
+    :type emotion: int
+    """
+
     def __init__(self, page_id, permalink, comment, emotion):
         self.page_id = page_id
         self.permalink = permalink
@@ -36,6 +53,7 @@ class FeedbackData:
     @staticmethod
     def __is_either_exist(one, two):
         return one or two
+
 
 # pylint: disable=unused-argument
 def feedback(req, region_slug, languages):

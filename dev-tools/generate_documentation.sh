@@ -23,7 +23,7 @@ source .venv/bin/activate
 mv src/cms/locale/de/LC_MESSAGES/django.mo src/cms/locale/de/LC_MESSAGES/django.mo.lock
 
 # Generate .rst files from source code
-sphinx-apidoc --ext-autodoc --ext-coverage --force --no-toc -o sphinx src src/cms/migrations src/gvz_api/migrations
+sphinx-apidoc --ext-autodoc --ext-coverage --force --no-toc --module-first -o sphinx src src/cms/migrations src/gvz_api/migrations
 
 # Compile .rst files to html documentation
 sphinx-build -E sphinx docs

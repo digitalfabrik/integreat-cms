@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cms.models.extras package &mdash; integreat-cms 0.0.1 documentation</title>
+  <title>cms.tests.pages package &mdash; integreat-cms 0.0.1 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="cms.models.feedback package" href="cms.models.feedback.html" />
-    <link rel="prev" title="cms.models.events package" href="cms.models.events.html" /> 
+    <link rel="next" title="cms.utils package" href="cms.utils.html" />
+    <link rel="prev" title="cms.tests package" href="cms.tests.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,12 +93,12 @@
 <li class="toctree-l2 current"><a class="reference internal" href="cms.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html">cms.constants package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html">cms.forms package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="cms.models.html">cms.models package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="cms.models.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.html">cms.models package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html">cms.templatetags package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cms.tests.html">cms.tests package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cms.tests.html#subpackages">Subpackages</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html">cms.templatetags package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.tests.html">cms.tests package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html">cms.utils package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.html">cms.views package</a></li>
 </ul>
@@ -165,9 +165,9 @@
         
           <li><a href="cms.html">cms package</a> &raquo;</li>
         
-          <li><a href="cms.models.html">cms.models package</a> &raquo;</li>
+          <li><a href="cms.tests.html">cms.tests package</a> &raquo;</li>
         
-      <li>cms.models.extras package</li>
+      <li>cms.tests.pages package</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,8 +184,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cms.models.extras">
-<span id="cms-models-extras-package"></span><h1>cms.models.extras package<a class="headerlink" href="#module-cms.models.extras" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-cms.tests.pages">
+<span id="cms-tests-pages-package"></span><h1>cms.tests.pages package<a class="headerlink" href="#module-cms.tests.pages" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cms.tests.pages.models">
+<span id="cms-tests-pages-models-module"></span><h2>cms.tests.pages.models module<a class="headerlink" href="#module-cms.tests.pages.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cms.tests.pages.models.PageTest">
+<em class="property">class </em><code class="sig-prename descclassname">cms.tests.pages.models.</code><code class="sig-name descname">PageTest</code><span class="sig-paren">(</span><em class="sig-param">methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.tests.pages.models.PageTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="cms.tests.pages.models.PageTest.setUp">
+<code class="sig-name descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cms.tests.pages.models.PageTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cms.tests.pages.models.PageTest.test_depth_no_parent">
+<code class="sig-name descname">test_depth_no_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cms.tests.pages.models.PageTest.test_depth_no_parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.tests.pages.models.PageTest.test_depth_third_level">
+<code class="sig-name descname">test_depth_third_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cms.tests.pages.models.PageTest.test_depth_third_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cms.tests.pages.models.PageTest.test_get_archived">
+<code class="sig-name descname">test_get_archived</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cms.tests.pages.models.PageTest.test_get_archived" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cms.tests.pages.models.PageTranslationTest">
+<em class="property">class </em><code class="sig-prename descclassname">cms.tests.pages.models.</code><code class="sig-name descname">PageTranslationTest</code><span class="sig-paren">(</span><em class="sig-param">methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cms.tests.pages.models.PageTranslationTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="cms.tests.pages.models.PageTranslationTest.setUp">
+<code class="sig-name descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cms.tests.pages.models.PageTranslationTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -196,10 +241,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cms.models.feedback.html" class="btn btn-neutral float-right" title="cms.models.feedback package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cms.utils.html" class="btn btn-neutral float-right" title="cms.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cms.models.events.html" class="btn btn-neutral float-left" title="cms.models.events package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cms.tests.html" class="btn btn-neutral float-left" title="cms.tests package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

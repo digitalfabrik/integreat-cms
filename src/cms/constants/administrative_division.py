@@ -1,3 +1,35 @@
+"""
+This module contains constants which represent all possible administrative divisions of a region in Germany:
+
+* ``CITY``: City (German: "Stadt")
+
+* ``DISTRICT``: District (German: "Kreis")
+
+* ``RURAL_DISTRICT``: Rural district (German: "Landkreis")
+
+* ``REGION``: Region (German: "Region")
+
+* ``CITY_AND_DISTRICT``: City and district (German: "Stadt und Landkreis")
+
+* ``URBAN_DISTRICT``: Urban district (German: "Kreisfreie Stadt")
+
+* ``GOVERNMENTAL_DISTRICT``: Governmental district (German: "Regierungsbezirk")
+
+* ``CITY_STATE``: City state (German: "Stadtstaat")
+
+* ``AREA_STATE``: Area state (German: "Flächenland")
+
+* ``FREE_STATE``: Free state (German: "Freistaat")
+
+* ``FEDERAL_STATE``: Federal state (German: "Bundesland")
+
+* ``MUNICIPALITY``: Municipality (German: "Gemeinde")
+
+* ``COLLECTIVE_MUNICIPALITY``: Collective municipality (German: "Gemeindeverband")
+
+* ``INITIAL_RECEPTION_CENTER``: Initial reception center (German: "Erstaufnahmeeinrichtung")
+"""
+
 from django.utils.translation import ugettext_lazy as _
 
 

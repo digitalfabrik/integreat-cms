@@ -98,7 +98,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-gvz_api.apps">gvz_api.apps module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-gvz_api.utils">gvz_api.utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-gvz_api">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -163,8 +162,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="gvz-api-package">
-<h1>gvz_api package<a class="headerlink" href="#gvz-api-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-gvz_api">
+<span id="gvz-api-package"></span><h1>gvz_api package<a class="headerlink" href="#module-gvz_api" title="Permalink to this headline">¶</a></h1>
+<p>This module interacts with an external GVZ (Gemeindeverzeichnis) API to automatically import coordinates and region aliases.</p>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -202,11 +202,12 @@
 <dt id="gvz_api.utils.GvzApiWrapper">
 <em class="property">class </em><code class="sig-prename descclassname">gvz_api.utils.</code><code class="sig-name descname">GvzApiWrapper</code><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class that wraps around the GVZ API</p>
+<p>Class that wraps around the GVZ (Gemeindeverzeichnis) API</p>
 <dl class="attribute">
 <dt id="gvz_api.utils.GvzApiWrapper.api_url">
 <code class="sig-name descname">api_url</code><em class="property"> = 'http://gvz.integreat-app.de/api/'</em><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.api_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The URL to the external GVZ API</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="gvz_api.utils.GvzApiWrapper.best_match">
@@ -216,7 +217,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>region_name</strong> (<em>str</em>) – name of a region (city name, county name, etc)</p></li>
-<li><p><strong>region_type</strong> (<em>cms.constants.administrative_division</em>) – administrative division type of region</p></li>
+<li><p><strong>region_type</strong> (<em>cms.constants.administrative_division</em>) – administrative division type of region, defaults to None</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -304,13 +305,10 @@ level that contain the coordinates.</p>
 <dd><p>Map Integreat CMS region types to Gemeindeverzeichnis region types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>region_type</strong> – administrative division type of a region</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
+<dd class="field-odd"><p><strong>region_type</strong> (<em>str</em>) – type of a region</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>administrative division type</p>
+<dd class="field-even"><p>administrative division of the region</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>cms.constants.administrative_division</p>
@@ -329,9 +327,9 @@ from API on initialization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>region_key</strong> (<em>str</em>) – official ID for a region, i.e. Gemeindeschlüssel</p></li>
-<li><p><strong>region_name</strong> (<em>str</em>) – name of a region (city name, county name, etc)</p></li>
-<li><p><strong>region_type</strong> (<em>cms.constants.administrative_division</em>) – administrative division type of region</p></li>
+<li><p><strong>region_key</strong> (<em>str</em>) – official ID for a region, i.e. Gemeindeschlüssel, defaults to None</p></li>
+<li><p><strong>region_name</strong> (<em>str</em>) – name of a region (city name, county name, etc), defaults to None</p></li>
+<li><p><strong>region_type</strong> (<em>cms.constants.administrative_division</em>) – administrative division type of region, defaults to None</p></li>
 </ul>
 </dd>
 </dl>
@@ -371,9 +369,6 @@ from API on initialization.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-gvz_api">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gvz_api" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

@@ -102,12 +102,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.constants.status">cms.constants.status module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.constants.weekdays">cms.constants.weekdays module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.constants.weeks">cms.constants.weeks module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.constants">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html">cms.forms package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.html">cms.models package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html">cms.templatetags package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.html">cms.tests package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html">cms.utils package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.html">cms.views package</a></li>
 </ul>
@@ -118,9 +118,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">cms.decorators module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">cms.page_xliff_converter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">cms.rules module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.tests">cms.tests module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">cms.urls module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -193,40 +191,128 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cms-constants-package">
-<h1>cms.constants package<a class="headerlink" href="#cms-constants-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-cms.constants">
+<span id="cms-constants-package"></span><h1>cms.constants package<a class="headerlink" href="#module-cms.constants" title="Permalink to this headline">¶</a></h1>
+<p>Constants are used whenever we store values in the database which are chosen from a very limited set.
+Defining constants here adds an abstract layer on top of the actual values that are stored in the database.
+This improves readability of the code, enables auto-completion of values and minimizes the risk of mistakes.
+The actual values which are stored in the database are completely irrelevant, because neither the developer,
+nor the end users gets to see them.
+The developer only sees the defined constant, and the end user only sees the (translated) string representation
+defined in a mapping which is called <code class="docutils literal notranslate"><span class="pre">CHOICES</span></code> for every submodule.</p>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-cms.constants.administrative_division">
 <span id="cms-constants-administrative-division-module"></span><h2>cms.constants.administrative_division module<a class="headerlink" href="#module-cms.constants.administrative_division" title="Permalink to this headline">¶</a></h2>
+<p>This module contains constants which represent all possible administrative divisions of a region in Germany:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CITY</span></code>: City (German: “Stadt”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DISTRICT</span></code>: District (German: “Kreis”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RURAL_DISTRICT</span></code>: Rural district (German: “Landkreis”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REGION</span></code>: Region (German: “Region”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CITY_AND_DISTRICT</span></code>: City and district (German: “Stadt und Landkreis”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">URBAN_DISTRICT</span></code>: Urban district (German: “Kreisfreie Stadt”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GOVERNMENTAL_DISTRICT</span></code>: Governmental district (German: “Regierungsbezirk”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CITY_STATE</span></code>: City state (German: “Stadtstaat”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AREA_STATE</span></code>: Area state (German: “Flächenland”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FREE_STATE</span></code>: Free state (German: “Freistaat”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FEDERAL_STATE</span></code>: Federal state (German: “Bundesland”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MUNICIPALITY</span></code>: Municipality (German: “Gemeinde”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COLLECTIVE_MUNICIPALITY</span></code>: Collective municipality (German: “Gemeindeverband”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INITIAL_RECEPTION_CENTER</span></code>: Initial reception center (German: “Erstaufnahmeeinrichtung”)</p></li>
+</ul>
 </div>
 <div class="section" id="module-cms.constants.frequency">
 <span id="cms-constants-frequency-module"></span><h2>cms.constants.frequency module<a class="headerlink" href="#module-cms.constants.frequency" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all constants representing the frequency of an event’s recurrence rule:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DAILY</span></code>: Daily</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WEEKLY</span></code>: Weekly</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MONTHLY</span></code>: Monthly</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">YEARLY</span></code>: Yearly</p></li>
+</ul>
 </div>
 <div class="section" id="module-cms.constants.months">
 <span id="cms-constants-months-module"></span><h2>cms.constants.months module<a class="headerlink" href="#module-cms.constants.months" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all string representations of months, used by events:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">JANUARY</span></code>: January</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FEBRUARY</span></code>: February</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MARCH</span></code>: March</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">APRIL</span></code>: April</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MAY</span></code>: May</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JUNE</span></code>: June</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JULY</span></code>: July</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AUGUST</span></code>: August</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SEPTEMBER</span></code>: September</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OCTOBER</span></code>: October</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NOVEMBER</span></code>: November</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DECEMBER</span></code>: December</p></li>
+</ul>
 </div>
 <div class="section" id="module-cms.constants.position">
 <span id="cms-constants-position-module"></span><h2>cms.constants.position module<a class="headerlink" href="#module-cms.constants.position" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all possible positions inside a MPTT tree model.
+It is used to determine the relative position of pages in relation to another page.
+Possible values are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FIRST_CHILD</span></code>: First child of page</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LAST_CHILD</span></code>: Last child of page</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LEFT</span></code>: Left neighbor of page</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RIGHT</span></code>: Right neighbor of page</p></li>
+</ul>
 </div>
 <div class="section" id="module-cms.constants.postal_code">
 <span id="cms-constants-postal-code-module"></span><h2>cms.constants.postal_code module<a class="headerlink" href="#module-cms.constants.postal_code" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all possible configurations of postal codes in offers.
+This is needed when the postal code is placed inside the offer’s url or api request data.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code>: No postal code needed for this offer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span></code>: Append postal code to offer URL</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span></code>: Add postal code to post parameters of the offer’s api</p></li>
+</ul>
 </div>
 <div class="section" id="module-cms.constants.region_status">
 <span id="cms-constants-region-status-module"></span><h2>cms.constants.region_status module<a class="headerlink" href="#module-cms.constants.region_status" title="Permalink to this headline">¶</a></h2>
+<p>This module contains the possible status of regions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ACTIVE</span></code>: Active</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HIDDEN</span></code>: Hidden</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ARCHIVED</span></code>: Archived</p></li>
+</ul>
 </div>
 <div class="section" id="module-cms.constants.status">
 <span id="cms-constants-status-module"></span><h2>cms.constants.status module<a class="headerlink" href="#module-cms.constants.status" title="Permalink to this headline">¶</a></h2>
+<p>This module contains the possible status of translations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DRAFT</span></code>: Draft</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REVIEW</span></code>: Pending Review</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code>: Public</p></li>
+</ul>
 </div>
 <div class="section" id="module-cms.constants.weekdays">
 <span id="cms-constants-weekdays-module"></span><h2>cms.constants.weekdays module<a class="headerlink" href="#module-cms.constants.weekdays" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all string representations of weekdays, used by events:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MONDAY</span></code>: Monday</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TUESDAY</span></code>: Tuesday</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WEDNESDAY</span></code>: Wednesday</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">THURSDAY</span></code>: Thursday</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FRIDAY</span></code>: Friday</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SATURDAY</span></code>: Saturday</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SUNDAY</span></code>: Sunday</p></li>
+</ul>
 </div>
 <div class="section" id="module-cms.constants.weeks">
 <span id="cms-constants-weeks-module"></span><h2>cms.constants.weeks module<a class="headerlink" href="#module-cms.constants.weeks" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-cms.constants">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cms.constants" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all string representations of a month’s week, used by events:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FIRST</span></code>: First week of the month</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SECOND</span></code>: Second week of the month</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">THIRD</span></code>: Third week of the month</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FOURTH</span></code>: Fourth week of the month</p></li>
+</ul>
 </div>
 </div>
 
