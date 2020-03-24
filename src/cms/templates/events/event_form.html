@@ -4,6 +4,7 @@
 {% load static %}
 {% load widget_tweaks %}
 {% load content_filters %}
+{% load poi_filters %}
 {% load rules %}
 {% load compress %}
 
@@ -34,6 +35,9 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% get_language LANGUAGE_CODE as current_language %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
             <h2 class="heading font-normal">
@@ -42,8 +46,6 @@
                         {% with event_translation_form.instance.title as event_title %}
                         {% blocktrans %}Edit event "{{ event_title }}"{% endblocktrans %}
                         {% endwith %}
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
                         {% if LANGUAGE_CODE != language.code %}
                             {% get_translation event_form.instance LANGUAGE_CODE as backend_translation %}
                             {% if backend_translation %}
@@ -254,28 +256,30 @@
                             </div>
                         </div>
                         <h3 class="font-bold my-3">{% trans 'Where' %}</h3>
-                        <div class="checkbox-wrap relative my-2 pl-5" style="padding-top:2px;padding-bottom:2px;">
-                            <input class="leading-tight block absolute" style="top:5px;left:0;" type="checkbox" id="ignore-end">
-                            <label for="ignore-end">{% trans 'This event does not have a physical location' %}</label>
-                        </div>
 
                         <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Address' %}</label>
                         {% trans 'Name of event location' as poi_title_placeholder %}
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
-                        <input id="poi-query-input" type="search" autocomplete="off" class="appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600" placeholder="{% if poi_translation_form.title.value %}{{ poi_translation_form.title.value }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' %}" data-region-slug="{{ region.slug }}" data-language-code="{{ LANGUAGE_CODE }}">
+                        <div class="relative my-2">
+                            <input id="poi-query-input" type="search" autocomplete="off" class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600" placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' %}" data-event-id="{{ event_form.instance.id }}" data-region-slug="{{ region.slug }}" data-language-code="{{ LANGUAGE_CODE }}" data-default-placeholder="{{ poi_title_placeholder }}">
+                            <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <button id="poi-remove" title="{% trans 'Remove location from event' %}">
+                                    <i data-feather="trash-2" class="h-5 w-5"></i>
+                                </button>
+                            </div>
+                        </div>
                         <div class="relative" id="poi-query-result">
                             {% include 'events/_poi_query_result.html' %}
                         </div>
                         <small class="text-sm italic block mt-2 mb-2">
                             {% trans 'Create an event location or start typing the name of an existing location' %}.
                         </small>
+                        <input name="poi_id" id="poi-id" class="hidden" value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}" readonly>
                         {% trans 'Street' as street_placeholder %}
-                        <div class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">{% if poi_form.address.value %}{{ poi_form.address.value }}{% else %}{{ street_placeholder }}{% endif %}</div>
+                        <input id="poi-address" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ street_placeholder }}" value="{% if poi %}{{ poi.address }}{% endif %}" />
                         {% trans 'City' as city_placeholder %}
-                        <div class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">{% if poi_form.city.value %}{{ poi_form.city.value }}{% else %}{{ city_placeholder }}{% endif %}</div>
+                        <input id="poi-city" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ city_placeholder }}" value="{% if poi %}{{ poi.city }}{% endif %}" />
                         {% trans 'Country' as country_placeholder %}
-                        <div class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey">{% if poi_form.country.value %}{{ poi_form.country.value }}{% else %}{{ country_placeholder }}{% endif %}</div>
+                        <input id="poi-country" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ country_placeholder }}" value="{% if poi %}{{ poi.country }}{% endif %}" />
 
                         <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Map' %}</label>
                         <i class="text-teal-500">Google Map vs. OSM</i>

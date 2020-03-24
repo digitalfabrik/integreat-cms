@@ -12,8 +12,7 @@ from django.views.generic import TemplateView
 from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.events import EventForm, EventTranslationForm, RecurrenceRuleForm
-from ...forms.pois import POIForm, POITranslationForm
-from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI, POITranslation
+from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
 
 logger = logging.getLogger(__name__)
 
@@ -38,10 +37,6 @@ class EventView(PermissionRequiredMixin, TemplateView):
         ).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(event=event_instance).first()
         poi_instance = POI.objects.filter(event=event_instance).first()
-        poi_translation_instance = POITranslation.objects.filter(
-            poi=poi_instance,
-            language=language
-        ).first()
 
         # Make form disabled if user has no permission to edit the page
         if not request.user.has_perm('cms.edit_events'):
@@ -65,20 +60,13 @@ class EventView(PermissionRequiredMixin, TemplateView):
             instance=recurrence_rule_instance,
             disabled=disabled
         )
-        poi_form = POIForm(
-            instance=poi_instance,
-        )
-        poi_translation_form = POITranslationForm(
-            instance=poi_translation_instance,
-        )
 
         return render(request, self.template_name, {
             'current_menu_item': 'events',
             'event_form': event_form,
             'event_translation_form': event_translation_form,
             'recurrence_rule_form': recurrence_rule_form,
-            'poi_form': poi_form,
-            'poi_translation_form': poi_translation_form,
+            'poi': poi_instance,
             'language': language,
             'languages': Region.get_current_region(request).languages if event_instance else [language],
         })
@@ -87,6 +75,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
     def post(self, request, **kwargs):
         region = Region.objects.get(slug=kwargs.get('region_slug'))
         language = Language.objects.get(code=kwargs.get('language_code'))
+        poi = POI.objects.filter(id=request.POST.get('poi_id')).first()
 
         event_instance = Event.objects.filter(id=kwargs.get('event_id')).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(event=event_instance).first()
@@ -141,7 +130,8 @@ class EventView(PermissionRequiredMixin, TemplateView):
                 (
                     not event_form.cleaned_data['is_recurring'] or
                     not recurrence_rule_form.has_changed()
-                )
+                ) and
+                poi == event_instance.location
         ):
 
             messages.info(request, _('No changes detected.'))
@@ -159,7 +149,8 @@ class EventView(PermissionRequiredMixin, TemplateView):
 
             event = event_form.save(
                 region=region,
-                recurrence_rule=recurrence_rule
+                recurrence_rule=recurrence_rule,
+                location=poi
             )
             event_translation = event_translation_form.save(
                 event=event,
@@ -193,6 +184,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
             'event_form': event_form,
             'event_translation_form': event_translation_form,
             'recurrence_rule_form': recurrence_rule_form,
+            'poi': poi,
             'language': language,
             'languages': region.languages if event_instance else [language],
         })

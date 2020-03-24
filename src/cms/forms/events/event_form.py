@@ -50,7 +50,7 @@ class EventForm(forms.ModelForm):
                 field.disabled = True
 
     #pylint: disable=arguments-differ
-    def save(self, region=None, recurrence_rule=None):
+    def save(self, region=None, recurrence_rule=None, location=None):
         logger.info('EventForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
 
         # Disable instant commit on saving because missing information would cause errors
@@ -64,6 +64,8 @@ class EventForm(forms.ModelForm):
             # Delete old recurrence rule from database in order to not spam the database with unused objects
             event.recurrence_rule.delete()
         event.recurrence_rule = recurrence_rule
+
+        event.location = location
 
         event.save()
         return event

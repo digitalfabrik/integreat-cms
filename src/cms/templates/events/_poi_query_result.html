@@ -1,9 +1,10 @@
 {% load i18n %}
+{% load poi_filters %}
 {% if poi_query %}
     <select size="{% if poi_query_result|length > 5 %}5{% else %}{{ poi_query_result|length|add:"1" }}{% endif %}" class="appearance-none absolute block w-full bg-white text-gray-800 border border-gray-500 mb-2 py-2 px-2">
-        <option value="-1">{% blocktrans %}Create POI with title "{{ poi_query }}"{% endblocktrans %}</option>
+        <option class="option-new-poi" value="-1">{% blocktrans %}Create POI with title "{{ poi_query }}"{% endblocktrans %}</option>
         {% for poi in poi_query_result %}
-            <option value="{{ poi.foreign_object.id }}">{{ poi.title }}</option>
+            <option class="option-existing-poi" data-poi-title="{{ poi|poi_translation_title:language }}" data-poi-id="{{ poi.id }}" data-poi-address="{{ poi.address }}" data-poi-city="{{ poi.city }}" data-poi-country="{{ poi.country }}">{{ poi|poi_translation_title:language }}</option>
         {% endfor %}
     </select>
 {% endif %}
