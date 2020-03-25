@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 
 from ...constants import status
 from ...decorators import region_permission_required, staff_required
-from ...models import Event, Region, Language, POITranslation
+from ...models import Event, Region, POITranslation
 
 logger = logging.getLogger(__name__)
 
@@ -74,8 +74,6 @@ def search_poi_ajax(request):
     data = json.loads(request.body.decode('utf-8'))
     poi_query = data.get('query_string')
     region_slug = data.get('region_slug')
-    language_code = data.get('language_code')
-    event_id = data.get('event_id')
 
     logger.info('Ajax call: Live search for POIs with query "%s"', poi_query)
 
@@ -96,6 +94,5 @@ def search_poi_ajax(request):
     return render(request, 'events/_poi_query_result.html', {
         'poi_query': poi_query,
         'poi_query_result': poi_query_result,
-        'event_id': event_id,
-        'language': Language.objects.get(code=language_code)
+        'region': region
     })

@@ -45,6 +45,7 @@ class EventForm(forms.ModelForm):
             self.fields['is_recurring'].initial = self.instance.is_recurring
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
+        self.disabled = disabled
         if disabled:
             for _, field in self.fields.items():
                 field.disabled = True

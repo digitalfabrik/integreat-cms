@@ -1,6 +1,6 @@
 u(document).handle('DOMContentLoaded', set_poi_query_event_listeners);
 
-async function query_pois(url, query_string, region_slug, language_code) {
+async function query_pois(url, query_string, region_slug) {
     const data = await fetch(url, {
         method: 'POST',
         headers: {
@@ -8,8 +8,7 @@ async function query_pois(url, query_string, region_slug, language_code) {
         },
         body: JSON.stringify({
             'query_string': query_string,
-            'region_slug': region_slug,
-            'language_code': language_code
+            'region_slug': region_slug
         })
     }).then(res => {
         if (res.status != 200) {
@@ -26,8 +25,8 @@ async function query_pois(url, query_string, region_slug, language_code) {
         u('#poi-query-result').html(data);
     }
 
-    u('.option-new-poi').each(function (node, i) {
-        u(node).handle('click', () => console.log('Clicked on new node ' + i));
+    u('.option-new-poi').each(function (node) {
+        u(node).handle('click', new_poi_window);
     });
 
     u('.option-existing-poi').each(function (node) {
@@ -36,7 +35,7 @@ async function query_pois(url, query_string, region_slug, language_code) {
 }
 
 function set_poi(event) {
-    let option = u(event.target).closest('option');
+    let option = u(event.target).closest('.option-existing-poi');
     render_poi_data(
         option.data('poi-title'),
         option.data('poi-id'),
@@ -54,6 +53,14 @@ function remove_poi() {
         '',
         ''
     );
+}
+
+function new_poi_window(event) {
+    let option = u(event.target).closest('.option-new-poi');
+    let new_window = window.open(option.data('url'), "_blank");
+    new_window.onload = function () {
+        u('#id_title', new_window.document).attr('value', option.data('poi-title'));
+    }
 }
 
 function render_poi_data(query_placeholder, id, address, city, country) {
@@ -83,8 +90,7 @@ function set_poi_query_event_listeners() {
             300,
             input_field.data('url'),
             input_field.first().value,
-            input_field.data('region-slug'),
-            input_field.data('language-code')
+            input_field.data('region-slug')
         );
     });
 
@@ -101,8 +107,5 @@ function set_poi_query_event_listeners() {
     });
 
     // Remove POI
-    u('#poi-remove').on('click', function (event) {
-        event.preventDefault();
-        remove_poi();
-    });
+    u('#poi-remove').handle('click', remove_poi);
 }
