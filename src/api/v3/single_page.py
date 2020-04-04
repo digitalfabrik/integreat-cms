@@ -12,13 +12,20 @@ def single_page(request, region_slug, language_code):
     """
     View function returning the desired page as a JSON or a 404 if the
     requested page does not exist.
-    Args:
-        request : The request that has been send to the Django.
-        region_slug : Slug defining the region
-        language_code : Code to identify the desired language.
 
-    Returns:
-        HttpResponse: Return an JSON with the requested page and a HTTP 200 or an 404.
+    :param request: The request that has been sent to the Django server
+    :type request: django.http.HttpRequest
+
+    :param region_slug: Slug defining the region
+    :type region_slug: str
+
+    :param language_code: Code to identify the desired language
+    :type language_code: str
+
+    :raises django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists. 
+
+    :return: Return a JSON with the requested page and a HTTP status 200.
+    :rtype: django.http.JsonResponse
     """
     region = get_object_or_404(Region, slug=region_slug)
 
