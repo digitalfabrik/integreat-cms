@@ -30,12 +30,10 @@ def single_page(request, region_slug, language_code):
     region = get_object_or_404(Region, slug=region_slug)
 
     if request.GET.get('id'):
-        page_translation = None
-        page = region.pages.filter(id=int(request.GET.get('id', '')))
-        if page:
-            page_translation = page.first().get_public_translation(language_code)
-            if page_translation is not None:
-                return JsonResponse(transform_page(page_translation), safe=False)
+        page = get_object_or_404(Page, region=region, id=request.GET.get('id'))
+        page_translation = page.get_public_translation(language_code)
+        if page_translation:
+            return JsonResponse(transform_page(page_translation), safe=False)
 
     elif request.GET.get('url'):
         # Strip leading and trailing slashes to avoid ambiguous urls
