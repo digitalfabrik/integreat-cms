@@ -52,6 +52,10 @@ class Event(models.Model):
     def is_all_day(self):
         return self.start_time == time.min and self.end_time == time.max.replace(second=0, microsecond=0)
 
+    @property
+    def has_location(self):
+        return bool(self.location)
+
     def get_translation(self, language_code):
         return self.translations.filter(language__code=language_code).first()
 

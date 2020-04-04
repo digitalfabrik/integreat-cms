@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load rules %}
 {% load content_filters %}
+{% load poi_filters %}
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td style="padding-left: 10px">
@@ -71,8 +72,8 @@
     </td>
     <td>
         {% if event.location is not None %}
-            <!-- TODO: filter location for title in correct language, e.g. event.location|poi_translation_title:language -->
-            {{ event.location|title }}
+            {% get_language LANGUAGE_CODE as current_language %}
+            {{ event.location|poi_translation_title:current_language }}
         {% else %}
             {% trans 'Not specified' %}
         {% endif %}

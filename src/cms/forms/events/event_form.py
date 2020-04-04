@@ -45,12 +45,13 @@ class EventForm(forms.ModelForm):
             self.fields['is_recurring'].initial = self.instance.is_recurring
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
+        self.disabled = disabled
         if disabled:
             for _, field in self.fields.items():
                 field.disabled = True
 
     #pylint: disable=arguments-differ
-    def save(self, region=None, recurrence_rule=None):
+    def save(self, region=None, recurrence_rule=None, location=None):
         logger.info('EventForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
 
         # Disable instant commit on saving because missing information would cause errors
@@ -64,6 +65,8 @@ class EventForm(forms.ModelForm):
             # Delete old recurrence rule from database in order to not spam the database with unused objects
             event.recurrence_rule.delete()
         event.recurrence_rule = recurrence_rule
+
+        event.location = location
 
         event.save()
         return event

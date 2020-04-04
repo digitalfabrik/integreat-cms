@@ -184,7 +184,11 @@ urlpatterns = [
             pages.save_mirrored_page,
             name='save_mirrored_page'
         ),
-
+        url(
+            r'^search_poi$',
+            events.search_poi_ajax,
+            name='search_poi_ajax'
+        ),
     ])),
 
     url(r'^(?P<region_slug>[-\w]+)/', include([
