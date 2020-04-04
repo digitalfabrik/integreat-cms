@@ -47,5 +47,5 @@ def single_page(request, region_slug, language_code):
         if page_translation.permalink == url:
             return JsonResponse(transform_page(page_translation), safe=False)
 
-    return HttpResponse('The requested Page does not match any url or id', status=404)
+    raise Http404('No Page matches the given url or id.')
     
