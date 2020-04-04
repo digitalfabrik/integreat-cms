@@ -30,12 +30,17 @@ def single_page(request, region_slug, language_code):
             if page_translation is not None:
                 return JsonResponse(transform_page(page_translation), safe=False)
 
-    elif request.GET.get('url', ''):
-        for page in region.pages.all():
-            page_translations = page.translations.all()
-            for translation in page_translations:
-                if (translation.permalink == request.GET.get('url', '')) & (translation is not None):
-                    return JsonResponse(transform_page(translation), safe=False)
+    elif request.GET.get('url'):
+        # Strip leading and trailing slashes to avoid ambiguous urls
+        url = request.GET.get('url').strip('/')
+        # Get potential page candidate by only filtering for the translation slug
+        page = get_object_or_404(Page, region=region, translations__slug=url.split('/')[-1])
+        # Get most recent public revision of the page
+        page_translation = page.get_public_translation(language_code)
+        # Check if the whole path is correct, not only the slug
+        # TODO: Once we have a permalink mapping of old versions, we also have to check whether the permalink was valid in the past
+        if page_translation.permalink == url:
+            return JsonResponse(transform_page(page_translation), safe=False)
 
     return HttpResponse('The requested Page does not match any url or id', status=404)
     
