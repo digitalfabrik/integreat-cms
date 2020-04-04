@@ -2,7 +2,7 @@
 View to return a JSON representation of a single page. The page can
 be selected via the id or the permalink.
 """
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
 from cms.models import Region
