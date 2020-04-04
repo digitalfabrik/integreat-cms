@@ -22,7 +22,7 @@ def single_page(request, region_slug, language_code):
     :param language_code: Code to identify the desired language
     :type language_code: str
 
-    :raises django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists. 
+    :raises django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
     :return: Return a JSON with the requested page and a HTTP status 200.
     :rtype: django.http.JsonResponse
@@ -48,4 +48,3 @@ def single_page(request, region_slug, language_code):
             return JsonResponse(transform_page(page_translation), safe=False)
 
     raise Http404('No Page matches the given url or id.')
-    
