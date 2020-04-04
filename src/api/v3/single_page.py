@@ -22,7 +22,7 @@ def single_page(request, region_slug, language_code):
     """
     region = get_object_or_404(Region, slug=region_slug)
 
-    if request.GET.get('id', ''):
+    if request.GET.get('id'):
         page_translation = None
         page = region.pages.filter(id=int(request.GET.get('id', '')))
         if page:
