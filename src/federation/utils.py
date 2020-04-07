@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from backend import settings
 from cms.models import Configuration
 
@@ -8,52 +10,46 @@ from .crypto_tools import (
 )
 from .models import CMSCache
 from .request_sender import (
-    ask_for_cms_data,
-    ask_for_cms_ids
+    request_cms_data,
+    request_cms_domains
 )
+
+def activate_federation_feature():
+    Configuration.objects.get_or_create(key="federation_private_key", defaults={"value": generate_private_key()})
 
 
 def update_cms_data():
     """
     Asks all known CMSs for new cms_ids and asks for data of the new CMSs
     """
-    cms_list = CMSCache.objects.all()
-    cms_ids = [cms.id for cms in cms_list]
-    for cms in cms_list:
-        response_list = ask_for_cms_ids(cms.domain)
-        for response in response_list:
-            if response not in cms_ids:
-                cms_ids.append(response)
-                ask_for_cms_data(cms.domain, response)
+    known_domains = {cms.domain for cms in CMSCache.objects.all()}
+    new_domains = {}
+    for domain in known_domains:
+        handle_domain(domain)
+        new_domains = new_domains.union([x for x in request_cms_domains(domain) if x not in known_domains])
+    for domain in new_domains:
+        handle_domain(domain)
 
-
-def add_or_override_cms_cache(name, domain, public_key):
+def handle_domain(domain: str):
+    name, public_key = request_cms_data(domain)
     cms_id = derive_id_from_domain_and_public_key(domain, public_key)
-    cms = CMSCache.objects.get_or_create(id=cms_id)
-    cms.name = name
-    cms.domain = domain
-    cms.public_key = public_key
-    cms.save()
+    CMSCache.objects.update_or_create(id=cms_id, defaults={"name": name, "domain": domain, "public_key": public_key, "last_contact": datetime.now()})
+
+def get_id() -> str:
+    return derive_id_from_domain_and_public_key(get_domain(), get_public_key())
 
 
-def get_id():
-    return derive_id_from_domain_and_public_key(None, get_public_key())
-
-
-def get_name():
+def get_name() -> str:
     return settings.FEDERATION["name"]
 
 
-def get_domain():
+def get_domain() -> str:
     return settings.FEDERATION["domain"]
 
 
-def get_public_key():
+def get_public_key() -> str:
     return derive_public_key_from_private_key(get_private_key())
 
 
-def get_private_key():
-    return Configuration.objects.get_or_create(
-        key="federation_private_key",
-        defaults={"value": generate_private_key()}
-    ).value
+def get_private_key() -> str:
+    return Configuration.objects.get(key="federation_private_key").value

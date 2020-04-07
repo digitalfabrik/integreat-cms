@@ -19,10 +19,9 @@ def derive_public_key_from_private_key(private_key: str) -> str:
     return RSA.importKey(private_key).publickey().exportKey('PEM').decode()
 
 
-# pylint: disable=unused-argument
-def derive_id_from_domain_and_public_key(domain, public_key: str) -> str:
+def derive_id_from_domain_and_public_key(domain: str, public_key: str) -> str:
     digest = SHA256.new()
-    digest.update(public_key.encode())
+    digest.update((domain + public_key).encode())
     return digest.hexdigest()[:20]
 
 

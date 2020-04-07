@@ -7,8 +7,7 @@ from . import (
 
 
 urlpatterns = [
-    url(r'^cms-ids/', access_point.cms_ids),
-    url(r'cms_domain/(?P<cms_id>[0-9,a-z]+)/$', access_point.cms_domain),
+    url(r'cms_domains/', access_point.cms_domains),
     url(r'^cms-data/', access_point.cms_data),
     url(r'^offer/', access_point.receive_offer),
     url(r'^test/', tests.test), #todo: remove test-stuff

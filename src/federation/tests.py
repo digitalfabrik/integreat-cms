@@ -2,7 +2,6 @@ from django.http import HttpResponse
 
 from .request_sender import (
     send_offer,
-    ask_for_cms_data,
 )
 from .utils import (
     get_domain,

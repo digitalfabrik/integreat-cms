@@ -5,34 +5,18 @@ from django.http import (
 )
 
 from .models import CMSCache
-from .request_sender import ask_for_cms_data
 from .utils import (
-    add_or_override_cms_cache,
-    get_id,
-    get_name,
     get_public_key,
-)
+    handle_domain, get_name)
 
 
-def cms_ids(request: HttpRequest):
+def cms_domains(request: HttpRequest):
     """
     :param request:
     :return: a JSON-response containing ids of all known cms (not the own id)
     """
-    response_list = [
-        cmsCacheEntry.id for cmsCacheEntry in CMSCache.objects.filter(share_with_others=True)
-    ] + [get_id()]
+    response_list = [cms.domain for cms in CMSCache.objects.all()]
     return JsonResponse(response_list, safe=False)
-
-
-def cms_domain(request, cms_id):
-    """
-    Returns: If cms_id is present in the model CMSCache: the domain of this cms, null if not
-    """
-    cms = CMSCache.objects.get(id=cms_id)
-    return HttpResponse(cms.domain)
-    #todo: error handling: cms_id not present
-
 
 def cms_data(request: HttpRequest):
     """
@@ -47,7 +31,5 @@ def cms_data(request: HttpRequest):
 
 def receive_offer(request: HttpRequest):
     domain: str = request.GET["domain"]
-    cms_id = ''
-    (name, public_key) = ask_for_cms_data(domain, cms_id)
-    add_or_override_cms_cache(name, domain, public_key)
+    handle_domain(domain)
     return HttpResponse()
