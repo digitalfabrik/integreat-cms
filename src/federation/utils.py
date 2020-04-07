@@ -1,5 +1,7 @@
 from datetime import datetime
 
+import requests
+
 from backend import settings
 from cms.models import Configuration
 
@@ -31,9 +33,13 @@ def update_cms_data():
         handle_domain(domain)
 
 def handle_domain(domain: str):
-    name, public_key = request_cms_data(domain)
-    cms_id = derive_id_from_domain_and_public_key(domain, public_key)
-    CMSCache.objects.update_or_create(id=cms_id, defaults={"name": name, "domain": domain, "public_key": public_key, "last_contact": datetime.now()})
+    try:
+        name, public_key = request_cms_data(domain)
+        cms_id = derive_id_from_domain_and_public_key(domain, public_key)
+        CMSCache.objects.update_or_create(id=cms_id, defaults={"name": name, "domain": domain, "public_key": public_key, "last_contact": datetime.now()})
+    except requests.RequestException:
+        pass
+
 
 def get_id() -> str:
     return derive_id_from_domain_and_public_key(get_domain(), get_public_key())

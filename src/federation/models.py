@@ -8,7 +8,7 @@ class CMSCache(models.Model):
     public_key = models.CharField(max_length=450)
     confirmed = models.BooleanField(default=False)  # the user manually confirmed the id
     use_regions = models.BooleanField(default=False)
-    last_contact = models.DateTimeField()
+    last_contact = models.DateTimeField() #todo: handle timezones
 
 
 class RegionCache(models.Model):

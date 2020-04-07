@@ -7,9 +7,12 @@ def request_cms_domains(domain: str) -> [str]:
     Asks the cms (specified by domain) for ids
     Returns: the list of ids
     """
-    response = send_federation_request(domain, "domains")
-    response_list = json.loads(response)
-    return response_list
+    try:
+        response = send_federation_request(domain, "domains")
+        response_list = json.loads(response)
+        return response_list
+    except requests.RequestException:
+        return []
 
 def request_cms_data(domain: str) -> (str, str):
     response = send_federation_request(domain, "cms-data")
@@ -18,8 +21,11 @@ def request_cms_data(domain: str) -> (str, str):
 
 
 def send_offer(domain: str):
-    from federation.utils import get_domain
-    send_federation_request(domain, "offer", {"domain": get_domain()})
+    try:
+        from federation.utils import get_domain
+        send_federation_request(domain, "offer", {"domain": get_domain()})
+    except requests.RequestException:
+        pass
 
 
 def send_federation_request(domain: str, tail: str, params=None) -> str:
