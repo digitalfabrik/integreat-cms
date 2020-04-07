@@ -26,7 +26,7 @@ if nc -w1 localhost 5432; then
 
     cd $(dirname "$BASH_SOURCE")/..
 
-    pipenv run integreat-cms-cli makemigrations cms
+    pipenv run integreat-cms-cli makemigrations cms federation
     pipenv run integreat-cms-cli migrate
     pipenv run integreat-cms-cli loaddata src/cms/fixtures/roles.json
 
@@ -60,7 +60,7 @@ else
     # Check if postgres database container is already running
     if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
         # Migrate database
-        sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli makemigrations cms --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli makemigrations cms federation --settings=backend.docker_settings
         sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli migrate --settings=backend.docker_settings
         sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli loaddata src/cms/fixtures/roles.json --settings=backend.docker_settings
     else
@@ -82,7 +82,7 @@ else
             echo ""
         fi
         # Migrate database
-        sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli makemigrations cms --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli makemigrations cms federation --settings=backend.docker_settings
         sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli migrate --settings=backend.docker_settings
         sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli loaddata src/cms/fixtures/roles.json --settings=backend.docker_settings
         # Stop the postgres database docker container

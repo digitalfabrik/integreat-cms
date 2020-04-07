@@ -8,7 +8,7 @@ def request_cms_domains(domain: str) -> [str]:
     Returns: the list of ids
     """
     try:
-        response = send_federation_request(domain, "domains")
+        response = send_federation_request(domain, "cms-domains")
         response_list = json.loads(response)
         return response_list
     except requests.RequestException:

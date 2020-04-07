@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import requests
 
@@ -25,12 +25,13 @@ def update_cms_data():
     Asks all known CMSs for new cms_ids and asks for data of the new CMSs
     """
     known_domains = {cms.domain for cms in CMSCache.objects.all()}
-    new_domains = {}
+    new_domains = set()
     for domain in known_domains:
         handle_domain(domain)
         new_domains = new_domains.union([x for x in request_cms_domains(domain) if x not in known_domains])
     for domain in new_domains:
         handle_domain(domain)
+    clean_cms_cache()
 
 def handle_domain(domain: str):
     try:
@@ -40,6 +41,9 @@ def handle_domain(domain: str):
     except requests.RequestException:
         pass
 
+def clean_cms_cache():
+    for cms in CMSCache.objects.filter(last_contact__lte=datetime.now() - timedelta(3)):
+        cms.delete()
 
 def get_id() -> str:
     return derive_id_from_domain_and_public_key(get_domain(), get_public_key())

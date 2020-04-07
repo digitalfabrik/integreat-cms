@@ -4,10 +4,10 @@ from . import (
     access_point,
     tests
 )
-
+from .utils import activate_federation_feature
 
 urlpatterns = [
-    url(r'cms_domains/', access_point.cms_domains),
+    url(r'^cms-domains/', access_point.cms_domains),
     url(r'^cms-data/', access_point.cms_data),
     url(r'^offer/', access_point.receive_offer),
     url(r'^test/', tests.test), #todo: remove test-stuff
@@ -15,3 +15,5 @@ urlpatterns = [
     url(r'test-update', tests.test_update),
     url(r'test-ask', tests.test_ask)
 ]
+
+activate_federation_feature()
