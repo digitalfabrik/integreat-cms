@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.db import OperationalError
 
 from . import (
     access_point,
@@ -16,4 +17,7 @@ urlpatterns = [
     url(r'test-ask', tests.test_ask)
 ]
 
-activate_federation_feature()
+try:
+    activate_federation_feature()
+except OperationalError:
+    pass
