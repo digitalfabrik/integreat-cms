@@ -3,11 +3,11 @@ from django.utils import timezone
 
 
 class CMSCache(models.Model):
-    id = models.CharField(max_length=64, primary_key=True)
+    id = models.CharField(max_length=20, primary_key=True)
     name = models.TextField()
     domain = models.TextField()
     public_key = models.CharField(max_length=450)
-    confirmed = models.BooleanField(default=False)  # the user manually confirmed the id
+    verified = models.BooleanField(default=False)  # the user manually verified the id
     active = models.BooleanField(default=False)
     last_contact = models.DateTimeField(default=timezone.now)
 
@@ -15,7 +15,7 @@ class CMSCache(models.Model):
         return (timezone.now() - self.last_contact).total_seconds() <= 3900
 
     def use_regions(self) -> bool:
-        return self.confirmed and self.active and self.recently_contacted()
+        return self.verified and self.active and self.recently_contacted()
 
 
 class RegionCache(models.Model):

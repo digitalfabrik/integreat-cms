@@ -34,7 +34,4 @@ def test_update(request):
 
 
 def test_ask(request):
-    domain = "localhost:8000"
-    cms_id = "bdd9bfbd9742d81a1680"
-    ask_for_cms_data(domain, cms_id)
-    return HttpResponse("Anfrage gestellt.")
+    return HttpResponse("Hier passiert nichts")
