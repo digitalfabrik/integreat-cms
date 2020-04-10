@@ -1,6 +1,5 @@
-import datetime
-
 from django.db import models
+from django.utils import timezone
 
 
 class CMSCache(models.Model):
@@ -10,10 +9,13 @@ class CMSCache(models.Model):
     public_key = models.CharField(max_length=450)
     confirmed = models.BooleanField(default=False)  # the user manually confirmed the id
     active = models.BooleanField(default=False)
-    last_contact = models.DateTimeField() #todo: handle timezones
+    last_contact = models.DateTimeField(default=timezone.now)
+
+    def recently_contacted(self) -> bool:
+        return (timezone.now() - self.last_contact).total_seconds() <= 3900
 
     def use_regions(self) -> bool:
-        return self.confirmed and self.active and (datetime.datetime.now() - self.last_contact).total_seconds() <= 3900
+        return self.confirmed and self.active and self.recently_contacted()
 
 
 class RegionCache(models.Model):
@@ -32,4 +34,3 @@ class RegionCache(models.Model):
 
 # TODO Discuss: max_length of CharField's (use TextFields?),
 # TODO Discuss: unique_together instead of composite primary key
-#todo discuss: save datetimes with timezones

@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone
 
 import requests
 
@@ -37,12 +38,17 @@ def handle_domain(domain: str):
     try:
         name, public_key = request_cms_data(domain)
         cms_id = derive_id_from_domain_and_public_key(domain, public_key)
-        CMSCache.objects.update_or_create(id=cms_id, defaults={"name": name, "domain": domain, "public_key": public_key, "last_contact": datetime.now()})
+        CMSCache.objects.update_or_create(id=cms_id, defaults={
+            "name": name,
+            "domain": domain,
+            "public_key": public_key,
+            "last_contact": timezone.now()
+        })
     except requests.RequestException:
         pass
 
 def clean_cms_cache():
-    for cms in CMSCache.objects.filter(last_contact__lte=datetime.now() - timedelta(3)):
+    for cms in CMSCache.objects.filter(last_contact__lte=timezone.now() - timedelta(3)):
         cms.delete()
 
 def get_id() -> str:
