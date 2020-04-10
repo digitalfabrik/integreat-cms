@@ -1,10 +1,7 @@
-from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from cms.decorators import staff_required
@@ -24,7 +21,7 @@ class CMSCacheListView(PermissionRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         cms_caches = CMSCache.objects.all()
         name = get_name()
-        id = get_id()
+        cms_id = get_id()
 
         return render(
             request,
@@ -33,7 +30,7 @@ class CMSCacheListView(PermissionRequiredMixin, TemplateView):
                 **self.base_context,
                 'cms_caches': cms_caches,
                 'name': name,
-                'id': id
+                'cms_id': cms_id
             }
         )
 #
