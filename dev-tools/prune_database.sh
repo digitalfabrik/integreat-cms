@@ -55,3 +55,4 @@ fi
 
 # Remove migrations
 rm -rfv $(dirname "$BASH_SOURCE")/../src/cms/migrations
+rm -rfv $(dirname "$BASH_SOURCE")/../src/gvz_api/migrations

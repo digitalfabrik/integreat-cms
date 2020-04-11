@@ -20,26 +20,22 @@ if nc -w1 localhost 5432; then
         fi
     fi
 
-    cd $(dirname "$BASH_SOURCE")
-    source ../.venv/bin/activate
-
-    # Check if npm dependencies are up to date
-    npx npm-check --update-all --skip-unused
+    cd $(dirname "$BASH_SOURCE")/..
 
     # Compile CSS
-    npx lessc -clean-css ../src/cms/static/css/style.less  ../src/cms/static/css/style.min.css
+    npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
 
     # Apply Compressing
-    integreat-cms-cli compress
+    pipenv run integreat-cms-cli compress
 
     # Re-generating translation file and compile it
-    ./translate.sh
+    ./dev-tools/translate.sh
 
     # Migrate database
-    ./migrate.sh
+    ./dev-tools/migrate.sh
 
     # Start Integreat CMS
-    integreat-cms-cli runserver localhost:8000
+    pipenv run integreat-cms-cli runserver localhost:8000
 
 else
 
@@ -66,25 +62,21 @@ else
         exit 1
     fi
 
-    cd $(dirname "$BASH_SOURCE")
-    source ../.venv/bin/activate
-
-    # Check if npm dependencies are up to date and update if not
-    sudo -u $SUDO_USER env PATH="$PATH" npx npm-check --update-all --skip-unused
+    cd $(dirname "$BASH_SOURCE")/..
 
     # Compile CSS
-    sudo -u $SUDO_USER env PATH="$PATH" npx lessc -clean-css ../src/cms/static/css/style.less  ../src/cms/static/css/style.min.css
+    sudo -u $SUDO_USER env PATH="$PATH" npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
 
     # Apply Compressing
-    sudo -u $SUDO_USER env PATH="$PATH" integreat-cms-cli compress
+    sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli compress
 
     # Re-generating translation file and compile it
-    sudo -u $SUDO_USER env PATH="$PATH" ./translate.sh
+    sudo -u $SUDO_USER env PATH="$PATH" ./dev-tools/translate.sh
 
     # Check if postgres database container is already running
     if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
         # Migrate database
-        ./migrate.sh
+        ./dev-tools/migrate.sh
     else
         # Check if stopped container is available
         if [ "$(docker ps -aq -f status=exited -f name=integreat_django_postgres)" ]; then
@@ -94,10 +86,10 @@ else
               sleep 0.1
             done
             # Migrate database
-            ./migrate.sh
+            ./dev-tools/migrate.sh
         else
             # Run new container
-            docker run -d --name "integreat_django_postgres" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "$(pwd)/../.postgres:/var/lib/postgresql" -p 5433:5432 postgres > /dev/null
+            docker run -d --name "integreat_django_postgres" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "$(pwd)/.postgres:/var/lib/postgresql" -p 5433:5432 postgres > /dev/null
             echo -n "Waiting for postgres database container to be ready..."
             until docker exec -it integreat_django_postgres psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
               sleep 0.1
@@ -105,14 +97,14 @@ else
             done
             echo ""
             # Migrate database
-            ./migrate.sh
+            ./dev-tools/migrate.sh
             # Import test data
-            ./loadtestdata.sh
+            ./dev-tools/loadtestdata.sh
         fi
     fi
 
     # Start Integreat CMS
-    sudo -u $SUDO_USER env PATH="$PATH" integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
+    sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
 
     # Stop the postgres database docker container
     docker stop integreat_django_postgres > /dev/null
