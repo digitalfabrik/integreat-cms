@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cms.views package &mdash; integreat-cms 0.0.1 documentation</title>
+  <title>Views &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="cms.views.analytics package" href="cms.views.analytics.html" />
-    <link rel="prev" title="cms.utils package" href="cms.utils.html" /> 
+    <link rel="next" title="Analytics" href="cms.views.analytics.html" />
+    <link rel="prev" title="Utils" href="cms.utils.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,38 +86,320 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="backend.html">backend package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backend.html">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.context_processors">Context Processors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.docker_settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.wsgi">Wsgi</a></li>
+</ul>
+</li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="cms.html">cms package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="cms.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="cms.constants.html">cms.constants package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.html">cms.forms package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.html">cms.models package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html">cms.templatetags package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.tests.html">cms.tests package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html">cms.utils package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">cms.views package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_form">Event Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_translation_form">Event Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.recurrence_rule_form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.language_tree.html#module-cms.forms.language_tree.language_tree_node_form">Language Tree Node Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.languages.html#module-cms.forms.languages.language_form">Language Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.offer_templates.html#module-cms.forms.offer_templates.offer_template_form">Offer Template Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.organizations.html#module-cms.forms.organizations.organization_form">Organization Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois.poi_form">POI Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois.poi_translation_form">POI Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.regions.html#module-cms.forms.regions.region_form">Region Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.admin">cms.admin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.apps">cms.apps module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">cms.decorators module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">cms.page_xliff_converter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">cms.rules module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">cms.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.config.html">Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.config.html#module-cms.models.config.configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.event_translation">Event Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.languages.html#module-cms.models.languages.language">Language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.languages.html#module-cms.models.languages.language_tree_node">Language Tree Node</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.document">Document</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.offers.html#module-cms.models.offers.offer">Offer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.offers.html#module-cms.models.offers.offer_template">Offer Template</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.page">Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.page_translation">Page Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pois.html#module-cms.models.pois.poi">POI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pois.html#module-cms.models.pois.poi_translation">POI Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.regions.html#module-cms.models.regions.region">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.content_filters">Content Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.offer_filters">Offer Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.page_filters">Page Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.tests.html">Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.pages.html#module-cms.tests.pages.models">Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.admin_dashboard_view">Admin Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.dashboard_view">Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.redirect_view">Redirect View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.error_handler.html#id1">Error Handler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_actions">Event Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_list_view">Event List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_list_view">Language List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_list_view">Offer Template List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_view">Offer Template View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_actions">Offer Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_list_view">Offer List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_actions">Page Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_actions">POI Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_list_view">POI List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_view">POI View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_list_view">Push Notification List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_sender">Push Notification Sender</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_view">Push Notification View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_actions">Region Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_list_view">Region List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_view">Region View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_list_view">Role List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_view">Role View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.admin_settings_view">Admin Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.settings_view">Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.user_settings_view">User Settings View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.analytics_view">Analytics View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.matomo_api_manager">Matomo API Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_actions">Region User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_list_view">Region User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_view">Region User View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_actions">User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_list_view">User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_view">User View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">Urls</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">api package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.feedback">Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.languages">Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.offers">Offers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.pages">Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.push_notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.regions">Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.single_page">Single Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.views">Views</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="gvz_api.html">gvz_api package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gvz_api.html#module-gvz_api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gvz_api.html#module-gvz_api.utils">Utils</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -163,9 +445,9 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="cms.html">cms package</a> &raquo;</li>
+          <li><a href="cms.html">CMS</a> &raquo;</li>
         
-      <li>cms.views package</li>
+      <li>Views</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -183,145 +465,119 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-cms.views">
-<span id="cms-views-package"></span><h1>cms.views package<a class="headerlink" href="#module-cms.views" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<span id="views"></span><h1>Views<a class="headerlink" href="#module-cms.views" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.analytics.html">cms.views.analytics package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.analytics.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">cms.views.analytics.translation_coverage_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.authentication.html">cms.views.authentication package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.authentication.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">cms.views.authentication.authentication_actions module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.dashboard.html">cms.views.dashboard package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.dashboard.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.admin_dashboard_view">cms.views.dashboard.admin_dashboard_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.dashboard_view">cms.views.dashboard.dashboard_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.redirect_view">cms.views.dashboard.redirect_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.admin_dashboard_view">Admin Dashboard View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.dashboard_view">Dashboard View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.redirect_view">Redirect View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.error_handler.html">cms.views.error_handler package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.error_handler.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.error_handler.html#module-cms.views.error_handler.error_handler">cms.views.error_handler.error_handler module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.error_handler.html#id1">Error Handler</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.events.html">cms.views.events package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.events.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_actions">cms.views.events.event_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_list_view">cms.views.events.event_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">cms.views.events.event_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.events.html">Events</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_actions">Event Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_list_view">Event List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.language_tree.html">cms.views.language_tree package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.language_tree.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">cms.views.language_tree.language_tree_node_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">cms.views.language_tree.language_tree_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.languages.html">cms.views.languages package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.languages.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_list_view">cms.views.languages.language_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_view">cms.views.languages.language_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_list_view">Language List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_view">Language View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.media.html">cms.views.media package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.media.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">cms.views.media.media_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">cms.views.media.media_edit_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">cms.views.media.media_list_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.offer_templates.html">cms.views.offer_templates package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.offer_templates.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_list_view">cms.views.offer_templates.offer_template_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_view">cms.views.offer_templates.offer_template_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_list_view">Offer Template List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_view">Offer Template View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.offers.html">cms.views.offers package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.offers.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_actions">cms.views.offers.offer_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_list_view">cms.views.offers.offer_list_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.offers.html">Offers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_actions">Offer Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_list_view">Offer List View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.organizations.html">cms.views.organizations package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.organizations.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_list_view">cms.views.organizations.organization_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_view">cms.views.organizations.organization_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.pages.html">cms.views.pages package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_actions">cms.views.pages.page_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_sbs_view">cms.views.pages.page_sbs_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_tree_view">cms.views.pages.page_tree_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_view">cms.views.pages.page_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_actions">Page Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.pois.html">cms.views.pois package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pois.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_actions">cms.views.pois.poi_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_list_view">cms.views.pois.poi_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_view">cms.views.pois.poi_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_actions">POI Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_list_view">POI List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_view">POI View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.push_notifications.html">cms.views.push_notifications package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.push_notifications.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_list_view">cms.views.push_notifications.push_notification_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_sender">cms.views.push_notifications.push_notification_sender module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_view">cms.views.push_notifications.push_notification_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_list_view">Push Notification List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_sender">Push Notification Sender</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_view">Push Notification View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.regions.html">cms.views.regions package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.regions.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_actions">cms.views.regions.region_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_list_view">cms.views.regions.region_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_view">cms.views.regions.region_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_actions">Region Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_list_view">Region List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_view">Region View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.roles.html">cms.views.roles package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.roles.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_list_view">cms.views.roles.role_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_view">cms.views.roles.role_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_list_view">Role List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_view">Role View</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.settings.html">cms.views.settings package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.mfa.html">cms.views.settings.mfa package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.mfa.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.mfa.html#module-cms.views.settings.mfa.mfa">cms.views.settings.mfa.mfa module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.mfa.html">MFA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.mfa.html#id1">MFA</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.admin_settings_view">Admin Settings View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.settings_view">Settings View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.user_settings_view">User Settings View</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.admin_settings_view">cms.views.settings.admin_settings_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.settings_view">cms.views.settings.settings_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.user_settings_view">cms.views.settings.user_settings_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.analytics_view">Analytics View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.matomo_api_manager">Matomo API Manager</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.statistics.html">cms.views.statistics package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.statistics.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.analytics_view">cms.views.statistics.analytics_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.matomo_api_manager">cms.views.statistics.matomo_api_manager module</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cms.views.users.html">cms.views.users package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_actions">cms.views.users.region_user_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_list_view">cms.views.users.region_user_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_view">cms.views.users.region_user_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_actions">cms.views.users.user_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_list_view">cms.views.users.user_list_view module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_view">cms.views.users.user_view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.users.html">Users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_actions">Region User Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_list_view">Region User List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_view">Region User View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_actions">User Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_list_view">User List View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_view">User View</a></li>
 </ul>
 </li>
 </ul>
-</div>
 </div>
 </div>
 
@@ -333,10 +589,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cms.views.analytics.html" class="btn btn-neutral float-right" title="cms.views.analytics package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cms.views.analytics.html" class="btn btn-neutral float-right" title="Analytics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cms.utils.html" class="btn btn-neutral float-left" title="cms.utils package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cms.utils.html" class="btn btn-neutral float-left" title="Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -371,7 +627,13 @@
   
   
     
-   
+    
+
+  <style>
+         .wy-nav-content { max-width: 1200px; }
+  </style>
+
+
 
 </body>
 </html>
