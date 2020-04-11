@@ -14,35 +14,6 @@ from ...models import Region, UserProfile
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(region_permission_required, name='dispatch')
-class RegionUserListView(PermissionRequiredMixin, TemplateView):
-    permission_required = 'cms.change_user'
-    raise_exception = True
-
-    template_name = 'users/region/list.html'
-    base_context = {'current_menu_item': 'region_users'}
-
-    def get(self, request, *args, **kwargs):
-
-        region = Region.objects.get(slug=kwargs.get('region_slug'))
-
-        region_users = get_user_model().objects.filter(
-            profile__regions=region,
-            is_superuser=False,
-            is_staff=False,
-        )
-
-        return render(
-            request,
-            self.template_name,
-            {
-                **self.base_context,
-                'users': region_users
-            }
-        )
-
-
-@method_decorator(login_required, name='dispatch')
-@method_decorator(region_permission_required, name='dispatch')
 class RegionUserView(PermissionRequiredMixin, TemplateView):
     permission_required = 'cms.change_user'
     raise_exception = True
@@ -120,16 +91,3 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
             'user_form': region_user_form,
             'user_profile_form': user_profile_form,
         })
-
-
-@login_required
-@region_permission_required
-def delete_region_user(request, region_slug, user_id):
-    get_user_model().objects.get(
-        id=user_id,
-        profile__regions=Region.objects.get(slug=region_slug)
-    ).delete()
-
-    messages.success(request, _('User was successfully deleted.'))
-
-    return redirect('region_users', region_slug=region_slug)
