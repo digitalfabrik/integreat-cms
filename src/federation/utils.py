@@ -4,21 +4,11 @@ from django.utils import timezone
 import requests
 
 from backend import settings
-from cms.models import Configuration
 
-from .crypto_tools import (
-    derive_id_from_domain_and_public_key,
-    derive_public_key_from_private_key,
-    generate_private_key
-)
 from .models import CMSCache, RegionCache
 from .request_sender import (
-    request_cms_data,
-    request_cms_domains, request_cms_region_list
+    request_cms_domains, request_cms_region_list, request_cms_name
 )
-
-def activate_federation_feature():
-    Configuration.objects.get_or_create(key="federation_private_key", defaults={"value": generate_private_key()})
 
 
 def update_cms_data():
@@ -38,12 +28,9 @@ def update_cms_data():
 
 def handle_domain(domain: str):
     try:
-        name, public_key = request_cms_data(domain)
-        cms_id = derive_id_from_domain_and_public_key(domain, public_key)
-        CMSCache.objects.update_or_create(id=cms_id, defaults={
+        name = request_cms_name(domain)
+        CMSCache.objects.update_or_create(domain=domain, defaults={
             "name": name,
-            "domain": domain,
-            "public_key": public_key,
             "last_contact": timezone.now()
         })
     except requests.RequestException:
@@ -65,21 +52,9 @@ def update_cms_region_list(cms_cache: CMSCache):
             "longitude": region["longitude"],
         })
 
-def get_id() -> str:
-    return derive_id_from_domain_and_public_key(get_domain(), get_public_key())
-
-
 def get_name() -> str:
     return settings.FEDERATION["name"]
 
 
 def get_domain() -> str:
     return settings.FEDERATION["domain"]
-
-
-def get_public_key() -> str:
-    return derive_public_key_from_private_key(get_private_key())
-
-
-def get_private_key() -> str:
-    return Configuration.objects.get(key="federation_private_key").value

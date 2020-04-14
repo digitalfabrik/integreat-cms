@@ -13,7 +13,7 @@ class Configuration(models.Model):
         blank=False,
         verbose_name=_("key"),
     )
-    value = models.TextField(blank=False, verbose_name=_("value"))
+    value = models.CharField(max_length=1000, blank=False, verbose_name=_("value"))
     created_date = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_("creation date"),

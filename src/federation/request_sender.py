@@ -1,5 +1,6 @@
 import json
 import requests
+from requests import Response
 
 
 def request_cms_domains(domain: str) -> [str]:
@@ -14,11 +15,8 @@ def request_cms_domains(domain: str) -> [str]:
     except requests.RequestException:
         return []
 
-def request_cms_data(domain: str) -> (str, str):
-    response = send_federation_request(domain, "cms-data")
-    response_dict = json.loads(response)
-    return response_dict["name"], response_dict["public_key"]
-
+def request_cms_name(domain: str) -> str:
+    return send_federation_request(domain, "cms-name")
 
 def send_offer(domain: str):
     try:

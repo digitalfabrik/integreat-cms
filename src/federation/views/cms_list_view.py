@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 
 from cms.decorators import staff_required
 from ..models import CMSCache
-from ..utils import get_name, get_id
+from ..utils import get_name
 
 
 @method_decorator(login_required, name='dispatch')
@@ -21,7 +21,6 @@ class CMSCacheListView(PermissionRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         cms_caches = CMSCache.objects.all()
         name = get_name()
-        cms_id = get_id()
 
         return render(
             request,
@@ -30,7 +29,6 @@ class CMSCacheListView(PermissionRequiredMixin, TemplateView):
                 **self.base_context,
                 'cms_caches': cms_caches,
                 'name': name,
-                'cms_id': cms_id
             }
         )
 #
