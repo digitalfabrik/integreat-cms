@@ -18,7 +18,7 @@ def transform_region(region):
         'events': region.events_enabled,
         'push-notifications': region.push_notifications_enabled,
         'longitude': region.longitude,
-        'langitude': region.latitude,
+        'latitude': region.latitude,
         'aliases': region.aliases,
     }
 
@@ -34,7 +34,7 @@ def transform_region_by_status(region):
         'events': region.events_enabled,
         'push-notifications': region.push_notifications_enabled,
         'longitude': region.longitude,
-        'langitude': region.latitude,
+        'latitude': region.latitude,
         'aliases': region.aliases,
     }
 
