@@ -27,6 +27,9 @@ def send_offer(domain: str):
     except requests.RequestException:
         pass
 
+def request_cms_region_list(domain: str):
+    a = requests.get("http://" + domain + "/api/regions/live").text
+    return json.loads(a)
 
 def send_federation_request(domain: str, tail: str, params=None) -> str:
     return requests.get("http://" + domain + "/federation/" + tail, params).text

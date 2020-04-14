@@ -11,10 +11,10 @@ from .crypto_tools import (
     derive_public_key_from_private_key,
     generate_private_key
 )
-from .models import CMSCache
+from .models import CMSCache, RegionCache
 from .request_sender import (
     request_cms_data,
-    request_cms_domains
+    request_cms_domains, request_cms_region_list
 )
 
 def activate_federation_feature():
@@ -33,6 +33,8 @@ def update_cms_data():
     for domain in new_domains:
         handle_domain(domain)
     clean_cms_cache()
+    for cms_cache in CMSCache.objects.all():
+        update_cms_region_list(cms_cache)
 
 def handle_domain(domain: str):
     try:
@@ -50,6 +52,18 @@ def handle_domain(domain: str):
 def clean_cms_cache():
     for cms in CMSCache.objects.filter(last_contact__lte=timezone.now() - timedelta(3)):
         cms.delete()
+
+def update_cms_region_list(cms_cache: CMSCache):
+    region_list = request_cms_region_list(cms_cache.domain)
+    for region in region_list:
+        RegionCache.objects.update_or_create(parentCMS=cms_cache, path=region["path"], defaults={
+            "postal_code": region["plz"],
+            "prefix": region["prefix"],
+            "name_without_prefix": region["name_without_prefix"],
+            "aliases": region["aliases"],
+            "latitude": region["latitude"],
+            "longitude": region["longitude"],
+        })
 
 def get_id() -> str:
     return derive_id_from_domain_and_public_key(get_domain(), get_public_key())
