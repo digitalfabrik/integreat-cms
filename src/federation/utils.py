@@ -51,6 +51,7 @@ def update_cms_region_list(cms_cache: CMSCache):
             "latitude": region["latitude"],
             "longitude": region["longitude"],
         })
+    #todo: lösche alle anderen regionen (achtung: bei RequestException wird leeres Array returnt)
 
 def get_name() -> str:
     return settings.FEDERATION["name"]

@@ -1,6 +1,4 @@
-import json
 import requests
-from requests import Response
 
 
 def request_cms_domains(domain: str) -> [str]:
@@ -9,25 +7,32 @@ def request_cms_domains(domain: str) -> [str]:
     Returns: the list of ids
     """
     try:
-        response = send_federation_request(domain, "cms-domains")
-        response_list = json.loads(response)
-        return response_list
-    except requests.RequestException:
+        r = requests.get("http://" + domain + "/federation/cms-domains")
+        if r.ok:
+            return r.json()
+    except (requests.RequestException, ValueError):
         return []
 
 def request_cms_name(domain: str) -> str:
-    return send_federation_request(domain, "cms-name")
+    r = requests.get("http://" + domain + "/federation/cms-name")
+    if r.ok:
+        return r.text
+    else:
+        raise requests.RequestException
 
 def send_offer(domain: str):
     try:
         from federation.utils import get_domain
-        send_federation_request(domain, "offer", {"domain": get_domain()})
+        requests.get("http://" + domain + "/federation/offer", {"domain": get_domain()})
     except requests.RequestException:
         pass
 
 def request_cms_region_list(domain: str):
-    a = requests.get("http://" + domain + "/api/regions/live").text
-    return json.loads(a)
-
-def send_federation_request(domain: str, tail: str, params=None) -> str:
-    return requests.get("http://" + domain + "/federation/" + tail, params).text
+    try:
+        r = requests.get("http://" + domain + "/api/regions/live")
+        if r.ok:
+            return r.json()
+        else:
+            return []
+    except (requests.RequestException, ValueError):
+        return []
