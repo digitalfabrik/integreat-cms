@@ -15,24 +15,31 @@ def update_cms_data():
     """
     Asks all known CMSs for new cms_ids and asks for data of the new CMSs
     """
-    known_domains = {cms.domain for cms in CMSCache.objects.all()}
+    cms_list = CMSCache.objects.all()
+    known_domains = {cms.domain for cms in cms_list}
     new_domains = set()
-    for domain in known_domains:
-        handle_domain(domain)
-        new_domains = new_domains.union([x for x in request_cms_domains(domain) if x not in known_domains])
+    for cms in cms_list:
+        handle_cms(cms)
+        new_domains = new_domains.union([x for x in request_cms_domains(cms) if x not in known_domains])
     for domain in new_domains:
-        handle_domain(domain)
+        handle_unknown_domain(domain)
     clean_cms_cache()
-    for cms_cache in CMSCache.objects.all():
-        update_cms_region_list(cms_cache)
 
-def handle_domain(domain: str):
+def handle_cms(cms: CMSCache):
+    try:
+        name = request_cms_name(cms.domain)
+        cms.name = name
+        if cms.active:
+            update_cms_region_list(cms)
+        cms.persist_successful_contact_attempt()
+    except requests.RequestException:
+        cms.persist_failed_contact_attempt()
+
+def handle_unknown_domain(domain: str):
     try:
         name = request_cms_name(domain)
-        CMSCache.objects.update_or_create(domain=domain, defaults={
-            "name": name,
-            "last_contact": timezone.now()
-        })
+        cms = CMSCache(name=name, domain=domain)
+        cms.save()
     except requests.RequestException:
         pass
 
@@ -41,7 +48,7 @@ def clean_cms_cache():
         cms.delete()
 
 def update_cms_region_list(cms_cache: CMSCache):
-    region_list = request_cms_region_list(cms_cache.domain)
+    region_list = request_cms_region_list(cms_cache)
     for region in region_list:
         RegionCache.objects.update_or_create(parentCMS=cms_cache, path=region["path"], defaults={
             "postal_code": region["plz"],

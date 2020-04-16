@@ -4,17 +4,23 @@ from django.utils import timezone
 
 class CMSCache(models.Model):
     name = models.CharField(max_length=100)
-    domain = models.CharField(max_length=100)
-    verified = models.BooleanField(default=False)  # the user manually verified the domain
+    domain = models.CharField(max_length=100, unique=True)
     active = models.BooleanField(default=False)
+    last_contact_attempt_successful = models.BooleanField(default=True)
     last_contact = models.DateTimeField(default=timezone.now)
 
-    def recently_contacted(self) -> bool:
-        return (timezone.now() - self.last_contact).total_seconds() <= 3900
-
+    @property       #todo: is the usage of this decorator correct?
     def use_regions(self) -> bool:
-        return self.verified and self.active and self.recently_contacted()
+        return  self.active and self.last_contact_attempt_successful
 
+    def persist_successful_contact_attempt(self):
+        self.last_contact = timezone.now()
+        self.last_contact_attempt_successful = True
+        self.save()
+
+    def persist_failed_contact_attempt(self):
+        self.last_contact_attempt_successful = False
+        self.save()
 
 class RegionCache(models.Model):
     parentCMS = models.ForeignKey(CMSCache, on_delete=models.CASCADE)

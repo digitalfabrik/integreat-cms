@@ -6,7 +6,7 @@ from django.http import (
 
 from .models import CMSCache
 from .utils import (
-    handle_domain, get_name)
+    handle_unknown_domain, get_name, handle_cms)
 
 
 def cms_domains(request: HttpRequest):
@@ -26,5 +26,9 @@ def cms_name(request: HttpRequest):
 
 def receive_offer(request: HttpRequest):
     domain: str = request.GET["domain"]
-    handle_domain(domain)
+    a = CMSCache.objects.filter(domain=domain)
+    if a.exists():
+        handle_cms(a.first())
+    else:
+        handle_unknown_domain(domain)
     return HttpResponse()

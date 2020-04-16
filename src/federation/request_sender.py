@@ -1,17 +1,23 @@
 import requests
 
+from federation.models import CMSCache
 
-def request_cms_domains(domain: str) -> [str]:
+
+def request_cms_domains(cms: CMSCache) -> [str]:
     """
     Asks the cms (specified by domain) for ids
     Returns: the list of ids
     """
     try:
-        r = requests.get("http://" + domain + "/federation/cms-domains")
+        r = requests.get("http://" + cms.domain + "/federation/cms-domains")
         if r.ok:
-            return r.json()
+            res = r.json()
+            cms.persist_successful_contact_attempt()
+            return res
     except (requests.RequestException, ValueError):
-        return []
+        pass
+    cms.persist_failed_contact_attempt()
+    return []
 
 def request_cms_name(domain: str) -> str:
     r = requests.get("http://" + domain + "/federation/cms-name")
@@ -27,12 +33,11 @@ def send_offer(domain: str):
     except requests.RequestException:
         pass
 
-def request_cms_region_list(domain: str):
+def request_cms_region_list(cms: CMSCache):
     try:
-        r = requests.get("http://" + domain + "/api/regions/live")
+        r = requests.get("http://" + cms.domain + "/api/regions/live")
         if r.ok:
             return r.json()
-        else:
-            return []
-    except (requests.RequestException, ValueError):
-        return []
+    except ValueError:
+        pass
+    raise requests.RequestException

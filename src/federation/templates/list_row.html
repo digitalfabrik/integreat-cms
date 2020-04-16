@@ -2,45 +2,42 @@
 {% load widget_tweaks %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
 	<td>
-        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 px-2 text-gray-800">
+        <div class="block py-3 px-2 text-gray-800">
             {{ cms.name }}
-        </a>
+        </div>
 	</td>
 	<td>
-        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 px-2 text-gray-800">
+        <div class="block py-3 px-2 text-gray-800">
             {{ cms.domain }}
-        </a>
+        </div>
 	</td>
-	<td class="px-2">
-		{% if cms.verified %}
+	<td class="pl-2">
+		{% if cms.active %}
             <div class="flex flex-wrap">
 		        <i data-feather="check"></i>
-                <a href="{% url 'revoke-verification' cms_id=cms.id %}" class="inline-block px-3 rounded-sm bg-blue-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
-                    Revoke verification
+                <a href="{% url 'deactivate' cms_id=cms.id %}" class="inline-block px-3 rounded-sm bg-blue-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
+                    Deactivate
                 </a>
             </div>
 		{% else %}
             <div class="flex flex-wrap">
                 <i data-feather="x"></i>
-                <a href="{% url 'verify' cms_id=cms.id %}" class="inline-block px-3 rounded-sm bg-blue-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
-                    Verify
+                <a href="{% url 'activate' cms_id=cms.id %}" class="inline-block px-3 rounded-sm bg-blue-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
+                    Activate
                 </a>
             </div>
 		{% endif %}
 	</td>
-	<td class="pl-2">
-        {% if cms.active %}
-        <i data-feather="check"></i>
+    <td class="pl-2">
+		{% if cms.last_contact_attempt_successful %}
+            <i data-feather="check"></i>
 		{% else %}
-		<i data-feather="x"></i>
+            <div class="flex flex-wrap">
+                <i data-feather="x"></i>
+                <a href="{% url 'check_availability' cms_id=cms.id %}" class="inline-block px-3 rounded-sm bg-blue-500 text-white" style="padding-top: 7px; padding-bottom: 7px;">
+                    Check availability manually
+                </a>
+            </div>
 		{% endif %}
 	</td>
-	<td class="pl-2">
-		{% if cms.recently_contacted %}
-        <i data-feather="check"></i>
-		{% else %}
-		<i data-feather="x"></i>
-		{% endif %}
-	</td>
-
 </tr>
