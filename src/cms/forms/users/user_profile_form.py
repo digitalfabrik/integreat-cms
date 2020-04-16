@@ -45,7 +45,6 @@ class UserProfileForm(forms.ModelForm):
             # check if called from UserProfileForm or RegionUserProfileForm
             if 'regions' in self.cleaned_data:
                 # regions can't be saved if commit=False on the ModelForm, so we have to save them explicitly
-                user_profile.regions = self.cleaned_data['regions']
-                user_profile.save()
+                user_profile.regions.set(self.cleaned_data['regions'])
 
         return user_profile
