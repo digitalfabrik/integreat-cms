@@ -15,7 +15,8 @@ class Feedback(models.Model):
     )
     emotion = models.CharField(max_length=3, choices=EMOTION)
     comment = models.CharField(max_length=1000)
-    readStatus = models.BooleanField(default=False)
+    is_technical = models.BooleanField(default=False)
+    read_status = models.BooleanField(default=False)
 
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
