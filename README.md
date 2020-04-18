@@ -7,7 +7,7 @@ This project aims to develop a content management system tailored to the needs o
 Following packages are required for running the project (Install them with your package manager):
 * git
 * npm
-* python3
+* python3.7
 * python3-pipenv
 * python3-dev (only on Ubuntu)
 * postgresql *OR* docker
