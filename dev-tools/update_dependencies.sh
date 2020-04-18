@@ -21,5 +21,8 @@ cd $(dirname "$BASH_SOURCE")/..
 # Check if npm dependencies are up to date
 npx npm-check --update-all --skip-unused
 
+# Fix npm security issues
+npm audit fix
+
 # Check if pip dependencies are up to date
 pipenv update
