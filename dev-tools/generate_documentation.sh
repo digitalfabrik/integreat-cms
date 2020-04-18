@@ -17,16 +17,15 @@ if [ $(id -u) = 0 ]; then
 fi
 
 cd $(dirname "$BASH_SOURCE")/..
-source .venv/bin/activate
 
 # Move german translation file to prevent sphinx from translating strings
 mv src/cms/locale/de/LC_MESSAGES/django.mo src/cms/locale/de/LC_MESSAGES/django.mo.lock
 
 # Generate .rst files from source code
-sphinx-apidoc --ext-autodoc --ext-coverage --force --no-toc --module-first -o sphinx src src/cms/migrations src/gvz_api/migrations
+pipenv run sphinx-apidoc --ext-autodoc --ext-coverage --force --no-toc --module-first -o sphinx src src/cms/migrations src/gvz_api/migrations
 
 # Compile .rst files to html documentation
-sphinx-build -E sphinx docs
+pipenv run sphinx-build -E sphinx docs
 
 # Move german translation file to original file again
 mv src/cms/locale/de/LC_MESSAGES/django.mo.lock src/cms/locale/de/LC_MESSAGES/django.mo

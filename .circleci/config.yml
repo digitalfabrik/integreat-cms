@@ -1,0 +1,144 @@
+version: 2.1
+
+jobs:
+  pipenv-install:
+    docker:
+      - image: circleci/python:3.7
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+    resource_class: small
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - pip-deps-{{ checksum "Pipfile.lock" }}
+            - pip-deps-
+      - run:
+          name: Install pip dependencies
+          command: pipenv install
+      - save_cache:
+          key: pip-deps-{{ checksum "Pipfile.lock" }}
+          paths:
+            - .venv
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .venv
+  npm-install:
+    docker:
+        - image: circleci/node:lts
+    resource_class: small
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-deps-{{ checksum "package-lock.json" }}
+            - npm-deps-
+      - run:
+          name: Install npm dependencies
+          command: npm install
+      - save_cache:
+          key: npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  pylint:
+    docker:
+      - image: circleci/python:3.7
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run pylint
+          command: |
+            cd src
+            pipenv run pylint_runner
+  tests:
+    docker:
+      - image: circleci/python:3.7
+      - image: circleci/postgres:alpine
+        environment:
+          POSTGRES_USER: integreat
+          POSTGRES_DB: integreat
+          POSTGRES_PASSWORD: password
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install integreat-cms
+          command: pipenv install '-e .[dev]'
+      - run:
+          name: Migrate database
+          command: |
+            pipenv run integreat-cms-cli makemigrations cms
+            pipenv run integreat-cms-cli migrate
+      - run:
+          name: Run tests
+          command: pipenv run integreat-cms-cli test cms
+  bundle-static-files:
+    docker:
+      - image: timoludwig/python-node-gettext:latest
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install integreat-cms
+          command: pipenv install '-e .[dev]'
+      - run:
+          name: Compile CSS
+          command: npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
+      - run:
+          name: Compress JS & CSS
+          command: pipenv run integreat-cms-cli compress
+      - run:
+          name: Compile translation file
+          command: |
+            cd src/cms
+            pipenv run integreat-cms-cli compilemessages
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src/cms/static/css/style.min.css
+            - src/cms/static/CACHE
+            - src/cms/locale/de/LC_MESSAGES/django.mo
+  packaging:
+    docker:
+      - image: timoludwig/bionic-setuptools:latest
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Create integreat-cms package
+          command: python3 setup.py --command-packages=stdeb.command bdist_deb
+      - store_artifacts:
+          path: dist
+
+workflows:
+  main:
+    jobs:
+      - pipenv-install
+      - npm-install
+      - pylint:
+          requires:
+            - pipenv-install
+      - tests:
+          requires:
+            - pipenv-install
+      - bundle-static-files:
+          requires:
+            - pipenv-install
+            - npm-install
+      - packaging:
+          requires:
+            - bundle-static-files

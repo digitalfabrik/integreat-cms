@@ -2,8 +2,6 @@
 
 # TODO: make it possible to use without docker database
 
-source .venv/bin/activate
+cd $(dirname "$BASH_SOURCE")/..
 
-export DJANGO_SETTINGS_MODULE=backend.docker_settings
-
-integreat-cms test cms
+pipenv run integreat-cms-cli test cms --settings=backend.docker_settings

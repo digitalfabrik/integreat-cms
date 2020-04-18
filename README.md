@@ -7,8 +7,8 @@ This project aims to develop a content management system tailored to the needs o
 Following packages are required for running the project (Install them with your package manager):
 * git
 * npm
-* python3
-* python-virtualenv
+* python3.7
+* python3-pipenv
 * python3-dev (only on Ubuntu)
 * postgresql *OR* docker
 
@@ -40,7 +40,7 @@ Install a python virtual environment and setup integreat-cms in this venv:
 ```
 If you want to use the Django command line instructions with `integreat-cms` (instead of our dev-tools), you have to activate it:
 ```
-source .venv/bin/activate
+pipenv shell
 ```
 Otherwise python dependency modules inside the venv can not be identified.
 
@@ -100,7 +100,7 @@ integreat-cms runserver localhost:8000
 * Go to your browser and open the URL `http://localhost:8000`
 * Default user is "root" with password "root1234".
 
-You may need to activate the `virtualenv` explicitly via `source .venv/bin/activate`.
+You may need to activate the virtual environment explicitly via `pipenv shell`.
 
 ### 6. Testing
 Run tests: `./dev-tools/test.sh`
@@ -114,7 +114,8 @@ To make sure your code matches the repository's quality standards, run pylint as
 ### 8. Developer Documentation
 Required syntax of docstrings ([more information here](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html)):
 ```
-"""[Summary]
+"""
+[Summary]
 
 :param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
 :type [ParamName]: [ParamType](, optional)
@@ -150,16 +151,13 @@ After this steps, the project should be reset completely. Follow the install ins
 ## Packaging and installing on Ubuntu 18.04
 Packaging for Debian can be done with setuptools.
 ```
-$ python3 -m venv .venv
-$ source .venv/bin/activate
 $ pip3 install stdeb
 $ python3 setup.py --command-packages=stdeb.command bdist_deb
 ```
-The project requires the package python3-django-widget-tweaks which has to be build manually:
+The project requires the package python3-django-widget-tweaks which has to be built manually:
 ````
 $ git clone git@github.com:jazzband/django-widget-tweaks.git
 $ cd django-widget-tweaks
-$ python3 -m venv .venv
 $ pip3 install stdeb
 $ python3 setup.py --command-packages=stdeb.command bdist_deb
 ````

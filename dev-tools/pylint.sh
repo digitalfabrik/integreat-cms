@@ -4,8 +4,5 @@
 
 cd $(dirname "$BASH_SOURCE")/../src
 
-# Activate venv
-source ../.venv/bin/activate
-
 # Run pylint
-pylint_runner
+pipenv run pylint_runner

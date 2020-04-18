@@ -12,8 +12,8 @@ if [ ! -x "$(command -v pip3)" ]; then
     echo "Pip for Python3 is not installed. Please install python3-pip manually and run this script again." >&2
     exit 1
 fi
-if ! python3 -m venv -h > /dev/null 2>&1; then
-    echo "The Python3 module virtualenv is not installed. Please install python3-virtualenv manually and run this script again." >&2
+if [ ! -x "$(command -v pipenv)" ]; then
+    echo "Pipenv for Python3 is not installed. Please install python3-pipenv manually and run this script again." >&2
     exit 1
 fi
 if [ ! -x "$(command -v npm)" ]; then
@@ -42,7 +42,4 @@ fi
 
 cd $(dirname "$BASH_SOURCE")/..
 npm install
-python3 -m venv .venv
-source .venv/bin/activate
-pip3 install --upgrade pip
-pip3 install -e .[dev]
+PIPENV_VENV_IN_PROJECT=1 pipenv install

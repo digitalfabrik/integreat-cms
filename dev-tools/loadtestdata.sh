@@ -18,10 +18,9 @@ if nc -w1 localhost 5432; then
         fi
     fi
 
-    cd $(dirname "$BASH_SOURCE")
-    source ../.venv/bin/activate
+    cd $(dirname "$BASH_SOURCE")/..
 
-    integreat-cms-cli loaddata ../src/cms/fixtures/test_data.json
+    pipenv run integreat-cms-cli loaddata src/cms/fixtures/test_data.json
 
 else
 
@@ -48,12 +47,11 @@ else
         exit 1
     fi
 
-    cd $(dirname "$BASH_SOURCE")
-    source ../.venv/bin/activate
+    cd $(dirname "$BASH_SOURCE")/..
 
     # Check if postgres database container is already running
     if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
-        sudo -u $SUDO_USER env PATH="$PATH" integreat-cms-cli loaddata ../src/cms/fixtures/test_data.json --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli loaddata src/cms/fixtures/test_data.json --settings=backend.docker_settings
     else
         # Check if stopped container is available
         if [ "$(docker ps -aq -f status=exited -f name=integreat_django_postgres)" ]; then
@@ -64,7 +62,7 @@ else
             done
         else
             # Run new container
-            docker run -d --name "integreat_django_postgres" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "$(pwd)/../.postgres:/var/lib/postgresql" -p 5433:5432 postgres > /dev/null
+            docker run -d --name "integreat_django_postgres" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "$(pwd)/.postgres:/var/lib/postgresql" -p 5433:5432 postgres > /dev/null
             echo -n "Waiting for postgres database container to be ready..."
             until docker exec -it integreat_django_postgres psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
               sleep 0.1
@@ -72,7 +70,7 @@ else
             done
             echo ""
         fi
-        sudo -u $SUDO_USER env PATH="$PATH" integreat-cms-cli loaddata ../src/cms/fixtures/test_data.json --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli loaddata src/cms/fixtures/test_data.json --settings=backend.docker_settings
         # Stop the postgres database docker container
         docker stop integreat_django_postgres > /dev/null
     fi
