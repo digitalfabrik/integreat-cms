@@ -8,9 +8,11 @@ Following packages are required for running the project (Install them with your 
 * git
 * npm
 * python3.7
+* python3-pip
 * python3-pipenv
 * python3.7-dev (only on Ubuntu)
 * postgresql *OR* docker
+* GNU gettext tools (to make use of the internationalization feature)
 
 ### Installation
 ````

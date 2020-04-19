@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# This script can be used to resolve git merge/rebase conflicts of the translation file
+
+# Check if GNU gettext tools are installed
+if [ ! -x "$(command -v gettext)" ]; then
+    echo "GNU gettext tools are not installed. Please install gettext manually and run this script again." >&2
+    exit 1
+fi
+
 cd $(dirname "$BASH_SOURCE")/../src/cms/locale/de/LC_MESSAGES
 
 # Replace git conflict markers
