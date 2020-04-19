@@ -9,7 +9,7 @@ Following packages are required for running the project (Install them with your 
 * npm
 * python3.7
 * python3-pipenv
-* python3-dev (only on Ubuntu)
+* python3.7-dev (only on Ubuntu)
 * postgresql *OR* docker
 
 ### Installation
@@ -24,6 +24,7 @@ cd cms-django
 ````
 * Go to your browser and open the URL `http://localhost:8000`
 * Default user is "root" with password "root1234".
+  * If you not use docker as database host you may need to [load sample data](#4.-Initial-test-data)
 
 ## Detailed instructions
 
@@ -77,7 +78,7 @@ On the first run, this will also migrate the database and populate it with initi
 #### 2.2. Manually install postgres
 Alternatively,
 * Install Postgres on your machine ([Tutorial for Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04))
-* Adjust database credentials to the one provided by your local environment in `backend/backend/settings.py`
+* Adjust database credentials to the one provided by your local environment in `src/backend/settings.py`
 
 ### 3. Database migrations
 While the database is running, migrate it:
