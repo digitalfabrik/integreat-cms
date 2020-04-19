@@ -8,6 +8,10 @@ if [ ! -x "$(command -v python3)" ]; then
     echo "Python3 is not installed. Please install it manually and run this script again." >&2
     exit 1
 fi
+if python3 -mplatform | grep -qi Ubuntu && dpkg -l | grep -qi python3.7-dev; then
+    echo "You are on Ubuntu and Python3.7-dev is not installed. Please install python3.7-dev manually and run this script again." >&2
+    exit 1
+fi
 if [ ! -x "$(command -v pip3)" ]; then
     echo "Pip for Python3 is not installed. Please install python3-pip manually and run this script again." >&2
     exit 1
