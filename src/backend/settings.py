@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compressor',
     'compressor_toolkit',
+    'corsheaders',
     'widget_tweaks',
     'easy_thumbnails',
     'filer',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -237,3 +239,6 @@ COMPRESS_OFFLINE = True
 # GVZ (Gemeindeverzeichnis) API URL
 GVZ_API_URL = "http://gvz.integreat-app.de/api/"
 GVZ_API_ENABLED = True
+
+# Allow access to all domains by setting the following variable to TRUE 
+CORS_ORIGIN_ALLOW_ALL = True
