@@ -115,7 +115,7 @@ FIXTURE_DIRS = (
 
 AUTHENTICATION_BACKENDS = (
     'rules.permissions.ObjectPermissionBackend',
-    'django.contrib.auth.backends.ModelBackend', # this is default
+    'django.contrib.auth.backends.ModelBackend',  # this is default
 )
 
 
@@ -240,5 +240,5 @@ COMPRESS_OFFLINE = True
 GVZ_API_URL = "http://gvz.integreat-app.de/api/"
 GVZ_API_ENABLED = True
 
-# Allow access to all domains by setting the following variable to TRUE 
+# Allow access to all domains by setting the following variable to TRUE
 CORS_ORIGIN_ALLOW_ALL = True
