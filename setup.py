@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 
 from setuptools import find_packages, setup
 
+# Add source directory to PATH variable to enable import of version number
+sys.path.append(os.path.abspath('src'))
+from backend.settings import VERSION
+
+
 setup(
     name='integreat_cms',
-    version='0.0.13',
+    version=VERSION,
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,

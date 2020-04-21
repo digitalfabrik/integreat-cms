@@ -21,8 +21,23 @@ cd $(dirname "$BASH_SOURCE")/..
 # Move german translation file to prevent sphinx from translating strings
 mv src/cms/locale/de/LC_MESSAGES/django.mo src/cms/locale/de/LC_MESSAGES/django.mo.lock
 
-# Generate .rst files from source code
-pipenv run sphinx-apidoc --ext-autodoc --ext-coverage --force --no-toc --module-first -o sphinx src src/cms/migrations src/gvz_api/migrations
+# Remove all old rst files (in case source files have been deleted)
+find sphinx -type f \( -name "*.rst" ! -name "index.rst" \) -delete
+
+# Generate new .rst files from source code
+SPHINX_APIDOC_OPTIONS="members,show-inheritance"
+pipenv run sphinx-apidoc --no-toc --module-first -o sphinx src src/cms/migrations src/gvz_api/migrations
+
+# Modify .rst files to remove unnecessary submodule- & subpackage-titles
+# Example: "cms.models.push_notifications.push_notification_translation module" becomes "Push Notification Translation"
+# At first, the 'find'-command returns all .rst files in the sphinx directory
+# The sed pattern replacement is divided into five stages explained below:
+find sphinx -type f -name "*.rst" | xargs sed -i \
+    -e '/Submodules\|Subpackages/{N;d;}' `# Remove Sub-Headings including their following lines` \
+    -e 's/\( module\| package\)//' `# Remove module & package strings at the end of headings` \
+    -e '/^[^ ]\+$/s/\(.*\.\)\?\([^\.]\+\)/\u\2/' `# Remove module path in headings (separated by dots) and make first letter uppercase` \
+    -e '/^[^ ]\+$/s/\\_\([a-z]\)/ \u\1/g' `# Replace \_ with spaces in headings and make following letter uppercase` \
+    -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g' # Make specific keywords uppercase
 
 # Compile .rst files to html documentation
 pipenv run sphinx-build -E sphinx docs
