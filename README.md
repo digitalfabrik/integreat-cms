@@ -130,6 +130,13 @@ Required syntax of docstrings ([more information here](https://sphinx-rtd-tutori
 """
 ```
 
+### 8. Add/Update dependencies
+If you added new dependencies to `setup.py` or want to upgrade the versions of installed pip & npm dependencies, execute
+```
+./dev-tools/update_dependencies.sh
+```
+to make sure the dependency lock files are updated.
+
 If you change models, functions or docstrings, make sure to update the corresponding developer documentation:
 ```
 ./dev-tools/generate_documentation.sh
@@ -137,7 +144,7 @@ If you change models, functions or docstrings, make sure to update the correspon
 This scans the source code for changed definitions and docstrings, generates intermediate .rst files and compiles them to the html documentation in /docs.
 
 ## Miscellaneous
-* Keep in mind that we are using Python 3.x, so use `python3` and `pip3` with any command
+* Keep in mind that we are using Python 3.7, so use `python3` (Ubuntu: `python3.7`, Arch Linux: `python37`) and `pip3` with any command
 * Access the Postgres database running in Docker container: `docker exec -it integreat_django_postgres psql -U integreat`
 * To ensure that you do not accidentally push your changes in `settings.py`, you can ignore the file locally via `git update-index --assume-unchanged ./backend/backend/settings.py`
 * Delete the database to start over again: `./dev-tools/prune_database.sh`
