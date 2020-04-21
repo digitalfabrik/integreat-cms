@@ -8,7 +8,9 @@ from .offers.offer import Offer
 from .offers.offer_template import OfferTemplate
 
 from .feedback.event_feedback import EventFeedback
+from .feedback.event_list_feedback import EventListFeedback
 from .feedback.offer_feedback import OfferFeedback
+from .feedback.offer_list_feedback import OfferListFeedback
 from .feedback.feedback import Feedback
 from .feedback.page_feedback import PageFeedback
 from .feedback.region_feedback import RegionFeedback
