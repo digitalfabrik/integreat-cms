@@ -376,7 +376,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.feedback">Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.languages">Languages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.offers">Offers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.pages">Pages</a></li>
@@ -387,6 +391,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.views">Views</a></li>
@@ -493,7 +498,7 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.v3.html#api.v3.feedback.FeedbackData.__init__">__init__() (api.v3.feedback.FeedbackData method)</a>
+      <li><a href="api.v3.feedback.html#api.v3.feedback.page_feedback.FeedbackData.__init__">__init__() (api.v3.feedback.page_feedback.FeedbackData method)</a>
 
       <ul>
         <li><a href="cms.forms.events.html#cms.forms.events.event_form.EventForm.__init__">(cms.forms.events.event_form.EventForm method)</a>
@@ -589,6 +594,13 @@
 </li>
       </ul></li>
       <li>
+    api.decorators
+
+      <ul>
+        <li><a href="api.html#module-api.decorators">module</a>
+</li>
+      </ul></li>
+      <li>
     api.tests
 
       <ul>
@@ -613,9 +625,25 @@
     api.v3.feedback
 
       <ul>
-        <li><a href="api.v3.html#module-api.v3.feedback">module</a>
+        <li><a href="api.v3.feedback.html#module-api.v3.feedback">module</a>
 </li>
       </ul></li>
+      <li>
+    api.v3.feedback.page_feedback
+
+      <ul>
+        <li><a href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.v3.feedback.search_result_feedback
+
+      <ul>
+        <li><a href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     api.v3.languages
 
@@ -630,8 +658,6 @@
         <li><a href="api.v3.html#module-api.v3.offers">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     api.v3.pages
 
@@ -2443,11 +2469,13 @@
 </li>
       <li><a href="cms.models.feedback.html#cms.models.feedback.feedback.Feedback">Feedback (class in cms.models.feedback.feedback)</a>
 </li>
-      <li><a href="api.v3.html#api.v3.feedback.feedback">feedback() (in module api.v3.feedback)</a>
+      <li><a href="api.v3.feedback.html#api.v3.feedback.page_feedback.feedback">feedback() (in module api.v3.feedback.page_feedback)</a>
 </li>
       <li><a href="cms.models.feedback.html#cms.models.feedback.feedback.Feedback.DoesNotExist">Feedback.DoesNotExist</a>
 </li>
       <li><a href="cms.models.feedback.html#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned">Feedback.MultipleObjectsReturned</a>
+</li>
+      <li><a href="api.html#api.decorators.feedback_handler">feedback_handler() (in module api.decorators)</a>
 </li>
       <li><a href="cms.models.feedback.html#cms.models.feedback.event_feedback.EventFeedback.feedback_ptr">feedback_ptr (cms.models.feedback.event_feedback.EventFeedback attribute)</a>
 
@@ -2475,7 +2503,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.v3.html#api.v3.feedback.FeedbackData">FeedbackData (class in api.v3.feedback)</a>
+      <li><a href="api.v3.feedback.html#api.v3.feedback.page_feedback.FeedbackData">FeedbackData (class in api.v3.feedback.page_feedback)</a>
 </li>
       <li><a href="gvz_api.html#gvz_api.utils.GvzApiWrapper.filter_region_types">filter_region_types() (gvz_api.utils.GvzApiWrapper class method)</a>
 </li>
@@ -2501,7 +2529,7 @@
       </ul></li>
       <li><a href="cms.models.events.html#cms.models.events.recurrence_rule.RecurrenceRule.frequency">frequency (cms.models.events.recurrence_rule.RecurrenceRule attribute)</a>
 </li>
-      <li><a href="api.v3.html#api.v3.feedback.FeedbackData.from_dict">from_dict() (api.v3.feedback.FeedbackData class method)</a>
+      <li><a href="api.v3.feedback.html#api.v3.feedback.page_feedback.FeedbackData.from_dict">from_dict() (api.v3.feedback.page_feedback.FeedbackData class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2607,7 +2635,7 @@
 </li>
       <li><a href="gvz_api.html#gvz_api.utils.GvzApiWrapper.get_children">get_children() (gvz_api.utils.GvzApiWrapper method)</a>
 </li>
-      <li><a href="api.v3.html#api.v3.feedback.FeedbackData.get_comment">get_comment() (api.v3.feedback.FeedbackData method)</a>
+      <li><a href="api.v3.feedback.html#api.v3.feedback.page_feedback.FeedbackData.get_comment">get_comment() (api.v3.feedback.page_feedback.FeedbackData method)</a>
 </li>
       <li><a href="cms.models.regions.html#cms.models.regions.region.Region.get_current_region">get_current_region() (cms.models.regions.region.Region class method)</a>
 </li>
@@ -2619,7 +2647,7 @@
 </li>
       <li><a href="cms.forms.pages.html#cms.forms.pages.page_form.PageForm.get_editor_queryset">get_editor_queryset() (cms.forms.pages.page_form.PageForm method)</a>
 </li>
-      <li><a href="api.v3.html#api.v3.feedback.FeedbackData.get_emotion">get_emotion() (api.v3.feedback.FeedbackData method)</a>
+      <li><a href="api.v3.feedback.html#api.v3.feedback.page_feedback.FeedbackData.get_emotion">get_emotion() (api.v3.feedback.page_feedback.FeedbackData method)</a>
 </li>
       <li><a href="cms.models.feedback.html#cms.models.feedback.feedback.Feedback.get_emotion_display">get_emotion_display() (cms.models.feedback.feedback.Feedback method)</a>
 </li>
@@ -2878,9 +2906,9 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.v3.html#api.v3.feedback.FeedbackData.has_content">has_content() (api.v3.feedback.FeedbackData method)</a>
+      <li><a href="api.v3.feedback.html#api.v3.feedback.page_feedback.FeedbackData.has_content">has_content() (api.v3.feedback.page_feedback.FeedbackData method)</a>
 </li>
-      <li><a href="api.v3.html#api.v3.feedback.FeedbackData.has_id">has_id() (api.v3.feedback.FeedbackData method)</a>
+      <li><a href="api.v3.feedback.html#api.v3.feedback.page_feedback.FeedbackData.has_id">has_id() (api.v3.feedback.page_feedback.FeedbackData method)</a>
 </li>
       <li><a href="cms.models.events.html#cms.models.events.event.Event.has_location">has_location() (cms.models.events.event.Event property)</a>
 </li>
@@ -3272,13 +3300,19 @@
 </li>
         <li><a href="api.html#module-api.apps">api.apps</a>
 </li>
+        <li><a href="api.html#module-api.decorators">api.decorators</a>
+</li>
         <li><a href="api.html#module-api.tests">api.tests</a>
 </li>
         <li><a href="api.html#module-api.urls">api.urls</a>
 </li>
         <li><a href="api.v3.html#module-api.v3">api.v3</a>
 </li>
-        <li><a href="api.v3.html#module-api.v3.feedback">api.v3.feedback</a>
+        <li><a href="api.v3.feedback.html#module-api.v3.feedback">api.v3.feedback</a>
+</li>
+        <li><a href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">api.v3.feedback.page_feedback</a>
+</li>
+        <li><a href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">api.v3.feedback.search_result_feedback</a>
 </li>
         <li><a href="api.v3.html#module-api.v3.languages">api.v3.languages</a>
 </li>

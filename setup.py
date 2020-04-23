@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
+""" Setup.py """
 
 import os
 import sys
 
 from setuptools import find_packages, setup
+from backend.settings import VERSION
 
 # Add source directory to PATH variable to enable import of version number
 sys.path.append(os.path.abspath('src'))
-from backend.settings import VERSION
 
-
+# pylint: disable=bad-continuation
 setup(
     name='integreat_cms',
     version=VERSION,

@@ -1,30 +1,38 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""
+Configuration file for the Sphinx documentation builder.
+
+This file only contains a selection of the most common options. For a full
+list see the documentation:
+https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""
+# pylint: disable=all
 
 # -- Path setup --------------------------------------------------------------
 
 import os
 import sys
-import django
 import inspect
 import importlib
+import django
 
+from backend.settings import VERSION
 from sphinx.writers.html import HTMLTranslator
 
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath('../src/'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'backend.settings'
 
-from backend.settings import VERSION
 
 # Setup Django
 django.setup()
 
 
 def setup(app):
+    """
+    Registeration and setup.
+
+    This method does the initial setup for the docs generation.
+    """
     # Register the docstring processor with sphinx to improve the appearance of Django models
     app.connect('autodoc-process-docstring', process_django_models)
     # Patch HTMLTranslator to open external links in new tab
@@ -51,13 +59,14 @@ extensions = [
     'sphinx.ext.linkcode',
     'sphinxcontrib_django',
     'sphinx_rtd_theme',
-    ]
+]
 
 # Enable cross-references to other documentations
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3.5', None),
+    'python': ('https://docs.python.org/3.7', None),
     'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
-    'django': ('https://docs.djangoproject.com/en/2.2/', 'https://docs.djangoproject.com/en/2.2/_objects/'),
+    'django': ('https://docs.djangoproject.com/en/2.2/',
+               'https://docs.djangoproject.com/en/2.2/_objects/'),
 }
 
 # The path for patched template files
@@ -83,7 +92,6 @@ html_show_sourcelink = False
 
 # -- Modify default Django model parameter types------------------------------
 
-
 def process_django_models(app, what, name, obj, options, lines):
     """Append correct param types from fields to model documentation."""
     if inspect.isclass(obj) and issubclass(obj, django.db.models.Model):
@@ -92,15 +100,20 @@ def process_django_models(app, what, name, obj, options, lines):
             module = field_type.__module__
             # Fix intersphinx mappings for django.contrib.postgres fields
             if module == 'django.contrib.postgres.fields.array':
-                lines.append(':type {}: `django.contrib.postgres.fields.array.ArrayField <https://docs.djangoproject.com/en/3.0/ref/contrib/postgres/fields/#arrayfield>`_'.format(field.attname))
+                lines.append(
+                    ':type {}: `django.contrib.postgres.fields.array.ArrayField \
+                        <https://docs.djangoproject.com/en/3.0/ref/contrib/postgres/fields/#arrayfield>`_'.format(field.attname))
                 continue
             elif module == 'django.contrib.postgres.fields.jsonb':
-                lines.append(':type {}: `django.contrib.postgres.fields.jsonb.JSONField <https://docs.djangoproject.com/en/3.0/ref/contrib/postgres/fields/#jsonfield>`_'.format(field.attname))
+                lines.append(
+                    ':type {}: `django.contrib.postgres.fields.jsonb.JSONField \
+                        <https://docs.djangoproject.com/en/3.0/ref/contrib/postgres/fields/#jsonfield>`_'.format(field.attname))
                 continue
             elif 'django.db.models' in module:
                 # scope with django.db.models * imports
                 module = 'django.db.models'
-            lines.append(':type {}: {}.{}'.format(field.attname, module, field_type.__name__))
+            lines.append(':type {}: {}.{}'.format(
+                field.attname, module, field_type.__name__))
     return lines
 
 
@@ -121,7 +134,8 @@ def linkcode_resolve(domain, info):
     for piece in info['fullname'].split('.'):
         item = getattr(item, piece)
         try:
-            line_number_reference = '#L{}'.format(inspect.getsourcelines(item)[1])
+            line_number_reference = '#L{}'.format(
+                inspect.getsourcelines(item)[1])
         except (TypeError, IOError):
             pass
     return "https://github.com/Integreat/cms-django/blob/master/src/{}.py{}".format(
@@ -131,10 +145,12 @@ def linkcode_resolve(domain, info):
 
 # -- Link targets ------------------------------------------------------------
 
-
+#pylint: disable=W0223
 class PatchedHTMLTranslator(HTMLTranslator):
     """Open external links in a new tab"""
+
     def visit_reference(self, node):
-        if node.get('newtab') or not (node.get('target') or node.get('internal') or 'refuri' not in node):
+        if node.get('newtab') or not (node.get('target') or node.get('internal') or \
+            'refuri' not in node):
             node['target'] = '_blank'
         super().visit_reference(node)

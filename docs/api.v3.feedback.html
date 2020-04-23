@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Push Notifications &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Feedback &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Regions" href="cms.views.regions.html" />
-    <link rel="prev" title="POIs" href="cms.views.pois.html" /> 
+    <link rel="next" title="Gvz API" href="gvz_api.html" />
+    <link rel="prev" title="V3" href="api.v3.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,8 +95,8 @@
 </ul>
 </li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cms.html">CMS</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
@@ -256,7 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="cms.views.html">Views</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cms.views.html">Views</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
 </ul>
@@ -325,10 +325,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_view">POI View</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Push Notifications</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.push_notifications.push_notification_list_view">Push Notification List View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.push_notifications.push_notification_sender">Push Notification Sender</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.push_notifications.push_notification_view">Push Notification View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_list_view">Push Notification List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_sender">Push Notification Sender</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_view">Push Notification View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html">Regions</a><ul>
@@ -374,12 +374,12 @@
 </ul>
 </li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api.v3.html">V3</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.languages">Languages</a></li>
@@ -450,11 +450,11 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="cms.html">CMS</a> &raquo;</li>
+          <li><a href="api.html">API</a> &raquo;</li>
         
-          <li><a href="cms.views.html">Views</a> &raquo;</li>
+          <li><a href="api.v3.html">V3</a> &raquo;</li>
         
-      <li>Push Notifications</li>
+      <li>Feedback</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -471,122 +471,71 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cms.views.push_notifications">
-<span id="push-notifications"></span><h1>Push Notifications<a class="headerlink" href="#module-cms.views.push_notifications" title="Permalink to this headline">¶</a></h1>
-<p>Python standard Init-File</p>
-<div class="section" id="module-cms.views.push_notifications.push_notification_list_view">
-<span id="push-notification-list-view"></span><h2>Push Notification List View<a class="headerlink" href="#module-cms.views.push_notifications.push_notification_list_view" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="module-api.v3.feedback">
+<span id="feedback"></span><h1>Feedback<a class="headerlink" href="#module-api.v3.feedback" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-api.v3.feedback.page_feedback">
+<span id="page-feedback"></span><h2>Page Feedback<a class="headerlink" href="#module-api.v3.feedback.page_feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.views.push_notifications.push_notification_list_view.PushNotificationListView">
-<em class="property">class </em><code class="descclassname">cms.views.push_notifications.push_notification_list_view.</code><code class="descname">PushNotificationListView</code><span class="sig-paren">(</span><em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_list_view.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_list_view.PushNotificationListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_list_view.PushNotificationListView.base_context">
-<code class="descname">base_context</code><em class="property"> = {'current_menu_item': 'push_notifications'}</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_list_view.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.base_context" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.push_notifications.push_notification_list_view.PushNotificationListView.dispatch">
-<code class="descname">dispatch</code><span class="sig-paren">(</span><em><span class="n">request</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_list_view.py#L82" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.dispatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.push_notifications.push_notification_list_view.PushNotificationListView.get">
-<code class="descname">get</code><span class="sig-paren">(</span><em><span class="n">request</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_list_view.py#L22" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_list_view.PushNotificationListView.permission_required">
-<code class="descname">permission_required</code><em class="property"> = 'cms.view_push_notifications'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_list_view.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_list_view.PushNotificationListView.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_list_view.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_list_view.PushNotificationListView.template_name">
-<code class="descname">template_name</code><em class="property"> = 'push_notifications/push_notification_list.html'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_list_view.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-cms.views.push_notifications.push_notification_sender">
-<span id="push-notification-sender"></span><h2>Push Notification Sender<a class="headerlink" href="#module-cms.views.push_notifications.push_notification_sender" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender">
-<em class="property">class </em><code class="descclassname">cms.views.push_notifications.push_notification_sender.</code><code class="descname">PushNotificationSender</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_sender.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender" title="Permalink to this definition">¶</a></dt>
+<dt id="api.v3.feedback.page_feedback.FeedbackData">
+<em class="property">class </em><code class="descclassname">api.v3.feedback.page_feedback.</code><code class="descname">FeedbackData</code><span class="sig-paren">(</span><em><span class="n">page_id</span></em>, <em><span class="n">permalink</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" target="_blank" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.fcm_url">
-<code class="descname">fcm_url</code><em class="property"> = 'https://fcm.googleapis.com/fcm/send'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_sender.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.fcm_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sends push notifications via FCM legacy http api.
-Returns boolean indicating success or failure</p>
+<p>This class is a generic api representation of cms feedback incl. its meta information stored in the database.
+It is used to examine feedback sent to the feedback api endpoint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>page_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The id of the page this feedback is referring to, if empty the permalink is required, defaults to None</li>
+<li><strong>permalink</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to ‘’</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The descriptive feedback string, defaults to ‘’</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The emotion of the feedback, can be one of [‘Pos’, ‘Neg’, ‘NA’], defaults to ‘NA’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em><span class="n">page_id</span></em>, <em><span class="n">permalink</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L26" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.logger">
-<code class="descname">logger</code><em class="property"> = &lt;Logger cms.views.push_notifications.push_notification_sender (INFO)&gt;</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_sender.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.logger" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.from_dict">
+<em class="property">classmethod </em><code class="descname">from_dict</code><span class="sig-paren">(</span><em><span class="n">feedback_dict</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L32" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.send">
-<code class="descname">send</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em>, <em><span class="n">channel</span></em>, <em><span class="n">title</span></em>, <em><span class="n">message</span></em>, <em><span class="n">lan_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_sender.py#L18" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.send" title="Permalink to this definition">¶</a></dt>
+<dt id="api.v3.feedback.page_feedback.FeedbackData.get_comment">
+<code class="descname">get_comment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L47" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.get_comment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.get_emotion">
+<code class="descname">get_emotion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L50" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.get_emotion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.has_content">
+<code class="descname">has_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L44" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.has_content" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.has_id">
+<code class="descname">has_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L41" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.has_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
+
+<dl class="py function">
+<dt id="api.v3.feedback.page_feedback.feedback">
+<code class="descclassname">api.v3.feedback.page_feedback.</code><code class="descname">feedback</code><span class="sig-paren">(</span><em><span class="n">req</span></em>, <em><span class="n">region_slug</span></em>, <em><span class="n">languages</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L59" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.feedback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
-<div class="section" id="module-cms.views.push_notifications.push_notification_view">
-<span id="push-notification-view"></span><h2>Push Notification View<a class="headerlink" href="#module-cms.views.push_notifications.push_notification_view" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView">
-<em class="property">class </em><code class="descclassname">cms.views.push_notifications.push_notification_view.</code><code class="descname">PushNotificationView</code><span class="sig-paren">(</span><em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.base_context">
-<code class="descname">base_context</code><em class="property"> = {'current_menu_item': 'push_notifications'}</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.base_context" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.dispatch">
-<code class="descname">dispatch</code><span class="sig-paren">(</span><em><span class="n">request</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L82" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.dispatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.get">
-<code class="descname">get</code><span class="sig-paren">(</span><em><span class="n">request</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L27" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.permission_required">
-<code class="descname">permission_required</code><em class="property"> = 'cms.view_push_notifications'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.post">
-<code class="descname">post</code><span class="sig-paren">(</span><em><span class="n">request</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L56" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.post" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.push_sender">
-<code class="descname">push_sender</code><em class="property"> = &lt;cms.views.push_notifications.push_notification_sender.PushNotificationSender object&gt;</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.push_sender" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.template_name">
-<code class="descname">template_name</code><em class="property"> = 'push_notifications/push_notification_form.html'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/views/push_notifications/push_notification_view.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="module-api.v3.feedback.search_result_feedback">
+<span id="search-result-feedback"></span><h2>Search Result Feedback<a class="headerlink" href="#module-api.v3.feedback.search_result_feedback" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -598,10 +547,10 @@ Returns boolean indicating success or failure</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cms.views.regions.html" class="btn btn-neutral float-right" title="Regions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="gvz_api.html" class="btn btn-neutral float-right" title="Gvz API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cms.views.pois.html" class="btn btn-neutral float-left" title="POIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="api.v3.html" class="btn btn-neutral float-left" title="V3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

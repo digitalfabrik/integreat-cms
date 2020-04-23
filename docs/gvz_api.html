@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="V3" href="api.v3.html" /> 
+    <link rel="prev" title="Feedback" href="api.v3.feedback.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -376,7 +376,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.feedback">Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.languages">Languages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.offers">Offers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.pages">Pages</a></li>
@@ -387,6 +391,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.views">Views</a></li>
@@ -497,7 +502,7 @@
 <dl class="py class">
 <dt id="gvz_api.utils.GvzApiWrapper">
 <em class="property">class </em><code class="descclassname">gvz_api.utils.</code><code class="descname">GvzApiWrapper</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/gvz_api/utils.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" target="_blank" title="(in Python v3.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" target="_blank" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class that wraps around the GVZ (Gemeindeverzeichnis) API</p>
 <dl class="py attribute">
 <dt id="gvz_api.utils.GvzApiWrapper.api_url">
@@ -514,7 +519,7 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – name of a region (city name, county name, etc)</li>
+<li><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</li>
 <li><strong>region_type</strong> (<em>cms.constants.administrative_division</em>) – administrative division type of region, defaults to None</li>
 </ul>
 </td>
@@ -522,7 +527,7 @@
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">JSON search results defined in the GVZ API</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)">str</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></p>
 </td>
 </tr>
 </tbody>
@@ -539,11 +544,11 @@ level that contain the coordinates.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_details</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" target="_blank" title="(in Python v3.5)"><em>dict</em></a>) – dictionary with region details</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_details</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)"><em>dict</em></a>) – dictionary with region details</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">indicates if a region is not interesting</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" target="_blank" title="(in Python v3.5)">bool</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -557,11 +562,11 @@ level that contain the coordinates.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of children dictionaries</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" target="_blank" title="(in Python v3.5)">list</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a></td>
 </tr>
 </tbody>
 </table>
@@ -575,11 +580,11 @@ level that contain the coordinates.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary containing longitude, latitude, type, key, name</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" target="_blank" title="(in Python v3.5)">dict</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -593,11 +598,11 @@ level that contain the coordinates.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – name of a region (city name, county name, etc)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">JSON search results defined in the GVZ API</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)">str</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -611,7 +616,7 @@ level that contain the coordinates.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – type of a region</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – type of a region</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">administrative division of the region</td>
 </tr>
@@ -626,7 +631,7 @@ level that contain the coordinates.</p>
 <dl class="py class">
 <dt id="gvz_api.utils.GvzRegion">
 <em class="property">class </em><code class="descclassname">gvz_api.utils.</code><code class="descname">GvzRegion</code><span class="sig-paren">(</span><em><span class="n">region_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">region_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/gvz_api/utils.py#L162" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" target="_blank" title="(in Python v3.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" target="_blank" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a region in the GVZ, initial values will be retrieved
 from API on initialization.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -634,8 +639,8 @@ from API on initialization.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel, defaults to None</li>
-<li><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – name of a region (city name, county name, etc), defaults to None</li>
+<li><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel, defaults to None</li>
+<li><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc), defaults to None</li>
 <li><strong>region_type</strong> (<em>cms.constants.administrative_division</em>) – administrative division type of region, defaults to None</li>
 </ul>
 </td>
@@ -658,7 +663,7 @@ from API on initialization.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">aliases of region according to Integreat APIv3 definition</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -674,7 +679,7 @@ from API on initialization.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">name, longitude, latitude, list of children</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" target="_blank" title="(in Python v3.5)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -694,7 +699,7 @@ from API on initialization.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="api.v3.html" class="btn btn-neutral float-left" title="V3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="api.v3.feedback.html" class="btn btn-neutral float-left" title="Feedback" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
