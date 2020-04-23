@@ -3,7 +3,12 @@ Expansion of API-Endpoints for the CMS
 '''
 from django.conf.urls import include, url
 
-from .v3.feedback import page_feedback, search_result_feedback
+from .v3.feedback import (
+    page_feedback,
+    search_result_feedback,
+    region_feedback,
+    offer_list_feedback,
+    event_list_feedback)
 from .v3.languages import languages
 from .v3.pages import pages
 from .v3.push_notifications import sent_push_notifications
@@ -21,7 +26,10 @@ urlpatterns = [
         url(r'offers/$', offers),
         url(r'(?P<lan_code>[-\w]+)/sent_push_notifications/$', sent_push_notifications),
         url(r'(?P<languages>[-\w]+)/feedback/$', page_feedback.feedback),
+        url(r'(?P<language_code>[-\w]+)/feedback/categories$', region_feedback.region_feedback),
         url(r'(?P<language_code>[-\w]+)/feedback/search$', search_result_feedback.search_result_feedback),
+        url(r'(?P<language_code>[-\w]+)/feedback/extras$', offer_list_feedback.offer_list_feedback),
+        url(r'(?P<language_code>[-\w]+)/feedback/events$', event_list_feedback.event_list_feedback),
         url(r'(?P<language_code>[-\w]+)/pages/$', pages),
         url(r'(?P<language_code>[-\w]+)/offers/$', offers),
         url(r'(?P<language_code>[-\w]+)/page/$', single_page),
