@@ -1,11 +1,14 @@
-from django.test import TestCase
+""" Test collection for models """
 
+from django.test import TestCase
 from cms.models import Page, PageTranslation, Region
 
 
 class PageTest(TestCase):
+    """Page model testing"""
+
     def setUp(self):
-        # Setup run before every test method.
+        """Setup run before every test method."""
         self.region = Region.objects.create(
             aliases=[],
             push_notification_channels=[],
@@ -16,11 +19,11 @@ class PageTest(TestCase):
         self.page3 = Page.objects.create(parent=self.page2, region=self.region)
 
     def test_depth_no_parent(self):
-        # Depth is correctly determined for page on first level.
+        """Depth is correctly determined for page on first level."""
         self.assertTrue(self.page1.depth == 0)
 
     def test_depth_third_level(self):
-        # Depth is correctly determined for page on third level.
+        """Depth is correctly determined for page on third level."""
         self.assertTrue(self.page3.depth == 2)
 
     def test_get_archived(self):
@@ -33,8 +36,10 @@ class PageTest(TestCase):
 
 
 class PageTranslationTest(TestCase):
+    """Page translation testing"""
+
     def setUp(self):
-        # Setup run before every test method.
+        """Setup run before every test method."""
         self.region = Region.objects.create(
             aliases=[],
             push_notification_channels=[],

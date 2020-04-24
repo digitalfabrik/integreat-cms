@@ -79,7 +79,9 @@ jobs:
             pipenv run integreat-cms-cli migrate
       - run:
           name: Run tests
-          command: pipenv run integreat-cms-cli test cms
+          command: pipenv run integreat-cms-cli test cms --set=COVERAGE
+      - store_artifacts:
+          path: htmlcov
   bundle-static-files:
     docker:
       - image: timoludwig/python-node-gettext:latest

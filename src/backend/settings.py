@@ -86,6 +86,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'backend.context_processors.region_slug_processor',
             ],
+            'debug': DEBUG,
         },
     },
 ]
