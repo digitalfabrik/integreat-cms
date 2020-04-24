@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Gvz API" href="gvz_api.html" />
+    <link rel="next" title="Feedback" href="api.v3.feedback.html" />
     <link rel="prev" title="API" href="api.html" /> 
 </head>
 
@@ -187,8 +187,10 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.region_feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.search_result_feedback">Search Result Feedback</a></li>
@@ -377,7 +379,14 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">V3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-api.v3.feedback">Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.languages">Languages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.offers">Offers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.pages">Pages</a></li>
@@ -388,6 +397,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.views">Views</a></li>
@@ -466,66 +476,17 @@
             
   <div class="section" id="module-api.v3">
 <span id="v3"></span><h1>V3<a class="headerlink" href="#module-api.v3" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-api.v3.feedback">
-<span id="feedback"></span><h2>Feedback<a class="headerlink" href="#module-api.v3.feedback" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="api.v3.feedback.FeedbackData">
-<em class="property">class </em><code class="descclassname">api.v3.feedback.</code><code class="descname">FeedbackData</code><span class="sig-paren">(</span><em><span class="n">page_id</span></em>, <em><span class="n">permalink</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.FeedbackData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" target="_blank" title="(in Python v3.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>This class is a generic api representation of cms feedback incl. its meta information stored in the database.
-It is used to examine feedback sent to the feedback api endpoint.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>page_id</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" target="_blank" title="(in Python v3.5)"><em>int</em></a>) – The id of the page this feedback is referring to, if empty the permalink is required, defaults to None</li>
-<li><strong>permalink</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to ‘’</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" target="_blank" title="(in Python v3.5)"><em>int</em></a>) – The descriptive feedback string, defaults to ‘’</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" target="_blank" title="(in Python v3.5)"><em>int</em></a>) – The emotion of the feedback, can be one of [‘Pos’, ‘Neg’, ‘NA’], defaults to ‘NA’</li>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="py method">
-<dt id="api.v3.feedback.FeedbackData.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em><span class="n">page_id</span></em>, <em><span class="n">permalink</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback.py#L26" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.FeedbackData.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="api.v3.feedback.FeedbackData.from_dict">
-<em class="property">classmethod </em><code class="descname">from_dict</code><span class="sig-paren">(</span><em><span class="n">feedback_dict</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback.py#L32" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.FeedbackData.from_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="api.v3.feedback.FeedbackData.get_comment">
-<code class="descname">get_comment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback.py#L47" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.FeedbackData.get_comment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="api.v3.feedback.FeedbackData.get_emotion">
-<code class="descname">get_emotion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback.py#L50" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.FeedbackData.get_emotion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="api.v3.feedback.FeedbackData.has_content">
-<code class="descname">has_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback.py#L44" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.FeedbackData.has_content" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="api.v3.feedback.FeedbackData.has_id">
-<code class="descname">has_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback.py#L41" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.FeedbackData.has_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="api.v3.feedback.feedback">
-<code class="descclassname">api.v3.feedback.</code><code class="descname">feedback</code><span class="sig-paren">(</span><em><span class="n">req</span></em>, <em><span class="n">region_slug</span></em>, <em><span class="n">languages</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback.py#L59" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.feedback" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+</li>
+</ul>
 </div>
 <div class="section" id="module-api.v3.languages">
 <span id="languages"></span><h2>Languages<a class="headerlink" href="#module-api.v3.languages" title="Permalink to this headline">¶</a></h2>
@@ -641,8 +602,8 @@ requested page does not exist.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" target="_blank" title="(in Django v2.2)"><em>django.http.HttpRequest</em></a>) – The request that has been sent to the Django server</li>
-<li><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – Slug defining the region</li>
-<li><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" target="_blank" title="(in Python v3.5)"><em>str</em></a>) – Code to identify the desired language</li>
+<li><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – Slug defining the region</li>
+<li><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – Code to identify the desired language</li>
 </ul>
 </td>
 </tr>
@@ -670,7 +631,7 @@ requested page does not exist.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gvz_api.html" class="btn btn-neutral float-right" title="Gvz API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api.v3.feedback.html" class="btn btn-neutral float-right" title="Feedback" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

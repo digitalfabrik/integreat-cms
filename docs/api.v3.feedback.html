@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Authentication &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Feedback &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Events" href="cms.forms.events.html" />
-    <link rel="prev" title="Forms" href="cms.forms.html" /> 
+    <link rel="next" title="Gvz API" href="gvz_api.html" />
+    <link rel="prev" title="V3" href="api.v3.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,8 +95,8 @@
 </ul>
 </li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cms.html">CMS</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
@@ -109,9 +109,9 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="cms.forms.html">Forms</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html">Events</a><ul>
@@ -376,15 +376,15 @@
 </ul>
 </li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api.v3.html">V3</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.languages">Languages</a></li>
@@ -455,11 +455,11 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="cms.html">CMS</a> &raquo;</li>
+          <li><a href="api.html">API</a> &raquo;</li>
         
-          <li><a href="cms.forms.html">Forms</a> &raquo;</li>
+          <li><a href="api.v3.html">V3</a> &raquo;</li>
         
-      <li>Authentication</li>
+      <li>Feedback</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -476,33 +476,80 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cms.forms.authentication">
-<span id="authentication"></span><h1>Authentication<a class="headerlink" href="#module-cms.forms.authentication" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-cms.forms.authentication.password_reset_form">
-<span id="password-reset-form"></span><h2>Password Reset Form<a class="headerlink" href="#module-cms.forms.authentication.password_reset_form" title="Permalink to this headline">¶</a></h2>
-<p>Forms related to the user creation and more</p>
+  <div class="section" id="module-api.v3.feedback">
+<span id="feedback"></span><h1>Feedback<a class="headerlink" href="#module-api.v3.feedback" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-api.v3.feedback.event_list_feedback">
+<span id="event-list-feedback"></span><h2>Event List Feedback<a class="headerlink" href="#module-api.v3.feedback.event_list_feedback" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-api.v3.feedback.offer_list_feedback">
+<span id="offer-list-feedback"></span><h2>Offer List Feedback<a class="headerlink" href="#module-api.v3.feedback.offer_list_feedback" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-api.v3.feedback.page_feedback">
+<span id="page-feedback"></span><h2>Page Feedback<a class="headerlink" href="#module-api.v3.feedback.page_feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.forms.authentication.password_reset_form.PasswordResetConfirmForm">
-<em class="property">class </em><code class="descclassname">cms.forms.authentication.password_reset_form.</code><code class="descname">PasswordResetConfirmForm</code><span class="sig-paren">(</span><em><span class="n">user</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/forms/authentication/password_reset_form.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.SetPasswordForm</span></code></a></p>
-<p>Form for resetting Passwords</p>
-<p><strong>Form fields:</strong></p>
-<ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">new_password1</span></code>: Neues Passwort (<code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code>)</li>
-<li><code class="docutils literal notranslate"><span class="pre">new_password2</span></code>: Neues Passwort bestätigen (<code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code>)</li>
+<dt id="api.v3.feedback.page_feedback.FeedbackData">
+<em class="property">class </em><code class="descclassname">api.v3.feedback.page_feedback.</code><code class="descname">FeedbackData</code><span class="sig-paren">(</span><em><span class="n">page_id</span></em>, <em><span class="n">permalink</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" target="_blank" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This class is a generic api representation of cms feedback incl. its meta information stored in the database.
+It is used to examine feedback sent to the feedback api endpoint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>page_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The id of the page this feedback is referring to, if empty the permalink is required, defaults to None</li>
+<li><strong>permalink</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to ‘’</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The descriptive feedback string, defaults to ‘’</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The emotion of the feedback, can be one of [‘Pos’, ‘Neg’, ‘NA’], defaults to ‘NA’</li>
 </ul>
-<dl class="py attribute">
-<dt id="cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.error_messages">
-<code class="descname">error_messages</code><em class="property"> = {'password_mismatch': 'The passwords do not match.'}</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/forms/authentication/password_reset_form.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.error_messages" title="Permalink to this definition">¶</a></dt>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em><span class="n">page_id</span></em>, <em><span class="n">permalink</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L26" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.from_dict">
+<em class="property">classmethod </em><code class="descname">from_dict</code><span class="sig-paren">(</span><em><span class="n">feedback_dict</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L32" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.media">
-<em class="property">property </em><code class="descname">media</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/cms/forms/authentication/password_reset_form.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.media" title="Permalink to this definition">¶</a></dt>
+<dt id="api.v3.feedback.page_feedback.FeedbackData.get_comment">
+<code class="descname">get_comment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L47" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.get_comment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.get_emotion">
+<code class="descname">get_emotion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L50" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.get_emotion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.has_content">
+<code class="descname">has_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L44" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.has_content" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="api.v3.feedback.page_feedback.FeedbackData.has_id">
+<code class="descname">has_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L41" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.has_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
+<dl class="py function">
+<dt id="api.v3.feedback.page_feedback.feedback">
+<code class="descclassname">api.v3.feedback.page_feedback.</code><code class="descname">feedback</code><span class="sig-paren">(</span><em><span class="n">req</span></em>, <em><span class="n">region_slug</span></em>, <em><span class="n">languages</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/master/src/api/v3/feedback/page_feedback.py#L59" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.feedback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-api.v3.feedback.region_feedback">
+<span id="region-feedback"></span><h2>Region Feedback<a class="headerlink" href="#module-api.v3.feedback.region_feedback" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-api.v3.feedback.search_result_feedback">
+<span id="search-result-feedback"></span><h2>Search Result Feedback<a class="headerlink" href="#module-api.v3.feedback.search_result_feedback" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -514,10 +561,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cms.forms.events.html" class="btn btn-neutral float-right" title="Events" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="gvz_api.html" class="btn btn-neutral float-right" title="Gvz API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cms.forms.html" class="btn btn-neutral float-left" title="Forms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="api.v3.html" class="btn btn-neutral float-left" title="V3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
