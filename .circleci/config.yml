@@ -55,9 +55,7 @@ jobs:
           at: .
       - run:
           name: Run pylint
-          command: |
-            cd src
-            pipenv run pylint_runner
+          command: pipenv run pylint_runner
   tests:
     docker:
       - image: circleci/python:3.7
