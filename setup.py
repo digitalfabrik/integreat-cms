@@ -19,14 +19,14 @@ setup(
     include_package_data=True,
     scripts=['src/integreat-cms-cli'],
     data_files=[
-                   ('lib/integreat-{}'.format(root), [os.path.join(root, f) for f in files])
-                   for root, _, files in os.walk('src/cms/templates/')
-               ] + [
-                   ('lib/integreat-{}'.format(root), [os.path.join(root, f) for f in files])
-                   for root, _, files in os.walk('src/cms/static/')
-               ] + [
-                   ('usr/lib/systemd/system/', ['systemd/integreat-cms@.service'])
-               ],
+        ('lib/integreat-{}'.format(root), [os.path.join(root, f) for f in files])
+        for root, _, files in os.walk('src/cms/templates/')
+    ] + [
+        ('lib/integreat-{}'.format(root), [os.path.join(root, f) for f in files])
+        for root, _, files in os.walk('src/cms/static/')
+    ] + [
+        ('usr/lib/systemd/system/', ['systemd/integreat-cms@.service'])
+    ],
     install_requires=[
         'beautifulsoup4',
         'cffi',
