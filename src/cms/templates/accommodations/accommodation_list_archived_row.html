@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load rules %}
+{% load accommodation_filters %}
+
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+	<td class="py-3 px-2">
+		{{ accommodation.id }}
+	</td>
+	<td>
+		<a href="{% url 'edit_accommodation' accommodation_id=accommodation.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+			{{ accommodation|accommodation_translation_title:language }}
+		</a>
+	</td>
+    <td>
+        {{ accommodation.institution }}
+    </td>
+	<td>
+		{{ accommodation.address }}
+	</td>
+	<td>
+		{{ accommodation.postcode }}
+	</td>
+	<td>
+		{{ accommodation.city }}
+	</td>
+    <td>
+        {{ accommodation.country }}
+    </td>
+    <td>
+        {{ accommodation.longitude }}
+    </td>
+    <td>
+        {{ accommodation.latitude }}
+    </td>
+    <td class="pl-2 pr-4 flex">
+        {% has_perm 'cms.edit_accommodations' request.user as can_edit_accommodation %}
+        {% if can_edit_accommodation %}
+            <button title="{% trans 'Restore POI' %}" class="confirmation-button py-3 pl-4" data-accommodation-id="{{ accommodation.id }}" data-accommodation-title="{{ accommodation|accommodation_translation_title:language }}" data-action="{% url 'restore_accommodation' accommodation_id=accommodation.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-accommodation">
+                <i data-feather="refresh-ccw" class="text-gray-800"></i>
+            </button>
+        {% endif %}
+        {% if user.is_superuser or user.is_staff %}
+            <button title="{% trans 'Delete POI' %}" class="confirmation-button py-3 pl-4" data-accommodation-id="{{ accommodation.id }}" data-accommodation-title="{{ accommodation|accommodation_translation_title:language }}" data-action="{% url 'delete_accommodation' accommodation_id=accommodation.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-accommodation">
+                <i data-feather="trash-2" class="text-gray-800"></i>
+            </button>
+        {% endif %}
+    </td>
+</tr>

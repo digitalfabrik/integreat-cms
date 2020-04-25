@@ -1,0 +1,45 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+<div class="table-header">
+    <div class="flex flex-wrap">
+        <div class="w-1/2 flex flex-wrap">
+            <h2> 
+            {% trans 'Offer Templates'%}
+            </h2>
+        </div>
+        <div class="w-1/2 flex flex-wrap justify-end">
+            <a href="{% url 'new_offer_template' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+	            {% trans 'Create offer template' %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="table-listing">
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-gray-200">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Name' %}</th>
+	            <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Slug' %}</th>
+	            <th class="text-sm text-left uppercase py-3 px-2">{% trans 'URL' %}</th>
+	            <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Last updated' %}</th>
+	            <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Created' %}</th>
+                <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">{% trans 'Options' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offer_template in offer_templates %}
+            {% include "offer_templates/offer_template_list_row.html" %}
+        {% empty %}
+            <tr>
+	            <td colspan="6" class="px-4 py-3">
+		            {% trans 'No offer templates available yet.' %}
+	            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

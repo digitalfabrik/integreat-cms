@@ -2,10 +2,7 @@
 
 # This script can be used to run the pylint_runner while ignoring migrations.
 
-cd $(dirname "$BASH_SOURCE")/../backend
-
-# Activate venv
-source ../.venv/bin/activate
+cd $(dirname "$BASH_SOURCE")/..
 
 # Run pylint
-pylint_runner
+pipenv run pylint_runner

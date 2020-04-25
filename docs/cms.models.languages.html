@@ -1,0 +1,934 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Languages &mdash; coldaid-backend 0.0.14 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Media" href="cms.models.media.html" />
+    <link rel="prev" title="Feedback" href="cms.models.feedback.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> coldaid-backend
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="backend.html">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.context_processors">Context Processors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.docker_settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.wsgi">Wsgi</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.accommodations.html">Accommodations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.accommodations.html#module-cms.forms.accommodations.accommodation_form">Accommodation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.accommodations.html#module-cms.forms.accommodations.accommodation_translation_form">Accommodation Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.bed_target_groups.html">Bed Target Groups</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.bed_target_groups.html#module-cms.forms.bed_target_groups.bed_target_group_form">Bed Target Group Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_form">Event Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_translation_form">Event Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.recurrence_rule_form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.language_tree.html#module-cms.forms.language_tree.language_tree_node_form">Language Tree Node Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.languages.html#module-cms.forms.languages.language_form">Language Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.offer_templates.html#module-cms.forms.offer_templates.offer_template_form">Offer Template Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.organizations.html#module-cms.forms.organizations.organization_form">Organization Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois.poi_form">POI Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois.poi_translation_form">POI Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.regions.html#module-cms.forms.regions.region_form">Region Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="cms.models.html">Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cms.models.accommodations.html">Accommodations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.accommodations.html#module-cms.models.accommodations.accommodation">Accommodation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.accommodations.html#module-cms.models.accommodations.accommodation_translation">Accommodation Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.accommodations.html#module-cms.models.accommodations.bed_target_group">Bed Target Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.accommodations.html#module-cms.models.accommodations.beds">Beds</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.config.html">Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.config.html#module-cms.models.config.configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.event_translation">Event Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.languages.language">Language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.languages.language_tree_node">Language Tree Node</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.document">Document</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.offers.html#module-cms.models.offers.offer">Offer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.offers.html#module-cms.models.offers.offer_template">Offer Template</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.page">Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.page_translation">Page Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pois.html#module-cms.models.pois.poi">POI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pois.html#module-cms.models.pois.poi_translation">POI Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.regions.html#module-cms.models.regions.region">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.accommodation_filters">Accommodation Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.content_filters">Content Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.offer_filters">Offer Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.page_filters">Page Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.tests.html">Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.pages.html#module-cms.tests.pages.models">Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.html">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.accommodations.html">Accommodations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.accommodations.html#module-cms.views.accommodations.accommodation_actions">Accommodation Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.accommodations.html#module-cms.views.accommodations.accommodation_list_view">Accommodation List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.accommodations.html#module-cms.views.accommodations.accommodation_view">Accommodation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.accommodations.html#module-cms.views.accommodations.beds_view">Beds View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.bed_target_groups.html">Bed Target Groups</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.bed_target_groups.html#module-cms.views.bed_target_groups.bed_target_group_actions">Bed Target Group Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.bed_target_groups.html#module-cms.views.bed_target_groups.bed_target_group_list_view">Bed Target Group List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.bed_target_groups.html#module-cms.views.bed_target_groups.bed_target_group_view">Bed Target Group View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.admin_dashboard_view">Admin Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.dashboard_view">Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.redirect_view">Redirect View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.error_handler.html#id1">Error Handler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_actions">Event Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_list_view">Event List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_list_view">Language List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_list_view">Offer Template List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_view">Offer Template View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_actions">Offer Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_list_view">Offer List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_actions">Page Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_actions">POI Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_list_view">POI List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_view">POI View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_list_view">Push Notification List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_sender">Push Notification Sender</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_view">Push Notification View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_actions">Region Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_list_view">Region List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_view">Region View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_list_view">Role List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_view">Role View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.admin_settings_view">Admin Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.settings_view">Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.user_settings_view">User Settings View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.analytics_view">Analytics View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.matomo_api_manager">Matomo API Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_actions">Region User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_list_view">Region User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_view">Region User View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_actions">User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_list_view">User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_view">User View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">Urls</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.accommodations">Accommodations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.accommodations">Accommodations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.languages">Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.offers">Offers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.pages">Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.push_notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.regions">Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.single_page">Single Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.views">Views</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gvz_api.html#module-gvz_api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gvz_api.html#module-gvz_api.utils">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">coldaid-backend</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="cms.html">CMS</a> &raquo;</li>
+        
+          <li><a href="cms.models.html">Models</a> &raquo;</li>
+        
+      <li>Languages</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-cms.models.languages">
+<span id="languages"></span><h1>Languages<a class="headerlink" href="#module-cms.models.languages" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-cms.models.languages.language">
+<span id="language"></span><h2>Language<a class="headerlink" href="#module-cms.models.languages.language" title="Permalink to this headline">¶</a></h2>
+<p>Model to define a Language</p>
+<dl class="py class">
+<dt id="cms.models.languages.language.Language">
+<em class="property">class </em><code class="descclassname">cms.models.languages.language.</code><code class="descname">Language</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Class to define language database objects</p>
+<dl class="docutils">
+<dt>Args:</dt><dd>models : Database model inherit from the standard django models</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
+<li><strong>code</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Code</li>
+<li><strong>native_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Native name</li>
+<li><strong>english_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – English name</li>
+<li><strong>text_direction</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Text direction</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.DIRECTION">
+<code class="descname">DIRECTION</code><em class="property"> = (('ltr', 'Left to right'), ('rtl', 'Right to left'))</em><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.DIRECTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="cms.models.languages.language.Language.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="cms.models.languages.language.Language.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.accommodation_translations">
+<code class="descname">accommodation_translations</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.accommodation_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.accommodations.html#cms.models.accommodations.accommodation_translation.AccommodationTranslation" title="cms.models.accommodations.accommodation_translation.AccommodationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccommodationTranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.accommodations">
+<code class="descname">accommodations</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.accommodations" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> spoken languages, accesses the M2M <a class="reference internal" href="cms.models.accommodations.html#cms.models.accommodations.accommodation.Accommodation" title="cms.models.accommodations.accommodation.Accommodation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Accommodation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.code">
+<code class="descname">code</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.code" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> code</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.created_date">
+<code class="descname">created_date</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> created date</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.english_name">
+<code class="descname">english_name</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.english_name" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> english name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.event_translations">
+<code class="descname">event_translations</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.event_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language.Language.get_next_by_created_date">
+<code class="descname">get_next_by_created_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_date&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.get_next_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds next instance based on <a class="reference internal" href="#cms.models.languages.language.Language.created_date" title="cms.models.languages.language.Language.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language.Language.get_next_by_last_updated">
+<code class="descname">get_next_by_last_updated</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: last_updated&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.get_next_by_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds next instance based on <a class="reference internal" href="#cms.models.languages.language.Language.last_updated" title="cms.models.languages.language.Language.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language.Language.get_previous_by_created_date">
+<code class="descname">get_previous_by_created_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_date&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.get_previous_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds previous instance based on <a class="reference internal" href="#cms.models.languages.language.Language.created_date" title="cms.models.languages.language.Language.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language.Language.get_previous_by_last_updated">
+<code class="descname">get_previous_by_last_updated</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: last_updated&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.get_previous_by_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds previous instance based on <a class="reference internal" href="#cms.models.languages.language.Language.last_updated" title="cms.models.languages.language.Language.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language.Language.get_text_direction_display">
+<code class="descname">get_text_direction_display</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.CharField: text_direction&gt;</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.get_text_direction_display" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Shows the label of the <a class="reference internal" href="#cms.models.languages.language.Language.text_direction" title="cms.models.languages.language.Language.text_direction"><code class="xref py py-attr docutils literal notranslate"><span class="pre">text_direction</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.id">
+<code class="descname">id</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.language_tree_nodes">
+<code class="descname">language_tree_nodes</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.language_tree_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.last_updated">
+<code class="descname">last_updated</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> last updated</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.native_name">
+<code class="descname">native_name</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.native_name" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> native name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.page_translations">
+<code class="descname">page_translations</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.page_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.poitranslation_set">
+<code class="descname">poitranslation_set</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.poitranslation_set" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.pushnotificationtranslation_set">
+<code class="descname">pushnotificationtranslation_set</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.pushnotificationtranslation_set" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the M2M <a class="reference internal" href="cms.models.push_notifications.html#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationTranslation</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.text_direction">
+<code class="descname">text_direction</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.text_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> text direction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language.Language.translated_name">
+<em class="property">property </em><code class="descname">translated_name</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language.Language.translated_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.models.languages.language_tree_node">
+<span id="language-tree-node"></span><h2>Language Tree Node<a class="headerlink" href="#module-cms.models.languages.language_tree_node" title="Permalink to this headline">¶</a></h2>
+<p>Model to define a Language</p>
+<dl class="py class">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode">
+<em class="property">class </em><code class="descclassname">cms.models.languages.language_tree_node.</code><code class="descname">LanguageTreeNode</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mptt.models.MPTTModel</span></code></p>
+<p>Class defining a LanguageTree database object.</p>
+<dl class="docutils">
+<dt>Args:</dt><dd>MPTTModel ([type]): Inheritance of MPTT library to create hierarchically organized data</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
+<li><strong>language</strong> (ForeignKey to <a class="reference internal" href="#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</li>
+<li><strong>parent</strong> (TreeForeignKey to <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>) – Parent</li>
+<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region</li>
+<li><strong>active</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Active</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
+<li><strong>lft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Lft</li>
+<li><strong>rght</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Rght</li>
+<li><strong>tree_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Tree id</li>
+<li><strong>level</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Level</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="py exception">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.active">
+<code class="descname">active</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.active" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> active</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.children">
+<code class="descname">children</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.children" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> parent, accesses the M2M <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.code">
+<em class="property">property </em><code class="descname">code</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.created_date">
+<code class="descname">created_date</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> created date</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.depth">
+<em class="property">property </em><code class="descname">depth</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide level of inheritance</p>
+<dl class="docutils">
+<dt>Returns:</dt><dd>Int : Number of ancestors</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.english_name">
+<em class="property">property </em><code class="descname">english_name</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.english_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_next_by_created_date">
+<code class="descname">get_next_by_created_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_date&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_next_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds next instance based on <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode.created_date" title="cms.models.languages.language_tree_node.LanguageTreeNode.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_next_by_last_updated">
+<code class="descname">get_next_by_last_updated</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: last_updated&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_next_by_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds next instance based on <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode.last_updated" title="cms.models.languages.language_tree_node.LanguageTreeNode.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_created_date">
+<code class="descname">get_previous_by_created_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_date&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds previous instance based on <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode.created_date" title="cms.models.languages.language_tree_node.LanguageTreeNode.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_last_updated">
+<code class="descname">get_previous_by_last_updated</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: last_updated&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L371" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Autogenerated:</strong> Finds previous instance based on <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode.last_updated" title="cms.models.languages.language_tree_node.LanguageTreeNode.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.id">
+<code class="descname">id</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.language">
+<code class="descname">language</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.language" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language, accesses the <a class="reference internal" href="#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.language_id">
+<code class="descname">language_id</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.language_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> language</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.last_updated">
+<code class="descname">last_updated</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> last updated</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.level">
+<code class="descname">level</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.level" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> level</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.lft">
+<code class="descname">lft</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.lft" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> lft</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.native_name">
+<em class="property">property </em><code class="descname">native_name</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.native_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.parent">
+<code class="descname">parent</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> parent, accesses the <a class="reference internal" href="#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.parent_id">
+<code class="descname">parent_id</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.parent_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> parent</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.region">
+<code class="descname">region</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.region" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> region, accesses the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.region_id">
+<code class="descname">region_id</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.region_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> region</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.rght">
+<code class="descname">rght</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.rght" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> rght</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.text_direction">
+<em class="property">property </em><code class="descname">text_direction</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.text_direction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.translated_name">
+<em class="property">property </em><code class="descname">translated_name</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.translated_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language_tree_node.LanguageTreeNode.tree_id">
+<code class="descname">tree_id</code><a class="reference external" href="https://github.com/digitalfabrik/coldaid-backend/blob/master/src/cms/models/languages/language_tree_node.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.tree_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Model field:</strong> tree id</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cms.models.media.html" class="btn btn-neutral float-right" title="Media" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cms.models.feedback.html" class="btn btn-neutral float-left" title="Feedback" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Digitalfabrik
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+         .wy-nav-content { max-width: 1200px; }
+  </style>
+
+
+
+</body>
+</html>

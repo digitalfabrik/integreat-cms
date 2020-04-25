@@ -1,0 +1,99 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+{% load content_filters %}
+{% load accommodation_filters %}
+{% load compress %}
+<form class="form-horizontal" method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap">
+        <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
+            <h2 class="heading font-normal">
+                {% blocktrans %}Bed management of "{{ accommodation_title }}"{% endblocktrans %}
+            </h2>
+        </div>
+        <div class="w-1/5 flex justify-end mb-6">
+            <input type="submit" name="submit" class="cursor-pointer bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        </div>
+        {% if not beds_formset.forms %}
+        <div class="w-full mb-6">
+            <div class="bg-orange-100 border-l-4 border-orange text-orange-500 px-4 py-3 mb-5" role="alert">
+                <p>{% trans 'Please add at least one bed target group configuration for this accommodation before managing beds.' %}</p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="w-full flex flex-wrap flex-col pr-2">
+            <ul class="flex" style="list-style: none;">
+                <li class="z-10" style="margin-bottom: -0.1rem;">
+                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                        <div class="border-b-4 border-white">
+                            <i data-feather="moon"></i>
+                            <span style="vertical-align: super;">
+                                {% trans 'Beds' %}
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
+                <div class="w-full p-4">
+                    {{beds_formset.management_form}}
+                    <table class="w-full mt-4 rounded border border-solid border-gray-300 shadow bg-white table-fixed">
+                        <thead>
+                        <tr class="border-b border-solid border-gray-300">
+                            <th class="text-sm text-left uppercase px-4 py-3">{% trans 'Target Group' %}</th>
+                            <th class="text-sm text-left uppercase px-4 py-3">{% trans 'Total number of beds' %}</th>
+                            <th class="text-sm text-left uppercase px-4 py-3" colspan="2">{% trans 'Number of allocated beds' %}</th>
+                        </tr>
+                        </thead>
+                        <tbody class="form-rows">
+                        {% for form in beds_formset %}
+                        <tr class="row form-row spacer">
+                            <td class="px-4 py-3">
+                                {{ form.instance.target_group }}
+                                <!-- hidden fields -->
+                                {% render_field form.id %}
+                                {% render_field form.accommodation %}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ form.instance.num_beds }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {% render_field form.num_beds_allocated|add_error_class:"border-red-400" step="1" min="0" max=form.instance.num_beds class="num-beds-allocated appearance-none inline-block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            </td>
+                            <td class="px-4 py-3">
+                                <input type="range" value="{{ form.instance.num_beds_allocated }}" class="num-beds-allocated-range appearance-none inline-block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" max="{{ form.instance.num_beds }}" min="0" step="1">
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr class="row form-row spacer">
+                            <td class="px-4 py-3" colspan="4">
+                                {% trans 'No beds available for this accommodation.' %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr class="border-t border-solid border-gray-300">
+                            <td class="text-sm text-left uppercase px-4 py-3">{% trans 'Sum' %}:</td>
+                            <td class="px-4 py-3">
+                                {{ beds_sum }}
+                            </td>
+                            <td class="px-4 py-3" colspan="2">
+                                <span id="beds-allocated-sum">{{ beds_allocated_sum }}</span>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div> 
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/bed_management.js' %}"></script>
+{% endblock %}

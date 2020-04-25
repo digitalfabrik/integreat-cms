@@ -7,10 +7,12 @@ This project aims to develop a content management system tailored to the needs o
 Following packages are required for running the project (Install them with your package manager):
 * git
 * npm
-* python3
-* python-virtualenv
-* python3-dev (only on Ubuntu)
+* python3.7
+* python3-pip
+* python3-pipenv
+* python3.7-dev (only on Ubuntu)
 * postgresql *OR* docker
+* GNU gettext tools (to make use of the internationalization feature)
 
 ### Installation
 ````
@@ -24,6 +26,7 @@ cd cms-django
 ````
 * Go to your browser and open the URL `http://localhost:8000`
 * Default user is "root" with password "root1234".
+  * If you not use docker as database host you may need to [load sample data](#4.-Initial-test-data)
 
 ## Detailed instructions
 
@@ -40,7 +43,7 @@ Install a python virtual environment and setup integreat-cms in this venv:
 ```
 If you want to use the Django command line instructions with `integreat-cms` (instead of our dev-tools), you have to activate it:
 ```
-source .venv/bin/activate
+pipenv shell
 ```
 Otherwise python dependency modules inside the venv can not be identified.
 
@@ -77,7 +80,7 @@ On the first run, this will also migrate the database and populate it with initi
 #### 2.2. Manually install postgres
 Alternatively,
 * Install Postgres on your machine ([Tutorial for Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04))
-* Adjust database credentials to the one provided by your local environment in `backend/backend/settings.py`
+* Adjust database credentials to the one provided by your local environment in `src/backend/settings.py`
 
 ### 3. Database migrations
 While the database is running, migrate it:
@@ -100,10 +103,10 @@ integreat-cms runserver localhost:8000
 * Go to your browser and open the URL `http://localhost:8000`
 * Default user is "root" with password "root1234".
 
-You may need to activate the `virtualenv` explicitly via `source .venv/bin/activate`.
+You may need to activate the virtual environment explicitly via `pipenv shell`.
 
 ### 6. Testing
-Run Django unittest: `integreat-cms test cms/`
+Run tests: `./dev-tools/test.sh`
 
 ### 7. Code quality
 To make sure your code matches the repository's quality standards, run pylint as follows:
@@ -111,8 +114,37 @@ To make sure your code matches the repository's quality standards, run pylint as
 ./dev-tools/pylint.sh
 ```
 
+### 8. Developer Documentation
+Required syntax of docstrings ([more information here](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html)):
+```
+"""
+[Summary]
+
+:param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
+:type [ParamName]: [ParamType](, optional)
+...
+:raises [ErrorType]: [ErrorDescription]
+...
+:return: [ReturnDescription]
+:rtype: [ReturnType]
+"""
+```
+
+### 8. Add/Update dependencies
+If you added new dependencies to `setup.py` or want to upgrade the versions of installed pip & npm dependencies, execute
+```
+./dev-tools/update_dependencies.sh
+```
+to make sure the dependency lock files are updated.
+
+If you change models, functions or docstrings, make sure to update the corresponding developer documentation:
+```
+./dev-tools/generate_documentation.sh
+```
+This scans the source code for changed definitions and docstrings, generates intermediate .rst files and compiles them to the html documentation in /docs.
+
 ## Miscellaneous
-* Keep in mind that we are using Python 3.x, so use `python3` and `pip3` with any command
+* Keep in mind that we are using Python 3.7, so use `python3` (Ubuntu: `python3.7`, Arch Linux: `python37`) and `pip3` with any command
 * Access the Postgres database running in Docker container: `docker exec -it integreat_django_postgres psql -U integreat`
 * To ensure that you do not accidentally push your changes in `settings.py`, you can ignore the file locally via `git update-index --assume-unchanged ./backend/backend/settings.py`
 * Delete the database to start over again: `./dev-tools/prune_database.sh`
@@ -129,16 +161,13 @@ After this steps, the project should be reset completely. Follow the install ins
 ## Packaging and installing on Ubuntu 18.04
 Packaging for Debian can be done with setuptools.
 ```
-$ python3 -m venv .venv
-$ source .venv/bin/activate
 $ pip3 install stdeb
 $ python3 setup.py --command-packages=stdeb.command bdist_deb
 ```
-The project requires the package python3-django-widget-tweaks which has to be build manually:
+The project requires the package python3-django-widget-tweaks which has to be built manually:
 ````
 $ git clone git@github.com:jazzband/django-widget-tweaks.git
 $ cd django-widget-tweaks
-$ python3 -m venv .venv
 $ pip3 install stdeb
 $ python3 setup.py --command-packages=stdeb.command bdist_deb
 ````

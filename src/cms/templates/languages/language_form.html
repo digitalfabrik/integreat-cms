@@ -1,0 +1,51 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h2 class="heading font-normal">
+	            {% if form.instance.id %}
+		            {% with form.instance.translated_name as translated_language_name %}
+		            {% blocktrans %}Edit language "{{ translated_language_name }}"{% endblocktrans %}
+		            {% endwith %}
+	            {% else %}
+		            {% trans 'Create new language' %}
+	            {% endif %}
+            </h2>
+        </div>
+        <div class="w-3/5 flex justify-end">
+            <input type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        </div>
+    </div>
+
+    <div class="flex flex-wrap">
+	    <div class="w-full">
+		    {{form.errors}}
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			    <label for="id_english_name" class="font-bold block mb-2 cursor-pointer">{% trans "Name in English" %}</label>
+			    {% trans "Enter the language's name in english here" as english_name_placeholder%}
+			    {% render_field form.english_name placeholder=english_name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+		    </div>
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			    <label for="id_native_name" class="font-bold block mb-2 cursor-pointer">{% trans "Native name" %}</label>
+			    {% trans "Enter the language's native name here" as native_name_placeholder%}
+			    {% render_field form.native_name placeholder=native_name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+		    </div>
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			    <label for="id_code" class="font-bold block mb-2 cursor-pointer">{% trans 'Code' %}</label>
+			    {% trans "Enter the language's code here" as code_placeholder%}
+			    {% render_field form.code placeholder=code_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+		    </div>
+		    <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			    <label for="id_text_direction" class="font-bold block mb-2 cursor-pointer">{% trans 'Text direction' %}</label>
+			    {% trans 'Select text direction here' as text_direction_placeholder%}
+			    {% render_field form.text_direction placeholder=text_direction_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+		    </div>
+	    </div>
+    </div>
+</form>
+{% endblock %}

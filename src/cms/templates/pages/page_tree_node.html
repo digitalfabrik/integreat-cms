@@ -1,0 +1,114 @@
+{% load i18n %}
+{% load content_filters %}
+{% load page_filters %}
+<tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
+    <td class="single_icon">
+        <span data-drag-id="{{ page.id }}" data-page-descendants="{{ page|get_descendants }}" class="drag text-gray-800 block py-3 pl-4 pr-2 cursor-move" draggable="true">
+            <i data-feather="move"></i>
+        </span>
+    </td>
+    <td class="pl-2">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {{ page.id }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {{ page_translation.version }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {{ page_translation.get_status_display }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {% if page_translation %}
+                {{ page_translation.title }}
+            {% else %}
+                <i>{% trans 'Translation not available' %}</i>
+            {% endif %}
+        </a>
+    </td>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE != language.code %}
+        {% get_translation page LANGUAGE_CODE as backend_translation %}
+        <td>
+            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+                {% if backend_translation %}
+                    {{ backend_translation.title }}
+                {% else %}
+                    <i>{% trans 'Translation not available' %}</i>
+                {% endif %}
+            </a>
+        </td>
+    {% endif %}
+    <td class="whitespace-no-wrap">
+        <div class="block py-3 px-2 text-gray-800">
+            <div class="lang-grid">
+                {% for other_language in languages %}
+                    <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}">
+                        {% get_translation page other_language.code as other_translation %}
+                        {% if other_translation %}
+                            {% if other_translation.currently_in_translation %}
+                                <span title="{% trans 'Currently in translation' %}">
+                                    <i data-feather="clock" class="text-gray-800"></i>
+                                </span>
+                            {% elif other_translation.is_outdated %}
+                                <span title="{% trans 'Translation outdated' %}">
+                                    <i data-feather="alert-triangle" class="text-gray-800"></i>
+                                </span>
+                            {% else %}
+                                <span title="{% trans 'Translation up-to-date' %}">
+                                    <i data-feather="check" class="text-gray-800"></i>
+                                </span>
+                            {% endif %}
+                        {% else %}
+                            <span title="{% trans 'Translation missing' %}">
+                                <i data-feather="x" class="text-gray-800"></i>
+                            </span>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </td>
+    <td>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {{ page_translation.last_updated }}
+        </a>
+    </td>
+    <td class="pl-2 pr-4 text-right min">
+        <!-- TODO: add link to view page in web app -->
+        <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
+           target="_blank"
+           title="{% trans 'View page' %}" class="py-3 px-2">
+            <i data-feather="eye" class="inline-block text-gray-800"></i>
+        </a>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3 px-2">
+            <i data-feather="edit" class="inline-block text-gray-800"></i>
+        </a>
+
+        <button title="{% trans 'Archive page' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if page_translation %}{{ page_translation.title }}{% endif %}" data-action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-page">
+            <i data-feather="archive" class="inline-block text-gray-800"></i>
+        </button>
+        {% if user.is_superuser or user.is_staff %}
+            {% if page.children.all %}
+                <button title="{% trans 'You cannot delete a page which has children.' %}" class="py-3 px-2">
+                    <i data-feather="trash-2" class="inline-block text-gray-400"></i>
+                </button>
+            {% else %}
+                <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if page_translation %}{{ page_translation.title }}{% endif %}" data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-page">
+                    <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+                </button>
+            {% endif %}
+        {% endif %}
+        <a href="{% url 'download_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
+           title="{% trans 'Download page' %}" class="py-3 px-2">
+             <i data-feather="download" class="inline-block text-gray-800"></i>
+        </a>
+    </td>
+</tr>

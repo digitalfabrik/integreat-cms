@@ -1,0 +1,104 @@
+{% load i18n %}
+{% load rules %}
+{% load content_filters %}
+{% load poi_filters %}
+
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td class="px-2 min">
+        {{ event.id }}
+    </td>
+    <td>
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {{ event_translation.version }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+            {{ event_translation.get_status_display }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code%}" class="block py-3 px-2 text-gray-800">
+            {% if event_translation %}
+                {{ event_translation.title }}
+            {% else %}
+                <i>{% trans 'Translation not available' %}</i>
+            {% endif %}
+        </a>
+    </td>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE != language.code %}
+        {% get_translation event LANGUAGE_CODE as backend_translation %}
+        <td>
+            <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+                {% if backend_translation %}
+                    {{ backend_translation.title }}
+                {% else %}
+                    <i>{% trans 'Translation not available' %}</i>
+                {% endif %}
+            </a>
+        </td>
+    {% endif %}
+    <td>
+        <div class="block py-3 px-2 text-gray-800">
+            <div class="lang-grid">
+                {% for other_language in languages %}
+                    <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=other_language.code%}">
+                        {% get_translation event other_language.code as other_translation %}
+                        {% if other_translation %}
+                            {% if other_translation.currently_in_translation %}
+                                <span title="{% trans 'Currently in translation' %}">
+                                    <i data-feather="clock" class="text-gray-800"></i>
+                                </span>
+                            {% elif other_translation.is_outdated %}
+                                <span title="{% trans 'Translation outdated' %}">
+                                    <i data-feather="alert-triangle" class="text-gray-800"></i>
+                                </span>
+                            {% else %}
+                                <span title="{% trans 'Translation up-to-date' %}">
+                                    <i data-feather="check" class="text-gray-800"></i>
+                                </span>
+                            {% endif %}
+                        {% else %}
+                            <span title="{% trans 'Translation missing' %}">
+                                <i data-feather="x" class="text-gray-800"></i>
+                            </span>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </td>
+    <td>
+        {% if event.location is not None %}
+            {% get_language LANGUAGE_CODE as current_language %}
+            {{ event.location|poi_translation_title:current_language }}
+        {% else %}
+            {% trans 'Not specified' %}
+        {% endif %}
+    </td>
+    <td>
+        <i data-feather="calendar" class="inline-block"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+    </td>
+    <td>
+        <i data-feather="calendar" class="inline-block"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+    </td>
+    <td class="pl-2 pr-4 flex min">
+        <!-- TODO: add link to view event in web app -->
+        <a href="" class="py-3 px-2">
+            <i data-feather="eye" class="inline-block text-gray-800"></i>
+        </a>
+        {% has_perm 'cms.edit_events' request.user as can_edit_event %}
+        {% if can_edit_event %}
+            <button title="{% trans 'Restore event' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'restore_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-event">
+                <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
+            </button>
+        {% endif %}
+        {% if user.is_superuser or user.is_staff %}
+            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-event">
+                <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+            </button>
+        {% endif %}
+    </td>
+</tr>

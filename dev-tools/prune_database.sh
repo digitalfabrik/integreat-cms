@@ -24,7 +24,7 @@ else
         if ! [ $(id -u) = 0 ]; then
             echo "This script needs root privileges to connect to the docker deamon. It will be automatically restarted with sudo." >&2
             # Call this script again as root
-            sudo env PATH=$PATH $0
+            sudo env PATH="$PATH" $0
             # Exit with code of subprocess
             exit $?
         elif [ -z "$SUDO_USER" ]; then
@@ -54,4 +54,5 @@ else
 fi
 
 # Remove migrations
-rm -rfv $(dirname "$BASH_SOURCE")/../backend/cms/migrations
+rm -rfv $(dirname "$BASH_SOURCE")/../src/cms/migrations
+rm -rfv $(dirname "$BASH_SOURCE")/../src/gvz_api/migrations

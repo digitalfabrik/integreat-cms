@@ -8,12 +8,16 @@ if [ ! -x "$(command -v python3)" ]; then
     echo "Python3 is not installed. Please install it manually and run this script again." >&2
     exit 1
 fi
+if python3 -mplatform | grep -qi Ubuntu && ! dpkg -l | grep -qi python3.7-dev; then
+    echo "You are on Ubuntu and Python3.7-dev is not installed. Please install python3.7-dev manually and run this script again." >&2
+    exit 1
+fi
 if [ ! -x "$(command -v pip3)" ]; then
     echo "Pip for Python3 is not installed. Please install python3-pip manually and run this script again." >&2
     exit 1
 fi
-if ! python3 -m venv -h > /dev/null 2>&1; then
-    echo "The Python3 module virtualenv is not installed. Please install python3-virtualenv manually and run this script again." >&2
+if [ ! -x "$(command -v pipenv)" ]; then
+    echo "Pipenv for Python3 is not installed. Please install python3-pipenv manually and run this script again." >&2
     exit 1
 fi
 if [ ! -x "$(command -v npm)" ]; then
@@ -34,7 +38,7 @@ if [ $(id -u) = 0 ]; then
         exit 1
     else
         # Call this script again as the user who executed sudo
-        sudo -u $SUDO_USER env PATH=$PATH $0
+        sudo -u $SUDO_USER env PATH="$PATH" $0
         # Exit with code of subprocess
         exit $?
     fi
@@ -42,7 +46,4 @@ fi
 
 cd $(dirname "$BASH_SOURCE")/..
 npm install
-python3 -m venv .venv
-source .venv/bin/activate
-pip3 install --upgrade pip
-pip3 install -e .[dev]
+PIPENV_VENV_IN_PROJECT=1 pipenv install

@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+<div class="table-header">
+    <div class="flex flex-wrap">
+        <div class="w-1/2 flex flex-wrap">
+            <h2> 
+            {% trans 'Manage Languages'%}
+            </h2>
+        </div>
+        <div class="w-1/2 flex flex-wrap justify-end">
+            <a href="{% url 'new_language' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+	            {% trans 'Create language' %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="table-listing">
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-gray-200">
+	            {% get_current_language as LANGUAGE_CODE %}
+	            <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Name in' %} {{ LANGUAGE_CODE|language_name_local }}</th>
+	            <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Native name' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Code' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Text direction' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Created' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Last updated' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for language in languages %}
+            {% include "languages/language_list_row.html" %}
+        {% empty %}
+            <tr>
+	            <td colspan="6" class="px-2 py-3">
+		            {% trans 'No languages available yet.' %}
+	            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

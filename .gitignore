@@ -26,35 +26,37 @@ coverage.xml
 *.mo
 
 # Migrations
-backend/api/migrations/*
-backend/cms/migrations/*
+src/api/migrations/
+src/cms/migrations/
 
 # Compressed JS & CSS Files
-backend/cms/static/CACHE/
-backend/cms/static/css/style.min.css
+src/cms/static/CACHE/
+src/cms/static/css/style.min.css
+src/cms/static/css/style.css
+src/cms/static/css/style.css.map
 
 # Django stuff:
 *.log
 *.pot
 
 # Sphinx documentation
-docs/_build/
+docs/.doctrees/
+docs/_sources/
+docs/.buildinfo
+sphinx/*.rst
+!sphinx/index.rst
 
 # Miscellaneous
 .vscode
 .idea
 .directory
-.directory
 cms-django.iml
 
 # Media Library
-backend/media/*
+src/media/
 
 # XLIFF files folder
-**/xliffs/
+src/xliffs/
 
 # Postgres folder
 .postgres
-
-# Local npm
-package-lock.json

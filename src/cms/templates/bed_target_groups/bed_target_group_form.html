@@ -1,0 +1,52 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h2 class="heading font-normal">
+	            {% if form.initial %}
+		            {% with form.name.value as bed_target_group_name %}
+			            {% blocktrans %}Edit bed target group "{{ bed_target_group_name }}"{% endblocktrans %}
+		            {% endwith %}
+	            {% else %}
+		            {% trans 'Create new bed target group' %}
+	            {% endif %}
+            </h2>
+        </div>
+        <div class="w-3/5 flex justify-end">
+            <input type="submit" name="submit" class="cursor-pointer bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        </div>
+    </div>
+
+    <div class="flex flex-wrap">
+	    <div class="w-full pr-2">
+		    {{form.errors}}
+		    <div class="w-full mb-4 rounded border border-solid border-gray-300 shadow bg-white">
+				<div class="w-full p-4 rounded bg-blue-500">
+					<h3 class="heading font-bold text-white">{% trans 'General Settings' %}</h3>
+				</div>
+				<div class="w-full p-4">
+
+					<!-- General Options for bed_target_group management -->
+                    <label for="id_name" class="font-bold block p-2 mb-1 cursor-pointer">{% trans "Bed target group name" %}</label>
+                    {% trans "Enter the bed target group's name here" as name_placeholder %}
+                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+                    <label for="id_slug" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Slug of the bed target group" %}</label>
+                    {% trans "Enter the bed target group's slug here" as slug_placeholder %}
+                    {% render_field form.slug placeholder=slug_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+                    <label for="id_description" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Description of the bed target group" %}</label>
+                    {% trans "Enter the bed target group's description here" as description_placeholder %}
+                    {% render_field form.description placeholder=description_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+				</div>
+			</div>
+		</div>
+</div>
+</form>
+{% endblock %}
