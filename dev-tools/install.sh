@@ -46,4 +46,8 @@ fi
 
 cd $(dirname "$BASH_SOURCE")/..
 npm install
-PIPENV_VENV_IN_PROJECT=1 pipenv install
+# Check if working directory contains space (if so, pipenv in project won't work)
+if ! pwd | grep -q " "; then
+    export PIPENV_VENV_IN_PROJECT=1
+fi
+pipenv install
