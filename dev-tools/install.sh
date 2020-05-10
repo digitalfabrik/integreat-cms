@@ -49,5 +49,7 @@ npm install
 # Check if working directory contains space (if so, pipenv in project won't work)
 if ! pwd | grep -q " "; then
     export PIPENV_VENV_IN_PROJECT=1
+else
+    echo "Warning: The path to your project directory contains spaces, therefore the virtual environment will be created inside '~/.local/share/virtualenvs/'."
 fi
 pipenv install
