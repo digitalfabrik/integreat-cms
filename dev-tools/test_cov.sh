@@ -7,8 +7,10 @@ if nc -w1 localhost 5432; then
 
     cd $(dirname "$BASH_SOURCE")/..
 
+    # prepare code coverage
+    rm -rf ./htmlcov/
     # Execute tests
-    pipenv run integreat-cms-cli test cms
+    pipenv run integreat-cms-cli test cms --set=COVERAGE
 
 else
 
