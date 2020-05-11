@@ -1,5 +1,5 @@
 # Integreat Django CMS
-This project aims to develop a content management system tailored to the needs of municipalities to provide multilingual local information. Its goal is to be easy to use and easy to maintain over a long time. This project uses Python3 and Django 1.11 and is supposed to run on Ubuntu 18.04.
+This project aims to develop a content management system tailored to the needs of municipalities to provide multilingual local information. Its goal is to be easy to use and easy to maintain over a long time. This project uses Python3 and Django 2.2 and is supposed to run on Ubuntu 18.04.
 
 ## TL;DR
 
@@ -107,6 +107,7 @@ You may need to activate the virtual environment explicitly via `pipenv shell`.
 
 ### 6. Testing
 Run tests: `./dev-tools/test.sh`
+Run tests with code coverage report generation: `./dev-tools/test_cov.sh`
 
 ### 7. Code quality
 To make sure your code matches the repository's quality standards, run pylint as follows:

@@ -388,7 +388,7 @@ def get_pages_list_ajax(request):
         page.save()
         return JsonResponse({'nolist': True})
     region_id = decoded_json['region']
-    pages = Page.objects.filter(region__id=region_id)
+    pages = Page.objects.filter(region__id=region_id).order_by('title')
     result = []
     for page in pages:
         result.append({"id": page.id, "name": ' -> '.join([page_iter.best_language_title() for page_iter in page.get_ancestors(include_self=True)])})
