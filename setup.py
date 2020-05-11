@@ -55,6 +55,8 @@ setup(
             'sphinx',
             'sphinxcontrib-django',
             'sphinx_rtd_theme',
+            'coverage',
+            'django_coverage_plugin',
         ]
     },
     author='Integreat App Project',

@@ -107,6 +107,7 @@ You may need to activate the virtual environment explicitly via `pipenv shell`.
 
 ### 6. Testing
 Run tests: `./dev-tools/test.sh`
+Run tests with code coverage report generation: `./dev-tools/test_cov.sh`
 
 ### 7. Code quality
 To make sure your code matches the repository's quality standards, run pylint as follows:
