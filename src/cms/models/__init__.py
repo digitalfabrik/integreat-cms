@@ -1,3 +1,8 @@
+"""
+This package contains all data models of the Integreat CMS.
+Please refer to :mod:`django.db.models` for general information about Django models.
+"""
+
 from .config.configuration import Configuration
 
 from .events.event import Event
