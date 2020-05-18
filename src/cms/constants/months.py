@@ -1,5 +1,5 @@
 """
-This module contains all string representations of months, used by events:
+This module contains all string representations of months, used by :class:`~cms.models.events.event.Event`:
 
 * ``JANUARY``: January
 

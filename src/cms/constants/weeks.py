@@ -1,5 +1,5 @@
 """
-This module contains all string representations of a month's week, used by events:
+This module contains all string representations of a month's week, used by :class:`~cms.models.events.event.Event`:
 
 * ``FIRST``: First week of the month
 

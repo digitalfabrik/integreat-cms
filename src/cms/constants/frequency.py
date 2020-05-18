@@ -1,5 +1,6 @@
 """
-This module contains all constants representing the frequency of an event's recurrence rule:
+This module contains all constants representing the frequency of an :class:`~cms.models.events.event.Event`'s
+:class:`~cms.models.events.recurrence_rule.RecurrenceRule`:
 
 * ``DAILY``: Daily
 
