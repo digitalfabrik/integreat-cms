@@ -19,13 +19,19 @@ fi
 cd $(dirname "$BASH_SOURCE")/..
 
 # Move german translation file to prevent sphinx from translating strings
-mv src/cms/locale/de/LC_MESSAGES/django.mo src/cms/locale/de/LC_MESSAGES/django.mo.lock
+TRANSLATION_FILE=src/cms/locale/de/LC_MESSAGES/django.mo
+if [[ -f "${TRANSLATION_FILE}" ]]; then
+    mv "${TRANSLATION_FILE}" "${TRANSLATION_FILE}.lock"
+fi
 
-# Remove all old rst files (in case source files have been deleted)
+# Remove all old rst and html files (in case source files have been deleted)
 find sphinx -type f \( -name "*.rst" ! -name "index.rst" \) -delete
+if [[ -d docs ]]; then
+    rm -r docs
+fi
 
 # Generate new .rst files from source code
-SPHINX_APIDOC_OPTIONS="members,show-inheritance"
+export SPHINX_APIDOC_OPTIONS="members,show-inheritance"
 pipenv run sphinx-apidoc --no-toc --module-first -o sphinx src src/cms/migrations src/gvz_api/migrations
 
 # Modify .rst files to remove unnecessary submodule- & subpackage-titles
@@ -43,4 +49,6 @@ find sphinx -type f -name "*.rst" | xargs sed -i \
 pipenv run sphinx-build -E sphinx docs
 
 # Move german translation file to original file again
-mv src/cms/locale/de/LC_MESSAGES/django.mo.lock src/cms/locale/de/LC_MESSAGES/django.mo
+if [[ -f "${TRANSLATION_FILE}.lock" ]]; then
+    mv "${TRANSLATION_FILE}.lock" "${TRANSLATION_FILE}"
+fi
