@@ -123,6 +123,65 @@ jobs:
           command: python3 setup.py --command-packages=stdeb.command bdist_deb
       - store_artifacts:
           path: dist
+  build-documentation:
+    docker:
+      - image: circleci/python:3.7
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Generate documentation
+          command: pipenv run ./dev-tools/generate_documentation.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docs
+  deploy-documentation:
+    docker:
+        - image: circleci/python:3.7
+    resource_class: small
+    environment:
+      BRANCH: gh-pages
+      DOC_DIR: docs
+      TMP_DIR: .gh-pages
+    steps:
+      - attach_workspace:
+          at: .
+      - add_ssh_keys:
+          fingerprints: 8f:d7:a2:cb:47:e2:cf:9b:78:44:86:6d:4e:44:11:54
+      - run:
+          name: Add GitHub's Public SSH Key to known hosts
+          command: echo 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==' >> ~/.ssh/known_hosts
+      - run:
+          name: Prepare git config
+          command: |
+            git config --global user.name IntegreatAPI
+            git config --global user.email 41921676+IntegreatAPI@users.noreply.github.com
+      - run:
+          name: Clone existing gh-pages branch into temporary directory
+          command: git clone --depth=1 $CIRCLE_REPOSITORY_URL -b $BRANCH $TMP_DIR
+      - run:
+          when: on_fail
+          name: Initialize gh-pages branch in new temporary git directory
+          command: |
+            git init $TMP_DIR
+            cd $TMP_DIR
+            git remote add origin $CIRCLE_REPOSITORY_URL
+            git checkout -b $BRANCH
+      - run:
+          name: Copy documentation into temporary directory
+          command: |
+            rm -rfv ${TMP_DIR}/*
+            cp -Rv ${TMP_DIR}/../${DOC_DIR}/. $TMP_DIR
+      - run:
+          name: Push documentation to GitHub Pages
+          command: |
+            cd $TMP_DIR
+            git add --all
+            git commit -m "Update documentation of commit ${CIRCLE_SHA1}" || true
+            git push origin $BRANCH
 
 workflows:
   main:
@@ -142,3 +201,12 @@ workflows:
       - packaging:
           requires:
             - bundle-static-files
+      - build-documentation:
+          requires:
+            - pipenv-install
+      - deploy-documentation:
+          requires:
+            - build-documentation
+          filters:
+            branches:
+              only: develop
