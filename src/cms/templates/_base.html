@@ -2,6 +2,7 @@
 {% load i18n %}
 {% block raw_content %}
 {% load static %}
+{% load rules %}
 <div id="popup-overlay" class="fixed inset-0 opacity-75 bg-gray-800 hidden"></div>
 
 <header class="fixed top-0 inset-x-0 flex flex-wrap">
@@ -93,9 +94,11 @@
                 <i data-feather="settings" class="absolute"></i>
 	            {% trans 'User Settings' %}
             </a>
-            <a href="/admin" class="break-words relative block pl-10 pr-4 py-3 text-gray-800 hover:bg-gray-400">
+			{% if  user.is_superuser %}
+			<a href="/admin" class="break-words relative block pl-10 pr-4 py-3 text-gray-800 hover:bg-gray-400">
                 <i data-feather="grid" class="absolute"></i>
-	            {% trans 'Django Administration' %}
+				{% trans 'Django Administration' %}
+			{% endif %}
             </a>
             <a href="{% url 'logout' %}" class="relative block pl-10 pr-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
                 <i data-feather="log-out" class="absolute text-red-500"></i>
@@ -109,114 +112,171 @@
         <img src="{% static 'images/integreat-logo-white.png' %}" alt="{% trans 'Integreat Logo' %}" class="max-w-full" />
     </div>
     <div id="menu" class="pb-2">
-	    {% if region %}
+		{% if region %}
 	        <a href="{% url 'dashboard' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_dashboard' %}active{% endif %}">
 	            <i data-feather="grid" class="absolute"></i>
 		        {% trans 'My Dashboard' %}
-	        </a>
+			</a>
 			<a href="{% url 'translation_coverage' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'translation_coverage' %}active{% endif %}">
 	            <i data-feather="pie-chart" class="absolute"></i>
 		        {% trans 'Translation Report' %}
-	        </a>
+			</a>
 			{% if region.statistics_enabled %}
 	        <a href="{% url 'statistics' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'statistics' %}active{% endif %}">
 	            <i data-feather="bar-chart" class="absolute"></i>
 		        {% trans 'Statistics' %}
 	        </a>
 			{% endif %}
+			{% has_perm 'cms.upload_documents' request.user as can_upload_documents %}
+			{% if can_upload_documents %}
 			<a href="{% url 'media' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'media' %}active{% endif %}">
 	            <i data-feather='file' class="absolute"></i>
 		        {% trans 'Media Library' %}
-	        </a>
+			</a>
+			{% endif %}
+			{% has_perm 'cms.view_pages' request.user as can_view_pages %}
+			{% if can_view_pages  %}
 	        <a href="{% url 'pages' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'pages' %}active{% endif %}">
 	            <i data-feather="layout" class="absolute"></i>
-		        {% trans 'Pages' %}
-	        </a>
+				{% trans 'Pages' %}
+			</a>
+			{% endif %}
+			{% has_perm 'cms.edit_events' request.user as can_edit_event %}
+			{%if  can_edit_event %}
 	        <a href="{% url 'events' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'events' %}active{% endif %}">
 	            <i data-feather="calendar" class="absolute"></i>
-		        {% trans 'Events' %}
-	        </a>
+				{% trans 'Events' %}
+			</a>
+			{% endif %}	
+			{% has_perm 'cms.manage_pois' request.user as can_manage_points_of_interest %}
+			{% if can_manage_points_of_interest %}
 		    <a href="{% url 'pois' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'pois' %}active{% endif %}">
 			    <i data-feather="map-pin" class="absolute"></i>
 			    {% trans 'Points of Interest' %}
-		    </a>
+			</a>
+			{% endif%}
+			{% has_perm 'cms.manage_accommodations' request.user as can_manage_accommodations%}
+			{% if can_manage_accommodations %}	
 	        <a href="{% url 'accommodations' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat  {% if current_menu_item == 'accommodations' %}active{% endif %}">
 		        <i data-feather="home" class="absolute"></i>
 		        {% trans 'Accommodations' %}
-	        </a>
+			</a>
+			{% endif %}
+			{% has_perm 'cms.change_user' request.user as can_change_user'%}
+			{%if can_change_user%}
 	        <a href="{% url 'region_users' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_users' %}active{% endif %}">
 	            <i data-feather="users" class="absolute"></i>
 		        {% trans 'Users' %}
-	        </a>
+			</a>
+			{% endif %}
+			{% has_perm 'cms.view_feedback' request.user as can_view_feedback %}
+			{%if can_view_feedback%}
 	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_feedback' %}active{% endif %}">
 	            <i data-feather="thumbs-up" class="absolute"></i>
 		        {% trans 'Feedback' %}
-	        </a>
+			</a>
+			{% endif%}
+			{% has_perm 'cms.view_push_notifications' request.user as can_view_push_notification %}
+			{%if can_view_push_notification%}
 	        <a href="{% url 'push_notifications' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'push_notifications' %}active{% endif %}">
 	            <i data-feather="send" class="absolute"></i>
 		        {% trans 'Push Notifications' %}
-	        </a>
-	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'pdf_export' %}active{% endif %}">
+			</a>
+			{% endif %}
+			 <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'pdf_export' %}active{% endif %}">
 	            <i data-feather="layers" class="absolute"></i>
 		        {% trans 'PDF Export' %}
-	        </a>
+			</a>
+			{% has_perm 'cms.manage_offers' request.user as can_manage_offers %}
+			{% if can_manage_offers%}
 		    <a href="{% url 'offers' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'offers' %}active{% endif %}">
 			    <i data-feather="star" class="absolute"></i>
 			    {% trans 'Offers' %}
-		    </a>
+			</a>
+			{% endif %}
 	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'imprint' %}active{% endif %}">
 	            <i data-feather="file-text" class="absolute"></i>
 		        {% trans 'Imprint' %}
-	        </a>
+			</a>
+			{% has_perm 'cms.manage_languages_tree' request.user as can_manage_languages_tree %}
+			{% if can_manage_languages_tree%}
 		    <a href="{% url 'language_tree' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'language_tree' %}active{% endif %}">
 			    <i data-feather="flag" class="absolute"></i>
 			    {% trans 'Language tree' %}
-		    </a>
+			</a>
+			{% endif %}
 	        <a href="{% url 'settings' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_settings' %}active{% endif %}">
 	            <i data-feather="sliders" class="absolute"></i>
 		        {% trans 'Settings' %}
 	        </a>
-	    {% else %}
-		    <a href="{% url 'admin_dashboard' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_dashboard' %}active{% endif %}">
-			    <i data-feather="grid" class="absolute"></i>
-			    {% trans 'Admin Dashboard' %}
-		    </a>
-		    <a href="{% url 'regions' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'regions' %}active{% endif %}">
-			    <i data-feather="map" class="absolute"></i>
-			    {% trans 'Regions' %}
-		    </a>
-		    <a href="{% url 'languages' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'languages' %}active{% endif %}">
-			    <i data-feather="flag" class="absolute"></i>
-			    {% trans 'Languages' %}
-		    </a>
-	    <a href="{% url 'users' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'users' %}active{% endif %}">
-		    <i data-feather="users" class="absolute"></i>
-		    {% trans 'Users' %}
-	    </a>
-	    <a href="{% url 'roles' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'roles' %}active{% endif %}">
-		    <i data-feather="key" class="absolute"></i>
-		    {% trans 'Roles' %}
-	    </a>
-		    <a href="{% url 'organizations' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'organizations' %}active{% endif %}">
-			    <i data-feather="umbrella" class="absolute"></i>
-			    {% trans 'Organizations' %}
-		    </a>
-		    <a href="{% url 'bed_target_groups' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'bed_target_groups' %}active{% endif %}">
-			    <i data-feather="moon" class="absolute"></i>
-			    {% trans 'Bed Target Groups' %}
-		    </a>
-		    <a href="{% url 'offer_templates' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'offer_templates' %}active{% endif %}">
-			    <i data-feather="star" class="absolute"></i>
-			    {% trans 'Offer templates' %}
-		    </a>
-		    <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
-			    <i data-feather="thumbs-up" class="absolute"></i>
-			    {% trans 'Feedback' %}
-		    </a>
-		    <a href="{% url 'admin_settings' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_settings' %}active{% endif %}">
-			    <i data-feather="sliders" class="absolute"></i>
-			    {% trans 'Settings' %}
-		    </a>
+		{% else %}
+			{%if user.is_superuser %}
+		    	<a href="{% url 'admin_dashboard' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_dashboard' %}active{% endif %}">
+			    	<i data-feather="grid" class="absolute"></i>
+			    	{% trans 'Admin Dashboard' %}
+				</a>
+			{% endif %}
+			 {% has_perm 'cms.manage_regions' request.user as can_manage_regions %}
+			 {%if can_manage_regions%}
+			 	<a href="{% url 'regions' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'regions' %}active{% endif %}">
+			    	<i data-feather="map" class="absolute"></i>
+			    	{% trans 'Regions' %}
+				</a>
+			{% endif %}
+			{% has_perm 'cms.manage_languages' request.user as can_manage_languages %}
+			{%if can_manage_languages %}
+		    	<a href="{% url 'languages' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'languages' %}active{% endif %}">
+			    	<i data-feather="flag" class="absolute"></i>
+			    	{% trans 'Languages' %}
+				</a>
+			{% endif %}
+			{% has_perm 'cms.change_user' request.user as can_change_user %}
+			{%if can_change_user%}
+	    		<a href="{% url 'users' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'users' %}active{% endif %}">
+		    		<i data-feather="users" class="absolute"></i>
+		    		{% trans 'Users' %}
+				</a>
+			{% endif %}
+			{% if user.is_superuser  %}
+	  	    	<a href="{% url 'roles' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'roles' %}active{% endif %}">
+		    		<i data-feather="key" class="absolute"></i>
+		    		{% trans 'Roles' %}
+				</a>
+			{% endif %}
+			{% has_perm 'cms.manage_organizations' request.user as can_manage_organizations%}
+			{% if can_manage_organizations %}
+		    	<a href="{% url 'organizations' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'organizations' %}active{% endif %}">
+			    	<i data-feather="umbrella" class="absolute"></i>
+			    	{% trans 'Organizations' %}
+				</a>
+			{%endif%}
+			{% has_perm 'cms.manage_bed_target_groups' request.user as can_manage_bed_target_groups %}
+			{% if can_manage_bed_target_groups %}
+		    	<a href="{% url 'bed_target_groups' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'bed_target_groups' %}active{% endif %}">
+			    	<i data-feather="moon" class="absolute"></i>
+			    	{% trans 'Bed Target Groups' %}
+				</a>
+			{% endif %}
+			{% has_perm 'cms.manage_offer_templates' request.user as  can_manage_offer_templates %}
+			{% if can_manage_offer_templates %}
+		    	<a href="{% url 'offer_templates' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'offer_templates' %}active{% endif %}">
+			    	<i data-feather="star" class="absolute"></i>
+			    	{% trans 'Offer templates' %}
+				</a>
+			{% endif %}
+			{% has_perm 'cms.view_feedback' request.user as  can_view_feedback %}
+			{% if can_view_feedback %}
+		    	<a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
+			    	<i data-feather="thumbs-up" class="absolute"></i>
+			    	{% trans 'Feedback' %}
+				</a>
+			{% endif %}
+			{% if user.is_superuser %}
+		    	<a href="{% url 'admin_settings' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_settings' %}active{% endif %}">
+			    	<i data-feather="sliders" class="absolute"></i>
+			    	{% trans 'Settings' %}
+				</a>
+			{% endif %}
         {% endif %}
     </div>
 </nav>

@@ -20,3 +20,6 @@ class UserProfile(models.Model):
 
     class Meta:
         default_permissions = ()
+        permissions = (
+            ('change_user', 'Can change user'),
+        )

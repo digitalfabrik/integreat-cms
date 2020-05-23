@@ -17,3 +17,6 @@ class Document(models.Model):
 
     class Meta:
         default_permissions = ()
+        permissions = (
+            ('upload_documents', 'Can upload documents'),
+        )
