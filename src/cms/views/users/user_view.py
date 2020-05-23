@@ -75,19 +75,23 @@ class UserView(PermissionRequiredMixin, TemplateView):
         # TODO: error handling
         if user_form.is_valid() and user_profile_form.is_valid():
 
-            user = user_form.save()
-            user_profile_form.save(user=user)
+            # Check if user is either superuser/staff or has assigned at least one region
+            if user_form.cleaned_data['is_superuser'] or user_form.cleaned_data['is_staff'] or user_profile_form.cleaned_data['regions']:
+                user = user_form.save()
+                user_profile_form.save(user=user)
 
-            if user_form.has_changed() or user_profile_form.has_changed():
-                if user_instance:
-                    messages.success(request, _('User was successfully saved.'))
+                if user_form.has_changed() or user_profile_form.has_changed():
+                    if user_instance:
+                        messages.success(request, _('User was successfully saved.'))
+                    else:
+                        messages.success(request, _('User was successfully created.'))
+                        return redirect('edit_user', **{
+                            'user_id': user.id,
+                        })
                 else:
-                    messages.success(request, _('User was successfully created.'))
-                    return redirect('edit_user', **{
-                        'user_id': user.id,
-                    })
+                    messages.info(request, _('No changes detected.'))
             else:
-                messages.info(request, _('No changes detected.'))
+                messages.error(request, _('A user has to be either staff/superuser or needs to be restricted to at least one region.'))
         else:
             # TODO: improve messages
             messages.error(request, _('Errors have occurred.'))

@@ -17,7 +17,16 @@ class RegionUserProfileForm(UserProfileForm):
         model = UserProfile
         fields = ['organization']
 
+    def __init__(self, data=None, instance=None):
+
+        logger.info('RegionUserProfileForm instantiated with data %s and instance %s', data, instance)
+
+        # Instantiate ModelForm
+        super(RegionUserProfileForm, self).__init__(data=data, instance=instance)
+
     def save(self, *args, **kwargs):
+
+        logger.info('RegionUserProfileForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
 
         # pop kwarg to make sure the super class does not get this param
         region = kwargs.pop('region', None)

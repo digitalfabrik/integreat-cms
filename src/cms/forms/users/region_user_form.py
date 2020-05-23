@@ -22,3 +22,17 @@ class RegionUserForm(UserForm):
             'email',
             'is_active'
         ]
+
+    def __init__(self, data=None, instance=None):
+
+        logger.info('RegionUserForm instantiated with data %s and instance %s', data, instance)
+
+        # Instantiate ModelForm
+        super(RegionUserForm, self).__init__(data=data, instance=instance)
+
+    def save(self, *args, **kwargs):
+
+        logger.info('RegionUserForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
+
+        # save ModelForm
+        return super(RegionUserForm, self).save(*args, **kwargs)
