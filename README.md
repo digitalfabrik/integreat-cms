@@ -9,7 +9,7 @@ Following packages are required for running the project (Install them with your 
 * npm
 * python3.7
 * python3-pip
-* python3-pipenv
+* pipenv for python3 (If no recent version is packaged for your distro, use `pip3 install pipenv --user`)
 * python3.7-dev (only on Ubuntu)
 * postgresql *OR* docker
 * GNU gettext tools (to make use of the internationalization feature)
