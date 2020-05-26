@@ -17,7 +17,9 @@ if [ ! -x "$(command -v pip3)" ]; then
     exit 1
 fi
 if [ ! -x "$(command -v pipenv)" ]; then
-    echo "Pipenv for Python3 is not installed. Please install python3-pipenv manually and run this script again." >&2
+    echo "Pipenv for Python3 is not installed. Please install it manually and run this script again." >&2
+    echo "The recommended way of installing pipenv is 'pip3 install pipenv --user'." >&2
+    echo "If you use this method, you might have to add 'export PATH=\$PATH:~/.local/bin' to your default shell config (e.g. '~/.bashrc' or '~/.zshrc')." >&2
     exit 1
 fi
 if [ ! -x "$(command -v npm)" ]; then
