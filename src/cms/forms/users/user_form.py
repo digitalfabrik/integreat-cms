@@ -29,16 +29,12 @@ class UserForm(forms.ModelForm):
         fields = ['username', 'first_name', 'last_name', 'email',
                   'is_staff', 'is_active', 'is_superuser']
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, data=None, instance=None):
 
-        logger.info(
-            'New UserForm instantiated with args %s and kwargs %s',
-            args,
-            kwargs
-        )
+        logger.info('UserForm instantiated with data %s and instance %s', data, instance)
 
         # instantiate ModelForm
-        super(UserForm, self).__init__(*args, **kwargs)
+        super(UserForm, self).__init__(data=data, instance=instance)
 
         # check if user instance already exists
         if self.instance.id:
@@ -50,11 +46,7 @@ class UserForm(forms.ModelForm):
     # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
 
-        logger.info(
-            'UserForm saved with args %s and kwargs %s',
-            args,
-            kwargs
-        )
+        logger.info('UserForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
 
         # save ModelForm
         user = super(UserForm, self).save(*args, **kwargs)

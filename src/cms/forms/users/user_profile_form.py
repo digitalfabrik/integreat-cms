@@ -20,8 +20,17 @@ class UserProfileForm(forms.ModelForm):
             'organization'
         ]
 
+    def __init__(self, data=None, instance=None):
+
+        logger.info('UserProfileForm instantiated with data %s and instance %s', data, instance)
+
+        # Instantiate ModelForm
+        super(UserProfileForm, self).__init__(data=data, instance=instance)
+
     # pylint: disable=arguments-differ
     def save(self, *args, **kwargs):
+
+        logger.info('UserProfileForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
 
         logger.info(
             'UserProfileForm saved with args %s and kwargs %s',
