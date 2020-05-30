@@ -24,6 +24,7 @@ jobs:
           root: .
           paths:
             - .venv
+            - src/integreat_cms.egg-info
   npm-install:
     docker:
         - image: circleci/node:lts
@@ -70,9 +71,6 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Install integreat-cms
-          command: pipenv install '-e .[dev]'
-      - run:
           name: Migrate database
           command: |
             pipenv run integreat-cms-cli makemigrations cms
@@ -90,9 +88,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: Install integreat-cms
-          command: pipenv install '-e .[dev]'
       - run:
           name: Compile CSS
           command: npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
