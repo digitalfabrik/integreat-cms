@@ -80,6 +80,17 @@ jobs:
           command: pipenv run integreat-cms-cli test cms --set=COVERAGE
       - store_artifacts:
           path: htmlcov
+  check-translations:
+    docker:
+      - image: timoludwig/python-node-gettext:latest
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check translation file for missing or empty entries
+          command: ./dev-tools/check_translations.sh
   bundle-static-files:
     docker:
       - image: timoludwig/python-node-gettext:latest
@@ -187,6 +198,9 @@ workflows:
           requires:
             - pipenv-install
       - tests:
+          requires:
+            - pipenv-install
+      - check-translations:
           requires:
             - pipenv-install
       - bundle-static-files:
