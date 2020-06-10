@@ -30,7 +30,7 @@ setup(
     install_requires=[
         'beautifulsoup4',
         'cffi',
-        'Django~=2.2.10',
+        'Django~=2.2.13',
         'django-cors-headers',
         'django-filer',
         'django-mptt',

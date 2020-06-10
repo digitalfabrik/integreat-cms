@@ -44,7 +44,7 @@ class RegionForm(forms.ModelForm):
             'aliases',
         ]
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
 
         logger.info(

@@ -132,7 +132,7 @@ class PageForm(forms.ModelForm):
         self.fields['parent'].queryset = parent_queryset
 
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
 
         logger.info(

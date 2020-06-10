@@ -27,7 +27,7 @@ class UserProfileForm(forms.ModelForm):
         # Instantiate ModelForm
         super(UserProfileForm, self).__init__(data=data, instance=instance)
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
 
         logger.info('UserProfileForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)

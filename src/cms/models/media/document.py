@@ -10,7 +10,7 @@ class Document(models.Model):
     def __str__(self):
         return self.document.name
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=signature-differs
     def delete(self, *args, **kwargs):
         self.document.delete()
         super().delete(*args, **kwargs)
