@@ -111,7 +111,7 @@ def download_page_xliff(request, page_id, region_slug, language_code):
     page_xliff_zip_file = page_xliff_helper.export_page_xliffs_to_zip(page)
     if page_xliff_zip_file and page_xliff_zip_file.startswith(XLIFFS_DIR):
         response = serve(request, page_xliff_zip_file.split(XLIFFS_DIR)[1], document_root=XLIFFS_DIR)
-        response['Content-Disposition'] = 'attachment; filename="{}"'.format(page_xliff_zip_file.split(os.sep)[-1])
+        response['Content-Disposition'] = f'attachment; filename="{page_xliff_zip_file.split(os.sep)[-1]}"'
         return response
     raise Http404
 

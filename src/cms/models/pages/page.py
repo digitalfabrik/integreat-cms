@@ -111,8 +111,8 @@ class Page(MPTTModel):
         if self.id:
             first_translation = self.get_first_translation()
             if first_translation:
-                return '(id: {}, slug: {} ({}))'.format(self.id, first_translation.slug, first_translation.language.code)
-            return '(id: {})'.format(self.id)
+                return f'(id: {self.id}, slug: {first_translation.slug} ({first_translation.language.code}))'
+            return f'(id: {self.id})'
         return super(Page, self).__str__()
 
     @classmethod

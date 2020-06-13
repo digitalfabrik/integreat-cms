@@ -105,33 +105,15 @@ def process_django_models(app, what, name, obj, options, lines):
             module = field_type.__module__
             # Fix intersphinx mappings for django.contrib.postgres fields
             if module == 'django.contrib.postgres.fields.array':
-                lines.append(
-                    ':type {}: `{}.ArrayField <{}#arrayfield>`_'.format(
-                        field.attname,
-                        module,
-                        postgres_docu
-                    )
-                )
+                lines.append(f':type {field.attname}: `{module}.ArrayField <{postgres_docu}#arrayfield>`_')
                 continue
             if module == 'django.contrib.postgres.fields.jsonb':
-                lines.append(
-                    ':type {}: `{}.JSONField <{}#jsonfield>`_'.format(
-                        field.attname,
-                        module,
-                        postgres_docu
-                    )
-                )
+                lines.append(f':type {field.attname}: `{module}.JSONField <{postgres_docu}#jsonfield>`_')
                 continue
             if 'django.db.models' in module:
                 # scope with django.db.models * imports
                 module = 'django.db.models'
-            lines.append(
-                ':type {}: {}.{}'.format(
-                    field.attname,
-                    module,
-                    field_type.__name__
-                )
-            )
+            lines.append(f':type {field.attname}: {module}.{field_type.__name__}')
     return lines
 
 
@@ -152,15 +134,10 @@ def linkcode_resolve(domain, info):
     for piece in info['fullname'].split('.'):
         item = getattr(item, piece)
         try:
-            line_number_reference = '#L{}'.format(
-                inspect.getsourcelines(item)[1]
-            )
+            line_number_reference = f'#L{inspect.getsourcelines(item)[1]}'
         except (TypeError, IOError):
             pass
-    return "https://github.com/Integreat/cms-django/blob/develop/src/{}.py{}".format(
-        filename,
-        line_number_reference
-    )
+    return f"https://github.com/Integreat/cms-django/blob/develop/src/{filename}.py{line_number_reference}"
 
 # -- Link targets ------------------------------------------------------------
 

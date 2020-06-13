@@ -610,9 +610,10 @@ class PageXliffHelperTest(SetupClass):
 
     def test_export_page_xliffs_to_zip(self):
         zip_file_path = self.page_xliff_helper.export_page_xliffs_to_zip(self.page_tunews)
-        expect_name_list = ['page_{0}_en-us_de-de.xliff'.format(self.page_tunews.id),
-                            'page_{0}_en-us_ar-ma.xliff'.format(self.page_tunews.id),
-                            ]
+        expect_name_list = [
+            f'page_{self.page_tunews.id}_en-us_de-de.xliff',
+            f'page_{self.page_tunews.id}_en-us_ar-ma.xliff',
+        ]
         self.assertTrue(os.path.isfile(zip_file_path))
         with ZipFile(zip_file_path, 'r') as zip_file:
             name_list = zip_file.namelist()
@@ -634,18 +635,18 @@ class PageXliffHelperTest(SetupClass):
         results = self.page_xliff_helper.import_xliffs_zip_file(zip_file_path, self.user)
 
         expect_resutls = [
-            ('page_{0}_en-us_de-de.xliff'.format(self.page_tunews.id), False),
-            ('page_{0}_en-us_ar-ma.xliff'.format(self.page_tunews.id), False)
+            (f'page_{self.page_tunews.id}_en-us_de-de.xliff', False),
+            (f'page_{self.page_tunews.id}_en-us_ar-ma.xliff', False)
         ]
         for result in expect_resutls:
             self.assertTrue(result in results)
 
     def test_import_xliff_file_translated(self):
         xliff_content = re.sub(r'<page id="\d+">',
-                               '<page id="{0}">'.format(self.page_tunews.id),
+                               f'<page id="{self.page_tunews.id}">',
                                EXPECT_TRANSLATED_PAGE_TUNEWS_XLIFF)
 
-        file_path = os.path.join(XLIFFS_DIR, 'test', 'page_{0}_en-us_de-de.xliff'.format(self.page_tunews.id))
+        file_path = os.path.join(XLIFFS_DIR, 'test', f'page_{self.page_tunews.id}_en-us_de-de.xliff')
         PageXliffHelper.save_file(xliff_content, file_path)
 
         result = self.page_xliff_helper.import_xliff_file(file_path, self.user)
