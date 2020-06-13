@@ -80,7 +80,7 @@ templates_path = ['templates']
 html_theme = 'sphinx_rtd_theme'
 # Do not show the project name, only the logo
 html_theme_options = {
-    'logo_only': True,
+    'logo_only': False,
     'collapse_navigation': False,
 }
 # The logo shown in the menu bar
@@ -91,6 +91,10 @@ html_favicon = '../src/cms/static/images/favicon.ico'
 html_baseurl = 'https://Integreat.github.io/cms-django/'
 # Do not include links to the documentation source (.rst files) in build
 html_show_sourcelink = False
+# Do not include a link to sphinx
+html_show_sphinx = False
+# Include last updated timestamp
+html_last_updated_fmt = '%b %d, %Y'
 
 # -- Modify default Django model parameter types------------------------------
 

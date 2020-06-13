@@ -1,9 +1,42 @@
 {% extends "!layout.html" %}
-  {% block footer %} {{ super() }}
 
-  <style>
-         .wy-nav-content { max-width: 1200px; }
-  </style>
-
+{% block sidebartitle %}
+    {% if logo %}
+        <a href="{{ pathto(master_doc) }}"><img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="Logo"/></a>
+    {% endif %}
+    {% if not logo or not theme_logo_only %}
+        <a href="{{ pathto(master_doc) }}" class="icon icon-home"> {{ project }}</a>
+    {% endif %}
+    {% if theme_display_version %}
+        {%- set nav_version = version %}
+        {% if READTHEDOCS and current_version %}
+            {%- set nav_version = current_version %}
+        {% endif %}
+        {% if nav_version %}
+        <div class="version">
+            {{ nav_version }}
+        </div>
+        {% endif %}
+    {% endif %}
+    {% include "searchbox.html" %}
 {% endblock %}
 
+{% block menu %}
+    {{ super() }}
+    <p class="caption"><span class="caption-text">Indices</span></p>
+    <a href="genindex.html">Full Index</a>
+    <a href="py-modindex.html">Module Index</a>
+    <a href="search.html">Search Page</a>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+    <style>
+        div.wy-nav-content {
+            max-width: 1200px;
+        }
+        span.lastupdated {
+            float: right;
+        }
+    </style>
+{% endblock %}
