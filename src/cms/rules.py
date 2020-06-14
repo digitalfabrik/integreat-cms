@@ -18,12 +18,12 @@ def is_page_publisher(user, page):
 @predicate
 # pylint: disable=unused-argument
 def can_edit_all_pages(user, page):
-    return user.has_perm('edit_pages')
+    return user.has_perm('cms.edit_pages')
 
 @predicate
 # pylint: disable=unused-argument
 def can_publish_all_pages(user, page):
-    return user.has_perm('publish_pages')
+    return user.has_perm('cms.publish_pages')
 
 
 # Permissions
