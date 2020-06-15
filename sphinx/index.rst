@@ -7,6 +7,18 @@ This is the developer documentation for the Integreat Django backend.
 For general help with the Django framework, please refer to the :doc:`django:index`.
 
 
+First Steps
+===========
+
+.. toctree::
+    :caption: First Steps
+    :hidden:
+
+    installation
+
+* :doc:`installation`: Installation guide
+
+
 Reference
 =========
 
