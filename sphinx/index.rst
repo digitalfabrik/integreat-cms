@@ -15,8 +15,10 @@ First Steps
     :hidden:
 
     installation
+    tutorials
 
 * :doc:`installation`: Installation guide
+* :doc:`tutorials`: Step-by-step guides
 
 
 Reference
