@@ -16,9 +16,11 @@ First Steps
 
     installation
     tutorials
+    troubleshooting
 
 * :doc:`installation`: Installation guide
 * :doc:`tutorials`: Step-by-step guides
+* :doc:`troubleshooting`: General problem solving guide
 
 
 Reference
