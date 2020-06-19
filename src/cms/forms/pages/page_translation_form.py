@@ -62,7 +62,7 @@ class PageTranslationForm(forms.ModelForm):
             for _, field in self.fields.items():
                 field.disabled = True
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
         logger.info(
             'PageTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s',

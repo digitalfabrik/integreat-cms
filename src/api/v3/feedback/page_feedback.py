@@ -58,7 +58,7 @@ class FeedbackData:
 # pylint: disable=unused-argument
 def feedback(req, region_slug, languages):
     if req.method != 'POST':
-        return HttpResponse(f'Invalid request method.', status=405)
+        return HttpResponse('Invalid request method.', status=405)
 
     data = json.loads(req.body)
     feedback_data = FeedbackData.from_dict(data)

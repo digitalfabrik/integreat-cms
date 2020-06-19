@@ -43,7 +43,7 @@ class UserForm(forms.ModelForm):
             # don't require password if user already exists
             self.fields['password'].required = False
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
 
         logger.info('UserForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)

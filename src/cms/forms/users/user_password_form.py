@@ -34,7 +34,7 @@ class UserPasswordForm(forms.ModelForm):
         model = get_user_model()
         fields = []
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
 
         logger.info(
