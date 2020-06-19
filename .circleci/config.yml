@@ -186,7 +186,7 @@ jobs:
           command: |
             cd $TMP_DIR
             git add --all
-            git commit -m "Update documentation of commit ${CIRCLE_SHA1}" || true
+            git commit -m "Update documentation of commit ${CIRCLE_SHA1} [skip ci]" || true
             git push origin $BRANCH
 
 workflows:

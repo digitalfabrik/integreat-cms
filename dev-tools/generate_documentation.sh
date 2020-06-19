@@ -46,9 +46,14 @@ find sphinx -type f -name "*.rst" | xargs sed -i \
     -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g' # Make specific keywords uppercase
 
 # Compile .rst files to html documentation
-pipenv run sphinx-build -E sphinx docs
+pipenv run sphinx-build -j auto sphinx docs
 
 # Move german translation file to original file again
 if [[ -f "${TRANSLATION_FILE}.lock" ]]; then
     mv "${TRANSLATION_FILE}.lock" "${TRANSLATION_FILE}"
 fi
+
+# Remove temporary intermediate build files
+rm -r docs/.doctrees
+rm -r docs/_sources
+rm docs/.buildinfo
