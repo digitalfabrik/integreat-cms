@@ -26,4 +26,10 @@ if pcregrep -Mq 'msgstr ""\n\n' locale/de/LC_MESSAGES/django.po; then
     exit 1
 fi
 
+# Check for fuzzy headers (automatic translation proposals)
+if grep -q "#, fuzzy" locale/de/LC_MESSAGES/django.po; then
+    echo -e "You have fuzzy headers in your translation file (See [1] for more information). Please review them manually, adjust the translation if necessary and remove the fuzzy header afterwards.\n\n[1]: https://www.gnu.org/software/gettext/manual/html_node/Fuzzy-Entries.html" >&2
+    exit 1
+fi
+
 echo "Your translation file looks good!"
