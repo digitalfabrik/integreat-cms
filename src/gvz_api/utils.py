@@ -32,8 +32,7 @@ class GvzApiWrapper():
         """
 
         logger.info("Searching for %s", region_name)
-        response = requests.get("{}/search/{}".format(self.api_url,
-                                                      region_name))
+        response = requests.get(f"{self.api_url}/search/{region_name}")
         regions = json.loads(response.text)
         return regions
 
@@ -48,8 +47,7 @@ class GvzApiWrapper():
         :rtype: dict
         """
         logger.info("GVZ API: Details for %s", region_key)
-        response = requests.get("{}/details/{}".format(self.api_url,
-                                                       region_key))
+        response = requests.get(f"{self.api_url}/details/{region_key}")
         region = json.loads(response.text)[0]
         if ',' in region['name']:
             region['name'] = region['name'].split(',')[0]
@@ -71,8 +69,7 @@ class GvzApiWrapper():
         :return: list of children dictionaries
         :rtype: list
         """
-        response = requests.get("{}/searchcounty/{}".format(self.api_url,
-                                                            region_key))
+        response = requests.get(f"{self.api_url}/searchcounty/{region_key}")
         content = json.loads(response.text)
         if content:
             return content[0]['children']

@@ -92,7 +92,7 @@ def generate_unique_slug(form_object, foreign_model):
         if not other_objects.exists():
             break
         i += 1
-        unique_slug = '{}-{}'.format(slug, i)
+        unique_slug = f'{slug}-{i}'
 
     logger.info('unique slug: %s', unique_slug)
     return unique_slug

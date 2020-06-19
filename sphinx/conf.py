@@ -107,47 +107,25 @@ def process_django_models(app, what, name, obj, options, lines):
             field_module = type(field).__module__
             if field_module == 'django.contrib.postgres.fields.array':
                 # Fix intersphinx mappings for django.contrib.postgres fields
-                type_line = ':type {}: `{}.ArrayField <{}#arrayfield>`_'.format(
-                    field.name,
-                    field_module,
-                    postgres_docu
-                )
+                type_line = f':type {field.name}: `{field_module}.ArrayField <{postgres_docu}#arrayfield>`_'
             elif field_module == 'django.contrib.postgres.fields.jsonb':
                 # Fix intersphinx mappings for django.contrib.postgres fields
-                type_line = ':type {}: `{}.JSONField <{}#jsonfield>`_'.format(
-                    field.name,
-                    field_module,
-                    postgres_docu
-                )
+                type_line = f':type {field.name}: `{field_module}.JSONField <{postgres_docu}#jsonfield>`_'
             elif field_module in ['django.db.models.fields.related', 'mptt.fields']:
                 # Fix intersphinx mappings for related fields (ForeignKey, OneToOneField, ManyToManyField, ...)
                 # Also includes related MPTT fields (TreeForeignKey, TreeOneToOneField, TreeManyToManyField, ...)
                 remote_model = field.remote_field.get_related_field().model
-                type_line = ':type {}: {} to :class:`~{}.{}`'.format(
-                    field.name,
-                    field_type,
-                    remote_model.__module__,
-                    remote_model.__name__
-                )
+                type_line = f':type {field.name}: {field_type} to :class:`~{remote_model.__module__}.{remote_model.__name__}`'
             elif field_module == 'django.db.models.fields.reverse_related':
                 # Fix intersphinx mappings for reverse related fields (ManyToOneRel, OneToOneRel, ManyToManyRel, ...)
                 remote_model = field.remote_field.model
-                type_line = ':type {}: Reverse {} Relation from :class:`~{}.{}`'.format(
-                    field.name,
-                    field_type[:-3],
-                    remote_model.__module__,
-                    remote_model.__name__
-                )
+                type_line = f':type {field.name}: Reverse {field_type[:-3]} Relation from :class:`~{remote_model.__module__}.{remote_model.__name__}`'
             else:
                 if 'django.db.models' in field_module:
                     # Scope with django.db.models * imports (remove all sub-module-paths)
                     field_module = 'django.db.models'
                 # Fix type hint to enable correct intersphinx mappings to other documentations
-                type_line = ':type {}: {}.{}'.format(
-                    field.name,
-                    field_module,
-                    field_type
-                )
+                type_line = f':type {field.name}: {field_module}.{field_type}'
             # This loop gets the indexes which are needed to update the type hints of the model parameters.
             # It makes it possible to split the parameter section into multiple parts, e.g. params inherited from a base
             # model and params of a sub model (otherwise the type hints would not be recognized when separated from
@@ -156,7 +134,7 @@ def process_django_models(app, what, name, obj, options, lines):
             next_param_index = None
             type_index = None
             for index, line in enumerate(lines):
-                if param_index is None and ':param {}:'.format(field.name) in line:
+                if param_index is None and f':param {field.name}:' in line:
                     # The index of the field param is only used to determine the next param line
                     param_index = index
                 elif param_index is not None and next_param_index is None and (':param ' in line or line == ''):
@@ -164,7 +142,7 @@ def process_django_models(app, what, name, obj, options, lines):
                     # Sometimes the param descriptions extend over multiple lines, so we cannot just do param_index + 1.
                     # If the line is empty, the param description is finished, even if it extends over multiple lines.
                     next_param_index = index
-                elif type_index is None and ':type {}:'.format(field.name) in line:
+                elif type_index is None and f':type {field.name}:' in line:
                     # The index of the old type hint, we will either move this line or replace it
                     type_index = index
                     break
@@ -197,15 +175,10 @@ def linkcode_resolve(domain, info):
     for piece in info['fullname'].split('.'):
         item = getattr(item, piece)
         try:
-            line_number_reference = '#L{}'.format(
-                inspect.getsourcelines(item)[1]
-            )
+            line_number_reference = f'#L{inspect.getsourcelines(item)[1]}'
         except (TypeError, IOError):
             pass
-    return "https://github.com/Integreat/cms-django/blob/develop/src/{}.py{}".format(
-        filename,
-        line_number_reference
-    )
+    return f"https://github.com/Integreat/cms-django/blob/develop/src/{filename}.py{line_number_reference}"
 
 # -- Link targets ------------------------------------------------------------
 

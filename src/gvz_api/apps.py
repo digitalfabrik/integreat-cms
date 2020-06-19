@@ -24,8 +24,7 @@ class GvzApiConfig(AppConfig):
         """
         if settings.GVZ_API_ENABLED:
             try:
-                response = requests.get(
-                    "{}/search/expect_empty_json".format(settings.GVZ_API_URL))
+                response = requests.get(f"{settings.GVZ_API_URL}/search/expect_empty_json")
                 json.loads(response.text)
             except json.decoder.JSONDecodeError:
                 self.api_available = False

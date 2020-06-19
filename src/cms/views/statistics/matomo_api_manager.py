@@ -76,11 +76,11 @@ class MatomoApiManager:
         """
         domain = self.matomo_url
         api_key = self.matomo_api_key
-        url = """{}/index.php?date={}&expanded=1
+        url = f"""{domain}/index.php?date={date_string}&expanded=1
         &filter_limit=-1&format=JSON&format_metrics=1
-        &idSite={}&method=API.get&module=API&period={}
-        &segment=pageUrl%253D@%25252F{}
-        %25252Fwp-json%25252F{}""".format(domain, date_string, region_id, period, lang, api_key)
+        &idSite={region_id}&method=API.get&module=API&period={period}
+        &segment=pageUrl%253D@%25252F{lang}
+        %25252Fwp-json%25252F{api_key}"""
 
         session = requests.Session()
         retry = Retry(connect=3, backoff_factor=0.5)

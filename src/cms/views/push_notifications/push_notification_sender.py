@@ -26,14 +26,14 @@ class PushNotificationSender:
                 fcm_auth_config_key
             )
             return False
-        payload = {'to': '/topics/{}-{}-{}'.format(region_slug, lan_code, channel),
+        payload = {'to': f'/topics/{region_slug}-{lan_code}-{channel}',
                    'notification': {
                        'title': title,
                        'body': message
                    },
                    'data': {'lanCode': lan_code, 'city': region_slug}
                    }
-        headers = {'Authorization': 'key={}'.format(auth_key.first().value)}
+        headers = {'Authorization': f'key={auth_key.first().value}'}
         res = requests.post(self.fcm_url, json=payload, headers=headers)
         if res.status_code == 200:
             self.logger.info(

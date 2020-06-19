@@ -338,7 +338,7 @@ class PageTranslation(models.Model):
         :rtype: str
         """
         if self.id:
-            return '(id: {}, page_id: {}, lang: {}, version: {}, slug: {})'.format(self.id, self.page.id, self.language.code, self.version, self.slug)
+            return f'(id: {self.id}, page_id: {self.page.id}, lang: {self.language.code}, version: {self.version}, slug: {self.slug})'
         return super(PageTranslation, self).__str__()
 
     class Meta:

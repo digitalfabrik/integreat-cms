@@ -261,9 +261,7 @@ class PageXliffHelper:
     def export_page_translation_xliff(self, source_translation_page, target_language_code, filename=None):
 
         if not filename:
-            filename = 'page_{0}_{1}_{2}.xliff'.format(source_translation_page.page.id,
-                                                       source_translation_page.language.code,
-                                                       target_language_code)
+            filename = f'page_{source_translation_page.page.id}_{source_translation_page.language.code}_{target_language_code}.xliff'
 
         file_path = None
 
@@ -343,7 +341,7 @@ class PageXliffHelper:
                     xliff_files.append(
                         self.export_page_translation_xliff(source_page_translation, target_language_code))
 
-            zip_file_name = "page_{0}.zip".format(page.id)
+            zip_file_name = f"page_{page.id}.zip"
             zip_file_path = os.path.join(XLIFFS_DIR, 'pages', str(uuid.uuid4()), zip_file_name)
             self._create_zip_file(xliff_files, zip_file_path)
 

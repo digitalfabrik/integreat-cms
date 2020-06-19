@@ -11,10 +11,7 @@ def poi_translation_title(poi, language):
         return poi_translation.first().title
     if all_poi_translations.exists():
         poi_translation = all_poi_translations.first()
-        return '{title} ({language})'.format(
-            title=poi_translation.title,
-            language=poi_translation.language
-        )
+        return f'{poi_translation.title} ({poi_translation.language})'
     return ''
 
 
@@ -26,10 +23,7 @@ def poi_translation_creator(poi, language):
         return poi_translation.first().creator
     if all_poi_translations.exists():
         poi_translation = all_poi_translations.first()
-        return '{creator} ({language})'.format(
-            creator=poi_translation.creator,
-            language=poi_translation.language
-        )
+        return f'{poi_translation.creator} ({poi_translation.language})'
     return ''
 
 
