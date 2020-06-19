@@ -99,12 +99,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
 </ul>
@@ -184,7 +186,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
@@ -478,25 +479,40 @@
             
   <div class="section" id="module-cms.models.users">
 <span id="users"></span><h1>Users<a class="headerlink" href="#module-cms.models.users" title="Permalink to this headline">¶</a></h1>
+<p>This package contains all user-related data models:
+<a class="reference internal" href="#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a>,
+<a class="reference internal" href="#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a> and
+<a class="reference internal" href="#cms.models.users.user_mfa.UserMfa" title="cms.models.users.user_mfa.UserMfa"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfa</span></code></a>
+(see also <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></a> for Django’s base user model)</p>
 <div class="section" id="module-cms.models.users.organization">
 <span id="organization"></span><h2>Organization<a class="headerlink" href="#module-cms.models.users.organization" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.users.organization.Organization">
-<em class="property">class </em><code class="descclassname">cms.models.users.organization.</code><code class="descname">Organization</code><span class="sig-paren">(</span><em><span class="n">id</span></em>, <em><span class="n">name</span></em>, <em><span class="n">slug</span></em>, <em><span class="n">thumbnail</span></em>, <em><span class="n">created_date</span></em>, <em><span class="n">last_updated</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/users/organization.py#L5" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.organization.Organization" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.users.organization.</code><code class="descname">Organization</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/users/organization.py#L5" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.organization.Organization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Data model representing an organization</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Name</li>
-<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – Slug</li>
-<li><strong>thumbnail</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Thumbnail</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the organization</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The name of the organization</li>
+<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – The slug of the organization</li>
+<li><strong>thumbnail</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The url to the thumbnail image of the organization</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the organization was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the organization was last updated</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+<p>Reverse relationships:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>members</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a>) – All users who are members of the organization</td>
 </tr>
 </tbody>
 </table>
@@ -519,23 +535,32 @@
 <span id="user-mfa"></span><h2>User MFA<a class="headerlink" href="#module-cms.models.users.user_mfa" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.users.user_mfa.UserMfa">
-<em class="property">class </em><code class="descclassname">cms.models.users.user_mfa.</code><code class="descname">UserMfa</code><span class="sig-paren">(</span><em><span class="n">id</span></em>, <em><span class="n">user</span></em>, <em><span class="n">name</span></em>, <em><span class="n">key_id</span></em>, <em><span class="n">public_key</span></em>, <em><span class="n">sign_count</span></em>, <em><span class="n">last_usage</span></em>, <em><span class="n">created_at</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/users/user_mfa.py#L5" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.users.user_mfa.</code><code class="descname">UserMfa</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/users/user_mfa.py#L5" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Data model representing a user’s multi-factor-authentication (MFA) key</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>user</strong> (ForeignKey to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User</li>
-<li><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Name</li>
-<li><strong>key_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BinaryField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BinaryField</em></a>) – Key id</li>
-<li><strong>public_key</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BinaryField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BinaryField</em></a>) – Public key</li>
-<li><strong>sign_count</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.IntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.IntegerField</em></a>) – Sign count</li>
-<li><strong>last_usage</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last usage</li>
-<li><strong>created_at</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created at</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the mfa key</li>
+<li><strong>key_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BinaryField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BinaryField</em></a>) – The webauthn id of the mfa key</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The name of the mfa key</li>
+<li><strong>public_key</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BinaryField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BinaryField</em></a>) – The mfa public key</li>
+<li><strong>sign_count</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.IntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.IntegerField</em></a>) – Token to prevent replay attacks</li>
+<li><strong>created_at</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the mfa key was created</li>
+<li><strong>last_usage</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the mfa key was last used</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user</strong> (ForeignKey to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – The user this key belongs to (related name: <code class="docutils literal notranslate"><span class="pre">mfa_keys</span></code>)</td>
 </tr>
 </tbody>
 </table>
@@ -558,17 +583,26 @@
 <span id="user-profile"></span><h2>User Profile<a class="headerlink" href="#module-cms.models.users.user_profile" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.users.user_profile.UserProfile">
-<em class="property">class </em><code class="descclassname">cms.models.users.user_profile.</code><code class="descname">UserProfile</code><span class="sig-paren">(</span><em><span class="n">id</span></em>, <em><span class="n">user</span></em>, <em><span class="n">organization</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/users/user_profile.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.users.user_profile.</code><code class="descname">UserProfile</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/users/user_profile.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Data model representing a user profile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the user profile</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>user</strong> (OneToOneField to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User</li>
-<li><strong>organization</strong> (ForeignKey to <a class="reference internal" href="#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a>) – Organization</li>
-<li><strong>regions</strong> (ManyToManyField to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Regions</li>
+<li><strong>user</strong> (OneToOneField to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – The user this profile belongs to (related name: <code class="docutils literal notranslate"><span class="pre">profile</span></code>)</li>
+<li><strong>regions</strong> (ManyToManyField to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The regions of this user (related name: <code class="docutils literal notranslate"><span class="pre">users</span></code>)</li>
+<li><strong>organization</strong> (ForeignKey to <a class="reference internal" href="#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a>) – The organization of the user (related name: <code class="docutils literal notranslate"><span class="pre">members</span></code>)</li>
 </ul>
 </td>
 </tr>

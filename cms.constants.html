@@ -99,12 +99,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.postal_code">Postal Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.weekdays">Weekdays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.weeks">Weeks</a></li>
 </ul>
@@ -184,7 +186,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
@@ -503,9 +504,19 @@ defined in a mapping which is called <code class="docutils literal notranslate">
 <li><code class="docutils literal notranslate"><span class="pre">INITIAL_RECEPTION_CENTER</span></code>: Initial reception center (German: “Erstaufnahmeeinrichtung”)</li>
 </ul>
 </div>
+<div class="section" id="module-cms.constants.feedback_emotions">
+<span id="feedback-emotions"></span><h2>Feedback Emotions<a class="headerlink" href="#module-cms.constants.feedback_emotions" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all constants representing the emotion of the <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a> model:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">POS</span></code>: Positive</li>
+<li><code class="docutils literal notranslate"><span class="pre">NEG</span></code>: Negative</li>
+<li><code class="docutils literal notranslate"><span class="pre">NA</span></code>: Not Available</li>
+</ul>
+</div>
 <div class="section" id="module-cms.constants.frequency">
 <span id="frequency"></span><h2>Frequency<a class="headerlink" href="#module-cms.constants.frequency" title="Permalink to this headline">¶</a></h2>
-<p>This module contains all constants representing the frequency of an event’s recurrence rule:</p>
+<p>This module contains all constants representing the frequency of an <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>’s
+<a class="reference internal" href="cms.models.events.html#cms.models.events.recurrence_rule.RecurrenceRule" title="cms.models.events.recurrence_rule.RecurrenceRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrenceRule</span></code></a>:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">DAILY</span></code>: Daily</li>
 <li><code class="docutils literal notranslate"><span class="pre">WEEKLY</span></code>: Weekly</li>
@@ -515,7 +526,7 @@ defined in a mapping which is called <code class="docutils literal notranslate">
 </div>
 <div class="section" id="module-cms.constants.months">
 <span id="months"></span><h2>Months<a class="headerlink" href="#module-cms.constants.months" title="Permalink to this headline">¶</a></h2>
-<p>This module contains all string representations of months, used by events:</p>
+<p>This module contains all string representations of months, used by <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">JANUARY</span></code>: January</li>
 <li><code class="docutils literal notranslate"><span class="pre">FEBRUARY</span></code>: February</li>
@@ -571,9 +582,17 @@ This is needed when the postal code is placed inside the offer’s url or api re
 <li><code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code>: Public</li>
 </ul>
 </div>
+<div class="section" id="module-cms.constants.text_directions">
+<span id="text-directions"></span><h2>Text Directions<a class="headerlink" href="#module-cms.constants.text_directions" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all constants representing the text directions of a <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">LTR</span></code>: Text is left to right, e.g. in English</li>
+<li><code class="docutils literal notranslate"><span class="pre">RTL</span></code>: Text is right to left, e.g. in Arabic</li>
+</ul>
+</div>
 <div class="section" id="module-cms.constants.weekdays">
 <span id="weekdays"></span><h2>Weekdays<a class="headerlink" href="#module-cms.constants.weekdays" title="Permalink to this headline">¶</a></h2>
-<p>This module contains all string representations of weekdays, used by events:</p>
+<p>This module contains all string representations of weekdays, used by <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">MONDAY</span></code>: Monday</li>
 <li><code class="docutils literal notranslate"><span class="pre">TUESDAY</span></code>: Tuesday</li>
@@ -586,7 +605,7 @@ This is needed when the postal code is placed inside the offer’s url or api re
 </div>
 <div class="section" id="module-cms.constants.weeks">
 <span id="weeks"></span><h2>Weeks<a class="headerlink" href="#module-cms.constants.weeks" title="Permalink to this headline">¶</a></h2>
-<p>This module contains all string representations of a month’s week, used by events:</p>
+<p>This module contains all string representations of a month’s week, used by <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">FIRST</span></code>: First week of the month</li>
 <li><code class="docutils literal notranslate"><span class="pre">SECOND</span></code>: Second week of the month</li>

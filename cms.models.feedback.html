@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Languages" href="cms.models.languages.html" />
-    <link rel="prev" title="Extras" href="cms.models.extras.html" /> 
+    <link rel="prev" title="Events" href="cms.models.events.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,12 +99,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
 </ul>
@@ -184,7 +186,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Feedback</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
@@ -478,28 +479,50 @@
             
   <div class="section" id="module-cms.models.feedback">
 <span id="feedback"></span><h1>Feedback<a class="headerlink" href="#module-cms.models.feedback" title="Permalink to this headline">¶</a></h1>
+<p>This package contains all feedback-related data models:
+The base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a> as well as the following sub-models:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#cms.models.feedback.event_feedback.EventFeedback" title="cms.models.feedback.event_feedback.EventFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventFeedback</span></code></a></li>
+<li><a class="reference internal" href="#cms.models.feedback.event_list_feedback.EventListFeedback" title="cms.models.feedback.event_list_feedback.EventListFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventListFeedback</span></code></a></li>
+<li><a class="reference internal" href="#cms.models.feedback.offer_feedback.OfferFeedback" title="cms.models.feedback.offer_feedback.OfferFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferFeedback</span></code></a></li>
+<li><a class="reference internal" href="#cms.models.feedback.offer_list_feedback.OfferListFeedback" title="cms.models.feedback.offer_list_feedback.OfferListFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferListFeedback</span></code></a></li>
+<li><a class="reference internal" href="#cms.models.feedback.page_feedback.PageFeedback" title="cms.models.feedback.page_feedback.PageFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageFeedback</span></code></a></li>
+<li><a class="reference internal" href="#cms.models.feedback.region_feedback.RegionFeedback" title="cms.models.feedback.region_feedback.RegionFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">RegionFeedback</span></code></a></li>
+<li><a class="reference internal" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback" title="cms.models.feedback.search_result_feedback.SearchResultFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchResultFeedback</span></code></a></li>
+</ul>
 <div class="section" id="module-cms.models.feedback.event_feedback">
 <span id="event-feedback"></span><h2>Event Feedback<a class="headerlink" href="#module-cms.models.feedback.event_feedback" title="Permalink to this headline">¶</a></h2>
-<p>Module for models storing feedback from front end users</p>
 <dl class="py class">
 <dt id="cms.models.feedback.event_feedback.EventFeedback">
-<em class="property">class </em><code class="descclassname">cms.models.feedback.event_feedback.</code><code class="descname">EventFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/event_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.feedback.event_feedback.</code><code class="descname">EventFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/event_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
-<p>Feedback on single events</p>
+<p>Database model representing feedback about events.</p>
+<p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Emotion</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Comment</li>
-<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Is technical</li>
-<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Read status</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
-<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – Feedback ptr</li>
-<li><strong>event</strong> (ForeignKey to <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – Event</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the feedback</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – A comment describing the feedback</li>
+<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</li>
+<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is marked as read</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (ForeignKey to <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – The event the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</li>
+<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</li>
 </ul>
 </td>
 </tr>
@@ -507,13 +530,13 @@
 </table>
 <dl class="py exception">
 <dt id="cms.models.feedback.event_feedback.EventFeedback.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/event_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/event_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="cms.models.feedback.feedback.Feedback.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.DoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.feedback.event_feedback.EventFeedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/event_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/event_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -524,22 +547,35 @@
 <span id="event-list-feedback"></span><h2>Event List Feedback<a class="headerlink" href="#module-cms.models.feedback.event_list_feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.feedback.event_list_feedback.EventListFeedback">
-<em class="property">class </em><code class="descclassname">cms.models.feedback.event_list_feedback.</code><code class="descname">EventListFeedback</code><span class="sig-paren">(</span><em><span class="n">id</span></em>, <em><span class="n">emotion</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">is_technical</span></em>, <em><span class="n">read_status</span></em>, <em><span class="n">created_date</span></em>, <em><span class="n">last_updated</span></em>, <em><span class="n">feedback_ptr</span></em>, <em><span class="n">region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/event_list_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.event_list_feedback.EventListFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.feedback.event_list_feedback.</code><code class="descname">EventListFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/event_list_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.event_list_feedback.EventListFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
+<p>Database model representing feedback about the event list (e.g. missing events).</p>
+<p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Emotion</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Comment</li>
-<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Is technical</li>
-<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Read status</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
-<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – Feedback ptr</li>
-<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the feedback</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – A comment describing the feedback</li>
+<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</li>
+<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is marked as read</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region to which event list the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">event_list_feedback</span></code>)</li>
+<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</li>
 </ul>
 </td>
 </tr>
@@ -562,24 +598,23 @@
 </div>
 <div class="section" id="id1">
 <h2>Feedback<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-cms.models.feedback.feedback"></span><p>Module for models storing feedback from front end users</p>
-<dl class="py class">
+<span class="target" id="module-cms.models.feedback.feedback"></span><dl class="py class">
 <dt id="cms.models.feedback.feedback.Feedback">
-<em class="property">class </em><code class="descclassname">cms.models.feedback.feedback.</code><code class="descname">Feedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.feedback.feedback.</code><code class="descname">Feedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L6" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Base class for collecting feeedback from users.</p>
+<p>Database model representing feedback from app-users.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Emotion</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Comment</li>
-<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Is technical</li>
-<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Read status</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the feedback</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – A comment describing the feedback</li>
+<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</li>
+<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is marked as read</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was last updated</li>
 </ul>
 </td>
 </tr>
@@ -587,13 +622,13 @@
 </table>
 <dl class="py exception">
 <dt id="cms.models.feedback.feedback.Feedback.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L6" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L6" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -602,26 +637,37 @@
 </div>
 <div class="section" id="module-cms.models.feedback.offer_feedback">
 <span id="offer-feedback"></span><h2>Offer Feedback<a class="headerlink" href="#module-cms.models.feedback.offer_feedback" title="Permalink to this headline">¶</a></h2>
-<p>Module for models storing feedback from front end users</p>
 <dl class="py class">
 <dt id="cms.models.feedback.offer_feedback.OfferFeedback">
-<em class="property">class </em><code class="descclassname">cms.models.feedback.offer_feedback.</code><code class="descname">OfferFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/offer_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.feedback.offer_feedback.</code><code class="descname">OfferFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/offer_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
-<p>Feedback on offers (offer model)</p>
+<p>Database model representing feedback about offers.</p>
+<p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Emotion</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Comment</li>
-<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Is technical</li>
-<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Read status</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
-<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – Feedback ptr</li>
-<li><strong>offer</strong> (ForeignKey to <a class="reference internal" href="cms.models.offers.html#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a>) – Offer</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the feedback</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – A comment describing the feedback</li>
+<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</li>
+<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is marked as read</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offer</strong> (ForeignKey to <a class="reference internal" href="cms.models.offers.html#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a>) – The offer the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</li>
+<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</li>
 </ul>
 </td>
 </tr>
@@ -629,13 +675,13 @@
 </table>
 <dl class="py exception">
 <dt id="cms.models.feedback.offer_feedback.OfferFeedback.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/offer_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/offer_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="cms.models.feedback.feedback.Feedback.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.DoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.feedback.offer_feedback.OfferFeedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/offer_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/offer_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -646,22 +692,35 @@
 <span id="offer-list-feedback"></span><h2>Offer List Feedback<a class="headerlink" href="#module-cms.models.feedback.offer_list_feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.feedback.offer_list_feedback.OfferListFeedback">
-<em class="property">class </em><code class="descclassname">cms.models.feedback.offer_list_feedback.</code><code class="descname">OfferListFeedback</code><span class="sig-paren">(</span><em><span class="n">id</span></em>, <em><span class="n">emotion</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">is_technical</span></em>, <em><span class="n">read_status</span></em>, <em><span class="n">created_date</span></em>, <em><span class="n">last_updated</span></em>, <em><span class="n">feedback_ptr</span></em>, <em><span class="n">region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/offer_list_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_list_feedback.OfferListFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.feedback.offer_list_feedback.</code><code class="descname">OfferListFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/offer_list_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_list_feedback.OfferListFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
+<p>Database model representing feedback about the offer list (e.g. missing offers).</p>
+<p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Emotion</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Comment</li>
-<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Is technical</li>
-<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Read status</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
-<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – Feedback ptr</li>
-<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the feedback</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – A comment describing the feedback</li>
+<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</li>
+<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is marked as read</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region to which offer list the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">offer_list_feedback</span></code>)</li>
+<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</li>
 </ul>
 </td>
 </tr>
@@ -684,26 +743,37 @@
 </div>
 <div class="section" id="module-cms.models.feedback.page_feedback">
 <span id="page-feedback"></span><h2>Page Feedback<a class="headerlink" href="#module-cms.models.feedback.page_feedback" title="Permalink to this headline">¶</a></h2>
-<p>Module for models storing feedback from front end users</p>
 <dl class="py class">
 <dt id="cms.models.feedback.page_feedback.PageFeedback">
-<em class="property">class </em><code class="descclassname">cms.models.feedback.page_feedback.</code><code class="descname">PageFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/page_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.feedback.page_feedback.</code><code class="descname">PageFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/page_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
-<p>Feedback on a specific page</p>
+<p>Database model representing feedback about pages.</p>
+<p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Emotion</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Comment</li>
-<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Is technical</li>
-<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Read status</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
-<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – Feedback ptr</li>
-<li><strong>page</strong> (ForeignKey to <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Page</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the feedback</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – A comment describing the feedback</li>
+<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</li>
+<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is marked as read</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>page</strong> (ForeignKey to <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – The page the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</li>
+<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</li>
 </ul>
 </td>
 </tr>
@@ -711,13 +781,13 @@
 </table>
 <dl class="py exception">
 <dt id="cms.models.feedback.page_feedback.PageFeedback.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/page_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/page_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="cms.models.feedback.feedback.Feedback.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.DoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.feedback.page_feedback.PageFeedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/page_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/page_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -726,26 +796,37 @@
 </div>
 <div class="section" id="module-cms.models.feedback.region_feedback">
 <span id="region-feedback"></span><h2>Region Feedback<a class="headerlink" href="#module-cms.models.feedback.region_feedback" title="Permalink to this headline">¶</a></h2>
-<p>Module for models storing feedback from front end users</p>
 <dl class="py class">
 <dt id="cms.models.feedback.region_feedback.RegionFeedback">
-<em class="property">class </em><code class="descclassname">cms.models.feedback.region_feedback.</code><code class="descname">RegionFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/region_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.feedback.region_feedback.</code><code class="descname">RegionFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/region_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
-<p>General feedback for regions</p>
+<p>Database model representing feedback about regions in general.</p>
+<p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Emotion</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Comment</li>
-<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Is technical</li>
-<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Read status</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
-<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – Feedback ptr</li>
-<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the feedback</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – A comment describing the feedback</li>
+<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</li>
+<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is marked as read</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</li>
+<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</li>
 </ul>
 </td>
 </tr>
@@ -753,13 +834,13 @@
 </table>
 <dl class="py exception">
 <dt id="cms.models.feedback.region_feedback.RegionFeedback.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/region_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/region_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="cms.models.feedback.feedback.Feedback.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.DoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.feedback.region_feedback.RegionFeedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/region_feedback.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/region_feedback.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -768,40 +849,55 @@
 </div>
 <div class="section" id="module-cms.models.feedback.search_result_feedback">
 <span id="search-result-feedback"></span><h2>Search Result Feedback<a class="headerlink" href="#module-cms.models.feedback.search_result_feedback" title="Permalink to this headline">¶</a></h2>
-<p>Module for models storing feedback from front end users</p>
 <dl class="py class">
 <dt id="cms.models.feedback.search_result_feedback.SearchResultFeedback">
-<em class="property">class </em><code class="descclassname">cms.models.feedback.search_result_feedback.</code><code class="descname">SearchResultFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/search_result_feedback.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.feedback.search_result_feedback.</code><code class="descname">SearchResultFeedback</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/search_result_feedback.py#L6" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
-<p>Feedback on (i.e. empty) search results</p>
+<p>Database model representing feedback about search results (e.g. empty results).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>searchQuery</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The query string the feedback is referring to</td>
+</tr>
+</tbody>
+</table>
+<p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Emotion</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Comment</li>
-<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Is technical</li>
-<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Read status</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
-<li><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – Feedback ptr</li>
-<li><strong>searchQuery</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Searchquery</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the feedback</li>
+<li><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</li>
+<li><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – A comment describing the feedback</li>
+<li><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</li>
+<li><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the feedback is marked as read</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the feedback was last updated</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</td>
+</tr>
+</tbody>
+</table>
 <dl class="py exception">
 <dt id="cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/search_result_feedback.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/search_result_feedback.py#L6" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="cms.models.feedback.feedback.Feedback.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.DoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/search_result_feedback.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/search_result_feedback.py#L6" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -821,7 +917,7 @@
         <a href="cms.models.languages.html" class="btn btn-neutral float-right" title="Languages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cms.models.extras.html" class="btn btn-neutral float-left" title="Extras" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cms.models.events.html" class="btn btn-neutral float-left" title="Events" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

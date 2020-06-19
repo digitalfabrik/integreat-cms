@@ -99,12 +99,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
 </ul>
@@ -184,7 +186,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
@@ -478,41 +479,154 @@
             
   <div class="section" id="module-cms.models.offers">
 <span id="offers"></span><h1>Offers<a class="headerlink" href="#module-cms.models.offers" title="Permalink to this headline">¶</a></h1>
+<p>This package contains both offer-related data models: <a class="reference internal" href="#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a> and
+<a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a></p>
 <div class="section" id="module-cms.models.offers.offer">
 <span id="offer"></span><h2>Offer<a class="headerlink" href="#module-cms.models.offers.offer" title="Permalink to this headline">¶</a></h2>
-<p>Integreat offers are extended features beyond pages and
-events that are usually provided by foreign services.</p>
 <dl class="py class">
 <dt id="cms.models.offers.offer.Offer">
-<em class="property">class </em><code class="descclassname">cms.models.offers.offer.</code><code class="descname">Offer</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.offers.offer.</code><code class="descname">Offer</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>An offer (addon) is activated per region. For each offer,
-a template exists which can be used during activation.</p>
+<p>The offer model is used to activate an <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a> for a specific
+<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>. Integreat offers are extended features apart from pages and events and
+are usually offered by a third party. In most cases, the url is an external API endpoint which the frontend apps can
+query and render the results inside the Integreat app.
+The sole existence of an offer object instance means that it is activated, and if there is no object for a
+region/template-combination, it is deactivated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region</li>
-<li><strong>template</strong> (ForeignKey to <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a>) – Template</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the offer</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the offer was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the offer was last updated</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region where the offer is activated (related name: <code class="docutils literal notranslate"><span class="pre">offers</span></code>)</li>
+<li><strong>template</strong> (ForeignKey to <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a>) – The template which is used for the offer (related name: <code class="docutils literal notranslate"><span class="pre">offers</span></code>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Reverse relationships:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feedback</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback" title="cms.models.feedback.offer_feedback.OfferFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferFeedback</span></code></a>) – Feedback to this offer</td>
+</tr>
+</tbody>
+</table>
 <dl class="py exception">
 <dt id="cms.models.offers.offer.Offer.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.offers.offer.Offer.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.offers.offer.Offer.name">
+<em class="property">property </em><code class="descname">name</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The offer should inherit the name property from its template</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The name of an offer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.offers.offer.Offer.post_data">
+<em class="property">property </em><code class="descname">post_data</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.post_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>In case the url expects additional post data, it is stored inside the <code class="docutils literal notranslate"><span class="pre">post_data</span></code>-dict. Some offers depend on
+the location which is realized by adding the postal code of the current region to the request. If the offer
+template indicates that the postal code should be used as <code class="docutils literal notranslate"><span class="pre">GET</span></code>-parameter, the class attribute
+<code class="docutils literal notranslate"><span class="pre">use_postal_code</span></code> has to be set to <code class="docutils literal notranslate"><span class="pre">postal_code.POST</span></code> (see <a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code" title="cms.constants.postal_code"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.postal_code</span></code></a>) and then the
+key <code class="docutils literal notranslate"><span class="pre">search-plz</span></code> is automatically added to the post data. In case a third party service needs a different
+format, it has to be hard-coded here or we need other changes to the offer model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The post data of the offer’s url</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.offers.offer.Offer.slug">
+<em class="property">property </em><code class="descname">slug</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.slug" title="Permalink to this definition">¶</a></dt>
+<dd><p>The offer should inherit the slug property from its template</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The slug of an offer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.offers.offer.Offer.thumbnail">
+<em class="property">property </em><code class="descname">thumbnail</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.thumbnail" title="Permalink to this definition">¶</a></dt>
+<dd><p>The offer should inherit the thumbnail property from its template</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The thumbnail url of an offer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.offers.offer.Offer.url">
+<em class="property">property </em><code class="descname">url</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The offer should inherit the slug property from its template. This is the url to an API endpoint in most cases.
+Some offers depend on the location which is realized by adding the postal code of the current region to the
+request. If the offer template indicates that the postal code should be used as <code class="docutils literal notranslate"><span class="pre">GET</span></code>-parameter, the class
+attribute <code class="docutils literal notranslate"><span class="pre">use_postal_code</span></code> has to be set to <code class="docutils literal notranslate"><span class="pre">postal_code.GET</span></code> (see <a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code" title="cms.constants.postal_code"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.postal_code</span></code></a>) and
+the url has to end with the name of the required parameter-name, e.g. <code class="docutils literal notranslate"><span class="pre">https://example.com/api?location=</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The url of an offer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -520,27 +634,38 @@ a template exists which can be used during activation.</p>
 </div>
 <div class="section" id="module-cms.models.offers.offer_template">
 <span id="offer-template"></span><h2>Offer Template<a class="headerlink" href="#module-cms.models.offers.offer_template" title="Permalink to this headline">¶</a></h2>
-<p>Model to represent an Offer</p>
 <dl class="py class">
 <dt id="cms.models.offers.offer_template.OfferTemplate">
-<em class="property">class </em><code class="descclassname">cms.models.offers.offer_template.</code><code class="descname">OfferTemplate</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.offers.offer_template.</code><code class="descname">OfferTemplate</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model class for representing an Offer database object</p>
-<dl class="docutils">
-<dt>Args:</dt><dd>models : Databas model inherit from the standard django models</dd>
-</dl>
+<p>The OfferTemplate model is used to store templates of offers which can be activated for specific regions. The
+information stored in an offer template is global, so if you need parameters, which depend on local information
+of a region, it has to be added to the <a class="reference internal" href="#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a> model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Name</li>
-<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – Slug</li>
-<li><strong>thumbnail</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.URLField" target="_blank" title="(in Django v2.2)"><em>django.db.models.URLField</em></a>) – Thumbnail</li>
-<li><strong>url</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.URLField" target="_blank" title="(in Django v2.2)"><em>django.db.models.URLField</em></a>) – Url</li>
-<li><strong>post_data</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/postgres/fields/#jsonfield" target="_blank">django.contrib.postgres.fields.jsonb.JSONField</a>) – Post data</li>
-<li><strong>use_postal_code</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Use postal code</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the offer template</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The name of the offer template</li>
+<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – The slug of the offer template</li>
+<li><strong>thumbnail</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.URLField" target="_blank" title="(in Django v2.2)"><em>django.db.models.URLField</em></a>) – The thumbnail url of the offer template</li>
+<li><strong>url</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.URLField" target="_blank" title="(in Django v2.2)"><em>django.db.models.URLField</em></a>) – The url of the offer template. This will be an external api endoint in most cases.</li>
+<li><strong>post_data</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/postgres/fields/#jsonfield" target="_blank">django.contrib.postgres.fields.jsonb.JSONField</a>) – If additional post data is required for retrieving the url, it has to be stored in this dict.</li>
+<li><strong>use_postal_code</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – If and how the postal code should be injected in the url or post data (choices:
+<a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code" title="cms.constants.postal_code"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.postal_code</span></code></a>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Reverse relationships:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offers</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a>) – All offers which use this template</li>
 <li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
 <li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
 </ul>
@@ -550,13 +675,13 @@ a template exists which can be used during activation.</p>
 </table>
 <dl class="py exception">
 <dt id="cms.models.offers.offer_template.OfferTemplate.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.offers.offer_template.OfferTemplate.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 

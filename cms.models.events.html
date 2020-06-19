@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Extras" href="cms.models.extras.html" />
+    <link rel="next" title="Feedback" href="cms.models.feedback.html" />
     <link rel="prev" title="Config" href="cms.models.config.html" /> 
 </head>
 
@@ -99,12 +99,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
 </ul>
@@ -184,7 +186,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
@@ -478,38 +479,58 @@
             
   <div class="section" id="module-cms.models.events">
 <span id="events"></span><h1>Events<a class="headerlink" href="#module-cms.models.events" title="Permalink to this headline">¶</a></h1>
+<p>This package contains all event-related data models:
+<a class="reference internal" href="#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>,
+<a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a> and
+<a class="reference internal" href="#cms.models.events.recurrence_rule.RecurrenceRule" title="cms.models.events.recurrence_rule.RecurrenceRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrenceRule</span></code></a></p>
 <div class="section" id="module-cms.models.events.event">
 <span id="event"></span><h2>Event<a class="headerlink" href="#module-cms.models.events.event" title="Permalink to this headline">¶</a></h2>
-<p>Class defining event-related database models</p>
-<dl class="docutils">
-<dt>Raises:</dt><dd>ValidationError: Raised when an value does not match the requirements</dd>
-</dl>
 <dl class="py class">
 <dt id="cms.models.events.event.Event">
-<em class="property">class </em><code class="descclassname">cms.models.events.event.</code><code class="descname">Event</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.events.event.</code><code class="descname">Event</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Database object representing an event with name, date and the option to add recurrency.</p>
-<dl class="docutils">
-<dt>Args:</dt><dd>models : Database model inherit from the standard django models</dd>
-<dt>Raises:</dt><dd>ValidationError: Raised if the recurrence end date is after the start date
-ValidationError: Raised if start or end date isn’t null when the other one is
-ValidationError: Raised if the end date is before the start date</dd>
-</dl>
+<p>Data model representing an event.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region</li>
-<li><strong>location</strong> (ForeignKey to <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>) – Location</li>
-<li><strong>start_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateField</em></a>) – Start date</li>
-<li><strong>start_time</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TimeField</em></a>) – Start time</li>
-<li><strong>end_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateField</em></a>) – End date</li>
-<li><strong>end_time</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TimeField</em></a>) – End time</li>
-<li><strong>recurrence_rule</strong> (OneToOneField to <a class="reference internal" href="#cms.models.events.recurrence_rule.RecurrenceRule" title="cms.models.events.recurrence_rule.RecurrenceRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrenceRule</span></code></a>) – Recurrence rule</li>
-<li><strong>picture</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.ImageField" target="_blank" title="(in Django v2.2)"><em>django.db.models.ImageField</em></a>) – Picture</li>
-<li><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Archived</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the event</li>
+<li><strong>start_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateField</em></a>) – The date when the event starts</li>
+<li><strong>start_time</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TimeField</em></a>) – The time when the event starts</li>
+<li><strong>end_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateField</em></a>) – The date when the event ends</li>
+<li><strong>end_time</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TimeField</em></a>) – The time when the event ends</li>
+<li><strong>picture</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.ImageField" target="_blank" title="(in Django v2.2)"><em>django.db.models.ImageField</em></a>) – The thumbnail image of the event</li>
+<li><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the event is archived</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region to which the event belongs (related name: <code class="docutils literal notranslate"><span class="pre">events</span></code>)</li>
+<li><strong>location</strong> (ForeignKey to <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>) – The point of interest where the event takes place (related name: <code class="docutils literal notranslate"><span class="pre">events</span></code>)</li>
+<li><strong>recurrence_rule</strong> (OneToOneField to <a class="reference internal" href="#cms.models.events.recurrence_rule.RecurrenceRule" title="cms.models.events.recurrence_rule.RecurrenceRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrenceRule</span></code></a>) – If the event is recurring, the recurrence rule contains all necessary information on the
+frequency, interval etc. which is needed to calculate the single instances of a recurring
+event (related name: <code class="docutils literal notranslate"><span class="pre">events</span></code>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Reverse relationships:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a>) – The translations of this event</li>
+<li><strong>feedback</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.event_feedback.EventFeedback" title="cms.models.feedback.event_feedback.EventFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventFeedback</span></code></a>) – The feedback to this event</li>
 </ul>
 </td>
 </tr>
@@ -517,35 +538,187 @@ ValidationError: Raised if the end date is before the start date</dd>
 </table>
 <dl class="py exception">
 <dt id="cms.models.events.event.Event.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.events.event.Event.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.events.event.Event.archived_count">
+<em class="property">classmethod </em><code class="descname">archived_count</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L108" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.archived_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count how many archived events exist in one <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Amount of archived events in requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.events.event.Event.get_list">
-<em class="property">classmethod </em><code class="descname">get_list</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em>, <em><span class="n">archived</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L66" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function: Get List View</p>
-<dl class="docutils">
-<dt>Args:</dt><dd>region_slug: slug of the region the event belongs to
-archived: whether or not archived pages should be returned</dd>
-<dt>Returns:</dt><dd>[events]: Array of all Events</dd>
-</dl>
+<em class="property">classmethod </em><code class="descname">get_list</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em>, <em><span class="n">archived</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L121" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get events of one specific <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> (either all archived or all not archived
+ones)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – slug of the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> the event belongs to</li>
+<li><strong>archived</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – whether or not archived events should be returned</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of either archived or not archived events in the requested
+<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)">django.db.models.query.QuerySet</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.get_occurrences">
-<code class="descname">get_occurrences</code><span class="sig-paren">(</span><em><span class="n">start</span></em>, <em><span class="n">end</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L86" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_occurrences" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns start datetimes of occurrences of the event that overlap with [start, end]
-Expects start &lt; end
-:type start: datetime
-:type end: datetime
-:return:</p>
+<code class="descname">get_occurrences</code><span class="sig-paren">(</span><em><span class="n">start</span></em>, <em><span class="n">end</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L145" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_occurrences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get occurrences of the event that overlap with <code class="docutils literal notranslate"><span class="pre">[start,</span> <span class="pre">end]</span></code>.
+Expects <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">end</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.datetime" target="_blank" title="(in Python v3.7)"><em>datetime.datetime</em></a>) – the begin of the requested interval.</li>
+<li><strong>end</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.datetime" target="_blank" title="(in Python v3.7)"><em>datetime.datetime</em></a>) – the end of the requested interval.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Returns start datetimes of occurrences of the event that are in the given timeframe</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.datetime" target="_blank" title="(in Python v3.7)">datetime.datetime</a> ]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event.Event.get_public_translation">
+<code class="descname">get_public_translation</code><span class="sig-paren">(</span><em><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L206" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_public_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function retrieves the newest public translation of an event.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The public translation of an event</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">cms.models.events.event_translation.EventTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event.Event.get_translation">
+<code class="descname">get_translation</code><span class="sig-paren">(</span><em><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L94" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
+and filters them to the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The code of the desired <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The event translation in the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" target="_blank" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>
+if no translation exists</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">cms.models.events.event_translation.EventTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event.Event.has_location">
+<em class="property">property </em><code class="descname">has_location</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.has_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks whether the event has a physical location (<a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether event has a physical location</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event.Event.is_all_day">
+<em class="property">property </em><code class="descname">is_all_day</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.is_all_day" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks whether an event takes place the whole day by checking if start time is minimal and end
+time is maximal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether event takes place all day</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event.Event.is_recurring">
+<em class="property">property </em><code class="descname">is_recurring</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.is_recurring" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks if the event has a recurrence rule and thereby determines, whether the event is recurring.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the event is recurring or not</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event.Event.languages">
+<em class="property">property </em><code class="descname">languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.languages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property returns a list of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects, to which an event
+translation exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> an event is translated into</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language">cms.models.languages.language.Language</a> ]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -553,33 +726,42 @@ Expects start &lt; end
 </div>
 <div class="section" id="module-cms.models.events.event_translation">
 <span id="event-translation"></span><h2>Event Translation<a class="headerlink" href="#module-cms.models.events.event_translation" title="Permalink to this headline">¶</a></h2>
-<p>Class defining event-related database models</p>
-<dl class="docutils">
-<dt>Raises:</dt><dd>ValidationError: Raised when an value does not match the requirements</dd>
-</dl>
 <dl class="py class">
 <dt id="cms.models.events.event_translation.EventTranslation">
-<em class="property">class </em><code class="descclassname">cms.models.events.event_translation.</code><code class="descname">EventTranslation</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.events.event_translation.</code><code class="descname">EventTranslation</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Database object representing an event translation</p>
+<p>Data model representing an event translation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>event</strong> (ForeignKey to <a class="reference internal" href="#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – Event</li>
-<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – Slug</li>
-<li><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Status</li>
-<li><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Title</li>
-<li><strong>description</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TextField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TextField</em></a>) – Description</li>
-<li><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</li>
-<li><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Currently in translation</li>
-<li><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Version</li>
-<li><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Minor edit</li>
-<li><strong>creator</strong> (ForeignKey to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Creator</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the event translation</li>
+<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – The slug identifier of the translation (unique per <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> and
+<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</li>
+<li><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The status of the event translation (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.status" title="cms.constants.status"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.status</span></code></a>)</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The title of the event translation</li>
+<li><strong>description</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TextField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TextField</em></a>) – The description of the event translation</li>
+<li><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Flag to indicate a translation is being updated by an external translator</li>
+<li><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – The revision number of the event translation</li>
+<li><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Flag to indicate whether the difference to the previous revision requires an update in other
+languages</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the event translation was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the event translation was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (ForeignKey to <a class="reference internal" href="#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – The event the translation belongs to (related name: <code class="docutils literal notranslate"><span class="pre">translations</span></code>)</li>
+<li><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – The language of the event translation (related name: <code class="docutils literal notranslate"><span class="pre">event_translations</span></code>)</li>
+<li><strong>creator</strong> (ForeignKey to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – The user who created the event translation (related name: <code class="docutils literal notranslate"><span class="pre">event_translations</span></code>)</li>
 </ul>
 </td>
 </tr>
@@ -587,14 +769,206 @@ Expects start &lt; end
 </table>
 <dl class="py exception">
 <dt id="cms.models.events.event_translation.EventTranslation.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.available_languages">
+<em class="property">property </em><code class="descname">available_languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.available_languages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks in which <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the event is translated apart
+from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
+It only returns languages which have a public translation, so drafts are not included here.
+The returned dict has the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">available_translation</span><span class="o">.</span><span class="n">language</span><span class="o">.</span><span class="n">code</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">available_translation</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">available_translation</span><span class="o">.</span><span class="n">permalink</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the available languages of an event translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.foreign_object">
+<em class="property">property </em><code class="descname">foreign_object</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is an alias of the event foreign key and is needed to generalize the <a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
+for all content types</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The event to which the translation belongs</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.events.event.Event" title="cms.models.events.event.Event">cms.models.events.event.Event</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.is_outdated">
+<em class="property">property </em><code class="descname">is_outdated</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
+This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
+<ul class="simple">
+<li>If the translation is currently being translated, it is considered not outdated.</li>
+<li>If the translation’s language is the region’s default language, it is defined to be never outdated.</li>
+<li>If the translation’s source translation is already outdated, then the translation itself also is.</li>
+<li>If neither the translation nor its source translation have a latest major public translation, it is defined as
+not outdated.</li>
+<li>If neither the translation nor its source translation have a latest major public translation, it is defined as
+not outdated.</li>
+</ul>
+<p>Otherwise, the outdated flag is calculated by comparing the <cite>last_updated</cite>-field of the translation and its
+source translation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Flag to indicate whether the translation is outdated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.is_up_to_date">
+<em class="property">property </em><code class="descname">is_up_to_date</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks whether a translation is up to date.
+A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Flag which indicates whether a translation is up to date</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.latest_major_public_revision">
+<em class="property">property </em><code class="descname">latest_major_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is a link to the most recent major public version of this translation.
+This is used when translations, which are derived from this translation, check whether they are up to date.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest major public revision of the translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">cms.models.events.event_translation.EventTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.latest_major_revision">
+<em class="property">property </em><code class="descname">latest_major_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is a link to the most recent major version of this translation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest major revision of the translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">cms.models.events.event_translation.EventTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.latest_public_revision">
+<em class="property">property </em><code class="descname">latest_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is a link to the most recent public version of this translation.
+If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest public revision of the translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">cms.models.events.event_translation.EventTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.permalink">
+<em class="property">property </em><code class="descname">permalink</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.permalink" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The permalink of the event</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.previous_revision">
+<em class="property">property </em><code class="descname">previous_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is a shortcut to the previous revision of this translation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The previous translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">cms.models.events.event_translation.EventTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.events.event_translation.EventTranslation.source_translation">
+<em class="property">property </em><code class="descname">source_translation</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.source_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
+It derives this information from the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
+<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The event translation in the source <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> (<a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" target="_blank" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if
+the translation is in the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s default
+<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">cms.models.events.event_translation.EventTranslation</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -602,45 +976,49 @@ Expects start &lt; end
 </div>
 <div class="section" id="module-cms.models.events.recurrence_rule">
 <span id="recurrence-rule"></span><h2>Recurrence Rule<a class="headerlink" href="#module-cms.models.events.recurrence_rule" title="Permalink to this headline">¶</a></h2>
-<p>Class defining event-related database models</p>
-<dl class="docutils">
-<dt>Raises:</dt><dd>ValidationError: Raised when an value does not match the requirements</dd>
-</dl>
 <dl class="py class">
 <dt id="cms.models.events.recurrence_rule.RecurrenceRule">
-<em class="property">class </em><code class="descclassname">cms.models.events.recurrence_rule.</code><code class="descname">RecurrenceRule</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.events.recurrence_rule.</code><code class="descname">RecurrenceRule</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Object to define the recurrence frequency</p>
+<p>Data model representing the recurrence frequency and interval of an event</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>ValidationError</strong> – Error raised when weekdays_for_weekly does not fit into the range
-from 0 to 6 or when the value of weekdays_for_monthly isn’t between -5 and 5.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>frequency</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Frequency</li>
-<li><strong>interval</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.IntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.IntegerField</em></a>) – Interval</li>
-<li><strong>weekdays_for_weekly</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/postgres/fields/#arrayfield" target="_blank">django.contrib.postgres.fields.array.ArrayField</a>) – Weekdays for weekly</li>
-<li><strong>weekday_for_monthly</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.IntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.IntegerField</em></a>) – Weekday for monthly</li>
-<li><strong>week_for_monthly</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.IntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.IntegerField</em></a>) – Week for monthly</li>
-<li><strong>recurrence_end_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateField</em></a>) – Recurrence end date</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the recurrence rule</li>
+<li><strong>frequency</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – How often the event recurs (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.frequency" title="cms.constants.frequency"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.frequency</span></code></a>)</li>
+<li><strong>interval</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.IntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.IntegerField</em></a>) – In which period of the frequency the event recurs (“every <code class="docutils literal notranslate"><span class="pre">n</span></code>-th time”)</li>
+<li><strong>weekdays_for_weekly</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/postgres/fields/#arrayfield" target="_blank">django.contrib.postgres.fields.array.ArrayField</a>) – If the frequency is weekly, this field determines on which days the event takes place
+(choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays" title="cms.constants.weekdays"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.weekdays</span></code></a>)</li>
+<li><strong>weekday_for_monthly</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.IntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.IntegerField</em></a>) – If the frequency is monthly, this field determines on which days the event takes place
+(choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays" title="cms.constants.weekdays"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.weekdays</span></code></a>)</li>
+<li><strong>week_for_monthly</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.IntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.IntegerField</em></a>) – If the frequency is monthly, this field determines on which week of the month the event
+takes place (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.weeks" title="cms.constants.weeks"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.weeks</span></code></a>)</li>
+<li><strong>recurrence_end_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateField</em></a>) – If the recurrence is not for an indefinite period, this field contains the end date</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Reverse relationships:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (Reverse OneToOne Relation from <a class="reference internal" href="#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – The event this recurrence rule belongs to</td>
+</tr>
+</tbody>
+</table>
 <dl class="py exception">
 <dt id="cms.models.events.recurrence_rule.RecurrenceRule.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.events.recurrence_rule.RecurrenceRule.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -657,7 +1035,7 @@ from 0 to 6 or when the value of weekdays_for_monthly isn’t between -5 and 5.<
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cms.models.extras.html" class="btn btn-neutral float-right" title="Extras" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cms.models.feedback.html" class="btn btn-neutral float-right" title="Feedback" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="cms.models.config.html" class="btn btn-neutral float-left" title="Config" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

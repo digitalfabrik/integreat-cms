@@ -99,12 +99,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
 </ul>
@@ -184,7 +186,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.extras.html">Extras</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
@@ -478,37 +479,77 @@
             
   <div class="section" id="module-cms.models.pages">
 <span id="pages"></span><h1>Pages<a class="headerlink" href="#module-cms.models.pages" title="Permalink to this headline">¶</a></h1>
+<p>This package contains both page-related data models:
+<a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and
+<a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a></p>
 <div class="section" id="module-cms.models.pages.page">
 <span id="page"></span><h2>Page<a class="headerlink" href="#module-cms.models.pages.page" title="Permalink to this headline">¶</a></h2>
-<p>Models representing a page and page translation with content</p>
 <dl class="py class">
 <dt id="cms.models.pages.page.Page">
-<em class="property">class </em><code class="descclassname">cms.models.pages.page.</code><code class="descname">Page</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.pages.page.</code><code class="descname">Page</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mptt.models.MPTTModel</span></code></p>
-<p>Class that represents an Page database object</p>
-<dl class="docutils">
-<dt>Args:</dt><dd>MPTTModel : Library for hierachical data structures</dd>
-</dl>
+<p>Data model representing a page.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>parent</strong> (TreeForeignKey to <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Parent</li>
-<li><strong>icon</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.ImageField" target="_blank" title="(in Django v2.2)"><em>django.db.models.ImageField</em></a>) – Icon</li>
-<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region</li>
-<li><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Archived</li>
-<li><strong>mirrored_page</strong> (ForeignKey to <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Mirrored page</li>
-<li><strong>mirrored_page_first</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Mirrored page first</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
-<li><strong>lft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Lft</li>
-<li><strong>rght</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Rght</li>
-<li><strong>tree_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Tree id</li>
-<li><strong>level</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Level</li>
-<li><strong>editors</strong> (ManyToManyField to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Editors</li>
-<li><strong>publishers</strong> (ManyToManyField to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Publishers</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the page</li>
+<li><strong>icon</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.ImageField" target="_blank" title="(in Django v2.2)"><em>django.db.models.ImageField</em></a>) – The title image of the page</li>
+<li><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the page is archived</li>
+<li><strong>mirrored_page</strong> (ForeignKey to <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – If the page embeds live content from another page, it is referenced here.</li>
+<li><strong>mirrored_page_first</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – If <code class="docutils literal notranslate"><span class="pre">mirrored_page</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>, this field determines whether the live content is
+embedded before the content of this page or after.</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the page was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the page was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Fields inherited from the MPTT model (see <a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/models.html" target="_blank" title="(in django-mptt v0.11.0)"><span>Models and Managers</span></a> for more information):</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tree_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – The id of this page tree (all pages of one page tree share this id)</li>
+<li><strong>lft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – The left neighbour of this page</li>
+<li><strong>rght</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – The right neighbour of this page</li>
+<li><strong>level</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – The depth of the page node. Root pages are level <cite>0</cite>, their immediate children are level <cite>1</cite>, their
+immediate children are level <cite>2</cite> and so on…</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent</strong> (TreeForeignKey to <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – The parent page of this page (related name: <code class="docutils literal notranslate"><span class="pre">children</span></code>)</li>
+<li><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region to which the page belongs (related name: <code class="docutils literal notranslate"><span class="pre">pages</span></code>)</li>
+<li><strong>editors</strong> (ManyToManyField to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – A list of users who have the permission to edit this specific page (related name:
+<code class="docutils literal notranslate"><span class="pre">editable_pages</span></code>). Only has effect if these users do not have the permission to edit pages anyway.</li>
+<li><strong>publishers</strong> (ManyToManyField to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – A list of users who have the permission to publish this specific page (related name:
+<code class="docutils literal notranslate"><span class="pre">publishable_pages</span></code>). Only has effect if these users do not have the permission to publish
+pages anyway.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Reverse relationships:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>children</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – The children of this page</li>
+<li><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>) – The translations of this page</li>
+<li><strong>feedback</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.page_feedback.PageFeedback" title="cms.models.feedback.page_feedback.PageFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageFeedback</span></code></a>) – The feedback to this page</li>
 </ul>
 </td>
 </tr>
@@ -516,40 +557,221 @@
 </table>
 <dl class="py exception">
 <dt id="cms.models.pages.page.Page.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.pages.page.Page.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.pages.page.Page.archived_count">
+<em class="property">static </em><code class="descname">archived_count</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L196" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.archived_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count how many archived pages exist in one <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Amount of archived pages in requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.best_language_title">
+<code class="descname">best_language_title</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L232" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.best_language_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function tries to determine which title to be used for a page. The first priority is the current backend
+language. If no translation is present in this language, the fallback is the region’s default language.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The “best” title for showing pages in the backend</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.pages.page.Page.depth">
-<em class="property">property </em><code class="descname">depth</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L19" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provide level of inheritance</p>
-<dl class="docutils">
-<dt>Returns:</dt><dd>Int : Number of ancestors</dd>
-</dl>
+<em class="property">property </em><code class="descname">depth</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts how many ancestors the page has. If the page is the root page, its depth is <cite>0</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The depth of this page in its page tree</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.get_absolute_url">
+<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L170" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>This helper function returns the absolute url to the editing form of a page</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The absolute url of a page form</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.get_archived">
+<em class="property">static </em><code class="descname">get_archived</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L183" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_archived" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns all archived pages of the requested region</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">All archived pages of this region</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)">django.db.models.query.QuerySet</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.get_first_translation">
+<code class="descname">get_first_translation</code><span class="sig-paren">(</span><em><span class="n">priority_language_codes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L118" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_first_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function for page labels, second level paths etc. where the ancestor translation might not exist
+This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
+and filters them to the first requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> code that matches.
+So a lower list index means a higher priority.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)"><em>list</em></a><em> [ </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a><em> ]</em><em>, </em><em>optional</em>) – A list of <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> codes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The first page translation which matches one of the <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>
+given or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" target="_blank" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if no translation exists</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_mirrored_text">
-<code class="descname">get_mirrored_text</code><span class="sig-paren">(</span><em><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L87" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_mirrored_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>This content needs to be added when delivering content to end users</p>
+<code class="descname">get_mirrored_text</code><span class="sig-paren">(</span><em><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L155" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_mirrored_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mirrored content always includes the live content from another page. This content needs to be added when
+delivering content to end users.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The content of a mirrored page</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.get_public_translation">
+<code class="descname">get_public_translation</code><span class="sig-paren">(</span><em><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L140" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_public_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function retrieves the newest public translation of a page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The public translation of a page</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.get_translation">
+<code class="descname">get_translation</code><span class="sig-paren">(</span><em><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L102" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
+and filters them to the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The code of the desired <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The page translation in the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" target="_blank" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>
+if no translation exists</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_tree">
-<em class="property">classmethod </em><code class="descname">get_tree</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em>, <em><span class="n">archived</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L118" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_tree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function for building up a Treeview of all pages</p>
-<dl class="docutils">
-<dt>Args:</dt><dd>region_slug: slug of the region the page belongs to
-archived:  if true archived pages will be included</dd>
-<dt>Returns:</dt><dd>[pages]: Array of pages connected with their relations</dd>
-</dl>
+<em class="property">classmethod </em><code class="descname">get_tree</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em>, <em><span class="n">archived</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L209" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all pages of one specific <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> (either all archived or all not
+archived ones) together with its tree relations</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – slug of the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> the page belongs to</li>
+<li><strong>archived</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – whether or not archived pages should be returned</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of either archived or not archived pages in the requested
+<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)">django.db.models.query.QuerySet</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.languages">
+<em class="property">property </em><code class="descname">languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.languages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property returns a list of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects, to which a page
+translation exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> a page is translated into</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language">cms.models.languages.language.Language</a> ]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -557,33 +779,42 @@ archived:  if true archived pages will be included</dd>
 </div>
 <div class="section" id="module-cms.models.pages.page_translation">
 <span id="page-translation"></span><h2>Page Translation<a class="headerlink" href="#module-cms.models.pages.page_translation" title="Permalink to this headline">¶</a></h2>
-<p>Models representing a page and page translation with content</p>
 <dl class="py class">
 <dt id="cms.models.pages.page_translation.PageTranslation">
-<em class="property">class </em><code class="descclassname">cms.models.pages.page_translation.</code><code class="descname">PageTranslation</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.models.pages.page_translation.</code><code class="descname">PageTranslation</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Class defining a Translation of a Page</p>
-<dl class="docutils">
-<dt>Args:</dt><dd>models : Class inherit of django-Models</dd>
-</dl>
+<p>Data model representing a page translation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – Id</li>
-<li><strong>page</strong> (ForeignKey to <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Page</li>
-<li><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</li>
-<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – Slug</li>
-<li><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Title</li>
-<li><strong>text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TextField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TextField</em></a>) – Text</li>
-<li><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Status</li>
-<li><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Currently in translation</li>
-<li><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – Version</li>
-<li><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Minor edit</li>
-<li><strong>creator</strong> (ForeignKey to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Creator</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Created date</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – Last updated</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the page translation</li>
+<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – The slug identifier of the translation (unique per <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> and
+<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</li>
+<li><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The status of the page translation (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.status" title="cms.constants.status"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.status</span></code></a>)</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The title of the page translation</li>
+<li><strong>text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TextField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TextField</em></a>) – The content of the page translation</li>
+<li><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Flag to indicate a translation is being updated by an external translator</li>
+<li><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – The revision number of the page translation</li>
+<li><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Flag to indicate whether the difference to the previous revision requires an update in other
+languages</li>
+<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the page translation was created</li>
+<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the page translation was last updated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship fields:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>page</strong> (ForeignKey to <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – The page the translation belongs to (related name: <code class="docutils literal notranslate"><span class="pre">translations</span></code>)</li>
+<li><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – The language of the page translation (related name: <code class="docutils literal notranslate"><span class="pre">page_translations</span></code>)</li>
+<li><strong>creator</strong> (ForeignKey to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – The user who created the page translation (related name: <code class="docutils literal notranslate"><span class="pre">page_translations</span></code>)</li>
 </ul>
 </td>
 </tr>
@@ -591,20 +822,340 @@ archived:  if true archived pages will be included</dd>
 </table>
 <dl class="py exception">
 <dt id="cms.models.pages.page_translation.PageTranslation.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.ancestor_path">
+<em class="property">property </em><code class="descname">ancestor_path</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.ancestor_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property calculates the path of all parents of the page</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The relative path to the page</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.available_languages">
+<em class="property">property </em><code class="descname">available_languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.available_languages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks in which <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the page is translated apart
+from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
+It only returns languages which have a public translation, so drafts are not included here.
+The returned dict has the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">available_translation</span><span class="o">.</span><span class="n">language</span><span class="o">.</span><span class="n">code</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">available_translation</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">available_translation</span><span class="o">.</span><span class="n">permalink</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the available languages of a page translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.combined_text">
-<em class="property">property </em><code class="descname">combined_text</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L17" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.combined_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combines the text from the PageTranslation with the text from the mirrored page.</p>
+<em class="property">property </em><code class="descname">combined_text</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.combined_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function combines the text from this PageTranslation with the text from the mirrored page.
+Mirrored content always includes the live content from another page. This content needs to be added when
+delivering content to end users.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The combined content of this page and the mirrored page</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.foreign_object">
+<em class="property">property </em><code class="descname">foreign_object</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is an alias of the page foreign key and is needed to generalize the <a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
+for all content types</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The page to which the translation belongs</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page">cms.models.pages.page.Page</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.get_current_translations">
+<em class="property">classmethod </em><code class="descname">get_current_translations</code><span class="sig-paren">(</span><em><span class="n">region</span></em>, <em><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L298" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_current_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
+returns only page translations which are currently being translated by an external translator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_slug</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li><strong>language_code</strong> (<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>cms.models.languages.language.Language</em></a>) – The requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">All currently translated translations of a region in a specific language</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a> ]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.get_outdated_translations">
+<em class="property">classmethod </em><code class="descname">get_outdated_translations</code><span class="sig-paren">(</span><em><span class="n">region</span></em>, <em><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L315" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_outdated_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
+returns only page translations which are outdated</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_slug</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li><strong>language_code</strong> (<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>cms.models.languages.language.Language</em></a>) – The requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">All outdated translations of a region in a specific language</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a> ]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.get_translations">
+<em class="property">classmethod </em><code class="descname">get_translations</code><span class="sig-paren">(</span><em><span class="n">region</span></em>, <em><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L264" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function retrieves the most recent versions of a all <code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code> objects of
+a <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> in a specific <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_slug</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li><strong>language_code</strong> (<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>cms.models.languages.language.Language</em></a>) – The requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of all page translations of a region in a specific language</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)">django.db.models.query.QuerySet</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.get_up_to_date_translations">
+<em class="property">classmethod </em><code class="descname">get_up_to_date_translations</code><span class="sig-paren">(</span><em><span class="n">region</span></em>, <em><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L281" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_up_to_date_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
+returns only page translations which are up to date</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_slug</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li><strong>language_code</strong> (<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>cms.models.languages.language.Language</em></a>) – The requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">All up to date translations of a region in a specific language</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a> ]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.is_outdated">
+<em class="property">property </em><code class="descname">is_outdated</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
+This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
+<ul class="simple">
+<li>If the translation is currently being translated, it is considered not outdated.</li>
+<li>If the translation’s language is the region’s default language, it is defined to be never outdated.</li>
+<li>If the translation’s source translation is already outdated, then the translation itself also is.</li>
+<li>If neither the translation nor its source translation have a latest major public translation, it is defined as
+not outdated.</li>
+<li>If neither the translation nor its source translation have a latest major public translation, it is defined as
+not outdated.</li>
+</ul>
+<p>Otherwise, the outdated flag is calculated by comparing the <cite>last_updated</cite>-field of the translation and its
+source translation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Flag to indicate whether the translation is outdated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.is_up_to_date">
+<em class="property">property </em><code class="descname">is_up_to_date</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property checks whether a translation is up to date.
+A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Flag which indicates whether a translation is up to date</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.latest_major_public_revision">
+<em class="property">property </em><code class="descname">latest_major_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is a link to the most recent major public version of this translation.
+This is used when translations, which are derived from this translation, check whether they are up to date.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest major public revision of the translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.latest_major_revision">
+<em class="property">property </em><code class="descname">latest_major_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is a link to the most recent major version of this translation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest major revision of the translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.latest_public_revision">
+<em class="property">property </em><code class="descname">latest_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is a link to the most recent public version of this translation.
+If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest public revision of the translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.permalink">
+<em class="property">property </em><code class="descname">permalink</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.permalink" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The permalink of the page</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.previous_revision">
+<em class="property">property </em><code class="descname">previous_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is a shortcut to the previous revision of this translation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The previous translation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.source_translation">
+<em class="property">property </em><code class="descname">source_translation</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pages/page_translation.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.source_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
+It derives this information from the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
+<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The page translation in the source <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> (<a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" target="_blank" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if
+the translation is in the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s default
+<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation">cms.models.pages.page_translation.PageTranslation</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
