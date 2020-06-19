@@ -1,5 +1,5 @@
 """
-This module contains all string representations of weekdays, used by events:
+This module contains all string representations of weekdays, used by :class:`~cms.models.events.event.Event`:
 
 * ``MONDAY``: Monday
 
