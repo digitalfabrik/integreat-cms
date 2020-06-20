@@ -44,6 +44,13 @@ Reference
 Indices
 =======
 
+.. toctree::
+    :caption: Indices
+    :hidden:
+
+    glossary
+
+* :doc:`glossary`
 * :ref:`Full Index <genindex>`
 * :ref:`Python Module Index <modindex>`
 * :ref:`search`
