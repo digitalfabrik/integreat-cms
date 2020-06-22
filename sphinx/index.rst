@@ -16,10 +16,12 @@ First Steps
 
     installation
     tutorials
+    dev-tools
     troubleshooting
 
 * :doc:`installation`: Installation guide
 * :doc:`tutorials`: Step-by-step guides
+* :doc:`dev-tools`: Scripts for developers
 * :doc:`troubleshooting`: General problem solving guide
 
 
