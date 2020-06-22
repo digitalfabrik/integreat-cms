@@ -23,6 +23,18 @@ First Steps
 * :doc:`troubleshooting`: General problem solving guide
 
 
+Basic Concepts
+==============
+
+.. toctree::
+    :caption: Basic Concepts
+    :hidden:
+
+    internationalization
+
+* :doc:`internationalization`: Multi-language support for the backend UI
+
+
 Reference
 =========
 
