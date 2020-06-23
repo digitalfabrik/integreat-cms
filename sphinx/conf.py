@@ -65,6 +65,7 @@ extensions = [
 # Enable cross-references to other documentations
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3.7', None),
+    'pipenv': ('https://pipenv.pypa.io/en/latest/', None),
     'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
     'django': ('https://docs.djangoproject.com/en/2.2/',
                'https://docs.djangoproject.com/en/2.2/_objects/'),

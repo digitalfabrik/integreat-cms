@@ -34,8 +34,10 @@ Basic Concepts
     :caption: Basic Concepts
     :hidden:
 
+    virtualenv
     internationalization
 
+* :doc:`virtualenv`: Virtual Python environment and Pipenv
 * :doc:`internationalization`: Multi-language support for the backend UI
 
 
