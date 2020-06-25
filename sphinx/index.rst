@@ -41,6 +41,24 @@ Basic Concepts
 * :doc:`internationalization`: Multi-language support for the backend UI
 
 
+Contributing
+============
+
+.. toctree::
+    :caption: Contributing
+    :hidden:
+
+    issue-reporting
+    code-style
+    git-flow
+    code-of-conduct
+
+* :doc:`issue-reporting`: Rug Reporting and Feature Request Guidelines
+* :doc:`code-style`: Coding Conventions
+* :doc:`git-flow`: GitHub Workflow model
+* :doc:`code-of-conduct`: Contributor Covenant Code of Conduct
+
+
 Reference
 =========
 
