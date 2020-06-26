@@ -3,6 +3,12 @@
 # This script can be used to start the cms together with a postgres database docker container.
 # It also includes generating translation files and applying migrations after the docker container is started for the first time.
 
+# Check if nc (netcat) is installed
+if [ ! -x "$(command -v nc)" ]; then
+    echo "Netcat is not installed. Please install it manually and run this script again." >&2
+    exit 1
+fi
+
 # Check if local postgres server is running
 if nc -w1 localhost 5432; then
 
