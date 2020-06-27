@@ -82,7 +82,7 @@ jobs:
           path: htmlcov
   check-translations:
     docker:
-      - image: timoludwig/python-node-gettext:latest
+      - image: integreat/python-node-gettext:78c07dc
     resource_class: small
     steps:
       - checkout
@@ -93,7 +93,7 @@ jobs:
           command: ./dev-tools/check_translations.sh
   bundle-static-files:
     docker:
-      - image: timoludwig/python-node-gettext:latest
+      - image: integreat/python-node-gettext:78c07dc
     resource_class: small
     steps:
       - checkout
@@ -118,7 +118,7 @@ jobs:
             - src/cms/locale/de/LC_MESSAGES/django.mo
   packaging:
     docker:
-      - image: timoludwig/bionic-setuptools:latest
+      - image: integreat/bionic-setuptools:78c07dc
     resource_class: small
     steps:
       - checkout
