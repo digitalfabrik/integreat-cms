@@ -66,7 +66,7 @@ And install it using our developer tool ``ìnstall.sh`` [`Source <https://github
 .. Note::
 
     This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pipenv.
-    If only one of both dependency-managers should be invoked, run ``npm install`` or ``pipenv install`` directly.
+    If only one of both dependency-managers should be invoked, run ``npm install`` or ``pipenv install --dev`` directly.
 
 
 Create debian package

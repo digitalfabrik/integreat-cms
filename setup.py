@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath('src'))
 from backend.settings import VERSION
 
 setup(
-    name='integreat_cms',
+    name='integreat-cms',
     version=VERSION,
     packages=find_packages('src'),
     package_dir={'': 'src'},
@@ -43,21 +43,6 @@ setup(
         'six',
         'webauthn',
     ],
-    extras_require={
-        'dev': [
-            'django-compressor',
-            'django-compressor-toolkit',
-            'packaging',
-            'pylint',
-            'pylint-django',
-            'pylint_runner',
-            'sphinx',
-            'sphinxcontrib-django',
-            'sphinx_rtd_theme',
-            'coverage',
-            'django_coverage_plugin',
-        ]
-    },
     author='Integreat App Project',
     author_email='info@integreat-app.de',
     description='Content Management System for the Integreat App',
