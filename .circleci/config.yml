@@ -57,6 +57,17 @@ jobs:
       - run:
           name: Run pylint
           command: pipenv run pylint_runner
+  black:
+    docker:
+      - image: circleci/python:3.7
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check black code style
+          command: pipenv run black --check .
   tests:
     docker:
       - image: circleci/python:3.7
@@ -223,6 +234,9 @@ workflows:
       - pipenv-install
       - npm-install
       - pylint:
+          requires:
+            - pipenv-install
+      - black:
           requires:
             - pipenv-install
       - tests:
