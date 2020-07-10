@@ -25,9 +25,6 @@ if nc -w1 localhost 5432; then
     # Compile CSS
     npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
 
-    # Apply Compressing
-    pipenv run integreat-cms-cli compress
-
     # Re-generating translation file and compile it
     ./dev-tools/translate.sh
 
@@ -66,9 +63,6 @@ else
 
     # Compile CSS
     sudo -u $SUDO_USER env PATH="$PATH" npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
-
-    # Apply Compressing
-    sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli compress
 
     # Re-generating translation file and compile it
     sudo -u $SUDO_USER env PATH="$PATH" ./dev-tools/translate.sh
