@@ -4,11 +4,11 @@
 # A Postgres SQL server is needed to run the CMS (optionally inside a docker container).
 
 # Check if requirements are satisfied
-if [ ! -x "$(command -v python3)" ]; then
-    echo "Python3 is not installed. Please install it manually and run this script again." >&2
+if [ ! -x "$(command -v python3.7)" ]; then
+    echo "Python3.7 is not installed. Please install it manually and run this script again." >&2
     exit 1
 fi
-if python3 -mplatform | grep -qi Ubuntu && ! dpkg -l | grep -qi python3.7-dev; then
+if python3.7 -m platform | grep -qi Ubuntu && ! dpkg -l | grep -qi python3.7-dev; then
     echo "You are on Ubuntu and Python3.7-dev is not installed. Please install python3.7-dev manually and run this script again." >&2
     exit 1
 fi
