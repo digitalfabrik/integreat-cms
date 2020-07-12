@@ -3,6 +3,11 @@
 # This script installs the CMS in a local virtual environment without the need for docker or any other virtualization technology.
 # A Postgres SQL server is needed to run the CMS (optionally inside a docker container).
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 # Check if requirements are satisfied
 if [ ! -x "$(command -v python3.7)" ]; then
     echo "Python3.7 is not installed. Please install it manually and run this script again." >&2

@@ -2,6 +2,11 @@
 
 # This script can be used to re-generate the translation file and compile it. It is also executed in run.sh
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 # Check if GNU gettext tools are installed
 if [ ! -x "$(command -v msgfmt)" ]; then
     echo "GNU gettext tools are not installed. Please install gettext manually and run this script again." >&2

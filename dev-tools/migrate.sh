@@ -3,6 +3,11 @@
 # This script can be used to generate migrations and applying them afterwards.
 # It can be used with the postgres docker container as well as a standalone installation.
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 if nc -w1 localhost 5432; then
 
     # Check if script is running as root
