@@ -48,7 +48,10 @@ class GvzApiWrapper():
         """
         logger.info("GVZ API: Details for %s", region_key)
         response = requests.get(f"{self.api_url}/details/{region_key}")
-        region = json.loads(response.text)[0]
+        region = json.loads(response.text)
+        if len(region) != 1:
+            return None
+        region = region[0]
         if ',' in region['name']:
             region['name'] = region['name'].split(',')[0]
         return {
@@ -146,6 +149,8 @@ class GvzApiWrapper():
         results_type = []
         for region in results_literal:
             region_details = self.get_details(region['key'])
+            if region_details is None:
+                continue
             if self.filter_region_types(region_details):
                 if self.translate_type(region_details['type']) == region_type:
                     results_type.append(region)
@@ -194,6 +199,8 @@ class GvzRegion():
             return
 
         details = api.get_details(self.key)
+        if details is None:
+            return
         self.name = details['name']
         self.longitude = details['longitude']
         self.latitude = details['latitude']
