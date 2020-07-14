@@ -1,9 +1,64 @@
 {% extends "!layout.html" %}
-  {% block footer %} {{ super() }}
 
-  <style>
-         .wy-nav-content { max-width: 1200px; }
-  </style>
-
+{% block sidebartitle %}
+    {% if logo %}
+        <a href="{{ pathto(master_doc) }}"><img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="Logo"/></a>
+    {% endif %}
+    {% if not logo or not theme_logo_only %}
+        <a href="{{ pathto(master_doc) }}" class="icon icon-home"> {{ project }}</a>
+    {% endif %}
+    {% if theme_display_version %}
+        {%- set nav_version = version %}
+        {% if READTHEDOCS and current_version %}
+            {%- set nav_version = current_version %}
+        {% endif %}
+        {% if nav_version %}
+        <div class="version">
+            {{ nav_version }}
+        </div>
+        {% endif %}
+    {% endif %}
+    {% include "searchbox.html" %}
 {% endblock %}
 
+{% block menu %}
+    {{ super() }}
+    <a href="genindex.html">Full Index</a>
+    <a href="py-modindex.html">Module Index</a>
+    <a href="search.html">Search Page</a>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+    <style>
+        div.wy-nav-content {
+            max-width: 1200px;
+        }
+        span.lastupdated {
+            float: right;
+        }
+        div.two-columns div.admonition {
+            clear: none;
+        }
+        div.left-side {
+            width: 48%;
+            float: left;
+        }
+        div.right-side {
+            margin-left: 52%;
+        }
+        div.iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56%;
+            margin-bottom: 20px;
+        }
+        div.iframe-container iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0; top: 0;
+        }
+    </style>
+{% endblock %}
