@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Integreat Django CMS documentation &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Developer Tools &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -38,7 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" /> 
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="Tutorials" href="tutorials.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,10 +52,10 @@
         <div class="wy-side-nav-search" >
           
     
-        <a href="#"><img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+        <a href="index.html"><img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
     
     
-        <a href="#" class="icon icon-home"> integreat-cms</a>
+        <a href="index.html" class="icon icon-home"> integreat-cms</a>
     
     
         
@@ -81,7 +82,7 @@
             
             
               <p class="caption"><span class="caption-text">First Steps</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#download-sources">Download sources</a></li>
@@ -99,14 +100,14 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorials.html#first-issue-project-structure-django-german">First issue, project structure, Django [German]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dev-tools.html">Developer Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#development-server">Development Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#database">Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#translations">Translations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#testing">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#code-quality">Code Quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-server">Development Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#translations">Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-quality">Code Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
@@ -536,7 +537,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">integreat-cms</a>
+          <a href="index.html">integreat-cms</a>
         
       </nav>
 
@@ -565,9 +566,9 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Integreat Django CMS documentation</li>
+      <li>Developer Tools</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -584,63 +585,90 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="integreat-django-cms-documentation">
-<h1>Integreat Django CMS documentation<a class="headerlink" href="#integreat-django-cms-documentation" title="Permalink to this headline">¶</a></h1>
-<p>This is the developer documentation for the Integreat Django backend.</p>
-<p>For general help with the Django framework, please refer to the <a class="reference external" href="https://docs.djangoproject.com/en/2.2/" target="_blank" title="(in Django v2.2)"><span>Django documentation</span></a>.</p>
-<div class="section" id="first-steps">
-<h2>First Steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+  <div class="section" id="developer-tools">
+<h1>Developer Tools<a class="headerlink" href="#developer-tools" title="Permalink to this headline">¶</a></h1>
+<p>This is a collection of scripts which facilitate the development process.
+They are targeted at as much platforms and configurations as possible, but there might be edge cases in which they don’t work as expected.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install all project dependencies and the local python package with <code class="docutils literal notranslate"><span class="pre">ìnstall.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/install.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>: Installation guide</li>
-<li><a class="reference internal" href="dev-server.html"><span class="doc">Development Server</span></a>: Run local development server</li>
-<li><a class="reference internal" href="tutorials.html"><span class="doc">Tutorials</span></a>: Step-by-step guides</li>
-<li><a class="reference internal" href="dev-tools.html"><span class="doc">Developer Tools</span></a>: Scripts for developers</li>
-<li><a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a>: General problem solving guide</li>
-</ul>
+<p>Update all project dependencies and fix security issues with <code class="docutils literal notranslate"><span class="pre">update_dependencies.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/update_dependencies.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">update_dependencies</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
 </div>
-<div class="section" id="basic-concepts">
-<h2>Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<p>Create portable debian package with <code class="docutils literal notranslate"><span class="pre">package.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/package.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">package</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="virtualenv.html"><span class="doc">Virtual Environment</span></a>: Virtual Python environment and Pipenv</li>
-<li><a class="reference internal" href="internationalization.html"><span class="doc">Internationalization (i18n)</span></a>: Multi-language support for the backend UI</li>
-</ul>
 </div>
-<div class="section" id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<div class="section" id="development-server">
+<h2>Development Server<a class="headerlink" href="#development-server" title="Permalink to this headline">¶</a></h2>
+<p>Run the inbuilt local webserver with <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/run.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="issue-reporting.html"><span class="doc">Issue Reporting Guidelines</span></a>: Rug Reporting and Feature Request Guidelines</li>
-<li><a class="reference internal" href="code-style.html"><span class="doc">Code Style Guidelines</span></a>: Coding Conventions</li>
-<li><a class="reference internal" href="git-flow.html"><span class="doc">GitHub Workflow</span></a>: GitHub Workflow model</li>
-<li><a class="reference internal" href="code-of-conduct.html"><span class="doc">Code of Conduct</span></a>: Contributor Covenant Code of Conduct</li>
-</ul>
 </div>
-<div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<div class="section" id="database">
+<h2>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h2>
+<p>Migrate the database with <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/migrate.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">migrate</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="autogenerated/backend.html"><span class="doc">Backend</span></a>: This is the project’s main app which contains all configuration files.</li>
-<li><a class="reference internal" href="autogenerated/cms.html"><span class="doc">CMS</span></a>: This is the content management system for backend users which contains all database models, views, forms and templates.</li>
-<li><a class="reference internal" href="autogenerated/api.html"><span class="doc">API</span></a>: This is the app which contains all API routes and Classes which maps the cms models to API JSON responses. This is not the API documentation itself, but the Django developer documentation. A link to the API documentation will follow soon.</li>
-<li><a class="reference internal" href="autogenerated/gvz_api.html"><span class="doc">Gvz API</span></a>: This is the app  to communicate with our Gemeindeverzeichnis API to automatically import coordinates and region aliases</li>
-</ul>
+<p>Import initial test data with <code class="docutils literal notranslate"><span class="pre">loadtestdata.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/loadtestdata.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">loadtestdata</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
 </div>
-<div class="section" id="indices">
-<h2>Indices<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<p>Create a new superuser with <code class="docutils literal notranslate"><span class="pre">create_superuser.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/create_superuser.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">create_superuser</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Full Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Python Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
+<p>Delete all database content with <code class="docutils literal notranslate"><span class="pre">prune_database.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/prune_database.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">prune_database</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="translations">
+<h2>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">¶</a></h2>
+<p>Perform <code class="docutils literal notranslate"><span class="pre">makemessages</span></code> and <code class="docutils literal notranslate"><span class="pre">compilemessages</span></code> in one step with <code class="docutils literal notranslate"><span class="pre">translate.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/translate.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">translate</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Resolve merge/rebase conflicts with <code class="docutils literal notranslate"><span class="pre">resolve_translation_conflicts.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/resolve_translation_conflicts.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">resolve_translation_conflicts</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Check whether your translations is up-to-date with <code class="docutils literal notranslate"><span class="pre">check_translations.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/check_translations.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">check_translations</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>Run unit tests with <code class="docutils literal notranslate"><span class="pre">test.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/test.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">test</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Calculate test coverage with <code class="docutils literal notranslate"><span class="pre">test_cov.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/test_cov.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">test_cov</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="code-quality">
+<h2>Code Quality<a class="headerlink" href="#code-quality" title="Permalink to this headline">¶</a></h2>
+<p>Check whether the code complies to our style guides with <code class="docutils literal notranslate"><span class="pre">pylint.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/pylint.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">pylint</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Generate this documentation with <code class="docutils literal notranslate"><span class="pre">generate_documentation.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/generate_documentation.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">generate_documentation</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -652,8 +680,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

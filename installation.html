@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Integreat Django CMS documentation &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Installation &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -38,7 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" /> 
+    <link rel="next" title="Development Server" href="dev-server.html" />
+    <link rel="prev" title="Integreat Django CMS documentation" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,10 +52,10 @@
         <div class="wy-side-nav-search" >
           
     
-        <a href="#"><img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+        <a href="index.html"><img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
     
     
-        <a href="#" class="icon icon-home"> integreat-cms</a>
+        <a href="index.html" class="icon icon-home"> integreat-cms</a>
     
     
         
@@ -81,12 +82,12 @@
             
             
               <p class="caption"><span class="caption-text">First Steps</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#download-sources">Download sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#install-dependencies-and-local-package">Install dependencies and local package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#create-debian-package">Create debian package</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-sources">Download sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-dependencies-and-local-package">Install dependencies and local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-debian-package">Create debian package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dev-server.html">Development Server</a><ul>
@@ -536,7 +537,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">integreat-cms</a>
+          <a href="index.html">integreat-cms</a>
         
       </nav>
 
@@ -565,9 +566,9 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Integreat Django CMS documentation</li>
+      <li>Installation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -584,63 +585,102 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="integreat-django-cms-documentation">
-<h1>Integreat Django CMS documentation<a class="headerlink" href="#integreat-django-cms-documentation" title="Permalink to this headline">¶</a></h1>
-<p>This is the developer documentation for the Integreat Django backend.</p>
-<p>For general help with the Django framework, please refer to the <a class="reference external" href="https://docs.djangoproject.com/en/2.2/" target="_blank" title="(in Django v2.2)"><span>Django documentation</span></a>.</p>
-<div class="section" id="first-steps">
-<h2>First Steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>Following packages are required before installing the project (install them with your package manager):</p>
 <ul class="simple">
-<li><a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>: Installation guide</li>
-<li><a class="reference internal" href="dev-server.html"><span class="doc">Development Server</span></a>: Run local development server</li>
-<li><a class="reference internal" href="tutorials.html"><span class="doc">Tutorials</span></a>: Step-by-step guides</li>
-<li><a class="reference internal" href="dev-tools.html"><span class="doc">Developer Tools</span></a>: Scripts for developers</li>
-<li><a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a>: General problem solving guide</li>
+<li><a class="reference external" href="https://git-scm.com/" target="_blank">git</a></li>
+<li><a class="reference external" href="https://www.npmjs.com/" target="_blank">npm</a></li>
+<li><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7" target="_blank">python3.7</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions" target="_blank">Debian-based distributions</a> <a class="footnote-reference" href="#ppa" id="id1">[1]</a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python37/" target="_blank">python37</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions" target="_blank">Arch-based distributions</a>)</li>
+<li><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7-dev" target="_blank">python3.7-dev</a> (only required on <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions" target="_blank">Debian-based distributions</a>)</li>
+<li><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip" target="_blank">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions" target="_blank">Debian-based distributions</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip" target="_blank">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions" target="_blank">Arch-based distributions</a>)</li>
+<li><a class="reference external" href="https://pipenv.pypa.io/en/latest/" target="_blank">pipenv</a> for python3 <a class="footnote-reference" href="#pip" id="id5">[2]</a></li>
+<li>Either <a class="reference external" href="https://www.postgresql.org/" target="_blank">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/" target="_blank">docker</a> to run a local database server</li>
+<li><a class="reference external" href="https://www.gnu.org/software/gettext/" target="_blank">gettext</a> to use the translation features</li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<table class="last docutils footnote" frame="void" id="ppa" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>If your distro does not contain python3.7, you first have to add a ppa repository, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:deadsnakes/ppa</span></code>.</td></tr>
+</tbody>
+</table>
 </div>
-<div class="section" id="basic-concepts">
-<h2>Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<table class="last docutils footnote" frame="void" id="pip" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[2]</a></td><td><p class="first">If no recent version of pipenv is packaged for your distro, use <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pipenv</span> <span class="pre">--user</span></code>.</p>
+<p class="last">You might have to add <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=\$PATH:~/.local/bin</span></code> to your default shell config (e.g. <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>).</p>
+</td></tr>
+</tbody>
+</table>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="virtualenv.html"><span class="doc">Virtual Environment</span></a>: Virtual Python environment and Pipenv</li>
-<li><a class="reference internal" href="internationalization.html"><span class="doc">Internationalization (i18n)</span></a>: Multi-language support for the backend UI</li>
-</ul>
 </div>
-<div class="section" id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<div class="section" id="download-sources">
+<h2>Download sources<a class="headerlink" href="#download-sources" title="Permalink to this headline">¶</a></h2>
+<p>Clone the project, either</p>
+<div class="two-columns docutils container">
+<div class="left-side docutils container">
+<p>via SSH:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:Integreat/cms-django.git
+<span class="nb">cd</span> cms-django
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="issue-reporting.html"><span class="doc">Issue Reporting Guidelines</span></a>: Rug Reporting and Feature Request Guidelines</li>
-<li><a class="reference internal" href="code-style.html"><span class="doc">Code Style Guidelines</span></a>: Coding Conventions</li>
-<li><a class="reference internal" href="git-flow.html"><span class="doc">GitHub Workflow</span></a>: GitHub Workflow model</li>
-<li><a class="reference internal" href="code-of-conduct.html"><span class="doc">Code of Conduct</span></a>: Contributor Covenant Code of Conduct</li>
-</ul>
 </div>
-<div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<div class="right-side docutils container">
+<p>or HTTPS:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Integreat/cms-django.git
+<span class="nb">cd</span> cms-django
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="autogenerated/backend.html"><span class="doc">Backend</span></a>: This is the project’s main app which contains all configuration files.</li>
-<li><a class="reference internal" href="autogenerated/cms.html"><span class="doc">CMS</span></a>: This is the content management system for backend users which contains all database models, views, forms and templates.</li>
-<li><a class="reference internal" href="autogenerated/api.html"><span class="doc">API</span></a>: This is the app which contains all API routes and Classes which maps the cms models to API JSON responses. This is not the API documentation itself, but the Django developer documentation. A link to the API documentation will follow soon.</li>
-<li><a class="reference internal" href="autogenerated/gvz_api.html"><span class="doc">Gvz API</span></a>: This is the app  to communicate with our Gemeindeverzeichnis API to automatically import coordinates and region aliases</li>
-</ul>
 </div>
-<div class="section" id="indices">
-<h2>Indices<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
 </div>
-<ul class="simple">
-<li><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Full Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Python Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
+</div>
+<div class="section" id="install-dependencies-and-local-package">
+<h2>Install dependencies and local package<a class="headerlink" href="#install-dependencies-and-local-package" title="Permalink to this headline">¶</a></h2>
+<p>And install it using our developer tool <code class="docutils literal notranslate"><span class="pre">ìnstall.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/install.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pipenv.
+If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> or <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span></code> directly.</p>
+</div>
+</div>
+<div class="section" id="create-debian-package">
+<h2>Create debian package<a class="headerlink" href="#create-debian-package" title="Permalink to this headline">¶</a></h2>
+<p>Packaging for Debian can be done with setuptools:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install stdeb --user
+python3 setup.py --command-packages<span class="o">=</span>stdeb.command bdist_deb
+</pre></div>
+</div>
+<p>The project requires the package python3-django-widget-tweaks which has to be built manually:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:jazzband/django-widget-tweaks.git
+<span class="nb">cd</span> django-widget-tweaks
+pip3 install stdeb
+python3 setup.py --command-packages<span class="o">=</span>stdeb.command bdist_deb
+</pre></div>
+</div>
+<p>Then install both packages with gdebi:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt install gdebi postgresql
+gdebi django-widget-tweaks/deb_dist/python3-django-widget-tweaks_1.4.3-1_all.deb
+gdebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
+</pre></div>
+</div>
+<p>In the end, create a PostgreSQL user and database and adjust the <code class="docutils literal notranslate"><span class="pre">/usr/lib/python3/dist-packages/backend/settings.py</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>In some cases, you can just use the developer tool <code class="docutils literal notranslate"><span class="pre">package.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/package.sh" target="_blank">Source</a>]:</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/package.sh
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -652,8 +692,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dev-server.html" class="btn btn-neutral float-right" title="Development Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Integreat Django CMS documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

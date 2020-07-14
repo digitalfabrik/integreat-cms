@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Integreat Django CMS documentation &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Internationalization (i18n) &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -38,7 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" /> 
+    <link rel="next" title="Issue Reporting Guidelines" href="issue-reporting.html" />
+    <link rel="prev" title="Virtual Environment" href="virtualenv.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,10 +52,10 @@
         <div class="wy-side-nav-search" >
           
     
-        <a href="#"><img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+        <a href="index.html"><img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
     
     
-        <a href="#" class="icon icon-home"> integreat-cms</a>
+        <a href="index.html" class="icon icon-home"> integreat-cms</a>
     
     
         
@@ -116,7 +117,7 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Basic Concepts</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a></li>
@@ -124,16 +125,16 @@
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#remove-virtual-environment">Remove virtual environment</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="internationalization.html">Internationalization (i18n)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="internationalization.html#models">Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="internationalization.html#views">Views</a></li>
-<li class="toctree-l3"><a class="reference internal" href="internationalization.html#templates">Templates</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Internationalization (i18n)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hardcoded-strings">Hardcoded Strings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#views">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#templates">Templates</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="internationalization.html#translation-file">Translation File</a></li>
-<li class="toctree-l2"><a class="reference internal" href="internationalization.html#compilation">Compilation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="internationalization.html#developer-tools">Developer Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#translation-file">Translation File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compilation">Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developer-tools">Developer Tools</a></li>
 </ul>
 </li>
 </ul>
@@ -536,7 +537,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">integreat-cms</a>
+          <a href="index.html">integreat-cms</a>
         
       </nav>
 
@@ -565,9 +566,9 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Integreat Django CMS documentation</li>
+      <li>Internationalization (i18n)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -584,63 +585,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="integreat-django-cms-documentation">
-<h1>Integreat Django CMS documentation<a class="headerlink" href="#integreat-django-cms-documentation" title="Permalink to this headline">¶</a></h1>
-<p>This is the developer documentation for the Integreat Django backend.</p>
-<p>For general help with the Django framework, please refer to the <a class="reference external" href="https://docs.djangoproject.com/en/2.2/" target="_blank" title="(in Django v2.2)"><span>Django documentation</span></a>.</p>
-<div class="section" id="first-steps">
-<h2>First Steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+  <div class="section" id="internationalization-i18n">
+<h1>Internationalization (i18n)<a class="headerlink" href="#internationalization-i18n" title="Permalink to this headline">¶</a></h1>
+<p>For more detailed information, have a look at the official Django documentation on <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" target="_blank" title="(in Django v2.2)"><span>Internationalization and localization</span></a>.</p>
+<div class="section" id="hardcoded-strings">
+<h2>Hardcoded Strings<a class="headerlink" href="#hardcoded-strings" title="Permalink to this headline">¶</a></h2>
+<p>Whenever you use hardcoded strings, use english text and encapsulate it with a translation function.</p>
+<div class="section" id="models">
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="n">string</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your string&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>: Installation guide</li>
-<li><a class="reference internal" href="dev-server.html"><span class="doc">Development Server</span></a>: Run local development server</li>
-<li><a class="reference internal" href="tutorials.html"><span class="doc">Tutorials</span></a>: Step-by-step guides</li>
-<li><a class="reference internal" href="dev-tools.html"><span class="doc">Developer Tools</span></a>: Scripts for developers</li>
-<li><a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a>: General problem solving guide</li>
-</ul>
 </div>
-<div class="section" id="basic-concepts">
-<h2>Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<div class="section" id="views">
+<h3>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="n">string</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your string&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="virtualenv.html"><span class="doc">Virtual Environment</span></a>: Virtual Python environment and Pipenv</li>
-<li><a class="reference internal" href="internationalization.html"><span class="doc">Internationalization (i18n)</span></a>: Multi-language support for the backend UI</li>
-</ul>
 </div>
-<div class="section" id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<div class="section" id="templates">
+<h3>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">trans</span> <span class="s1">&#39;Your string&#39;</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="issue-reporting.html"><span class="doc">Issue Reporting Guidelines</span></a>: Rug Reporting and Feature Request Guidelines</li>
-<li><a class="reference internal" href="code-style.html"><span class="doc">Code Style Guidelines</span></a>: Coding Conventions</li>
-<li><a class="reference internal" href="git-flow.html"><span class="doc">GitHub Workflow</span></a>: GitHub Workflow model</li>
-<li><a class="reference internal" href="code-of-conduct.html"><span class="doc">Code of Conduct</span></a>: Contributor Covenant Code of Conduct</li>
-</ul>
 </div>
-<div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="autogenerated/backend.html"><span class="doc">Backend</span></a>: This is the project’s main app which contains all configuration files.</li>
-<li><a class="reference internal" href="autogenerated/cms.html"><span class="doc">CMS</span></a>: This is the content management system for backend users which contains all database models, views, forms and templates.</li>
-<li><a class="reference internal" href="autogenerated/api.html"><span class="doc">API</span></a>: This is the app which contains all API routes and Classes which maps the cms models to API JSON responses. This is not the API documentation itself, but the Django developer documentation. A link to the API documentation will follow soon.</li>
-<li><a class="reference internal" href="autogenerated/gvz_api.html"><span class="doc">Gvz API</span></a>: This is the app  to communicate with our Gemeindeverzeichnis API to automatically import coordinates and region aliases</li>
-</ul>
+<div class="section" id="translation-file">
+<h2>Translation File<a class="headerlink" href="#translation-file" title="Permalink to this headline">¶</a></h2>
+<p>After you finished your changes to the code base, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> src/cms
+pipenv run integreat-cms-cli makemessages -l de
+</pre></div>
 </div>
-<div class="section" id="indices">
-<h2>Indices<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<p>Then, open the file <code class="docutils literal notranslate"><span class="pre">./src/cms/locale/de/LC_MESSAGES/django.po</span></code> and fill in the german translations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>msgid <span class="s2">&quot;Your string&quot;</span>
+msgstr <span class="s2">&quot;Deine Zeichenkette&quot;</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Full Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Python Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
+</div>
+<div class="section" id="compilation">
+<h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this headline">¶</a></h2>
+<p>To actually see the translated strings in the backend UI, compile the django.po file as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> src/cms
+pipenv run integreat-cms-cli compilemessages
+</pre></div>
+</div>
+</div>
+<div class="section" id="developer-tools">
+<h2>Developer Tools<a class="headerlink" href="#developer-tools" title="Permalink to this headline">¶</a></h2>
+<p>To do <code class="docutils literal notranslate"><span class="pre">makemessages</span></code> and <code class="docutils literal notranslate"><span class="pre">compilemessages</span></code> in one step, use <code class="docutils literal notranslate"><span class="pre">translate.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/translate.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/translate.sh
+</pre></div>
+</div>
+<p>If you run into merge/rebase conflicts inside the translation file, use <code class="docutils literal notranslate"><span class="pre">resolve_translation_conflicts.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/resolve_translation_conflicts.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/resolve_translation_conflicts.sh
+</pre></div>
+</div>
+<p>If you want to check, whether your translations is up-to-date or if there are any actions required, run <code class="docutils literal notranslate"><span class="pre">check_translations.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/check_translations.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/check_translations.sh
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -652,8 +660,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="issue-reporting.html" class="btn btn-neutral float-right" title="Issue Reporting Guidelines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="virtualenv.html" class="btn btn-neutral float-left" title="Virtual Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Integreat Django CMS documentation &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Development Server &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -38,7 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" /> 
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,10 +52,10 @@
         <div class="wy-side-nav-search" >
           
     
-        <a href="#"><img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+        <a href="index.html"><img src="_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
     
     
-        <a href="#" class="icon icon-home"> integreat-cms</a>
+        <a href="index.html" class="icon icon-home"> integreat-cms</a>
     
     
         
@@ -81,7 +82,7 @@
             
             
               <p class="caption"><span class="caption-text">First Steps</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#download-sources">Download sources</a></li>
@@ -89,9 +90,9 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html#create-debian-package">Create debian package</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dev-server.html">Development Server</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dev-server.html#database">Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev-server.html#webserver">Webserver</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#webserver">Webserver</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -536,7 +537,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">integreat-cms</a>
+          <a href="index.html">integreat-cms</a>
         
       </nav>
 
@@ -565,9 +566,9 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Integreat Django CMS documentation</li>
+      <li>Development Server</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -584,63 +585,63 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="integreat-django-cms-documentation">
-<h1>Integreat Django CMS documentation<a class="headerlink" href="#integreat-django-cms-documentation" title="Permalink to this headline">¶</a></h1>
-<p>This is the developer documentation for the Integreat Django backend.</p>
-<p>For general help with the Django framework, please refer to the <a class="reference external" href="https://docs.djangoproject.com/en/2.2/" target="_blank" title="(in Django v2.2)"><span>Django documentation</span></a>.</p>
-<div class="section" id="first-steps">
-<h2>First Steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="section" id="development-server">
+<h1>Development Server<a class="headerlink" href="#development-server" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="database">
+<h2>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h2>
+<p>Two different types of local database servers are supported:</p>
 <ul class="simple">
-<li><a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>: Installation guide</li>
-<li><a class="reference internal" href="dev-server.html"><span class="doc">Development Server</span></a>: Run local development server</li>
-<li><a class="reference internal" href="tutorials.html"><span class="doc">Tutorials</span></a>: Step-by-step guides</li>
-<li><a class="reference internal" href="dev-tools.html"><span class="doc">Developer Tools</span></a>: Scripts for developers</li>
-<li><a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a>: General problem solving guide</li>
+<li><a class="reference external" href="https://www.docker.com/" target="_blank">Docker</a> container (recommended)<ul>
+<li>Will be automatically created and started if you use the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script without a local server running on port 5432</li>
+<li>Uses the alternate port 5433 (configured at <a class="reference internal" href="autogenerated/backend.html#module-backend.docker_settings" title="backend.docker_settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.docker_settings</span></code></a>)</li>
+<li>Requires <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to connect to the docker daemon (the dev server will still run as the user who invoked <code class="docutils literal notranslate"><span class="pre">sudo</span></code>)</li>
 </ul>
+</li>
+<li>Native <a class="reference external" href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> installation on your system<ul>
+<li>Install and run manually before starting the local webserver</li>
+<li>Installation process varies across different distros (e.g. on <a class="reference external" href="https://wiki.ubuntuusers.de/PostgreSQL/" target="_blank">Ubuntu</a>)</li>
+<li>Configuration: (see <a class="reference internal" href="autogenerated/backend.html#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a>)<ul>
+<li>Port: <code class="docutils literal notranslate"><span class="pre">5432</span></code></li>
+<li>Database: <code class="docutils literal notranslate"><span class="pre">integreat</span></code></li>
+<li>Username: <code class="docutils literal notranslate"><span class="pre">integreat</span></code></li>
+<li>Password: <code class="docutils literal notranslate"><span class="pre">password</span></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to remove all contents of your database, use the dev-tool <code class="docutils literal notranslate"><span class="pre">prune_database.sh</span></code>.</p>
 </div>
-<div class="section" id="basic-concepts">
-<h2>Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
 </div>
+<div class="section" id="webserver">
+<h2>Webserver<a class="headerlink" href="#webserver" title="Permalink to this headline">¶</a></h2>
+<p>Run the inbuilt local webserver with <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/run.sh" target="_blank">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>This is a convenience script which also performs the following actions:</p>
 <ul class="simple">
-<li><a class="reference internal" href="virtualenv.html"><span class="doc">Virtual Environment</span></a>: Virtual Python environment and Pipenv</li>
-<li><a class="reference internal" href="internationalization.html"><span class="doc">Internationalization (i18n)</span></a>: Multi-language support for the backend UI</li>
+<li>Compile and minify CSS</li>
+<li>Compress JS and CSS files</li>
+<li>Regenerate and compile translation file</li>
+<li>Migrate database</li>
 </ul>
+<p>If you want to speed up this process and don’t need the extra functionality, you might also use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">run</span> <span class="n">integreat</span><span class="o">-</span><span class="n">cms</span><span class="o">-</span><span class="n">cli</span> <span class="n">runserver</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span> <span class="o">--</span><span class="n">settings</span><span class="o">=</span><span class="n">backend</span><span class="o">.</span><span class="n">docker_settings</span>
+</pre></div>
 </div>
-<div class="section" id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">run</span> <span class="n">integreat</span><span class="o">-</span><span class="n">cms</span><span class="o">-</span><span class="n">cli</span> <span class="n">runserver</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><a class="reference internal" href="issue-reporting.html"><span class="doc">Issue Reporting Guidelines</span></a>: Rug Reporting and Feature Request Guidelines</li>
-<li><a class="reference internal" href="code-style.html"><span class="doc">Code Style Guidelines</span></a>: Coding Conventions</li>
-<li><a class="reference internal" href="git-flow.html"><span class="doc">GitHub Workflow</span></a>: GitHub Workflow model</li>
-<li><a class="reference internal" href="code-of-conduct.html"><span class="doc">Code of Conduct</span></a>: Contributor Covenant Code of Conduct</li>
-</ul>
+<p>Depending on your local database server.</p>
+<p>After that, open your browser and navigate to <a class="reference external" href="http://localhost:8000/" target="_blank">http://localhost:8000/</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to use another port than <code class="docutils literal notranslate"><span class="pre">8000</span></code>, start the server with <code class="docutils literal notranslate"><span class="pre">integreat-cms-cli</span></code> and choose another port, or edit the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> dev-tool.</p>
 </div>
-<div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-</div>
-<ul class="simple">
-<li><a class="reference internal" href="autogenerated/backend.html"><span class="doc">Backend</span></a>: This is the project’s main app which contains all configuration files.</li>
-<li><a class="reference internal" href="autogenerated/cms.html"><span class="doc">CMS</span></a>: This is the content management system for backend users which contains all database models, views, forms and templates.</li>
-<li><a class="reference internal" href="autogenerated/api.html"><span class="doc">API</span></a>: This is the app which contains all API routes and Classes which maps the cms models to API JSON responses. This is not the API documentation itself, but the Django developer documentation. A link to the API documentation will follow soon.</li>
-<li><a class="reference internal" href="autogenerated/gvz_api.html"><span class="doc">Gvz API</span></a>: This is the app  to communicate with our Gemeindeverzeichnis API to automatically import coordinates and region aliases</li>
-</ul>
-</div>
-<div class="section" id="indices">
-<h2>Indices<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-</div>
-<ul class="simple">
-<li><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Full Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Python Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
 </div>
 </div>
 
@@ -652,8 +653,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
