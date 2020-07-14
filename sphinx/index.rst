@@ -84,9 +84,9 @@ Indices
     :caption: Indices
     :hidden:
 
-    glossary
+    Glossary <https://wiki.integreat-app.de/glossary>
 
-* :doc:`glossary`
+* `Glossary <https://wiki.integreat-app.de/glossary>`_
 * :ref:`Full Index <genindex>`
 * :ref:`Python Module Index <modindex>`
 * :ref:`search`
