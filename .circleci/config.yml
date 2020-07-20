@@ -249,3 +249,6 @@ workflows:
               only: develop
       - docker-images:
           context: docker-hub
+          filters:
+            branches:
+              ignore: /^dependabot\/.*/
