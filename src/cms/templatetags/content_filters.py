@@ -15,11 +15,14 @@ def get_translation(instance, language_code):
 
 @register.simple_tag
 def translated_language_name(language_code):
-    return Language.objects.get(code=language_code).translated_name
+    language = Language.objects.filter(code=language_code)
+    if language.exists():
+        return language.first().translated_name
+    return ''
 
 @register.simple_tag
 def get_language(language_code):
-    return Language.objects.get(code=language_code)
+    return Language.objects.filter(code=language_code).first()
 
 # Unify the language codes of backend and content languages
 @register.simple_tag
