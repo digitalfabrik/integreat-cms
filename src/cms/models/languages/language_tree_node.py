@@ -119,35 +119,35 @@ class LanguageTreeNode(MPTTModel):
     # Explicitly define functions to show documentation of base model
     @raise_if_unsaved
     def get_ancestors(self, ascending=False, include_self=False):
-        super(LanguageTreeNode, self).get_ancestors(ascending, include_self)
+        return super(LanguageTreeNode, self).get_ancestors(ascending, include_self)
 
     # pylint: disable=useless-super-delegation
     @raise_if_unsaved
     def get_family(self):
-        super(LanguageTreeNode, self).get_family()
+        return super(LanguageTreeNode, self).get_family()
 
     @raise_if_unsaved
     def get_children(self):
-        super(LanguageTreeNode, self).get_children()
+        return super(LanguageTreeNode, self).get_children()
 
     @raise_if_unsaved
     def get_descendants(self, include_self=False):
-        super(LanguageTreeNode, self).get_descendants(include_self)
+        return super(LanguageTreeNode, self).get_descendants(include_self)
 
     def get_descendant_count(self):
-        super(LanguageTreeNode, self).get_descendant_count()
+        return super(LanguageTreeNode, self).get_descendant_count()
 
     @raise_if_unsaved
     def get_root(self):
-        super(LanguageTreeNode, self).get_root()
+        return super(LanguageTreeNode, self).get_root()
 
     # pylint: disable=useless-super-delegation
     def insert_at(self, target, position='first-child', save=False, allow_existing_pk=False, refresh_target=True):
-        super(LanguageTreeNode, self).insert_at(target, position, save, allow_existing_pk, refresh_target)
+        return super(LanguageTreeNode, self).insert_at(target, position, save, allow_existing_pk, refresh_target)
 
     # pylint: disable=useless-super-delegation
     def move_to(self, target, position='first-child'):
-        super(LanguageTreeNode, self).move_to(target, position)
+        return super(LanguageTreeNode, self).move_to(target, position)
 
     def __str__(self):
         """
