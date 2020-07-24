@@ -587,32 +587,74 @@
             
   <div class="section" id="module-backend">
 <span id="backend"></span><h1>Backend<a class="headerlink" href="#module-backend" title="Permalink to this headline">¶</a></h1>
+<p>This package is the main entry point for the application and contains all configuration for the other packages.</p>
 <div class="section" id="module-backend.circleci_settings">
 <span id="circleci-settings"></span><h2>Circleci Settings<a class="headerlink" href="#module-backend.circleci_settings" title="Permalink to this headline">¶</a></h2>
+<p>Django settings for our CircleCI workflow.
+All configuration is imported from <a class="reference internal" href="#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a> except it sets <code class="docutils literal notranslate"><span class="pre">COMPRESS_ENABLED</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> to make sure
+the compressing is tested in CI.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" target="_blank" title="(in Django v2.2)"><span>Django settings</span></a>.
+For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" target="_blank" title="(in Django v2.2)"><span>Settings</span></a>.</p>
 </div>
 <div class="section" id="module-backend.context_processors">
 <span id="context-processors"></span><h2>Context Processors<a class="headerlink" href="#module-backend.context_processors" title="Permalink to this headline">¶</a></h2>
+<p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/templates/api/#context-processors" target="_blank" title="(in Django v2.2)"><span>Built-in template context processors</span></a>).</p>
+<dl class="py function">
+<dt id="backend.context_processors.region_slug_processor">
+<code class="descclassname">backend.context_processors.</code><code class="descname">region_slug_processor</code><span class="sig-paren">(</span><em><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/backend/context_processors.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.context_processors.region_slug_processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>This context processor retrieves the current <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter and passes it to the templates.
+Additionally, the <code class="docutils literal notranslate"><span class="pre">regions</span></code>-variable contains all other regions except the current region
+(If there is no current region, it contains all regions).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" target="_blank" title="(in Django v2.2)"><em>django.http.HttpRequest</em></a>) – The current http request</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The current region and all other regions</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-backend.docker_settings">
 <span id="docker-settings"></span><h2>Docker Settings<a class="headerlink" href="#module-backend.docker_settings" title="Permalink to this headline">¶</a></h2>
+<p>Django settings for different database configuration.
+The docker container started in the dev-tool <code class="docutils literal notranslate"><span class="pre">run.sh</span></code>
+[<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/run.sh" target="_blank">Source</a>] exposes the alternative port
+<code class="docutils literal notranslate"><span class="pre">5433</span></code>.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" target="_blank" title="(in Django v2.2)"><span>Django settings</span></a>.
+For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" target="_blank" title="(in Django v2.2)"><span>Settings</span></a>.</p>
 </div>
 <div class="section" id="module-backend.settings">
 <span id="settings"></span><h2>Settings<a class="headerlink" href="#module-backend.settings" title="Permalink to this headline">¶</a></h2>
 <p>Django settings for backend project.</p>
-<p>For more information on this file, see
-<a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" target="_blank">https://docs.djangoproject.com/en/2.2/topics/settings/</a></p>
-<p>For the full list of settings and their values, see
-<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" target="_blank">https://docs.djangoproject.com/en/2.2/ref/settings/</a></p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" target="_blank" title="(in Django v2.2)"><span>Django settings</span></a>.
+For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" target="_blank" title="(in Django v2.2)"><span>Settings</span></a>.</p>
 </div>
 <div class="section" id="module-backend.urls">
 <span id="urls"></span><h2>Urls<a class="headerlink" href="#module-backend.urls" title="Permalink to this headline">¶</a></h2>
+<p>Django URL dispatcher.
+Delegates the following namespaces:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">/</span></code> to <a class="reference internal" href="cms.html#module-cms.urls" title="cms.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.urls</span></code></a></li>
+<li><code class="docutils literal notranslate"><span class="pre">/api/</span></code> to <a class="reference internal" href="api.html#module-api.urls" title="api.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">api.urls</span></code></a></li>
+<li><code class="docutils literal notranslate"><span class="pre">/admin/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_urls" target="_blank" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.contrib.admin.ModelAdmin.get_urls()</span></code></a></li>
+<li><code class="docutils literal notranslate"><span class="pre">/i18n/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/translation/#module-django.conf.urls.i18n" target="_blank" title="(in Django v2.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.conf.urls.i18n</span></code></a></li>
+</ul>
+<p>Additionally, the error handlers in <a class="reference internal" href="cms.views.error_handler.html#module-cms.views.error_handler" title="cms.views.error_handler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.views.error_handler</span></code></a> are referenced here (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/urls/" target="_blank" title="(in Django v2.2)"><span>django.urls functions for use in URLconfs</span></a>).</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/urls/" target="_blank" title="(in Django v2.2)"><span>URL dispatcher</span></a>.</p>
 </div>
 <div class="section" id="module-backend.wsgi">
 <span id="wsgi"></span><h2>Wsgi<a class="headerlink" href="#module-backend.wsgi" title="Permalink to this headline">¶</a></h2>
-<p>WSGI config for backend project.</p>
-<p>It exposes the WSGI callable as a module-level variable named <code class="docutils literal notranslate"><span class="pre">application</span></code>.</p>
-<p>For more information on this file, see
-<a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/" target="_blank">https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/</a></p>
+<p>WSGI config for backend project.
+It exposes the WSGI callable as a module-level variable named <code class="docutils literal notranslate"><span class="pre">application</span></code>.</p>
+<p><a class="reference external" href="https://wsgi.readthedocs.io/en/latest/index.html" target="_blank" title="(in www.wsgi.org v0.9)"><span>WSGI</span></a> (Web Server Gateway Interface) is a simple calling convention for web servers to forward requests to
+python frameworks (in our case Django).</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/" target="_blank" title="(in Django v2.2)"><span>How to deploy with WSGI</span></a>.</p>
 </div>
 </div>
 
@@ -642,7 +684,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 22, 2020.
+        Last updated on Jul 24, 2020.
       </span>
 
     </p>
