@@ -1,10 +1,11 @@
 """
 WSGI config for backend project.
-
 It exposes the WSGI callable as a module-level variable named ``application``.
 
-For more information on this file, see
-https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
+:doc:`wsgi:index` (Web Server Gateway Interface) is a simple calling convention for web servers to forward requests to
+python frameworks (in our case Django).
+
+For more information on this file, see :doc:`howto/deployment/wsgi/index`.
 """
 
 import os
