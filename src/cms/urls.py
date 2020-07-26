@@ -1,4 +1,8 @@
-"""Provides routing to all submodules inside the application
+"""
+Django URL dispatcher for the cms package.
+See :mod:`backend.urls` for the other namespaces of this application.
+
+For more information on this file, see :doc:`topics/http/urls`.
 """
 from django.conf.urls import include, url
 from django.conf.urls.static import static
