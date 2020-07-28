@@ -14,8 +14,6 @@ import inspect
 import importlib
 import django
 
-from sphinx.writers.html import HTMLTranslator
-
 from backend.settings import VERSION
 
 # Append project source directory to path environment variable
@@ -35,8 +33,6 @@ def setup(app):
     """
     # Register the docstring processor with sphinx to improve the appearance of Django models
     app.connect('autodoc-process-docstring', process_django_models)
-    # Patch HTMLTranslator to open external links in new tab
-    app.set_translator('html', PatchedHTMLTranslator)
 
 
 # -- Project information -----------------------------------------------------
@@ -186,22 +182,3 @@ def linkcode_resolve(domain, info):
         except (TypeError, IOError):
             pass
     return f"https://github.com/Integreat/cms-django/blob/develop/src/{filename}.py{line_number_reference}"
-
-# -- Link targets ------------------------------------------------------------
-
-
-# pylint: disable=abstract-method
-class PatchedHTMLTranslator(HTMLTranslator):
-    """Open external links in a new tab"""
-
-    def visit_reference(self, node):
-        if (
-                node.get('newtab') or
-                not (
-                    node.get('target') or
-                    node.get('internal') or
-                    'refuri' not in node
-                )
-        ):
-            node['target'] = '_blank'
-        super().visit_reference(node)
