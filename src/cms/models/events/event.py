@@ -127,7 +127,7 @@ class Event(models.Model):
         :param region_slug: slug of the :class:`~cms.models.regions.region.Region` the event belongs to
         :type region_slug: str
 
-        :param archived: whether or not archived events should be returned
+        :param archived: whether or not archived events should be returned, defaults to ``False``
         :type archived: bool, optional
 
         :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived events in the requested

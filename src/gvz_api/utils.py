@@ -121,8 +121,8 @@ class GvzApiWrapper():
         :param region_name: name of a region (city name, county name, etc)
         :type region_name: str
 
-        :param region_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to None
-        :type region_type: str
+        :param region_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to ``None``
+        :type region_type: str, optional
 
         :return: JSON search results defined in the GVZ API
         :rtype: str
@@ -166,14 +166,14 @@ class GvzRegion():
     Represents a region in the GVZ, initial values will be retrieved
     from API on initialization.
 
-    :param region_key: official ID for a region, i.e. Gemeindeschlüssel, defaults to None
-    :type region_key: str
+    :param region_key: official ID for a region, i.e. Gemeindeschlüssel, defaults to ``None``
+    :type region_key: str, optional
 
-    :param region_name: name of a region (city name, county name, etc), defaults to None
-    :type region_name: str
+    :param region_name: name of a region (city name, county name, etc), defaults to ``None``
+    :type region_name: str, optional
 
-    :param region_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to None
-    :type region_type: str
+    :param region_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to ``None``
+    :type region_type: str, optional
     """
 
     def __init__(self, region_key=None, region_name=None, region_type=None):

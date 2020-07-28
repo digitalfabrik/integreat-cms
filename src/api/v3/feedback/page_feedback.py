@@ -10,17 +10,17 @@ class FeedbackData:
     This class is a generic api representation of cms feedback incl. its meta information stored in the database.
     It is used to examine feedback sent to the feedback api endpoint.
 
-    :param page_id: The id of the page this feedback is referring to, if empty the permalink is required, defaults to None
-    :type page_id: int
+    :param page_id: The id of the page this feedback is referring to, if empty the permalink is required, defaults to ``None``
+    :type page_id: int, optional
 
-    :param permalink: The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to ''
-    :type permalink: str
+    :param permalink: The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to ``''``
+    :type permalink: str, optional
 
-    :param comment: The descriptive feedback string, defaults to ''
-    :type comment: int
+    :param comment: The descriptive feedback string, defaults to ``''``
+    :type comment: int, optional
 
-    :param emotion: The emotion of the feedback, can be one of ['Pos', 'Neg', 'NA'], defaults to 'NA'
-    :type emotion: int
+    :param emotion: The emotion of the feedback, can be one of ``['Pos', 'Neg', 'NA']``, defaults to ``'NA'``
+    :type emotion: int, optional
     """
 
     def __init__(self, page_id, permalink, comment, emotion):

@@ -46,7 +46,7 @@ class POI(models.Model):
         :param region_slug: slug of the :class:`~cms.models.regions.region.Region` the POI belongs to
         :type region_slug: str
 
-        :param archived: whether or not archived POIs should be returned
+        :param archived: whether or not archived POIs should be returned, defaults to ``False``
         :type archived: bool, optional
 
         :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived POIs in the requested

@@ -23,7 +23,7 @@ class Document(models.Model):
         :type using: str, optional
 
         :param keep_parents: If the model is a sub-model of another, setting ``keep_parents = True`` will keep the data
-                             in the parent database table
+                             in the parent database table, defaults to ``False``
         :type keep_parents: bool, optional
 
         :return: The number of objects deleted and a dictionary with the number of deletions per object type.
