@@ -898,6 +898,62 @@ not changed in production mode and show an error message if this is the case.</p
 </div>
 <div class="section" id="module-cms.decorators">
 <span id="decorators"></span><h2>Decorators<a class="headerlink" href="#module-cms.decorators" title="Permalink to this headline">¶</a></h2>
+<p>Django view decorators can be used to restrict the execution of a view function on certain conditions.</p>
+<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/decorators/" target="_blank" title="(in Django v2.2)"><span>View decorators</span></a>.</p>
+<dl class="py function">
+<dt id="cms.decorators.modify_mfa_authenticated">
+<code class="descclassname">cms.decorators.</code><code class="descname">modify_mfa_authenticated</code><span class="sig-paren">(</span><em><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L57" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.modify_mfa_authenticated" title="Permalink to this definition">¶</a></dt>
+<dd><p>This decorator can be used to make sure a user can only modify his 2FA settings when he has a valid 2FA session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The decorated function</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)">Callable</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.decorators.region_permission_required">
+<code class="descclassname">cms.decorators.</code><code class="descname">region_permission_required</code><span class="sig-paren">(</span><em><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L35" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.region_permission_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>This decorator can be used to make sure a view can only be retrieved by users of the requested region.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The decorated function</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)">Callable</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.decorators.staff_required">
+<code class="descclassname">cms.decorators.</code><code class="descname">staff_required</code><span class="sig-paren">(</span><em><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.staff_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>This decorator can be used to make sure a view can only be retrieved by users who are either staff or superusers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The decorated function</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)">Callable</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-cms.page_xliff_converter">
 <span id="page-xliff-converter"></span><h2>Page Xliff Converter<a class="headerlink" href="#module-cms.page_xliff_converter" title="Permalink to this headline">¶</a></h2>
