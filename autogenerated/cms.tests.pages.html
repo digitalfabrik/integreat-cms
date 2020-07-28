@@ -591,43 +591,50 @@
             
   <div class="section" id="module-cms.tests.pages">
 <span id="pages"></span><h1>Pages<a class="headerlink" href="#module-cms.tests.pages" title="Permalink to this headline">¶</a></h1>
+<p>This package contains all unit tests for pages.</p>
 <div class="section" id="module-cms.tests.pages.models">
 <span id="models"></span><h2>Models<a class="headerlink" href="#module-cms.tests.pages.models" title="Permalink to this headline">¶</a></h2>
-<p>Test collection for models</p>
+<p>This is a collection of unit tests for the page and page translation model.</p>
 <dl class="py class">
 <dt id="cms.tests.pages.models.PageTest">
-<em class="property">class </em><code class="descclassname">cms.tests.pages.models.</code><code class="descname">PageTest</code><span class="sig-paren">(</span><em><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.tests.pages.models.</code><code class="descname">PageTest</code><span class="sig-paren">(</span><em><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L9" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
-<p>Page model testing</p>
+<p>Unit test for the Page model</p>
 <dl class="py method">
 <dt id="cms.tests.pages.models.PageTest.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setup run before every test method.</p>
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L14" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup run to create a region and page objects.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.tests.pages.models.PageTest.test_depth_no_parent">
-<code class="descname">test_depth_no_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L21" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest.test_depth_no_parent" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_depth_no_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L27" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest.test_depth_no_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Depth is correctly determined for page on first level.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.tests.pages.models.PageTest.test_depth_third_level">
-<code class="descname">test_depth_third_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L25" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest.test_depth_third_level" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_depth_third_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L33" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest.test_depth_third_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Depth is correctly determined for page on third level.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.tests.pages.models.PageTest.test_get_archived">
+<code class="descname">test_get_archived</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L39" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTest.test_get_archived" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function <code class="docutils literal notranslate"><span class="pre">get_archived()</span></code> returns the correct number of pages.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="cms.tests.pages.models.PageTranslationTest">
-<em class="property">class </em><code class="descclassname">cms.tests.pages.models.</code><code class="descname">PageTranslationTest</code><span class="sig-paren">(</span><em><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L38" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTranslationTest" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cms.tests.pages.models.</code><code class="descname">PageTranslationTest</code><span class="sig-paren">(</span><em><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L51" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTranslationTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
-<p>Page translation testing</p>
+<p>Unit test for the page translation model</p>
 <dl class="py method">
 <dt id="cms.tests.pages.models.PageTranslationTest.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L41" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTranslationTest.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setup run before every test method.</p>
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/tests/pages/models.py#L56" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.tests.pages.models.PageTranslationTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup run to create a region and page translation object.</p>
 </dd></dl>
 
 </dd></dl>
