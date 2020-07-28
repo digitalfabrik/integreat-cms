@@ -17,10 +17,10 @@ from .v3.offers import offers
 from .v3.single_page import single_page
 
 urlpatterns = [
-    url(r'regions/$', regions, name='regions'),
-    url(r'regions/live/$', liveregions, name='liveregions'),
-    url(r'regions/hidden/$', hiddenregions, name='hiddenregions'),
-    url(r'regions/pushnew/$', pushnew, name='pushnew'),
+    url(r'regions/$', regions),
+    url(r'regions/live/$', liveregions),
+    url(r'regions/hidden/$', hiddenregions),
+    url(r'regions/pushnew/$', pushnew),
     url(r'(?P<region_slug>[-\w]+)/', include([
         url(r'languages/$', languages),
         url(r'offers/$', offers),
