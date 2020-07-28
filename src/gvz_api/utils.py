@@ -86,8 +86,8 @@ class GvzApiWrapper():
         :param region_type: type of a region
         :type region_type: str
 
-        :return: administrative division of the region
-        :rtype: cms.constants.administrative_division
+        :return: administrative division of the region (choices: :mod:`cms.constants.administrative_division`)
+        :rtype: str
         """
         if region_type in ("Stadt", "Kreisfreie Stadt"):
             return administrative_division.CITY
@@ -121,8 +121,8 @@ class GvzApiWrapper():
         :param region_name: name of a region (city name, county name, etc)
         :type region_name: str
 
-        :param region_type: administrative division type of region, defaults to None
-        :type region_type: cms.constants.administrative_division
+        :param region_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to None
+        :type region_type: str
 
         :return: JSON search results defined in the GVZ API
         :rtype: str
@@ -172,8 +172,8 @@ class GvzRegion():
     :param region_name: name of a region (city name, county name, etc), defaults to None
     :type region_name: str
 
-    :param region_type: administrative division type of region, defaults to None
-    :type region_type: cms.constants.administrative_division
+    :param region_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to None
+    :type region_type: str
     """
 
     def __init__(self, region_key=None, region_name=None, region_type=None):
