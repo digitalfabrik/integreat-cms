@@ -27,11 +27,11 @@ def generate_unique_slug(form_object, foreign_model):
     * :func:`cms.forms.pois.poi_translation_form.POITranslationForm.clean_slug`
 
     :param form_object: The form which contains the slug field
-    :type form_object: django.forms.Form
+    :type form_object: ~django.forms.Form
 
     :param foreign_model: If the form instance has a foreign key to another model (e.g. because it is a translation of
                           a content-object), this paramaeter contains the model of the foreign related object.
-    :type foreign_model: django.db.models.Model
+    :type foreign_model: ~django.db.models.Model
 
     :return: An unique slug identifier
     :rtype: str

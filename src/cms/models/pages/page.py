@@ -90,7 +90,7 @@ class Page(MPTTModel):
         translation exists.
 
         :return: list of all :class:`~cms.models.languages.language.Language` a page is translated into
-        :rtype: list [ cms.models.languages.language.Language ]
+        :rtype: list [ ~cms.models.languages.language.Language ]
         """
         page_translations = self.translations.prefetch_related('language').all()
         languages = []
@@ -109,7 +109,7 @@ class Page(MPTTModel):
 
         :return: The page translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
                  if no translation exists
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(
             language__code=language_code
@@ -127,7 +127,7 @@ class Page(MPTTModel):
 
         :return: The first page translation which matches one of the :class:`~cms.models.languages.language.Language`
                  given or :obj:`None` if no translation exists
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         # Taking [] directly as default parameter would be dangerous because it is mutable
         if not priority_language_codes:
@@ -145,7 +145,7 @@ class Page(MPTTModel):
         :type language_code: str
 
         :return: The public translation of a page
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(
             language__code=language_code,
@@ -189,7 +189,7 @@ class Page(MPTTModel):
         :type region_slug: str
 
         :return: All archived pages of this region
-        :rtype: django.db.models.query.QuerySet
+        :rtype: ~django.db.models.query.QuerySet
         """
         return Page.objects.filter(archived=True, region__slug=region_slug)
 
@@ -220,7 +220,7 @@ class Page(MPTTModel):
 
         :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived pages in the requested
                  :class:`~cms.models.regions.region.Region`
-        :rtype: django.db.models.query.QuerySet
+        :rtype: ~django.db.models.query.QuerySet
         """
         return cls.objects.all().prefetch_related(
             'translations'
