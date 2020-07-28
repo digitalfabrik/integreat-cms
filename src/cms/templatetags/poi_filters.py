@@ -1,3 +1,6 @@
+"""
+This is a collection of tags and filters for points of interest (:class:`~cms.models.pois.poi.POI`).
+"""
 from django import template
 
 register = template.Library()
@@ -5,6 +8,18 @@ register = template.Library()
 
 @register.filter
 def poi_translation_title(poi, language):
+    """
+    This tag returns the title of the most recent translation of the requested point of interest in the requested language.
+
+    :param poi: The requested point of interest
+    :type poi: ~cms.models.pois.poi.POI
+
+    :param language: The requested language
+    :type language: ~cms.models.languages.language.Language
+
+    :return: The title of the requested translation
+    :rtype: str
+    """
     all_poi_translations = poi.translations
     poi_translation = all_poi_translations.filter(language__code=language.code)
     if poi_translation.exists():
@@ -12,38 +27,4 @@ def poi_translation_title(poi, language):
     if all_poi_translations.exists():
         poi_translation = all_poi_translations.first()
         return f'{poi_translation.title} ({poi_translation.language})'
-    return ''
-
-
-@register.filter
-def poi_translation_creator(poi, language):
-    all_poi_translations = poi.translations
-    poi_translation = all_poi_translations.filter(language__code=language.code)
-    if poi_translation.exists():
-        return poi_translation.first().creator
-    if all_poi_translations.exists():
-        poi_translation = all_poi_translations.first()
-        return f'{poi_translation.creator} ({poi_translation.language})'
-    return ''
-
-
-@register.filter
-def poi_translation_last_updated(poi, language):
-    all_poi_translations = poi.translations
-    poi_translation = all_poi_translations.filter(language__code=language.code)
-    if poi_translation.exists():
-        return poi_translation.first().last_updated
-    if all_poi_translations.exists():
-        return all_poi_translations.first().last_updated
-    return ''
-
-
-@register.filter
-def poi_translation_created_date(poi, language):
-    all_poi_translations = poi.translations
-    poi_translation = all_poi_translations.filter(language__code=language.code)
-    if poi_translation.exists():
-        return poi_translation.first().created_date
-    if all_poi_translations.exists():
-        return all_poi_translations.first().created_date
     return ''
