@@ -591,13 +591,14 @@
             
   <div class="section" id="module-cms.forms.regions">
 <span id="regions"></span><h1>Regions<a class="headerlink" href="#module-cms.forms.regions" title="Permalink to this headline">¶</a></h1>
+<p>Forms for creating and modifying region objects</p>
 <div class="section" id="module-cms.forms.regions.region_form">
 <span id="region-form"></span><h2>Region Form<a class="headerlink" href="#module-cms.forms.regions.region_form" title="Permalink to this headline">¶</a></h2>
-<p>Form for creating a region object</p>
 <dl class="py class">
 <dt id="cms.forms.regions.region_form.RegionForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">RegionForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">RegionForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<p>Form for creating and modifying region objects</p>
 <dl class="py method">
 <dt id="cms.forms.regions.region_form.RegionForm.clean">
 <code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L80"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.clean" title="Permalink to this definition">¶</a></dt>
@@ -624,50 +625,40 @@ is saved manually at a later time. Return the model instance.</p>
 <p>Usage: duplicate_language_tree(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole language tree. It starts at root level with the default parent None.
 The recursion is necessary because the new nodes need their correct (also duplicated) parent node.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param source_region</dt>
-<dd class="field-odd"><p>The region from which the language tree should be duplicated</p>
-</dd>
-<dt class="field-even">param target_region</dt>
-<dd class="field-even"><p>The region to which the language tree should be added</p>
-</dd>
-<dt class="field-odd">param source_parent_id</dt>
-<dd class="field-odd"><p>The current parent node id of the recursion</p>
-</dd>
-<dt class="field-even">param target_parent</dt>
-<dd class="field-even"><p>The node of the target region which is the duplicate of the source parent node</p>
-</dd>
-</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The region from which the language tree should be duplicated</p></li>
+<li><p><strong>target_region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The region to which the language tree should be added</p></li>
+<li><p><strong>source_parent_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The current parent node id of the recursion</p></li>
+<li><p><strong>target_parent</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>cms.models.pages.page.Page</em></a>) – The node of the target region which is the duplicate of the source parent node</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
+<dt id="cms.forms.regions.region_form.duplicate_media">
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_media</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L222"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_media" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to duplicate all media of one region to another.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="cms.forms.regions.region_form.duplicate_pages">
-<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L131"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_pages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to duplicate all pages of one region to another.</p>
 <p>Usage: duplicate_pages(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole page tree. It starts at root level with the default parent None.
 The recursion is necessary because the new pages need their correct (also duplicated) parent page.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param source_region</dt>
-<dd class="field-odd"><p>The region from which the pages should be duplicated</p>
-</dd>
-<dt class="field-even">param target_region</dt>
-<dd class="field-even"><p>The region to which the pages should be added</p>
-</dd>
-<dt class="field-odd">param source_parent_id</dt>
-<dd class="field-odd"><p>The current parent page id of the recursion</p>
-</dd>
-<dt class="field-even">param target_parent</dt>
-<dd class="field-even"><p>The page of the target region which is the duplicate of the source parent page</p>
-</dd>
-<dt class="field-odd">param level</dt>
-<dd class="field-odd"><p>recursion level to get a pretty log output</p>
-</dd>
-</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The region from which the pages should be duplicated</p></li>
+<li><p><strong>target_region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The region to which the pages should be added</p></li>
+<li><p><strong>source_parent_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The current parent page id of the recursion</p></li>
+<li><p><strong>target_parent</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>cms.models.pages.page.Page</em></a>) – The page of the target region which is the duplicate of the source parent page</p></li>
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – recursion level to get a pretty log output</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
