@@ -13,7 +13,7 @@ def save_file(request):
     Example usage: :class:`cms.views.media.media_edit_view.MediaEditView`
 
     :param request: The current request submitting the file(s)
-    :type request: django.http.HttpRequest
+    :type request: ~django.http.HttpRequest
 
     :return: A dictionary containing the :class:`~cms.forms.media.document_form.DocumentForm` object and the boolean return status
     :rtype: dict

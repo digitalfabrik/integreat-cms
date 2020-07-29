@@ -19,6 +19,8 @@ class OfferTemplate(models.Model):
     :param post_data: If additional post data is required for retrieving the url, it has to be stored in this dict.
     :param use_postal_code: If and how the postal code should be injected in the url or post data (choices:
                             :mod:`cms.constants.postal_code`)
+    :param created_date: The date and time when the offer template was created
+    :param last_updated: The date and time when the offer template was last updated
 
     Reverse relationships:
 

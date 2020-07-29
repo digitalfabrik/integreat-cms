@@ -52,7 +52,7 @@ class Event(models.Model):
         translation exists.
 
         :return: list of all :class:`~cms.models.languages.language.Language` an event is translated into
-        :rtype: list [ cms.models.languages.language.Language ]
+        :rtype: list [ ~cms.models.languages.language.Language ]
         """
         event_translations = self.translations.prefetch_related('language').all()
         languages = []
@@ -101,7 +101,7 @@ class Event(models.Model):
 
         :return: The event translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
                  if no translation exists
-        :rtype: cms.models.events.event_translation.EventTranslation
+        :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(language__code=language_code).first()
 
@@ -127,12 +127,12 @@ class Event(models.Model):
         :param region_slug: slug of the :class:`~cms.models.regions.region.Region` the event belongs to
         :type region_slug: str
 
-        :param archived: whether or not archived events should be returned
+        :param archived: whether or not archived events should be returned, defaults to ``False``
         :type archived: bool, optional
 
         :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived events in the requested
                  :class:`~cms.models.regions.region.Region`
-        :rtype: django.db.models.query.QuerySet
+        :rtype: ~django.db.models.query.QuerySet
         """
         events = cls.objects.all().prefetch_related(
             'translations'
@@ -148,13 +148,13 @@ class Event(models.Model):
         Expects ``start < end``.
 
         :param start: the begin of the requested interval.
-        :type start: datetime.datetime
+        :type start: ~datetime.datetime
 
         :param end: the end of the requested interval.
-        :type end: datetime.datetime
+        :type end: ~datetime.datetime
 
         :return: Returns start datetimes of occurrences of the event that are in the given timeframe
-        :rtype: list [ datetime.datetime ]
+        :rtype: list [ ~datetime.datetime ]
         """
         event_start = datetime.combine(
             self.start_date,
@@ -211,7 +211,7 @@ class Event(models.Model):
         :type language_code: str
 
         :return: The public translation of an event
-        :rtype: cms.models.events.event_translation.EventTranslation
+        :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(
             language__code=language_code,

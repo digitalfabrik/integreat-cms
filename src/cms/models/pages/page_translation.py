@@ -60,7 +60,7 @@ class PageTranslation(models.Model):
         for all content types
 
         :return: The page to which the translation belongs
-        :rtype: cms.models.pages.page.Page
+        :rtype: ~cms.models.pages.page.Page
         """
         return self.page
 
@@ -133,7 +133,7 @@ class PageTranslation(models.Model):
         :return: The page translation in the source :class:`~cms.models.languages.language.Language` (:obj:`None` if
                  the translation is in the :class:`~cms.models.regions.region.Region`'s default
                  :class:`~cms.models.languages.language.Language`)
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         source_language_tree_node = self.page.region.language_tree_nodes.get(language=self.language).parent
         if source_language_tree_node:
@@ -147,7 +147,7 @@ class PageTranslation(models.Model):
         If the translation itself is not public, this property can return a revision which is older than ``self``.
 
         :return: The latest public revision of the translation
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.page.translations.filter(
             language=self.language,
@@ -160,7 +160,7 @@ class PageTranslation(models.Model):
         This property is a link to the most recent major version of this translation.
 
         :return: The latest major revision of the translation
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.page.translations.filter(
             language=self.language,
@@ -174,7 +174,7 @@ class PageTranslation(models.Model):
         This is used when translations, which are derived from this translation, check whether they are up to date.
 
         :return: The latest major public revision of the translation
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.page.translations.filter(
             language=self.language,
@@ -188,7 +188,7 @@ class PageTranslation(models.Model):
         This property is a shortcut to the previous revision of this translation
 
         :return: The previous translation
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         version = self.version - 1
         return self.page.translations.filter(
@@ -268,13 +268,13 @@ class PageTranslation(models.Model):
         a :class:`~cms.models.regions.region.Region` in a specific :class:`~cms.models.languages.language.Language`
 
         :param region_slug: The requested :class:`~cms.models.regions.region.Region`
-        :type region_slug: cms.models.regions.region.Region
+        :type region_slug: ~cms.models.regions.region.Region
 
         :param language_code: The requested :class:`~cms.models.languages.language.Language`
-        :type language_code: cms.models.languages.language.Language
+        :type language_code: ~cms.models.languages.language.Language
 
         :return: A :class:`~django.db.models.query.QuerySet` of all page translations of a region in a specific language
-        :rtype: django.db.models.query.QuerySet
+        :rtype: ~django.db.models.query.QuerySet
         """
         return cls.objects.filter(page__region=region, language=language).distinct('page')
 
@@ -285,13 +285,13 @@ class PageTranslation(models.Model):
         returns only page translations which are up to date
 
         :param region_slug: The requested :class:`~cms.models.regions.region.Region`
-        :type region_slug: cms.models.regions.region.Region
+        :type region_slug: ~cms.models.regions.region.Region
 
         :param language_code: The requested :class:`~cms.models.languages.language.Language`
-        :type language_code: cms.models.languages.language.Language
+        :type language_code: ~cms.models.languages.language.Language
 
         :return: All up to date translations of a region in a specific language
-        :rtype: list [ cms.models.pages.page_translation.PageTranslation ]
+        :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
         """
         return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.is_up_to_date]
 
@@ -302,13 +302,13 @@ class PageTranslation(models.Model):
         returns only page translations which are currently being translated by an external translator
 
         :param region_slug: The requested :class:`~cms.models.regions.region.Region`
-        :type region_slug: cms.models.regions.region.Region
+        :type region_slug: ~cms.models.regions.region.Region
 
         :param language_code: The requested :class:`~cms.models.languages.language.Language`
-        :type language_code: cms.models.languages.language.Language
+        :type language_code: ~cms.models.languages.language.Language
 
         :return: All currently translated translations of a region in a specific language
-        :rtype: list [ cms.models.pages.page_translation.PageTranslation ]
+        :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
         """
         return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.currently_in_translation]
 
@@ -319,13 +319,13 @@ class PageTranslation(models.Model):
         returns only page translations which are outdated
 
         :param region_slug: The requested :class:`~cms.models.regions.region.Region`
-        :type region_slug: cms.models.regions.region.Region
+        :type region_slug: ~cms.models.regions.region.Region
 
         :param language_code: The requested :class:`~cms.models.languages.language.Language`
-        :type language_code: cms.models.languages.language.Language
+        :type language_code: ~cms.models.languages.language.Language
 
         :return: All outdated translations of a region in a specific language
-        :rtype: list [ cms.models.pages.page_translation.PageTranslation ]
+        :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
         """
         return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.is_outdated]
 

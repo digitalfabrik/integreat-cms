@@ -55,7 +55,7 @@ class EventTranslation(models.Model):
         for all content types
 
         :return: The event to which the translation belongs
-        :rtype: cms.models.events.event.Event
+        :rtype: ~cms.models.events.event.Event
         """
         return self.event
 
@@ -115,7 +115,7 @@ class EventTranslation(models.Model):
         :return: The event translation in the source :class:`~cms.models.languages.language.Language` (:obj:`None` if
                  the translation is in the :class:`~cms.models.regions.region.Region`'s default
                  :class:`~cms.models.languages.language.Language`)
-        :rtype: cms.models.events.event_translation.EventTranslation
+        :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         source_language_tree_node = self.event.region.language_tree_nodes.get(language=self.language).parent
         if source_language_tree_node:
@@ -129,7 +129,7 @@ class EventTranslation(models.Model):
         If the translation itself is not public, this property can return a revision which is older than ``self``.
 
         :return: The latest public revision of the translation
-        :rtype: cms.models.events.event_translation.EventTranslation
+        :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
             language=self.language,
@@ -142,7 +142,7 @@ class EventTranslation(models.Model):
         This property is a link to the most recent major version of this translation.
 
         :return: The latest major revision of the translation
-        :rtype: cms.models.events.event_translation.EventTranslation
+        :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
             language=self.language,
@@ -156,7 +156,7 @@ class EventTranslation(models.Model):
         This is used when translations, which are derived from this translation, check whether they are up to date.
 
         :return: The latest major public revision of the translation
-        :rtype: cms.models.events.event_translation.EventTranslation
+        :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
             language=self.language,
@@ -170,7 +170,7 @@ class EventTranslation(models.Model):
         This property is a shortcut to the previous revision of this translation
 
         :return: The previous translation
-        :rtype: cms.models.events.event_translation.EventTranslation
+        :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         version = self.version - 1
         return self.event.translations.filter(

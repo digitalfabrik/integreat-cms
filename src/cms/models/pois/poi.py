@@ -46,12 +46,12 @@ class POI(models.Model):
         :param region_slug: slug of the :class:`~cms.models.regions.region.Region` the POI belongs to
         :type region_slug: str
 
-        :param archived: whether or not archived POIs should be returned
+        :param archived: whether or not archived POIs should be returned, defaults to ``False``
         :type archived: bool, optional
 
         :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived POIs in the requested
                  :class:`~cms.models.regions.region.Region`
-        :rtype: django.db.models.query.QuerySet
+        :rtype: ~django.db.models.query.QuerySet
         """
 
         return cls.objects.all().prefetch_related(
@@ -68,7 +68,7 @@ class POI(models.Model):
         translation exists.
 
         :return: list of all :class:`~cms.models.languages.language.Language` a POI is translated into
-        :rtype: list [ cms.models.languages.language.Language ]
+        :rtype: list [ ~cms.models.languages.language.Language ]
         """
         poi_translations = self.translations.prefetch_related('language').all()
         languages = []
@@ -86,7 +86,7 @@ class POI(models.Model):
 
         :return: The POI translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
                  if no translation exists
-        :rtype: cms.models.pois.poi_translation.POITranslation
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.translations.filter(
             language__code=language_code
@@ -100,7 +100,7 @@ class POI(models.Model):
         :type language_code: str
 
         :return: The public translation of a POI
-        :rtype: cms.models.pois.poi_translation.POITranslation
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.translations.filter(
             language__code=language_code,

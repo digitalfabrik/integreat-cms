@@ -57,7 +57,7 @@ class POITranslation(models.Model):
         for all content types
 
         :return: The POI to which the translation belongs
-        :rtype: cms.models.pois.poi.POI
+        :rtype: ~cms.models.pois.poi.POI
         """
         return self.poi
 
@@ -117,7 +117,7 @@ class POITranslation(models.Model):
         :return: The POI translation in the source :class:`~cms.models.languages.language.Language` (:obj:`None` if
                  the translation is in the :class:`~cms.models.regions.region.Region`'s default
                  :class:`~cms.models.languages.language.Language`)
-        :rtype: cms.models.pois.poi_translation.POITranslation
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         source_language_tree_node = self.poi.region.language_tree_nodes.get(language=self.language).parent
         if source_language_tree_node:
@@ -131,7 +131,7 @@ class POITranslation(models.Model):
         If the translation itself is not public, this property can return a revision which is older than ``self``.
 
         :return: The latest public revision of the translation
-        :rtype: cms.models.pois.poi_translation.POITranslation
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
             language=self.language,
@@ -144,7 +144,7 @@ class POITranslation(models.Model):
         This property is a link to the most recent major version of this translation.
 
         :return: The latest major revision of the translation
-        :rtype: cms.models.pois.poi_translation.POITranslation
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
             language=self.language,
@@ -158,7 +158,7 @@ class POITranslation(models.Model):
         This is used when translations, which are derived from this translation, check whether they are up to date.
 
         :return: The latest major public revision of the translation
-        :rtype: cms.models.pois.poi_translation.POITranslation
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
             language=self.language,
@@ -172,7 +172,7 @@ class POITranslation(models.Model):
         This property is a shortcut to the previous revision of this translation
 
         :return: The previous translation
-        :rtype: cms.models.pois.poi_translation.POITranslation
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         version = self.version - 1
         return self.poi.translations.filter(

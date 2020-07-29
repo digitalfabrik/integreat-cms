@@ -14,8 +14,6 @@ import inspect
 import importlib
 import django
 
-from sphinx.writers.html import HTMLTranslator
-
 from backend.settings import VERSION
 
 # Append project source directory to path environment variable
@@ -35,8 +33,6 @@ def setup(app):
     """
     # Register the docstring processor with sphinx to improve the appearance of Django models
     app.connect('autodoc-process-docstring', process_django_models)
-    # Patch HTMLTranslator to open external links in new tab
-    app.set_translator('html', PatchedHTMLTranslator)
 
 
 # -- Project information -----------------------------------------------------
@@ -114,10 +110,10 @@ def process_django_models(app, what, name, obj, options, lines):
             field_module = type(field).__module__
             if field_module == 'django.contrib.postgres.fields.array':
                 # Fix intersphinx mappings for django.contrib.postgres fields
-                type_line = f':type {field.name}: `{field_module}.ArrayField <{postgres_docu}#arrayfield>`_'
+                type_line = f':type {field.name}: `ArrayField <{postgres_docu}#arrayfield>`_'
             elif field_module == 'django.contrib.postgres.fields.jsonb':
                 # Fix intersphinx mappings for django.contrib.postgres fields
-                type_line = f':type {field.name}: `{field_module}.JSONField <{postgres_docu}#jsonfield>`_'
+                type_line = f':type {field.name}: `JSONField <{postgres_docu}#jsonfield>`_'
             elif field_module in ['django.db.models.fields.related', 'mptt.fields']:
                 # Fix intersphinx mappings for related fields (ForeignKey, OneToOneField, ManyToManyField, ...)
                 # Also includes related MPTT fields (TreeForeignKey, TreeOneToOneField, TreeManyToManyField, ...)
@@ -132,7 +128,7 @@ def process_django_models(app, what, name, obj, options, lines):
                     # Scope with django.db.models * imports (remove all sub-module-paths)
                     field_module = 'django.db.models'
                 # Fix type hint to enable correct intersphinx mappings to other documentations
-                type_line = f':type {field.name}: {field_module}.{field_type}'
+                type_line = f':type {field.name}: ~{field_module}.{field_type}'
             # This loop gets the indexes which are needed to update the type hints of the model parameters.
             # It makes it possible to split the parameter section into multiple parts, e.g. params inherited from a base
             # model and params of a sub model (otherwise the type hints would not be recognized when separated from
@@ -186,22 +182,3 @@ def linkcode_resolve(domain, info):
         except (TypeError, IOError):
             pass
     return f"https://github.com/Integreat/cms-django/blob/develop/src/{filename}.py{line_number_reference}"
-
-# -- Link targets ------------------------------------------------------------
-
-
-# pylint: disable=abstract-method
-class PatchedHTMLTranslator(HTMLTranslator):
-    """Open external links in a new tab"""
-
-    def visit_reference(self, node):
-        if (
-                node.get('newtab') or
-                not (
-                    node.get('target') or
-                    node.get('internal') or
-                    'refuri' not in node
-                )
-        ):
-            node['target'] = '_blank'
-        super().visit_reference(node)

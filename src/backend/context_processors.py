@@ -11,7 +11,7 @@ def region_slug_processor(request):
     (If there is no current region, it contains all regions).
 
     :param request: The current http request
-    :type request: django.http.HttpRequest
+    :type request: ~django.http.HttpRequest
 
     :return: The current region and all other regions
     :rtype: dict

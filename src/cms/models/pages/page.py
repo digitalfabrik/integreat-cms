@@ -21,7 +21,6 @@ class Page(MPTTModel):
     :param id: The database id of the page
     :param icon: The title image of the page
     :param archived: Whether or not the page is archived
-    :param mirrored_page: If the page embeds live content from another page, it is referenced here.
     :param mirrored_page_first: If ``mirrored_page`` is not ``None``, this field determines whether the live content is
                                 embedded before the content of this page or after.
     :param created_date: The date and time when the page was created
@@ -39,6 +38,7 @@ class Page(MPTTModel):
 
     :param parent: The parent page of this page (related name: ``children``)
     :param region: The region to which the page belongs (related name: ``pages``)
+    :param mirrored_page: If the page embeds live content from another page, it is referenced here.
     :param editors: A list of users who have the permission to edit this specific page (related name:
                     ``editable_pages``). Only has effect if these users do not have the permission to edit pages anyway.
     :param publishers: A list of users who have the permission to publish this specific page (related name:
@@ -90,7 +90,7 @@ class Page(MPTTModel):
         translation exists.
 
         :return: list of all :class:`~cms.models.languages.language.Language` a page is translated into
-        :rtype: list [ cms.models.languages.language.Language ]
+        :rtype: list [ ~cms.models.languages.language.Language ]
         """
         page_translations = self.translations.prefetch_related('language').all()
         languages = []
@@ -109,7 +109,7 @@ class Page(MPTTModel):
 
         :return: The page translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
                  if no translation exists
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(
             language__code=language_code
@@ -122,12 +122,12 @@ class Page(MPTTModel):
         and filters them to the first requested :class:`~cms.models.languages.language.Language` code that matches.
         So a lower list index means a higher priority.
 
-        :param language_code: A list of :class:`~cms.models.languages.language.Language` codes
+        :param language_code: A list of :class:`~cms.models.languages.language.Language` codes, defaults to ``None``
         :type language_code: list [ str ], optional
 
         :return: The first page translation which matches one of the :class:`~cms.models.languages.language.Language`
                  given or :obj:`None` if no translation exists
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         # Taking [] directly as default parameter would be dangerous because it is mutable
         if not priority_language_codes:
@@ -145,7 +145,7 @@ class Page(MPTTModel):
         :type language_code: str
 
         :return: The public translation of a page
-        :rtype: cms.models.pages.page_translation.PageTranslation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(
             language__code=language_code,
@@ -189,7 +189,7 @@ class Page(MPTTModel):
         :type region_slug: str
 
         :return: All archived pages of this region
-        :rtype: django.db.models.query.QuerySet
+        :rtype: ~django.db.models.query.QuerySet
         """
         return Page.objects.filter(archived=True, region__slug=region_slug)
 
@@ -215,12 +215,12 @@ class Page(MPTTModel):
         :param region_slug: slug of the :class:`~cms.models.regions.region.Region` the page belongs to
         :type region_slug: str
 
-        :param archived: whether or not archived pages should be returned
+        :param archived: whether or not archived pages should be returned, defaults to ``False``
         :type archived: bool, optional
 
         :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived pages in the requested
                  :class:`~cms.models.regions.region.Region`
-        :rtype: django.db.models.query.QuerySet
+        :rtype: ~django.db.models.query.QuerySet
         """
         return cls.objects.all().prefetch_related(
             'translations'

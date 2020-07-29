@@ -90,7 +90,7 @@ class Region(models.Model):
         :class:`~cms.models.languages.language_tree_node.LanguageTreeNode` which belongs to this region.
 
         :return: A list of all :class:`~cms.models.languages.language.Language` object instances of a region
-        :rtype: list [ cms.models.languages.language.Language ]
+        :rtype: list [ ~cms.models.languages.language.Language ]
         """
         language_tree_nodes = self.language_tree_nodes.select_related('language').all()
         return [language_tree_node.language for language_tree_node in language_tree_nodes]
@@ -102,7 +102,7 @@ class Region(models.Model):
         root :class:`~cms.models.languages.language_tree_node.LanguageTreeNode` of this region.
 
         :return: The root :class:`~cms.models.languages.language.Language` of a region
-        :rtype: cms.models.languages.language.Language
+        :rtype: ~cms.models.languages.language.Language
         """
         tree_root = self.language_tree_nodes.filter(level=0).first()
         return tree_root.language if tree_root else None
@@ -114,7 +114,7 @@ class Region(models.Model):
         :func:`backend.context_processors.region_slug_processor`
 
         :return: The root :class:`~cms.models.languages.language.Language` of a region
-        :rtype: cms.models.languages.language.Language
+        :rtype: ~cms.models.languages.language.Language
         """
         # if rendered url is edit_region, the region slug originates from the region form.
         if not hasattr(request, 'resolver_match') or request.resolver_match.url_name == 'edit_region':
