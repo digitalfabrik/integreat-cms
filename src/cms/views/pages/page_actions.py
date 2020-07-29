@@ -12,7 +12,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
 from django.views.static import serve
@@ -20,7 +20,7 @@ from mptt.exceptions import InvalidMove
 
 from ...decorators import region_permission_required, staff_required
 from ...forms.pages import PageForm
-from ...models import Page
+from ...models import Page, Language, Region, LanguageTreeNode
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 
 logger = logging.getLogger(__name__)
@@ -104,39 +104,70 @@ def delete_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required('cms.view_pages', raise_exception=True)
-# pylint: disable=unused-argument
-def download_page_xliff(request, page_id, region_slug, language_code):
-    page = Page.objects.get(id=page_id)
-    page_xliff_helper = PageXliffHelper()
-    page_xliff_zip_file = page_xliff_helper.export_page_xliffs_to_zip(page)
-    if page_xliff_zip_file and page_xliff_zip_file.startswith(XLIFFS_DIR):
-        response = serve(request, page_xliff_zip_file.split(XLIFFS_DIR)[1], document_root=XLIFFS_DIR)
-        response['Content-Disposition'] = f'attachment; filename="{page_xliff_zip_file.split(os.sep)[-1]}"'
-        return response
-    raise Http404
+def download_xliff(request, region_slug, language_code):  # pylint: disable=W0613
+    """
+    Create zip file that contains XLIFF files for target language.
+    """
+    page_ids = []
+    for page_id in request.GET.get('pages').split(','):
+        if page_id.isnumeric():
+            page_ids.append(int(page_id))
+    if page_ids:
+        target_language = Language.objects.get(code=request.GET.get('target_lang'))
+        pages = Page.objects.filter(id__in=page_ids)
+        region = Region.objects.get(slug=region_slug)
+        source_language = LanguageTreeNode.objects.get(region=region, language=target_language).parent.language
+        page_xliff_helper = PageXliffHelper(src_lang=source_language, tgt_lang=target_language)
+        zip_path = page_xliff_helper.pages_to_zipped_xliffs(region, pages)
+        if zip_path is not None and zip_path.startswith(XLIFFS_DIR):
+            response = serve(request, zip_path.split(XLIFFS_DIR)[1], document_root=XLIFFS_DIR)
+            response['Content-Disposition'] = 'attachment; filename="{}"'.format(zip_path.split(os.sep)[-1])
+            return response
+    return redirect('pages', **{
+        'region_slug': region_slug,
+        'language_code': language_code,
+    })
 
 
 @login_required
 @region_permission_required
 @permission_required('cms.edit_pages', raise_exception=True)
-def upload_page(request, region_slug, language_code):
-    if request.method == 'POST' and 'xliff_file' in request.FILES:
-        page_xliff_helper = PageXliffHelper()
-        xliff_file = request.FILES['xliff_file']
-        if xliff_file and  xliff_file.name.endswith(('.zip', '.xliff', '.xlf')):
-            filename = xliff_file.name
-            file_path = os.path.join(XLIFFS_DIR, 'upload', str(uuid.uuid4()), filename)
-            os.makedirs(os.path.dirname(file_path), exist_ok=True)
-            with open(file_path, 'wb+') as upload_file:
-                for chunk in xliff_file.chunks():
-                    upload_file.write(chunk)
-            if filename.endswith('.zip'):
-                page_xliff_helper.import_xliffs_zip_file(file_path, request.user)
-            else:
-                page_xliff_helper.import_xliff_file(file_path, request.user)
+def upload_xliff(request, region_slug, language_code):
+    if request.FILES.get('xliff_file'):
+        xliff_helper = PageXliffHelper()
+        upload_file = request.FILES['xliff_file']
+        upload_dir = os.path.join(XLIFFS_DIR, 'upload', str(uuid.uuid4()))
+        os.makedirs(upload_dir, exist_ok=True)
+        with open(os.path.join(upload_dir, upload_file.name), 'wb+') as file_write:
+            for chunk in upload_file.chunks():
+                file_write.write(chunk)
+        if upload_file.name.endswith('.zip'):
+            xliff_paths = xliff_helper.extract_zip_file(os.path.join(upload_dir, upload_file.name))
+        elif upload_file.name.endswith(('.xliff', '.xlf')):
+            xliff_paths = [os.path.join(upload_dir, upload_file.name)]
+        else: # no supported file name ending
+            xliff_paths = []
+        return render(request, "pages/page_xliff_confirm.html", {
+            "upload_dir": os.path.basename(upload_dir),
+            "translation_diffs": xliff_helper.generate_xliff_import_diff(xliff_paths),
+            "language": Language.objects.get(code=language_code)
+            })
+    return redirect('pages', **{
+        'region_slug': region_slug,
+        'language_code': language_code,
+    })
 
-            page_xliff_helper.delete_tmp_in_xliff_folder(file_path)
 
+@login_required
+@region_permission_required
+@permission_required('cms.edit_pages', raise_exception=True)
+def confirm_xliff_import(request, region_slug, language_code):
+    if request.POST.get('upload_dir'):
+        upload_dir = os.path.join(XLIFFS_DIR, 'upload', request.POST.get('upload_dir'))
+        xliff_paths = [os.path.join(upload_dir, f) for f in os.listdir(upload_dir)
+                       if os.path.isfile(os.path.join(upload_dir, f)) and f.endswith((".xliff", ".xlf"))]
+        xliff_helper = PageXliffHelper()
+        xliff_helper.import_xliff_files(xliff_paths, user=request.user)
     return redirect('pages', **{
         'region_slug': region_slug,
         'language_code': language_code,
