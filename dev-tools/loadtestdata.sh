@@ -2,6 +2,11 @@
 
 # This script imports test data into the database.
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 if nc -w1 localhost 5432; then
 
     # Check if script is running as root

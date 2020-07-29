@@ -3,6 +3,11 @@
 # This script creates a superuser for the cms with the username "root" and an empty email-field.
 # It uses the settings for the postgres docker container and cannot be used with a standalone installation of postgres.
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 if nc -w1 localhost 5432; then
 
     # Check if script is running as root

@@ -3,6 +3,11 @@
 # This script can be used to start the cms together with a postgres database docker container.
 # It also includes generating translation files and applying migrations after the docker container is started for the first time.
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 # Check if nc (netcat) is installed
 if [ ! -x "$(command -v nc)" ]; then
     echo "Netcat is not installed. Please install it manually and run this script again." >&2
