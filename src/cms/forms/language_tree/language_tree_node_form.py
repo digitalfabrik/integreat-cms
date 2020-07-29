@@ -1,6 +1,3 @@
-"""
-Form for creating a language tree node object
-"""
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -10,10 +7,7 @@ from ...models import LanguageTreeNode, Region
 
 class LanguageTreeNodeForm(forms.ModelForm):
     """
-    DjangoForm Class, that can be rendered to create deliverable HTML
-
-    Args:
-        forms : Defines the form as an Model form related to a database object
+    Form for creating and modifying language tree node objects
     """
 
     class Meta:

@@ -28,9 +28,11 @@ class TranslationXliffConverter: # pylint: disable=R0902
         Builds an LXML ETree from either the template or xliff_code parameter
 
         :param src_lang: source language of translation
-        :type src_lang: cms.models.languages.language.Language
+        :type src_lang: ~cms.models.languages.language.Language
+
         :param tgt_lang: target language of translation
-        :type tgt_lang: cms.models.languages.language.Language
+        :type tgt_lang: ~cms.models.languages.language.Language
+
         :param xliff_code: XML Code of XLIFF file to import
         :type xliff_code: str
         """
@@ -134,12 +136,16 @@ class TranslationXliffConverter: # pylint: disable=R0902
 
         :param page_id: the id of the page to which the translation is related
         :type page_id: int
+
         :param src_trans: source language page translation
-        :type src_trans: cms.models.pages.page_translation.PageTranslation
+        :type src_trans: ~cms.models.pages.page_translation.PageTranslation
+
         :param tgt_trans: target language page translation
-        :type tgt_trans: cms.models.pages.page_translation.PageTranslation
+        :type tgt_trans: ~cms.models.pages.page_translation.PageTranslation
+
         :param xliff_id: XLIFF ID
         :type xliff_id: str
+
         :return: UTF-8 encoded XML
         :rtype: str
         """
@@ -171,8 +177,10 @@ class TranslationXliffConverter: # pylint: disable=R0902
 
         :param unit_id: value for the unit id attribute
         :type unit_id: str
+
         :param source_text: source text to be translated
         :type source_text: str
+
         :param target_text: already available translation
         :type target_text: str
         """
@@ -219,9 +227,10 @@ class PageXliffHelper():
     def __init__(self, src_lang=None, tgt_lang=None):
         """
         :param src_lang: source language of translation
-        :type src_lang: cms.models.languages.language.Language
+        :type src_lang: ~cms.models.languages.language.Language
+
         :param tgt_lang: target language of translation
-        :type tgt_lang: cms.models.languages.language.Language
+        :type tgt_lang: ~cms.models.languages.language.Language
         """
         if src_lang is not None:
             self.src_lang = src_lang
@@ -235,6 +244,7 @@ class PageXliffHelper():
 
         :param content: content of file
         :type content: str
+
         :param file_path: path to newly created file
         :type file_path: str
         """
@@ -247,9 +257,10 @@ class PageXliffHelper():
         Create XLIFF file for source page translation and target language
 
         :param page: page of translation that should be exported
-        :type page: cms.models.pages.page.Page
+        :type page: ~cms.models.pages.page.Page
+
         :return: file path to XLIFF file
-        :rtype: string or None
+        :rtype: str or None
         """
         converter = TranslationXliffConverter(self.src_lang, self.tgt_lang)
 
@@ -287,6 +298,7 @@ class PageXliffHelper():
 
         :param source_file_paths: list of files to be zipped
         :type source_file_paths: list
+
         :param zip_file_path: path to zipped file
         :type zip_file_path: str
         """
@@ -302,9 +314,10 @@ class PageXliffHelper():
         Export a list of page IDs to a zip file containing XLIFFs for a specified target language
 
         :param region: region from which the XLIFFs should be exported
-        :type region: cms.models.regions.region.Region
+        :type region: ~cms.models.regions.region.Region
+
         :param pages: list of pages which should be translated
-        :type pages: list [ cms.models.pages.page.Page ]
+        :type pages: list [ ~cms.models.pages.page.Page ]
         """
         xliff_paths = []
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
@@ -324,6 +337,7 @@ class PageXliffHelper():
 
         :param title: title of page translation
         :type title: str
+
         :return: slug
         :rtype: str
         """
@@ -345,8 +359,10 @@ class PageXliffHelper():
 
         :param trans_fields: translated fields extracted from XLIFF file
         :type trans_fields: dict
+
         :param user: author of translations
-        :type user: django.contrib.auth.models.User
+        :type user: ~django.contrib.auth.models.User
+
         :return: failure/success for each page or overall failed
         :rtype: list or bool
         """
@@ -378,8 +394,10 @@ class PageXliffHelper():
 
         :param xliff_paths: paths to XLIFF files
         :type xliff_paths: list [ str ]
+
         :param user: author of page
         :type user: int
+
         :return: failure/success
         :rtype: bool
         """
@@ -403,6 +421,7 @@ class PageXliffHelper():
 
         :param zip_file_path: path to zip file
         :type zip_file_path: str
+
         :return: list of filenames
         :rtype: list
         """
@@ -419,6 +438,7 @@ class PageXliffHelper():
 
         :param xliff_paths: list of paths to XLIFF files
         :type xliff_paths: [ str ]
+
         :return: dictionaries containing diffs between XLIFF and current translation versions
         :rtype: list [ dict ]
         """
@@ -441,8 +461,10 @@ class PageXliffHelper():
 
         :param trans_fields: content extracted from XLIFF
         :type trans_fields: dict
+
         :param xliff_name: file name of XLIFF
         :type xliff_name: str
+
         :return: dictionary containing diff between XLIFF and current translation version
         :rtype: dict
         """

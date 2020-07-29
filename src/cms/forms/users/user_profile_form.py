@@ -12,6 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 class UserProfileForm(forms.ModelForm):
+    """
+    Form for creating and modifying user profile objects
+    """
 
     class Meta:
         model = UserProfile

@@ -1,6 +1,3 @@
-"""
-Form for creating a region object
-"""
 import logging
 
 from django import forms
@@ -15,6 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 class RegionForm(forms.ModelForm):
+    """
+    Form for creating and modifying region objects
+    """
     duplicated_region = forms.ModelChoiceField(
         queryset=Region.objects.all(),
         empty_label=_("Do no import initial content"),
@@ -104,11 +104,17 @@ def duplicate_language_tree(source_region, target_region, source_parent_id=None,
     This is a recursive function to walk the whole language tree. It starts at root level with the default parent None.
     The recursion is necessary because the new nodes need their correct (also duplicated) parent node.
 
-    Args:
-        :param source_region: The region from which the language tree should be duplicated
-        :param target_region: The region to which the language tree should be added
-        :param source_parent_id: The current parent node id of the recursion
-        :param target_parent: The node of the target region which is the duplicate of the source parent node
+    :param source_region: The region from which the language tree should be duplicated
+    :type source_region: cms.models.regions.region.Region
+
+    :param target_region: The region to which the language tree should be added
+    :type target_region: cms.models.regions.region.Region
+
+    :param source_parent_id: The current parent node id of the recursion
+    :type source_parent_id: int
+
+    :param target_parent: The node of the target region which is the duplicate of the source parent node
+    :type target_parent: cms.models.pages.page.Page
     """
 
     # Iterate over all children of the current source parent, beginning with the root node
@@ -137,12 +143,20 @@ def duplicate_pages(source_region, target_region, source_parent_id=None, target_
     This is a recursive function to walk the whole page tree. It starts at root level with the default parent None.
     The recursion is necessary because the new pages need their correct (also duplicated) parent page.
 
-    Args:
-        :param source_region: The region from which the pages should be duplicated
-        :param target_region: The region to which the pages should be added
-        :param source_parent_id: The current parent page id of the recursion
-        :param target_parent: The page of the target region which is the duplicate of the source parent page
-        :param level: recursion level to get a pretty log output
+    :param source_region: The region from which the pages should be duplicated
+    :type source_region: cms.models.regions.region.Region
+
+    :param target_region: The region to which the pages should be added
+    :type target_region: cms.models.regions.region.Region
+
+    :param source_parent_id: The current parent page id of the recursion
+    :type source_parent_id: int
+
+    :param target_parent: The page of the target region which is the duplicate of the source parent page
+    :type target_parent: cms.models.pages.page.Page
+
+    :param level: recursion level to get a pretty log output
+    :type level: int
     """
 
     logger.info(
@@ -206,5 +220,7 @@ def duplicate_pages(source_region, target_region, source_parent_id=None, target_
 
 # pylint: disable=unused-argument
 def duplicate_media(source_region, target_region):
-    pass
+    """
+    Function to duplicate all media of one region to another.
+    """
     # TODO: implement duplication of all media files

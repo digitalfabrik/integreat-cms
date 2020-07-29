@@ -1,6 +1,3 @@
-"""
-Form for creating a poi object and poi translation object
-"""
 import logging
 
 from django import forms
@@ -13,10 +10,7 @@ logger = logging.getLogger(__name__)
 
 class POIForm(forms.ModelForm):
     """
-    DjangoForm Class, that can be rendered to create deliverable HTML
-
-    Args:
-        forms : Defines the form as an Model form related to a database object
+    Form for creating and modifying POI objects
     """
 
     class Meta:

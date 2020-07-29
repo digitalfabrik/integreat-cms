@@ -1,6 +1,3 @@
-"""
-Form for creating or saving event objects and their corresponding event translation objects
-"""
 import logging
 
 from datetime import time
@@ -14,6 +11,9 @@ logger = logging.getLogger(__name__)
 
 
 class EventForm(forms.ModelForm):
+    """
+    Form for creating and modifying event objects
+    """
     is_all_day = forms.BooleanField(required=False)
     is_recurring = forms.BooleanField(required=False)
 

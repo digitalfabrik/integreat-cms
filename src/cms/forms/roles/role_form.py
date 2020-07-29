@@ -1,16 +1,10 @@
-"""
-Form for creating a group object
-"""
 from django import forms
 from django.contrib.auth.models import Group as Role
 
 
 class RoleForm(forms.ModelForm):
     """
-    DjangoForm Class, that can be rendered to create deliverable HTML
-
-    Args:
-        forms : Defines the form as an Model form related to a database object
+    Form for creating and modifying user role objects
     """
 
     class Meta:

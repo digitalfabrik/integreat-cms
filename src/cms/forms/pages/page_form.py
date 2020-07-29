@@ -1,6 +1,3 @@
-"""
-Form for creating a page object and page translation object
-"""
 import logging
 
 from django import forms
@@ -18,8 +15,7 @@ logger = logging.getLogger(__name__)
 
 class ParentField(forms.ModelChoiceField):
     """
-        Subclass of ModelChoiceField
-        Helper to overwrite the label function (which would otherwise call __str__)
+    Form field helper class to overwrite the label function (which would otherwise call __str__)
     """
     language = None
 
@@ -38,9 +34,8 @@ class ParentField(forms.ModelChoiceField):
 
 class MirrorPageField(forms.ModelChoiceField):
     """
-    Show ancestors page titles in mirror page select
+    Form field helper class to show ancestors page titles in mirror page select
     """
-
     # pylint: disable=arguments-differ
     def label_from_instance(self, page):
         return ' -> '.join([page_iter.best_language_title() for page_iter in page.get_ancestors(include_self=True)])
@@ -48,10 +43,7 @@ class MirrorPageField(forms.ModelChoiceField):
 
 class PageForm(forms.ModelForm):
     """
-    DjangoForm Class, that can be rendered to create deliverable HTML
-
-    Args:
-        forms : Defines the form as an Model form related to a database object
+    Form for creating and modifying page objects
     """
 
     position = forms.ChoiceField(choices=position.CHOICES, initial=position.FIRST_CHILD)

@@ -1,6 +1,3 @@
-"""
-Form for creating or saving event objects and their corresponding event translation objects
-"""
 import logging
 
 from django import forms
@@ -13,6 +10,9 @@ logger = logging.getLogger(__name__)
 
 
 class RecurrenceRuleForm(forms.ModelForm):
+    """
+    Form for creating and modifying event recurrence rule objects
+    """
     has_recurrence_end_date = forms.BooleanField(required=False)
 
     class Meta:

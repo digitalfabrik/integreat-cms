@@ -1,6 +1,3 @@
-"""
-Form for creating a user object
-"""
 import logging
 
 from django import forms
@@ -13,6 +10,9 @@ logger = logging.getLogger(__name__)
 
 
 class UserForm(forms.ModelForm):
+    """
+    Form for creating and modifying user objects
+    """
 
     roles = forms.ModelMultipleChoiceField(
         queryset=Role.objects.all(),
