@@ -759,7 +759,7 @@ immediate children are level <cite>2</cite> and so on…</p></li>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors">
-<code class="sig-name descname">get_ancestors</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L120"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_ancestors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ascending</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L120"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the ancestors of this model
 instance.</p>
 <p>This defaults to being in descending order (root ancestor first,
@@ -772,7 +772,7 @@ include this model instance.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_children">
-<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L129"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_children" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L129"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the immediate children of this
 model instance, in tree order.</p>
 <p>The benefit of using this method over the reverse relation
@@ -791,7 +791,7 @@ a leaf node (it has no children).</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants">
-<code class="sig-name descname">get_descendants</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L133"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_descendants</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L133"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing descendants of this model
 instance, in tree order.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">include_self</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> will also
@@ -800,14 +800,14 @@ include this model instance.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_family">
-<code class="sig-name descname">get_family</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L125"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_family" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_family</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L125"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_family" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the ancestors, the model itself
 and the descendants, in tree order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_root">
-<code class="sig-name descname">get_root</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L140"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_root" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L140"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the root node of this model instance’s tree.</p>
 </dd></dl>
 
