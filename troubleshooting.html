@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -592,22 +592,22 @@
 <div class="two-columns docutils container">
 <div class="left-side docutils container">
 <div class="admonition error">
-<p class="first admonition-title">Error</p>
-<p class="last">bash: pipenv: No such file or directory</p>
+<p class="admonition-title">Error</p>
+<p>bash: pipenv: No such file or directory</p>
 </div>
 </div>
 <div class="right-side docutils container">
 <div class="admonition error">
-<p class="first admonition-title">Error</p>
-<p class="last">zsh: command not found: pipenv</p>
+<p class="admonition-title">Error</p>
+<p>zsh: command not found: pipenv</p>
 </div>
 </div>
 </div>
 <div class="hint admonition">
-<p class="first admonition-title">Solution</p>
+<p class="admonition-title">Solution</p>
 <p>Probably you have installed pipenv via pip into <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code>, which is not in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable.
 Fix this by appending it to your default shell config</p>
-<div class="two-columns last docutils container">
+<div class="two-columns docutils container">
 <div class="left-side docutils container">
 <p>for BASH:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> &gt;&gt; ~/.bashrc
@@ -626,18 +626,18 @@ Fix this by appending it to your default shell config</p>
 <div class="section" id="integreat-cms-cli-not-found">
 <h2>Integreat-cms-cli not found<a class="headerlink" href="#integreat-cms-cli-not-found" title="Permalink to this headline">¶</a></h2>
 <div class="admonition error">
-<p class="first admonition-title">Error</p>
-<p class="last">Error: the command integreat-cms-cli could not be found within PATH or Pipfile’s [scripts].</p>
+<p class="admonition-title">Error</p>
+<p>Error: the command integreat-cms-cli could not be found within PATH or Pipfile’s [scripts].</p>
 </div>
 <div class="hint admonition">
-<p class="first admonition-title">Solution</p>
+<p class="admonition-title">Solution</p>
 <p>You have installed an old version of pipenv.
 Probably you used a packaged version of your linux distribution.
 To fix this error, remove the version you have installed with your package manager and use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install pipenv --user
 </pre></div>
 </div>
-<p class="last">instead.</p>
+<p>instead.</p>
 </div>
 </div>
 </div>
@@ -726,6 +726,12 @@ To fix this error, remove the version you have installed with your package manag
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

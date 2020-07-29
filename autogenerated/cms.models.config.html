@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -596,34 +596,30 @@
 <span id="configuration"></span><h2>Configuration<a class="headerlink" href="#module-cms.models.config.configuration" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.config.configuration.Configuration">
-<em class="property">class </em><code class="descclassname">cms.models.config.configuration.</code><code class="descname">Configuration</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/config/configuration.py#L4" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.config.configuration.Configuration" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.config.configuration.</code><code class="sig-name descname">Configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/config/configuration.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.config.configuration.Configuration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>The Configuration model is used for settings which should reside in the database.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the configuration</li>
-<li><strong>key</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The key of the configuration</li>
-<li><strong>value</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The value of the configuration</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the configuration was created</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the configuration was last changed</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" title="(in Django v2.2)"><em>AutoField</em></a>) – The database id of the configuration</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The key of the configuration</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The value of the configuration</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the configuration was created</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the configuration was last changed</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <dl class="py exception">
 <dt id="cms.models.config.configuration.Configuration.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/config/configuration.py#L4" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.config.configuration.Configuration.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/config/configuration.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.config.configuration.Configuration.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.config.configuration.Configuration.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/config/configuration.py#L4" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.config.configuration.Configuration.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/config/configuration.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.config.configuration.Configuration.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -715,6 +711,12 @@
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

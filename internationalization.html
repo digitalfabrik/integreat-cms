@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -587,7 +587,7 @@
             
   <div class="section" id="internationalization-i18n">
 <h1>Internationalization (i18n)<a class="headerlink" href="#internationalization-i18n" title="Permalink to this headline">¶</a></h1>
-<p>For more detailed information, have a look at the official Django documentation on <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" target="_blank" title="(in Django v2.2)"><span>Internationalization and localization</span></a>.</p>
+<p>For more detailed information, have a look at the official Django documentation on <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>.</p>
 <div class="section" id="hardcoded-strings">
 <h2>Hardcoded Strings<a class="headerlink" href="#hardcoded-strings" title="Permalink to this headline">¶</a></h2>
 <p>Whenever you use hardcoded strings, use english text and encapsulate it with a translation function.</p>
@@ -637,15 +637,15 @@ pipenv run integreat-cms-cli compilemessages
 </div>
 <div class="section" id="developer-tools">
 <h2>Developer Tools<a class="headerlink" href="#developer-tools" title="Permalink to this headline">¶</a></h2>
-<p>To do <code class="docutils literal notranslate"><span class="pre">makemessages</span></code> and <code class="docutils literal notranslate"><span class="pre">compilemessages</span></code> in one step, use <code class="docutils literal notranslate"><span class="pre">translate.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/translate.sh" target="_blank">Source</a>]:</p>
+<p>To do <code class="docutils literal notranslate"><span class="pre">makemessages</span></code> and <code class="docutils literal notranslate"><span class="pre">compilemessages</span></code> in one step, use <code class="docutils literal notranslate"><span class="pre">translate.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/translate.sh">Source</a>]:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/translate.sh
 </pre></div>
 </div>
-<p>If you run into merge/rebase conflicts inside the translation file, use <code class="docutils literal notranslate"><span class="pre">resolve_translation_conflicts.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/resolve_translation_conflicts.sh" target="_blank">Source</a>]:</p>
+<p>If you run into merge/rebase conflicts inside the translation file, use <code class="docutils literal notranslate"><span class="pre">resolve_translation_conflicts.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/resolve_translation_conflicts.sh">Source</a>]:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/resolve_translation_conflicts.sh
 </pre></div>
 </div>
-<p>If you want to check, whether your translations is up-to-date or if there are any actions required, run <code class="docutils literal notranslate"><span class="pre">check_translations.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/check_translations.sh" target="_blank">Source</a>]:</p>
+<p>If you want to check, whether your translations is up-to-date or if there are any actions required, run <code class="docutils literal notranslate"><span class="pre">check_translations.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/check_translations.sh">Source</a>]:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/check_translations.sh
 </pre></div>
 </div>
@@ -736,6 +736,12 @@ pipenv run integreat-cms-cli compilemessages
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

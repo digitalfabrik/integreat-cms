@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -600,141 +600,122 @@ offer a public service. They can also be used as location for an <a class="refer
 <span id="poi"></span><h2>POI<a class="headerlink" href="#module-cms.models.pois.poi" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.pois.poi.POI">
-<em class="property">class </em><code class="descclassname">cms.models.pois.poi.</code><code class="descname">POI</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.pois.poi.</code><code class="sig-name descname">POI</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing a point of interest (POI). It contains all relevant data about its exact position, including
 coordinates.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the POI</li>
-<li><strong>address</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The street and house number of the POI</li>
-<li><strong>postcode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The postal code of the POI</li>
-<li><strong>city</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The city in which the POI is located</li>
-<li><strong>country</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The country in which the POI is located</li>
-<li><strong>latitude</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.FloatField" target="_blank" title="(in Django v2.2)"><em>django.db.models.FloatField</em></a>) – The latitude coordinate of the POI</li>
-<li><strong>longitude</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.FloatField" target="_blank" title="(in Django v2.2)"><em>django.db.models.FloatField</em></a>) – The longitude coordinate of the POI</li>
-<li><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the POI is archived (read-only and hidden in the API)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" title="(in Django v2.2)"><em>AutoField</em></a>) – The database id of the POI</p></li>
+<li><p><strong>address</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The street and house number of the POI</p></li>
+<li><p><strong>postcode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The postal code of the POI</p></li>
+<li><p><strong>city</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The city in which the POI is located</p></li>
+<li><p><strong>country</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The country in which the POI is located</p></li>
+<li><p><strong>latitude</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.FloatField" title="(in Django v2.2)"><em>FloatField</em></a>) – The latitude coordinate of the POI</p></li>
+<li><p><strong>longitude</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.FloatField" title="(in Django v2.2)"><em>FloatField</em></a>) – The longitude coordinate of the POI</p></li>
+<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the POI is archived (read-only and hidden in the API)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p>Relationship fields:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region of the POI (related name: <code class="docutils literal notranslate"><span class="pre">pois</span></code>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region of the POI (related name: <code class="docutils literal notranslate"><span class="pre">pois</span></code>)</p>
+</dd>
+</dl>
 <p>Reverse relationships:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>events</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – All events which take place at this location</li>
-<li><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a>) – All translations of this POI</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – All events which take place at this location</p></li>
+<li><p><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a>) – All translations of this POI</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <dl class="py exception">
 <dt id="cms.models.pois.poi.POI.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.pois.poi.POI.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi.POI.get_list">
-<em class="property">classmethod </em><code class="descname">get_list</code><span class="sig-paren">(</span><em><span class="n">region_slug</span></em>, <em><span class="n">archived</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L40" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">get_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">archived</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L40"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all POIs of one specific <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> (either all archived or all not
 archived ones)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – slug of the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> the POI belongs to</li>
-<li><strong>archived</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – whether or not archived POIs should be returned</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> the POI belongs to</p></li>
+<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – whether or not archived POIs should be returned, defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of either archived or not archived POIs in the requested
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of either archived or not archived POIs in the requested
 <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" target="_blank" title="(in Django v2.2)">django.db.models.query.QuerySet</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v2.2)">QuerySet</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi.POI.get_public_translation">
-<code class="descname">get_public_translation</code><span class="sig-paren">(</span><em><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L95" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_public_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_public_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L95"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_public_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function retrieves the newest public translation of a POI.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The public translation of a POI</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">cms.models.pois.poi_translation.POITranslation</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The public translation of a POI</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi.POI.get_translation">
-<code class="descname">get_translation</code><span class="sig-paren">(</span><em><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L79" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L79"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
 and filters them to the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> code.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The code of the desired <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The POI translation in the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" target="_blank" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>
-if no translation exists</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">cms.models.pois.poi_translation.POITranslation</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the desired <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The POI translation in the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>
+if no translation exists</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi.POI.languages">
-<em class="property">property </em><code class="descname">languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L7" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.languages" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi.POI.languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns a list of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects, to which a POI
 translation exists.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> a POI is translated into</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language">cms.models.languages.language.Language</a> ]</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> a POI is translated into</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language">Language</a> ]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -744,62 +725,54 @@ translation exists.</p>
 <span id="poi-translation"></span><h2>POI Translation<a class="headerlink" href="#module-cms.models.pois.poi_translation" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.pois.poi_translation.POITranslation">
-<em class="property">class </em><code class="descclassname">cms.models.pois.poi_translation.</code><code class="descname">POITranslation</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.pois.poi_translation.</code><code class="sig-name descname">POITranslation</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing a POI translation</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the POI translation</li>
-<li><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" target="_blank" title="(in Django v2.2)"><em>django.db.models.SlugField</em></a>) – The slug identifier of the translation (unique per <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> and
-<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</li>
-<li><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The status of the POI translation (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.status" title="cms.constants.status"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.status</span></code></a>)</li>
-<li><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The title of the POI translation</li>
-<li><strong>description</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TextField" target="_blank" title="(in Django v2.2)"><em>django.db.models.TextField</em></a>) – The content of the POI translation</li>
-<li><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Flag to indicate a translation is being updated by an external translator</li>
-<li><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" target="_blank" title="(in Django v2.2)"><em>django.db.models.PositiveIntegerField</em></a>) – The revision number of the POI translation</li>
-<li><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Flag to indicate whether the difference to the previous revision requires an update in other
-languages</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the POI translation was created</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the POI translation was last updated</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" title="(in Django v2.2)"><em>AutoField</em></a>) – The database id of the POI translation</p></li>
+<li><p><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v2.2)"><em>SlugField</em></a>) – The slug identifier of the translation (unique per <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> and
+<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</p></li>
+<li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The status of the POI translation (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.status" title="cms.constants.status"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.status</span></code></a>)</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The title of the POI translation</p></li>
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.TextField" title="(in Django v2.2)"><em>TextField</em></a>) – The content of the POI translation</p></li>
+<li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Flag to indicate a translation is being updated by an external translator</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v2.2)"><em>PositiveIntegerField</em></a>) – The revision number of the POI translation</p></li>
+<li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Flag to indicate whether the difference to the previous revision requires an update in other
+languages</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the POI translation was created</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the POI translation was last updated</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p>Relationship fields:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>poi</strong> (ForeignKey to <a class="reference internal" href="#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>) – The POI the translation belongs to (related name: <code class="docutils literal notranslate"><span class="pre">translations</span></code>)</li>
-<li><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – The language of the POI translation (related name: <code class="docutils literal notranslate"><span class="pre">poi_translations</span></code>)</li>
-<li><strong>creator</strong> (ForeignKey to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – The user who created the POI translation (related name: <code class="docutils literal notranslate"><span class="pre">poi_translations</span></code>)</li>
-<li><strong>short_description</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – Short description</li>
-<li><strong>public</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Public</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>poi</strong> (ForeignKey to <a class="reference internal" href="#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>) – The POI the translation belongs to (related name: <code class="docutils literal notranslate"><span class="pre">translations</span></code>)</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – The language of the POI translation (related name: <code class="docutils literal notranslate"><span class="pre">poi_translations</span></code>)</p></li>
+<li><p><strong>creator</strong> (ForeignKey to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – The user who created the POI translation (related name: <code class="docutils literal notranslate"><span class="pre">poi_translations</span></code>)</p></li>
+<li><p><strong>short_description</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – Short description</p></li>
+<li><p><strong>public</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Public</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <dl class="py exception">
 <dt id="cms.models.pois.poi_translation.POITranslation.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.pois.poi_translation.POITranslation.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.available_languages">
-<em class="property">property </em><code class="descname">available_languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.available_languages" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">available_languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.available_languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks in which <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the POI is translated apart
 from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
 It only returns languages which have a public translation, so drafts are not included here.
@@ -813,180 +786,160 @@ The returned dict has the following format:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the available languages of a POI translation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary containing the available languages of a POI translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.foreign_object">
-<em class="property">property </em><code class="descname">foreign_object</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">foreign_object</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is an alias of the POI foreign key and is needed to generalize the <a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The POI to which the translation belongs</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI">cms.models.pois.poi.POI</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The POI to which the translation belongs</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI">POI</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.is_outdated">
-<em class="property">property </em><code class="descname">is_outdated</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_outdated</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
 This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
 <ul class="simple">
-<li>If the translation is currently being translated, it is considered not outdated.</li>
-<li>If the translation’s language is the region’s default language, it is defined to be never outdated.</li>
-<li>If the translation’s source translation is already outdated, then the translation itself also is.</li>
-<li>If neither the translation nor its source translation have a latest major public translation, it is defined as
-not outdated.</li>
-<li>If neither the translation nor its source translation have a latest major public translation, it is defined as
-not outdated.</li>
+<li><p>If the translation is currently being translated, it is considered not outdated.</p></li>
+<li><p>If the translation’s language is the region’s default language, it is defined to be never outdated.</p></li>
+<li><p>If the translation’s source translation is already outdated, then the translation itself also is.</p></li>
+<li><p>If neither the translation nor its source translation have a latest major public translation, it is defined as
+not outdated.</p></li>
+<li><p>If neither the translation nor its source translation have a latest major public translation, it is defined as
+not outdated.</p></li>
 </ul>
 <p>Otherwise, the outdated flag is calculated by comparing the <cite>last_updated</cite>-field of the translation and its
 source translation.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Flag to indicate whether the translation is outdated</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Flag to indicate whether the translation is outdated</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.is_up_to_date">
-<em class="property">property </em><code class="descname">is_up_to_date</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_up_to_date</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether a translation is up to date.
 A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Flag which indicates whether a translation is up to date</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Flag which indicates whether a translation is up to date</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.latest_major_public_revision">
-<em class="property">property </em><code class="descname">latest_major_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_major_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent major public version of this translation.
 This is used when translations, which are derived from this translation, check whether they are up to date.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest major public revision of the translation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">cms.models.pois.poi_translation.POITranslation</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The latest major public revision of the translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.latest_major_revision">
-<em class="property">property </em><code class="descname">latest_major_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_major_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent major version of this translation.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest major revision of the translation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">cms.models.pois.poi_translation.POITranslation</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The latest major revision of the translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.latest_public_revision">
-<em class="property">property </em><code class="descname">latest_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent public version of this translation.
 If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest public revision of the translation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">cms.models.pois.poi_translation.POITranslation</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The latest public revision of the translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.permalink">
-<em class="property">property </em><code class="descname">permalink</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.permalink" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">permalink</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.permalink" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The permalink of the POI</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The permalink of the POI</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.previous_revision">
-<em class="property">property </em><code class="descname">previous_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">previous_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a shortcut to the previous revision of this translation</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The previous translation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">cms.models.pois.poi_translation.POITranslation</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The previous translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.source_translation">
-<em class="property">property </em><code class="descname">source_translation</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.source_translation" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">source_translation</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.source_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
 It derives this information from the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
 <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The POI translation in the source <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> (<a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" target="_blank" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The POI translation in the source <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> (<a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if
 the translation is in the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s default
-<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">cms.models.pois.poi_translation.POITranslation</a></td>
-</tr>
-</tbody>
-</table>
+<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1078,6 +1031,12 @@ the translation is in the <a class="reference internal" href="cms.models.regions
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -601,27 +601,23 @@
 <span id="page-feedback"></span><h2>Page Feedback<a class="headerlink" href="#module-api.v3.feedback.page_feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="api.v3.feedback.page_feedback.FeedbackData">
-<em class="property">class </em><code class="descclassname">api.v3.feedback.page_feedback.</code><code class="descname">FeedbackData</code><span class="sig-paren">(</span><em><span class="n">page_id</span></em>, <em><span class="n">permalink</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/feedback/page_feedback.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" target="_blank" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">api.v3.feedback.page_feedback.</code><code class="sig-name descname">FeedbackData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">permalink</span></em>, <em class="sig-param"><span class="n">comment</span></em>, <em class="sig-param"><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/feedback/page_feedback.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class is a generic api representation of cms feedback incl. its meta information stored in the database.
 It is used to examine feedback sent to the feedback api endpoint.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>page_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The id of the page this feedback is referring to, if empty the permalink is required, defaults to None</li>
-<li><strong>permalink</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to ‘’</li>
-<li><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The descriptive feedback string, defaults to ‘’</li>
-<li><strong>emotion</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" target="_blank" title="(in Python v3.7)"><em>int</em></a>) – The emotion of the feedback, can be one of [‘Pos’, ‘Neg’, ‘NA’], defaults to ‘NA’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The id of the page this feedback is referring to, if empty the permalink is required, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p><strong>permalink</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The permalink of the page this feedback is referring to, is empty the page_id is required, defaults to <code class="docutils literal notranslate"><span class="pre">''</span></code></p></li>
+<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The descriptive feedback string, defaults to <code class="docutils literal notranslate"><span class="pre">''</span></code></p></li>
+<li><p><strong>emotion</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The emotion of the feedback, can be one of <code class="docutils literal notranslate"><span class="pre">['Pos',</span> <span class="pre">'Neg',</span> <span class="pre">'NA']</span></code>, defaults to <code class="docutils literal notranslate"><span class="pre">'NA'</span></code></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="api.v3.feedback.page_feedback.FeedbackData.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em><span class="n">page_id</span></em>, <em><span class="n">permalink</span></em>, <em><span class="n">comment</span></em>, <em><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/feedback/page_feedback.py#L26" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">permalink</span></em>, <em class="sig-param"><span class="n">comment</span></em>, <em class="sig-param"><span class="n">emotion</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/feedback/page_feedback.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.feedback.page_feedback.FeedbackData.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -720,6 +716,12 @@ It is used to examine feedback sent to the feedback api endpoint.</p>
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

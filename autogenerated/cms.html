@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -873,24 +873,21 @@
 <span id="apps"></span><h2>Apps<a class="headerlink" href="#module-cms.apps" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.apps.CmsConfig">
-<em class="property">class </em><code class="descclassname">cms.apps.</code><code class="descname">CmsConfig</code><span class="sig-paren">(</span><em><span class="n">app_name</span></em>, <em><span class="n">app_module</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/apps.py#L8" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.apps.CmsConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.apps.</code><code class="sig-name descname">CmsConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app_name</span></em>, <em class="sig-param"><span class="n">app_module</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/apps.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.apps.CmsConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
 <p>This class represents the Django-configuration of the backend.</p>
-<p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – The name of the app</td>
-</tr>
-</tbody>
-</table>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the app</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="cms.apps.CmsConfig.ready">
-<code class="descname">ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/apps.py#L20" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.apps.CmsConfig.ready" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/apps.py#L20"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.apps.CmsConfig.ready" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function gets executed exactly once each time the cms starts. We use it to check wether the secret key was
 not changed in production mode and show an error message if this is the case.</p>
-<p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig.ready" target="_blank" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.apps.AppConfig.ready()</span></code></a> for more information.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig.ready" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.apps.AppConfig.ready()</span></code></a> for more information.</p>
 </dd></dl>
 
 </dd></dl>
@@ -899,59 +896,56 @@ not changed in production mode and show an error message if this is the case.</p
 <div class="section" id="module-cms.decorators">
 <span id="decorators"></span><h2>Decorators<a class="headerlink" href="#module-cms.decorators" title="Permalink to this headline">¶</a></h2>
 <p>Django view decorators can be used to restrict the execution of a view function on certain conditions.</p>
-<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/decorators/" target="_blank" title="(in Django v2.2)"><span>View decorators</span></a>.</p>
+<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/decorators/" title="(in Django v2.2)"><span>View decorators</span></a>.</p>
 <dl class="py function">
 <dt id="cms.decorators.modify_mfa_authenticated">
-<code class="descclassname">cms.decorators.</code><code class="descname">modify_mfa_authenticated</code><span class="sig-paren">(</span><em><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L57" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.modify_mfa_authenticated" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">modify_mfa_authenticated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L57"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.modify_mfa_authenticated" title="Permalink to this definition">¶</a></dt>
 <dd><p>This decorator can be used to make sure a user can only modify his 2FA settings when he has a valid 2FA session.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The decorated function</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)">Callable</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="cms.decorators.region_permission_required">
-<code class="descclassname">cms.decorators.</code><code class="descname">region_permission_required</code><span class="sig-paren">(</span><em><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L35" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.region_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">region_permission_required</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L35"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.region_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>This decorator can be used to make sure a view can only be retrieved by users of the requested region.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The decorated function</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)">Callable</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="cms.decorators.staff_required">
-<code class="descclassname">cms.decorators.</code><code class="descname">staff_required</code><span class="sig-paren">(</span><em><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L15" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.staff_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">staff_required</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.staff_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>This decorator can be used to make sure a view can only be retrieved by users who are either staff or superusers.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The decorated function</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" target="_blank" title="(in Python v3.7)">Callable</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -959,130 +953,114 @@ not changed in production mode and show an error message if this is the case.</p
 <span id="page-xliff-converter"></span><h2>Page Xliff Converter<a class="headerlink" href="#module-cms.page_xliff_converter" title="Permalink to this headline">¶</a></h2>
 <dl class="py exception">
 <dt id="cms.page_xliff_converter.XliffValidationException">
-<em class="property">exception </em><code class="descclassname">cms.page_xliff_converter.</code><code class="descname">XliffValidationException</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L48" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.XliffValidationException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#Exception" target="_blank" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<em class="property">exception </em><code class="sig-prename descclassname">cms.page_xliff_converter.</code><code class="sig-name descname">XliffValidationException</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L48"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.XliffValidationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#Exception" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-cms.rules">
 <span id="rules"></span><h2>Rules<a class="headerlink" href="#module-cms.rules" title="Permalink to this headline">¶</a></h2>
-<p>We use <a class="reference external" href="https://pypi.org/project/rules/" target="_blank">django-rules</a> to add custom permissions for specific pages.</p>
+<p>We use <a class="reference external" href="https://pypi.org/project/rules/">django-rules</a> to add custom permissions for specific pages.</p>
 <p>For a given user and page, the following permissions are added:</p>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">cms.edit_page</span></code> if one of the following predicates return true:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">cms.edit_page</span></code> if one of the following predicates return true:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="#cms.rules.can_edit_all_pages" title="cms.rules.can_edit_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_edit_all_pages()</span></code></a></li>
-<li><a class="reference internal" href="#cms.rules.is_page_editor" title="cms.rules.is_page_editor"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></li>
-<li><a class="reference internal" href="#cms.rules.can_publish_all_pages" title="cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></li>
-<li><a class="reference internal" href="#cms.rules.is_page_publisher" title="cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></li>
+<li><p><a class="reference internal" href="#cms.rules.can_edit_all_pages" title="cms.rules.can_edit_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_edit_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#cms.rules.is_page_editor" title="cms.rules.is_page_editor"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#cms.rules.can_publish_all_pages" title="cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#cms.rules.is_page_publisher" title="cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">cms.publish_page</span></code> if one of the following predicates return true:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">cms.publish_page</span></code> if one of the following predicates return true:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="#cms.rules.can_publish_all_pages" title="cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></li>
-<li><a class="reference internal" href="#cms.rules.is_page_publisher" title="cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></li>
+<li><p><a class="reference internal" href="#cms.rules.can_publish_all_pages" title="cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#cms.rules.is_page_publisher" title="cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></p></li>
 </ul>
 </div></blockquote>
 </li>
 </ul>
-<p>See the project’s <a class="reference external" href="https://github.com/dfunckt/django-rules/blob/master/README.rst" target="_blank">README</a> to learn more.</p>
+<p>See the project’s <a class="reference external" href="https://github.com/dfunckt/django-rules/blob/master/README.rst">README</a> to learn more.</p>
 <dl class="py function">
 <dt id="cms.rules.is_page_editor">
-<code class="descclassname">cms.rules.</code><code class="descname">is_page_editor</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L25" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_page_editor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_page_editor</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_page_editor" title="Permalink to this definition">¶</a></dt>
 <dd><p>This predicate checks whether the given user is one of the editors of the given page.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</li>
-<li><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is an editor of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is an editor of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="cms.rules.is_page_publisher">
-<code class="descclassname">cms.rules.</code><code class="descname">is_page_publisher</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L43" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_page_publisher" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_page_publisher</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L43"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_page_publisher" title="Permalink to this definition">¶</a></dt>
 <dd><p>This predicate checks whether the given user is one of the publishers of the given page.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</li>
-<li><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is a publisher of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is a publisher of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="cms.rules.can_edit_all_pages">
-<code class="descclassname">cms.rules.</code><code class="descname">can_edit_all_pages</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L61" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_edit_all_pages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_edit_all_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L61"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_edit_all_pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This predicate checks whether the given user can edit all pages.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</li>
-<li><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – Unused page parameter (the function signature must match the other predicates)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – Unused page parameter (the function signature must match the other predicates)</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can edit all pages</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can edit all pages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="cms.rules.can_publish_all_pages">
-<code class="descclassname">cms.rules.</code><code class="descname">can_publish_all_pages</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L78" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_publish_all_pages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_publish_all_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L78"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_publish_all_pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This predicate checks whether the given user can publish all pages.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" target="_blank" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</li>
-<li><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – Unused page parameter (the function signature must match the other predicates)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – Unused page parameter (the function signature must match the other predicates)</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can publish all pages</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can publish all pages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -1090,7 +1068,7 @@ not changed in production mode and show an error message if this is the case.</p
 <span id="urls"></span><h2>Urls<a class="headerlink" href="#module-cms.urls" title="Permalink to this headline">¶</a></h2>
 <p>Django URL dispatcher for the cms package.
 See <a class="reference internal" href="backend.html#module-backend.urls" title="backend.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.urls</span></code></a> for the other namespaces of this application.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/urls/" target="_blank" title="(in Django v2.2)"><span>URL dispatcher</span></a>.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/urls/" title="(in Django v2.2)"><span>URL dispatcher</span></a>.</p>
 </div>
 </div>
 
@@ -1178,6 +1156,12 @@ See <a class="reference internal" href="backend.html#module-backend.urls" title=
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

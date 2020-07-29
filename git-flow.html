@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -592,22 +592,22 @@
 <p>There are many great tutorials on git out there, so this one won’t cover the basics.
 Check out e.g.:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://rogerdudler.github.io/git-guide/" target="_blank">git - the simple guide</a></li>
-<li><a class="reference external" href="https://chris.beams.io/posts/git-commit/" target="_blank">How to Write a Git Commit Message</a></li>
+<li><p><a class="reference external" href="https://rogerdudler.github.io/git-guide/">git - the simple guide</a></p></li>
+<li><p><a class="reference external" href="https://chris.beams.io/posts/git-commit/">How to Write a Git Commit Message</a></p></li>
 </ul>
 </div>
 <div class="section" id="github-flow">
 <h2>GitHub Flow<a class="headerlink" href="#github-flow" title="Permalink to this headline">¶</a></h2>
-<p>In general, we use the <a class="reference external" href="https://guides.github.com/introduction/flow/" target="_blank">GitHub flow</a>:</p>
+<p>In general, we use the <a class="reference external" href="https://guides.github.com/introduction/flow/">GitHub flow</a>:</p>
 <img alt="GitHub flow diagram" src="_images/github-flow.png" />
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you want to build your commits on CircleCI or start a discussion before your branch is ready for review, you can also create a <a class="reference external" href="https://github.blog/2019-02-14-introducing-draft-pull-requests/" target="_blank">draft pull request</a>.</p>
+<p class="admonition-title">Note</p>
+<p>If you want to build your commits on CircleCI or start a discussion before your branch is ready for review, you can also create a <a class="reference external" href="https://github.blog/2019-02-14-introducing-draft-pull-requests/">draft pull request</a>.</p>
 </div>
 </div>
 <div class="section" id="rebasing">
 <h2>Rebasing<a class="headerlink" href="#rebasing" title="Permalink to this headline">¶</a></h2>
-<p>In extension to the GitHub flow, we use <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing" target="_blank">rebasing</a> in two situations:</p>
+<p>In extension to the GitHub flow, we use <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">rebasing</a> in two situations:</p>
 <div class="section" id="update-feature-branch">
 <h3>1. Update feature branch<a class="headerlink" href="#update-feature-branch" title="Permalink to this headline">¶</a></h3>
 <p>You want to merge recent changes of the develop branch into your current feature branch, e.g. because there are conflicts that prevent your branch from being merged:</p>
@@ -638,18 +638,18 @@ git push --force-with-lease
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<ul class="last simple">
-<li>Don’t do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> between rebasing and pushing.
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>Don’t do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> between rebasing and pushing.
 This will result in duplicate commits.
-You have to overwrite the upstream branch with your rebased commits by using the option <code class="docutils literal notranslate"><span class="pre">--force-with-lease</span></code>.</li>
-<li>Only force-push to your own feature branches!</li>
+You have to overwrite the upstream branch with your rebased commits by using the option <code class="docutils literal notranslate"><span class="pre">--force-with-lease</span></code>.</p></li>
+<li><p>Only force-push to your own feature branches!</p></li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>If you want to pull your rebased branch <code class="docutils literal notranslate"><span class="pre">feature</span></code> from another machine, use the following:</p>
-<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>git fetch --all
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git fetch --all
 git reset --hard origin/feature
 </pre></div>
 </div>
@@ -742,6 +742,12 @@ git reset --hard origin/feature
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -598,54 +598,44 @@
 <span id="push-notification"></span><h2>Push Notification<a class="headerlink" href="#module-cms.models.push_notifications.push_notification" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.push_notifications.push_notification.PushNotification">
-<em class="property">class </em><code class="descclassname">cms.models.push_notifications.push_notification.</code><code class="descname">PushNotification</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.push_notifications.push_notification.</code><code class="sig-name descname">PushNotification</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing a push notification</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the push notification</li>
-<li><strong>channel</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The channel of the push notification</li>
-<li><strong>draft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" target="_blank" title="(in Django v2.2)"><em>django.db.models.BooleanField</em></a>) – Whether or not the push notification is a draft (drafts cannot be sent)</li>
-<li><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the push notification was sent (<a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" target="_blank" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if the push notification is
-not yet sent)</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the push notification was created</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the push notification was last updated</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" title="(in Django v2.2)"><em>AutoField</em></a>) – The database id of the push notification</p></li>
+<li><p><strong>channel</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The channel of the push notification</p></li>
+<li><p><strong>draft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the push notification is a draft (drafts cannot be sent)</p></li>
+<li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the push notification was sent (<a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if the push notification is
+not yet sent)</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the push notification was created</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the push notification was last updated</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p>Relationship fields:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region of the push notification (related name: <code class="docutils literal notranslate"><span class="pre">push_notifications</span></code>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region of the push notification (related name: <code class="docutils literal notranslate"><span class="pre">push_notifications</span></code>)</p>
+</dd>
+</dl>
 <p>Reverse relationships:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationTranslation</span></code></a>) – All translations of this push notification</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationTranslation</span></code></a>) – All translations of this push notification</p>
+</dd>
+</dl>
 <dl class="py exception">
 <dt id="cms.models.push_notifications.push_notification.PushNotification.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.push_notifications.push_notification.PushNotification.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -655,48 +645,40 @@ not yet sent)</li>
 <span id="push-notification-translation"></span><h2>Push Notification Translation<a class="headerlink" href="#module-cms.models.push_notifications.push_notification_translation" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.push_notifications.push_notification_translation.PushNotificationTranslation">
-<em class="property">class </em><code class="descclassname">cms.models.push_notifications.push_notification_translation.</code><code class="descname">PushNotificationTranslation</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L5" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.push_notifications.push_notification_translation.</code><code class="sig-name descname">PushNotificationTranslation</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing a push notification translation</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" target="_blank" title="(in Django v2.2)"><em>django.db.models.AutoField</em></a>) – The database id of the push notification translation</li>
-<li><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The title of the push notification translation</li>
-<li><strong>text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" target="_blank" title="(in Django v2.2)"><em>django.db.models.CharField</em></a>) – The content of the push notification translation</li>
-<li><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the push notification translation was created</li>
-<li><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" target="_blank" title="(in Django v2.2)"><em>django.db.models.DateTimeField</em></a>) – The date and time when the push notification translation was last updated</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" title="(in Django v2.2)"><em>AutoField</em></a>) – The database id of the push notification translation</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The title of the push notification translation</p></li>
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The content of the push notification translation</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the push notification translation was created</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the push notification translation was last updated</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p>Relationship fields:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>push_notification</strong> (ForeignKey to <a class="reference internal" href="#cms.models.push_notifications.push_notification.PushNotification" title="cms.models.push_notifications.push_notification.PushNotification"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotification</span></code></a>) – The push notification the translation belongs to (related name: <code class="docutils literal notranslate"><span class="pre">translations</span></code>)</li>
-<li><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – The language of the push notification translation (related name:
-<code class="docutils literal notranslate"><span class="pre">push_notification_translations</span></code>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>push_notification</strong> (ForeignKey to <a class="reference internal" href="#cms.models.push_notifications.push_notification.PushNotification" title="cms.models.push_notifications.push_notification.PushNotification"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotification</span></code></a>) – The push notification the translation belongs to (related name: <code class="docutils literal notranslate"><span class="pre">translations</span></code>)</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – The language of the push notification translation (related name:
+<code class="docutils literal notranslate"><span class="pre">push_notification_translations</span></code>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <dl class="py exception">
 <dt id="cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L5" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L5" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" target="_blank" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -788,6 +770,12 @@ not yet sent)</li>
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

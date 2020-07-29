@@ -517,7 +517,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -588,41 +588,38 @@
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you want to develop on Windows, we suggest using the <a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/" target="_blank">Windows Subsystem for Linux</a> in combination with <a class="reference external" href="https://ubuntu.com/wsl" target="_blank">Ubuntu</a> and <a class="reference external" href="https://wiki.ubuntuusers.de/PostgreSQL/" target="_blank">postgresql</a> as local database server.</p>
+<p class="admonition-title">Note</p>
+<p>If you want to develop on Windows, we suggest using the <a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/">Windows Subsystem for Linux</a> in combination with <a class="reference external" href="https://ubuntu.com/wsl">Ubuntu</a> and <a class="reference external" href="https://wiki.ubuntuusers.de/PostgreSQL/">postgresql</a> as local database server.</p>
 </div>
 <div class="section" id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>Following packages are required before installing the project (install them with your package manager):</p>
 <ul class="simple">
-<li><a class="reference external" href="https://git-scm.com/" target="_blank">git</a></li>
-<li><a class="reference external" href="https://www.npmjs.com/" target="_blank">npm</a></li>
-<li><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7" target="_blank">python3.7</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions" target="_blank">Debian-based distributions</a> <a class="footnote-reference" href="#ppa" id="id1">[1]</a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python37/" target="_blank">python37</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions" target="_blank">Arch-based distributions</a>)</li>
-<li><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7-dev" target="_blank">python3.7-dev</a> (only required on <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions" target="_blank">Debian-based distributions</a>)</li>
-<li><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip" target="_blank">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions" target="_blank">Debian-based distributions</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip" target="_blank">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions" target="_blank">Arch-based distributions</a>)</li>
-<li><a class="reference external" href="https://pipenv.pypa.io/en/latest/" target="_blank">pipenv</a> for python3 <a class="footnote-reference" href="#pip" id="id5">[2]</a></li>
-<li>Either <a class="reference external" href="https://www.postgresql.org/" target="_blank">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/" target="_blank">docker</a> to run a local database server</li>
-<li><a class="reference external" href="https://www.gnu.org/software/gettext/" target="_blank">gettext</a> to use the translation features</li>
+<li><p><a class="reference external" href="https://git-scm.com/">git</a></p></li>
+<li><p><a class="reference external" href="https://www.npmjs.com/">npm</a></p></li>
+<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7">python3.7</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a> <a class="footnote-reference brackets" href="#ppa" id="id1">1</a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python37/">python37</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
+<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7-dev">python3.7-dev</a> (only required on <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>)</p></li>
+<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
+<li><p><a class="reference external" href="https://pipenv.pypa.io/en/latest/">pipenv</a> for python3 <a class="footnote-reference brackets" href="#pip" id="id5">2</a></p></li>
+<li><p>Either <a class="reference external" href="https://www.postgresql.org/">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/">docker</a> to run a local database server</p></li>
+<li><p><a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> to use the translation features</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<table class="last docutils footnote" frame="void" id="ppa" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>If your distro does not contain python3.7, you first have to add a ppa repository, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:deadsnakes/ppa</span></code>.</td></tr>
-</tbody>
-</table>
+<p class="admonition-title">Note</p>
+<dl class="footnote brackets">
+<dt class="label" id="ppa"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>If your distro does not contain python3.7, you first have to add a ppa repository, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:deadsnakes/ppa</span></code>.</p>
+</dd>
+</dl>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<table class="last docutils footnote" frame="void" id="pip" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[2]</a></td><td><p class="first">If no recent version of pipenv is packaged for your distro, use <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pipenv</span> <span class="pre">--user</span></code>.</p>
-<p class="last">You might have to add <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=\$PATH:~/.local/bin</span></code> to your default shell config (e.g. <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>).</p>
-</td></tr>
-</tbody>
-</table>
+<p class="admonition-title">Note</p>
+<dl class="footnote brackets">
+<dt class="label" id="pip"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
+<dd><p>If no recent version of pipenv is packaged for your distro, use <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pipenv</span> <span class="pre">--user</span></code>.</p>
+<p>You might have to add <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=\$PATH:~/.local/bin</span></code> to your default shell config (e.g. <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>).</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="section" id="download-sources">
@@ -647,13 +644,13 @@
 </div>
 <div class="section" id="install-dependencies-and-local-package">
 <h2>Install dependencies and local package<a class="headerlink" href="#install-dependencies-and-local-package" title="Permalink to this headline">¶</a></h2>
-<p>And install it using our developer tool <code class="docutils literal notranslate"><span class="pre">ìnstall.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/install.sh" target="_blank">Source</a>]:</p>
+<p>And install it using our developer tool <code class="docutils literal notranslate"><span class="pre">ìnstall.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/install.sh">Source</a>]:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pipenv.
+<p class="admonition-title">Note</p>
+<p>This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pipenv.
 If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> or <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span></code> directly.</p>
 </div>
 </div>
@@ -679,9 +676,9 @@ gdebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
 </div>
 <p>In the end, create a PostgreSQL user and database and adjust the <code class="docutils literal notranslate"><span class="pre">/usr/lib/python3/dist-packages/backend/settings.py</span></code>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>In some cases, you can just use the developer tool <code class="docutils literal notranslate"><span class="pre">package.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/package.sh" target="_blank">Source</a>]:</p>
-<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/package.sh
+<p class="admonition-title">Note</p>
+<p>In some cases, you can just use the developer tool <code class="docutils literal notranslate"><span class="pre">package.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/package.sh">Source</a>]:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/package.sh
 </pre></div>
 </div>
 </div>
@@ -772,6 +769,12 @@ gdebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>

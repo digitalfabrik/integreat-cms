@@ -516,7 +516,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary" target="_blank">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.integreat-app.de/glossary">Glossary</a></li>
 </ul>
 
             
@@ -592,12 +592,12 @@
 <p>Configuration of GVZ API app</p>
 <dl class="py class">
 <dt id="gvz_api.apps.GvzApiConfig">
-<em class="property">class </em><code class="descclassname">gvz_api.apps.</code><code class="descname">GvzApiConfig</code><span class="sig-paren">(</span><em><span class="n">app_name</span></em>, <em><span class="n">app_module</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/apps.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">gvz_api.apps.</code><code class="sig-name descname">GvzApiConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app_name</span></em>, <em class="sig-param"><span class="n">app_module</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/apps.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
 <p>GVZ API config inheriting the django AppConfig</p>
 <dl class="py method">
 <dt id="gvz_api.apps.GvzApiConfig.ready">
-<code class="descname">ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/apps.py#L21" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.ready" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/apps.py#L21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.ready" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checking if API is available</p>
 </dd></dl>
 
@@ -609,188 +609,171 @@
 <p>Helper classes for Gemeindeverzeichnis API</p>
 <dl class="py class">
 <dt id="gvz_api.utils.GvzApiWrapper">
-<em class="property">class </em><code class="descclassname">gvz_api.utils.</code><code class="descname">GvzApiWrapper</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" target="_blank" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">gvz_api.utils.</code><code class="sig-name descname">GvzApiWrapper</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class that wraps around the GVZ (Gemeindeverzeichnis) API</p>
 <dl class="py attribute">
 <dt id="gvz_api.utils.GvzApiWrapper.api_url">
-<code class="descname">api_url</code><em class="property"> = 'http://gvz.integreat-app.de/api/'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L13" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.api_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">api_url</code><em class="property"> = 'http://gvz.integreat-app.de/api/'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.api_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>The URL to the external GVZ API</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="gvz_api.utils.GvzApiWrapper.best_match">
-<code class="descname">best_match</code><span class="sig-paren">(</span><em><span class="n">region_name</span></em>, <em><span class="n">region_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L117" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.best_match" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">best_match</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span></em>, <em class="sig-param"><span class="n">region_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L117"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.best_match" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tries to find the correct region key (single search hit)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</li>
-<li><strong>region_type</strong> (<em>cms.constants.administrative_division</em>) – administrative division type of region, defaults to None</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</p></li>
+<li><p><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – administrative division type of region (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division" title="cms.constants.administrative_division"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.administrative_division</span></code></a>), defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">JSON search results defined in the GVZ API</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON search results defined in the GVZ API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="gvz_api.utils.GvzApiWrapper.filter_region_types">
-<em class="property">classmethod </em><code class="descname">filter_region_types</code><span class="sig-paren">(</span><em><span class="n">region_details</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L98" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.filter_region_types" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">filter_region_types</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_details</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L98"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.filter_region_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Special filters for certain region types. For example, Kreisfreie
 Städte exist multiple times on different levels. We want the lower
 level that contain the coordinates.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_details</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)"><em>dict</em></a>) – dictionary with region details</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">indicates if a region is not interesting</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" target="_blank" title="(in Python v3.7)">bool</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region_details</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – dictionary with region details</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>indicates if a region is not interesting</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="gvz_api.utils.GvzApiWrapper.get_children">
-<code class="descname">get_children</code><span class="sig-paren">(</span><em><span class="n">region_key</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L65" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.get_children" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_key</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L65"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.get_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get keys of children of a region</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of children dictionaries</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" target="_blank" title="(in Python v3.7)">list</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of children dictionaries</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="gvz_api.utils.GvzApiWrapper.get_details">
-<code class="descname">get_details</code><span class="sig-paren">(</span><em><span class="n">region_key</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L39" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.get_details" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_details</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_key</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L39"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.get_details" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get details for a region key (i.e. Gemeindeschlüssel)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary containing longitude, latitude, type, key, name</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary containing longitude, latitude, type, key, name</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="gvz_api.utils.GvzApiWrapper.search">
-<code class="descname">search</code><span class="sig-paren">(</span><em><span class="n">region_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L23" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.search" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">search</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for a region and return candidates</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">JSON search results defined in the GVZ API</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON search results defined in the GVZ API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="gvz_api.utils.GvzApiWrapper.translate_type">
-<em class="property">static </em><code class="descname">translate_type</code><span class="sig-paren">(</span><em><span class="n">region_type</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L81" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.translate_type" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">translate_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_type</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L81"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.translate_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Map Integreat CMS region types to Gemeindeverzeichnis region types.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – type of a region</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">administrative division of the region</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">cms.constants.administrative_division</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – type of a region</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>administrative division of the region (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division" title="cms.constants.administrative_division"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.administrative_division</span></code></a>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="gvz_api.utils.GvzRegion">
-<em class="property">class </em><code class="descclassname">gvz_api.utils.</code><code class="descname">GvzRegion</code><span class="sig-paren">(</span><em><span class="n">region_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">region_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L164" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" target="_blank" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">gvz_api.utils.</code><code class="sig-name descname">GvzRegion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">region_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L164"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a region in the GVZ, initial values will be retrieved
 from API on initialization.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel, defaults to None</li>
-<li><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc), defaults to None</li>
-<li><strong>region_type</strong> (<em>cms.constants.administrative_division</em>) – administrative division type of region, defaults to None</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – official ID for a region, i.e. Gemeindeschlüssel, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – name of a region (city name, county name, etc), defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – administrative division type of region (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division" title="cms.constants.administrative_division"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.administrative_division</span></code></a>), defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="gvz_api.utils.GvzRegion.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em><span class="n">region_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">region_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L179" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">region_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L179"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load initial values for region from GVZ API</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="gvz_api.utils.GvzRegion.aliases">
-<em class="property">property </em><code class="descname">aliases</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L164" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.aliases" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">aliases</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L164"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.aliases" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns JSON of region aliases compliant to Integreat API v3 definition</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">aliases of region according to Integreat APIv3 definition</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" target="_blank" title="(in Python v3.7)">str</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>aliases of region according to Integreat APIv3 definition</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="gvz_api.utils.GvzRegion.as_dict">
-<code class="descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L212" target="_blank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.as_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/gvz_api/utils.py#L212"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.as_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary representation of region</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">name, longitude, latitude, list of children</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" target="_blank" title="(in Python v3.7)">dict</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>name, longitude, latitude, list of children</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -880,6 +863,12 @@ from API on initialization.</p>
             left: 0; top: 0;
         }
     </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+    </script>
 
 
 </body>
