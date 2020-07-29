@@ -63,6 +63,14 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_DIR} -type f -name "*.rst" | xargs sed -i \
     -e '/^[^ ]\+$/s/\\_\([a-z]\)/ \u\1/g' `# Replace \_ with spaces in headings and make following letter uppercase` \
     -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g' # Make specific keywords uppercase
 
+# Patch cms.rst to add the decorated functions
+if ! patch ${SPHINX_DIR}/${SPHINX_APIDOC_DIR}/cms.rst ${SPHINX_DIR}/patches/cms.diff; then
+    echo -e "\nThe patch for cms.rst could not be applied correctly." >&2
+    echo "Presumably the structure of the cms package changed." >&2
+    echo "Please adapt ${SPHINX_DIR}/patches/cms.diff to the structure changes." >&2
+    exit 1
+fi
+
 # Compile .rst files to html documentation
 pipenv run sphinx-build -j auto ${SPHINX_DIR} ${DOC_DIR}
 
