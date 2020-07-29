@@ -184,9 +184,33 @@ FILER_CANONICAL_URL = 'media/'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': 'INTEGREAT CMS - %(levelname)s: %(message)s',
+        },
+        'console': {
+            'format': '%(asctime)s INTEGREAT CMS - %(levelname)s: %(message)s',
+            'datefmt': '%b %d %H:%M:%S',
+        }
+    },
     'handlers': {
         'console': {
-            'class': 'logging.StreamHandler'
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+        'authlog': {
+            'level': 'INFO',
+            'class': 'logging.handlers.SysLogHandler',
+            'address': '/dev/log',
+            'facility': 'auth',
+            'formatter': 'default',
+        },
+        'syslog': {
+            'level': 'INFO',
+            'class': 'logging.handlers.SysLogHandler',
+            'address': '/dev/log',
+            'facility': 'syslog',
+            'formatter': 'default',
         },
     },
     'loggers': {
@@ -209,6 +233,10 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,
+        },
+        'auth': {
+            'handlers': ['console', 'authlog', 'syslog'],
+            'level': 'INFO',
         },
     }
 }
