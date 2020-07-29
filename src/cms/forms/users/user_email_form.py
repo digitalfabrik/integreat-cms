@@ -1,6 +1,3 @@
-"""
-Form for changing a user's email address
-"""
 import logging
 
 from django import forms
@@ -11,6 +8,9 @@ logger = logging.getLogger(__name__)
 
 
 class UserEmailForm(forms.ModelForm):
+    """
+    Form for modifying user email addresses
+    """
 
     class Meta:
         model = get_user_model()

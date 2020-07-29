@@ -1,6 +1,3 @@
-"""
-Form for creating a region user object
-"""
 import logging
 
 
@@ -12,6 +9,9 @@ logger = logging.getLogger(__name__)
 
 
 class RegionUserProfileForm(UserProfileForm):
+    """
+    Form for creating and modifying region user profile objects
+    """
 
     class Meta:
         model = UserProfile

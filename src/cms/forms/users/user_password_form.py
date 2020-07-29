@@ -1,6 +1,3 @@
-"""
-Form for changing a user's password
-"""
 import logging
 
 from django import forms
@@ -13,6 +10,9 @@ logger = logging.getLogger(__name__)
 
 
 class UserPasswordForm(forms.ModelForm):
+    """
+    Form for changing a user's password
+    """
 
     old_password = forms.CharField(
         widget=forms.PasswordInput,

@@ -1,6 +1,3 @@
-"""
-Form for creating an organization object
-"""
 from django import forms
 
 from ...models import Organization
@@ -8,10 +5,7 @@ from ...models import Organization
 
 class OrganizationForm(forms.ModelForm):
     """
-    DjangoForm Class, that can be rendered to create deliverable HTML
-
-    Args:
-        forms : Defines the form as an Model form related to a database object
+    Form for creating and modifying organization objects
     """
 
     class Meta:

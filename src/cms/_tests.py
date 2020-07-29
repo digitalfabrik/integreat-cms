@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from .constants import position, status, region_status
@@ -51,7 +51,7 @@ class SetupClass(TestCase):
         return None
 
     def setUp(self):
-        self.user = User.objects.create_user('test', 'test@integreat.com', 'test')
+        self.user = get_user_model().objects.create_user('test', 'test@integreat.com', 'test')
         self.region = self.create_region({
             'name': 'demo',
             'events_enabled': True,

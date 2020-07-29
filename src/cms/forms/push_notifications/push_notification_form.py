@@ -1,6 +1,3 @@
-"""
-Form for creating a user object
-"""
 from django import forms
 
 from ...models import PushNotification, PushNotificationTranslation
@@ -8,10 +5,7 @@ from ...models import PushNotification, PushNotificationTranslation
 
 class PushNotificationForm(forms.ModelForm):
     """
-    DjangoForm Class, that can be rendered to create deliverable HTML
-
-    Args:
-        forms : Defines the form as an Model form related to a database object
+    Form for creating and modifying push notification objects
     """
 
     class Meta:
@@ -23,10 +17,7 @@ class PushNotificationForm(forms.ModelForm):
 
 class PushNotificationTranslationForm(forms.ModelForm):
     """
-    DjangoForm Class, that can be rendered to create deliverable HTML
-
-    Args:
-        forms : Defines the form as an Model form related to a database object
+    Form for creating and modifying push notification translation objects
     """
 
     class Meta:

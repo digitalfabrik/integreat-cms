@@ -1,6 +1,3 @@
-"""
-Form for creating a page object and page translation object
-"""
 import logging
 
 from django import forms
@@ -15,10 +12,7 @@ logger = logging.getLogger(__name__)
 
 class PageTranslationForm(forms.ModelForm):
     """
-    DjangoForm Class, that can be rendered to create deliverable HTML
-
-    Args:
-        forms : Defines the form as an Model form related to a database object
+    Form for creating and modifying page translation objects
     """
 
     class Meta:
