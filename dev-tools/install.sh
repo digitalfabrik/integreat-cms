@@ -59,4 +59,4 @@ if ! pwd | grep -q " "; then
 else
     echo "Warning: The path to your project directory contains spaces, therefore the virtual environment will be created inside '~/.local/share/virtualenvs/'."
 fi
-pipenv install
+pipenv install --dev

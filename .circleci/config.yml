@@ -15,7 +15,7 @@ jobs:
             - pip-deps-
       - run:
           name: Install pip dependencies
-          command: pipenv install
+          command: pipenv install --dev
       - save_cache:
           key: pip-deps-{{ checksum "Pipfile.lock" }}
           paths:
