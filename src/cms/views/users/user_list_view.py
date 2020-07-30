@@ -8,23 +8,18 @@ from django.views.generic import TemplateView
 from ...decorators import staff_required
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(staff_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
+@method_decorator(staff_required, name="dispatch")
 class UserListView(PermissionRequiredMixin, TemplateView):
-    permission_required = 'cms.change_user'
+    permission_required = "cms.change_user"
     raise_exception = True
 
-    template_name = 'users/admin/list.html'
-    base_context = {'current_menu_item': 'users'}
+    template_name = "users/admin/list.html"
+    base_context = {"current_menu_item": "users"}
 
     def get(self, request, *args, **kwargs):
         users = get_user_model().objects.all()
 
         return render(
-            request,
-            self.template_name,
-            {
-                **self.base_context,
-                'users': users
-            }
+            request, self.template_name, {**self.base_context, "users": users}
         )

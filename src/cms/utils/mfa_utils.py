@@ -5,6 +5,7 @@ This module contains helpers for multi-factor-authentication tasks.
 import random
 import string
 
+
 def generate_challenge(challenge_len):
     """
     This function generates a random challenge of the given length. It consists of ascii letters and digits.
@@ -17,7 +18,9 @@ def generate_challenge(challenge_len):
     :return: A random string of the requested length
     :rtype: str
     """
-    return ''.join([
-        random.SystemRandom().choice(string.ascii_letters + string.digits)
-        for i in range(challenge_len)
-    ])
+    return "".join(
+        [
+            random.SystemRandom().choice(string.ascii_letters + string.digits)
+            for i in range(challenge_len)
+        ]
+    )

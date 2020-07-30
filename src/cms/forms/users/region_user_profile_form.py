@@ -15,21 +15,29 @@ class RegionUserProfileForm(UserProfileForm):
 
     class Meta:
         model = UserProfile
-        fields = ['organization']
+        fields = ["organization"]
 
     def __init__(self, data=None, instance=None):
 
-        logger.info('RegionUserProfileForm instantiated with data %s and instance %s', data, instance)
+        logger.info(
+            "RegionUserProfileForm instantiated with data %s and instance %s",
+            data,
+            instance,
+        )
 
         # Instantiate ModelForm
         super(RegionUserProfileForm, self).__init__(data=data, instance=instance)
 
     def save(self, *args, **kwargs):
 
-        logger.info('RegionUserProfileForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
+        logger.info(
+            "RegionUserProfileForm saved with cleaned data %s and changed data %s",
+            self.cleaned_data,
+            self.changed_data,
+        )
 
         # pop kwarg to make sure the super class does not get this param
-        region = kwargs.pop('region', None)
+        region = kwargs.pop("region", None)
 
         # check if instance exists now because after save() from UserProfileForm it will exist anyway
         instance_exists = bool(self.instance.id)
@@ -42,9 +50,7 @@ class RegionUserProfileForm(UserProfileForm):
             user_profile.regions.add(region)
             user_profile.save()
             logger.info(
-                'The new user %s was added to the region %s.',
-                user_profile.user,
-                region
+                "The new user %s was added to the region %s.", user_profile.user, region
             )
 
         return user_profile

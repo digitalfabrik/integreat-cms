@@ -12,7 +12,7 @@ class Document(models.Model):
     """
 
     description = models.CharField(max_length=255, blank=True)
-    document = models.FileField(upload_to='')
+    document = models.FileField(upload_to="")
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def delete(self, using=None, keep_parents=False):
@@ -49,4 +49,5 @@ class Document(models.Model):
         :param default_permissions: The default permissions for this model
         :type default_permissions: tuple
         """
+
         default_permissions = ()

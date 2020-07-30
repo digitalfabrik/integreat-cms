@@ -17,16 +17,22 @@ class EventTranslationForm(forms.ModelForm):
     class Meta:
         model = EventTranslation
         fields = [
-            'title',
-            'slug',
-            'description',
-            'status',
-            'minor_edit',
+            "title",
+            "slug",
+            "description",
+            "status",
+            "minor_edit",
         ]
 
-    #pylint: disable=too-many-arguments
-    def __init__(self, data=None, instance=None, disabled=False, region=None, language=None):
-        logger.info('EventTranslationForm instantiated with data %s and instance %s', data, instance)
+    # pylint: disable=too-many-arguments
+    def __init__(
+        self, data=None, instance=None, disabled=False, region=None, language=None
+    ):
+        logger.info(
+            "EventTranslationForm instantiated with data %s and instance %s",
+            data,
+            instance,
+        )
 
         self.region = region
         self.language = language
@@ -38,12 +44,12 @@ class EventTranslationForm(forms.ModelForm):
             # Copy QueryDict because it is immutable
             data = data.copy()
             # Update the POST field with the status corresponding to the submitted button
-            if 'submit_draft' in data:
-                data.update({'status': status.DRAFT})
-            elif 'submit_review' in data:
-                data.update({'status': status.REVIEW})
-            elif 'submit_public' in data:
-                data.update({'status': status.PUBLIC})
+            if "submit_draft" in data:
+                data.update({"status": status.DRAFT})
+            elif "submit_review" in data:
+                data.update({"status": status.REVIEW})
+            elif "submit_public" in data:
+                data.update({"status": status.PUBLIC})
 
         # Instantiate ModelForm
         super(EventTranslationForm, self).__init__(data=data, instance=instance)
@@ -53,9 +59,13 @@ class EventTranslationForm(forms.ModelForm):
             for _, field in self.fields.items():
                 field.disabled = True
 
-    #pylint: disable=arguments-differ
+    # pylint: disable=arguments-differ
     def save(self, event=None, user=None):
-        logger.info('EventTranslationForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
+        logger.info(
+            "EventTranslationForm saved with cleaned data %s and changed data %s",
+            self.cleaned_data,
+            self.changed_data,
+        )
 
         # Disable instant commit on saving because missing information would cause error
         event_translation = super(EventTranslationForm, self).save(commit=False)
@@ -67,7 +77,7 @@ class EventTranslationForm(forms.ModelForm):
             event_translation.creator = user
 
         # Only create new version if content changed
-        if not {'slug', 'title', 'description'}.isdisjoint(self.changed_data):
+        if not {"slug", "title", "description"}.isdisjoint(self.changed_data):
             event_translation.version = event_translation.version + 1
             event_translation.pk = None
 
@@ -75,7 +85,7 @@ class EventTranslationForm(forms.ModelForm):
         return event_translation
 
     def clean_slug(self):
-        unique_slug = generate_unique_slug(self, 'event')
+        unique_slug = generate_unique_slug(self, "event")
         self.data = self.data.copy()
-        self.data['slug'] = unique_slug
+        self.data["slug"] = unique_slug
         return unique_slug

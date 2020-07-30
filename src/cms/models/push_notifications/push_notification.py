@@ -22,7 +22,9 @@ class PushNotification(models.Model):
     :param translations: All translations of this push notification
     """
 
-    region = models.ForeignKey('Region', related_name='push_notifications', on_delete=models.CASCADE)
+    region = models.ForeignKey(
+        "Region", related_name="push_notifications", on_delete=models.CASCADE
+    )
     channel = models.CharField(max_length=60)
     draft = models.BooleanField(default=True)
     sent_date = models.DateTimeField(null=True, blank=True)
@@ -52,9 +54,10 @@ class PushNotification(models.Model):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
+
         default_permissions = ()
         permissions = (
-            ('view_push_notifications', 'Can view push notification'),
-            ('edit_push_notifications', 'Can edit push notification'),
-            ('send_push_notifications', 'Can send push notification'),
+            ("view_push_notifications", "Can view push notification"),
+            ("edit_push_notifications", "Can edit push notification"),
+            ("send_push_notifications", "Can send push notification"),
         )

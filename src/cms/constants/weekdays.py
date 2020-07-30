@@ -27,11 +27,11 @@ SATURDAY = 5
 SUNDAY = 6
 
 CHOICES = (
-    (MONDAY, _('Monday')),
-    (TUESDAY, _('Tuesday')),
-    (WEDNESDAY, _('Wednesday')),
-    (THURSDAY, _('Thursday')),
-    (FRIDAY, _('Friday')),
-    (SATURDAY, _('Saturday')),
-    (SUNDAY, _('Sunday'))
+    (MONDAY, _("Monday")),
+    (TUESDAY, _("Tuesday")),
+    (WEDNESDAY, _("Wednesday")),
+    (THURSDAY, _("Thursday")),
+    (FRIDAY, _("Friday")),
+    (SATURDAY, _("Saturday")),
+    (SUNDAY, _("Sunday")),
 )

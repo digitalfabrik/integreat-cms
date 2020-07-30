@@ -21,4 +21,4 @@ def region_slug_processor(request):
         regions = Region.objects.exclude(slug=region.slug)
     else:
         regions = Region.objects.all()
-    return {'regions': regions, 'region': region}
+    return {"regions": regions, "region": region}

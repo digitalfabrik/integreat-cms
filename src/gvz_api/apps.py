@@ -15,7 +15,7 @@ class GvzApiConfig(AppConfig):
     GVZ API config inheriting the django AppConfig
     """
 
-    name = 'gvz_api'
+    name = "gvz_api"
     api_available = False
 
     def ready(self):
@@ -24,7 +24,9 @@ class GvzApiConfig(AppConfig):
         """
         if settings.GVZ_API_ENABLED:
             try:
-                response = requests.get(f"{settings.GVZ_API_URL}/search/expect_empty_json")
+                response = requests.get(
+                    f"{settings.GVZ_API_URL}/search/expect_empty_json"
+                )
                 json.loads(response.text)
             except json.decoder.JSONDecodeError:
                 self.api_available = False
@@ -35,8 +37,10 @@ class GvzApiConfig(AppConfig):
         else:
             self.api_available = False
         if not self.api_available:
-            logger.info("GVZ API is not available. You won't be able to "
-                        "automatically import coordinates and region aliases.")
+            logger.info(
+                "GVZ API is not available. You won't be able to "
+                "automatically import coordinates and region aliases."
+            )
         else:
             self.api_available = True
             logger.info("GVZ API is available.")

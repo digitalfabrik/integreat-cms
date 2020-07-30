@@ -18,14 +18,13 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = [
-            'regions',
-            'organization'
-        ]
+        fields = ["regions", "organization"]
 
     def __init__(self, data=None, instance=None):
 
-        logger.info('UserProfileForm instantiated with data %s and instance %s', data, instance)
+        logger.info(
+            "UserProfileForm instantiated with data %s and instance %s", data, instance
+        )
 
         # Instantiate ModelForm
         super(UserProfileForm, self).__init__(data=data, instance=instance)
@@ -33,20 +32,20 @@ class UserProfileForm(forms.ModelForm):
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
 
-        logger.info('UserProfileForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
-
         logger.info(
-            'UserProfileForm saved with args %s and kwargs %s',
-            args,
-            kwargs
+            "UserProfileForm saved with cleaned data %s and changed data %s",
+            self.cleaned_data,
+            self.changed_data,
         )
 
+        logger.info("UserProfileForm saved with args %s and kwargs %s", args, kwargs)
+
         # pop kwarg to make sure the super class does not get this param
-        user = kwargs.pop('user', None)
+        user = kwargs.pop("user", None)
 
         if not self.instance.id:
             # don't commit saving of ModelForm, because required user field is still missing
-            kwargs['commit'] = False
+            kwargs["commit"] = False
 
         # save ModelForm
         user_profile = super(UserProfileForm, self).save(*args, **kwargs)
@@ -55,8 +54,8 @@ class UserProfileForm(forms.ModelForm):
             user_profile.user = user
             user_profile.save()
             # check if called from UserProfileForm or RegionUserProfileForm
-            if 'regions' in self.cleaned_data:
+            if "regions" in self.cleaned_data:
                 # regions can't be saved if commit=False on the ModelForm, so we have to save them explicitly
-                user_profile.regions.set(self.cleaned_data['regions'])
+                user_profile.regions.set(self.cleaned_data["regions"])
 
         return user_profile

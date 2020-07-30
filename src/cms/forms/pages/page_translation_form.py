@@ -17,20 +17,16 @@ class PageTranslationForm(forms.ModelForm):
 
     class Meta:
         model = PageTranslation
-        fields = ['title', 'slug', 'status', 'text', 'minor_edit']
+        fields = ["title", "slug", "status", "text", "minor_edit"]
 
     def __init__(self, *args, **kwargs):
 
-        logger.info(
-            'New PageTranslationForm with args %s and kwargs %s',
-            args,
-            kwargs
-        )
+        logger.info("New PageTranslationForm with args %s and kwargs %s", args, kwargs)
 
         # pop kwarg to make sure the super class does not get this param
-        self.region = kwargs.pop('region', None)
-        self.language = kwargs.pop('language', None)
-        disabled = kwargs.pop('disabled', None)
+        self.region = kwargs.pop("region", None)
+        self.language = kwargs.pop("language", None)
+        disabled = kwargs.pop("disabled", None)
 
         # To set the status value through the submit button, we have to overwrite the field value for status.
         # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
@@ -39,15 +35,15 @@ class PageTranslationForm(forms.ModelForm):
             # Copy QueryDict because it is immutable
             post = args[0].copy()
             # Update the POST field with the status corresponding to the submitted button
-            if 'submit_draft' in args[0]:
-                post.update({'status': status.DRAFT})
-            elif 'submit_review' in args[0]:
-                post.update({'status': status.REVIEW})
-            elif 'submit_public' in args[0]:
-                post.update({'status': status.PUBLIC})
+            if "submit_draft" in args[0]:
+                post.update({"status": status.DRAFT})
+            elif "submit_review" in args[0]:
+                post.update({"status": status.REVIEW})
+            elif "submit_public" in args[0]:
+                post.update({"status": status.PUBLIC})
             # Set the args to POST again
             args = (post,)
-            logger.info('changed POST arg status manually')
+            logger.info("changed POST arg status manually")
 
         super(PageTranslationForm, self).__init__(*args, **kwargs)
 
@@ -59,18 +55,18 @@ class PageTranslationForm(forms.ModelForm):
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
         logger.info(
-            'PageTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s',
+            "PageTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
             args,
             kwargs,
             self.cleaned_data,
-            self.changed_data
+            self.changed_data,
         )
 
         # pop kwarg to make sure the super class does not get this param
-        page = kwargs.pop('page', None)
-        user = kwargs.pop('user', None)
+        page = kwargs.pop("page", None)
+        user = kwargs.pop("user", None)
 
-        kwargs['commit'] = False  # Don't save yet. We just want the object.
+        kwargs["commit"] = False  # Don't save yet. We just want the object.
         page_translation = super(PageTranslationForm, self).save(*args, **kwargs)
 
         if not self.instance.id:
@@ -80,7 +76,7 @@ class PageTranslationForm(forms.ModelForm):
             page_translation.language = self.language
 
         # Only create new version if content changed
-        if not {'slug', 'title', 'text'}.isdisjoint(self.changed_data):
+        if not {"slug", "title", "text"}.isdisjoint(self.changed_data):
             page_translation.version = page_translation.version + 1
             page_translation.pk = None
         page_translation.save()
@@ -88,4 +84,4 @@ class PageTranslationForm(forms.ModelForm):
         return page_translation
 
     def clean_slug(self):
-        return generate_unique_slug(self, 'page')
+        return generate_unique_slug(self, "page")

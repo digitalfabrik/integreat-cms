@@ -35,7 +35,9 @@ class MatomoApiManager:
         """
         self.matomo_url = matomo_url
         self.matomo_api_key = matomo_api_key
-        self.matomo_api_key = "&token_auth=" + self.matomo_api_key  # concats token api-parameter
+        self.matomo_api_key = (
+            "&token_auth=" + self.matomo_api_key
+        )  # concats token api-parameter
         self.ssl_verify = ssl_verify
         self.cleanmatomo_url()  # cleans matomo url for proper requests
 
@@ -49,7 +51,9 @@ class MatomoApiManager:
         if re.match(r"^http://", self.matomo_url):  # replace it to "https://"
             self.matomo_url = re.sub("^http://", "", self.matomo_url)
             self.matomo_url = self.protocol + self.matomo_url
-        elif not bool(re.match("^https://", self.matomo_url)):  # check for "https://" and set it
+        elif not bool(
+            re.match("^https://", self.matomo_url)
+        ):  # check for "https://" and set it
             self.matomo_url = self.protocol + self.matomo_url
 
     def checkmatomo_url(self):
@@ -58,7 +62,9 @@ class MatomoApiManager:
         :return: True or False
         """
         try:
-            http_code = requests.get(self.matomo_url, verify=self.ssl_verify).status_code
+            http_code = requests.get(
+                self.matomo_url, verify=self.ssl_verify
+            ).status_code
             if http_code == 200:
                 return True
             return False
@@ -85,8 +91,8 @@ class MatomoApiManager:
         session = requests.Session()
         retry = Retry(connect=3, backoff_factor=0.5)
         adapter = HTTPAdapter(max_retries=retry)
-        session.mount('http://', adapter)
-        session.mount('https://', adapter)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
 
         response = session.get(url).json()
 
@@ -94,18 +100,37 @@ class MatomoApiManager:
         for json_object in response:
             if period == "day":
                 if response[json_object] == []:
-                    result.append([re.sub(r'(\d{4})-(\d{1,2})-(\d{1,2})',
-                                          '\\3-\\2-\\1', json_object), 0])
+                    result.append(
+                        [
+                            re.sub(
+                                r"(\d{4})-(\d{1,2})-(\d{1,2})",
+                                "\\3-\\2-\\1",
+                                json_object,
+                            ),
+                            0,
+                        ]
+                    )
                 else:
-                    result.append([re.sub(r'(\d{4})-(\d{1,2})-(\d{1,2})',
-                                          '\\3-\\2-\\1', json_object),
-                                   response[json_object]['nb_uniq_visitors']])
+                    result.append(
+                        [
+                            re.sub(
+                                r"(\d{4})-(\d{1,2})-(\d{1,2})",
+                                "\\3-\\2-\\1",
+                                json_object,
+                            ),
+                            response[json_object]["nb_uniq_visitors"],
+                        ]
+                    )
             elif period == "month":
                 if response[json_object] == []:
-                    result.append([re.sub(r'(\d{4})-(\d{1,2})',
-                                          '\\2-\\1', json_object), 0])
+                    result.append(
+                        [re.sub(r"(\d{4})-(\d{1,2})", "\\2-\\1", json_object), 0]
+                    )
                 else:
-                    result.append([re.sub(r'(\d{4})-(\d{1,2})',
-                                          '\\2-\\1', json_object),
-                                   response[json_object]['nb_uniq_visitors']])
+                    result.append(
+                        [
+                            re.sub(r"(\d{4})-(\d{1,2})", "\\2-\\1", json_object),
+                            response[json_object]["nb_uniq_visitors"],
+                        ]
+                    )
         return result

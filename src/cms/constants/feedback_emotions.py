@@ -11,12 +11,12 @@ This module contains all constants representing the emotion of the :class:`~cms.
 from django.utils.translation import ugettext_lazy as _
 
 
-POS = 'POS'
-NEG = 'NEG'
-NA = 'NA'
+POS = "POS"
+NEG = "NEG"
+NA = "NA"
 
 CHOICES = (
-    (POS, _('Positive')),
-    (NEG, _('Negative')),
-    (NA, _('Not Available')),
+    (POS, _("Positive")),
+    (NEG, _("Negative")),
+    (NA, _("Not Available")),
 )

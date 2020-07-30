@@ -23,6 +23,7 @@ class SearchResultFeedback(Feedback):
 
     :param feedback_ptr: A pointer to the base class
     """
+
     searchQuery = models.CharField(max_length=1000)
 
     class Meta:

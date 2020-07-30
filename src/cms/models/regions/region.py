@@ -56,11 +56,19 @@ class Region(models.Model):
     """
 
     name = models.CharField(max_length=200)
-    common_id = models.CharField(max_length=48, blank=True)  # Public unique IDs like German Gemeindeschluessel
+    common_id = models.CharField(
+        max_length=48, blank=True
+    )  # Public unique IDs like German Gemeindeschluessel
     slug = models.SlugField(max_length=200, unique=True, blank=True, allow_unicode=True)
-    status = models.CharField(max_length=8, choices=region_status.CHOICES, default=region_status.HIDDEN)
+    status = models.CharField(
+        max_length=8, choices=region_status.CHOICES, default=region_status.HIDDEN
+    )
 
-    administrative_division = models.CharField(max_length=24, choices=administrative_division.CHOICES, default=administrative_division.RURAL_DISTRICT)
+    administrative_division = models.CharField(
+        max_length=24,
+        choices=administrative_division.CHOICES,
+        default=administrative_division.RURAL_DISTRICT,
+    )
     aliases = models.TextField(blank=True)
 
     events_enabled = models.BooleanField(default=True)
@@ -77,8 +85,8 @@ class Region(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     statistics_enabled = models.BooleanField(default=False)
-    matomo_url = models.CharField(max_length=150, blank=True, default='')
-    matomo_token = models.CharField(max_length=150, blank=True, default='')
+    matomo_url = models.CharField(max_length=150, blank=True, default="")
+    matomo_token = models.CharField(max_length=150, blank=True, default="")
     matomo_ssl_verify = models.BooleanField(default=True)
 
     page_permissions_enabled = models.BooleanField(default=False)
@@ -92,8 +100,10 @@ class Region(models.Model):
         :return: A list of all :class:`~cms.models.languages.language.Language` object instances of a region
         :rtype: list [ ~cms.models.languages.language.Language ]
         """
-        language_tree_nodes = self.language_tree_nodes.select_related('language').all()
-        return [language_tree_node.language for language_tree_node in language_tree_nodes]
+        language_tree_nodes = self.language_tree_nodes.select_related("language").all()
+        return [
+            language_tree_node.language for language_tree_node in language_tree_nodes
+        ]
 
     @property
     def default_language(self):
@@ -117,9 +127,12 @@ class Region(models.Model):
         :rtype: ~cms.models.languages.language.Language
         """
         # if rendered url is edit_region, the region slug originates from the region form.
-        if not hasattr(request, 'resolver_match') or request.resolver_match.url_name == 'edit_region':
+        if (
+            not hasattr(request, "resolver_match")
+            or request.resolver_match.url_name == "edit_region"
+        ):
             return None
-        region_slug = request.resolver_match.kwargs.get('region_slug')
+        region_slug = request.resolver_match.kwargs.get("region_slug")
         if not region_slug:
             return None
         region = cls.objects.filter(slug=region_slug)
@@ -147,7 +160,6 @@ class Region(models.Model):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
+
         default_permissions = ()
-        permissions = (
-            ('manage_regions', 'Can manage regions'),
-        )
+        permissions = (("manage_regions", "Can manage regions"),)

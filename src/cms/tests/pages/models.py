@@ -16,9 +16,7 @@ class PageTest(TestCase):
         Setup run to create a region and page objects.
         """
         self.region = Region.objects.create(
-            aliases=[],
-            push_notification_channels=[],
-            slug='testregion'
+            aliases=[], push_notification_channels=[], slug="testregion"
         )
         self.page1 = Page.objects.create(region=self.region)
         self.page2 = Page.objects.create(parent=self.page1, region=self.region)
@@ -58,8 +56,6 @@ class PageTranslationTest(TestCase):
         Setup run to create a region and page translation object.
         """
         self.region = Region.objects.create(
-            aliases=[],
-            push_notification_channels=[],
-            slug='testregion'
+            aliases=[], push_notification_channels=[], slug="testregion"
         )
         self.pageTranslation = PageTranslation.objects.create()

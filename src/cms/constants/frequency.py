@@ -14,14 +14,14 @@ This module contains all constants representing the frequency of an :class:`~cms
 from django.utils.translation import ugettext_lazy as _
 
 
-DAILY = 'DAILY'
-WEEKLY = 'WEEKLY'
-MONTHLY = 'MONTHLY'
-YEARLY = 'YEARLY'
+DAILY = "DAILY"
+WEEKLY = "WEEKLY"
+MONTHLY = "MONTHLY"
+YEARLY = "YEARLY"
 
 CHOICES = (
-    (DAILY, _('Daily')),
-    (WEEKLY, _('Weekly')),
-    (MONTHLY, _('Monthly')),
-    (YEARLY, _('Yearly'))
+    (DAILY, _("Daily")),
+    (WEEKLY, _("Weekly")),
+    (MONTHLY, _("Monthly")),
+    (YEARLY, _("Yearly")),
 )

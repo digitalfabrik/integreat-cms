@@ -6,7 +6,8 @@ from .page_view import PageView
 from .page_actions import (
     archive_page,
     restore_page,
-    view_page, delete_page,
+    view_page,
+    delete_page,
     download_xliff,
     upload_xliff,
     confirm_xliff_import,
@@ -14,6 +15,6 @@ from .page_actions import (
     grant_page_permission_ajax,
     revoke_page_permission_ajax,
     get_pages_list_ajax,
-    save_mirrored_page
+    save_mirrored_page,
 )
 from .page_sbs_view import PageSideBySideView

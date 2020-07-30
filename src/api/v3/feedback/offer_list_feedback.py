@@ -7,10 +7,16 @@ from cms.models import Region, OfferListFeedback
 
 @feedback_handler
 # pylint: disable=unused-argument
-def offer_list_feedback(data, region_slug, language_code, comment, emotion, is_technical):
+def offer_list_feedback(
+    data, region_slug, language_code, comment, emotion, is_technical
+):
     try:
         region = Region.objects.get(slug=region_slug)
-        OfferListFeedback.objects.create(region=region, emotion=emotion, comment=comment, is_technical=is_technical)
-        return JsonResponse({'success': 'Feedback successfully submitted'}, status=201)
+        OfferListFeedback.objects.create(
+            region=region, emotion=emotion, comment=comment, is_technical=is_technical
+        )
+        return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
     except ObjectDoesNotExist:
-        return JsonResponse({'error': f'No region found with slug "{region_slug}"'}, status=404)
+        return JsonResponse(
+            {"error": f'No region found with slug "{region_slug}"'}, status=404
+        )

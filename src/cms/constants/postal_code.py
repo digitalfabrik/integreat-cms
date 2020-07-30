@@ -11,12 +11,12 @@ This is needed when the postal code is placed inside the offer's url or api requ
 from django.utils.translation import ugettext_lazy as _
 
 
-NONE = 'NONE'
-GET = 'GET'
-POST = 'POST'
+NONE = "NONE"
+GET = "GET"
+POST = "POST"
 
 CHOICES = (
-    (NONE, _('No')),
-    (GET, _('Append postal code to URL')),
-    (POST, _('Add postal code to post parameters')),
+    (NONE, _("No")),
+    (GET, _("Append postal code to URL")),
+    (POST, _("Add postal code to post parameters")),
 )

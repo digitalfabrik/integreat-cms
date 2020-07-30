@@ -20,7 +20,7 @@ def save_file(request):
     """
 
     status = 0
-    if request.method == 'POST':
+    if request.method == "POST":
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
@@ -28,4 +28,4 @@ def save_file(request):
     else:
         form = DocumentForm()
 
-    return {'form': form, 'status': status}
+    return {"form": form, "status": status}

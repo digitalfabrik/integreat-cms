@@ -40,18 +40,14 @@ class LanguageTreeNode(MPTTModel):
     """
 
     language = models.ForeignKey(
-        Language,
-        related_name='language_tree_nodes',
-        on_delete=models.PROTECT
+        Language, related_name="language_tree_nodes", on_delete=models.PROTECT
     )
     parent = TreeForeignKey(
-        'self',
-        blank=True,
-        null=True,
-        related_name='children',
-        on_delete=models.PROTECT
+        "self", blank=True, null=True, related_name="children", on_delete=models.PROTECT
     )
-    region = models.ForeignKey(Region, related_name='language_tree_nodes', on_delete=models.CASCADE)
+    region = models.ForeignKey(
+        Region, related_name="language_tree_nodes", on_delete=models.CASCADE
+    )
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
@@ -142,11 +138,20 @@ class LanguageTreeNode(MPTTModel):
         return super(LanguageTreeNode, self).get_root()
 
     # pylint: disable=useless-super-delegation
-    def insert_at(self, target, position='first-child', save=False, allow_existing_pk=False, refresh_target=True):
-        return super(LanguageTreeNode, self).insert_at(target, position, save, allow_existing_pk, refresh_target)
+    def insert_at(
+        self,
+        target,
+        position="first-child",
+        save=False,
+        allow_existing_pk=False,
+        refresh_target=True,
+    ):
+        return super(LanguageTreeNode, self).insert_at(
+            target, position, save, allow_existing_pk, refresh_target
+        )
 
     # pylint: disable=useless-super-delegation
-    def move_to(self, target, position='first-child'):
+    def move_to(self, target, position="first-child"):
         return super(LanguageTreeNode, self).move_to(target, position)
 
     def __str__(self):
@@ -172,8 +177,7 @@ class LanguageTreeNode(MPTTModel):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
-        unique_together = (('language', 'region', ), )
+
+        unique_together = (("language", "region",),)
         default_permissions = ()
-        permissions = (
-            ('manage_language_tree', 'Can manage language tree'),
-        )
+        permissions = (("manage_language_tree", "Can manage language tree"),)

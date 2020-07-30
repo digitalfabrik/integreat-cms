@@ -12,12 +12,12 @@ For the full list of settings and their values, see :doc:`ref/settings`.
 from .settings import *
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'integreat',
-        'USER': 'integreat',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5433',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "integreat",
+        "USER": "integreat",
+        "PASSWORD": "password",
+        "HOST": "localhost",
+        "PORT": "5433",
     }
 }

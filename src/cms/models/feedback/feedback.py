@@ -35,7 +35,6 @@ class Feedback(models.Model):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
+
         default_permissions = ()
-        permissions = (
-            ('view_feedback', 'Can view feedback'),
-        )
+        permissions = (("view_feedback", "Can view feedback"),)

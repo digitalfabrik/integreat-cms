@@ -19,7 +19,9 @@ class UserMfa(models.Model):
     :param user: The user this key belongs to (related name: ``mfa_keys``)
     """
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='mfa_keys', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="mfa_keys", on_delete=models.CASCADE
+    )
     name = models.CharField(max_length=200)
     key_id = models.BinaryField(max_length=255, null=False)
     public_key = models.BinaryField(max_length=255, null=False)
@@ -32,4 +34,4 @@ class UserMfa(models.Model):
 
     class Meta:
         default_permissions = ()
-        unique_together = (('user', 'name', ), )
+        unique_together = (("user", "name",),)

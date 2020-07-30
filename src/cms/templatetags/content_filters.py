@@ -44,7 +44,8 @@ def translated_language_name(language_code):
     language = Language.objects.filter(code=language_code)
     if language.exists():
         return language.first().translated_name
-    return ''
+    return ""
+
 
 @register.simple_tag
 def get_language(language_code):
@@ -59,6 +60,7 @@ def get_language(language_code):
     """
     return Language.objects.filter(code=language_code).first()
 
+
 # Unify the language codes of backend and content languages
 @register.simple_tag
 def unify_language_code(language_code):
@@ -72,8 +74,8 @@ def unify_language_code(language_code):
     :return: The unified code of the requested language
     :rtype: str
     """
-    if language_code == 'en-gb':
-        return 'en-us'
+    if language_code == "en-gb":
+        return "en-us"
     return language_code
 
 

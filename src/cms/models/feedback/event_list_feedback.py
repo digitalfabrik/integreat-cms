@@ -23,7 +23,10 @@ class EventListFeedback(Feedback):
     :param region: The region to which event list the feedback is referring to (related name: ``event_list_feedback``)
     :param feedback_ptr: A pointer to the base class
     """
-    region = models.ForeignKey(Region, related_name='event_list_feedback', on_delete=models.CASCADE)
+
+    region = models.ForeignKey(
+        Region, related_name="event_list_feedback", on_delete=models.CASCADE
+    )
 
     class Meta:
         default_permissions = ()

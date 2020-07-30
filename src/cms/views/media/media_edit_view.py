@@ -9,38 +9,34 @@ from ...models import Document, Region
 from ...utils.file_utils import save_file
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(region_permission_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
+@method_decorator(region_permission_required, name="dispatch")
 class MediaEditView(TemplateView):
-    template_name = 'media/media_form.html'
-    base_context = {'current_menu_item': 'media'}
+    template_name = "media/media_form.html"
+    base_context = {"current_menu_item": "media"}
 
     def get(self, request, *args, **kwargs):
-        slug = kwargs.get('region_slug')
+        slug = kwargs.get("region_slug")
         region = Region.objects.get(slug=slug)
-        document_id = kwargs.get('document_id')
+        document_id = kwargs.get("document_id")
         form = DocumentForm()
-        if document_id != '0':
+        if document_id != "0":
             document = Document.objects.get(pk=document_id)
             form = DocumentForm(instance=document)
 
         return render(
             request,
             self.template_name,
-            {
-                **self.base_context,
-                'form': form,
-                'region_slug': region.slug,
-            }
+            {**self.base_context, "form": form, "region_slug": region.slug,},
         )
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         # current region
-        region = Region.objects.get(slug=kwargs.get('region_slug'))
+        region = Region.objects.get(slug=kwargs.get("region_slug"))
 
         result = save_file(request)
 
-        if result.get('status') == 1:
-            return redirect('media', **{'region_slug': region.slug})
-        return render(request, self.template_name, {'form': result.get('form')})
+        if result.get("status") == 1:
+            return redirect("media", **{"region_slug": region.slug})
+        return render(request, self.template_name, {"form": result.get("form")})

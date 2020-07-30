@@ -9,5 +9,5 @@ from .authentication_actions import (
     password_reset_complete,
     mfa,
     mfaAssert,
-    mfaVerify
+    mfaVerify,
 )

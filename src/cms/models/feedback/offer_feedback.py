@@ -23,7 +23,8 @@ class OfferFeedback(Feedback):
     :param offer: The offer the feedback is referring to (related name: ``feedback``)
     :param feedback_ptr: A pointer to the base class
     """
-    offer = models.ForeignKey(Offer, related_name='feedback', on_delete=models.CASCADE)
+
+    offer = models.ForeignKey(Offer, related_name="feedback", on_delete=models.CASCADE)
 
     class Meta:
         default_permissions = ()

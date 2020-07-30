@@ -17,36 +17,34 @@ logger = logging.getLogger(__name__)
 
 @login_required
 @region_permission_required
-@permission_required('cms.manage_pois', raise_exception=True)
+@permission_required("cms.manage_pois", raise_exception=True)
 def archive_poi(request, poi_id, region_slug, language_code):
     poi = POI.objects.get(id=poi_id)
 
     poi.archived = True
     poi.save()
 
-    messages.success(request, _('POI was successfully archived.'))
+    messages.success(request, _("POI was successfully archived."))
 
-    return redirect('pois', **{
-                'region_slug': region_slug,
-                'language_code': language_code,
-    })
+    return redirect(
+        "pois", **{"region_slug": region_slug, "language_code": language_code,}
+    )
 
 
 @login_required
 @region_permission_required
-@permission_required('cms.manage_pois', raise_exception=True)
+@permission_required("cms.manage_pois", raise_exception=True)
 def restore_poi(request, poi_id, region_slug, language_code):
     poi = POI.objects.get(id=poi_id)
 
     poi.archived = False
     poi.save()
 
-    messages.success(request, _('POI was successfully restored.'))
+    messages.success(request, _("POI was successfully restored."))
 
-    return redirect('pois', **{
-                'region_slug': region_slug,
-                'language_code': language_code,
-    })
+    return redirect(
+        "pois", **{"region_slug": region_slug, "language_code": language_code,}
+    )
 
 
 @login_required
@@ -55,20 +53,19 @@ def delete_poi(request, poi_id, region_slug, language_code):
 
     poi = POI.objects.get(id=poi_id)
     poi.delete()
-    messages.success(request, _('POI was successfully deleted.'))
+    messages.success(request, _("POI was successfully deleted."))
 
-    return redirect('pois', **{
-        'region_slug': region_slug,
-        'language_code': language_code,
-    })
+    return redirect(
+        "pois", **{"region_slug": region_slug, "language_code": language_code,}
+    )
 
 
 @login_required
 @region_permission_required
-@permission_required('cms.manage_pois', raise_exception=True)
+@permission_required("cms.manage_pois", raise_exception=True)
 # pylint: disable=unused-argument
 def view_poi(request, poi_id, region_slug, language_code):
-    template_name = 'pois/poi_view.html'
+    template_name = "pois/poi_view.html"
     poi = POI.objects.get(id=poi_id)
 
     poi_translation = poi.get_translation(language_code)
@@ -76,10 +73,4 @@ def view_poi(request, poi_id, region_slug, language_code):
     if not poi_translation:
         raise Http404
 
-    return render(
-        request,
-        template_name,
-        {
-            "poi_translation": poi_translation
-        }
-    )
+    return render(request, template_name, {"poi_translation": poi_translation})

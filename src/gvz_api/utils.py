@@ -10,7 +10,7 @@ from cms.constants import administrative_division
 logger = logging.getLogger(__name__)
 
 
-class GvzApiWrapper():
+class GvzApiWrapper:
     """
     Class that wraps around the GVZ (Gemeindeverzeichnis) API
     """
@@ -52,14 +52,14 @@ class GvzApiWrapper():
         if len(region) != 1:
             return None
         region = region[0]
-        if ',' in region['name']:
-            region['name'] = region['name'].split(',')[0]
+        if "," in region["name"]:
+            region["name"] = region["name"].split(",")[0]
         return {
-            "key": region['key'],
-            "name": region['name'],
-            "longitude": region['longitude'],
-            "latitude": region['latitude'],
-            "type": region['type']
+            "key": region["key"],
+            "name": region["name"],
+            "longitude": region["longitude"],
+            "latitude": region["latitude"],
+            "type": region["type"],
         }
 
     def get_children(self, region_key):
@@ -75,7 +75,7 @@ class GvzApiWrapper():
         response = requests.get(f"{self.api_url}/searchcounty/{region_key}")
         content = json.loads(response.text)
         if content:
-            return content[0]['children']
+            return content[0]["children"]
         return []
 
     @staticmethod
@@ -108,9 +108,8 @@ class GvzApiWrapper():
         :return: indicates if a region is not interesting
         :rtype: bool
         """
-        if cls.translate_type(
-                region_details['type']) == administrative_division.CITY:
-            if len(region_details['key']) <= 5:
+        if cls.translate_type(region_details["type"]) == administrative_division.CITY:
+            if len(region_details["key"]) <= 5:
                 return False
         return True
 
@@ -136,9 +135,9 @@ class GvzApiWrapper():
         logger.info("GVZ API found more than one region for %s.", region_name)
         results_literal = []
         for region in results:
-            if "," in region['name']:
-                region['name'] = region['name'].split(',')[0]
-            if region['name'] == region_name:
+            if "," in region["name"]:
+                region["name"] = region["name"].split(",")[0]
+            if region["name"] == region_name:
                 results_literal.append(region)
         if len(results_literal) == 1:
             return results_literal[0]
@@ -148,11 +147,11 @@ class GvzApiWrapper():
             return None
         results_type = []
         for region in results_literal:
-            region_details = self.get_details(region['key'])
+            region_details = self.get_details(region["key"])
             if region_details is None:
                 continue
             if self.filter_region_types(region_details):
-                if self.translate_type(region_details['type']) == region_type:
+                if self.translate_type(region_details["type"]) == region_type:
                     results_type.append(region)
         if len(results_type) == 1:
             return results_type[0]
@@ -161,7 +160,7 @@ class GvzApiWrapper():
         return None
 
 
-class GvzRegion():
+class GvzRegion:
     """
     Represents a region in the GVZ, initial values will be retrieved
     from API on initialization.
@@ -185,29 +184,29 @@ class GvzRegion():
 
         api = GvzApiWrapper()
         self.key = region_key
-        if region_name is not None and region_key == '':
+        if region_name is not None and region_key == "":
             best_match = api.best_match(region_name, region_type)
             if best_match is not None:
-                self.key = best_match['key']
+                self.key = best_match["key"]
 
         self.name = None
         self.longitude = None
         self.latitude = None
         self.children = []
 
-        if self.key is None or self.key == '':
+        if self.key is None or self.key == "":
             return
 
         details = api.get_details(self.key)
         if details is None:
             return
-        self.name = details['name']
-        self.longitude = details['longitude']
-        self.latitude = details['latitude']
+        self.name = details["name"]
+        self.longitude = details["longitude"]
+        self.latitude = details["latitude"]
 
         children = api.get_children(self.key)
         for child in children:
-            self.children.append(GvzRegion(region_key=child['key']))
+            self.children.append(GvzRegion(region_key=child["key"]))
 
     def as_dict(self):
         """
@@ -220,7 +219,7 @@ class GvzRegion():
             "name": str(self),
             "longitude": self.longitude,
             "latitude": self.latitude,
-            "children": [child.as_dict() for child in self.children]
+            "children": [child.as_dict() for child in self.children],
         }
 
     def __str__(self):
@@ -244,6 +243,8 @@ class GvzRegion():
         if self.children is None:
             return ""
         for child in self.children:
-            aliases[child.name] = {"longitude": child.longitude,
-                                   "latitude": child.latitude}
+            aliases[child.name] = {
+                "longitude": child.longitude,
+                "latitude": child.latitude,
+            }
         return json.dumps(aliases)

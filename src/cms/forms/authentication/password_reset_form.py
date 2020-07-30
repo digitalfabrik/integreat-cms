@@ -6,6 +6,7 @@ class PasswordResetConfirmForm(SetPasswordForm):
     """
     Form for resetting passwords
     """
+
     error_messages = {
-        'password_mismatch': _("The passwords do not match."),
+        "password_mismatch": _("The passwords do not match."),
     }

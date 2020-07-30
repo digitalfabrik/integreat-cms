@@ -3,5 +3,5 @@ from .mfa import (
     GetChallengeView,
     AuthenticateModifyMfaView,
     AddMfaKeyView,
-    DeleteMfaKey
+    DeleteMfaKey,
 )

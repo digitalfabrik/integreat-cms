@@ -33,7 +33,9 @@ from .pois.poi import POI
 from .pois.poi_translation import POITranslation
 
 from .push_notifications.push_notification import PushNotification
-from .push_notifications.push_notification_translation import PushNotificationTranslation
+from .push_notifications.push_notification_translation import (
+    PushNotificationTranslation,
+)
 
 from .regions.region import Region
 

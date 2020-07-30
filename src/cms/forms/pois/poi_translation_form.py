@@ -17,17 +17,28 @@ class POITranslationForm(forms.ModelForm):
     """
 
     PUBLIC_CHOICES = (
-        (True, _('Public')),
-        (False, _('Private')),
+        (True, _("Public")),
+        (False, _("Private")),
     )
 
     class Meta:
         model = POITranslation
-        fields = ['title', 'short_description', 'status', 'description', 'slug', 'minor_edit']
+        fields = [
+            "title",
+            "short_description",
+            "status",
+            "description",
+            "slug",
+            "minor_edit",
+        ]
 
-    #pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments
     def __init__(self, data=None, instance=None, region=None, language=None):
-        logger.info('POITranslationForm instantiated with data %s and instance %s', data, instance)
+        logger.info(
+            "POITranslationForm instantiated with data %s and instance %s",
+            data,
+            instance,
+        )
 
         self.region = region
         self.language = language
@@ -39,10 +50,10 @@ class POITranslationForm(forms.ModelForm):
             # Copy QueryDict because it is immutable
             data = data.copy()
             # Update the POST field with the status corresponding to the submitted button
-            if 'submit_draft' in data:
-                data.update({'status': status.DRAFT})
-            elif 'submit_public' in data:
-                data.update({'status': status.PUBLIC})
+            if "submit_draft" in data:
+                data.update({"status": status.DRAFT})
+            elif "submit_public" in data:
+                data.update({"status": status.PUBLIC})
 
         super(POITranslationForm, self).__init__(data=data, instance=instance)
 
@@ -53,7 +64,11 @@ class POITranslationForm(forms.ModelForm):
 
     # pylint: disable=arguments-differ
     def save(self, poi=None, user=None):
-        logger.info('POITranslationForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
+        logger.info(
+            "POITranslationForm saved with cleaned data %s and changed data %s",
+            self.cleaned_data,
+            self.changed_data,
+        )
 
         poi_translation = super(POITranslationForm, self).save(commit=False)
 
@@ -64,7 +79,9 @@ class POITranslationForm(forms.ModelForm):
             poi_translation.language = self.language
 
         # Only create new version if content changed
-        if not {'slug', 'title', 'short_description', 'description'}.isdisjoint(self.changed_data):
+        if not {"slug", "title", "short_description", "description"}.isdisjoint(
+            self.changed_data
+        ):
             poi_translation.version = poi_translation.version + 1
             poi_translation.pk = None
         poi_translation.save()
@@ -72,7 +89,7 @@ class POITranslationForm(forms.ModelForm):
         return poi_translation
 
     def clean_slug(self):
-        unique_slug = generate_unique_slug(self, 'poi')
+        unique_slug = generate_unique_slug(self, "poi")
         self.data = self.data.copy()
-        self.data['slug'] = unique_slug
+        self.data["slug"] = unique_slug
         return unique_slug

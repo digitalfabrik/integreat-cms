@@ -27,7 +27,11 @@ class RecurrenceRule(models.Model):
 
     frequency = models.CharField(max_length=7, choices=frequency.CHOICES, blank=True)
     interval = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    weekdays_for_weekly = ArrayField(models.IntegerField(choices=weekdays.CHOICES), blank=True)
-    weekday_for_monthly = models.IntegerField(choices=weekdays.CHOICES, null=True, blank=True)
+    weekdays_for_weekly = ArrayField(
+        models.IntegerField(choices=weekdays.CHOICES), blank=True
+    )
+    weekday_for_monthly = models.IntegerField(
+        choices=weekdays.CHOICES, null=True, blank=True
+    )
     week_for_monthly = models.IntegerField(choices=weeks.CHOICES, null=True, blank=True)
     recurrence_end_date = models.DateField(null=True, blank=True)

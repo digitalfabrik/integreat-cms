@@ -43,16 +43,16 @@ NOVEMBER = 10
 DECEMBER = 11
 
 CHOICES = (
-    (JANUARY, _('January')),
-    (FEBRUARY, _('February')),
-    (MARCH, _('March')),
-    (APRIL, _('April')),
-    (MAY, _('May')),
-    (JUNE, _('June')),
-    (JULY, _('July')),
-    (AUGUST, _('August')),
-    (SEPTEMBER, _('September')),
-    (OCTOBER, _('October')),
-    (NOVEMBER, _('November')),
-    (DECEMBER, _('December'))
+    (JANUARY, _("January")),
+    (FEBRUARY, _("February")),
+    (MARCH, _("March")),
+    (APRIL, _("April")),
+    (MAY, _("May")),
+    (JUNE, _("June")),
+    (JULY, _("July")),
+    (AUGUST, _("August")),
+    (SEPTEMBER, _("September")),
+    (OCTOBER, _("October")),
+    (NOVEMBER, _("November")),
+    (DECEMBER, _("December")),
 )

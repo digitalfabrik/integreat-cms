@@ -29,10 +29,14 @@ class Language(models.Model):
     :param push_notification_translations: All push notification translations in this language
     """
 
-    code = models.CharField(max_length=8, unique=True, validators=[MinLengthValidator(2)])
+    code = models.CharField(
+        max_length=8, unique=True, validators=[MinLengthValidator(2)]
+    )
     native_name = models.CharField(max_length=250, blank=False)
     english_name = models.CharField(max_length=250, blank=False)
-    text_direction = models.CharField(default=text_directions.LTR, choices=text_directions.CHOICES, max_length=3)
+    text_direction = models.CharField(
+        default=text_directions.LTR, choices=text_directions.CHOICES, max_length=3
+    )
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -66,7 +70,6 @@ class Language(models.Model):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
+
         default_permissions = ()
-        permissions = (
-            ('manage_languages', 'Can manage languages'),
-        )
+        permissions = (("manage_languages", "Can manage languages"),)

@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from cms.models import Region, Page
 from .pages import transform_page
 
+
 def single_page(request, region_slug, language_code):
     """
     View function returning the desired page as a JSON or a 404 if the
@@ -29,17 +30,19 @@ def single_page(request, region_slug, language_code):
     """
     region = get_object_or_404(Region, slug=region_slug)
 
-    if request.GET.get('id'):
-        page = get_object_or_404(Page, region=region, id=request.GET.get('id'))
+    if request.GET.get("id"):
+        page = get_object_or_404(Page, region=region, id=request.GET.get("id"))
         page_translation = page.get_public_translation(language_code)
         if page_translation:
             return JsonResponse(transform_page(page_translation), safe=False)
 
-    elif request.GET.get('url'):
+    elif request.GET.get("url"):
         # Strip leading and trailing slashes to avoid ambiguous urls
-        url = request.GET.get('url').strip('/')
+        url = request.GET.get("url").strip("/")
         # Get potential page candidate by only filtering for the translation slug
-        page = get_object_or_404(Page, region=region, translations__slug=url.split('/')[-1])
+        page = get_object_or_404(
+            Page, region=region, translations__slug=url.split("/")[-1]
+        )
         # Get most recent public revision of the page
         page_translation = page.get_public_translation(language_code)
         # Check if the whole path is correct, not only the slug
@@ -47,4 +50,4 @@ def single_page(request, region_slug, language_code):
         if page_translation.permalink == url:
             return JsonResponse(transform_page(page_translation), safe=False)
 
-    raise Http404('No Page matches the given url or id.')
+    raise Http404("No Page matches the given url or id.")

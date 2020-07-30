@@ -36,20 +36,27 @@ class PageTranslation(models.Model):
     :param creator: The user who created the page translation (related name: ``page_translations``)
     """
 
-    page = models.ForeignKey(Page, related_name='translations', on_delete=models.CASCADE)
+    page = models.ForeignKey(
+        Page, related_name="translations", on_delete=models.CASCADE
+    )
     language = models.ForeignKey(
-        Language,
-        related_name='page_translations',
-        on_delete=models.CASCADE
+        Language, related_name="page_translations", on_delete=models.CASCADE
     )
     slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
     title = models.CharField(max_length=250)
     text = models.TextField(blank=True)
-    status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
+    status = models.CharField(
+        max_length=6, choices=status.CHOICES, default=status.DRAFT
+    )
     currently_in_translation = models.BooleanField(default=False)
     version = models.PositiveIntegerField(default=0)
     minor_edit = models.BooleanField(default=False)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='page_translations', null=True, on_delete=models.SET_NULL)
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="page_translations",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -72,10 +79,12 @@ class PageTranslation(models.Model):
         :return: The relative path to the page
         :rtype: str
         """
-        return '/'.join([
-            ancestor.get_first_translation([self.language.code]).slug
-            for ancestor in self.page.get_ancestors()
-        ])
+        return "/".join(
+            [
+                ancestor.get_first_translation([self.language.code]).slug
+                for ancestor in self.page.get_ancestors()
+            ]
+        )
 
     @property
     def permalink(self):
@@ -85,12 +94,17 @@ class PageTranslation(models.Model):
         :return: The permalink of the page
         :rtype: str
         """
-        return '/'.join(filter(None, [
-            self.page.region.slug,
-            self.language.code,
-            self.ancestor_path,
-            self.slug
-        ]))
+        return "/".join(
+            filter(
+                None,
+                [
+                    self.page.region.slug,
+                    self.language.code,
+                    self.ancestor_path,
+                    self.slug,
+                ],
+            )
+        )
 
     @property
     def available_languages(self):
@@ -118,8 +132,8 @@ class PageTranslation(models.Model):
             other_translation = self.page.get_public_translation(language.code)
             if other_translation:
                 available_languages[language.code] = {
-                    'id': other_translation.id,
-                    'url': other_translation.permalink
+                    "id": other_translation.id,
+                    "url": other_translation.permalink,
                 }
         return available_languages
 
@@ -135,7 +149,9 @@ class PageTranslation(models.Model):
                  :class:`~cms.models.languages.language.Language`)
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
-        source_language_tree_node = self.page.region.language_tree_nodes.get(language=self.language).parent
+        source_language_tree_node = self.page.region.language_tree_nodes.get(
+            language=self.language
+        ).parent
         if source_language_tree_node:
             return self.page.get_translation(source_language_tree_node.code)
         return None
@@ -150,8 +166,7 @@ class PageTranslation(models.Model):
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.page.translations.filter(
-            language=self.language,
-            status=status.PUBLIC,
+            language=self.language, status=status.PUBLIC,
         ).first()
 
     @property
@@ -163,8 +178,7 @@ class PageTranslation(models.Model):
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.page.translations.filter(
-            language=self.language,
-            minor_edit=False,
+            language=self.language, minor_edit=False,
         ).first()
 
     @property
@@ -177,9 +191,7 @@ class PageTranslation(models.Model):
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.page.translations.filter(
-            language=self.language,
-            status=status.PUBLIC,
-            minor_edit=False,
+            language=self.language, status=status.PUBLIC, minor_edit=False,
         ).first()
 
     @property
@@ -192,8 +204,7 @@ class PageTranslation(models.Model):
         """
         version = self.version - 1
         return self.page.translations.filter(
-            language=self.language,
-            version=version,
+            language=self.language, version=version,
         ).first()
 
     @property
@@ -276,7 +287,9 @@ class PageTranslation(models.Model):
         :return: A :class:`~django.db.models.query.QuerySet` of all page translations of a region in a specific language
         :rtype: ~django.db.models.query.QuerySet
         """
-        return cls.objects.filter(page__region=region, language=language).distinct('page')
+        return cls.objects.filter(page__region=region, language=language).distinct(
+            "page"
+        )
 
     @classmethod
     def get_up_to_date_translations(cls, region, language):
@@ -293,7 +306,13 @@ class PageTranslation(models.Model):
         :return: All up to date translations of a region in a specific language
         :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
         """
-        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.is_up_to_date]
+        return [
+            t
+            for t in cls.objects.filter(
+                page__region=region, language=language
+            ).distinct("page")
+            if t.is_up_to_date
+        ]
 
     @classmethod
     def get_current_translations(cls, region, language):
@@ -310,7 +329,13 @@ class PageTranslation(models.Model):
         :return: All currently translated translations of a region in a specific language
         :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
         """
-        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.currently_in_translation]
+        return [
+            t
+            for t in cls.objects.filter(
+                page__region=region, language=language
+            ).distinct("page")
+            if t.currently_in_translation
+        ]
 
     @classmethod
     def get_outdated_translations(cls, region, language):
@@ -327,7 +352,13 @@ class PageTranslation(models.Model):
         :return: All outdated translations of a region in a specific language
         :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
         """
-        return [t for t in cls.objects.filter(page__region=region, language=language).distinct('page') if t.is_outdated]
+        return [
+            t
+            for t in cls.objects.filter(
+                page__region=region, language=language
+            ).distinct("page")
+            if t.is_outdated
+        ]
 
     def __str__(self):
         """
@@ -338,7 +369,7 @@ class PageTranslation(models.Model):
         :rtype: str
         """
         if self.id:
-            return f'(id: {self.id}, page_id: {self.page.id}, lang: {self.language.code}, version: {self.version}, slug: {self.slug})'
+            return f"(id: {self.id}, page_id: {self.page.id}, lang: {self.language.code}, version: {self.version}, slug: {self.slug})"
         return super(PageTranslation, self).__str__()
 
     class Meta:
@@ -352,5 +383,6 @@ class PageTranslation(models.Model):
         :param default_permissions: The default permissions for this model
         :type default_permissions: tuple
         """
-        ordering = ['page', '-version']
+
+        ordering = ["page", "-version"]
         default_permissions = ()
