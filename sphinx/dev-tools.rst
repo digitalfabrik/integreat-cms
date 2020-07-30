@@ -81,9 +81,17 @@ Calculate test coverage with ``test_cov.sh`` [`Source <https://github.com/Integr
 Code Quality
 ============
 
-Check whether the code complies to our style guides with ``pylint.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/pylint.sh>`__]::
+Automatically apply our coding style with ``black.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/black.sh>`__]::
+
+    ./dev-tools/black.sh
+
+Check the code for semantic correctness with ``pylint.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/pylint.sh>`__]::
 
     ./dev-tools/pylint.sh
+
+Execute both tools at once with ``code_style.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/code_style.sh>`__]::
+
+    ./dev-tools/code_style.sh
 
 
 Documentation
