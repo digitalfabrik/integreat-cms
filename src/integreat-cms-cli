@@ -27,8 +27,8 @@ def main():
         # issue is really that Django is missing to avoid masking other
         # exceptions on Python 2.
         try:
-            # pylint: disable=import-outside-toplevel
-            import django  # pylint: disable=unused-import
+            # pylint: disable=import-outside-toplevel,unused-import
+            import django
         except ImportError:
             raise ImportError(
                 "Couldn't import Django. Are you sure it's installed and "

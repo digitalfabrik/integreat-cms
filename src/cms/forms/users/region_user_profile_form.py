@@ -1,7 +1,7 @@
 import logging
 
 
-from ..users import UserProfileForm
+from .user_profile_form import UserProfileForm
 from ...models import UserProfile
 
 
