@@ -5,6 +5,7 @@ from django.http import JsonResponse
 
 from cms.models import Region
 
+
 def transform_offer(offer):
     """
     Function to create a JSON from a single offer Object.
@@ -12,14 +13,15 @@ def transform_offer(offer):
         [String]: JSON-String with fields for the parameter of the offer
     """
     return {
-        'name': offer.name,
-        'alias': offer.slug,
-        'url': offer.url,
-        'post': offer.post_data,
-        'thumbnail': offer.thumbnail
+        "name": offer.name,
+        "alias": offer.slug,
+        "url": offer.url,
+        "post": offer.post_data,
+        "thumbnail": offer.thumbnail,
     }
 
-#pylint: disable=unused-argument
+
+# pylint: disable=unused-argument
 def offers(request, region_slug, language_code=None):
     """
     Function to iterate through all offers related to a region and adds them to a JSON.
@@ -31,4 +33,6 @@ def offers(request, region_slug, language_code=None):
     result = []
     for offer in region.offers.all():
         result.append(transform_offer(offer))
-    return JsonResponse(result, safe=False) # Turn off Safe-Mode to allow serializing arrays
+    return JsonResponse(
+        result, safe=False
+    )  # Turn off Safe-Mode to allow serializing arrays

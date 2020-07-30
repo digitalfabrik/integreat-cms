@@ -18,8 +18,8 @@ THIRD = 3
 FOURTH = 4
 
 CHOICES = (
-    (FIRST, _('First week')),
-    (SECOND, _('Second week')),
-    (THIRD, _('Third week')),
-    (FOURTH, _('Fourth week')),
+    (FIRST, _("First week")),
+    (SECOND, _("Second week")),
+    (THIRD, _("Third week")),
+    (FOURTH, _("Fourth week")),
 )

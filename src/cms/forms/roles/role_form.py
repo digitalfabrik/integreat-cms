@@ -9,9 +9,9 @@ class RoleForm(forms.ModelForm):
 
     class Meta:
         model = Role
-        fields = ['name', 'permissions']
+        fields = ["name", "permissions"]
 
     def __init__(self, *args, **kwargs):
         super(RoleForm, self).__init__(*args, **kwargs)
         # TODO: Derive size from view height (fill complete available space with select field)
-        self.fields['permissions'].widget.attrs['size'] = '20'
+        self.fields["permissions"].widget.attrs["size"] = "20"

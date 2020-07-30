@@ -19,6 +19,4 @@ class Configuration(models.Model):
 
     class Meta:
         default_permissions = ()
-        permissions = (
-            ('manage_configuration', 'Can manage configuration'),
-        )
+        permissions = (("manage_configuration", "Can manage configuration"),)

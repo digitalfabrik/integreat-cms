@@ -10,7 +10,11 @@ from cms.models import Region, RegionFeedback
 def region_feedback(data, region_slug, language_code, comment, emotion, is_technical):
     try:
         region = Region.objects.get(slug=region_slug)
-        RegionFeedback.objects.create(region=region, emotion=emotion, comment=comment, is_technical=is_technical)
-        return JsonResponse({'success': 'Feedback successfully submitted'}, status=201)
+        RegionFeedback.objects.create(
+            region=region, emotion=emotion, comment=comment, is_technical=is_technical
+        )
+        return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
     except ObjectDoesNotExist:
-        return JsonResponse({'error': f'No region found with slug "{region_slug}"'}, status=404)
+        return JsonResponse(
+            {"error": f'No region found with slug "{region_slug}"'}, status=404
+        )

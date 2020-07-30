@@ -28,8 +28,11 @@ class Offer(models.Model):
 
     :param feedback: Feedback to this offer
     """
-    region = models.ForeignKey(Region, related_name='offers', on_delete=models.CASCADE)
-    template = models.ForeignKey(OfferTemplate, related_name='offers', on_delete=models.CASCADE)
+
+    region = models.ForeignKey(Region, related_name="offers", on_delete=models.CASCADE)
+    template = models.ForeignKey(
+        OfferTemplate, related_name="offers", on_delete=models.CASCADE
+    )
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -94,7 +97,7 @@ class Offer(models.Model):
         """
         post_data = self.template.post_data
         if self.template.use_postal_code == postal_code.POST:
-            post_data.update({'search-plz': self.region.postal_code})
+            post_data.update({"search-plz": self.region.postal_code})
         return post_data
 
     class Meta:
@@ -111,8 +114,7 @@ class Offer(models.Model):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
-        unique_together = (('region', 'template', ), )
+
+        unique_together = (("region", "template",),)
         default_permissions = ()
-        permissions = (
-            ('manage_offers', 'Can manage offers'),
-        )
+        permissions = (("manage_offers", "Can manage offers"),)

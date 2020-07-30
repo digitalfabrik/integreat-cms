@@ -31,20 +31,27 @@ class EventTranslation(models.Model):
     :param creator: The user who created the event translation (related name: ``event_translations``)
     """
 
-    event = models.ForeignKey(Event, related_name='translations', on_delete=models.CASCADE)
+    event = models.ForeignKey(
+        Event, related_name="translations", on_delete=models.CASCADE
+    )
     slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
-    status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
+    status = models.CharField(
+        max_length=6, choices=status.CHOICES, default=status.DRAFT
+    )
     title = models.CharField(max_length=250)
     description = models.TextField(blank=True)
     language = models.ForeignKey(
-        Language,
-        related_name='event_translations',
-        on_delete=models.CASCADE
+        Language, related_name="event_translations", on_delete=models.CASCADE
     )
     currently_in_translation = models.BooleanField(default=False)
     version = models.PositiveIntegerField(default=0)
     minor_edit = models.BooleanField(default=False)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='event_translations', null=True, on_delete=models.SET_NULL)
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="event_translations",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -67,12 +74,9 @@ class EventTranslation(models.Model):
         :return: The permalink of the event
         :rtype: str
         """
-        return '/'.join([
-            self.event.region.slug,
-            self.language.code,
-            'events',
-            self.slug
-        ])
+        return "/".join(
+            [self.event.region.slug, self.language.code, "events", self.slug]
+        )
 
     @property
     def available_languages(self):
@@ -100,8 +104,8 @@ class EventTranslation(models.Model):
             other_translation = self.event.get_public_translation(language.code)
             if other_translation:
                 available_languages[language.code] = {
-                    'id': other_translation.id,
-                    'url': other_translation.permalink
+                    "id": other_translation.id,
+                    "url": other_translation.permalink,
                 }
         return available_languages
 
@@ -117,7 +121,9 @@ class EventTranslation(models.Model):
                  :class:`~cms.models.languages.language.Language`)
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
-        source_language_tree_node = self.event.region.language_tree_nodes.get(language=self.language).parent
+        source_language_tree_node = self.event.region.language_tree_nodes.get(
+            language=self.language
+        ).parent
         if source_language_tree_node:
             return self.event.get_translation(source_language_tree_node.code)
         return None
@@ -132,8 +138,7 @@ class EventTranslation(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
-            language=self.language,
-            status=status.PUBLIC,
+            language=self.language, status=status.PUBLIC,
         ).first()
 
     @property
@@ -145,8 +150,7 @@ class EventTranslation(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
-            language=self.language,
-            minor_edit=False,
+            language=self.language, minor_edit=False,
         ).first()
 
     @property
@@ -159,9 +163,7 @@ class EventTranslation(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
-            language=self.language,
-            status=status.PUBLIC,
-            minor_edit=False,
+            language=self.language, status=status.PUBLIC, minor_edit=False,
         ).first()
 
     @property
@@ -174,8 +176,7 @@ class EventTranslation(models.Model):
         """
         version = self.version - 1
         return self.event.translations.filter(
-            language=self.language,
-            version=version,
+            language=self.language, version=version,
         ).first()
 
     @property
@@ -246,5 +247,6 @@ class EventTranslation(models.Model):
         :param default_permissions: The default permissions for this model
         :type default_permissions: tuple
         """
-        ordering = ['event', '-version']
+
+        ordering = ["event", "-version"]
         default_permissions = ()

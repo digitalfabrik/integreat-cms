@@ -10,8 +10,8 @@ from ...models import Document, Region
 def delete_file(request, document_id, region_slug):
     region = Region.objects.get(slug=region_slug)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         document = Document.objects.get(pk=document_id)
         document.delete()
 
-    return redirect('media', **{'region_slug': region.slug})
+    return redirect("media", **{"region_slug": region.slug})

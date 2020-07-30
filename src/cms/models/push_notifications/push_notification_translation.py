@@ -21,8 +21,14 @@ class PushNotificationTranslation(models.Model):
 
     title = models.CharField(max_length=250)
     text = models.CharField(max_length=250)
-    language = models.ForeignKey('Language', related_name='push_notification_translations', on_delete=models.CASCADE)
-    push_notification = models.ForeignKey('PushNotification', related_name='translations', on_delete=models.CASCADE)
+    language = models.ForeignKey(
+        "Language",
+        related_name="push_notification_translations",
+        on_delete=models.CASCADE,
+    )
+    push_notification = models.ForeignKey(
+        "PushNotification", related_name="translations", on_delete=models.CASCADE
+    )
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -43,4 +49,5 @@ class PushNotificationTranslation(models.Model):
         :param default_permissions: The default permissions for this model
         :type default_permissions: tuple
         """
+
         default_permissions = ()

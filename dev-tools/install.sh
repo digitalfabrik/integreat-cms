@@ -52,11 +52,19 @@ if [ $(id -u) = 0 ]; then
 fi
 
 cd $(dirname "$BASH_SOURCE")/..
+
+# Install npm dependencies
 npm install
+
 # Check if working directory contains space (if so, pipenv in project won't work)
 if ! pwd | grep -q " "; then
     export PIPENV_VENV_IN_PROJECT=1
 else
     echo "Warning: The path to your project directory contains spaces, therefore the virtual environment will be created inside '~/.local/share/virtualenvs/'."
 fi
+
+# Install pip dependencies
 pipenv install --dev
+
+# Install pre-commit hook for black code style
+pipenv run pre-commit install

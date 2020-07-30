@@ -13,12 +13,12 @@ from ...models import Region
 # pylint: disable=unused-argument
 def delete_region(request, *args, **kwargs):
 
-    if not request.user.has_perm('cms.manage_regions'):
+    if not request.user.has_perm("cms.manage_regions"):
         raise PermissionDenied
 
-    region = Region.objects.get(slug=kwargs.get('region_slug'))
+    region = Region.objects.get(slug=kwargs.get("region_slug"))
     region.delete()
 
-    messages.success(request, _('Region was successfully deleted.'))
+    messages.success(request, _("Region was successfully deleted."))
 
-    return redirect('regions')
+    return redirect("regions")

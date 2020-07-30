@@ -10,12 +10,12 @@ This module contains the possible status of regions:
 from django.utils.translation import ugettext_lazy as _
 
 
-ACTIVE = 'ACTIVE'
-HIDDEN = 'HIDDEN'
-ARCHIVED = 'ARCHIVED'
+ACTIVE = "ACTIVE"
+HIDDEN = "HIDDEN"
+ARCHIVED = "ARCHIVED"
 
 CHOICES = (
-    (ACTIVE, _('Active')),
-    (HIDDEN, _('Hidden')),
-    (ARCHIVED, _('Archived')),
+    (ACTIVE, _("Active")),
+    (HIDDEN, _("Hidden")),
+    (ARCHIVED, _("Archived")),
 )

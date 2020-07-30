@@ -8,23 +8,18 @@ from ...decorators import staff_required
 from ...models import Language
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(staff_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
+@method_decorator(staff_required, name="dispatch")
 class LanguageListView(PermissionRequiredMixin, TemplateView):
-    permission_required = 'cms.manage_languages'
+    permission_required = "cms.manage_languages"
     raise_exception = True
 
-    template_name = 'languages/language_list.html'
-    base_context = {'current_menu_item': 'languages'}
+    template_name = "languages/language_list.html"
+    base_context = {"current_menu_item": "languages"}
 
     def get(self, request, *args, **kwargs):
         languages = Language.objects.all()
 
         return render(
-            request,
-            self.template_name,
-            {
-                **self.base_context,
-                'languages': languages
-            }
+            request, self.template_name, {**self.base_context, "languages": languages}
         )

@@ -10,9 +10,9 @@ from django.views.decorators.cache import never_cache
 from ...forms.users import UserEmailForm, UserPasswordForm
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class UserSettingsView(TemplateView):
-    template_name = 'settings/user.html'
+    template_name = "settings/user.html"
 
     @never_cache
     def get(self, request, *args, **kwargs):
@@ -25,10 +25,10 @@ class UserSettingsView(TemplateView):
             request,
             self.template_name,
             {
-                'keys': user.mfa_keys.all(),
-                'user_email_form': user_email_form,
-                'user_password_form': user_password_form,
-            }
+                "keys": user.mfa_keys.all(),
+                "user_email_form": user_email_form,
+                "user_password_form": user_password_form,
+            },
         )
 
     # pylint: disable=unused-argument, too-many-branches
@@ -36,11 +36,8 @@ class UserSettingsView(TemplateView):
 
         user = request.user
 
-        if request.POST.get('submit_form') == 'email_form':
-            user_email_form = UserEmailForm(
-                request.POST,
-                instance=user
-            )
+        if request.POST.get("submit_form") == "email_form":
+            user_email_form = UserEmailForm(request.POST, instance=user)
             if not user_email_form.is_valid():
 
                 # Add error messages
@@ -51,16 +48,13 @@ class UserSettingsView(TemplateView):
                     messages.error(request, _(error))
 
             elif not user_email_form.has_changed():
-                messages.info(request, _('No changes detected.'))
+                messages.info(request, _("No changes detected."))
             else:
                 user_email_form.save()
-                messages.success(request, _('E-mail-address was successfully saved.'))
+                messages.success(request, _("E-mail-address was successfully saved."))
 
-        elif request.POST.get('submit_form') == 'password_form':
-            user_password_form = UserPasswordForm(
-                request.POST,
-                instance=user
-            )
+        elif request.POST.get("submit_form") == "password_form":
+            user_password_form = UserPasswordForm(request.POST, instance=user)
             if not user_password_form.is_valid():
 
                 # Add error messages
@@ -71,11 +65,11 @@ class UserSettingsView(TemplateView):
                     messages.error(request, _(error))
 
             elif not user_password_form.has_changed():
-                messages.info(request, _('No changes detected.'))
+                messages.info(request, _("No changes detected."))
             else:
                 user = user_password_form.save()
                 # Prevent user from being logged out after password has changed
                 update_session_auth_hash(request, user)
-                messages.success(request, _('Password was successfully saved.'))
+                messages.success(request, _("Password was successfully saved."))
 
-        return redirect('user_settings')
+        return redirect("user_settings")

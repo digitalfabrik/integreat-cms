@@ -23,7 +23,8 @@ class EventFeedback(Feedback):
     :param event: The event the feedback is referring to (related name: ``feedback``)
     :param feedback_ptr: A pointer to the base class
     """
-    event = models.ForeignKey(Event, related_name='feedback', on_delete=models.CASCADE)
+
+    event = models.ForeignKey(Event, related_name="feedback", on_delete=models.CASCADE)
 
     class Meta:
         default_permissions = ()

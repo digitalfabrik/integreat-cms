@@ -15,10 +15,10 @@ class POIForm(forms.ModelForm):
 
     class Meta:
         model = POI
-        fields = ['address', 'postcode', 'city', 'country', 'latitude', 'longitude']
+        fields = ["address", "postcode", "city", "country", "latitude", "longitude"]
 
     def __init__(self, data=None, instance=None):
-        logger.info('POIForm instantiated with data %s and instance %s', data, instance)
+        logger.info("POIForm instantiated with data %s and instance %s", data, instance)
 
         # instantiate ModelForm
         super(POIForm, self).__init__(data=data, instance=instance)
@@ -30,7 +30,11 @@ class POIForm(forms.ModelForm):
 
     # pylint: disable=arguments-differ
     def save(self, region=None):
-        logger.info('POIForm saved with cleaned data %s and changed data %s', self.cleaned_data, self.changed_data)
+        logger.info(
+            "POIForm saved with cleaned data %s and changed data %s",
+            self.cleaned_data,
+            self.changed_data,
+        )
 
         poi = super(POIForm, self).save(commit=False)
 

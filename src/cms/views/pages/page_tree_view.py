@@ -10,14 +10,14 @@ from ...decorators import region_permission_required
 from ...models import Page, Region, Language
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(region_permission_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
+@method_decorator(region_permission_required, name="dispatch")
 class PageTreeView(PermissionRequiredMixin, TemplateView):
-    permission_required = 'cms.view_pages'
+    permission_required = "cms.view_pages"
     raise_exception = True
 
-    template = 'pages/page_tree.html'
-    template_archived = 'pages/page_tree_archived.html'
+    template = "pages/page_tree.html"
+    template_archived = "pages/page_tree_archived.html"
     archived = False
 
     @property
@@ -26,26 +26,27 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         # current region
-        region_slug = kwargs.get('region_slug')
+        region_slug = kwargs.get("region_slug")
         region = Region.objects.get(slug=region_slug)
 
         # current language
-        language_code = kwargs.get('language_code', None)
+        language_code = kwargs.get("language_code", None)
         if language_code:
             language = Language.objects.get(code=language_code)
         elif region.default_language:
-            return redirect('pages', **{
-                'region_slug': region_slug,
-                'language_code': region.default_language.code,
-            })
+            return redirect(
+                "pages",
+                **{
+                    "region_slug": region_slug,
+                    "language_code": region.default_language.code,
+                }
+            )
         else:
             messages.error(
                 request,
-                _('Please create at least one language node before creating pages.')
+                _("Please create at least one language node before creating pages."),
             )
-            return redirect('language_tree', **{
-                'region_slug': region_slug,
-            })
+            return redirect("language_tree", **{"region_slug": region_slug,})
 
         # all pages of the current region in the current language
         pages = Page.get_tree(region_slug, archived=self.archived)
@@ -53,17 +54,19 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
         # all other languages of current region
         languages = region.languages
 
-        if not request.user.has_perm('cms.edit_page'):
-            messages.warning(request, _("You don't have the permission to edit or create pages."))
+        if not request.user.has_perm("cms.edit_page"):
+            messages.warning(
+                request, _("You don't have the permission to edit or create pages.")
+            )
 
         return render(
             request,
             self.template_name,
             {
-                'current_menu_item': 'pages',
-                'pages': pages,
-                'archived_count': Page.archived_count(region_slug),
-                'language': language,
-                'languages': languages,
-            }
+                "current_menu_item": "pages",
+                "pages": pages,
+                "archived_count": Page.archived_count(region_slug),
+                "language": language,
+                "languages": languages,
+            },
         )

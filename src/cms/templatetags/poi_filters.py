@@ -26,5 +26,5 @@ def poi_translation_title(poi, language):
         return poi_translation.first().title
     if all_poi_translations.exists():
         poi_translation = all_poi_translations.first()
-        return f'{poi_translation.title} ({poi_translation.language})'
-    return ''
+        return f"{poi_translation.title} ({poi_translation.language})"
+    return ""

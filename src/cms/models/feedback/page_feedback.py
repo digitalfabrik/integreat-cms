@@ -23,7 +23,8 @@ class PageFeedback(Feedback):
     :param page: The page the feedback is referring to (related name: ``feedback``)
     :param feedback_ptr: A pointer to the base class
     """
-    page = models.ForeignKey(Page, related_name='feedback', on_delete=models.CASCADE)
+
+    page = models.ForeignKey(Page, related_name="feedback", on_delete=models.CASCADE)
 
     class Meta:
         default_permissions = ()

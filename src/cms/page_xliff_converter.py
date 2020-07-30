@@ -11,13 +11,14 @@ from .models import Page, PageTranslation, Language
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-XLIFFS_DIR = os.path.join(BASE_DIR, 'xliffs')
+XLIFFS_DIR = os.path.join(BASE_DIR, "xliffs")
 
 
-class TranslationXliffConverter: # pylint: disable=R0902
+class TranslationXliffConverter:  # pylint: disable=R0902
     """
     Class to handle transition between XLIFF 2.0 XML files and PageTranslation model
     """
+
     PAGE_XLIFF_TEMPLATE = (
         b'<?xml version="1.0" encoding="utf-8" standalone="no"?>'
         b'<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0"><file></file></xliff>'
@@ -56,7 +57,9 @@ class TranslationXliffConverter: # pylint: disable=R0902
         """
         Get meta information from XLIFF file
         """
-        file_elements = self.xliff.xpath("//x:file", namespaces={'x': "urn:oasis:names:tc:xliff:document:2.0"})
+        file_elements = self.xliff.xpath(
+            "//x:file", namespaces={"x": "urn:oasis:names:tc:xliff:document:2.0"}
+        )
         if len(file_elements) == 1:
             self.elem_file = file_elements[0]
 
@@ -70,7 +73,7 @@ class TranslationXliffConverter: # pylint: disable=R0902
             if len(src_langs) == 1:
                 self.src_lang = src_langs[0]
 
-        if self.elem_file is not None and 'original' in self.elem_file.attrib:
+        if self.elem_file is not None and "original" in self.elem_file.attrib:
             self.page_id = int(self.elem_file.attrib["original"])
 
     def validate_meta_info(self):
@@ -80,7 +83,12 @@ class TranslationXliffConverter: # pylint: disable=R0902
         :return: all required meta data (languages, page id, file element) available
         :rtype: bool
         """
-        if self.elem_file is None or self.tgt_lang is None or self.src_lang is None or self.page_id is None:
+        if (
+            self.elem_file is None
+            or self.tgt_lang is None
+            or self.src_lang is None
+            or self.page_id is None
+        ):
             return False
         return True
 
@@ -88,11 +96,11 @@ class TranslationXliffConverter: # pylint: disable=R0902
         """
         Extract content elements from xliff
         """
-        namespaces = {'x': "urn:oasis:names:tc:xliff:document:2.0"}
+        namespaces = {"x": "urn:oasis:names:tc:xliff:document:2.0"}
 
-        xpath_title = "//x:file/x:unit[@id=\"title\"]/x:segment/x:target"
-        xpath_content = "//x:file/x:unit[@id=\"content\"]/x:segment/x:target"
-        xpath_trans_version = "//x:file/x:notes/x:note[@id=\"tgt_version\"]"
+        xpath_title = '//x:file/x:unit[@id="title"]/x:segment/x:target'
+        xpath_content = '//x:file/x:unit[@id="content"]/x:segment/x:target'
+        xpath_trans_version = '//x:file/x:notes/x:note[@id="tgt_version"]'
 
         elem_title = self.xliff.xpath(xpath_title, namespaces=namespaces)
         if len(elem_title) == 1:
@@ -100,7 +108,9 @@ class TranslationXliffConverter: # pylint: disable=R0902
         elem_content = self.xliff.xpath(xpath_content, namespaces=namespaces)
         if len(elem_content) == 1:
             self.elem_content = elem_content[0]
-        elem_trans_version = self.xliff.xpath(xpath_trans_version, namespaces=namespaces)
+        elem_trans_version = self.xliff.xpath(
+            xpath_trans_version, namespaces=namespaces
+        )
         if len(elem_trans_version) == 1:
             self.elem_trans_version = elem_trans_version[0]
 
@@ -111,7 +121,11 @@ class TranslationXliffConverter: # pylint: disable=R0902
         :return: content and title elements are available
         :rtype: bool
         """
-        if self.elem_title is None or self.elem_content is None or self.elem_trans_version is None:
+        if (
+            self.elem_title is None
+            or self.elem_content is None
+            or self.elem_trans_version is None
+        ):
             return False
         return True
 
@@ -150,8 +164,13 @@ class TranslationXliffConverter: # pylint: disable=R0902
         :rtype: str
         """
         self.elem_file.attrib["original"] = str(page_id)
-        notes = {"translation_id": xliff_id, "source_slug": src_trans.slug, "src_version": src_trans.version,
-                 "tgt_version": tgt_trans.version, "page_id": page_id}
+        notes = {
+            "translation_id": xliff_id,
+            "source_slug": src_trans.slug,
+            "src_version": src_trans.version,
+            "tgt_version": tgt_trans.version,
+            "page_id": page_id,
+        }
         self.add_notes(notes)
         self.add_translation_unit("title", src_trans.title, tgt_trans.title)
         self.add_translation_unit("content", src_trans.text, tgt_trans.text)
@@ -208,7 +227,8 @@ class TranslationXliffConverter: # pylint: disable=R0902
             "page_id": self.page_id,
             "tgt_lang_code": self.tgt_lang.code,
             "src_lang_code": self.src_lang.code,
-            "tgt_version": self.elem_trans_version.text}
+            "tgt_version": self.elem_trans_version.text,
+        }
 
     def get_xml(self):
         """
@@ -220,10 +240,11 @@ class TranslationXliffConverter: # pylint: disable=R0902
         return etree.tostring(self.xliff, pretty_print=True)
 
 
-class PageXliffHelper():
+class PageXliffHelper:
     """
     Wrapper and helper methods for reading/writing XLIFF files and saving PageTranslation
     """
+
     def __init__(self, src_lang=None, tgt_lang=None):
         """
         :param src_lang: source language of translation
@@ -249,7 +270,7 @@ class PageXliffHelper():
         :type file_path: str
         """
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        with open(file_path, 'w', encoding='utf-8') as file:
+        with open(file_path, "w", encoding="utf-8") as file:
             file.write(content)
 
     def export_page_translation_xliff(self, page):
@@ -264,26 +285,35 @@ class PageXliffHelper():
         """
         converter = TranslationXliffConverter(self.src_lang, self.tgt_lang)
 
-        src_trans = PageTranslation.objects.filter(page=page, language=self.src_lang).first()
+        src_trans = PageTranslation.objects.filter(
+            page=page, language=self.src_lang
+        ).first()
         if not src_trans:
             return None
-        tgt_trans = PageTranslation.objects.filter(page=page, language=self.tgt_lang).first()
+        tgt_trans = PageTranslation.objects.filter(
+            page=page, language=self.tgt_lang
+        ).first()
         if not tgt_trans:
             tgt_trans = PageTranslation(
                 title="",
                 text="",
                 status=src_trans.status,
                 language=self.tgt_lang,
-                page=page)
+                page=page,
+            )
 
         region_slug = page.region.slug
         slug = src_trans.slug
 
         # properties that make a translation unique: page id, target language, source version
-        xliff_id = self.tgt_lang.code + "_" + str(page.id) + "_" + str(src_trans.version)
+        xliff_id = (
+            self.tgt_lang.code + "_" + str(page.id) + "_" + str(src_trans.version)
+        )
 
         filename = f"{region_slug}_{self.src_lang.code}__{xliff_id}__{slug}.xliff"
-        xliff_content = converter.translation_to_xliff(page.id, src_trans, tgt_trans, xliff_id)
+        xliff_content = converter.translation_to_xliff(
+            page.id, src_trans, tgt_trans, xliff_id
+        )
 
         if xliff_content:
             file_path = os.path.join(XLIFFS_DIR, str(uuid.uuid4()), filename)
@@ -303,7 +333,7 @@ class PageXliffHelper():
         :type zip_file_path: str
         """
         os.makedirs(os.path.dirname(zip_file_path), exist_ok=True)
-        with ZipFile(zip_file_path, 'w') as zip_file:
+        with ZipFile(zip_file_path, "w") as zip_file:
             for file_path in source_file_paths:
                 if os.path.isfile(file_path):
                     file_name = file_path.split(os.sep)[-1]
@@ -321,7 +351,9 @@ class PageXliffHelper():
         """
         xliff_paths = []
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
-        zip_name = f"{region.slug}_{timestamp}_{self.src_lang.code}_{self.tgt_lang.code}.zip"
+        zip_name = (
+            f"{region.slug}_{timestamp}_{self.src_lang.code}_{self.tgt_lang.code}.zip"
+        )
         for page in pages:
             xliff_path = self.export_page_translation_xliff(page)
             if xliff_path is not None:
@@ -347,7 +379,7 @@ class PageXliffHelper():
             i = 1
             while True:
                 i += 1
-                slug = old_slug + '-' + str(i)
+                slug = old_slug + "-" + str(i)
                 if not PageTranslation.objects.filter(slug=slug).exists():
                     break
         return slug
@@ -403,13 +435,19 @@ class PageXliffHelper():
         """
         result = []
         for xliff_path in xliff_paths:
-            if xliff_path.startswith(XLIFFS_DIR) and xliff_path.endswith(('.xlf', '.xliff')) and os.path.isfile(xliff_path):
-                with open(xliff_path, 'r', encoding='utf-8') as f:
+            if (
+                xliff_path.startswith(XLIFFS_DIR)
+                and xliff_path.endswith((".xlf", ".xliff"))
+                and os.path.isfile(xliff_path)
+            ):
+                with open(xliff_path, "r", encoding="utf-8") as f:
                     xliff_content = f.read()
                     converter = TranslationXliffConverter(xliff_code=xliff_content)
                     trans_fields = converter.xliff_to_translation_data()
                     if trans_fields is not None:
-                        result.append((xliff_path, self.save_page_translation(trans_fields, user)))
+                        result.append(
+                            (xliff_path, self.save_page_translation(trans_fields, user))
+                        )
                     else:
                         result.append((xliff_path, False))
         return result
@@ -426,10 +464,12 @@ class PageXliffHelper():
         :rtype: list
         """
         file_paths = []
-        with ZipFile(zip_file_path, 'r') as zip_ref:
+        with ZipFile(zip_file_path, "r") as zip_ref:
             zip_ref.extractall(os.path.dirname(zip_file_path))
             for file_name in zip_ref.namelist():
-                file_paths.append(os.path.join(os.path.dirname(zip_file_path), file_name))
+                file_paths.append(
+                    os.path.join(os.path.dirname(zip_file_path), file_name)
+                )
         return file_paths
 
     def generate_xliff_import_diff(self, xliff_paths):
@@ -444,14 +484,18 @@ class PageXliffHelper():
         """
         diffs = []
         for xliff_path in xliff_paths:
-            if xliff_path.endswith(('.xlf', '.xliff')) and os.path.isfile(xliff_path):
-                with open(xliff_path, 'r', encoding='utf-8') as f:
+            if xliff_path.endswith((".xlf", ".xliff")) and os.path.isfile(xliff_path):
+                with open(xliff_path, "r", encoding="utf-8") as f:
                     xliff_content = f.read()
                     converter = TranslationXliffConverter(xliff_code=xliff_content)
                     trans_fields = converter.xliff_to_translation_data()
                     if trans_fields is None:
                         continue
-                    diffs.append(self.generate_translation_diff(trans_fields, os.path.basename(xliff_path)))
+                    diffs.append(
+                        self.generate_translation_diff(
+                            trans_fields, os.path.basename(xliff_path)
+                        )
+                    )
         return diffs
 
     @staticmethod
@@ -482,9 +526,22 @@ class PageXliffHelper():
         new_lines_content = trans_fields["content"].splitlines()
         result_diff = {
             "title": tgt_trans.title,
-            "title_diff": '\n'.join(difflib.unified_diff([tgt_trans.title], [trans_fields["title"]], "cms", "xliff", lineterm='')),
-            "content_diff": '\n'.join(difflib.unified_diff(old_lines_content, new_lines_content, "cms", "xliff", lineterm='')),
-            "current_version_newer": tgt_trans.version > int(trans_fields["tgt_version"]),
-            "xliff_name": xliff_name
+            "title_diff": "\n".join(
+                difflib.unified_diff(
+                    [tgt_trans.title],
+                    [trans_fields["title"]],
+                    "cms",
+                    "xliff",
+                    lineterm="",
+                )
+            ),
+            "content_diff": "\n".join(
+                difflib.unified_diff(
+                    old_lines_content, new_lines_content, "cms", "xliff", lineterm=""
+                )
+            ),
+            "current_version_newer": tgt_trans.version
+            > int(trans_fields["tgt_version"]),
+            "xliff_name": xliff_name,
         }
         return result_diff

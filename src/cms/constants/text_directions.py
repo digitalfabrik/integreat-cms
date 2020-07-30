@@ -9,11 +9,11 @@ This module contains all constants representing the text directions of a :class:
 from django.utils.translation import ugettext_lazy as _
 
 
-LTR = 'LTR'
-RTL = 'RTL'
+LTR = "LTR"
+RTL = "RTL"
 
 
 CHOICES = (
-    (LTR, _('Left to right')),
-    (RTL, _('Right to left')),
+    (LTR, _("Left to right")),
+    (RTL, _("Right to left")),
 )

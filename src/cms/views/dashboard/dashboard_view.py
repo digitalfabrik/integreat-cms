@@ -9,8 +9,8 @@ from django.views.generic import TemplateView
 from ...decorators import region_permission_required
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(region_permission_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
+@method_decorator(region_permission_required, name="dispatch")
 class DashboardView(TemplateView):
     """View class representing the Dashboard
 
@@ -21,10 +21,9 @@ class DashboardView(TemplateView):
         View : Rendered HTML-Page that will be seen in the CMS-Dashboard
     """
 
-    template_name = 'dashboard/dashboard.html'
-    base_context = {'current_menu_item': 'region_dashboard'}
+    template_name = "dashboard/dashboard.html"
+    base_context = {"current_menu_item": "region_dashboard"}
 
     def get(self, request, *args, **kwargs):
-        val = 'To be defined'
-        return render(request, self.template_name,
-                      {'key': val, **self.base_context})
+        val = "To be defined"
+        return render(request, self.template_name, {"key": val, **self.base_context})

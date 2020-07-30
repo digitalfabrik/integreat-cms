@@ -5,16 +5,16 @@ from django.shortcuts import render
 
 from ...decorators import region_permission_required
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(region_permission_required, name='dispatch')
+
+@method_decorator(login_required, name="dispatch")
+@method_decorator(region_permission_required, name="dispatch")
 class SettingsView(TemplateView):
-    template_name = 'settings/settings.html'
-    base_context = {'current_menu_item': 'region_settings'}
+    template_name = "settings/settings.html"
+    base_context = {"current_menu_item": "region_settings"}
 
     def get(self, request, *args, **kwargs):
-        settings = 'to be defined'
+        settings = "to be defined"
 
-        return render(request,
-                      self.template_name,
-                      {**self.base_context,
-                       'settings': settings})
+        return render(
+            request, self.template_name, {**self.base_context, "settings": settings}
+        )

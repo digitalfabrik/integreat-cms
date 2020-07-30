@@ -53,23 +53,21 @@ class Page(MPTTModel):
     """
 
     parent = TreeForeignKey(
-        'self',
-        blank=True,
-        null=True,
-        related_name='children',
-        on_delete=models.PROTECT
+        "self", blank=True, null=True, related_name="children", on_delete=models.PROTECT
     )
-    icon = models.ImageField(
-        blank=True,
-        null=True,
-        upload_to='pages/%Y/%m/%d'
-    )
-    region = models.ForeignKey(Region, related_name='pages', on_delete=models.CASCADE)
+    icon = models.ImageField(blank=True, null=True, upload_to="pages/%Y/%m/%d")
+    region = models.ForeignKey(Region, related_name="pages", on_delete=models.CASCADE)
     archived = models.BooleanField(default=False)
-    mirrored_page = models.ForeignKey('self', null=True, blank=True, on_delete=models.PROTECT)
+    mirrored_page = models.ForeignKey(
+        "self", null=True, blank=True, on_delete=models.PROTECT
+    )
     mirrored_page_first = models.BooleanField(default=True, null=True, blank=True)
-    editors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='editable_pages', blank=True)
-    publishers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='publishable_pages', blank=True)
+    editors = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="editable_pages", blank=True
+    )
+    publishers = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="publishable_pages", blank=True
+    )
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -92,7 +90,7 @@ class Page(MPTTModel):
         :return: list of all :class:`~cms.models.languages.language.Language` a page is translated into
         :rtype: list [ ~cms.models.languages.language.Language ]
         """
-        page_translations = self.translations.prefetch_related('language').all()
+        page_translations = self.translations.prefetch_related("language").all()
         languages = []
         for page_translation in page_translations:
             if page_translation.language not in languages:
@@ -111,9 +109,7 @@ class Page(MPTTModel):
                  if no translation exists
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
-        return self.translations.filter(
-            language__code=language_code
-        ).first()
+        return self.translations.filter(language__code=language_code).first()
 
     def get_first_translation(self, priority_language_codes=None):
         """
@@ -132,7 +128,7 @@ class Page(MPTTModel):
         # Taking [] directly as default parameter would be dangerous because it is mutable
         if not priority_language_codes:
             priority_language_codes = []
-        for language_code in priority_language_codes + ['en-us', 'de-de']:
+        for language_code in priority_language_codes + ["en-us", "de-de"]:
             if self.translations.filter(language__code=language_code).exists():
                 return self.translations.filter(language__code=language_code).first()
         return self.translations.first()
@@ -148,8 +144,7 @@ class Page(MPTTModel):
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(
-            language__code=language_code,
-            status=status.PUBLIC,
+            language__code=language_code, status=status.PUBLIC,
         ).first()
 
     def get_mirrored_text(self, language_code):
@@ -174,11 +169,14 @@ class Page(MPTTModel):
         :return: The absolute url of a page form
         :rtype: str
         """
-        return reverse('edit_page', kwargs={
-            'page_id': self.id,
-            'region_slug': self.region.slug,
-            'language_code': self.region.default_language.code,
-        })
+        return reverse(
+            "edit_page",
+            kwargs={
+                "page_id": self.id,
+                "region_slug": self.region.slug,
+                "language_code": self.region.default_language.code,
+            },
+        )
 
     @staticmethod
     def get_archived(region_slug):
@@ -222,11 +220,10 @@ class Page(MPTTModel):
                  :class:`~cms.models.regions.region.Region`
         :rtype: ~django.db.models.query.QuerySet
         """
-        return cls.objects.all().prefetch_related(
-            'translations'
-        ).filter(
-            region__slug=region_slug,
-            archived=archived
+        return (
+            cls.objects.all()
+            .prefetch_related("translations")
+            .filter(region__slug=region_slug, archived=archived)
         )
 
     def best_language_title(self):
@@ -254,8 +251,8 @@ class Page(MPTTModel):
         if self.id:
             first_translation = self.get_first_translation()
             if first_translation:
-                return f'(id: {self.id}, slug: {first_translation.slug} ({first_translation.language.code}))'
-            return f'(id: {self.id})'
+                return f"(id: {self.id}, slug: {first_translation.slug} ({first_translation.language.code}))"
+            return f"(id: {self.id})"
         return super(Page, self).__str__()
 
     class Meta:
@@ -269,10 +266,11 @@ class Page(MPTTModel):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
+
         default_permissions = ()
         permissions = (
-            ('view_pages', 'Can view pages'),
-            ('edit_pages', 'Can edit pages'),
-            ('publish_pages', 'Can publish pages'),
-            ('grant_page_permissions', 'Can grant page permissions'),
+            ("view_pages", "Can view pages"),
+            ("edit_pages", "Can edit pages"),
+            ("publish_pages", "Can publish pages"),
+            ("grant_page_permissions", "Can grant page permissions"),
         )

@@ -33,22 +33,27 @@ class POITranslation(models.Model):
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
-    poi = models.ForeignKey(
-        POI,
-        related_name='translations',
-        on_delete=models.CASCADE
+    poi = models.ForeignKey(POI, related_name="translations", on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=6, choices=status.CHOICES, default=status.DRAFT
     )
-    status = models.CharField(max_length=6, choices=status.CHOICES, default=status.DRAFT)
     short_description = models.CharField(max_length=250)
     description = models.TextField(blank=True)
-    language = models.ForeignKey(Language, related_name='poi_translations', on_delete=models.CASCADE)
+    language = models.ForeignKey(
+        Language, related_name="poi_translations", on_delete=models.CASCADE
+    )
     currently_in_translation = models.BooleanField(default=False)
     version = models.PositiveIntegerField(default=0)
     minor_edit = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='poi_translations', null=True, on_delete=models.SET_NULL)
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="poi_translations",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     @property
     def foreign_object(self):
@@ -69,12 +74,7 @@ class POITranslation(models.Model):
         :return: The permalink of the POI
         :rtype: str
         """
-        return '/'.join([
-            self.poi.region.slug,
-            self.language.code,
-            'pois',
-            self.slug
-        ])
+        return "/".join([self.poi.region.slug, self.language.code, "pois", self.slug])
 
     @property
     def available_languages(self):
@@ -102,8 +102,8 @@ class POITranslation(models.Model):
             other_translation = self.poi.get_public_translation(language.code)
             if other_translation:
                 available_languages[language.code] = {
-                    'id': other_translation.id,
-                    'url': other_translation.permalink
+                    "id": other_translation.id,
+                    "url": other_translation.permalink,
                 }
         return available_languages
 
@@ -119,7 +119,9 @@ class POITranslation(models.Model):
                  :class:`~cms.models.languages.language.Language`)
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
-        source_language_tree_node = self.poi.region.language_tree_nodes.get(language=self.language).parent
+        source_language_tree_node = self.poi.region.language_tree_nodes.get(
+            language=self.language
+        ).parent
         if source_language_tree_node:
             return self.poi.get_translation(source_language_tree_node.code)
         return None
@@ -134,8 +136,7 @@ class POITranslation(models.Model):
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
-            language=self.language,
-            status=status.PUBLIC,
+            language=self.language, status=status.PUBLIC,
         ).first()
 
     @property
@@ -147,8 +148,7 @@ class POITranslation(models.Model):
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
-            language=self.language,
-            minor_edit=False,
+            language=self.language, minor_edit=False,
         ).first()
 
     @property
@@ -161,9 +161,7 @@ class POITranslation(models.Model):
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
-            language=self.language,
-            status=status.PUBLIC,
-            minor_edit=False,
+            language=self.language, status=status.PUBLIC, minor_edit=False,
         ).first()
 
     @property
@@ -176,8 +174,7 @@ class POITranslation(models.Model):
         """
         version = self.version - 1
         return self.poi.translations.filter(
-            language=self.language,
-            version=version,
+            language=self.language, version=version,
         ).first()
 
     @property
@@ -239,5 +236,6 @@ class POITranslation(models.Model):
         :param default_permissions: The default permissions for this model
         :type default_permissions: tuple
         """
-        ordering = ['poi', '-version']
+
+        ordering = ["poi", "-version"]
         default_permissions = ()

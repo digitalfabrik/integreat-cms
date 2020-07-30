@@ -11,8 +11,8 @@ class LanguageForm(forms.ModelForm):
     class Meta:
         model = Language
         fields = [
-            'code',
-            'english_name',
-            'native_name',
-            'text_direction',
+            "code",
+            "english_name",
+            "native_name",
+            "text_direction",
         ]

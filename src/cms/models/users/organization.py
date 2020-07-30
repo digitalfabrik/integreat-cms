@@ -30,6 +30,4 @@ class Organization(models.Model):
 
     class Meta:
         default_permissions = ()
-        permissions = (
-            ('manage_organizations', 'Can manage organizations'),
-        )
+        permissions = (("manage_organizations", "Can manage organizations"),)

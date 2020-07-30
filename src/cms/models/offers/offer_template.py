@@ -32,7 +32,9 @@ class OfferTemplate(models.Model):
     thumbnail = models.URLField(max_length=250)
     url = models.URLField(max_length=250)
     post_data = JSONField(max_length=250, default=dict, blank=True)
-    use_postal_code = models.CharField(max_length=4, choices=postal_code.CHOICES, default=postal_code.NONE)
+    use_postal_code = models.CharField(
+        max_length=4, choices=postal_code.CHOICES, default=postal_code.NONE
+    )
 
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
@@ -48,6 +50,4 @@ class OfferTemplate(models.Model):
 
     class Meta:
         default_permissions = ()
-        permissions = (
-            ('manage_offer_templates', 'Can manage offer templates'),
-        )
+        permissions = (("manage_offer_templates", "Can manage offer templates"),)

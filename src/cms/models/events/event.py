@@ -35,14 +35,18 @@ class Event(models.Model):
     :param feedback: The feedback to this event
     """
 
-    region = models.ForeignKey(Region, related_name='events', on_delete=models.CASCADE)
-    location = models.ForeignKey(POI, related_name='events', on_delete=models.PROTECT, null=True, blank=True)
+    region = models.ForeignKey(Region, related_name="events", on_delete=models.CASCADE)
+    location = models.ForeignKey(
+        POI, related_name="events", on_delete=models.PROTECT, null=True, blank=True
+    )
     start_date = models.DateField()
     start_time = models.TimeField(blank=True)
     end_date = models.DateField()
     end_time = models.TimeField(blank=True)
-    recurrence_rule = models.OneToOneField(RecurrenceRule, null=True, on_delete=models.SET_NULL)
-    picture = models.ImageField(null=True, blank=True, upload_to='events/%Y/%m/%d')
+    recurrence_rule = models.OneToOneField(
+        RecurrenceRule, null=True, on_delete=models.SET_NULL
+    )
+    picture = models.ImageField(null=True, blank=True, upload_to="events/%Y/%m/%d")
     archived = models.BooleanField(default=False)
 
     @property
@@ -54,7 +58,7 @@ class Event(models.Model):
         :return: list of all :class:`~cms.models.languages.language.Language` an event is translated into
         :rtype: list [ ~cms.models.languages.language.Language ]
         """
-        event_translations = self.translations.prefetch_related('language').all()
+        event_translations = self.translations.prefetch_related("language").all()
         languages = []
         for event_translation in event_translations:
             languages.append(event_translation.language)
@@ -79,7 +83,9 @@ class Event(models.Model):
         :return: Whether event takes place all day
         :rtype: bool
         """
-        return self.start_time == time.min and self.end_time == time.max.replace(second=0, microsecond=0)
+        return self.start_time == time.min and self.end_time == time.max.replace(
+            second=0, microsecond=0
+        )
 
     @property
     def has_location(self):
@@ -134,11 +140,10 @@ class Event(models.Model):
                  :class:`~cms.models.regions.region.Region`
         :rtype: ~django.db.models.query.QuerySet
         """
-        events = cls.objects.all().prefetch_related(
-            'translations'
-        ).filter(
-            region__slug=region_slug,
-            archived=archived
+        events = (
+            cls.objects.all()
+            .prefetch_related("translations")
+            .filter(region__slug=region_slug, archived=archived)
         )
         return events
 
@@ -157,12 +162,10 @@ class Event(models.Model):
         :rtype: list [ ~datetime.datetime ]
         """
         event_start = datetime.combine(
-            self.start_date,
-            self.start_time if self.start_time else time.min
+            self.start_date, self.start_time if self.start_time else time.min
         )
         event_end = datetime.combine(
-            self.end_date,
-            self.end_time if self.end_time else time.max
+            self.end_date, self.end_time if self.end_time else time.max
         )
         event_span = event_end - event_start
         recurrence = self.recurrence_rule
@@ -170,16 +173,18 @@ class Event(models.Model):
             until = min(
                 end,
                 datetime.combine(
-                    recurrence.recurrence_end_date if recurrence.recurrence_end_date else date.max,
-                    time.max
-                )
+                    recurrence.recurrence_end_date
+                    if recurrence.recurrence_end_date
+                    else date.max,
+                    time.max,
+                ),
             )
             if recurrence.frequency in (frequency.DAILY, frequency.YEARLY):
                 occurrences = rrule(
                     recurrence.frequency,
                     dtstart=event_start,
                     interval=recurrence.interval,
-                    until=until
+                    until=until,
                 )
             elif recurrence.frequency == frequency.WEEKLY:
                 occurrences = rrule(
@@ -187,7 +192,7 @@ class Event(models.Model):
                     dtstart=event_start,
                     interval=recurrence.interval,
                     byweekday=recurrence.weekdays_for_weekly,
-                    until=until
+                    until=until,
                 )
             else:
                 occurrences = rrule(
@@ -195,13 +200,20 @@ class Event(models.Model):
                     dtstart=event_start,
                     interval=recurrence.interval,
                     byweekday=weekday(
-                        recurrence.weekday_for_monthly,
-                        recurrence.week_for_monthly
+                        recurrence.weekday_for_monthly, recurrence.week_for_monthly
                     ),
-                    until=until
+                    until=until,
                 )
-            return [x for x in occurrences if start <= x <= end or start <= x + event_span <= end]
-        return [event_start] if start <= event_start <= end or start <= event_end <= end else []
+            return [
+                x
+                for x in occurrences
+                if start <= x <= end or start <= x + event_span <= end
+            ]
+        return (
+            [event_start]
+            if start <= event_start <= end or start <= event_end <= end
+            else []
+        )
 
     def get_public_translation(self, language_code):
         """
@@ -214,8 +226,7 @@ class Event(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(
-            language__code=language_code,
-            status=status.PUBLIC,
+            language__code=language_code, status=status.PUBLIC,
         ).first()
 
     class Meta:
@@ -232,10 +243,11 @@ class Event(models.Model):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
-        ordering = ['start_date', 'start_time']
+
+        ordering = ["start_date", "start_time"]
         default_permissions = ()
         permissions = (
-            ('view_events', 'Can view events'),
-            ('edit_events', 'Can edit events'),
-            ('publish_events', 'Can publish events')
+            ("view_events", "Can view events"),
+            ("edit_events", "Can edit events"),
+            ("publish_events", "Can publish events"),
         )

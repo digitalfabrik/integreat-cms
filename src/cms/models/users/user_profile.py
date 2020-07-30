@@ -18,9 +18,17 @@ class UserProfile(models.Model):
     :param organization: The organization of the user (related name: ``members``)
     """
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile', on_delete=models.CASCADE)
-    regions = models.ManyToManyField(Region, related_name='users', blank=True)
-    organization = models.ForeignKey(Organization, related_name='members', null=True, blank=True, on_delete=models.SET_NULL)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, related_name="profile", on_delete=models.CASCADE
+    )
+    regions = models.ManyToManyField(Region, related_name="users", blank=True)
+    organization = models.ForeignKey(
+        Organization,
+        related_name="members",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
 
     @property
     def roles(self):

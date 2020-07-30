@@ -15,6 +15,7 @@ class RegionForm(forms.ModelForm):
     """
     Form for creating and modifying region objects
     """
+
     duplicated_region = forms.ModelChoiceField(
         queryset=Region.objects.all(),
         empty_label=_("Do no import initial content"),
@@ -24,49 +25,48 @@ class RegionForm(forms.ModelForm):
     class Meta:
         model = Region
         fields = [
-            'name',
-            'common_id',
-            'slug',
-            'events_enabled',
-            'push_notifications_enabled',
-            'push_notification_channels',
-            'latitude',
-            'longitude',
-            'postal_code',
-            'admin_mail',
-            'statistics_enabled',
-            'matomo_url',
-            'matomo_token',
-            'matomo_ssl_verify',
-            'status',
-            'page_permissions_enabled',
-            'administrative_division',
-            'aliases',
+            "name",
+            "common_id",
+            "slug",
+            "events_enabled",
+            "push_notifications_enabled",
+            "push_notification_channels",
+            "latitude",
+            "longitude",
+            "postal_code",
+            "admin_mail",
+            "statistics_enabled",
+            "matomo_url",
+            "matomo_token",
+            "matomo_ssl_verify",
+            "status",
+            "page_permissions_enabled",
+            "administrative_division",
+            "aliases",
         ]
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
 
         logger.info(
-            'RegionForm saved with args %s, kwargs %s and cleaned data %s',
+            "RegionForm saved with args %s, kwargs %s and cleaned data %s",
             args,
             kwargs,
-            self.cleaned_data
+            self.cleaned_data,
         )
 
-
         # Only duplicate content if region is created and a region was selected
-        duplicate_region = not self.instance.id and self.cleaned_data['duplicated_region']
+        duplicate_region = (
+            not self.instance.id and self.cleaned_data["duplicated_region"]
+        )
 
         # Save region with the default method from ModelForm
         region = super(RegionForm, self).save(*args, **kwargs)
 
         if duplicate_region:
-            source_region = self.cleaned_data['duplicated_region']
+            source_region = self.cleaned_data["duplicated_region"]
             logger.info(
-                'Duplicate content of region %s to region %s',
-                source_region,
-                region
+                "Duplicate content of region %s to region %s", source_region, region
             )
             # Duplicate language tree
             duplicate_language_tree(source_region, region)
@@ -79,23 +79,27 @@ class RegionForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(RegionForm, self).clean()
-        if apps.get_app_config('gvz_api').api_available:
-            gvz_region = GvzRegion(region_name=cleaned_data['name'],
-                                   region_key=cleaned_data['common_id'],
-                                   region_type=cleaned_data['administrative_division'])
-            if gvz_region.aliases and cleaned_data['aliases'] == '':
-                cleaned_data['aliases'] = gvz_region.aliases
-            if gvz_region.longitude and cleaned_data['longitude'] == 0.0:
-                cleaned_data['longitude'] = gvz_region.longitude
-            if gvz_region.latitude and cleaned_data['latitude'] == 0.0:
-                cleaned_data['latitude'] = gvz_region.latitude
+        if apps.get_app_config("gvz_api").api_available:
+            gvz_region = GvzRegion(
+                region_name=cleaned_data["name"],
+                region_key=cleaned_data["common_id"],
+                region_type=cleaned_data["administrative_division"],
+            )
+            if gvz_region.aliases and cleaned_data["aliases"] == "":
+                cleaned_data["aliases"] = gvz_region.aliases
+            if gvz_region.longitude and cleaned_data["longitude"] == 0.0:
+                cleaned_data["longitude"] = gvz_region.longitude
+            if gvz_region.latitude and cleaned_data["latitude"] == 0.0:
+                cleaned_data["latitude"] = gvz_region.latitude
         return cleaned_data
 
     def clean_slug(self):
-        return generate_unique_slug(self, 'region')
+        return generate_unique_slug(self, "region")
 
 
-def duplicate_language_tree(source_region, target_region, source_parent_id=None, target_parent=None):
+def duplicate_language_tree(
+    source_region, target_region, source_parent_id=None, target_parent=None
+):
     """
     Function to duplicate the language tree of one region to another.
 
@@ -118,7 +122,9 @@ def duplicate_language_tree(source_region, target_region, source_parent_id=None,
     """
 
     # Iterate over all children of the current source parent, beginning with the root node
-    for node in LanguageTreeNode.objects.filter(region=source_region, parent__id=source_parent_id).all():
+    for node in LanguageTreeNode.objects.filter(
+        region=source_region, parent__id=source_parent_id
+    ).all():
         # Store the source node id for the next iteration
         source_node_id = node.pk
         # Change the region and parent to its new values
@@ -134,7 +140,9 @@ def duplicate_language_tree(source_region, target_region, source_parent_id=None,
         duplicate_language_tree(source_region, target_region, source_node_id, node)
 
 
-def duplicate_pages(source_region, target_region, source_parent_id=None, target_parent=None, level=0):
+def duplicate_pages(
+    source_region, target_region, source_parent_id=None, target_parent=None, level=0
+):
     """
     Function to duplicate all pages of one region to another.
 
@@ -160,19 +168,19 @@ def duplicate_pages(source_region, target_region, source_parent_id=None, target_
     """
 
     logger.info(
-        '%s Source parent %s started (target parent %s)',
-        '|  ' * level + '├' + '─',
+        "%s Source parent %s started (target parent %s)",
+        "|  " * level + "├" + "─",
         source_parent_id,
-        target_parent
+        target_parent,
     )
 
     # At first, get all pages from the source region with a specific parent page
     # As the parent will be None for the initial call, this returns all pages from the root level
-    for target_page in Page.objects.filter(region=source_region, parent__id=source_parent_id).all():
+    for target_page in Page.objects.filter(
+        region=source_region, parent__id=source_parent_id
+    ).all():
         logger.info(
-            '%s Source page %s started',
-            '|  ' * (level + 1) + '├' + '─',
-            target_page
+            "%s Source page %s started", "|  " * (level + 1) + "├" + "─", target_page
         )
         # Store the source page id into a buffer (if we store the whole object instance instead of only the id,
         # it will also change when we change target_page, because both variables would reference the same object)
@@ -198,23 +206,25 @@ def duplicate_pages(source_region, target_region, source_parent_id=None, target_
             # Save duplicated page translation
             page_translation.save()
             logger.info(
-                '%s Page translation %s finished',
-                '|  ' * (level + 3) + '├' + '─',
-                page_translation
+                "%s Page translation %s finished",
+                "|  " * (level + 3) + "├" + "─",
+                page_translation,
             )
         # Recursively call this function with the current pages as new parents
-        duplicate_pages(source_region, target_region, source_page_id, target_page, level + 2)
+        duplicate_pages(
+            source_region, target_region, source_page_id, target_page, level + 2
+        )
         logger.info(
-            '%s Source page %s finished (target page %s)',
-            '|  ' * (level + 1) + '├' + '─',
+            "%s Source page %s finished (target page %s)",
+            "|  " * (level + 1) + "├" + "─",
             source_page_id,
-            target_page
+            target_page,
         )
     logger.info(
-        '%s Source parent %s finished (target parent %s)',
-        '|  ' * level + '├' + '─',
+        "%s Source parent %s finished (target parent %s)",
+        "|  " * level + "├" + "─",
         source_parent_id,
-        target_parent
+        target_parent,
     )
 
 

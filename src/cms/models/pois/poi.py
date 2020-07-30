@@ -28,7 +28,7 @@ class POI(models.Model):
     :param translations: All translations of this POI
     """
 
-    region = models.ForeignKey(Region, related_name='pois', on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, related_name="pois", on_delete=models.CASCADE)
     address = models.CharField(max_length=250)
     postcode = models.CharField(max_length=10)
     city = models.CharField(max_length=250)
@@ -54,11 +54,10 @@ class POI(models.Model):
         :rtype: ~django.db.models.query.QuerySet
         """
 
-        return cls.objects.all().prefetch_related(
-            'translations'
-        ).filter(
-            region__slug=region_slug,
-            archived=archived
+        return (
+            cls.objects.all()
+            .prefetch_related("translations")
+            .filter(region__slug=region_slug, archived=archived)
         )
 
     @property
@@ -70,7 +69,7 @@ class POI(models.Model):
         :return: list of all :class:`~cms.models.languages.language.Language` a POI is translated into
         :rtype: list [ ~cms.models.languages.language.Language ]
         """
-        poi_translations = self.translations.prefetch_related('language').all()
+        poi_translations = self.translations.prefetch_related("language").all()
         languages = []
         for poi_translation in poi_translations:
             languages.append(poi_translation.language)
@@ -88,9 +87,7 @@ class POI(models.Model):
                  if no translation exists
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
-        return self.translations.filter(
-            language__code=language_code
-        ).first()
+        return self.translations.filter(language__code=language_code).first()
 
     def get_public_translation(self, language_code):
         """
@@ -103,8 +100,7 @@ class POI(models.Model):
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.translations.filter(
-            language__code=language_code,
-            status=status.PUBLIC,
+            language__code=language_code, status=status.PUBLIC,
         ).first()
 
     class Meta:
@@ -118,7 +114,6 @@ class POI(models.Model):
         :param permissions: The custom permissions for this model
         :type permissions: tuple
         """
+
         default_permissions = ()
-        permissions = (
-            ('manage_pois', 'Can manage points of interest'),
-        )
+        permissions = (("manage_pois", "Can manage points of interest"),)
