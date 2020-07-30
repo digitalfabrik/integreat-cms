@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -610,7 +610,7 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt id="cms.forms.regions.region_form.RegionForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L48"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L49"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -620,7 +620,7 @@ is saved manually at a later time. Return the model instance.</p>
 
 <dl class="py function">
 <dt id="cms.forms.regions.region_form.duplicate_language_tree">
-<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_language_tree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L98"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_language_tree" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_language_tree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L100"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_language_tree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to duplicate the language tree of one region to another.</p>
 <p>Usage: duplicate_language_tree(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole language tree. It starts at root level with the default parent None.
@@ -639,13 +639,13 @@ The recursion is necessary because the new nodes need their correct (also duplic
 
 <dl class="py function">
 <dt id="cms.forms.regions.region_form.duplicate_media">
-<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_media</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L222"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_media" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_media</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L232"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_media" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to duplicate all media of one region to another.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="cms.forms.regions.region_form.duplicate_pages">
-<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_pages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/regions/region_form.py#L143"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to duplicate all pages of one region to another.</p>
 <p>Usage: duplicate_pages(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole page tree. It starts at root level with the default parent None.
@@ -692,7 +692,7 @@ The recursion is necessary because the new pages need their correct (also duplic
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>

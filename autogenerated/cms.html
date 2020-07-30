@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -873,7 +873,7 @@
 <span id="apps"></span><h2>Apps<a class="headerlink" href="#module-cms.apps" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.apps.CmsConfig">
-<em class="property">class </em><code class="sig-prename descclassname">cms.apps.</code><code class="sig-name descname">CmsConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app_name</span></em>, <em class="sig-param"><span class="n">app_module</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/apps.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.apps.CmsConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.apps.</code><code class="sig-name descname">CmsConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app_name</span></em>, <em class="sig-param"><span class="n">app_module</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/apps.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.apps.CmsConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
 <p>This class represents the Django-configuration of the backend.</p>
 <p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
@@ -884,7 +884,7 @@
 </dl>
 <dl class="py method">
 <dt id="cms.apps.CmsConfig.ready">
-<code class="sig-name descname">ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/apps.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.apps.CmsConfig.ready" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/apps.py#L28"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.apps.CmsConfig.ready" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function gets executed exactly once each time the cms starts. We use it to check wether the secret key was
 not changed in production mode and show an error message if this is the case.</p>
 <p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig.ready" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.apps.AppConfig.ready()</span></code></a> for more information.</p>
@@ -899,7 +899,7 @@ not changed in production mode and show an error message if this is the case.</p
 <p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/decorators/" title="(in Django v2.2)"><span>View decorators</span></a>.</p>
 <dl class="py function">
 <dt id="cms.decorators.modify_mfa_authenticated">
-<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">modify_mfa_authenticated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L57"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.modify_mfa_authenticated" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">modify_mfa_authenticated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L62"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.modify_mfa_authenticated" title="Permalink to this definition">¶</a></dt>
 <dd><p>This decorator can be used to make sure a user can only modify his 2FA settings when he has a valid 2FA session.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -916,7 +916,7 @@ not changed in production mode and show an error message if this is the case.</p
 
 <dl class="py function">
 <dt id="cms.decorators.region_permission_required">
-<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">region_permission_required</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L35"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.region_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">region_permission_required</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/decorators.py#L37"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.decorators.region_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>This decorator can be used to make sure a view can only be retrieved by users of the requested region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -953,12 +953,12 @@ not changed in production mode and show an error message if this is the case.</p
 <span id="page-xliff-converter"></span><h2>Page Xliff Converter<a class="headerlink" href="#module-cms.page_xliff_converter" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.page_xliff_converter.PageXliffHelper">
-<em class="property">class </em><code class="sig-prename descclassname">cms.page_xliff_converter.</code><code class="sig-name descname">PageXliffHelper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L223"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.page_xliff_converter.</code><code class="sig-name descname">PageXliffHelper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L243"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Wrapper and helper methods for reading/writing XLIFF files and saving PageTranslation</p>
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L227"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L248"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -971,7 +971,7 @@ not changed in production mode and show an error message if this is the case.</p
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.export_page_translation_xliff">
-<code class="sig-name descname">export_page_translation_xliff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L255"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.export_page_translation_xliff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">export_page_translation_xliff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L276"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.export_page_translation_xliff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create XLIFF file for source page translation and target language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -988,7 +988,7 @@ not changed in production mode and show an error message if this is the case.</p
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.extract_zip_file">
-<em class="property">static </em><code class="sig-name descname">extract_zip_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">zip_file_path</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L417"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.extract_zip_file" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">extract_zip_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">zip_file_path</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L455"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.extract_zip_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract zip file and return file paths of content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1005,7 +1005,7 @@ not changed in production mode and show an error message if this is the case.</p
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.generate_translation_diff">
-<em class="property">static </em><code class="sig-name descname">generate_translation_diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trans_fields</span></em>, <em class="sig-param"><span class="n">xliff_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L457"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.generate_translation_diff" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">generate_translation_diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trans_fields</span></em>, <em class="sig-param"><span class="n">xliff_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L501"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.generate_translation_diff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate diff to current translation from translation fields dictionary</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1025,7 +1025,7 @@ not changed in production mode and show an error message if this is the case.</p
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.generate_xliff_import_diff">
-<code class="sig-name descname">generate_xliff_import_diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xliff_paths</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L435"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.generate_xliff_import_diff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">generate_xliff_import_diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xliff_paths</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L475"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.generate_xliff_import_diff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate diff between XLIFF content and current translation content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1042,7 +1042,7 @@ not changed in production mode and show an error message if this is the case.</p
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.import_xliff_files">
-<code class="sig-name descname">import_xliff_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xliff_paths</span></em>, <em class="sig-param"><span class="n">user</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L390"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.import_xliff_files" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">import_xliff_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xliff_paths</span></em>, <em class="sig-param"><span class="n">user</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L422"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.import_xliff_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import single (usually translated) XLIFF file and
 save to page translation.</p>
 <dl class="field-list simple">
@@ -1063,7 +1063,7 @@ save to page translation.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.pages_to_zipped_xliffs">
-<code class="sig-name descname">pages_to_zipped_xliffs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">pages</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L312"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.pages_to_zipped_xliffs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pages_to_zipped_xliffs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">pages</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L342"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.pages_to_zipped_xliffs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export a list of page IDs to a zip file containing XLIFFs for a specified target language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1077,7 +1077,7 @@ save to page translation.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.save_file">
-<em class="property">static </em><code class="sig-name descname">save_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">content</span></em>, <em class="sig-param"><span class="n">file_path</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L240"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.save_file" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">save_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">content</span></em>, <em class="sig-param"><span class="n">file_path</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L261"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.save_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write text to file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1091,7 +1091,7 @@ save to page translation.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.PageXliffHelper.save_page_translation">
-<em class="property">static </em><code class="sig-name descname">save_page_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trans_fields</span></em>, <em class="sig-param"><span class="n">user</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L355"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.save_page_translation" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">save_page_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trans_fields</span></em>, <em class="sig-param"><span class="n">user</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L387"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.PageXliffHelper.save_page_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save XLIFF input to page translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1118,7 +1118,7 @@ save to page translation.</p>
 <p>Class to handle transition between XLIFF 2.0 XML files and PageTranslation model</p>
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">xliff_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">xliff_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L27"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds an LXML ETree from either the template or xliff_code parameter</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1133,7 +1133,7 @@ save to page translation.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.add_language_attributes">
-<code class="sig-name descname">add_language_attributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L118"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.add_language_attributes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_language_attributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L132"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.add_language_attributes" title="Permalink to this definition">¶</a></dt>
 <dd><p>If possible, add the srcLang and trgLang attributes to the xliff element</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1147,7 +1147,7 @@ save to page translation.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.add_notes">
-<code class="sig-name descname">add_notes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">notes</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L160"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.add_notes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_notes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">notes</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L179"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.add_notes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add notes section with additional information to XLIFF</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1158,7 +1158,7 @@ save to page translation.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.add_translation_unit">
-<code class="sig-name descname">add_translation_unit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">unit_id</span></em>, <em class="sig-param"><span class="n">source_text</span></em>, <em class="sig-param"><span class="n">target_text</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L174"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.add_translation_unit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_translation_unit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">unit_id</span></em>, <em class="sig-param"><span class="n">source_text</span></em>, <em class="sig-param"><span class="n">target_text</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L193"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.add_translation_unit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a translation unit to the file element</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1173,7 +1173,7 @@ save to page translation.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.get_xml">
-<code class="sig-name descname">get_xml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L213"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.get_xml" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_xml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L233"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.get_xml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn LXML Element Tree to readable XML code</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1187,19 +1187,19 @@ save to page translation.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.parse_xliff_content">
-<code class="sig-name descname">parse_xliff_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L87"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.parse_xliff_content" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parse_xliff_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L95"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.parse_xliff_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract content elements from xliff</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.parse_xliff_meta">
-<code class="sig-name descname">parse_xliff_meta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L55"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.parse_xliff_meta" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parse_xliff_meta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L56"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.parse_xliff_meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get meta information from XLIFF file</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.translation_to_xliff">
-<code class="sig-name descname">translation_to_xliff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">src_trans</span></em>, <em class="sig-param"><span class="n">tgt_trans</span></em>, <em class="sig-param"><span class="n">xliff_id</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L131"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.translation_to_xliff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">translation_to_xliff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">src_trans</span></em>, <em class="sig-param"><span class="n">tgt_trans</span></em>, <em class="sig-param"><span class="n">xliff_id</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L145"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.translation_to_xliff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a XLIFF that contains a page translation
 Add origin attribute with page id as value to file element. as this id is unique
 across all regions, it can be used to import a XLIFF file.</p>
@@ -1223,7 +1223,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.validate_content">
-<code class="sig-name descname">validate_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L107"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.validate_content" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">validate_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L117"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.validate_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate if content data is present</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1237,7 +1237,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.validate_meta_info">
-<code class="sig-name descname">validate_meta_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L76"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.validate_meta_info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">validate_meta_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L79"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.validate_meta_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate if XLIFF meta information is present</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1251,7 +1251,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 
 <dl class="py method">
 <dt id="cms.page_xliff_converter.TranslationXliffConverter.xliff_to_translation_data">
-<code class="sig-name descname">xliff_to_translation_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L195"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.xliff_to_translation_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">xliff_to_translation_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/page_xliff_converter.py#L214"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.page_xliff_converter.TranslationXliffConverter.xliff_to_translation_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a XLIFF file that contains a page translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1293,7 +1293,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <p>See the project’s <a class="reference external" href="https://github.com/dfunckt/django-rules/blob/master/README.rst">README</a> to learn more.</p>
 <dl class="py function">
 <dt id="cms.rules.is_page_editor">
-<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_page_editor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_page_editor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_page_editor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_page_editor" title="Permalink to this definition">¶</a></dt>
 <dd><p>This predicate checks whether the given user is one of the editors of the given page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1313,7 +1313,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 
 <dl class="py function">
 <dt id="cms.rules.is_page_publisher">
-<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_page_publisher</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L43"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_page_publisher" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_page_publisher</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L45"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_page_publisher" title="Permalink to this definition">¶</a></dt>
 <dd><p>This predicate checks whether the given user is one of the publishers of the given page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1333,7 +1333,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 
 <dl class="py function">
 <dt id="cms.rules.can_edit_all_pages">
-<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_edit_all_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L61"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_edit_all_pages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_edit_all_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L64"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_edit_all_pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This predicate checks whether the given user can edit all pages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1353,7 +1353,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 
 <dl class="py function">
 <dt id="cms.rules.can_publish_all_pages">
-<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_publish_all_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L78"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_publish_all_pages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_publish_all_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/rules.py#L82"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_publish_all_pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This predicate checks whether the given user can publish all pages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1406,7 +1406,7 @@ See <a class="reference internal" href="backend.html#module-backend.urls" title=
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>

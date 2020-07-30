@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git-flow.html">GitHub Workflow</a><ul>
@@ -587,23 +587,39 @@
             
   <div class="section" id="code-style-guidelines">
 <h1>Code Style Guidelines<a class="headerlink" href="#code-style-guidelines" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="pep-8">
-<h2>PEP-8<a class="headerlink" href="#pep-8" title="Permalink to this headline">¶</a></h2>
-<p>We mostly follow the <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a> coding style for Python.</p>
-<p>Some examples of our coding conventions:</p>
-<ul>
-<li><p>Indentation: 4 spaces</p></li>
-<li><p>Maximum line length: 160 characters</p></li>
-<li><p>Closing brackets are lined up under the first character of the line that starts the multiline construct:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">some_function_that_takes_arguments</span><span class="p">(</span>
-    <span class="n">some_argument</span><span class="p">,</span>
-    <span class="n">some_other_argument</span><span class="p">,</span>
-    <span class="n">yet_another_argument</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="section" id="black">
+<h2>Black<a class="headerlink" href="#black" title="Permalink to this headline">¶</a></h2>
+<p>We use the <a class="reference external" href="https://github.com/psf/black">black</a> coding style, a flavour of <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a> for Python.</p>
+<p>We use a <a class="reference external" href="https://pre-commit.com/">pre-commit-hook</a> to apply this style before committing, so you don’t have to bother about formatting.
+Just code how you feel comfortable and let the tool do the work for you.</p>
+<p>If you want to apply the code without committing, use our developer tool <code class="docutils literal notranslate"><span class="pre">black.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/black.sh">Source</a>]::</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">black</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-</li>
-</ul>
+</div>
+<div class="section" id="linting">
+<h2>Linting<a class="headerlink" href="#linting" title="Permalink to this headline">¶</a></h2>
+<p>In addition to black, we use pylint to check the code for semantic correctness.
+Run pylint with our developer tool <code class="docutils literal notranslate"><span class="pre">pylint.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/pylint.sh">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">pylint</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>When you think a warning is a false positive, add a comment before the specific line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=unused-argument</span>
+<span class="k">def</span> <span class="nf">some_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please use the string identifiers (<code class="docutils literal notranslate"><span class="pre">unused-argument</span></code>) instead of the alphanumeric code (<code class="docutils literal notranslate"><span class="pre">W0613</span></code>) when disabling warnings.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If you want to run both tools at once, use our developer tool <code class="docutils literal notranslate"><span class="pre">code_style.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/code_style.sh">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">code_style</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="docstrings">
 <h2>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h2>
@@ -620,22 +636,6 @@
 <span class="sd">:rtype: [ReturnType]</span>
 <span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
-</div>
-</div>
-<div class="section" id="linting">
-<h2>Linting<a class="headerlink" href="#linting" title="Permalink to this headline">¶</a></h2>
-<p>Check whether the code complies to our style guides with the linting tool <code class="docutils literal notranslate"><span class="pre">pylint.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/pylint.sh">Source</a>]:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">pylint</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-<p>When you think a warning is a false positive, add a comment before the specific line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=unused-argument</span>
-<span class="k">def</span> <span class="nf">some_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Please use the string identifiers (<code class="docutils literal notranslate"><span class="pre">unused-argument</span></code>) instead of the alphanumeric code (<code class="docutils literal notranslate"><span class="pre">W0613</span></code>) when disabling warnings.</p>
 </div>
 </div>
 </div>
@@ -666,7 +666,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>

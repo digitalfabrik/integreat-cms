@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -599,7 +599,7 @@ Filters transform the values of variables and are surrounded by <code class="doc
 <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a> and <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
 <dl class="py function">
 <dt id="cms.templatetags.content_filters.get_int_list">
-<code class="sig-prename descclassname">cms.templatetags.content_filters.</code><code class="sig-name descname">get_int_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">list_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/content_filters.py#L80"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_int_list" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.templatetags.content_filters.</code><code class="sig-name descname">get_int_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">list_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/content_filters.py#L82"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_int_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This filter returns the list data of a one-to-many field as ints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -619,7 +619,7 @@ Filters transform the values of variables and are surrounded by <code class="doc
 
 <dl class="py function">
 <dt id="cms.templatetags.content_filters.get_language">
-<code class="sig-prename descclassname">cms.templatetags.content_filters.</code><code class="sig-name descname">get_language</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/content_filters.py#L49"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_language" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.templatetags.content_filters.</code><code class="sig-name descname">get_language</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/content_filters.py#L50"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_language" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the name of the requested language in the current backend language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -657,7 +657,7 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 
 <dl class="py function">
 <dt id="cms.templatetags.content_filters.is_empty">
-<code class="sig-prename descclassname">cms.templatetags.content_filters.</code><code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/content_filters.py#L97"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.content_filters.is_empty" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.templatetags.content_filters.</code><code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/content_filters.py#L99"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.content_filters.is_empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>This filter checks whether the given iterable is empty.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -691,7 +691,7 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 
 <dl class="py function">
 <dt id="cms.templatetags.content_filters.unify_language_code">
-<code class="sig-prename descclassname">cms.templatetags.content_filters.</code><code class="sig-name descname">unify_language_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/content_filters.py#L63"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.content_filters.unify_language_code" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.templatetags.content_filters.</code><code class="sig-name descname">unify_language_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/content_filters.py#L65"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.content_filters.unify_language_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the unified language code.
 This is used to treat British English and American English as the same language.</p>
 <dl class="field-list simple">
@@ -800,7 +800,7 @@ This is used to treat British English and American English as the same language.
 objects.</p>
 <dl class="py function">
 <dt id="cms.templatetags.push_notification_filters.translation">
-<code class="sig-prename descclassname">cms.templatetags.push_notification_filters.</code><code class="sig-name descname">translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">push_notification</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/push_notification_filters.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.push_notification_filters.translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.templatetags.push_notification_filters.</code><code class="sig-name descname">translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">push_notification</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/push_notification_filters.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.push_notification_filters.translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the most recent translation of the requested push notification in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -847,7 +847,7 @@ objects.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>

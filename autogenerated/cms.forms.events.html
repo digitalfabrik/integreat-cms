@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -601,13 +601,13 @@
 <p>Form for creating and modifying event objects</p>
 <dl class="py method">
 <dt id="cms.forms.events.event_form.EventForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">disabled</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/event_form.py#L36"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">disabled</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/event_form.py#L31"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.events.event_form.EventForm.clean">
-<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/event_form.py#L74"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/event_form.py#L75"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -616,7 +616,7 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt id="cms.forms.events.event_form.EventForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">recurrence_rule</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">location</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/event_form.py#L54"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">recurrence_rule</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">location</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/event_form.py#L51"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -640,7 +640,7 @@ is saved manually at a later time. Return the model instance.</p>
 
 <dl class="py method">
 <dt id="cms.forms.events.event_translation_form.EventTranslationForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">user</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/event_translation_form.py#L57"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.event_translation_form.EventTranslationForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">user</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/event_translation_form.py#L63"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.event_translation_form.EventTranslationForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -658,13 +658,13 @@ is saved manually at a later time. Return the model instance.</p>
 <p>Form for creating and modifying event recurrence rule objects</p>
 <dl class="py method">
 <dt id="cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">event_start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">disabled</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/recurrence_rule_form.py#L33"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">event_start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">disabled</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/recurrence_rule_form.py#L36"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.clean">
-<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/recurrence_rule_form.py#L51"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/recurrence_rule_form.py#L60"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -673,7 +673,7 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt id="cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.has_changed">
-<code class="sig-name descname">has_changed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/recurrence_rule_form.py#L77"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_changed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/events/recurrence_rule_form.py#L124"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.has_changed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if data differs from initial.</p>
 </dd></dl>
 
@@ -708,7 +708,7 @@ association with the field named ‘__all__’.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>

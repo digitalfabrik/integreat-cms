@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -759,7 +759,7 @@ immediate children are level <cite>2</cite> and so on…</p></li>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors">
-<code class="sig-name descname">get_ancestors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ascending</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L120"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_ancestors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ascending</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L116"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the ancestors of this model
 instance.</p>
 <p>This defaults to being in descending order (root ancestor first,
@@ -772,7 +772,7 @@ include this model instance.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_children">
-<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L129"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_children" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L125"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the immediate children of this
 model instance, in tree order.</p>
 <p>The benefit of using this method over the reverse relation
@@ -785,13 +785,13 @@ a leaf node (it has no children).</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_descendant_count">
-<code class="sig-name descname">get_descendant_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_descendant_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_descendant_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L133"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_descendant_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of descendants this model instance has.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants">
-<code class="sig-name descname">get_descendants</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L133"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_descendants</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L129"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing descendants of this model
 instance, in tree order.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">include_self</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> will also
@@ -800,27 +800,27 @@ include this model instance.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_family">
-<code class="sig-name descname">get_family</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L125"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_family" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_family</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L121"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_family" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the ancestors, the model itself
 and the descendants, in tree order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_root">
-<code class="sig-name descname">get_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L140"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_root" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L136"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the root node of this model instance’s tree.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.insert_at">
-<code class="sig-name descname">insert_at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">position</span><span class="o">=</span><span class="default_value">'first-child'</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_existing_pk</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">refresh_target</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L145"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.insert_at" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">insert_at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">position</span><span class="o">=</span><span class="default_value">'first-child'</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_existing_pk</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">refresh_target</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L141"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.insert_at" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method for calling <code class="docutils literal notranslate"><span class="pre">TreeManager.insert_node</span></code> with this
 model instance.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.move_to">
-<code class="sig-name descname">move_to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">position</span><span class="o">=</span><span class="default_value">'first-child'</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L149"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.move_to" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">move_to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">position</span><span class="o">=</span><span class="default_value">'first-child'</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/languages/language_tree_node.py#L154"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.move_to" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method for calling <code class="docutils literal notranslate"><span class="pre">TreeManager.move_node</span></code> with this
 model instance.</p>
 <p>NOTE: This is a low-level method; it does NOT respect <code class="docutils literal notranslate"><span class="pre">MPTTMeta.order_insertion_by</span></code>.
@@ -900,7 +900,7 @@ In most cases you should just move the node yourself by setting node.parent.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>

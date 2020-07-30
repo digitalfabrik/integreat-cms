@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -601,13 +601,13 @@
 <p>Form for creating and modifying region user objects</p>
 <dl class="py method">
 <dt id="cms.forms.users.region_user_form.RegionUserForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/region_user_form.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.region_user_form.RegionUserForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/region_user_form.py#L20"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.region_user_form.RegionUserForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.users.region_user_form.RegionUserForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/region_user_form.py#L33"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.region_user_form.RegionUserForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/region_user_form.py#L29"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.region_user_form.RegionUserForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -631,7 +631,7 @@ is saved manually at a later time. Return the model instance.</p>
 
 <dl class="py method">
 <dt id="cms.forms.users.region_user_profile_form.RegionUserProfileForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/region_user_profile_form.py#L27"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.region_user_profile_form.RegionUserProfileForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/region_user_profile_form.py#L31"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.region_user_profile_form.RegionUserProfileForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -654,18 +654,18 @@ is saved manually at a later time. Return the model instance.</p>
 <span id="user-form"></span><h2>User Form<a class="headerlink" href="#module-cms.forms.users.user_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.forms.users.user_form.UserForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.users.user_form.</code><code class="sig-name descname">UserForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_form.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.users.user_form.</code><code class="sig-name descname">UserForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_form.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelForm</span></code></p>
 <p>Form for creating and modifying user objects</p>
 <dl class="py method">
 <dt id="cms.forms.users.user_form.UserForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_form.py#L32"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_form.py#L39"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.users.user_form.UserForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_form.py#L47"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_form.py#L56"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -678,12 +678,12 @@ is saved manually at a later time. Return the model instance.</p>
 <span id="user-password-form"></span><h2>User Password Form<a class="headerlink" href="#module-cms.forms.users.user_password_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.forms.users.user_password_form.UserPasswordForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.users.user_password_form.</code><code class="sig-name descname">UserPasswordForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_password_form.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_password_form.UserPasswordForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.users.user_password_form.</code><code class="sig-name descname">UserPasswordForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_password_form.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_password_form.UserPasswordForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelForm</span></code></p>
 <p>Form for changing a user’s password</p>
 <dl class="py method">
 <dt id="cms.forms.users.user_password_form.UserPasswordForm.clean">
-<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_password_form.py#L54"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_password_form.UserPasswordForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_password_form.py#L51"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_password_form.UserPasswordForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -692,7 +692,7 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt id="cms.forms.users.user_password_form.UserPasswordForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_password_form.py#L38"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_password_form.UserPasswordForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_password_form.py#L39"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_password_form.UserPasswordForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -711,13 +711,13 @@ is saved manually at a later time. Return the model instance.</p>
 <p>Form for creating and modifying user profile objects</p>
 <dl class="py method">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_profile_form.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_profile_form.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_profile_form.py#L34"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/users/user_profile_form.py#L33"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -754,7 +754,7 @@ is saved manually at a later time. Return the model instance.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>

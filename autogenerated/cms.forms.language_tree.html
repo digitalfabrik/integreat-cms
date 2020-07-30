@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -601,13 +601,13 @@
 <p>Form for creating and modifying language tree node objects</p>
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean">
-<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L49"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L48"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Don’t allow multiple root nodes for one region:</dt><dd><p>If self is a root node and the region already has a default language,
 raise a validation error.</p>
@@ -617,7 +617,7 @@ raise a validation error.</p>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save_language_node">
-<code class="sig-name descname">save_language_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_tree_node_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save_language_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save_language_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_tree_node_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save_language_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create or update a page
 language_tree_node_id ([Integer], optional): Defaults to None. If it’s not set creates
 a language tree node or update the language tree node with the given page id.</p>
@@ -654,7 +654,7 @@ a language tree node or update the language tree node with the given page id.</p
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>

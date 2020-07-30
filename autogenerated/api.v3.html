@@ -160,9 +160,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#pep-8">PEP-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -623,7 +623,7 @@ region_slug ([String]): Slug to identify the desired region.</p>
 <p>Provides an endpoint for delivering a JSON with all active offers.</p>
 <dl class="py function">
 <dt id="api.v3.offers.offers">
-<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">offers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.offers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">offers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.offers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to iterate through all offers related to a region and adds them to a JSON.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><p>[String]: [description]</p>
@@ -633,7 +633,7 @@ region_slug ([String]): Slug to identify the desired region.</p>
 
 <dl class="py function">
 <dt id="api.v3.offers.transform_offer">
-<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">transform_offer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offer</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.transform_offer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">transform_offer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offer</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.transform_offer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single offer Object.
 Returns:</p>
 <blockquote>
@@ -653,7 +653,7 @@ Returns:</p>
 <span id="regions"></span><h2>Regions<a class="headerlink" href="#module-api.v3.regions" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="api.v3.regions.pushnew">
-<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">pushnew</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/regions.py#L62"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.pushnew" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">pushnew</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/regions.py#L85"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.pushnew" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a convenience function for development.
 todo: To be removed on deploy.</p>
 </dd></dl>
@@ -665,7 +665,7 @@ todo: To be removed on deploy.</p>
 be selected via the id or the permalink.</p>
 <dl class="py function">
 <dt id="api.v3.single_page.single_page">
-<code class="sig-prename descclassname">api.v3.single_page.</code><code class="sig-name descname">single_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/single_page.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.single_page.single_page" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.single_page.</code><code class="sig-name descname">single_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/single_page.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.single_page.single_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>View function returning the desired page as a JSON or a 404 if the
 requested page does not exist.</p>
 <dl class="field-list simple">
@@ -717,7 +717,7 @@ requested page does not exist.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Jul 30, 2020.
       </span>
 
     </p>
