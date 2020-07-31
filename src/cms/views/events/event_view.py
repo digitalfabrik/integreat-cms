@@ -37,7 +37,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
         recurrence_rule_instance = RecurrenceRule.objects.filter(
             event=event_instance
         ).first()
-        poi_instance = POI.objects.filter(event=event_instance).first()
+        poi_instance = POI.objects.filter(events=event_instance).first()
 
         # Make form disabled if user has no permission to edit the page
         if not request.user.has_perm("cms.edit_events"):
