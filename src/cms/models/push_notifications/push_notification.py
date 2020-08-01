@@ -1,4 +1,6 @@
 from django.db import models
+from .push_notification_channel import PushNotificationChannel
+from ...constants.push_notifications import PN_MODES
 
 
 class PushNotification(models.Model):
@@ -12,6 +14,7 @@ class PushNotification(models.Model):
                       not yet sent)
     :param created_date: The date and time when the push notification was created
     :param last_updated: The date and time when the push notification was last updated
+    :param mode: Sets behavior for dealing with not existing push notification translations
 
     Relationship fields:
 
@@ -25,11 +28,16 @@ class PushNotification(models.Model):
     region = models.ForeignKey(
         "Region", related_name="push_notifications", on_delete=models.CASCADE
     )
-    channel = models.CharField(max_length=60)
+    channel = models.ForeignKey(
+        PushNotificationChannel,
+        related_name="push_notifications",
+        on_delete=models.CASCADE,
+    )
     draft = models.BooleanField(default=True)
     sent_date = models.DateTimeField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
+    mode = models.CharField(max_length=128, choices=PN_MODES)
 
     def __str__(self):
         """
