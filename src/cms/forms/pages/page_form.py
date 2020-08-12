@@ -4,13 +4,47 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
-from django.utils.translation import ugettext as _
+from django.urls import reverse
+from django.utils.translation import ugettext as _, get_language
 
 from ...constants import position
 from ...models import Page, Region
 
 
 logger = logging.getLogger(__name__)
+
+
+class ParentFieldWidget(forms.widgets.Select):
+    """
+    This Widget class is used to append the url for retrieving the page order tables to the data attributes of the options
+    """
+
+    form = None
+
+    # pylint: disable=too-many-arguments
+    def create_option(
+        self, name, value, label, selected, index, subindex=None, attrs=None
+    ):
+        option_dict = super().create_option(
+            name, value, label, selected, index, subindex=subindex, attrs=attrs
+        )
+        if not value:
+            value = 0
+        if self.form.instance.id:
+            option_dict["attrs"]["data-url"] = reverse(
+                "get_page_order_table_ajax",
+                kwargs={
+                    "region_slug": self.form.region.slug,
+                    "page_id": self.form.instance.id,
+                    "parent_id": value,
+                },
+            )
+        else:
+            option_dict["attrs"]["data-url"] = reverse(
+                "get_new_page_order_table_ajax",
+                kwargs={"region_slug": self.form.region.slug, "parent_id": value,},
+            )
+        return option_dict
 
 
 class ParentField(forms.ModelChoiceField):
@@ -22,15 +56,14 @@ class ParentField(forms.ModelChoiceField):
 
     # pylint: disable=arguments-differ
     def label_from_instance(self, page):
-        logger.info(
-            "Generate label for page with id %s in language %s", page, self.language
-        )
-        return " -> ".join(
+        label = " 🡒 ".join(
             [
-                page.get_first_translation([self.language.code]).title
+                page.get_first_translation([get_language(), self.language.code]).title
                 for page in page.get_ancestors(include_self=True)
             ]
         )
+        logger.debug("Label for page %s: %s", page, label)
+        return label
 
 
 class MirrorPageField(forms.ModelChoiceField):
@@ -53,8 +86,17 @@ class PageForm(forms.ModelForm):
     Form for creating and modifying page objects
     """
 
-    position = forms.ChoiceField(choices=position.CHOICES, initial=position.FIRST_CHILD)
-    parent = ParentField(queryset=Page.objects.all(), required=False)
+    parent = ParentField(
+        queryset=Page.objects.all(), required=False, widget=ParentFieldWidget()
+    )
+    related_page = forms.ModelChoiceField(
+        queryset=Page.objects.all(), required=False, widget=forms.HiddenInput()
+    )
+    position = forms.ChoiceField(
+        choices=position.CHOICES,
+        initial=position.LAST_CHILD,
+        widget=forms.HiddenInput(),
+    )
     editors = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(), required=False
     )
@@ -88,11 +130,11 @@ class PageForm(forms.ModelForm):
         language = kwargs.pop("language", None)
         disabled = kwargs.pop("disabled", None)
 
-        # add initial kwarg to make sure changed_data is preserved
-        kwargs["initial"] = {"position": position.FIRST_CHILD}
-
         # instantiate ModelForm
         super(PageForm, self).__init__(*args, **kwargs)
+
+        # pass form object to ParentFieldWidget
+        self.fields["parent"].widget.form = self
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
         if disabled:
@@ -117,6 +159,18 @@ class PageForm(forms.ModelForm):
             children = self.instance.get_descendants(include_self=True)
             parent_queryset = parent_queryset.exclude(id__in=children)
             self.fields["parent"].initial = self.instance.parent
+            # check if instance has siblings
+            previous_sibling = self.instance.get_previous_sibling()
+            next_sibling = self.instance.get_next_sibling()
+            if previous_sibling:
+                self.fields["related_page"].initial = previous_sibling
+                self.fields["position"].initial = position.RIGHT
+            elif next_sibling:
+                self.fields["related_page"].initial = next_sibling
+                self.fields["position"].initial = position.LEFT
+            else:
+                self.fields["related_page"].initial = self.instance.parent
+                self.fields["position"].initial = position.LAST_CHILD
 
         self.mirrored_page = forms.ModelChoiceField(
             queryset=Page.objects.all(), required=False
@@ -141,7 +195,13 @@ class PageForm(forms.ModelForm):
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
 
-        logger.info("PageForm saved with args %s and kwargs %s", args, kwargs)
+        logger.debug(
+            "PageForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
+            args,
+            kwargs,
+            self.cleaned_data,
+            self.changed_data,
+        )
 
         # don't commit saving of ModelForm, because required fields are still missing
         kwargs["commit"] = False
@@ -153,7 +213,7 @@ class PageForm(forms.ModelForm):
         page.archived = bool(self.data.get("submit_archive"))
         page.mirrored_page = self.cleaned_data["mirrored_page"]
         page.save()
-        page.move_to(self.cleaned_data["parent"], self.cleaned_data["position"])
+        page.move_to(self.cleaned_data["related_page"], self.cleaned_data["position"])
 
         return page
 

@@ -97,6 +97,24 @@ class Page(MPTTModel):
                 languages.append(page_translation.language)
         return languages
 
+    def get_previous_sibling(self, *filter_args, **filter_kwargs):
+        # Only consider siblings from this region
+        filter_kwargs["region"] = self.region
+        return super(Page, self).get_previous_sibling(*filter_args, **filter_kwargs)
+
+    def get_next_sibling(self, *filter_args, **filter_kwargs):
+        # Only consider siblings from this region
+        filter_kwargs["region"] = self.region
+        return super(Page, self).get_next_sibling(*filter_args, **filter_kwargs)
+
+    def get_siblings(self, include_self=False):
+        # Return only siblings from the same region
+        return (
+            super(Page, self)
+            .get_siblings(include_self=include_self)
+            .filter(region=self.region)
+        )
+
     def get_translation(self, language_code):
         """
         This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``

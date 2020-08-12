@@ -420,6 +420,44 @@ def revoke_page_permission_ajax(request):
 
 
 @login_required
+@region_permission_required
+@permission_required("cms.edit_pages", raise_exception=True)
+def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
+
+    page = Page.objects.get(id=page_id, region__slug=region_slug)
+
+    if parent_id == "0":
+        siblings = Page.objects.filter(level=0, region__slug=region_slug)
+    else:
+        siblings = Page.objects.filter(parent__id=parent_id, region__slug=region_slug)
+
+    logger.debug(
+        "Page order table for page %s and siblings %s", page, siblings,
+    )
+
+    return render(
+        request, "pages/_page_order_table.html", {"page": page, "siblings": siblings,},
+    )
+
+
+@login_required
+@region_permission_required
+@permission_required("cms.edit_pages", raise_exception=True)
+def get_new_page_order_table_ajax(request, region_slug, parent_id):
+
+    if parent_id == "0":
+        siblings = Page.objects.filter(level=0, region__slug=region_slug)
+    else:
+        siblings = Page.objects.filter(parent__id=parent_id, region__slug=region_slug)
+
+    logger.debug(
+        "Page order table for a new page and siblings %s", siblings,
+    )
+
+    return render(request, "pages/_page_order_table.html", {"siblings": siblings,},)
+
+
+@login_required
 @permission_required("cms.edit_pages", raise_exception=True)
 def get_pages_list_ajax(request):
     decoded_json = json.loads(request.body.decode("utf-8"))

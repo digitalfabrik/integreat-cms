@@ -14,6 +14,8 @@ from .page_actions import (
     move_page,
     grant_page_permission_ajax,
     revoke_page_permission_ajax,
+    get_page_order_table_ajax,
+    get_new_page_order_table_ajax,
     get_pages_list_ajax,
     save_mirrored_page,
 )

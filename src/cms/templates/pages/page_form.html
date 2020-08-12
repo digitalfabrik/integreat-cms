@@ -11,7 +11,6 @@
 {% block css %}
     <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
 {% endblock %}
 
 {% block javascript_head %}
@@ -222,16 +221,18 @@
             <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                 <div class="w-full p-4">
                     <span class="font-bold mb-2 mt-4 block">{% trans 'Positioning' %}</span>
-                    <label for="position" class="text-xs uppercase block mt-4">{% trans 'Relationship' %}</label>
+                    <label for="parent" class="text-xs uppercase">{% trans 'Parent Page' %}</label>
                     <div class="relative my-2">
-                        {% render_field page_form.position placeholder="0" id="position" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    </div>
-                    <label for="parent" class="text-xs uppercase">{% trans 'Page' %}</label>
-                    <div class="relative my-2">
+                        {% render_field page_form.related_page %}
+                        {% render_field page_form.position %}
                         {% render_field page_form.parent id="parent" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
+                    </div>
+                    <label class="text-xs uppercase">{% trans 'Order' %}</label>
+                    <div id="page_order_table" class="mb-4">
+                        {% include "pages/_page_order_table.html" %}
                     </div>
                     {% if page %}
                     <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
@@ -317,6 +318,10 @@
         {% endif %}
     {% endif %}
 {% endif %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/pages/page_order.js' %}"></script>
 {% endblock %}
 
 {% block javascript_nocompress %}

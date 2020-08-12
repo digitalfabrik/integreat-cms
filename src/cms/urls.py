@@ -280,6 +280,16 @@ urlpatterns = [
                     pages.save_mirrored_page,
                     name="save_mirrored_page",
                 ),
+                url(
+                    r"^(?P<region_slug>[-\w]+)/(?P<parent_id>[0-9]+)/new_order_table$",
+                    pages.get_new_page_order_table_ajax,
+                    name="get_new_page_order_table_ajax",
+                ),
+                url(
+                    r"^(?P<region_slug>[-\w]+)/(?P<page_id>[0-9]+)/(?P<parent_id>[0-9]+)/order_table$",
+                    pages.get_page_order_table_ajax,
+                    name="get_page_order_table_ajax",
+                ),
                 url(r"^search_poi$", events.search_poi_ajax, name="search_poi_ajax"),
             ]
         ),
