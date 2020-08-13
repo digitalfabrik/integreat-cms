@@ -367,7 +367,7 @@ urlpatterns = [
                                                         pages.delete_page,
                                                         name="delete_page",
                                                     ),
-                                                    # warning: the move url is also hardcoded in the javascript block of backend/cms/templates/pages/tree.html
+                                                    # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
                                                     url(
                                                         r"^move/(?P<target_id>[0-9]+)/(?P<position>[-\w]+)$",
                                                         pages.move_page,
@@ -595,6 +595,12 @@ urlpatterns = [
                                             r"^delete$",
                                             language_tree.LanguageTreeNodeView.as_view(),
                                             name="delete_language_tree_node",
+                                        ),
+                                        # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
+                                        url(
+                                            r"^move/(?P<target_id>[0-9]+)/(?P<position>[-\w]+)$",
+                                            language_tree.move_language_tree_node,
+                                            name="move_language_tree_node",
                                         ),
                                     ]
                                 ),

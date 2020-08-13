@@ -5,6 +5,15 @@ from django.utils.translation import ugettext_lazy as _
 from ...models import LanguageTreeNode, Region
 
 
+class LanguageField(forms.ModelChoiceField):
+    """
+    Form field helper class to overwrite the label function (which would otherwise call __str__)
+    """
+
+    def label_from_instance(self, obj):
+        return obj.translated_name
+
+
 class LanguageTreeNodeForm(forms.ModelForm):
     """
     Form for creating and modifying language tree node objects
@@ -13,6 +22,10 @@ class LanguageTreeNodeForm(forms.ModelForm):
     class Meta:
         model = LanguageTreeNode
         fields = ["language", "parent", "active"]
+        field_classes = {
+            "language": LanguageField,
+            "parent": LanguageField,
+        }
 
     def __init__(self, *args, **kwargs):
         region_slug = kwargs.pop("region_slug", None)
