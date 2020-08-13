@@ -8,6 +8,7 @@
 
 {% block javascript_head %}
     <script src="{% static 'js/confirmation-popups.js' %}"></script>
+    <script src="{% static 'js/pages/page_bulk_actions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -156,122 +157,5 @@
 {% endblock %}
 
 {% block javascript %}
-    <script>
-        function select_all_pages() {
-            var selected_pages = document.getElementsByName("page_selected");
-            if (document.getElementsByName("select_all_pages")[0].checked == true) {
-                selected_pages.forEach(e => e.checked = true);
-            } else {
-                selected_pages.forEach(e => e.checked = false);
-            }
-        }
-
-        function bulk_action_execute() {
-            var action = document.getElementById('bulk_action').value;
-            // match action types
-            if ( action == "archive_pages" ) {
-                // TODO
-            } else { // no previous match, than language code -> XLIFF export
-                var page_selected = document.getElementsByName("page_selected");
-                var pages = [];
-                page_selected.forEach(async function (page_checkbox) {
-                    if(page_checkbox.checked) {
-                        pages = pages.concat(page_checkbox.value);
-                    }
-                });
-                if (pages.length == 0) {
-                    return;
-                }
-                var bulk_action_url = document.getElementById("bulk_action_url").value;
-                window.open(bulk_action_url+"?target_lang="+action+"&pages="+pages.join(','), "_blank");
-            }
-        }
-
-        // event handler for starting drag events
-        u('.drag').each(function(node) {
-            u(node).on('dragstart', dragstart);
-        });
-        function dragstart(event) {
-            // prepare the dragged page id for data transfer
-            event.dataTransfer.setData("text", u(event.target).attr("data-drag-id"));
-            // change appearance of dragged item
-            u(event.target).removeClass('text-gray-800');
-            u(event.target).addClass('text-blue-500');
-            // show dropping regions between table rows
-            u('.drop-between').each(function(node)  {
-                u(node).closest('tr').removeClass("hidden");
-            });
-            // get descendants of dragged page
-            var descendants = JSON.parse(u(event.target).attr("data-page-descendants"));
-            // add event listeners for hovering over drop regions
-            u('.drop').each(function(node) {
-                // get target page id of the hovered drop region
-                var drop_id = parseInt(u(node).attr("data-drop-id"));
-                if (descendants.includes(drop_id)) {
-                    // if the target page is a descendant of the dragged page, disallow dropping it
-                    u(node).on('dragover', drop_disallow);
-                } else {
-                    // else, the move would be valid and dropping is allowed
-                    u(node).handle('dragover', drop_allow);
-                }
-            });
-        }
-
-        // event handlers for dragover events
-        function drop_allow(event) {
-            u(event.target.parentElement).closest('tr').addClass("drop-allow");
-        }
-        function drop_disallow(event) {
-            u(event.target.parentElement).closest('tr').addClass("drop-disallow");
-        }
-
-        // event handler for stopping drag events
-        u('.drag').each(function(node) {
-            u(node).handle('dragend', dragend);
-        });
-        function dragend(event) {
-            // hide the drop regions between table rows
-            u('.drop-between').each(function(node) {
-                u(node).closest('tr').addClass("hidden");
-            });
-            // remove event listeners for dragover events
-            u('.drop').each(function(node) {
-                u(node).off('dragover');
-            });
-            // change appearance of dragged item
-            u(event.target).removeClass('text-blue-500');
-            u(event.target).addClass('text-gray-800');
-        }
-
-        // event handler for dragleave events
-        u('.drop').each(function(node) {
-            u(node).handle('dragleave', dragleave);
-        });
-        function dragleave(event) {
-            // remove hover effect on allowed or disallowed drop regions
-            var target = u(event.target.parentElement).closest('tr');
-            target.removeClass("drop-allow");
-            target.removeClass("drop-disallow");
-        }
-
-        // event handler for drop events
-        u('.drop').each(function(node) {
-            u(node).handle('drop', drop);
-        });
-        function drop(event) {
-            // prevent the table from collapsing again after successful drop
-            u('.drag').each(function(node) {
-                u(node).off('dragend');
-            });
-            // get dragged page id from data transfer
-            var page_id = event.dataTransfer.getData("text");
-            // get target page if from dropped region
-            var target = u(event.target.parentElement).closest('tr');
-            var target_id = target.attr("data-drop-id");
-            var position = target.attr("data-drop-position");
-            // call view to move a page (current location is the pages url)
-            window.location.href = window.location.href + page_id + "/move/" + target_id + "/" + position;
-        }
-
-    </script>
+<script src="{% static 'js/tree_drag_and_drop.js' %}"></script>
 {% endblock %}
