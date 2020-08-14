@@ -3,6 +3,19 @@
 {% load static %}
 {% load content_filters %}
 
+{% block css %}
+    <link href="{% static 'tablesort/tablesort.css' %}" rel="stylesheet" type="text/css">
+    {# The following style fixes issues with the arrow denoting the sorting order being wrapped to the next line #}
+    <style>
+        th[role=columnheader]:not(.no-sort) {
+            padding-right: 20px;
+        }
+        th[role=columnheader]:not(.no-sort):after {
+            margin-right: -20px;
+        }
+    </style>
+{% endblock %}
+
 {% block javascript_head %}
     <script src="{% static 'js/confirmation-popups.js' %}"></script>
 {% endblock %}
@@ -16,10 +29,10 @@
         </div>
     </div>
     <div class="table-listing">
-        <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <table id="event-list" class="sort w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'ID' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2 min" data-sort-default>{% trans 'ID' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'Version' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
@@ -31,7 +44,7 @@
                         <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
                     {% endif %}
                 {% endif %}
-                <th class="text-sm text-left uppercase py-3 px-2">
+                <th class="text-sm text-left uppercase py-3 px-2 no-sort" data-sort-method="none">
                     <div class="lang-grid flags">
                         {% for lang in languages %}
 		                    <a href="{% url 'events' region_slug=region.slug language_code=lang.code %}">
@@ -43,7 +56,7 @@
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Event location' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Start' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'End' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min no-sort" data-sort-method="none">{% trans 'Options' %}</th>
             </tr>
             </thead>
             <tbody>
@@ -68,3 +81,14 @@
         {% include "./confirmation_popups/delete_event.html" %}
     {% endif %}
 {% endblock content %}
+{% block javascript %}
+    <script src="{% static 'tablesort/dist/tablesort.min.js' %}"></script>
+    <script src="{% static 'tablesort/dist/sorts/tablesort.date.min.js' %}"></script>
+    <script src="{% static 'tablesort/dist/sorts/tablesort.number.min.js' %}"></script>
+{% endblock %}
+{% block javascript_nocompress %}
+    <script>
+        // Add sorting functionality to event table
+        new Tablesort(document.getElementById("event-list"));
+    </script>
+{% endblock %}
