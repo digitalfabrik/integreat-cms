@@ -30,12 +30,10 @@
 	        {% endif %}
         </div>
         <div id="instance-selector-list" class="absolute shadow rounded-b">
-	        {% for other_region in user.profile.regions.all %}
-		        {% if not other_region == region %}
-		            <a href="{% url 'dashboard' region_slug=other_region.slug %}" class="block px-4 py-3 text-gray-800 hover:bg-gray-400">
-		                {{ other_region.name }}
-		            </a>
-		        {% endif %}
+	        {% for other_region in other_regions %}
+				<a href="{% url 'dashboard' region_slug=other_region.slug %}" class="block px-4 py-3 text-gray-800 hover:bg-gray-400">
+					{{ other_region.name }}
+				</a>
 	        {% endfor %}
 	        {% if user.is_superuser or user.is_staff %}
 		        {% if region %}
