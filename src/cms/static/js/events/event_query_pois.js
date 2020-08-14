@@ -1,6 +1,6 @@
 u(document).handle('DOMContentLoaded', set_poi_query_event_listeners);
 
-async function query_pois(url, query_string, region_slug) {
+async function query_pois(url, query_string, region_slug, create_poi_option) {
     const data = await fetch(url, {
         method: 'POST',
         headers: {
@@ -8,7 +8,8 @@ async function query_pois(url, query_string, region_slug) {
         },
         body: JSON.stringify({
             'query_string': query_string,
-            'region_slug': region_slug
+            'region_slug': region_slug,
+            'create_poi_option': create_poi_option
         })
     }).then(res => {
         if (res.status != 200) {
@@ -21,7 +22,7 @@ async function query_pois(url, query_string, region_slug) {
     });
     if (data) {
         // Set and display new data
-        u('#poi-query-result').first().classList.remove('hidden');
+        u('#poi-query-result').removeClass('hidden');
         u('#poi-query-result').html(data);
     }
 
@@ -70,7 +71,7 @@ function render_poi_data(query_placeholder, id, address, city, country) {
     u('#poi-city').attr('value', city);
     u('#poi-country').attr('value', country);
 
-    u('#poi-query-result').first().classList.add('hidden');
+    u('#poi-query-result').addClass('hidden');
     u('#poi-query-input').first().value = '';
 }
 
@@ -90,7 +91,8 @@ function set_poi_query_event_listeners() {
             300,
             input_field.data('url'),
             input_field.first().value,
-            input_field.data('region-slug')
+            input_field.data('region-slug'),
+            !input_field.hasClass('no-new-poi')  // Allow suppressing the option to create a new POI
         );
     });
 
@@ -101,7 +103,7 @@ function set_poi_query_event_listeners() {
             u(event.target).closest('#poi-query-result').first() !== u('#poi-query-result').first()
         ) {
             // Neither clicking on input field nor on result to select it
-            u('#poi-query-result').first().classList.add('hidden');
+            u('#poi-query-result').empty();
             u('#poi-query-input').first().value = '';
         }
     });

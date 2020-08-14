@@ -87,6 +87,8 @@ def search_poi_ajax(request):
     data = json.loads(request.body.decode("utf-8"))
 
     poi_query = data.get("query_string")
+    create_poi_option = data.get("create_poi_option")
+
     logger.info('Ajax call: Live search for POIs with query "%s"', poi_query)
 
     region = get_object_or_404(Region, slug=data.get("region_slug"))
@@ -115,6 +117,7 @@ def search_poi_ajax(request):
         {
             "poi_query": poi_query,
             "poi_query_result": poi_query_result,
+            "create_poi_option": create_poi_option,
             "region": region,
         },
     )

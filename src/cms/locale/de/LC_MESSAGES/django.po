@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-14 15:12+0000\n"
+"POT-Creation-Date: 2020-09-05 12:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -76,6 +76,14 @@ msgstr "Gemeindeverband"
 #: constants/administrative_division.py:65
 msgid "Initial reception center"
 msgstr "Erstaufnahmeeinrichtung"
+
+#: constants/all_day.py:20
+msgid "All day long events"
+msgstr "Ganztägige Veranstaltungen"
+
+#: constants/all_day.py:21
+msgid "Not all day long events"
+msgstr "Nicht ganztägige Veranstaltungen"
 
 #: constants/feedback_emotions.py:19
 msgid "Positive"
@@ -180,6 +188,14 @@ msgstr "PLZ an die URL anhängen"
 #: constants/postal_code.py:21
 msgid "Add postal code to post parameters"
 msgstr "PLZ zu den Post-Parametern hinzufügen"
+
+#: constants/recurrence.py:20 templates/events/event_list.html:110
+msgid "Recurring events"
+msgstr "Sich wiederholende Veranstaltungen"
+
+#: constants/recurrence.py:21
+msgid "Non-recurring events"
+msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: constants/region_status.py:18 templates/language_tree/language_tree.html:31
 #: templates/users/admin/list.html:33 templates/users/admin/user.html:82
@@ -343,7 +359,9 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: templates/_base.html:11 templates/language_tree/language_tree.html:15
+#: templates/_base.html:11 templates/events/event_list.html:45
+#: templates/events/event_list.html:92
+#: templates/language_tree/language_tree.html:15
 #: templates/media/media_list.html:8 templates/offers/offer_list.html:15
 #: templates/pages/page_tree.html:34 templates/pages/page_tree_archived.html:21
 #: templates/pois/poi_list.html:31 templates/pois/poi_list_archived.html:21
@@ -714,7 +732,7 @@ msgstr "Zurück zur Startseite"
 msgid "Error"
 msgstr "Fehler"
 
-#: templates/events/_poi_query_result.html:10
+#: templates/events/_poi_query_result.html:11
 #, python-format
 msgid "Create POI with title \"%(poi_query)s\""
 msgstr "POI mit Titel \"%(poi_query)s\" erstellen"
@@ -776,8 +794,8 @@ msgstr "Ja, diese Veranstaltung wiederherstellen."
 msgid "Edit event \"%(event_title)s\""
 msgstr "Event \"%(event_title)s\" bearbeiten"
 
-#: templates/events/event_form.html:53 templates/events/event_list.html:61
-#: templates/events/event_list.html:67
+#: templates/events/event_form.html:53 templates/events/event_list.html:133
+#: templates/events/event_list.html:139
 #: templates/events/event_list_archived.html:25
 #: templates/events/event_list_archived.html:31
 #: templates/pages/page_form.html:54 templates/pages/page_tree.html:61
@@ -849,7 +867,7 @@ msgstr "Übersetzung fehlt"
 msgid "Create Translation"
 msgstr "Übersetzung erstellen"
 
-#: templates/events/event_form.html:146 templates/events/event_list.html:59
+#: templates/events/event_form.html:146 templates/events/event_list.html:131
 #: templates/events/event_list_archived.html:23
 #: templates/pages/page_sbs.html:80 templates/pages/page_sbs.html:147
 #: templates/pages/page_sbs.html:152 templates/pages/page_tree_archived.html:31
@@ -858,7 +876,7 @@ msgstr "Übersetzung erstellen"
 msgid "Version"
 msgstr "Version"
 
-#: templates/events/event_form.html:148 templates/events/event_list.html:60
+#: templates/events/event_form.html:148 templates/events/event_list.html:132
 #: templates/events/event_list_archived.html:24
 #: templates/pages/page_form.html:152 templates/pages/page_revisions.html:27
 #: templates/pages/page_sbs.html:82 templates/pages/page_sbs.html:149
@@ -927,13 +945,13 @@ msgid "Date"
 msgstr "Datum"
 
 #: templates/events/event_form.html:192 templates/events/event_form.html:206
-#: templates/events/event_list.html:80
+#: templates/events/event_list.html:152
 #: templates/events/event_list_archived.html:44
 msgid "Start"
 msgstr "Beginn"
 
 #: templates/events/event_form.html:196 templates/events/event_form.html:210
-#: templates/events/event_list.html:81
+#: templates/events/event_list.html:153
 #: templates/events/event_list_archived.html:45
 msgid "End"
 msgstr "Ende"
@@ -1060,8 +1078,9 @@ msgstr "Diese Veranstaltung löschen"
 msgid "Do not translate the selected text."
 msgstr "Der markierte Text wird nicht übersetzt."
 
-#: templates/events/event_form.html:475 templates/pages/page_form.html:420
-#: templates/pages/page_sbs.html:267 templates/pois/poi_form.html:323
+#: templates/events/event_form.html:442 templates/events/event_list.html:90
+#: templates/pages/page_form.html:386 templates/pages/page_sbs.html:234
+#: templates/pois/poi_form.html:290
 msgid "Location"
 msgstr "Ort"
 
@@ -1090,28 +1109,60 @@ msgstr "Email"
 msgid "Hint"
 msgstr "Tipp"
 
-#: templates/events/event_list.html:31
+#: templates/events/event_list.html:34
 #: templates/events/event_list_archived.html:14
 msgid "Archived events"
 msgstr "Archivierte Veranstaltungen"
 
-#: templates/events/event_list.html:48
+#: templates/events/event_list.html:50
+msgid "Filter events"
+msgstr "Veranstaltungen filtern"
+
+#: templates/events/event_list.html:55
 msgid "Create event"
 msgstr "Veranstaltung erstellen"
 
-#: templates/events/event_list.html:58
+#: templates/events/event_list.html:69
+msgid "Date and time"
+msgstr "Datum und Uhrzeit"
+
+#: templates/events/event_list.html:72
+msgid "Not before"
+msgstr "Nicht vor"
+
+#: templates/events/event_list.html:81
+msgid "Not after"
+msgstr "Nicht nach"
+
+#: templates/events/event_list.html:95
+msgid "Empty query input"
+msgstr "Sucheingabe löschen"
+
+#: templates/events/event_list.html:106
+msgid "All day events"
+msgstr "Ganztägige Veranstaltungen"
+
+#: templates/events/event_list.html:119
+msgid "Reset filter"
+msgstr "Filter zurücksetzen"
+
+#: templates/events/event_list.html:122
+msgid "Apply filter"
+msgstr "Filter anwenden"
+
+#: templates/events/event_list.html:130
 #: templates/events/event_list_archived.html:22
 #: templates/pages/page_tree_archived.html:30 templates/pois/poi_list.html:47
 #: templates/pois/poi_list_archived.html:30
 msgid "ID"
 msgstr "ID"
 
-#: templates/events/event_list.html:79
+#: templates/events/event_list.html:151
 #: templates/events/event_list_archived.html:43
 msgid "Event location"
 msgstr "Veranstaltungsort"
 
-#: templates/events/event_list.html:82
+#: templates/events/event_list.html:154
 #: templates/events/event_list_archived.html:46
 #: templates/languages/language_list.html:31
 #: templates/offer_templates/offer_template_list.html:29
@@ -1122,7 +1173,7 @@ msgstr "Veranstaltungsort"
 msgid "Options"
 msgstr "Optionen"
 
-#: templates/events/event_list.html:95
+#: templates/events/event_list.html:167
 msgid "No events available yet."
 msgstr "Noch keine Veranstaltungen vorhanden."
 
@@ -2564,13 +2615,13 @@ msgstr "Veranstaltung wurde erfolgreich wiederhergestellt."
 msgid "Event was successfully deleted."
 msgstr "Veranstaltung wurde erfolgreich gelöscht."
 
-#: views/events/event_list_view.py:47
+#: views/events/event_list_view.py:49
 msgid "Please create at least one language node before creating events."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie "
 "Veranstaltungen verwalten."
 
-#: views/events/event_list_view.py:53
+#: views/events/event_list_view.py:55
 msgid "You don't have the permission to edit or create events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten "

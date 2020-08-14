@@ -23,10 +23,25 @@
 {% block content %}
     <div class="table-header">
         <div class="flex flex-wrap">
-            <div class="w-1">
+            <div class="w-full">
                 <h2 class="heading font-normal mb-2">{% trans 'Archived events' %}</h2>
             </div>
         </div>
+        <div class="flex flex-wrap">
+            <form class="table-search relative w-1/2">
+                <i data-feather="search" class="absolute"></i>
+                <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
+            </form>
+            <div class="w-1/2 flex flex-wrap justify-end">
+                <button id="filter-toggle"
+                        class="bg-gray-500 hover:bg-gray-600 text-gray-800 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+                    {% trans 'Filter events' %}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="filter-form-container" class="hidden w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        {% include 'events/_event_filter_form.html' %}
     </div>
     <div class="table-listing">
         <table id="event-list" class="sort w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
@@ -81,6 +96,7 @@
         {% include "./confirmation_popups/delete_event.html" %}
     {% endif %}
 {% endblock content %}
+
 {% block javascript %}
     <script src="{% static 'tablesort/dist/tablesort.min.js' %}"></script>
     <script src="{% static 'tablesort/dist/sorts/tablesort.date.min.js' %}"></script>
@@ -90,5 +106,10 @@
     <script>
         // Add sorting functionality to event table
         new Tablesort(document.getElementById("event-list"));
+
+        // event handler to toggle filter form
+        u('#filter-toggle').on('click', () => {
+            u('#filter-form-container').toggleClass('hidden');
+        });
     </script>
 {% endblock %}

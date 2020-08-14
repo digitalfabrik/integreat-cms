@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
 from ...models import Region
+from ...forms.events import EventFilterForm
 
 
 @method_decorator(login_required, name="dispatch")
@@ -53,14 +54,23 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 request, _("You don't have the permission to edit or create events.")
             )
 
+        # all events of the current region in the current language
+        events = region.events.filter(archived=self.archived)
+
+        event_filter_form = EventFilterForm()
+
         return render(
             request,
             self.template_name,
             {
                 "current_menu_item": "events",
-                "events": region.events.filter(archived=self.archived),
+                "events": events,
                 "archived_count": region.events.filter(archived=True).count(),
                 "language": language,
                 "languages": region.languages,
+                "filter_form": event_filter_form,
             },
         )
+
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
