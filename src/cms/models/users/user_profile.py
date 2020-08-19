@@ -39,3 +39,7 @@ class UserProfile(models.Model):
 
     class Meta:
         default_permissions = ()
+        permissions = (
+            ("manage_admin_users", "Can manage admin users"),
+            ("manage_region_users", "Can manage region users"),
+        )

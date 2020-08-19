@@ -15,7 +15,7 @@ from ...models import UserProfile
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
 class UserView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.change_user"
+    permission_required = "cms.manage_admin_users"
     raise_exception = True
 
     template_name = "users/admin/user.html"

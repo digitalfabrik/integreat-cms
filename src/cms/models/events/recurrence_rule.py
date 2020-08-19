@@ -35,3 +35,14 @@ class RecurrenceRule(models.Model):
     )
     week_for_monthly = models.IntegerField(choices=weeks.CHOICES, null=True, blank=True)
     recurrence_end_date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        """
+        This class contains additional meta configuration of the model class, see the
+        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
+
+        :param default_permissions: The default permissions for this model
+        :type default_permissions: tuple
+        """
+
+        default_permissions = ()
