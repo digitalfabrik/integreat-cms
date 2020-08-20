@@ -197,7 +197,9 @@ LOGGING = {
     "loggers": {
         "django": {"handlers": ["console"], "level": "WARN", "propagate": True,},
         "api": {"handlers": ["console"], "level": "INFO", "propagate": True,},
+        "backend": {"handlers": ["console"], "level": "INFO", "propagate": True,},
         "cms": {"handlers": ["console"], "level": "INFO", "propagate": True,},
+        "gvz_api": {"handlers": ["console"], "level": "INFO", "propagate": True,},
         "rules": {"handlers": ["console"], "level": "DEBUG", "propagate": True,},
         "auth": {"handlers": ["console", "authlog", "syslog"], "level": "INFO",},
     },
@@ -225,7 +227,7 @@ COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = True
 
 # GVZ (Gemeindeverzeichnis) API URL
-GVZ_API_URL = "http://gvz.integreat-app.de/api/"
+GVZ_API_URL = "https://gvz.integreat-app.de/api/"
 GVZ_API_ENABLED = True
 
 # Allow access to all domains by setting the following variable to TRUE
