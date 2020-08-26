@@ -4,6 +4,8 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+from backend.settings import WEBAPP_URL
+
 from .page import Page
 from ..languages.language import Language
 from ...constants import status
@@ -106,6 +108,15 @@ class PageTranslation(models.Model):
             )
         )
 
+    def get_absolute_url(self):
+        """
+        This helper function returns the absolute url to the webapp view of the page translation
+
+        :return: The absolute url of a page translation
+        :rtype: str
+        """
+        return "/" + self.permalink
+
     @property
     def available_languages(self):
         """
@@ -135,6 +146,30 @@ class PageTranslation(models.Model):
                     "id": other_translation.id,
                     "url": other_translation.permalink,
                 }
+        return available_languages
+
+    @property
+    def sitemap_alternates(self):
+        """
+        This property returns the langauge alternatives of a page translation for the use in sitemaps.
+        Similar to :func:`cms.models.pages.page_translation.PageTranslation.available_languages`, but in a slightly
+        different format.
+
+        :return: A list of dictionaries containing the alternative translations of a page translation
+        :rtype: list [ dict ]
+        """
+        languages = self.page.languages
+        languages.remove(self.language)
+        available_languages = []
+        for language in languages:
+            other_translation = self.page.get_public_translation(language.code)
+            if other_translation:
+                available_languages.append(
+                    {
+                        "location": f"{WEBAPP_URL}{other_translation.get_absolute_url()}",
+                        "lang_code": other_translation.language.code,
+                    }
+                )
         return available_languages
 
     @property

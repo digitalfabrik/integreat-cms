@@ -2,6 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+from backend.settings import WEBAPP_URL
+
 from .poi import POI
 from ..languages.language import Language
 from ...constants import status
@@ -76,6 +78,15 @@ class POITranslation(models.Model):
         """
         return "/".join([self.poi.region.slug, self.language.code, "pois", self.slug])
 
+    def get_absolute_url(self):
+        """
+        This helper function returns the absolute url to the webapp view of the poi translation
+
+        :return: The absolute url of a poi translation
+        :rtype: str
+        """
+        return "/" + self.permalink
+
     @property
     def available_languages(self):
         """
@@ -105,6 +116,30 @@ class POITranslation(models.Model):
                     "id": other_translation.id,
                     "url": other_translation.permalink,
                 }
+        return available_languages
+
+    @property
+    def sitemap_alternates(self):
+        """
+        This property returns the langauge alternatives of a POI translation for the use in sitemaps.
+        Similar to :func:`cms.models.pois.poi_translation.POITranslation.available_languages`, but in a slightly
+        different format.
+
+        :return: A list of dictionaries containing the alternative translations of a POI translation
+        :rtype: list [ dict ]
+        """
+        languages = self.poi.languages
+        languages.remove(self.language)
+        available_languages = []
+        for language in languages:
+            other_translation = self.poi.get_public_translation(language.code)
+            if other_translation:
+                available_languages.append(
+                    {
+                        "location": f"{WEBAPP_URL}{other_translation.get_absolute_url()}",
+                        "lang_code": other_translation.language.code,
+                    }
+                )
         return available_languages
 
     @property
