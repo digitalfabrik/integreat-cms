@@ -227,7 +227,7 @@ COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = True
 
 # GVZ (Gemeindeverzeichnis) API URL
-GVZ_API_URL = "https://gvz.integreat-app.de/api/"
+GVZ_API_URL = "https://gvz.integreat-app.de/api"
 GVZ_API_ENABLED = True
 
 # Allow access to all domains by setting the following variable to TRUE
