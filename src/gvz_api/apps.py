@@ -30,11 +30,13 @@ class GvzApiConfig(AppConfig):
                     response = requests.get(
                         f"{settings.GVZ_API_URL}/search/expect_empty_json", timeout=3
                     )
-                    json.loads(response.text)
+                    # Require the response to be empty, otherwise it's probably an error
+                    assert not json.loads(response.text)
                 except (
                     json.decoder.JSONDecodeError,
                     requests.exceptions.RequestException,
                     requests.exceptions.Timeout,
+                    AssertionError,
                 ):
                     logger.info(
                         "GVZ API is not available. You won't be able to "
