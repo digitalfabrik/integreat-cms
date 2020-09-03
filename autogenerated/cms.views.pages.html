@@ -610,7 +610,7 @@
 <p>Side by side view</p>
 <dl class="py class">
 <dt id="cms.views.pages.page_sbs_view.PageSideBySideView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.pages.page_sbs_view.</code><code class="sig-name descname">PageSideBySideView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/pages/page_sbs_view.py#L20"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_sbs_view.PageSideBySideView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.pages.page_sbs_view.</code><code class="sig-name descname">PageSideBySideView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/pages/page_sbs_view.py#L21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_sbs_view.PageSideBySideView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 </dd></dl>
 
@@ -634,6 +634,27 @@
 <dt id="cms.views.pages.page_view.PageView">
 <em class="property">class </em><code class="sig-prename descclassname">cms.views.pages.page_view.</code><code class="sig-name descname">PageView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/pages/page_view.py#L27"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dl class="py method">
+<dt id="cms.views.pages.page_view.PageView.get_side_by_side_language_options">
+<em class="property">static </em><code class="sig-name descname">get_side_by_side_language_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/pages/page_view.py#L195"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.get_side_by_side_language_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a helper function to generate the side-by-side langauge options for both the get and post requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – The current region</p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – The current language</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The current page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of language options, each represented by a dict</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -665,7 +686,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 30, 2020.
+        Last updated on Aug 21, 2020.
       </span>
 
     </p>
