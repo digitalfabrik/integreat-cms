@@ -15,7 +15,7 @@ from ...models import Region, UserProfile
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class RegionUserView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.change_user"
+    permission_required = "cms.manage_region_users"
     raise_exception = True
 
     template_name = "users/region/user.html"
