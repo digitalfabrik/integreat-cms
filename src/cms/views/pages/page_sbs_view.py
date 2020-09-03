@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.pages import PageTranslationForm
 from ...models import Page, Region, Language
@@ -29,22 +30,45 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
         region = Region.objects.get(slug=kwargs.get("region_slug"))
         page = Page.objects.get(pk=kwargs.get("page_id"))
 
-        source_language_code, target_language_code = kwargs.get("language_code").split(
-            "__"
-        )
-        source_language = Language.objects.get(code=source_language_code)
-        target_language = Language.objects.get(code=target_language_code)
+        target_language = Language.objects.get(code=kwargs.get("language_code"))
+        source_language_node = region.language_tree_nodes.get(
+            language=target_language
+        ).parent
 
-        source_page_translation = page.get_translation(source_language.code)
-        target_page_translation = page.get_translation(target_language.code)
-
-        if not source_page_translation:
+        if source_language_node:
+            source_language = source_language_node.language
+        else:
+            messages.error(
+                request,
+                _(
+                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language})."
+                ).format(default_language=target_language.translated_name),
+            )
             return redirect(
                 "edit_page",
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": source_language.code,
+                    "language_code": target_language.code,
+                }
+            )
+
+        source_page_translation = page.get_translation(source_language.code)
+        target_page_translation = page.get_translation(target_language.code)
+
+        if not source_page_translation:
+            messages.error(
+                request,
+                _(
+                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist."
+                ).format(source_language=source_language.translated_name),
+            )
+            return redirect(
+                "edit_page",
+                **{
+                    "page_id": page.id,
+                    "region_slug": region.slug,
+                    "language_code": target_language.code,
                 }
             )
 
@@ -57,7 +81,6 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                 **self.base_context,
                 "page_translation_form": page_translation_form,
                 "source_page_translation": source_page_translation,
-                "source_language": source_language,
                 "target_language": target_language,
             },
         )
@@ -71,57 +94,80 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
         region = Region.objects.get(slug=kwargs.get("region_slug"))
         page = Page.objects.get(pk=kwargs.get("page_id"))
 
-        source_language_code, target_language_code = kwargs.get("language_code").split(
-            "__"
-        )
-        source_language = Language.objects.get(code=source_language_code)
-        target_language = Language.objects.get(code=target_language_code)
+        target_language = Language.objects.get(code=kwargs.get("language_code"))
+        source_language_node = region.language_tree_nodes.get(
+            language=target_language
+        ).parent
 
-        source_page_translation = page.get_translation(source_language.code)
-        page_translation_instance = page.get_translation(
-            language_code=target_language_code
-        )
-
-        if not source_page_translation:
+        if source_language_node:
+            source_page_translation = page.get_translation(
+                source_language_node.language.code
+            )
+        else:
+            messages.error(
+                request,
+                _(
+                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language})."
+                ).format(default_language=target_language.translated_name),
+            )
             return redirect(
                 "edit_page",
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": source_language.code,
+                    "language_code": target_language.code,
                 }
             )
 
-        if not page_translation_instance:
-            # copy object instance because required status field is missing otherwise
-            page_translation_instance = source_page_translation
-            page_translation_instance.id = None
-            page_translation_instance.language = target_language
-            page_translation_instance.creator = request.user
-            page_translation_instance.public = False
-            page_translation_instance.save()
-            created = True
-        else:
-            created = False
+        page_translation_instance = page.get_translation(target_language.code)
+
+        if not source_page_translation:
+            messages.error(
+                request,
+                _(
+                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist."
+                ).format(source_language=source_language_node.language.translated_name),
+            )
+            return redirect(
+                "edit_page",
+                **{
+                    "page_id": page.id,
+                    "region_slug": region.slug,
+                    "language_code": target_language.code,
+                }
+            )
 
         page_translation_form = PageTranslationForm(
-            request.POST, instance=page_translation_instance,
+            request.POST,
+            instance=page_translation_instance,
+            region=region,
+            language=target_language,
         )
-        page_translation_form.fields["status"].required = False
 
-        if page_translation_form.is_valid():
-            page_translation_form.save()
-            if page_translation_form.has_changed():
-                if created:
+        if not page_translation_form.is_valid():
+            messages.error(request, _("Errors have occurred."))
+        elif not page_translation_form.has_changed():
+            messages.info(request, _("No changes detected."))
+        else:
+            page_translation = page_translation_form.save(page=page, user=request.user)
+            published = page_translation.status == status.PUBLIC
+            if not page_translation_instance:
+                if published:
+                    messages.success(
+                        request,
+                        _("Translation was successfully created and published."),
+                    )
+                else:
                     messages.success(
                         request, _("Translation was successfully created.")
                     )
+            else:
+                if published:
+                    messages.success(
+                        request, _("Translation was successfully published.")
+                    )
                 else:
                     messages.success(request, _("Translation was successfully saved."))
-            else:
-                messages.info(request, _("No changes detected."))
-        else:
-            messages.error(request, _("Errors have occurred."))
 
         return render(
             request,
@@ -130,7 +176,6 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                 **self.base_context,
                 "page_translation_form": page_translation_form,
                 "source_page_translation": source_page_translation,
-                "source_language": source_language,
                 "target_language": target_language,
             },
         )

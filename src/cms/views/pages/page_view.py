@@ -70,6 +70,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
             instance=page_translation, disabled=disabled
         )
 
+        side_by_side_language_options = self.get_side_by_side_language_options(
+            region, language, page
+        )
+
         return render(
             request,
             self.template_name,
@@ -81,6 +85,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
                 "language": language,
                 # Languages for tab view
                 "languages": region.languages if page else [language],
+                "side_by_side_language_options": side_by_side_language_options,
             },
         )
 
@@ -115,6 +120,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
             if not request.user.has_perm("cms.publish_page", page_instance):
                 raise PermissionDenied
 
+        side_by_side_language_options = self.get_side_by_side_language_options(
+            region, language, page_instance
+        )
+
         # TODO: error handling
         if not page_form.is_valid() or not page_translation_form.is_valid():
             messages.error(request, _("Errors have occurred."))
@@ -129,6 +138,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
                     "language": language,
                     # Languages for tab view
                     "languages": region.languages if page_instance else [language],
+                    "side_by_side_language_options": side_by_side_language_options,
                 },
             )
 
@@ -145,6 +155,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
                     "language": language,
                     # Languages for tab view
                     "languages": region.languages if page_instance else [language],
+                    "side_by_side_language_options": side_by_side_language_options,
                 },
             )
 
@@ -178,5 +189,41 @@ class PageView(PermissionRequiredMixin, TemplateView):
                 "page_id": page.id,
                 "region_slug": region.slug,
                 "language_code": language.code,
-            }
+            },
         )
+
+    @staticmethod
+    def get_side_by_side_language_options(region, language, page):
+        """
+        This is a helper function to generate the side-by-side langauge options for both the get and post requests.
+
+        :param region: The current region
+        :type region: ~cms.models.regions.region.Region
+
+        :param language: The current language
+        :type language: ~cms.models.languages.language.Language
+
+        :param page: The current page
+        :type page: ~cms.models.pages.page.Page
+
+        :return: The list of language options, each represented by a dict
+        :rtype: list
+        """
+        side_by_side_language_options = []
+        for language_node in region.language_tree_nodes.all():
+            if language_node.parent:
+                source_translation = PageTranslation.objects.filter(
+                    page=page, language=language_node.parent.language,
+                )
+                side_by_side_language_options.append(
+                    {
+                        "value": language_node.language.code,
+                        "label": _("{source_language} to {target_language}").format(
+                            source_language=language_node.parent.language.translated_name,
+                            target_language=language_node.language.translated_name,
+                        ),
+                        "selected": language_node.language == language,
+                        "disabled": not source_translation.exists(),
+                    }
+                )
+        return side_by_side_language_options
