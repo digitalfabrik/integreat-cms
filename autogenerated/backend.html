@@ -603,14 +603,15 @@ For the full list of settings and their values, see <a class="reference external
 <dt id="backend.context_processors.region_slug_processor">
 <code class="sig-prename descclassname">backend.context_processors.</code><code class="sig-name descname">region_slug_processor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/backend/context_processors.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.context_processors.region_slug_processor" title="Permalink to this definition">¶</a></dt>
 <dd><p>This context processor retrieves the current <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter and passes it to the templates.
-Additionally, the <code class="docutils literal notranslate"><span class="pre">regions</span></code>-variable contains all other regions except the current region
-(If there is no current region, it contains all regions).</p>
+Additionally, the <code class="docutils literal notranslate"><span class="pre">other_regions</span></code>-variable contains all other regions which are available via quick access.
+Usually, these are the regions configured in each user’s user profile, but if there are none set, we just list all
+available regions, ordered by the <code class="docutils literal notranslate"><span class="pre">last_updated</span></code> attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current http request</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The current region and all other regions</p>
+<dd class="field-even"><p>The current region and other quick access regions</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
