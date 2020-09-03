@@ -34,4 +34,9 @@ class UserMfa(models.Model):
 
     class Meta:
         default_permissions = ()
-        unique_together = (("user", "name",),)
+        unique_together = (
+            (
+                "user",
+                "name",
+            ),
+        )

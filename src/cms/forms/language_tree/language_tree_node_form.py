@@ -31,12 +31,12 @@ class LanguageTreeNodeForm(forms.ModelForm):
         region_slug = kwargs.pop("region_slug", None)
         if region_slug:
             self.region = Region.objects.get(slug=region_slug)
-        super(LanguageTreeNodeForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def save_language_node(self, language_tree_node_id=None):
         """Function to create or update a page
-            language_tree_node_id ([Integer], optional): Defaults to None. If it's not set creates
-            a language tree node or update the language tree node with the given page id.
+        language_tree_node_id ([Integer], optional): Defaults to None. If it's not set creates
+        a language tree node or update the language tree node with the given page id.
         """
 
         # TODO: version, active_version

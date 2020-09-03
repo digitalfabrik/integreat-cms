@@ -19,7 +19,12 @@ def activate(request, region_slug, offer_template_slug):
         _('Offer "%(offer_name)s" was successfully activated.')
         % {"offer_name": template.name},
     )
-    return redirect("offers", **{"region_slug": region_slug,})
+    return redirect(
+        "offers",
+        **{
+            "region_slug": region_slug,
+        }
+    )
 
 
 @login_required
@@ -35,4 +40,9 @@ def deactivate(request, region_slug, offer_template_slug):
         _('Offer "%(offer_name)s" was successfully deactivated.')
         % {"offer_name": template.name},
     )
-    return redirect("offers", **{"region_slug": region_slug,})
+    return redirect(
+        "offers",
+        **{
+            "region_slug": region_slug,
+        }
+    )

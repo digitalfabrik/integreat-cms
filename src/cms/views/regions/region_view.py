@@ -55,4 +55,9 @@ class RegionView(PermissionRequiredMixin, TemplateView):
         else:
             messages.success(request, _("Region created successfully"))
 
-        return redirect("edit_region", **{"region_slug": region.slug,})
+        return redirect(
+            "edit_region",
+            **{
+                "region_slug": region.slug,
+            }
+        )

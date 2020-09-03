@@ -42,7 +42,12 @@ class PushNotificationListView(PermissionRequiredMixin, TemplateView):
                     "Please create at least one language node before creating push notifications."
                 ),
             )
-            return redirect("language_tree", **{"region_slug": region.slug,})
+            return redirect(
+                "language_tree",
+                **{
+                    "region_slug": region.slug,
+                }
+            )
 
         return render(
             request,

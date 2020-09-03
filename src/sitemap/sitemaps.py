@@ -95,9 +95,7 @@ class WebappSitemap(ABC, Sitemap):
         """
         splitted_url = urlsplit(WEBAPP_URL)
         # Gemerate list of urls without alternative languages
-        urls = super(WebappSitemap, self)._urls(
-            page, splitted_url.scheme, splitted_url.hostname
-        )
+        urls = super()._urls(page, splitted_url.scheme, splitted_url.hostname)
         for url in urls:
             # Add information about alternative languages
             url["alternates"] = url["item"].sitemap_alternates
@@ -136,7 +134,7 @@ class PageSitemap(WebappSitemap):
         :type language: ~cms.models.languages.language.Language
         """
         # Instantiate WebappSitemap
-        super(PageSitemap, self).__init__(region, language)
+        super().__init__(region, language)
         # Filter queryset based on region and langauge
         self.queryset = self.queryset.filter(
             page__in=self.region.pages.all(), language=self.language
@@ -175,7 +173,7 @@ class EventSitemap(WebappSitemap):
         :type language: ~cms.models.languages.language.Language
         """
         # Instantiate WebappSitemap
-        super(EventSitemap, self).__init__(region, language)
+        super().__init__(region, language)
         # Filter queryset based on region and langauge
         self.queryset = self.queryset.filter(
             event__in=self.region.events.all(), language=self.language
@@ -211,7 +209,7 @@ class POISitemap(WebappSitemap):
         :type language: ~cms.models.languages.language.Language
         """
         # Instantiate WebappSitemap
-        super(POISitemap, self).__init__(region, language)
+        super().__init__(region, language)
         # Filter queryset based on region and langauge
         self.queryset = self.queryset.filter(
             poi__in=self.region.pois.all(), language=self.language

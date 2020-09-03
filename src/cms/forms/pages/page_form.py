@@ -42,7 +42,10 @@ class ParentFieldWidget(forms.widgets.Select):
         else:
             option_dict["attrs"]["data-url"] = reverse(
                 "get_new_page_order_table_ajax",
-                kwargs={"region_slug": self.form.region.slug, "parent_id": value,},
+                kwargs={
+                    "region_slug": self.form.region.slug,
+                    "parent_id": value,
+                },
             )
         return option_dict
 
@@ -131,7 +134,7 @@ class PageForm(forms.ModelForm):
         disabled = kwargs.pop("disabled", None)
 
         # instantiate ModelForm
-        super(PageForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
@@ -151,7 +154,9 @@ class PageForm(forms.ModelForm):
             self.fields["publishers"].queryset = self.get_publisher_queryset()
 
         # limit possible parents to pages of current region
-        parent_queryset = Page.objects.filter(region=self.region,)
+        parent_queryset = Page.objects.filter(
+            region=self.region,
+        )
 
         # check if instance of this form already exists
         if self.instance.id:
@@ -205,7 +210,7 @@ class PageForm(forms.ModelForm):
 
         # don't commit saving of ModelForm, because required fields are still missing
         kwargs["commit"] = False
-        page = super(PageForm, self).save(*args, **kwargs)
+        page = super().save(*args, **kwargs)
 
         if not self.instance.id:
             # only update these values when page is created

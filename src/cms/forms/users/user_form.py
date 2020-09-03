@@ -43,7 +43,7 @@ class UserForm(forms.ModelForm):
         )
 
         # instantiate ModelForm
-        super(UserForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
         # check if user instance already exists
         if self.instance.id:
@@ -62,7 +62,7 @@ class UserForm(forms.ModelForm):
         )
 
         # save ModelForm
-        user = super(UserForm, self).save(*args, **kwargs)
+        user = super().save(*args, **kwargs)
 
         # check if password field was changed
         if self.cleaned_data["password"]:

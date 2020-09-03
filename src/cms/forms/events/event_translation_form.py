@@ -52,7 +52,7 @@ class EventTranslationForm(forms.ModelForm):
                 data.update({"status": status.PUBLIC})
 
         # Instantiate ModelForm
-        super(EventTranslationForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
         if disabled:
@@ -68,7 +68,7 @@ class EventTranslationForm(forms.ModelForm):
         )
 
         # Disable instant commit on saving because missing information would cause error
-        event_translation = super(EventTranslationForm, self).save(commit=False)
+        event_translation = super().save(commit=False)
 
         if not self.instance.id:
             # set initial values for new events

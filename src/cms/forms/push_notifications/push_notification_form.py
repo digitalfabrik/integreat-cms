@@ -13,7 +13,7 @@ class PushNotificationForm(forms.ModelForm):
         fields = ["channel"]
 
     def __init__(self, *args, **kwargs):
-        super(PushNotificationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class PushNotificationTranslationForm(forms.ModelForm):
@@ -26,4 +26,4 @@ class PushNotificationTranslationForm(forms.ModelForm):
         fields = ["title", "text"]
 
     def __init__(self, *args, **kwargs):
-        super(PushNotificationTranslationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)

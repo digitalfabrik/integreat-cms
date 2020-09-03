@@ -55,7 +55,7 @@ class POITranslationForm(forms.ModelForm):
             elif "submit_public" in data:
                 data.update({"status": status.PUBLIC})
 
-        super(POITranslationForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
         if instance and instance.poi.archived:
@@ -70,7 +70,7 @@ class POITranslationForm(forms.ModelForm):
             self.changed_data,
         )
 
-        poi_translation = super(POITranslationForm, self).save(commit=False)
+        poi_translation = super().save(commit=False)
 
         if not self.instance.id:
             # only update these values when poi translation is created

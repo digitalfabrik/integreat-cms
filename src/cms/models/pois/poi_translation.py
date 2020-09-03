@@ -171,7 +171,8 @@ class POITranslation(models.Model):
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
-            language=self.language, status=status.PUBLIC,
+            language=self.language,
+            status=status.PUBLIC,
         ).first()
 
     @property
@@ -183,7 +184,8 @@ class POITranslation(models.Model):
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
-            language=self.language, minor_edit=False,
+            language=self.language,
+            minor_edit=False,
         ).first()
 
     @property
@@ -196,7 +198,9 @@ class POITranslation(models.Model):
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.poi.translations.filter(
-            language=self.language, status=status.PUBLIC, minor_edit=False,
+            language=self.language,
+            status=status.PUBLIC,
+            minor_edit=False,
         ).first()
 
     @property
@@ -209,7 +213,8 @@ class POITranslation(models.Model):
         """
         version = self.version - 1
         return self.poi.translations.filter(
-            language=self.language, version=version,
+            language=self.language,
+            version=version,
         ).first()
 
     @property

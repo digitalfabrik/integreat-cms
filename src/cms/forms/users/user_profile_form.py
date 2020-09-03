@@ -27,7 +27,7 @@ class UserProfileForm(forms.ModelForm):
         )
 
         # Instantiate ModelForm
-        super(UserProfileForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
@@ -48,7 +48,7 @@ class UserProfileForm(forms.ModelForm):
             kwargs["commit"] = False
 
         # save ModelForm
-        user_profile = super(UserProfileForm, self).save(*args, **kwargs)
+        user_profile = super().save(*args, **kwargs)
 
         if not self.instance.id:
             user_profile.user = user

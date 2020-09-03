@@ -46,7 +46,12 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
                 request,
                 _("Please create at least one language node before creating pages."),
             )
-            return redirect("language_tree", **{"region_slug": region_slug,})
+            return redirect(
+                "language_tree",
+                **{
+                    "region_slug": region_slug,
+                }
+            )
 
         # all pages of the current region in the current language
         pages = Page.get_tree(region_slug, archived=self.archived)

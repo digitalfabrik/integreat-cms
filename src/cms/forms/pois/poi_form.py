@@ -21,7 +21,7 @@ class POIForm(forms.ModelForm):
         logger.info("POIForm instantiated with data %s and instance %s", data, instance)
 
         # instantiate ModelForm
-        super(POIForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
         if instance and instance.archived:
@@ -36,7 +36,7 @@ class POIForm(forms.ModelForm):
             self.changed_data,
         )
 
-        poi = super(POIForm, self).save(commit=False)
+        poi = super().save(commit=False)
 
         if not self.instance.id:
             # only update these values when poi is created

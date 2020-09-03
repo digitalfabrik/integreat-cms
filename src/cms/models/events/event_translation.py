@@ -173,7 +173,8 @@ class EventTranslation(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
-            language=self.language, status=status.PUBLIC,
+            language=self.language,
+            status=status.PUBLIC,
         ).first()
 
     @property
@@ -185,7 +186,8 @@ class EventTranslation(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
-            language=self.language, minor_edit=False,
+            language=self.language,
+            minor_edit=False,
         ).first()
 
     @property
@@ -198,7 +200,9 @@ class EventTranslation(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
-            language=self.language, status=status.PUBLIC, minor_edit=False,
+            language=self.language,
+            status=status.PUBLIC,
+            minor_edit=False,
         ).first()
 
     @property
@@ -211,7 +215,8 @@ class EventTranslation(models.Model):
         """
         version = self.version - 1
         return self.event.translations.filter(
-            language=self.language, version=version,
+            language=self.language,
+            version=version,
         ).first()
 
     @property

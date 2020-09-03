@@ -100,19 +100,17 @@ class Page(MPTTModel):
     def get_previous_sibling(self, *filter_args, **filter_kwargs):
         # Only consider siblings from this region
         filter_kwargs["region"] = self.region
-        return super(Page, self).get_previous_sibling(*filter_args, **filter_kwargs)
+        return super().get_previous_sibling(*filter_args, **filter_kwargs)
 
     def get_next_sibling(self, *filter_args, **filter_kwargs):
         # Only consider siblings from this region
         filter_kwargs["region"] = self.region
-        return super(Page, self).get_next_sibling(*filter_args, **filter_kwargs)
+        return super().get_next_sibling(*filter_args, **filter_kwargs)
 
     def get_siblings(self, include_self=False):
         # Return only siblings from the same region
         return (
-            super(Page, self)
-            .get_siblings(include_self=include_self)
-            .filter(region=self.region)
+            super().get_siblings(include_self=include_self).filter(region=self.region)
         )
 
     def get_translation(self, language_code):
@@ -162,7 +160,8 @@ class Page(MPTTModel):
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(
-            language__code=language_code, status=status.PUBLIC,
+            language__code=language_code,
+            status=status.PUBLIC,
         ).first()
 
     def get_mirrored_text(self, language_code):
@@ -271,7 +270,7 @@ class Page(MPTTModel):
             if first_translation:
                 return f"(id: {self.id}, slug: {first_translation.slug} ({first_translation.language.code}))"
             return f"(id: {self.id})"
-        return super(Page, self).__str__()
+        return super().__str__()
 
     class Meta:
         """

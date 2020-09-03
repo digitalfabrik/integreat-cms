@@ -41,7 +41,7 @@ class RecurrenceRuleForm(forms.ModelForm):
         )
 
         # Instantiate ModelForm
-        super(RecurrenceRuleForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
         if self.instance.id:
             # Initialize BooleanField based on RecurrenceRule properties
@@ -58,7 +58,7 @@ class RecurrenceRuleForm(forms.ModelForm):
                 field.disabled = True
 
     def clean(self):
-        cleaned_data = super(RecurrenceRuleForm, self).clean()
+        cleaned_data = super().clean()
 
         if not cleaned_data.get("frequency"):
             self.add_error(
@@ -128,7 +128,7 @@ class RecurrenceRuleForm(forms.ModelForm):
             # Have to remove the corresponding field name from self.changed_data
             self.changed_data.remove("weekdays_for_weekly")
         except ValueError:
-            return super(RecurrenceRuleForm, self).has_changed()
+            return super().has_changed()
         value = self.fields["weekdays_for_weekly"].widget.value_from_datadict(
             self.data, self.files, self.add_prefix("weekdays_for_weekly")
         )

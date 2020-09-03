@@ -29,7 +29,11 @@ def archive(request, event_id, region_slug, language_code):
     messages.success(request, _("Event was successfully archived."))
 
     return redirect(
-        "events", **{"region_slug": region_slug, "language_code": language_code,}
+        "events",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -47,7 +51,11 @@ def restore(request, event_id, region_slug, language_code):
     messages.success(request, _("Event was successfully restored."))
 
     return redirect(
-        "events", **{"region_slug": region_slug, "language_code": language_code,}
+        "events",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -61,7 +69,11 @@ def delete(request, event_id, region_slug, language_code):
     messages.success(request, _("Event was successfully deleted."))
 
     return redirect(
-        "events", **{"region_slug": region_slug, "language_code": language_code,}
+        "events",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 

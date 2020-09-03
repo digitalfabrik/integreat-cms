@@ -61,7 +61,7 @@ class RegionForm(forms.ModelForm):
         )
 
         # Save region with the default method from ModelForm
-        region = super(RegionForm, self).save(*args, **kwargs)
+        region = super().save(*args, **kwargs)
 
         if duplicate_region:
             source_region = self.cleaned_data["duplicated_region"]
@@ -78,7 +78,7 @@ class RegionForm(forms.ModelForm):
         return region
 
     def clean(self):
-        cleaned_data = super(RegionForm, self).clean()
+        cleaned_data = super().clean()
         if apps.get_app_config("gvz_api").api_available:
             gvz_region = GvzRegion(
                 region_name=cleaned_data["name"],

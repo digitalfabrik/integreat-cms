@@ -27,7 +27,11 @@ def archive_poi(request, poi_id, region_slug, language_code):
     messages.success(request, _("POI was successfully archived."))
 
     return redirect(
-        "pois", **{"region_slug": region_slug, "language_code": language_code,}
+        "pois",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -43,7 +47,11 @@ def restore_poi(request, poi_id, region_slug, language_code):
     messages.success(request, _("POI was successfully restored."))
 
     return redirect(
-        "pois", **{"region_slug": region_slug, "language_code": language_code,}
+        "pois",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -56,7 +64,11 @@ def delete_poi(request, poi_id, region_slug, language_code):
     messages.success(request, _("POI was successfully deleted."))
 
     return redirect(
-        "pois", **{"region_slug": region_slug, "language_code": language_code,}
+        "pois",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 

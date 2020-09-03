@@ -23,7 +23,9 @@ class RegionUserListView(PermissionRequiredMixin, TemplateView):
         region = Region.objects.get(slug=kwargs.get("region_slug"))
 
         region_users = get_user_model().objects.filter(
-            profile__regions=region, is_superuser=False, is_staff=False,
+            profile__regions=region,
+            is_superuser=False,
+            is_staff=False,
         )
 
         return render(

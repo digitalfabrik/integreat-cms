@@ -14,7 +14,7 @@ class OfferTemplateForm(forms.ModelForm):
         fields = ["name", "slug", "thumbnail", "url", "post_data", "use_postal_code"]
 
     def __init__(self, *args, **kwargs):
-        super(OfferTemplateForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def clean_slug(self):
         return generate_unique_slug(self, "offer-template")

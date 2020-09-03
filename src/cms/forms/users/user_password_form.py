@@ -49,7 +49,7 @@ class UserPasswordForm(forms.ModelForm):
         return self.instance
 
     def clean(self):
-        cleaned_data = super(UserPasswordForm, self).clean()
+        cleaned_data = super().clean()
         old_password = cleaned_data.get("old_password")
         new_password = cleaned_data.get("new_password")
         new_password_confirm = cleaned_data.get("new_password_confirm")

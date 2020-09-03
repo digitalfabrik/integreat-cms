@@ -40,7 +40,8 @@ class PageView(PermissionRequiredMixin, TemplateView):
         # get page and translation objects if they exist
         page = Page.objects.filter(id=kwargs.get("page_id")).first()
         page_translation = PageTranslation.objects.filter(
-            page=page, language=language,
+            page=page,
+            language=language,
         ).first()
 
         # Make form disabled if user has no permission to edit the page
@@ -105,7 +106,8 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
         page_instance = Page.objects.filter(id=kwargs.get("page_id")).first()
         page_translation_instance = PageTranslation.objects.filter(
-            page=page_instance, language=language,
+            page=page_instance,
+            language=language,
         ).first()
 
         # Pass siblings to template to enable rendering of page order table
@@ -118,7 +120,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
             raise PermissionDenied
 
         page_form = PageForm(
-            request.POST, instance=page_instance, region=region, language=language,
+            request.POST,
+            instance=page_instance,
+            region=region,
+            language=language,
         )
         page_translation_form = PageTranslationForm(
             request.POST,
@@ -176,7 +181,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
             )
 
         page = page_form.save()
-        page_translation = page_translation_form.save(page=page, user=request.user,)
+        page_translation = page_translation_form.save(
+            page=page,
+            user=request.user,
+        )
 
         published = page_translation.status == status.PUBLIC
         if not page_instance:
@@ -229,7 +237,8 @@ class PageView(PermissionRequiredMixin, TemplateView):
         for language_node in region.language_tree_nodes.all():
             if language_node.parent:
                 source_translation = PageTranslation.objects.filter(
-                    page=page, language=language_node.parent.language,
+                    page=page,
+                    language=language_node.parent.language,
                 )
                 side_by_side_language_options.append(
                     {
