@@ -56,6 +56,7 @@ extensions = [
     "sphinx.ext.linkcode",
     "sphinxcontrib_django",
     "sphinx_rtd_theme",
+    "sphinx_last_updated_by_git",
 ]
 
 # Enable cross-references to other documentations

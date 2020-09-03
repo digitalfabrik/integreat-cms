@@ -3,6 +3,37 @@ Django settings for backend project.
 
 For more information on this file, see :doc:`topics/settings`.
 For the full list of settings and their values, see :doc:`ref/settings`.
+
+Our custom settings
+===================
+
+.. setting:: WEBAPP_URL
+
+``WEBAPP_URL``
+--------------
+
+Default: ``https://integreat.app``
+
+The URL to our webapp. This is used for urls in the ``sitemap.xml`` (see :mod:`sitemap` for more information).
+
+.. setting:: GVZ_API_URL
+
+``GVZ_API_URL``
+--------------
+
+Default: ``https://gvz.integreat-app.de/api/``
+
+The URL to our GVZ (Gemeindeverzeichnis) API. This is used to automatically import coordinates and region aliases (see
+:mod:`gvz_api` for more information).
+
+.. setting:: GVZ_API_ENABLED
+
+``GVZ_API_ENABLED``
+--------------
+
+Default: ``True``
+
+Whether or not the GVZ (Gemeindeverzeichnis) API is enabled (see :mod:`gvz_api` for more information).
 """
 import os
 
@@ -28,6 +59,9 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 HOSTNAME = "localhost"
 BASE_URL = "http://localhost:8000"
 
+# The protocol and domain of the webapp
+WEBAPP_URL = "https://integreat.app"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +72,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.messages",
     "django.contrib.sessions",
+    "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "compressor",
     "compressor_toolkit",
@@ -197,7 +232,10 @@ LOGGING = {
     "loggers": {
         "django": {"handlers": ["console"], "level": "WARN", "propagate": True,},
         "api": {"handlers": ["console"], "level": "INFO", "propagate": True,},
+        "backend": {"handlers": ["console"], "level": "INFO", "propagate": True,},
         "cms": {"handlers": ["console"], "level": "INFO", "propagate": True,},
+        "gvz_api": {"handlers": ["console"], "level": "INFO", "propagate": True,},
+        "sitemap": {"handlers": ["console"], "level": "INFO", "propagate": True,},
         "rules": {"handlers": ["console"], "level": "DEBUG", "propagate": True,},
         "auth": {"handlers": ["console", "authlog", "syslog"], "level": "INFO",},
     },
@@ -225,7 +263,7 @@ COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = True
 
 # GVZ (Gemeindeverzeichnis) API URL
-GVZ_API_URL = "http://gvz.integreat-app.de/api/"
+GVZ_API_URL = "https://gvz.integreat-app.de/api"
 GVZ_API_ENABLED = True
 
 # Allow access to all domains by setting the following variable to TRUE

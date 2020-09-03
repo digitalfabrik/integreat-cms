@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td class="pl-2">
         <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
@@ -10,16 +12,6 @@
         </a>
     </td>
 	<td>
-		<a href="{% url 'dashboard' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
-			{{ request.scheme }}://{{ request.get_host }}{% url 'dashboard' region_slug=region.slug %}
-		</a>
-	</td>
-	<td>
-		<a href="https://integreat.app{% url 'dashboard' region_slug=region.slug %}" target="_blank" class="block py-3 px-2 text-gray-800">
-			https://integreat.app{% url 'dashboard' region_slug=region.slug %}
-		</a>
-	</td>
-	<td>
         <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
 			{{ region.created_date }}
         </a>
@@ -29,9 +21,14 @@
 			{{ region.last_updated }}
         </a>
 	</td>
-	<td class="pr-2">
+	<td>
         <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
 			{{ region.get_status_display }}
         </a>
+	</td>
+	<td class="pr-2 text-right">
+		<a href="{% url 'dashboard' region_slug=region.slug %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+			{% trans 'Open Dashboard' %}
+		</a>
 	</td>
 </tr>

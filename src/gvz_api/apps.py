@@ -1,6 +1,7 @@
 """
 Configuration of GVZ API app
 """
+import sys
 import logging
 import json
 import requests
@@ -22,25 +23,27 @@ class GvzApiConfig(AppConfig):
         """
         Checking if API is available
         """
-        if settings.GVZ_API_ENABLED:
-            try:
-                response = requests.get(
-                    f"{settings.GVZ_API_URL}/search/expect_empty_json"
-                )
-                json.loads(response.text)
-            except json.decoder.JSONDecodeError:
-                self.api_available = False
-            except requests.exceptions.RequestException:
-                self.api_available = False
+        # Only check availability if current command is "runserver"
+        if sys.argv[1] == "runserver":
+            if settings.GVZ_API_ENABLED:
+                try:
+                    response = requests.get(
+                        f"{settings.GVZ_API_URL}/search/expect_empty_json", timeout=3
+                    )
+                    # Require the response to be empty, otherwise it's probably an error
+                    assert not json.loads(response.text)
+                except (
+                    json.decoder.JSONDecodeError,
+                    requests.exceptions.RequestException,
+                    requests.exceptions.Timeout,
+                    AssertionError,
+                ):
+                    logger.info(
+                        "GVZ API is not available. You won't be able to "
+                        "automatically import coordinates and region aliases."
+                    )
+                else:
+                    self.api_available = True
+                    logger.debug("GVZ API is available.")
             else:
-                self.api_available = True
-        else:
-            self.api_available = False
-        if not self.api_available:
-            logger.info(
-                "GVZ API is not available. You won't be able to "
-                "automatically import coordinates and region aliases."
-            )
-        else:
-            self.api_available = True
-            logger.info("GVZ API is available.")
+                logger.debug("GVZ API is not enabled.")
