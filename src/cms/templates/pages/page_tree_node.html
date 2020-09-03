@@ -80,8 +80,7 @@
     <td class="pl-2 pr-4 text-right min">
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
-           target="_blank"
-           title="{% trans 'View page' %}" class="py-3 px-2">
+           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="py-3 px-2">
             <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
         <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3 px-2">
