@@ -2,6 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+from backend.settings import WEBAPP_URL
+
 from .event import Event
 from ..languages.language import Language
 from ...constants import status
@@ -78,6 +80,15 @@ class EventTranslation(models.Model):
             [self.event.region.slug, self.language.code, "events", self.slug]
         )
 
+    def get_absolute_url(self):
+        """
+        This helper function returns the absolute url to the webapp view of the event translation
+
+        :return: The absolute url of an event translation
+        :rtype: str
+        """
+        return "/" + self.permalink
+
     @property
     def available_languages(self):
         """
@@ -107,6 +118,30 @@ class EventTranslation(models.Model):
                     "id": other_translation.id,
                     "url": other_translation.permalink,
                 }
+        return available_languages
+
+    @property
+    def sitemap_alternates(self):
+        """
+        This property returns the language alternatives of a event translation for the use in sitemaps.
+        Similar to :func:`cms.models.events.event_translation.EventTranslation.available_languages`, but in a slightly
+        different format.
+
+        :return: A list of dictionaries containing the alternative translations of a event translation
+        :rtype: list [ dict ]
+        """
+        languages = self.event.languages
+        languages.remove(self.language)
+        available_languages = []
+        for language in languages:
+            other_translation = self.event.get_public_translation(language.code)
+            if other_translation:
+                available_languages.append(
+                    {
+                        "location": f"{WEBAPP_URL}{other_translation.get_absolute_url()}",
+                        "lang_code": other_translation.language.code,
+                    }
+                )
         return available_languages
 
     @property
