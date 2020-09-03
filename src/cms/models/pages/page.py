@@ -110,9 +110,7 @@ class Page(MPTTModel):
     def get_siblings(self, include_self=False):
         # Return only siblings from the same region
         return (
-            super()
-            .get_siblings(include_self=include_self)
-            .filter(region=self.region)
+            super().get_siblings(include_self=include_self).filter(region=self.region)
         )
 
     def get_translation(self, language_code):
@@ -162,7 +160,8 @@ class Page(MPTTModel):
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(
-            language__code=language_code, status=status.PUBLIC,
+            language__code=language_code,
+            status=status.PUBLIC,
         ).first()
 
     def get_mirrored_text(self, language_code):

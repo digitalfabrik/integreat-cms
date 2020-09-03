@@ -178,6 +178,11 @@ class LanguageTreeNode(MPTTModel):
         :type permissions: tuple
         """
 
-        unique_together = (("language", "region",),)
+        unique_together = (
+            (
+                "language",
+                "region",
+            ),
+        )
         default_permissions = ()
         permissions = (("manage_language_tree", "Can manage language tree"),)

@@ -69,7 +69,12 @@ class UserView(PermissionRequiredMixin, TemplateView):
                         messages.success(request, _("User was successfully saved."))
                     else:
                         messages.success(request, _("User was successfully created."))
-                        return redirect("edit_user", **{"user_id": user.id,})
+                        return redirect(
+                            "edit_user",
+                            **{
+                                "user_id": user.id,
+                            }
+                        )
                 else:
                     messages.info(request, _("No changes detected."))
             else:

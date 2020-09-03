@@ -153,9 +153,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -206,7 +212,9 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "default": {"format": "INTEGREAT CMS - %(levelname)s: %(message)s",},
+        "default": {
+            "format": "INTEGREAT CMS - %(levelname)s: %(message)s",
+        },
         "console": {
             "format": "%(asctime)s INTEGREAT CMS - %(levelname)s: %(message)s",
             "datefmt": "%b %d %H:%M:%S",
@@ -230,14 +238,45 @@ LOGGING = {
         },
     },
     "loggers": {
-        "django": {"handlers": ["console"], "level": "WARN", "propagate": True,},
-        "api": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "backend": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "cms": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "gvz_api": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "sitemap": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "rules": {"handlers": ["console"], "level": "DEBUG", "propagate": True,},
-        "auth": {"handlers": ["console", "authlog", "syslog"], "level": "INFO",},
+        "django": {
+            "handlers": ["console"],
+            "level": "WARN",
+            "propagate": True,
+        },
+        "api": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "backend": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "cms": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "gvz_api": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "sitemap": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "rules": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        "auth": {
+            "handlers": ["console", "authlog", "syslog"],
+            "level": "INFO",
+        },
     },
 }
 

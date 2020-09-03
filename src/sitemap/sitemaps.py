@@ -95,9 +95,7 @@ class WebappSitemap(ABC, Sitemap):
         """
         splitted_url = urlsplit(WEBAPP_URL)
         # Gemerate list of urls without alternative languages
-        urls = super()._urls(
-            page, splitted_url.scheme, splitted_url.hostname
-        )
+        urls = super()._urls(page, splitted_url.scheme, splitted_url.hostname)
         for url in urls:
             # Add information about alternative languages
             url["alternates"] = url["item"].sitemap_alternates

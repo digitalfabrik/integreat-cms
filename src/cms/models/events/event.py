@@ -226,7 +226,8 @@ class Event(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(
-            language__code=language_code, status=status.PUBLIC,
+            language__code=language_code,
+            status=status.PUBLIC,
         ).first()
 
     class Meta:

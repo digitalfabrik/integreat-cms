@@ -72,7 +72,9 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                 }
             )
 
-        page_translation_form = PageTranslationForm(instance=target_page_translation,)
+        page_translation_form = PageTranslationForm(
+            instance=target_page_translation,
+        )
 
         return render(
             request,

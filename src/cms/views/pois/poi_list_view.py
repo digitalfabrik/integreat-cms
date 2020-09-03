@@ -46,7 +46,12 @@ class POIListView(PermissionRequiredMixin, TemplateView):
                 request,
                 _("Please create at least one language node before creating POIs."),
             )
-            return redirect("language_tree", **{"region_slug": region_slug,})
+            return redirect(
+                "language_tree",
+                **{
+                    "region_slug": region_slug,
+                }
+            )
 
         if language != region.default_language:
             messages.warning(

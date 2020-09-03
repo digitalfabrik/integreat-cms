@@ -115,6 +115,11 @@ class Offer(models.Model):
         :type permissions: tuple
         """
 
-        unique_together = (("region", "template",),)
+        unique_together = (
+            (
+                "region",
+                "template",
+            ),
+        )
         default_permissions = ()
         permissions = (("manage_offers", "Can manage offers"),)

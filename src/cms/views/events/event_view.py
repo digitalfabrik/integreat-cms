@@ -94,7 +94,10 @@ class EventView(PermissionRequiredMixin, TemplateView):
         if not request.user.has_perm("cms.edit_events"):
             raise PermissionDenied
 
-        event_form = EventForm(data=request.POST, instance=event_instance,)
+        event_form = EventForm(
+            data=request.POST,
+            instance=event_instance,
+        )
         # clean data of event form to be able to pass the cleaned start date to the recurrence form for validation
         event_form_valid = event_form.is_valid()
         recurrence_rule_form = RecurrenceRuleForm(

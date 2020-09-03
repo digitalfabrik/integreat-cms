@@ -27,7 +27,11 @@ class MediaEditView(TemplateView):
         return render(
             request,
             self.template_name,
-            {**self.base_context, "form": form, "region_slug": region.slug,},
+            {
+                **self.base_context,
+                "form": form,
+                "region_slug": region.slug,
+            },
         )
 
     # pylint: disable=unused-argument

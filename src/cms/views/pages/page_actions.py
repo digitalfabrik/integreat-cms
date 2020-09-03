@@ -40,7 +40,11 @@ def archive_page(request, page_id, region_slug, language_code):
     messages.success(request, _("Page was successfully archived."))
 
     return redirect(
-        "pages", **{"region_slug": region_slug, "language_code": language_code,}
+        "pages",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -58,7 +62,11 @@ def restore_page(request, page_id, region_slug, language_code):
     messages.success(request, _("Page was successfully restored."))
 
     return redirect(
-        "pages", **{"region_slug": region_slug, "language_code": language_code,}
+        "pages",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -88,7 +96,11 @@ def delete_page(request, page_id, region_slug, language_code):
         messages.success(request, _("Page was successfully deleted."))
 
     return redirect(
-        "pages", **{"region_slug": region_slug, "language_code": language_code,}
+        "pages",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -123,7 +135,11 @@ def download_xliff(request, region_slug, language_code):  # pylint: disable=W061
             )
             return response
     return redirect(
-        "pages", **{"region_slug": region_slug, "language_code": language_code,}
+        "pages",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -159,7 +175,11 @@ def upload_xliff(request, region_slug, language_code):
             },
         )
     return redirect(
-        "pages", **{"region_slug": region_slug, "language_code": language_code,}
+        "pages",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -178,7 +198,11 @@ def confirm_xliff_import(request, region_slug, language_code):
         xliff_helper = PageXliffHelper()
         xliff_helper.import_xliff_files(xliff_paths, user=request.user)
     return redirect(
-        "pages", **{"region_slug": region_slug, "language_code": language_code,}
+        "pages",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -203,7 +227,11 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
         logger.exception(e)
 
     return redirect(
-        "pages", **{"region_slug": region_slug, "language_code": language_code,}
+        "pages",
+        **{
+            "region_slug": region_slug,
+            "language_code": language_code,
+        }
     )
 
 
@@ -432,11 +460,18 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
         siblings = Page.objects.filter(parent__id=parent_id, region__slug=region_slug)
 
     logger.debug(
-        "Page order table for page %s and siblings %s", page, siblings,
+        "Page order table for page %s and siblings %s",
+        page,
+        siblings,
     )
 
     return render(
-        request, "pages/_page_order_table.html", {"page": page, "siblings": siblings,},
+        request,
+        "pages/_page_order_table.html",
+        {
+            "page": page,
+            "siblings": siblings,
+        },
     )
 
 
@@ -451,10 +486,17 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
         siblings = Page.objects.filter(parent__id=parent_id, region__slug=region_slug)
 
     logger.debug(
-        "Page order table for a new page and siblings %s", siblings,
+        "Page order table for a new page and siblings %s",
+        siblings,
     )
 
-    return render(request, "pages/_page_order_table.html", {"siblings": siblings,},)
+    return render(
+        request,
+        "pages/_page_order_table.html",
+        {
+            "siblings": siblings,
+        },
+    )
 
 
 @login_required

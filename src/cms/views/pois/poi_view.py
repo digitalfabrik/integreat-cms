@@ -36,7 +36,8 @@ class POIView(PermissionRequiredMixin, TemplateView):
         # get poi and translation objects if they exist
         poi = POI.objects.filter(id=kwargs.get("poi_id")).first()
         poi_translation = POITranslation.objects.filter(
-            poi=poi, language=language,
+            poi=poi,
+            language=language,
         ).first()
 
         if poi and poi.archived:
@@ -68,7 +69,8 @@ class POIView(PermissionRequiredMixin, TemplateView):
 
         poi_instance = POI.objects.filter(id=kwargs.get("poi_id")).first()
         poi_translation_instance = POITranslation.objects.filter(
-            poi=poi_instance, language=language,
+            poi=poi_instance,
+            language=language,
         ).first()
 
         if poi_instance and poi_instance.archived:
@@ -81,7 +83,10 @@ class POIView(PermissionRequiredMixin, TemplateView):
                 }
             )
 
-        poi_form = POIForm(request.POST, instance=poi_instance,)
+        poi_form = POIForm(
+            request.POST,
+            instance=poi_instance,
+        )
         poi_translation_form = POITranslationForm(
             request.POST,
             instance=poi_translation_instance,

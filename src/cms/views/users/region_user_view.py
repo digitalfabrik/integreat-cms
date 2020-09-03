@@ -28,7 +28,10 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
         # filter by region to make sure no users from other regions can be changed through this view
         user = (
             get_user_model()
-            .objects.filter(id=kwargs.get("user_id"), profile__regions=region,)
+            .objects.filter(
+                id=kwargs.get("user_id"),
+                profile__regions=region,
+            )
             .first()
         )
         user_profile = UserProfile.objects.filter(user=user).first()
@@ -54,7 +57,10 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
         # filter by region to make sure no users from other regions can be changed through this view
         user_instance = (
             get_user_model()
-            .objects.filter(id=kwargs.get("user_id"), profile__regions=region,)
+            .objects.filter(
+                id=kwargs.get("user_id"),
+                profile__regions=region,
+            )
             .first()
         )
         user_profile_instance = UserProfile.objects.filter(user=user_instance).first()
@@ -77,7 +83,10 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
                     messages.success(request, _("User was successfully created."))
                     return redirect(
                         "edit_region_user",
-                        **{"region_slug": region.slug, "user_id": user.id,}
+                        **{
+                            "region_slug": region.slug,
+                            "user_id": user.id,
+                        }
                     )
             else:
                 messages.info(request, _("No changes detected."))
