@@ -34,7 +34,7 @@ class EventForm(forms.ModelForm):
         )
 
         # Instantiate ModelForm
-        super(EventForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
         if self.instance.id:
             # Initialize BooleanFields based on Event properties
@@ -56,7 +56,7 @@ class EventForm(forms.ModelForm):
         )
 
         # Disable instant commit on saving because missing information would cause errors
-        event = super(EventForm, self).save(commit=False)
+        event = super().save(commit=False)
 
         if not self.instance.id:
             # Set initial values on event creation
@@ -73,7 +73,7 @@ class EventForm(forms.ModelForm):
         return event
 
     def clean(self):
-        cleaned_data = super(EventForm, self).clean()
+        cleaned_data = super().clean()
         logger.info("EventForm cleaned [1/2] with cleaned data %s", cleaned_data)
 
         # make self.data mutable to allow values to be changed manually

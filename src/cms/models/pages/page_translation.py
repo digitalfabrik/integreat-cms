@@ -405,7 +405,7 @@ class PageTranslation(models.Model):
         """
         if self.id:
             return f"(id: {self.id}, page_id: {self.page.id}, lang: {self.language.code}, version: {self.version}, slug: {self.slug})"
-        return super(PageTranslation, self).__str__()
+        return super().__str__()
 
     class Meta:
         """

@@ -45,7 +45,7 @@ class PageTranslationForm(forms.ModelForm):
             args = (post,)
             logger.info("changed POST arg status manually")
 
-        super(PageTranslationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # If form is disabled because the user has no permissions to edit the page, disable all form fields
         if disabled:
@@ -67,7 +67,7 @@ class PageTranslationForm(forms.ModelForm):
         user = kwargs.pop("user", None)
 
         kwargs["commit"] = False  # Don't save yet. We just want the object.
-        page_translation = super(PageTranslationForm, self).save(*args, **kwargs)
+        page_translation = super().save(*args, **kwargs)
 
         if not self.instance.id:
             # only update these values when page translation is created

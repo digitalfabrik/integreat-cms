@@ -24,7 +24,7 @@ class RegionUserForm(UserForm):
         )
 
         # Instantiate ModelForm
-        super(RegionUserForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
     def save(self, *args, **kwargs):
 
@@ -35,4 +35,4 @@ class RegionUserForm(UserForm):
         )
 
         # save ModelForm
-        return super(RegionUserForm, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)

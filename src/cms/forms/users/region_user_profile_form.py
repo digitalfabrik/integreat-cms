@@ -26,7 +26,7 @@ class RegionUserProfileForm(UserProfileForm):
         )
 
         # Instantiate ModelForm
-        super(RegionUserProfileForm, self).__init__(data=data, instance=instance)
+        super().__init__(data=data, instance=instance)
 
     def save(self, *args, **kwargs):
 
@@ -43,7 +43,7 @@ class RegionUserProfileForm(UserProfileForm):
         instance_exists = bool(self.instance.id)
 
         # save UserProfileForm
-        user_profile = super(RegionUserProfileForm, self).save(*args, **kwargs)
+        user_profile = super().save(*args, **kwargs)
 
         if not instance_exists:
             # only update the region when user is created

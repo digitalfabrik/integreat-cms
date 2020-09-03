@@ -131,7 +131,7 @@ class PageForm(forms.ModelForm):
         disabled = kwargs.pop("disabled", None)
 
         # instantiate ModelForm
-        super(PageForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
@@ -205,7 +205,7 @@ class PageForm(forms.ModelForm):
 
         # don't commit saving of ModelForm, because required fields are still missing
         kwargs["commit"] = False
-        page = super(PageForm, self).save(*args, **kwargs)
+        page = super().save(*args, **kwargs)
 
         if not self.instance.id:
             # only update these values when page is created

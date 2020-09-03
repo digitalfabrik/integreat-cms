@@ -17,4 +17,4 @@ class OrganizationForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        super(OrganizationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
