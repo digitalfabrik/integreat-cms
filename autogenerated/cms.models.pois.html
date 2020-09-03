@@ -198,7 +198,15 @@
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.circleci_settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.context_processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.docker_settings">Docker Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="backend.html#our-custom-settings">Our custom settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="backend.html#webapp-url"><code class="docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="backend.html#gvz-api-url"><code class="docutils literal notranslate"><span class="pre">GVZ_API_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="backend.html#gvz-api-enabled"><code class="docutils literal notranslate"><span class="pre">GVZ_API_ENABLED</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.wsgi">Wsgi</a></li>
 </ul>
@@ -514,6 +522,14 @@
 <li class="toctree-l2"><a class="reference internal" href="gvz_api.html#module-gvz_api.utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="sitemap.html">Sitemap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.sitemaps">Sitemaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.views">Views</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Indices</span></p>
 <ul>
@@ -725,7 +741,7 @@ translation exists.</p>
 <span id="poi-translation"></span><h2>POI Translation<a class="headerlink" href="#module-cms.models.pois.poi_translation" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.pois.poi_translation.POITranslation">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.pois.poi_translation.</code><code class="sig-name descname">POITranslation</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.pois.poi_translation.</code><code class="sig-name descname">POITranslation</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing a POI translation</p>
 <dl class="field-list simple">
@@ -760,19 +776,19 @@ languages</p></li>
 </dl>
 <dl class="py exception">
 <dt id="cms.models.pois.poi_translation.POITranslation.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.pois.poi_translation.POITranslation.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.available_languages">
-<em class="property">property </em><code class="sig-name descname">available_languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.available_languages" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">available_languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.available_languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks in which <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the POI is translated apart
 from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
 It only returns languages which have a public translation, so drafts are not included here.
@@ -798,7 +814,7 @@ The returned dict has the following format:</p>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.foreign_object">
-<em class="property">property </em><code class="sig-name descname">foreign_object</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">foreign_object</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is an alias of the POI foreign key and is needed to generalize the <a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
 <dl class="field-list simple">
@@ -812,8 +828,22 @@ for all content types</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.pois.poi_translation.POITranslation.get_absolute_url">
+<code class="sig-name descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L81"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>This helper function returns the absolute url to the webapp view of the poi translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The absolute url of a poi translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.is_outdated">
-<em class="property">property </em><code class="sig-name descname">is_outdated</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_outdated</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
 This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
 <ul class="simple">
@@ -839,7 +869,7 @@ source translation.</p>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.is_up_to_date">
-<em class="property">property </em><code class="sig-name descname">is_up_to_date</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_up_to_date</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether a translation is up to date.
 A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
 <dl class="field-list simple">
@@ -854,7 +884,7 @@ A translation is considered up to date when it is not outdated and not being tra
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.latest_major_public_revision">
-<em class="property">property </em><code class="sig-name descname">latest_major_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_major_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent major public version of this translation.
 This is used when translations, which are derived from this translation, check whether they are up to date.</p>
 <dl class="field-list simple">
@@ -869,7 +899,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.latest_major_revision">
-<em class="property">property </em><code class="sig-name descname">latest_major_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_major_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent major version of this translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -883,7 +913,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.latest_public_revision">
-<em class="property">property </em><code class="sig-name descname">latest_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent public version of this translation.
 If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <dl class="field-list simple">
@@ -898,7 +928,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.permalink">
-<em class="property">property </em><code class="sig-name descname">permalink</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.permalink" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">permalink</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.permalink" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -912,7 +942,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.previous_revision">
-<em class="property">property </em><code class="sig-name descname">previous_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">previous_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a shortcut to the previous revision of this translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -925,8 +955,24 @@ If the translation itself is not public, this property can return a revision whi
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.pois.poi_translation.POITranslation.sitemap_alternates">
+<em class="property">property </em><code class="sig-name descname">sitemap_alternates</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.sitemap_alternates" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property returns the langauge alternatives of a POI translation for the use in sitemaps.
+Similar to <a class="reference internal" href="#cms.models.pois.poi_translation.POITranslation.available_languages" title="cms.models.pois.poi_translation.POITranslation.available_languages"><code class="xref py py-func docutils literal notranslate"><span class="pre">cms.models.pois.poi_translation.POITranslation.available_languages()</span></code></a>, but in a slightly
+different format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of dictionaries containing the alternative translations of a POI translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.pois.poi_translation.POITranslation.source_translation">
-<em class="property">property </em><code class="sig-name descname">source_translation</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.source_translation" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">source_translation</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/pois/poi_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pois.poi_translation.POITranslation.source_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
 It derives this information from the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
 <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
@@ -973,7 +1019,7 @@ the translation is in the <a class="reference internal" href="cms.models.regions
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 30, 2020.
+        Last updated on Aug 26, 2020.
       </span>
 
     </p>
