@@ -3,7 +3,7 @@
 {% load page_filters %}
 <tr class="border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
     <td class="single_icon">
-        <span data-drag-id="{{ page.id }}" data-page-descendants="{{ page|get_descendants }}" class="text-gray-800 block py-3 pl-4 pr-2">
+        <span class="text-gray-800 block py-3 pl-4 pr-2">
             <i data-feather="move"></i>
         </span>
     </td>
@@ -98,9 +98,5 @@
                 </button>
             {% endif %}
         {% endif %}
-        <a href="{% url 'download_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
-           title="{% trans 'Download page' %}" class="py-3" style="padding-left:4px;padding-right:4px;">
-             <i data-feather="download" class="inline-block text-gray-800"></i>
-        </a>
     </td>
 </tr>

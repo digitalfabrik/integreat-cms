@@ -1,8 +1,12 @@
 {% load i18n %}
+{% load tree_filters %}
 
-<tr class="border-t border-solid border-gray-200 hover:bg-gray-100{% if node.depth > 0 %} child level-{{node.depth}}{% endif %}">
+{% if node.level != 0 %}
+<tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{node.depth}}"><td colspan="9"><div><span></span></div></td></tr>
+{% endif %}
+<tr data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if node.depth > 0 %} child level-{{node.depth}}{% endif %}">
     <td class="single_icon">
-        <span class="block py-3 pl-4 pr-2 cursor-move">
+		<span data-drag-id="{{ node.id }}" data-node-descendants="{{ node|get_descendants }}" class="drag text-gray-800 block py-3 pl-4 pr-2 cursor-move" draggable="true">
             <i data-feather="move" class="text-gray-800"></i>
         </span>
     </td>
