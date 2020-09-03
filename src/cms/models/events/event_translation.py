@@ -123,7 +123,7 @@ class EventTranslation(models.Model):
     @property
     def sitemap_alternates(self):
         """
-        This property returns the langauge alternatives of a event translation for the use in sitemaps.
+        This property returns the language alternatives of a event translation for the use in sitemaps.
         Similar to :func:`cms.models.events.event_translation.EventTranslation.available_languages`, but in a slightly
         different format.
 
