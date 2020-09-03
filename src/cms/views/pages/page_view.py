@@ -70,9 +70,16 @@ class PageView(PermissionRequiredMixin, TemplateView):
             instance=page_translation, disabled=disabled
         )
 
+        # Pass side by side language options
         side_by_side_language_options = self.get_side_by_side_language_options(
             region, language, page
         )
+
+        # Pass siblings to template to enable rendering of page order table
+        if not page or not page.parent:
+            siblings = Page.objects.filter(level=0, region=region)
+        else:
+            siblings = page.parent.children.all()
 
         return render(
             request,
@@ -82,6 +89,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
                 "page_form": page_form,
                 "page_translation_form": page_translation_form,
                 "page": page,
+                "siblings": siblings,
                 "language": language,
                 # Languages for tab view
                 "languages": region.languages if page else [language],
@@ -99,6 +107,12 @@ class PageView(PermissionRequiredMixin, TemplateView):
         page_translation_instance = PageTranslation.objects.filter(
             page=page_instance, language=language,
         ).first()
+
+        # Pass siblings to template to enable rendering of page order table
+        if not page_instance or not page_instance.parent:
+            siblings = Page.objects.filter(level=0, region=region)
+        else:
+            siblings = page_instance.parent.children.all()
 
         if not request.user.has_perm("cms.edit_page", page_instance):
             raise PermissionDenied
@@ -135,6 +149,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
                     "page_form": page_form,
                     "page_translation_form": page_translation_form,
                     "page": page_instance,
+                    "siblings": siblings,
                     "language": language,
                     # Languages for tab view
                     "languages": region.languages if page_instance else [language],
@@ -152,6 +167,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
                     "page_form": page_form,
                     "page_translation_form": page_translation_form,
                     "page": page_instance,
+                    "siblings": siblings,
                     "language": language,
                     # Languages for tab view
                     "languages": region.languages if page_instance else [language],
