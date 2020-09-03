@@ -359,6 +359,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.page_filters">Page Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.tree_filters">Tree Filters</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.tests.html">Tests</a><ul>
@@ -407,6 +408,7 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.language_tree.language_tree_actions">Language Tree Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
 </ul>
@@ -615,6 +617,33 @@
   <div class="section" id="module-cms.views.language_tree">
 <span id="language-tree"></span><h1>Language Tree<a class="headerlink" href="#module-cms.views.language_tree" title="Permalink to this headline">¶</a></h1>
 <p>Python standard Init-File</p>
+<div class="section" id="module-cms.views.language_tree.language_tree_actions">
+<span id="language-tree-actions"></span><h2>Language Tree Actions<a class="headerlink" href="#module-cms.views.language_tree.language_tree_actions" title="Permalink to this headline">¶</a></h2>
+<p>This module contains view actions for the language tree.
+Typically, they do not render a whole page, but only parts of it or they redirect to regular views.</p>
+<dl class="py function">
+<dt id="cms.views.language_tree.language_tree_actions.move_language_tree_node">
+<code class="sig-prename descclassname">cms.views.language_tree.language_tree_actions.</code><code class="sig-name descname">move_language_tree_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_tree_node_id</span></em>, <em class="sig-param"><span class="n">target_id</span></em>, <em class="sig-param"><span class="n">position</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/language_tree/language_tree_actions.py#L19"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_actions.move_language_tree_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>This action moves the given language tree node to the given position relative to the given target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the region which language tree should be modified</p></li>
+<li><p><strong>language_tree_node_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the language tree node wich should be moved</p></li>
+<li><p><strong>target_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the target language tree node</p></li>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The desired position (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.position" title="cms.constants.position"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.position</span></code></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the language tree</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">django.http.HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.views.language_tree.language_tree_node_view">
 <span id="language-tree-node-view"></span><h2>Language Tree Node View<a class="headerlink" href="#module-cms.views.language_tree.language_tree_node_view" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
@@ -665,7 +694,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 30, 2020.
+        Last updated on Aug 13, 2020.
       </span>
 
     </p>

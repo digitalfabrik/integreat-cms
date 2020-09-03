@@ -359,6 +359,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.page_filters">Page Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.tree_filters">Tree Filters</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.tests.html">Tests</a><ul>
@@ -407,6 +408,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_actions">Language Tree Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
 </ul>
@@ -759,23 +761,6 @@ This is used to treat British English and American English as the same language.
 <span id="page-filters"></span><h2>Page Filters<a class="headerlink" href="#module-cms.templatetags.page_filters" title="Permalink to this headline">¶</a></h2>
 <p>This is a collection of tags and filters for <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> objects.</p>
 <dl class="py function">
-<dt id="cms.templatetags.page_filters.get_descendants">
-<code class="sig-prename descclassname">cms.templatetags.page_filters.</code><code class="sig-name descname">get_descendants</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/page_filters.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.page_filters.get_descendants" title="Permalink to this definition">¶</a></dt>
-<dd><p>This filter returns the ids of all the page’s descendants.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The list of all the page’s descendants’ ids</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a> ]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt id="cms.templatetags.page_filters.get_last_root_page">
 <code class="sig-prename descclassname">cms.templatetags.page_filters.</code><code class="sig-name descname">get_last_root_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pages</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/page_filters.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.page_filters.get_last_root_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the last page on the root level.</p>
@@ -842,6 +827,28 @@ objects.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-cms.templatetags.tree_filters">
+<span id="tree-filters"></span><h2>Tree Filters<a class="headerlink" href="#module-cms.templatetags.tree_filters" title="Permalink to this headline">¶</a></h2>
+<p>This is a collection of tags and filters for models which inherit from the MPTT model
+(<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>).</p>
+<dl class="py function">
+<dt id="cms.templatetags.tree_filters.get_descendants">
+<code class="sig-prename descclassname">cms.templatetags.tree_filters.</code><code class="sig-name descname">get_descendants</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/templatetags/tree_filters.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.tree_filters.get_descendants" title="Permalink to this definition">¶</a></dt>
+<dd><p>This filter returns the ids of all the node’s descendants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a><em> or </em><a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><em>LanguageTreeNode</em></a>) – The requested node</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of all the node’s descendants’ ids</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -870,7 +877,7 @@ objects.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 30, 2020.
+        Last updated on Aug 13, 2020.
       </span>
 
     </p>
