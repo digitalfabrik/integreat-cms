@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -59,6 +60,26 @@ class PageView(PermissionRequiredMixin, TemplateView):
                     _(
                         "You don't have the permission to edit this page, but you can propose changes and submit them for review instead."
                     ),
+                )
+            public_translation = page.get_public_translation(language.code)
+            if public_translation and page_translation != public_translation:
+                messages.info(
+                    request,
+                    _(
+                        "This is <b>not</b> the most recent public revision of this translation. Instead, <a href='%(revision_url)s' class='underline hover:no-underline'>revision %(revision)s</a> is shown in the apps."
+                    )
+                    % {
+                        "revision_url": reverse(
+                            "page_revisions",
+                            kwargs={
+                                "region_slug": region.slug,
+                                "language_code": language.code,
+                                "page_id": page.id,
+                                "selected_revision": public_translation.version,
+                            },
+                        ),
+                        "revision": public_translation.version,
+                    },
                 )
         else:
             if not request.user.has_perm("cms.edit_pages"):

@@ -363,6 +363,23 @@ urlpatterns = [
                                                         name="sbs_edit_page",
                                                     ),
                                                     url(
+                                                        r"^revisions/",
+                                                        include(
+                                                            [
+                                                                url(
+                                                                    r"^$",
+                                                                    pages.PageRevisionView.as_view(),
+                                                                    name="page_revisions",
+                                                                ),
+                                                                url(
+                                                                    r"^(?P<selected_revision>[0-9]+)$",
+                                                                    pages.PageRevisionView.as_view(),
+                                                                    name="page_revisions",
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ),
+                                                    url(
                                                         r"^archive$",
                                                         pages.archive_page,
                                                         name="archive_page",

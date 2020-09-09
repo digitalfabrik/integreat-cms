@@ -20,3 +20,4 @@ from .page_actions import (
     save_mirrored_page,
 )
 from .page_sbs_view import PageSideBySideView
+from .page_revision_view import PageRevisionView

@@ -145,8 +145,9 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
                     {% if page_translation_form.instance.id %}
-                        <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
-                        {{ page_translation_form.instance.version }}<br>
+                        <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Revision' %}:</label>
+                        {{ page_translation_form.instance.version }}
+                        (<a href="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_code=language.code %}" class="text-blue-500 hover:text-blue-600 hover:underline">{% trans 'Show revisions' %}</a>)<br>
                         <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
                         {{ page_translation_form.instance.get_status_display }}
                     {% endif %}

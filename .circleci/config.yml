@@ -114,6 +114,9 @@ jobs:
           name: Compile CSS
           command: npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
       - run:
+          name: Browserify revisions.js
+          command: npx browserify src/cms/static/js/revisions.js -o src/cms/static/js/revisions_browserified.js -t [ babelify --presets [ @babel/preset-env ] ]
+      - run:
           name: Compress JS & CSS
           command: pipenv run integreat-cms-cli compress --settings=backend.circleci_settings
       - run:

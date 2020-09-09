@@ -298,6 +298,7 @@ COMPRESS_PRECOMPILERS = (
     ("module", "compressor_toolkit.precompilers.ES6Compiler"),
     ("css", "compressor_toolkit.precompilers.SCSSCompiler"),
 )
+COMPRESS_ES6_COMPILER_CMD = 'export NODE_PATH="{paths}" && {browserify_bin} "{infile}" -o "{outfile}" -t [ "{node_modules}/babelify" --presets [ @babel/preset-env ] --plugins [ @babel/plugin-transform-runtime ] ]'
 COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = True
 
