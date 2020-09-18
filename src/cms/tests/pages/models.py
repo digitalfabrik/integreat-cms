@@ -34,17 +34,6 @@ class PageTest(TestCase):
         """
         self.assertTrue(self.page3.depth == 2)
 
-    def test_get_archived(self):
-        """
-        The function ``get_archived()`` returns the correct number of pages.
-        """
-        self.page1.archived = True
-        self.page1.save()
-        self.page2.archived = True
-        self.page2.save()
-        archived = Page.get_archived(self.region.slug)
-        self.assertTrue(len(archived) == 2)
-
 
 class PageTranslationTest(TestCase):
     """

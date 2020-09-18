@@ -179,35 +179,6 @@ class Page(MPTTModel):
             return self.mirrored_page.get_translation(language_code).text
         return None
 
-    def get_absolute_url(self):
-        """
-        This helper function returns the absolute url to the editing form of a page
-
-        :return: The absolute url of a page form
-        :rtype: str
-        """
-        return reverse(
-            "edit_page",
-            kwargs={
-                "page_id": self.id,
-                "region_slug": self.region.slug,
-                "language_code": self.region.default_language.code,
-            },
-        )
-
-    @staticmethod
-    def get_archived(region_slug):
-        """
-        This function returns all archived pages of the requested region
-
-        :param region_slug: The slug of the requested :class:`~cms.models.regions.region.Region`
-        :type region_slug: str
-
-        :return: All archived pages of this region
-        :rtype: ~django.db.models.query.QuerySet
-        """
-        return Page.objects.filter(archived=True, region__slug=region_slug)
-
     @classmethod
     def get_tree(cls, region_slug, archived=False):
         """
