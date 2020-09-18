@@ -112,19 +112,6 @@ class Event(models.Model):
         return self.translations.filter(language__code=language_code).first()
 
     @classmethod
-    def archived_count(cls, region_slug):
-        """
-        Count how many archived events exist in one :class:`~cms.models.regions.region.Region`
-
-        :param region_slug: The slug of the requested :class:`~cms.models.regions.region.Region`
-        :type region_slug: str
-
-        :return: Amount of archived events in requested :class:`~cms.models.regions.region.Region`
-        :rtype: int
-        """
-        return cls.objects.filter(region__slug=region_slug, archived=True).count()
-
-    @classmethod
     def get_list(cls, region_slug, archived=False):
         """
         Get events of one specific :class:`~cms.models.regions.region.Region` (either all archived or all not archived

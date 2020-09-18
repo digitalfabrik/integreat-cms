@@ -70,7 +70,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
             {
                 "current_menu_item": "pages",
                 "pages": pages,
-                "archived_count": Page.archived_count(region_slug),
+                "archived_count": region.pages.filter(archived=True).count(),
                 "language": language,
                 "languages": languages,
             },

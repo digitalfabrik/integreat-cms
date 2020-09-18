@@ -208,19 +208,6 @@ class Page(MPTTModel):
         """
         return Page.objects.filter(archived=True, region__slug=region_slug)
 
-    @staticmethod
-    def archived_count(region_slug):
-        """
-        Count how many archived pages exist in one :class:`~cms.models.regions.region.Region`
-
-        :param region_slug: The slug of the requested :class:`~cms.models.regions.region.Region`
-        :type region_slug: str
-
-        :return: Amount of archived pages in requested :class:`~cms.models.regions.region.Region`
-        :rtype: int
-        """
-        return Page.objects.filter(archived=True, region__slug=region_slug).count()
-
     @classmethod
     def get_tree(cls, region_slug, archived=False):
         """
