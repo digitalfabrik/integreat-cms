@@ -2,29 +2,23 @@ import logging
 
 from django.conf import settings
 from django.db import models
-from django.urls import reverse
-from django.utils import timezone
-from django.utils.translation import get_language
 
 from mptt.models import MPTTModel, TreeForeignKey
 
+from .abstract_base_page import AbstractBasePage
 from ..regions.region import Region
-from ...constants import status
 
 logger = logging.getLogger(__name__)
 
 
-class Page(MPTTModel):
+class Page(MPTTModel, AbstractBasePage):
     """
     Data model representing a page.
 
     :param id: The database id of the page
     :param icon: The title image of the page
-    :param archived: Whether or not the page is archived
     :param mirrored_page_first: If ``mirrored_page`` is not ``None``, this field determines whether the live content is
                                 embedded before the content of this page or after.
-    :param created_date: The date and time when the page was created
-    :param last_updated: The date and time when the page was last updated
 
     Fields inherited from the MPTT model (see :doc:`models` for more information):
 
@@ -33,6 +27,12 @@ class Page(MPTTModel):
     :param rght: The right neighbour of this page
     :param level: The depth of the page node. Root pages are level `0`, their immediate children are level `1`, their
                   immediate children are level `2` and so on...
+
+    Fields inherited from the :class:`~cms.models.pages.abstract_base_page.AbstractBasePage` model:
+
+    :param archived: Whether or not the page is archived
+    :param created_date: The date and time when the page was created
+    :param last_updated: The date and time when the page was last updated
 
     Relationship fields:
 
@@ -57,7 +57,6 @@ class Page(MPTTModel):
     )
     icon = models.ImageField(blank=True, null=True, upload_to="pages/%Y/%m/%d")
     region = models.ForeignKey(Region, related_name="pages", on_delete=models.CASCADE)
-    archived = models.BooleanField(default=False)
     mirrored_page = models.ForeignKey(
         "self", null=True, blank=True, on_delete=models.PROTECT
     )
@@ -68,8 +67,6 @@ class Page(MPTTModel):
     publishers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="publishable_pages", blank=True
     )
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
 
     @property
     def depth(self):
@@ -80,22 +77,6 @@ class Page(MPTTModel):
         :rtype: str
         """
         return len(self.get_ancestors())
-
-    @property
-    def languages(self):
-        """
-        This property returns a list of all :class:`~cms.models.languages.language.Language` objects, to which a page
-        translation exists.
-
-        :return: list of all :class:`~cms.models.languages.language.Language` a page is translated into
-        :rtype: list [ ~cms.models.languages.language.Language ]
-        """
-        page_translations = self.translations.prefetch_related("language").all()
-        languages = []
-        for page_translation in page_translations:
-            if page_translation.language not in languages:
-                languages.append(page_translation.language)
-        return languages
 
     def get_previous_sibling(self, *filter_args, **filter_kwargs):
         # Only consider siblings from this region
@@ -112,57 +93,6 @@ class Page(MPTTModel):
         return (
             super().get_siblings(include_self=include_self).filter(region=self.region)
         )
-
-    def get_translation(self, language_code):
-        """
-        This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the requested :class:`~cms.models.languages.language.Language` code.
-
-        :param language_code: The code of the desired :class:`~cms.models.languages.language.Language`
-        :type language_code: str
-
-        :return: The page translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
-                 if no translation exists
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
-        """
-        return self.translations.filter(language__code=language_code).first()
-
-    def get_first_translation(self, priority_language_codes=None):
-        """
-        Helper function for page labels, second level paths etc. where the ancestor translation might not exist
-        This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the first requested :class:`~cms.models.languages.language.Language` code that matches.
-        So a lower list index means a higher priority.
-
-        :param language_code: A list of :class:`~cms.models.languages.language.Language` codes, defaults to ``None``
-        :type language_code: list [ str ], optional
-
-        :return: The first page translation which matches one of the :class:`~cms.models.languages.language.Language`
-                 given or :obj:`None` if no translation exists
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
-        """
-        # Taking [] directly as default parameter would be dangerous because it is mutable
-        if not priority_language_codes:
-            priority_language_codes = []
-        for language_code in priority_language_codes + ["en-us", "de-de"]:
-            if self.translations.filter(language__code=language_code).exists():
-                return self.translations.filter(language__code=language_code).first()
-        return self.translations.first()
-
-    def get_public_translation(self, language_code):
-        """
-        This function retrieves the newest public translation of a page.
-
-        :param language_code: The code of the requested :class:`~cms.models.languages.language.Language`
-        :type language_code: str
-
-        :return: The public translation of a page
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
-        """
-        return self.translations.filter(
-            language__code=language_code,
-            status=status.PUBLIC,
-        ).first()
 
     def get_mirrored_text(self, language_code):
         """
@@ -200,35 +130,6 @@ class Page(MPTTModel):
             .prefetch_related("translations")
             .filter(region__slug=region_slug, archived=archived)
         )
-
-    def best_language_title(self):
-        """
-        This function tries to determine which title to be used for a page. The first priority is the current backend
-        language. If no translation is present in this language, the fallback is the region's default language.
-
-        :return: The "best" title for showing pages in the backend
-        :rtype: str
-        """
-        page_translation = self.translations.filter(language__code=get_language())
-        if not page_translation:
-            alt_code = self.region.default_language.code
-            page_translation = self.translations.filter(language__code=alt_code)
-        return page_translation.first().title
-
-    def __str__(self):
-        """
-        This overwrites the default Python __str__ method which would return <Page object at 0xDEADBEEF>
-
-        :return: The string representation of the page with information about the most important fields (useful for
-                 debugging purposes)
-        :rtype: str
-        """
-        if self.id:
-            first_translation = self.get_first_translation()
-            if first_translation:
-                return f"(id: {self.id}, slug: {first_translation.slug} ({first_translation.language.code}))"
-            return f"(id: {self.id})"
-        return super().__str__()
 
     class Meta:
         """
