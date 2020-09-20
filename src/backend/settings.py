@@ -62,6 +62,9 @@ BASE_URL = "http://localhost:8000"
 # The protocol and domain of the webapp
 WEBAPP_URL = "https://integreat.app"
 
+# Custom slugs
+IMPRINT_SLUG = "imprint"
+
 # Application definition
 
 INSTALLED_APPS = [
