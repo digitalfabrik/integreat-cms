@@ -81,10 +81,10 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             push_notification_form = PushNotificationForm(
                 request.POST, instance=push_notification
             )
-            success_message = _("Push notification saved successfully.")
+            success_message = _("Push notification was successfully saved")
         else:
             push_notification_form = PushNotificationForm(request.POST)
-            success_message = _("Push notification created successfully.")
+            success_message = _("Push notification was successfully created")
 
         # Then check if translation in current language already exists
         push_notification_translation = PushNotificationTranslation.objects.filter(
@@ -141,7 +141,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
                     push_notification.sent_date = timezone.now()
                     push_notification.save()
                     messages.success(
-                        request, _("Push notification was successfully sent.")
+                        request, _("Push notification was successfully sent")
                     )
                 else:
                     messages.error(

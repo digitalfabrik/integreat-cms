@@ -33,9 +33,9 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         if form.is_valid():
             form.save()
             if language_code:
-                messages.success(request, _("Language saved successfully."))
+                messages.success(request, _("Language was successfully saved"))
             else:
-                messages.success(request, _("Language created successfully"))
+                messages.success(request, _("Language was successfully created"))
         else:
             # TODO: error handling
             # TODO: improve messages

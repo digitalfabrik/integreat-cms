@@ -164,10 +164,10 @@ class EventView(PermissionRequiredMixin, TemplateView):
             if not event_instance:
                 if published:
                     messages.success(
-                        request, _("Event was successfully created and published.")
+                        request, _("Event was successfully created and published")
                     )
                 else:
-                    messages.success(request, _("Event was successfully created."))
+                    messages.success(request, _("Event was successfully created"))
                 return redirect(
                     "edit_event",
                     **{
@@ -180,17 +180,17 @@ class EventView(PermissionRequiredMixin, TemplateView):
                 if published:
                     messages.success(
                         request,
-                        _("Event translation was successfully created and published."),
+                        _("Event translation was successfully created and published"),
                     )
                 else:
                     messages.success(
-                        request, _("Event translation was successfully created.")
+                        request, _("Event translation was successfully created")
                     )
             else:
                 if published:
-                    messages.success(request, _("Event was successfully published."))
+                    messages.success(request, _("Event was successfully published"))
                 else:
-                    messages.success(request, _("Event was successfully saved."))
+                    messages.success(request, _("Event was successfully saved"))
 
         return render(
             request,

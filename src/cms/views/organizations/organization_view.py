@@ -34,10 +34,10 @@ class OrganizationView(PermissionRequiredMixin, TemplateView):
         if organization_id:
             organization = Organization.objects.get(id=organization_id)
             form = OrganizationForm(request.POST, instance=organization)
-            success_message = _("Organization created successfully")
+            success_message = _("Organization was successfully created")
         else:
             form = OrganizationForm(request.POST)
-            success_message = _("Organization saved successfully")
+            success_message = _("Organization was successfully saved")
 
         if form.is_valid():
             form.save()

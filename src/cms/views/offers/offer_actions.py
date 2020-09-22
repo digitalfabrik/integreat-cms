@@ -16,7 +16,7 @@ def activate(request, region_slug, offer_template_slug):
     Offer.objects.create(region=region, template=template)
     messages.success(
         request,
-        _('Offer "%(offer_name)s" was successfully activated.')
+        _('Offer "%(offer_name)s" was successfully activated')
         % {"offer_name": template.name},
     )
     return redirect(
@@ -37,7 +37,7 @@ def deactivate(request, region_slug, offer_template_slug):
     offer.delete()
     messages.success(
         request,
-        _('Offer "%(offer_name)s" was successfully deactivated.')
+        _('Offer "%(offer_name)s" was successfully deactivated')
         % {"offer_name": template.name},
     )
     return redirect(

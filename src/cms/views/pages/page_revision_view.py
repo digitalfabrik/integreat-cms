@@ -148,7 +148,7 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
 
         revision.save()
 
-        messages.success(request, _("The revision has been successfully restored."))
+        messages.success(request, _("The revision was successfully restored"))
 
         page_translations = page.translations.filter(language=language)
 

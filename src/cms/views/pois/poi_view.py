@@ -106,7 +106,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
 
         elif not poi_form.has_changed() and not poi_translation_form.has_changed():
 
-            messages.info(request, _("No changes detected."))
+            messages.info(request, _("No changes detected"))
 
         else:
 
@@ -117,10 +117,10 @@ class POIView(PermissionRequiredMixin, TemplateView):
             if not poi_instance:
                 if published:
                     messages.success(
-                        request, _("Location was successfully created and published.")
+                        request, _("Location was successfully created and published")
                     )
                 else:
-                    messages.success(request, _("Location was successfully created."))
+                    messages.success(request, _("Location was successfully created"))
                 return redirect(
                     "edit_poi",
                     **{
@@ -130,9 +130,9 @@ class POIView(PermissionRequiredMixin, TemplateView):
                     }
                 )
             if published:
-                messages.success(request, _("Location was successfully published."))
+                messages.success(request, _("Location was successfully published"))
             else:
-                messages.success(request, _("Location was successfully saved."))
+                messages.success(request, _("Location was successfully saved"))
 
         return render(
             request,

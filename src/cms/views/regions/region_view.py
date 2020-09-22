@@ -51,9 +51,9 @@ class RegionView(PermissionRequiredMixin, TemplateView):
         region = form.save()
 
         if region_instance:
-            messages.success(request, _("Region saved successfully."))
+            messages.success(request, _("Region was saved successfully"))
         else:
-            messages.success(request, _("Region created successfully"))
+            messages.success(request, _("Region was created successfully"))
 
         return redirect(
             "edit_region",

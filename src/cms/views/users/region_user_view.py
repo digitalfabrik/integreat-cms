@@ -78,9 +78,9 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
 
             if region_user_form.has_changed() or user_profile_form.has_changed():
                 if user_instance:
-                    messages.success(request, _("User was successfully saved."))
+                    messages.success(request, _("User was successfully saved"))
                 else:
-                    messages.success(request, _("User was successfully created."))
+                    messages.success(request, _("User was successfully created"))
                     return redirect(
                         "edit_region_user",
                         **{
