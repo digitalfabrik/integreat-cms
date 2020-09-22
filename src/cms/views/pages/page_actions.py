@@ -509,7 +509,7 @@ def get_pages_list_ajax(request):
         page.save()
         return JsonResponse({"nolist": True})
     region_id = decoded_json["region"]
-    pages = Page.objects.filter(region__id=region_id).order_by("title")
+    pages = Page.objects.filter(region__id=region_id)
     result = []
     for page in pages:
         result.append(
@@ -523,6 +523,7 @@ def get_pages_list_ajax(request):
                 ),
             }
         )
+    result = sorted(result, key=lambda k: k["name"])
     return JsonResponse(result, safe=False)
 
 
