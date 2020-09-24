@@ -66,7 +66,7 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             {
                 "current_menu_item": "events",
                 "events": events,
-                "archived_count": Event.archived_count(region_slug),
+                "archived_count": region.events.filter(archived=True).count(),
                 "language": language,
                 "languages": languages,
             },
