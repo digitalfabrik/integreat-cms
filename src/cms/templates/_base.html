@@ -170,35 +170,65 @@
 	            <i data-feather="sliders" class="absolute"></i>
 		        {% trans 'Settings' %}
 	        </a>
-	    {% else %}
+		{% else %}
 		    <a href="{% url 'admin_dashboard' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_dashboard' %}active{% endif %}">
 			    <i data-feather="grid" class="absolute"></i>
 			    {% trans 'Admin Dashboard' %}
-		    </a>
+			</a>
 		    <a href="{% url 'regions' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'regions' %}active{% endif %}">
 			    <i data-feather="map" class="absolute"></i>
 			    {% trans 'Regions' %}
-		    </a>
+			</a>
+			<div class="dropdown-container flex-col">
+				{% for other_region in other_regions %}
+					<a href="{% url 'dashboard' region_slug=other_region.slug %}">{{ other_region.name }}</a>
+				{% endfor %}
+			</div>		
 		    <a href="{% url 'languages' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'languages' %}active{% endif %}">
 			    <i data-feather="flag" class="absolute"></i>
 			    {% trans 'Languages' %}
-		    </a>
-	    <a href="{% url 'users' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'users' %}active{% endif %}">
-		    <i data-feather="users" class="absolute"></i>
-		    {% trans 'Users' %}
-	    </a>
-	    <a href="{% url 'roles' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'roles' %}active{% endif %}">
-		    <i data-feather="key" class="absolute"></i>
-		    {% trans 'Roles' %}
-	    </a>
+			</a>
+			<div class="dropdown-container flex-col">
+				{% for language in languages %}
+					<a href="{% url 'edit_language' language_code=language.code %}">{{ language.native_name }}</a>
+				{% endfor %}
+			</div>
+			<a href="{% url 'users' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'users' %}active{% endif %}">
+				<i data-feather="users" class="absolute"></i>
+				{% trans 'Users' %}
+			</a>
+			<div class="dropdown-container flex-col">
+				{% for user in users %}
+					<a href="{% url 'edit_user' user_id=user.id %}">{{ user.username }}</a>
+				{% endfor %}
+			</div>
+			<a href="{% url 'roles' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'roles' %}active{% endif %}">
+				<i data-feather="key" class="absolute"></i>
+				{% trans 'Roles' %}
+			</a>
+			<div class="dropdown-container flex-col">
+				{% for role in roles %}
+					<a href="{% url 'edit_role' role_id=role.id %}">{{ role.name }}</a>
+				{% endfor %}
+			</div>
 		    <a href="{% url 'organizations' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'organizations' %}active{% endif %}">
 			    <i data-feather="umbrella" class="absolute"></i>
 			    {% trans 'Organizations' %}
-		    </a>
+			</a>
+			<div class="dropdown-container flex-col">
+				{% for organization in organizations %}
+					<a href="{% url 'edit_organization' organization_id=organization.id %}">{{ organization.name }}</a>
+				{% endfor %}
+			</div>
 		    <a href="{% url 'offer_templates' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'offer_templates' %}active{% endif %}">
 			    <i data-feather="star" class="absolute"></i>
 			    {% trans 'Offer templates' %}
-		    </a>
+			</a>
+			<div class="dropdown-container flex-col">
+				{% for offer_template in offer_templates %}
+					<a href="{% url 'edit_offer_template' offer_template_id=offer_template.id %}">{{ offer_template.name }}</a>
+				{% endfor %}
+			</div>
 		    <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
 			    <i data-feather="thumbs-up" class="absolute"></i>
 			    {% trans 'Feedback' %}
@@ -216,4 +246,7 @@
         {% block content %}{% endblock content %}
     </div>
 </main>
+{% endblock %}
+{% block javascript %}
+	<script src="{% static 'js/dropdown.js' %}"></script>
 {% endblock %}
