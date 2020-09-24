@@ -327,6 +327,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.abstract_base_page">Abstract Base Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.abstract_base_page_translation">Abstract Base Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.imprint_page">Imprint Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.imprint_page_translation">Imprint Page Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.page">Page</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.page_translation">Page Translation</a></li>
 </ul>
@@ -675,25 +679,8 @@ event (related name: <code class="docutils literal notranslate"><span class="pre
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.events.event.Event.archived_count">
-<em class="property">classmethod </em><code class="sig-name descname">archived_count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L114"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.archived_count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Count how many archived events exist in one <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Amount of archived events in requested <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="cms.models.events.event.Event.get_list">
-<em class="property">classmethod </em><code class="sig-name descname">get_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">archived</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L127"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">get_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">archived</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L114"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get events of one specific <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> (either all archived or all not archived
 ones)</p>
 <dl class="field-list simple">
@@ -715,7 +702,7 @@ ones)</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.get_occurrences">
-<code class="sig-name descname">get_occurrences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">end</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L150"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_occurrences" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_occurrences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">end</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_occurrences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get occurrences of the event that overlap with <code class="docutils literal notranslate"><span class="pre">[start,</span> <span class="pre">end]</span></code>.
 Expects <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">end</span></code>.</p>
 <dl class="field-list simple">
@@ -736,7 +723,7 @@ Expects <code class="docutils literal notranslate"><span class="pre">start</span
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.get_public_translation">
-<code class="sig-name descname">get_public_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L218"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_public_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_public_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L205"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_public_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function retrieves the newest public translation of an event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1155,7 +1142,7 @@ takes place (choices: <a class="reference internal" href="cms.constants.html#mod
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 03, 2020.
+        Last updated on Sep 18, 2020.
       </span>
 
     </p>
