@@ -62,7 +62,6 @@ def is_page_publisher(user, page):
 
 
 @predicate
-# pylint: disable=unused-argument
 def can_edit_all_pages(user, page):
     """
     This predicate checks whether the given user can edit all pages.
@@ -70,17 +69,19 @@ def can_edit_all_pages(user, page):
     :param user: The user who's permission should be checked
     :type user: ~django.contrib.auth.models.User
 
-    :param page: Unused page parameter (the function signature must match the other predicates)
+    :param page: The page parameter is used for the region check
     :type page: ~cms.models.pages.page.Page
 
     :return: Whether or not ``user`` can edit all pages
     :rtype: bool
     """
+    if not (user.is_superuser or user.is_staff):
+        if page.region not in user.profile.regions.all():
+            return False
     return user.has_perm("cms.edit_pages")
 
 
 @predicate
-# pylint: disable=unused-argument
 def can_publish_all_pages(user, page):
     """
     This predicate checks whether the given user can publish all pages.
@@ -88,12 +89,15 @@ def can_publish_all_pages(user, page):
     :param user: The user who's permission should be checked
     :type user: ~django.contrib.auth.models.User
 
-    :param page: Unused page parameter (the function signature must match the other predicates)
+    :param page: The page parameter is used for the region check
     :type page: ~cms.models.pages.page.Page
 
     :return: Whether or not ``user`` can publish all pages
     :rtype: bool
     """
+    if not (user.is_superuser or user.is_staff):
+        if page.region not in user.profile.regions.all():
+            return False
     return user.has_perm("cms.publish_pages")
 
 

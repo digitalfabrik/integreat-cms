@@ -11,7 +11,7 @@ from ...models import Region, Offer, OfferTemplate
 @region_permission_required
 @permission_required("cms.manage_offers", raise_exception=True)
 def activate(request, region_slug, offer_template_slug):
-    region = Region.objects.get(slug=region_slug)
+    region = Region.get_current_region(request)
     template = OfferTemplate.objects.get(slug=offer_template_slug)
     Offer.objects.create(region=region, template=template)
     messages.success(
@@ -31,7 +31,7 @@ def activate(request, region_slug, offer_template_slug):
 @region_permission_required
 @permission_required("cms.manage_offers", raise_exception=True)
 def deactivate(request, region_slug, offer_template_slug):
-    region = Region.objects.get(slug=region_slug)
+    region = Region.get_current_region(request)
     template = OfferTemplate.objects.get(slug=offer_template_slug)
     offer = Offer.objects.filter(region=region, template=template).first()
     offer.delete()

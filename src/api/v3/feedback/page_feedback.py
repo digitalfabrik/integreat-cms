@@ -2,7 +2,7 @@ import json
 
 from django.http import HttpResponse
 
-from cms.models import Page, PageFeedback, PageTranslation
+from cms.models import Region, PageFeedback, PageTranslation
 
 
 class FeedbackData:
@@ -56,11 +56,11 @@ class FeedbackData:
 
 
 # pylint: disable=unused-argument
-def feedback(req, region_slug, languages):
-    if req.method != "POST":
+def feedback(request, region_slug, language_code):
+    if request.method != "POST":
         return HttpResponse("Invalid request method.", status=405)
 
-    data = json.loads(req.body)
+    data = json.loads(request.body)
     feedback_data = FeedbackData.from_dict(data)
 
     if not feedback_data.has_id():
@@ -77,12 +77,18 @@ def feedback(req, region_slug, languages):
             status=400,
         )
 
-    page = Page.objects.get(id=feedback_data.page_id)
+    region = Region.get_current_region(request)
+    page = region.pages.filter(id=feedback_data.page_id).first()
     if not page:
-        page_translation = PageTranslation.objects.get(
-            permalink=feedback_data.permalink
+        slug = feedback_data.permalink.split("/")[-1]
+        potential_page_translation = PageTranslation.objects.get(
+            slug=slug,
+            language__code=language_code,
         )
-        page = page_translation.page
+        if potential_page_translation.permalink == feedback_data.permalink:
+            page = potential_page_translation.page
+        else:
+            return HttpResponse("Bad request.", content_type="text/plain", status=400)
 
     try:
         page_feedback = PageFeedback(

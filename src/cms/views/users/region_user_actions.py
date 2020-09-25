@@ -11,11 +11,18 @@ from ...models import Region
 @login_required
 @region_permission_required
 @permission_required("cms.manage_region_users", raise_exception=True)
+# pylint: disable=unused-argument
 def delete_region_user(request, region_slug, user_id):
-    get_user_model().objects.get(
-        id=user_id, profile__regions=Region.objects.get(slug=region_slug)
-    ).delete()
+    region = Region.get_current_region(request)
+    user = get_user_model().objects.get(id=user_id, profile__regions=region)
+    if user.regions.count == 1:
+        user.delete()
+        messages.success(request, _(f"User {user} was successfully deleted."))
+    else:
+        user.profile.regions.remove(region)
+        user.profile.save()
+        messages.success(
+            request, _(f"User {user} was successfully removed from this region.")
+        )
 
-    messages.success(request, _("User was successfully deleted."))
-
-    return redirect("region_users", region_slug=region_slug)
+    return redirect("region_users", region_slug=region.slug)

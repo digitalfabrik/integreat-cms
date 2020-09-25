@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from .constants import position, status, region_status
-from .models import Language, Page, Region
+from .models import Language, Region
 from .forms.language_tree import LanguageTreeNodeForm
 from .forms.languages import LanguageForm
 from .forms.pages import PageForm
@@ -27,11 +27,12 @@ class SetupClass(TestCase):
 
     @staticmethod
     def create_language_tree_node(language_tree_node_data, region_slug=None):
+        region = Region.objects.get(slug=region_slug)
         language_tree_node_form = LanguageTreeNodeForm(
-            data=language_tree_node_data, region_slug=region_slug
+            data=language_tree_node_data, region=region
         )
-        language_tree_node_form.is_valid()
-        return language_tree_node_form.save_language_node()
+        assert language_tree_node_form.is_valid()
+        return language_tree_node_form.save()
 
     @staticmethod
     # pylint: disable=too-many-arguments
@@ -232,5 +233,4 @@ class PageFormTestCase(SetupClass):
         self.assertIsNotNone(self.page_slot_one.get_translation("de-de"))
 
     def test_pages(self):
-        pages = Page.get_tree(region_slug=self.region.slug)
-        self.assertEqual(len(pages), 4)
+        self.assertEqual(self.region.pages.count(), 4)

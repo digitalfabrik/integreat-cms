@@ -29,10 +29,10 @@ urlpatterns = [
                 url(r"languages/$", languages),
                 url(r"offers/$", offers),
                 url(
-                    r"(?P<lan_code>[-\w]+)/sent_push_notifications/$",
+                    r"(?P<language_code>[-\w]+)/sent_push_notifications/$",
                     sent_push_notifications,
                 ),
-                url(r"(?P<languages>[-\w]+)/feedback/$", page_feedback.feedback),
+                url(r"(?P<language_code>[-\w]+)/feedback/$", page_feedback.feedback),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/categories$",
                     region_feedback.region_feedback,

@@ -19,17 +19,15 @@ class OfferListView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         # current region
-        region_slug = kwargs.get("region_slug")
-        region = Region.objects.get(slug=region_slug)
+        region = Region.get_current_region(request)
+        offer_templates = OfferTemplate.objects.all()
 
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
-                "offer_templates": OfferTemplate.objects.all(),
-                "region_offer_templates": [
-                    offer.template for offer in region.offers.all()
-                ],
+                "offer_templates": offer_templates,
+                "region_offer_templates": offer_templates.filter(offers__region=region),
             },
         )

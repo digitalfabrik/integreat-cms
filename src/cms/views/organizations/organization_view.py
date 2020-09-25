@@ -21,7 +21,7 @@ class OrganizationView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "organizations"}
 
     def get(self, request, *args, **kwargs):
-        organization_id = self.kwargs.get("organization_id", None)
+        organization_id = kwargs.get("organization_id")
         if organization_id:
             organization = Organization.objects.get(id=organization_id)
             form = OrganizationForm(instance=organization)

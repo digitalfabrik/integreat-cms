@@ -50,7 +50,7 @@ class AnalyticsView(TemplateView):
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         region_slug = kwargs.get("region_slug")
-        region = Region.objects.get(slug=region_slug)
+        region = Region.get_current_region(request)
         start_date = request.GET.get(
             "start_date", str(date.today() - timedelta(days=30))
         )

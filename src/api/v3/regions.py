@@ -88,7 +88,7 @@ def pushnew(_):
     todo: To be removed on deploy.
     """
     de = Language(code="de", title="Deutsch", text_direction="ltr")
-    dutch = Language(code="nl", title="Nederlands", text_direction="ltr")
+    dutch = Language(code="nl", title="Netherlands", text_direction="ltr")
     de.save()
     dutch.save()
     region = Region(

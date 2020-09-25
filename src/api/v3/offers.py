@@ -29,7 +29,7 @@ def offers(request, region_slug, language_code=None):
     Returns:
         [String]: [description]
     """
-    region = Region.objects.get(slug=region_slug)
+    region = Region.get_current_region(request)
     result = []
     for offer in region.offers.all():
         result.append(transform_offer(offer))

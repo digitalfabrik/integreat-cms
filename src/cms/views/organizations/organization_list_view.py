@@ -18,10 +18,8 @@ class OrganizationListView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "organizations"}
 
     def get(self, request, *args, **kwargs):
-        organizations = Organization.objects.all()
-
         return render(
             request,
             self.template_name,
-            {**self.base_context, "organizations": organizations},
+            {**self.base_context, "organizations": Organization.objects.all()},
         )

@@ -109,28 +109,6 @@ class Page(MPTTModel, AbstractBasePage):
             return self.mirrored_page.get_translation(language_code).text
         return None
 
-    @classmethod
-    def get_tree(cls, region_slug, archived=False):
-        """
-        Get all pages of one specific :class:`~cms.models.regions.region.Region` (either all archived or all not
-        archived ones) together with its tree relations
-
-        :param region_slug: slug of the :class:`~cms.models.regions.region.Region` the page belongs to
-        :type region_slug: str
-
-        :param archived: whether or not archived pages should be returned, defaults to ``False``
-        :type archived: bool, optional
-
-        :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived pages in the requested
-                 :class:`~cms.models.regions.region.Region`
-        :rtype: ~django.db.models.query.QuerySet
-        """
-        return (
-            cls.objects.all()
-            .prefetch_related("translations")
-            .filter(region__slug=region_slug, archived=archived)
-        )
-
     class Meta:
         """
         This class contains additional meta configuration of the model class, see the

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
-from ...models import Language, Region, Event
+from ...models import Region
 
 
 @method_decorator(login_required, name="dispatch")
@@ -27,18 +27,17 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         # current region
-        region_slug = kwargs.get("region_slug")
-        region = Region.objects.get(slug=region_slug)
+        region = Region.get_current_region(request)
 
         # current language
-        language_code = kwargs.get("language_code", None)
-        if language_code is not None:
-            language = Language.objects.get(code=language_code)
+        language_code = kwargs.get("language_code")
+        if language_code:
+            language = region.languages.get(code=language_code)
         elif region.default_language is not None:
             return redirect(
                 "events",
                 **{
-                    "region_slug": region_slug,
+                    "region_slug": region.slug,
                     "language_code": region.default_language.code,
                 }
             )
@@ -47,27 +46,21 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 request,
                 _("Please create at least one language node before creating events."),
             )
-            return redirect("language_tree", **{"region_slug": region_slug})
+            return redirect("language_tree", **{"region_slug": region.slug})
 
         if not request.user.has_perm("cms.edit_events"):
             messages.warning(
                 request, _("You don't have the permission to edit or create events.")
             )
 
-        # all events of the current region in the current language
-        events = Event.get_list(region_slug, archived=self.archived)
-
-        # all other languages of current region
-        languages = region.languages
-
         return render(
             request,
             self.template_name,
             {
                 "current_menu_item": "events",
-                "events": events,
+                "events": region.events.filter(archived=self.archived),
                 "archived_count": region.events.filter(archived=True).count(),
                 "language": language,
-                "languages": languages,
+                "languages": region.languages,
             },
         )

@@ -4,6 +4,7 @@ from django.http import Http404
 from django.utils import timezone
 
 from ...constants import region_status, administrative_division
+from ..languages.language import Language
 
 
 class Region(models.Model):
@@ -94,16 +95,13 @@ class Region(models.Model):
     @property
     def languages(self):
         """
-        This property returns a list of all :class:`~cms.models.languages.language.Language` objects which have a
+        This property returns a QuerySet of all :class:`~cms.models.languages.language.Language` objects which have a
         :class:`~cms.models.languages.language_tree_node.LanguageTreeNode` which belongs to this region.
 
-        :return: A list of all :class:`~cms.models.languages.language.Language` object instances of a region
-        :rtype: list [ ~cms.models.languages.language.Language ]
+        :return: A QuerySet of all :class:`~cms.models.languages.language.Language` object instances of a region
+        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.languages.language.Language ]
         """
-        language_tree_nodes = self.language_tree_nodes.select_related("language").all()
-        return [
-            language_tree_node.language for language_tree_node in language_tree_nodes
-        ]
+        return Language.objects.filter(language_tree_nodes__region=self)
 
     @property
     def default_language(self):

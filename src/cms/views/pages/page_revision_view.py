@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -27,9 +27,12 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
-        page = region.pages.get(pk=kwargs.get("page_id"))
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        region = Region.get_current_region(request)
+        page = get_object_or_404(region.pages, id=kwargs.get("page_id"))
+
+        language = get_object_or_404(
+            region.language_tree_nodes, language__code=kwargs.get("language_code")
+        ).language
 
         page_translations = page.translations.filter(language=language)
 
@@ -86,8 +89,8 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
-        page = region.pages.get(pk=kwargs.get("page_id"))
+        region = Region.get_current_region(request)
+        page = region.pages.get(id=kwargs.get("page_id"))
 
         if not request.user.has_perm("cms.edit_page", page):
             raise PermissionDenied

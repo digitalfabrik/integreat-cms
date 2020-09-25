@@ -21,10 +21,10 @@ class PushNotificationListView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         # current region
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
 
         # current language
-        language_code = kwargs.get("language_code", None)
+        language_code = kwargs.get("language_code")
         if language_code:
             language = Language.objects.get(code=language_code)
         elif region.default_language:

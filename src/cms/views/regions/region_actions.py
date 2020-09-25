@@ -16,7 +16,7 @@ def delete_region(request, *args, **kwargs):
     if not request.user.has_perm("cms.manage_regions"):
         raise PermissionDenied
 
-    region = Region.objects.get(slug=kwargs.get("region_slug"))
+    region = Region.get_current_region(request)
     region.delete()
 
     messages.success(request, _("Region was successfully deleted."))

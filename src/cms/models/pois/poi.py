@@ -1,6 +1,6 @@
 from django.db import models
 
-from ..regions.region import Region
+from ..regions.region import Region, Language
 from ...constants import status
 
 
@@ -37,43 +37,16 @@ class POI(models.Model):
     longitude = models.FloatField()
     archived = models.BooleanField(default=False)
 
-    @classmethod
-    def get_list(cls, region_slug, archived=False):
-        """
-        Get all POIs of one specific :class:`~cms.models.regions.region.Region` (either all archived or all not
-        archived ones)
-
-        :param region_slug: slug of the :class:`~cms.models.regions.region.Region` the POI belongs to
-        :type region_slug: str
-
-        :param archived: whether or not archived POIs should be returned, defaults to ``False``
-        :type archived: bool, optional
-
-        :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived POIs in the requested
-                 :class:`~cms.models.regions.region.Region`
-        :rtype: ~django.db.models.query.QuerySet
-        """
-
-        return (
-            cls.objects.all()
-            .prefetch_related("translations")
-            .filter(region__slug=region_slug, archived=archived)
-        )
-
     @property
     def languages(self):
         """
-        This property returns a list of all :class:`~cms.models.languages.language.Language` objects, to which a POI
+        This property returns a QuerySet of all :class:`~cms.models.languages.language.Language` objects, to which a POI
         translation exists.
 
-        :return: list of all :class:`~cms.models.languages.language.Language` a POI is translated into
-        :rtype: list [ ~cms.models.languages.language.Language ]
+        :return: QuerySet of all :class:`~cms.models.languages.language.Language` a POI is translated into
+        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.languages.language.Language ]
         """
-        poi_translations = self.translations.prefetch_related("language").all()
-        languages = []
-        for poi_translation in poi_translations:
-            languages.append(poi_translation.language)
-        return languages
+        return Language.objects.filter(poi_translations__poi=self)
 
     def get_translation(self, language_code):
         """

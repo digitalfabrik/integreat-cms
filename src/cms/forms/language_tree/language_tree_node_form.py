@@ -1,8 +1,12 @@
+import logging
+
 from django import forms
-from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from ...models import LanguageTreeNode, Region
+from ...models import Language, LanguageTreeNode
+
+
+logger = logging.getLogger(__name__)
 
 
 class LanguageField(forms.ModelChoiceField):
@@ -28,35 +32,44 @@ class LanguageTreeNodeForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        region_slug = kwargs.pop("region_slug", None)
-        if region_slug:
-            self.region = Region.objects.get(slug=region_slug)
+        logger.info(
+            "LanguageTreeNodeForm instantiated with data %s and instance %s",
+            kwargs.get("data"),
+            kwargs.get("instance"),
+        )
+
+        # current region
+        region = kwargs.pop("region", None)
+
         super().__init__(*args, **kwargs)
 
-    def save_language_node(self, language_tree_node_id=None):
-        """Function to create or update a page
-        language_tree_node_id ([Integer], optional): Defaults to None. If it's not set creates
-        a language tree node or update the language tree node with the given page id.
-        """
+        parent_queryset = region.language_tree_nodes
+        excluded_languages = region.languages.exclude(language_tree_nodes=self.instance)
 
-        # TODO: version, active_version
-        if language_tree_node_id:
-            # save language tree node
-            language_tree_node = LanguageTreeNode.objects.get(id=language_tree_node_id)
-            language_tree_node.language = self.cleaned_data["language"]
-            language_tree_node.active = self.cleaned_data["active"]
-            language_tree_node.parent = self.cleaned_data["parent"]
-            language_tree_node.save()
+        if self.instance.id:
+            children = self.instance.get_descendants(include_self=True)
+            parent_queryset = parent_queryset.difference(children)
         else:
-            # create language tree node
-            language_tree_node = LanguageTreeNode.objects.create(
-                language=self.cleaned_data["language"],
-                region=self.region,
-                active=self.cleaned_data["active"],
-                parent=self.cleaned_data["parent"],
-            )
+            self.instance.region = region
 
-        return language_tree_node
+        # limit possible parents to nodes of current region
+        self.fields["parent"].queryset = parent_queryset
+        # limit possible languages to those which are not yet included in the tree
+        self.fields["language"].queryset = Language.objects.exclude(
+            id__in=excluded_languages
+        )
+
+    def save(self, commit=True):
+        """
+        Function to create or update a language tree node
+        """
+        logger.info(
+            "LanguageTreeNodeForm saved with cleaned data %s and changed data %s",
+            self.cleaned_data,
+            self.changed_data,
+        )
+
+        return super().save(commit=commit)
 
     def clean(self):
         """
@@ -64,22 +77,26 @@ class LanguageTreeNodeForm(forms.ModelForm):
             If self is a root node and the region already has a default language,
             raise a validation error.
         """
-        if not self.cleaned_data["parent"] and self.region.default_language:
-            raise ValidationError(
-                _(
-                    "This region has already a default language."
-                    "Please specify a source language for this language."
-                )
-            )
-        #    Require all nodes of one tree to have the same region:
-        #    If self has a parent node, check if the parent's region equals the region of self.
-        if (
-            self.cleaned_data["parent"]
-            and self.cleaned_data["parent"].region != self.region
+        cleaned_data = super().clean()
+        logger.info("LanguageTreeNodeForm cleaned with cleaned data %s", cleaned_data)
+        default_language = self.instance.region.default_language
+        # There are two cases in which this error is thrown.
+        # Both cases include that the parent field is None.
+        # 1. The instance does exist:
+        #   - The default language is different from the instance language
+        # 2. The instance does not exist:
+        #   - The default language exists
+        if not cleaned_data.get("parent") and (
+            (self.instance.id and default_language != self.instance.language)
+            or (not self.instance.id and default_language)
         ):
-            raise ValidationError(
-                _(
-                    "The source language belongs to another region."
-                    "Please specify a source language of this region."
-                )
+            self.add_error(
+                "parent",
+                forms.ValidationError(
+                    _(
+                        "This region has already a default language."
+                        "Please specify a source language for this language."
+                    ),
+                    code="invalid",
+                ),
             )
