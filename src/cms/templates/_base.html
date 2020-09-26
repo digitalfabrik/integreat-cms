@@ -129,7 +129,17 @@
 	        <a href="{% url 'pages' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'pages' %}active{% endif %}">
 	            <i data-feather="layout" class="absolute"></i>
 		        {% trans 'Pages' %}
-	        </a>
+			</a>
+			<div class="dropdown-container flex-col">
+				<a href="{% url 'pages' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'pages' %}active{% endif %}">
+					{% trans 'All pages' %}
+				</a>
+				{% if region.default_language == language %}
+					<a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'new_page' %}active{% endif %}">
+						{% trans 'Create page' %}
+					</a>
+				{% endif %}
+			</div>
 	        <a href="{% url 'events' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'events' %}active{% endif %}">
 	            <i data-feather="calendar" class="absolute"></i>
 		        {% trans 'Events' %}

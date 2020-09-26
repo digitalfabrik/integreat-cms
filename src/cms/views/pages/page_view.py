@@ -115,6 +115,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
                 # Languages for tab view
                 "languages": region.languages if page else [language],
                 "side_by_side_language_options": side_by_side_language_options,
+                "current_menu_item": "new_page",
             },
         )
 
