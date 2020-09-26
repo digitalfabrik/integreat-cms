@@ -636,10 +636,10 @@
 <p>API-endpoint to deliver a JSON with all active languages of an region.</p>
 <dl class="py function">
 <dt id="api.v3.languages.languages">
-<code class="sig-prename descclassname">api.v3.languages.</code><code class="sig-name descname">languages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em>, <em class="sig-param"><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/languages.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.languages.languages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.languages.</code><code class="sig-name descname">languages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/languages.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.languages.languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to add all languages related to a region to a JSON.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>_ : Originally the request paramenter, but is not used in this case.
+<dt>Args:</dt><dd><p>request : Originally the request parameter, but is not used in this case.
 region_slug ([String]): Slug to identify the desired region.</p>
 </dd>
 <dt>Returns:</dt><dd><p>[String]: JSON with all used languages in a region.</p>
@@ -695,7 +695,7 @@ todo: To be removed on deploy.</p>
 be selected via the id or the permalink.</p>
 <dl class="py function">
 <dt id="api.v3.single_page.single_page">
-<code class="sig-prename descclassname">api.v3.single_page.</code><code class="sig-name descname">single_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/single_page.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.single_page.single_page" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.single_page.</code><code class="sig-name descname">single_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/single_page.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.single_page.single_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>View function returning the desired page as a JSON or a 404 if the
 requested page does not exist.</p>
 <dl class="field-list simple">
@@ -747,7 +747,7 @@ requested page does not exist.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 20, 2020.
+        Last updated on Sep 25, 2020.
       </span>
 
     </p>
