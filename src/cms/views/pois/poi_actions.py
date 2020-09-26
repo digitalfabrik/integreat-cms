@@ -24,7 +24,7 @@ def archive_poi(request, poi_id, region_slug, language_code):
     poi.archived = True
     poi.save()
 
-    messages.success(request, _("POI was successfully archived."))
+    messages.success(request, _("Locations on map was successfully archived."))
 
     return redirect(
         "pois",
@@ -44,7 +44,7 @@ def restore_poi(request, poi_id, region_slug, language_code):
     poi.archived = False
     poi.save()
 
-    messages.success(request, _("POI was successfully restored."))
+    messages.success(request, _("Locations on map was successfully restored."))
 
     return redirect(
         "pois",
@@ -61,7 +61,7 @@ def delete_poi(request, poi_id, region_slug, language_code):
 
     poi = POI.objects.get(id=poi_id)
     poi.delete()
-    messages.success(request, _("POI was successfully deleted."))
+    messages.success(request, _("Locations on map was successfully deleted."))
 
     return redirect(
         "pois",
