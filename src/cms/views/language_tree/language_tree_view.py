@@ -18,7 +18,8 @@ class LanguageTreeView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "language_tree"}
 
     def get(self, request, *args, **kwargs):
-        language_tree = Region.get_current_region(request).language_tree_nodes.all()
+        region = Region.get_current_region(request)
+        language_tree = region.language_tree_nodes.all()
 
         return render(
             request,

@@ -7,11 +7,12 @@ from ...models import Document, Region
 
 @login_required
 @region_permission_required
+# pylint: disable=unused-argument
 def delete_file(request, document_id, region_slug):
-    region = Region.objects.get(slug=region_slug)
+    region = Region.get_current_region(request)
 
     if request.method == "POST":
-        document = Document.objects.get(pk=document_id)
+        document = Document.objects.get(id=document_id)
         document.delete()
 
     return redirect("media", **{"region_slug": region.slug})

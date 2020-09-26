@@ -8,19 +8,20 @@ import logging
 import os
 import uuid
 
+from mptt.exceptions import InvalidMove
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import ugettext as _
 from django.views.static import serve
-from mptt.exceptions import InvalidMove
 
 from ...decorators import region_permission_required, staff_required
 from ...forms.pages import PageForm
-from ...models import Page, Language, Region, LanguageTreeNode
+from ...models import Page, Language, Region
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 
 logger = logging.getLogger(__name__)
@@ -29,7 +30,8 @@ logger = logging.getLogger(__name__)
 @login_required
 @region_permission_required
 def archive_page(request, page_id, region_slug, language_code):
-    page = Page.objects.get(id=page_id)
+    region = Region.get_current_region(request)
+    page = get_object_or_404(region.pages, id=page_id)
 
     if not request.user.has_perm("cms.edit_page", page):
         raise PermissionDenied
@@ -51,7 +53,8 @@ def archive_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 def restore_page(request, page_id, region_slug, language_code):
-    page = Page.objects.get(id=page_id)
+    region = Region.get_current_region(request)
+    page = get_object_or_404(region.pages, id=page_id)
 
     if not request.user.has_perm("cms.edit_page", page):
         raise PermissionDenied
@@ -75,8 +78,10 @@ def restore_page(request, page_id, region_slug, language_code):
 @permission_required("cms.view_pages", raise_exception=True)
 # pylint: disable=unused-argument
 def view_page(request, page_id, region_slug, language_code):
+    region = Region.get_current_region(request)
+    page = get_object_or_404(region.pages, id=page_id)
+
     template_name = "pages/page_view.html"
-    page = Page.objects.get(id=page_id)
 
     page_translation = page.get_translation(language_code)
 
@@ -86,8 +91,8 @@ def view_page(request, page_id, region_slug, language_code):
 @login_required
 @staff_required
 def delete_page(request, page_id, region_slug, language_code):
-
-    page = Page.objects.get(id=page_id)
+    region = Region.get_current_region(request)
+    page = get_object_or_404(region.pages, id=page_id)
 
     if page.children.exists():
         messages.error(request, _("You cannot delete a page which has children."))
@@ -107,7 +112,7 @@ def delete_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required("cms.view_pages", raise_exception=True)
-def download_xliff(request, region_slug, language_code):  # pylint: disable=W0613
+def download_xliff(request, region_slug, language_code):
     """
     Create zip file that contains XLIFF files for target language.
     """
@@ -116,11 +121,13 @@ def download_xliff(request, region_slug, language_code):  # pylint: disable=W061
         if page_id.isnumeric():
             page_ids.append(int(page_id))
     if page_ids:
-        target_language = Language.objects.get(code=request.GET.get("target_lang"))
-        pages = Page.objects.filter(id__in=page_ids)
-        region = Region.objects.get(slug=region_slug)
-        source_language = LanguageTreeNode.objects.get(
-            region=region, language=target_language
+        region = Region.get_current_region(request)
+        pages = get_list_or_404(region.pages, id__in=page_ids)
+        target_language = get_object_or_404(
+            region.language_tree_nodes, language__code=request.GET.get("target_lang")
+        ).language
+        source_language = get_object_or_404(
+            region.language_tree_nodes, language=target_language
         ).parent.language
         page_xliff_helper = PageXliffHelper(
             src_lang=source_language, tgt_lang=target_language
@@ -211,10 +218,11 @@ def confirm_xliff_import(request, region_slug, language_code):
 @permission_required("cms.edit_pages", raise_exception=True)
 # pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_code, page_id, target_id, position):
+    region = Region.get_current_region(request)
+    page = get_object_or_404(region.pages, id=page_id)
+    target = get_object_or_404(region.pages, id=target_id)
 
     try:
-        page = Page.objects.get(id=page_id)
-        target = Page.objects.get(id=target_id)
         page.move_to(target, position)
         messages.success(
             request,
@@ -222,7 +230,7 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
                 page=page.get_first_translation([language_code]).title
             ),
         )
-    except (Page.DoesNotExist, ValueError, InvalidMove) as e:
+    except (ValueError, InvalidMove) as e:
         messages.error(request, e)
         logger.exception(e)
 
@@ -450,14 +458,16 @@ def revoke_page_permission_ajax(request):
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
+# pylint: disable=unused-argument
 def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
 
-    page = Page.objects.get(id=page_id, region__slug=region_slug)
+    region = Region.get_current_region(request)
+    page = get_object_or_404(region.pages, id=page_id)
 
     if parent_id == "0":
-        siblings = Page.objects.filter(level=0, region__slug=region_slug)
+        siblings = region.pages.filter(level=0)
     else:
-        siblings = Page.objects.filter(parent__id=parent_id, region__slug=region_slug)
+        siblings = region.pages.filter(parent__id=parent_id)
 
     logger.debug(
         "Page order table for page %s and siblings %s",
@@ -478,12 +488,15 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
+# pylint: disable=unused-argument
 def get_new_page_order_table_ajax(request, region_slug, parent_id):
 
+    region = Region.get_current_region(request)
+
     if parent_id == "0":
-        siblings = Page.objects.filter(level=0, region__slug=region_slug)
+        siblings = region.pages.filter(level=0)
     else:
-        siblings = Page.objects.filter(parent__id=parent_id, region__slug=region_slug)
+        siblings = region.pages.filter(parent__id=parent_id)
 
     logger.debug(
         "Page order table for a new page and siblings %s",
@@ -500,18 +513,25 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
 
 
 @login_required
-@permission_required("cms.edit_pages", raise_exception=True)
 def get_pages_list_ajax(request):
     decoded_json = json.loads(request.body.decode("utf-8"))
     if "region" not in decoded_json or decoded_json["region"] == "":
         page = Page.objects.get(id=decoded_json["current_page"])
+
+        if not request.user.has_perm("cms.edit_page", page):
+            logger.info(
+                "Error: The user %s cannot edit page %s.",
+                request.user.username,
+                page,
+            )
+            raise PermissionDenied
+
         page.mirrored_page = None
         page.save()
         return JsonResponse({"nolist": True})
-    region_id = decoded_json["region"]
-    pages = Page.objects.filter(region__id=region_id)
+    region = get_object_or_404(Region, id=decoded_json["region"])
     result = []
-    for page in pages:
+    for page in region.pages.all():
         result.append(
             {
                 "id": page.id,
@@ -528,10 +548,18 @@ def get_pages_list_ajax(request):
 
 
 @login_required
-@permission_required("cms.edit_pages", raise_exception=True)
 def save_mirrored_page(request):
     decoded_json = json.loads(request.body.decode("utf-8"))
     page = Page.objects.get(id=decoded_json["current_page"])
+
+    if not request.user.has_perm("cms.edit_page", page):
+        logger.info(
+            "Error: The user %s cannot edit page %s.",
+            request.user.username,
+            page,
+        )
+        raise PermissionDenied
+
     if int(decoded_json["mirrored_page"]) == 0:
         page.mirrored_page = None
     else:

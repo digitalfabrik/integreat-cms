@@ -5,7 +5,7 @@ from django.db import models
 
 from .recurrence_rule import RecurrenceRule
 from ..pois.poi import POI
-from ..regions.region import Region
+from ..regions.region import Region, Language
 from ...constants import frequency, status
 
 
@@ -52,17 +52,13 @@ class Event(models.Model):
     @property
     def languages(self):
         """
-        This property returns a list of all :class:`~cms.models.languages.language.Language` objects, to which an event
+        This property returns a QuerySet of all :class:`~cms.models.languages.language.Language` objects, to which an event
         translation exists.
 
-        :return: list of all :class:`~cms.models.languages.language.Language` an event is translated into
-        :rtype: list [ ~cms.models.languages.language.Language ]
+        :return: QuerySet of all :class:`~cms.models.languages.language.Language` an event is translated into
+        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.languages.language.Language ]
         """
-        event_translations = self.translations.prefetch_related("language").all()
-        languages = []
-        for event_translation in event_translations:
-            languages.append(event_translation.language)
-        return languages
+        return Language.objects.filter(event_translations__event=self)
 
     @property
     def is_recurring(self):
@@ -110,29 +106,6 @@ class Event(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(language__code=language_code).first()
-
-    @classmethod
-    def get_list(cls, region_slug, archived=False):
-        """
-        Get events of one specific :class:`~cms.models.regions.region.Region` (either all archived or all not archived
-        ones)
-
-        :param region_slug: slug of the :class:`~cms.models.regions.region.Region` the event belongs to
-        :type region_slug: str
-
-        :param archived: whether or not archived events should be returned, defaults to ``False``
-        :type archived: bool, optional
-
-        :return: A :class:`~django.db.models.query.QuerySet` of either archived or not archived events in the requested
-                 :class:`~cms.models.regions.region.Region`
-        :rtype: ~django.db.models.query.QuerySet
-        """
-        events = (
-            cls.objects.all()
-            .prefetch_related("translations")
-            .filter(region__slug=region_slug, archived=archived)
-        )
-        return events
 
     def get_occurrences(self, start, end):
         """

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -27,17 +27,18 @@ class EventView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        region = Region.get_current_region(request)
+        language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
 
         # get event and event translation objects if they exist, otherwise objects are None
-        event_instance = Event.objects.filter(id=kwargs.get("event_id")).first()
-        event_translation_instance = EventTranslation.objects.filter(
-            event=event_instance, language=language
+        event_instance = region.events.filter(id=kwargs.get("event_id")).first()
+        event_translation_instance = language.event_translations.filter(
+            event=event_instance
         ).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(
             event=event_instance
         ).first()
-        poi_instance = POI.objects.filter(events=event_instance).first()
+        poi_instance = region.pois.filter(events=event_instance).first()
 
         # Make form disabled if user has no permission to edit the page
         if not request.user.has_perm("cms.edit_events"):
@@ -71,15 +72,13 @@ class EventView(PermissionRequiredMixin, TemplateView):
                 "recurrence_rule_form": recurrence_rule_form,
                 "poi": poi_instance,
                 "language": language,
-                "languages": Region.get_current_region(request).languages
-                if event_instance
-                else [language],
+                "languages": region.languages if event_instance else [language],
             },
         )
 
     # pylint: disable=too-many-locals,too-many-branches
     def post(self, request, **kwargs):
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
         language = Language.objects.get(code=kwargs.get("language_code"))
         poi = POI.objects.filter(id=request.POST.get("poi_id")).first()
 

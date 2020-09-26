@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.apps import apps
 
 from gvz_api.utils import GvzRegion
-from ...models import Region, Page, PageTranslation, LanguageTreeNode
+from ...models import Region, PageTranslation, LanguageTreeNode
 from ...utils.slug_utils import generate_unique_slug
 
 logger = logging.getLogger(__name__)
@@ -176,9 +176,7 @@ def duplicate_pages(
 
     # At first, get all pages from the source region with a specific parent page
     # As the parent will be None for the initial call, this returns all pages from the root level
-    for target_page in Page.objects.filter(
-        region=source_region, parent__id=source_parent_id
-    ).all():
+    for target_page in source_region.pages.filter(parent__id=source_parent_id):
         logger.info(
             "%s Source page %s started", "|  " * (level + 1) + "├" + "─", target_page
         )

@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.pages import PageTranslationForm
-from ...models import Page, Region, Language
+from ...models import Region, Language
 
 
 @method_decorator(login_required, name="dispatch")
@@ -27,8 +27,8 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
-        page = Page.objects.get(pk=kwargs.get("page_id"))
+        region = Region.get_current_region(request)
+        page = region.pages.get(id=kwargs.get("page_id"))
 
         target_language = Language.objects.get(code=kwargs.get("language_code"))
         source_language_node = region.language_tree_nodes.get(
@@ -90,11 +90,15 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
 
-        if not request.user.has_perm("cms.edit_pages"):
-            raise PermissionDenied
+        region = Region.get_current_region(request)
+        page = region.pages.get(id=kwargs.get("page_id"))
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
-        page = Page.objects.get(pk=kwargs.get("page_id"))
+        if not request.user.has_perm("cms.edit_page", page):
+            messages.warning(
+                request,
+                _("You don't have the permission to edit this page."),
+            )
+            raise PermissionDenied
 
         target_language = Language.objects.get(code=kwargs.get("language_code"))
         source_language_node = region.language_tree_nodes.get(

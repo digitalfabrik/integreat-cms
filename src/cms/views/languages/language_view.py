@@ -21,14 +21,13 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "languages"}
 
     def get(self, request, *args, **kwargs):
-        language_code = self.kwargs.get("language_code", None)
-        language = Language.objects.filter(code=language_code).first()
+        language = Language.objects.filter(code=kwargs.get("language_code")).first()
         form = LanguageForm(instance=language)
         return render(request, self.template_name, {"form": form, **self.base_context})
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
-        language_code = self.kwargs.get("language_code", None)
+        language_code = kwargs.get("language_code")
         language = Language.objects.filter(code=language_code).first()
         form = LanguageForm(request.POST, instance=language)
         if form.is_valid():

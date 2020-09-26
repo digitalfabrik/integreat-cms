@@ -32,8 +32,9 @@ def transform_page(page_translation):
     }
 
 
+# pylint: disable=unused-argument
 def pages(request, region_slug, language_code):
-    region = Region.objects.get(slug=region_slug)
+    region = Region.get_current_region(request)
     result = []
     for page in region.pages.all():
         page_translation = page.get_public_translation(language_code)

@@ -21,7 +21,7 @@ class RoleView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "roles"}
 
     def get(self, request, *args, **kwargs):
-        role_id = self.kwargs.get("role_id", None)
+        role_id = kwargs.get("role_id")
         if role_id:
             role = Role.objects.get(id=role_id)
             form = RoleForm(instance=role)

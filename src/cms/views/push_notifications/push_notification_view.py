@@ -31,7 +31,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
         push_notification = PushNotification.objects.filter(
             id=kwargs.get("push_notification_id")
         ).first()
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
         language = Language.objects.get(code=kwargs.get("language_code"))
         if push_notification:
             push_notification_form = PushNotificationForm(instance=push_notification)
@@ -70,7 +70,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             if not request.user.has_perm("cms.send_push_notifications"):
                 raise PermissionDenied
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
         language = Language.objects.get(code=kwargs.get("language_code"))
 
         # At first check if push notification exists already

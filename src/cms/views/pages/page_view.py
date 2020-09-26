@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -18,7 +18,7 @@ from django.views.generic import TemplateView
 from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.pages import PageForm, PageTranslationForm
-from ...models import Page, PageTranslation, Region, Language
+from ...models import PageTranslation, Region
 
 logger = logging.getLogger(__name__)
 
@@ -34,12 +34,11 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
-
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        region = Region.get_current_region(request)
+        language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
 
         # get page and translation objects if they exist
-        page = Page.objects.filter(id=kwargs.get("page_id")).first()
+        page = region.pages.filter(id=kwargs.get("page_id")).first()
         page_translation = PageTranslation.objects.filter(
             page=page,
             language=language,
@@ -99,7 +98,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
         # Pass siblings to template to enable rendering of page order table
         if not page or not page.parent:
-            siblings = Page.objects.filter(level=0, region=region)
+            siblings = region.pages.filter(level=0)
         else:
             siblings = page.parent.children.all()
 
@@ -122,10 +121,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        region = Region.get_current_region(request)
+        language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
 
-        page_instance = Page.objects.filter(id=kwargs.get("page_id")).first()
+        page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
         page_translation_instance = PageTranslation.objects.filter(
             page=page_instance,
             language=language,
@@ -133,7 +132,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
         # Pass siblings to template to enable rendering of page order table
         if not page_instance or not page_instance.parent:
-            siblings = Page.objects.filter(level=0, region=region)
+            siblings = region.pages.filter(level=0)
         else:
             siblings = page_instance.parent.children.all()
 

@@ -7,12 +7,12 @@ from django.http import HttpResponse, JsonResponse
 from cms.models import Region
 
 
-def languages(_, region_slug):
+def languages(request, region_slug):
     """
     Function to add all languages related to a region to a JSON.
 
     Args:
-        _ : Originally the request paramenter, but is not used in this case.
+        request : Originally the request parameter, but is not used in this case.
         region_slug ([String]): Slug to identify the desired region.
 
     Returns:

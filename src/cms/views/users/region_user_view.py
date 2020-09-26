@@ -23,7 +23,7 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
 
         # filter by region to make sure no users from other regions can be changed through this view
         user = (
@@ -52,7 +52,7 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
 
         # filter by region to make sure no users from other regions can be changed through this view
         user_instance = (

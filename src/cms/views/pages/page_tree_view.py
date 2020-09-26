@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
-from ...models import Page, Region, Language
+from ...models import Region, Language
 
 
 @method_decorator(login_required, name="dispatch")
@@ -27,10 +27,10 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         # current region
         region_slug = kwargs.get("region_slug")
-        region = Region.objects.get(slug=region_slug)
+        region = Region.get_current_region(request)
 
         # current language
-        language_code = kwargs.get("language_code", None)
+        language_code = kwargs.get("language_code")
         if language_code:
             language = Language.objects.get(code=language_code)
         elif region.default_language:
@@ -53,12 +53,6 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
                 }
             )
 
-        # all pages of the current region in the current language
-        pages = Page.get_tree(region_slug, archived=self.archived)
-
-        # all other languages of current region
-        languages = region.languages
-
         if not request.user.has_perm("cms.edit_page"):
             messages.warning(
                 request, _("You don't have the permission to edit or create pages.")
@@ -69,9 +63,9 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
             self.template_name,
             {
                 "current_menu_item": "pages",
-                "pages": pages,
+                "pages": region.pages.filter(archived=self.archived),
                 "archived_count": region.pages.filter(archived=True).count(),
                 "language": language,
-                "languages": languages,
+                "languages": region.languages,
             },
         )

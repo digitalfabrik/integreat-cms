@@ -16,12 +16,11 @@ class MediaEditView(TemplateView):
     base_context = {"current_menu_item": "media"}
 
     def get(self, request, *args, **kwargs):
-        slug = kwargs.get("region_slug")
-        region = Region.objects.get(slug=slug)
+        region = Region.get_current_region(request)
         document_id = kwargs.get("document_id")
         form = DocumentForm()
         if document_id != "0":
-            document = Document.objects.get(pk=document_id)
+            document = Document.objects.get(id=document_id)
             form = DocumentForm(instance=document)
 
         return render(
@@ -37,7 +36,7 @@ class MediaEditView(TemplateView):
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         # current region
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
 
         result = save_file(request)
 

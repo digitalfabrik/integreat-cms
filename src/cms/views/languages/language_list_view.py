@@ -18,8 +18,8 @@ class LanguageListView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "languages"}
 
     def get(self, request, *args, **kwargs):
-        languages = Language.objects.all()
-
         return render(
-            request, self.template_name, {**self.base_context, "languages": languages}
+            request,
+            self.template_name,
+            {**self.base_context, "languages": Language.objects.all()},
         )

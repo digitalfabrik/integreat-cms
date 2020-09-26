@@ -20,7 +20,7 @@ class RegionUserListView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
 
         region_users = get_user_model().objects.filter(
             profile__regions=region,

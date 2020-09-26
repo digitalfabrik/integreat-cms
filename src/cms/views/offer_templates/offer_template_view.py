@@ -21,7 +21,7 @@ class OfferTemplateView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "offer_templates"}
 
     def get(self, request, *args, **kwargs):
-        offer_template_id = self.kwargs.get("offer_template_id", None)
+        offer_template_id = kwargs.get("offer_template_id")
         if offer_template_id:
             offer_template = OfferTemplate.objects.get(id=offer_template_id)
             form = OfferTemplateForm(instance=offer_template)

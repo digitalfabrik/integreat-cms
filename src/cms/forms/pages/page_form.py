@@ -154,9 +154,7 @@ class PageForm(forms.ModelForm):
             self.fields["publishers"].queryset = self.get_publisher_queryset()
 
         # limit possible parents to pages of current region
-        parent_queryset = Page.objects.filter(
-            region=self.region,
-        )
+        parent_queryset = self.region.pages
 
         # check if instance of this form already exists
         if self.instance.id:

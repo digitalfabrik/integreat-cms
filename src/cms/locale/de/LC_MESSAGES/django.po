@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-09 16:22+0000\n"
+"POT-Creation-Date: 2020-09-26 14:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -305,21 +305,13 @@ msgstr ""
 msgid "The recurrence end date has to be after the event's start date"
 msgstr "Das Ende der Wiederholung muss nach dem Veranstaltungsbeginn sein"
 
-#: forms/language_tree/language_tree_node_form.py:70
+#: forms/language_tree/language_tree_node_form.py:97
 msgid ""
 "This region has already a default language.Please specify a source language "
 "for this language."
 msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
-
-#: forms/language_tree/language_tree_node_form.py:82
-msgid ""
-"The source language belongs to another region.Please specify a source "
-"language of this region."
-msgstr ""
-"Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
-"Quell-Sprache dieser Region ein."
 
 #: forms/pages/page_form.py:114
 msgid "Embed mirrored page before this page"
@@ -627,7 +619,7 @@ msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
 #: templates/authentication/password_reset_form.html:14
-#: views/languages/language_view.py:43
+#: views/languages/language_view.py:42
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -1101,7 +1093,7 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: templates/language_tree/language_tree.html:30
-#: templates/language_tree/language_tree_node_form.html:28
+#: templates/language_tree/language_tree_node_form.html:27
 #: templates/push_notifications/push_notification_form.html:62
 msgid "Language"
 msgstr "Sprache"
@@ -1128,11 +1120,11 @@ msgstr "Sprache hinzufügen"
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/language_tree/language_tree_node_form.html:37
+#: templates/language_tree/language_tree_node_form.html:36
 msgid "Source Language"
 msgstr "Quell-Sprache"
 
-#: templates/language_tree/language_tree_node_form.html:47
+#: templates/language_tree/language_tree_node_form.html:46
 msgid "Activate language"
 msgstr "Sprache aktivieren"
 
@@ -1563,7 +1555,7 @@ msgstr "Seite löschen"
 
 #: templates/pages/page_form.html:294
 #: templates/pages/page_tree_archived_node.html:92
-#: templates/pages/page_tree_node.html:96 views/pages/page_actions.py:93
+#: templates/pages/page_tree_node.html:96 views/pages/page_actions.py:98
 msgid "You cannot delete a page which has children."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -2515,109 +2507,101 @@ msgstr "Interner Server-Fehler"
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
-#: views/events/event_actions.py:29
+#: views/events/event_actions.py:30
 msgid "Event was successfully archived."
 msgstr "Veranstaltung wurde erfolgreich archiviert."
 
-#: views/events/event_actions.py:51
+#: views/events/event_actions.py:53
 msgid "Event was successfully restored."
 msgstr "Veranstaltung wurde erfolgreich wiederhergestellt."
 
-#: views/events/event_actions.py:69
+#: views/events/event_actions.py:73
 msgid "Event was successfully deleted."
 msgstr "Veranstaltung wurde erfolgreich gelöscht."
 
-#: views/events/event_list_view.py:48
+#: views/events/event_list_view.py:47
 msgid "Please create at least one language node before creating events."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie "
 "Veranstaltungen verwalten."
 
-#: views/events/event_list_view.py:54
+#: views/events/event_list_view.py:53
 msgid "You don't have the permission to edit or create events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten "
 "oder zu erstellen."
 
-#: views/events/event_view.py:46
+#: views/events/event_view.py:47
 msgid "You don't have the permission to edit this event."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Veranstaltung zu "
 "bearbeiten."
 
-#: views/events/event_view.py:51
+#: views/events/event_view.py:52
 msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
 
-#: views/events/event_view.py:144 views/pages/page_sbs_view.py:152
-#: views/pages/page_view.py:187 views/pois/poi_view.py:109
-#: views/regions/region_view.py:46 views/settings/user_settings_view.py:51
+#: views/events/event_view.py:143
+#: views/language_tree/language_tree_node_view.py:66
+#: views/pages/page_sbs_view.py:156 views/pages/page_view.py:186
+#: views/pois/poi_view.py:109 views/regions/region_view.py:46
+#: views/settings/user_settings_view.py:51
 #: views/settings/user_settings_view.py:68 views/users/region_user_view.py:92
 #: views/users/user_view.py:79
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
-#: views/events/event_view.py:168
+#: views/events/event_view.py:167
 msgid "Event was successfully created and published."
 msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/events/event_view.py:171
+#: views/events/event_view.py:170
 msgid "Event was successfully created."
 msgstr "Veranstaltung wurde erfolgreich erstellt."
 
-#: views/events/event_view.py:184
+#: views/events/event_view.py:183
 msgid "Event translation was successfully created and published."
 msgstr ""
 "Veranstaltungsübersetzung wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/events/event_view.py:188
+#: views/events/event_view.py:187
 msgid "Event translation was successfully created."
 msgstr "Veranstaltungsübersetzung wurde erfolgreich erstellt."
 
-#: views/events/event_view.py:192
+#: views/events/event_view.py:191
 msgid "Event was successfully published."
 msgstr "Veranstaltung wurde erfolgreich veröffentlicht."
 
-#: views/events/event_view.py:194
+#: views/events/event_view.py:193
 msgid "Event was successfully saved."
 msgstr "Veranstaltung wurde erfolgreich gespeichert."
 
-#: views/language_tree/language_tree_actions.py:50
+#: views/language_tree/language_tree_actions.py:54
 msgid "You can only move language tree nodes within one region."
 msgstr "Sie können Sprach-Knoten nur innerhalb einer Region verschieben."
 
-#: views/language_tree/language_tree_actions.py:53
+#: views/language_tree/language_tree_actions.py:57
 msgid "A region can only have one root language."
 msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 
-#: views/language_tree/language_tree_actions.py:57
+#: views/language_tree/language_tree_actions.py:61
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
-#: views/language_tree/language_tree_node_view.py:62
+#: views/language_tree/language_tree_node_view.py:72
 msgid "Language tree node was saved successfully."
 msgstr "Sprach-Baum wurde erfolgreich gespeichert."
 
-#: views/language_tree/language_tree_node_view.py:67
+#: views/language_tree/language_tree_node_view.py:76
 msgid "Language tree node was created successfully."
 msgstr "Sprach-Baum wurde erfolgreich erstellt."
 
-#: views/language_tree/language_tree_node_view.py:77
-#: views/offer_templates/offer_template_view.py:49
-#: views/organizations/organization_view.py:47 views/pages/page_sbs_view.py:150
-#: views/pages/page_view.py:169
-#: views/push_notifications/push_notification_view.py:152
-#: views/regions/region_view.py:40 views/roles/role_view.py:46
-#: views/users/region_user_view.py:95 views/users/user_view.py:89
-msgid "Errors have occurred."
-msgstr "Es sind Fehler aufgetreten."
-
-#: views/languages/language_view.py:37
+#: views/languages/language_view.py:36
 msgid "Language saved successfully."
 msgstr "Sprache wurde erfolgreich gespeichert."
 
-#: views/languages/language_view.py:39
+#: views/languages/language_view.py:38
 msgid "Language created successfully"
 msgstr "Sprache wurde erfolgreich erstellt."
 
@@ -2628,6 +2612,15 @@ msgstr "Angebots-Vorlage wurde erfolgreich gespeichert."
 #: views/offer_templates/offer_template_view.py:40
 msgid "Offer template created successfully"
 msgstr "Angebots-Vorlage wurde erfolgreich erstellt."
+
+#: views/offer_templates/offer_template_view.py:49
+#: views/organizations/organization_view.py:47 views/pages/page_sbs_view.py:154
+#: views/pages/page_view.py:168
+#: views/push_notifications/push_notification_view.py:152
+#: views/regions/region_view.py:40 views/roles/role_view.py:46
+#: views/users/region_user_view.py:95 views/users/user_view.py:89
+msgid "Errors have occurred."
+msgstr "Es sind Fehler aufgetreten."
 
 #: views/offers/offer_actions.py:19
 #, python-format
@@ -2647,44 +2640,44 @@ msgstr "Organisation wurde erfolgreich erstellt."
 msgid "Organization saved successfully"
 msgstr "Organisation wurde erfolgreich gespeichert."
 
-#: views/pages/page_actions.py:40
+#: views/pages/page_actions.py:42
 msgid "Page was successfully archived."
 msgstr "Seite wurde erfolgreich archiviert."
 
-#: views/pages/page_actions.py:62
+#: views/pages/page_actions.py:65
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page_actions.py:96
+#: views/pages/page_actions.py:101
 msgid "Page was successfully deleted."
 msgstr "Seite wurde erfolgreich gelöscht."
 
-#: views/pages/page_actions.py:221
+#: views/pages/page_actions.py:229
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: views/pages/page_actions.py:299 views/pages/page_actions.py:314
+#: views/pages/page_actions.py:307 views/pages/page_actions.py:322
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page_actions.py:306
+#: views/pages/page_actions.py:314
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page_actions.py:322
+#: views/pages/page_actions.py:330
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: views/pages/page_actions.py:331 views/pages/page_actions.py:434
+#: views/pages/page_actions.py:339 views/pages/page_actions.py:442
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: views/pages/page_actions.py:402
+#: views/pages/page_actions.py:410
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -2694,12 +2687,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: views/pages/page_actions.py:408
+#: views/pages/page_actions.py:416
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page_actions.py:419
+#: views/pages/page_actions.py:427
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -2709,36 +2702,36 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: views/pages/page_actions.py:425
+#: views/pages/page_actions.py:433
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
 
-#: views/pages/page_revision_view.py:49
+#: views/pages/page_revision_view.py:52
 msgid "You don't have the permission to restore revisions of this page."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Revisionen dieser Seite "
 "wiederherzustellen."
 
-#: views/pages/page_revision_view.py:57 views/pages/page_revision_view.py:102
+#: views/pages/page_revision_view.py:60 views/pages/page_revision_view.py:105
 msgid "This revision does not exist."
 msgstr "Diese Revision existiert nicht."
 
-#: views/pages/page_revision_view.py:70
+#: views/pages/page_revision_view.py:73
 msgid "You cannot restore revisions of this page because it is archived."
 msgstr ""
 "Sie können Revisionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: views/pages/page_revision_view.py:122
+#: views/pages/page_revision_view.py:125
 msgid "This revision is identical to the current version of this translation."
 msgstr ""
 "Diese Revision ist identisch mit der aktuellen Version dieser Übersetzung."
 
-#: views/pages/page_revision_view.py:148
+#: views/pages/page_revision_view.py:151
 msgid "The revision has been successfully restored."
 msgstr "Die Revision wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page_sbs_view.py:44 views/pages/page_sbs_view.py:112
+#: views/pages/page_sbs_view.py:44 views/pages/page_sbs_view.py:116
 #, python-brace-format
 msgid ""
 "You cannot use the side-by-side-view for the region's default language (in "
@@ -2747,7 +2740,7 @@ msgstr ""
 "Sie können die Side-by-Side-Ansicht nicht für die Standard-Sprache (in "
 "diesem Fall {default_language}) verwenden."
 
-#: views/pages/page_sbs_view.py:63 views/pages/page_sbs_view.py:130
+#: views/pages/page_sbs_view.py:63 views/pages/page_sbs_view.py:134
 #, python-brace-format
 msgid ""
 "You cannot use the side-by-side-view if the source translation (in this case "
@@ -2756,19 +2749,23 @@ msgstr ""
 "Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
 "Übersetzung (in diesem Fall {source_language}) nicht existiert."
 
-#: views/pages/page_sbs_view.py:160 views/pages/page_view.py:221
+#: views/pages/page_sbs_view.py:99
+msgid "You don't have the permission to edit this page."
+msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
+
+#: views/pages/page_sbs_view.py:164 views/pages/page_view.py:220
 msgid "Translation was successfully created and published."
 msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/pages/page_sbs_view.py:164 views/pages/page_view.py:224
+#: views/pages/page_sbs_view.py:168 views/pages/page_view.py:223
 msgid "Translation was successfully created."
 msgstr "Übersetzung wurde erfolgreich erstellt."
 
-#: views/pages/page_sbs_view.py:169 views/pages/page_view.py:227
+#: views/pages/page_sbs_view.py:173 views/pages/page_view.py:226
 msgid "Translation was successfully published."
 msgstr "Übersetzung wurde erfolgreich veröffentlicht."
 
-#: views/pages/page_sbs_view.py:172 views/pages/page_view.py:229
+#: views/pages/page_sbs_view.py:176 views/pages/page_view.py:228
 msgid "Translation was successfully saved."
 msgstr "Übersetzung wurde erfolgreich gespeichert."
 
@@ -2778,17 +2775,17 @@ msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
 "verwalten."
 
-#: views/pages/page_tree_view.py:64
+#: views/pages/page_tree_view.py:58
 msgid "You don't have the permission to edit or create pages."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Seiten zu bearbeiten oder zu "
 "erstellen."
 
-#: views/pages/page_view.py:54
+#: views/pages/page_view.py:53
 msgid "You cannot edit this page because it is archived."
 msgstr "Sie können diese Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: views/pages/page_view.py:61
+#: views/pages/page_view.py:60
 msgid ""
 "You don't have the permission to edit this page, but you can propose changes "
 "and submit them for review instead."
@@ -2796,7 +2793,7 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten, aber "
 "Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: views/pages/page_view.py:69
+#: views/pages/page_view.py:68
 #, python-format
 msgid ""
 "This is <b>not</b> the most recent public revision of this translation. "
@@ -2807,15 +2804,15 @@ msgstr ""
 "Stattdessen wird die <a href='%(revision_url)s' class='underline hover:no-"
 "underline'>Revision %(revision)s</a> in den Apps angezeigt."
 
-#: views/pages/page_view.py:214
+#: views/pages/page_view.py:213
 msgid "Page was successfully created and published."
 msgstr "Seite wurde erfolgreich erstellt und veröffentlicht."
 
-#: views/pages/page_view.py:217
+#: views/pages/page_view.py:216
 msgid "Page was successfully created."
 msgstr "Seite wurde erfolgreich erstellt."
 
-#: views/pages/page_view.py:267
+#: views/pages/page_view.py:266
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
@@ -2948,9 +2945,15 @@ msgstr ""
 "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen Sie "
 "Ihre Einstellungen."
 
-#: views/users/region_user_actions.py:19 views/users/user_actions.py:17
-msgid "User was successfully deleted."
-msgstr "Benutzer wurde erfolgreich gelöscht."
+#: views/users/region_user_actions.py:20
+#, python-brace-format
+msgid "User {user} was successfully deleted."
+msgstr "Benutzer {user} wurde erfolgreich gelöscht."
+
+#: views/users/region_user_actions.py:25
+#, python-brace-format
+msgid "User {user} was successfully removed from this region."
+msgstr "Benutzer {user} wurde erfolgreich gelöscht."
 
 #: views/users/region_user_view.py:81 views/users/user_view.py:69
 msgid "User was successfully saved."
@@ -2960,6 +2963,10 @@ msgstr "Benutzer wurde erfolgreich gespeichert."
 msgid "User was successfully created."
 msgstr "Benutzer wurde erfolgreich erstellt."
 
+#: views/users/user_actions.py:17
+msgid "User was successfully deleted."
+msgstr "Benutzer wurde erfolgreich gelöscht."
+
 #: views/users/user_view.py:84
 msgid ""
 "A user has to be either staff/superuser or needs to be restricted to at "
@@ -2967,6 +2974,13 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid ""
+#~ "The source language belongs to another region.Please specify a source "
+#~ "language of this region."
+#~ msgstr ""
+#~ "Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
+#~ "Quell-Sprache dieser Region ein."
 
 #~ msgid "Relationship"
 #~ msgstr "Verhältnis"
@@ -2991,10 +3005,6 @@ msgstr ""
 
 #~ msgid "Archive Pages"
 #~ msgstr "Seiten archivieren"
-
-#~ msgid "You don't have the permission to edit this page."
-#~ msgstr ""
-#~ "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
 
 #~ msgid "This event does not have a physical location"
 #~ msgstr "Diese Veranstaltung hat keinen Veranstaltungsort"

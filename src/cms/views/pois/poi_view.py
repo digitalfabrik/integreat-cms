@@ -30,7 +30,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
         language = Language.objects.get(code=kwargs.get("language_code"))
 
         # get poi and translation objects if they exist
@@ -64,7 +64,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
     # pylint: disable=too-many-branches,too-many-locals,unused-argument
     def post(self, request, *args, **kwargs):
 
-        region = Region.objects.get(slug=kwargs.get("region_slug"))
+        region = Region.get_current_region(request)
         language = Language.objects.get(code=kwargs.get("language_code"))
 
         poi_instance = POI.objects.filter(id=kwargs.get("poi_id")).first()

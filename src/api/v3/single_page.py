@@ -9,6 +9,7 @@ from cms.models import Region, Page
 from .pages import transform_page
 
 
+# pylint: disable=unused-argument
 def single_page(request, region_slug, language_code):
     """
     View function returning the desired page as a JSON or a 404 if the
@@ -28,10 +29,10 @@ def single_page(request, region_slug, language_code):
     :return: Return a JSON with the requested page and a HTTP status 200.
     :rtype: ~django.http.JsonResponse
     """
-    region = get_object_or_404(Region, slug=region_slug)
+    region = Region.get_current_region(request)
 
     if request.GET.get("id"):
-        page = get_object_or_404(Page, region=region, id=request.GET.get("id"))
+        page = get_object_or_404(region.pages, id=request.GET.get("id"))
         page_translation = page.get_public_translation(language_code)
         if page_translation:
             return JsonResponse(transform_page(page_translation), safe=False)
