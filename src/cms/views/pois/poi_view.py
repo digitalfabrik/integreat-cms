@@ -42,7 +42,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
 
         if poi and poi.archived:
             messages.warning(
-                request, _("You cannot edit this Locations on map because it is archived.")
+                request, _("You cannot edit this location because it is archived.")
             )
 
         poi_form = POIForm(instance=poi)
@@ -117,10 +117,10 @@ class POIView(PermissionRequiredMixin, TemplateView):
             if not poi_instance:
                 if published:
                     messages.success(
-                        request, _("Locations on map was successfully created and published.")
+                        request, _("Location was successfully created and published.")
                     )
                 else:
-                    messages.success(request, _("Locations on map was successfully created."))
+                    messages.success(request, _("Location was successfully created."))
                 return redirect(
                     "edit_poi",
                     **{
@@ -130,9 +130,9 @@ class POIView(PermissionRequiredMixin, TemplateView):
                     }
                 )
             if published:
-                messages.success(request, _("Locations on map was successfully published."))
+                messages.success(request, _("Location was successfully published."))
             else:
-                messages.success(request, _("Locations on map was successfully saved."))
+                messages.success(request, _("Location was successfully saved."))
 
         return render(
             request,
