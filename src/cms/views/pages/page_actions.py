@@ -8,6 +8,8 @@ import logging
 import os
 import uuid
 
+from mptt.exceptions import InvalidMove
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
@@ -16,7 +18,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
 from django.views.static import serve
-from mptt.exceptions import InvalidMove
 
 from ...decorators import region_permission_required, staff_required
 from ...forms.pages import PageForm

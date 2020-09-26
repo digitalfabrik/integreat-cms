@@ -1,9 +1,9 @@
 import logging
 
+from mptt.models import MPTTModel, TreeForeignKey
+
 from django.conf import settings
 from django.db import models
-
-from mptt.models import MPTTModel, TreeForeignKey
 
 from .abstract_base_page import AbstractBasePage
 from ..regions.region import Region

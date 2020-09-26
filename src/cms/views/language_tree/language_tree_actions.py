@@ -4,11 +4,12 @@ Typically, they do not render a whole page, but only parts of it or they redirec
 """
 import logging
 
+from mptt.exceptions import InvalidMove
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
-from mptt.exceptions import InvalidMove
 
 from ...decorators import region_permission_required
 from ...models import LanguageTreeNode, Region

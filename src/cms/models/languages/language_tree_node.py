@@ -1,8 +1,8 @@
-from django.db import models
-from django.utils import timezone
-
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel, raise_if_unsaved
+
+from django.db import models
+from django.utils import timezone
 
 from .language import Language
 from ..regions.region import Region
