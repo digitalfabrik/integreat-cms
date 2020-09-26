@@ -17,6 +17,7 @@
 {% block javascript_head %}
     <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/autosave.js' %}"></script>
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
     <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
     <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
@@ -33,7 +34,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post">
+<form method="post" id="content_form">
     {% csrf_token %}
     {% get_current_language as LANGUAGE_CODE %}
     {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
@@ -412,6 +413,8 @@
                     icon: { title: "Icons", items: "pinicon wwwicon callicon clockicon aticon ideaicon"},
                     format: { title: 'Format', items: 'bold italic underline strikethrough superscript | formats | forecolor backcolor | removeformat' }
                 },
+                contextmenu: "paste link",
+                autosave_interval: '120s',
                 plugins: "code paste fullscreen autosave link preview media image lists directionality",
                 toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate removeformat | aligncenter indent outdent | link image',
                 min_height: 400,
@@ -481,7 +484,10 @@
                         }
                     });
                 }{% has_perm 'cms.edit_events' request.user as can_edit_event %}{% if not can_edit_event or event_form.instance.id and event_form.instance.archived %},
-            readonly : 1{% endif %}
+            readonly : 1{% endif %},
+            init_instance_callback: function(editor) {
+                editor.on('StoreDraft', autosave_editor);
+            }
             });
 
             custom_file_field();

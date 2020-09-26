@@ -16,6 +16,7 @@
 {% block javascript_head %}
     <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/autosave.js' %}"></script>
     <script src="{% static 'js/pages/page_mirroring.js' %}"></script>
     <script src="{% static 'js/pages/page_permissions.js' %}"></script>
     <script src="{% static 'js/pages/page_side_by_side.js' %}"></script>
@@ -35,7 +36,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post">
+<form method="post" id="content_form">
     {% csrf_token %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
@@ -358,6 +359,8 @@ document.addEventListener('DOMContentLoaded', function(){
             format: { title: 'Format', items: 'bold italic underline strikethrough superscript | formats | forecolor backcolor | removeformat' }
         },
         plugins: "code paste fullscreen autosave link preview media image lists directionality",
+        contextmenu: "paste link",
+        autosave_interval: '120s',
         toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate removeformat | aligncenter indent outdent | link image',
         min_height: 400,
         content_css : '{% static "css/tinymce_custom.css" %}',
@@ -426,7 +429,10 @@ document.addEventListener('DOMContentLoaded', function(){
                 }
             });
         }{% has_perm 'cms.edit_page' request.user page as can_edit_page %}{% if not can_edit_page or page_form.instance.id and page_form.instance.archived %},
-        readonly : 1{% endif %}
+        readonly : 1{% endif %},
+        init_instance_callback: function(editor) {
+            editor.on('StoreDraft', autosave_editor);
+        }
     });
 
     custom_file_field();

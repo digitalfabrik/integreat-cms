@@ -8,6 +8,7 @@
 {% block javascript_head %}
 <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
 <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
+<script src="{% static 'js/autosave.js' %}"></script>
 <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
 <script src="{% static 'tinymce/plugins/fullscreen/plugin.js' %}"></script>
 <script src="{% static 'tinymce/plugins/autosave/plugin.js' %}"></script>
@@ -22,7 +23,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post">
+<form method="post" id="content_form">
 <div>
     <div class="flex flex-wrap mb-4">
         <div class="w-3/5 flex flex-wrap flex-col justify-center mb-6">
@@ -207,6 +208,8 @@ tinymce.init({
     plugins: "code paste fullscreen autosave link preview media image lists directionality",
     toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate removeformat | aligncenter indent outdent | link image',
     min_height: 478,
+    contextmenu: "paste link",
+    autosave_interval: '120s',
     content_css : '{% static "css/tinymce_custom.css" %}',
     language: '{{LANGUAGE_CODE|slice:"0:2"}}',
     setup: (editor) => {
@@ -272,6 +275,9 @@ tinymce.init({
                 editor.insertContent('<img src="{% static "svg/idea.svg" %}" style="width:1.5em">');
             }
         });
+    },
+    init_instance_callback: function(editor) {
+        editor.on('StoreDraft', autosave_editor);
     }
 });
 </script>
