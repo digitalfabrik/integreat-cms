@@ -44,7 +44,9 @@ class POIListView(PermissionRequiredMixin, TemplateView):
         else:
             messages.error(
                 request,
-                _("Please create at least one language node before creating locations on map."),
+                _(
+                    "Please create at least one language node before creating locations."
+                ),
             )
             return redirect(
                 "language_tree",
@@ -56,7 +58,9 @@ class POIListView(PermissionRequiredMixin, TemplateView):
         if language != region.default_language:
             messages.warning(
                 request,
-                _("You can only create locations on map in the default language (%(language)s).")
+                _(
+                    "You can only create locations in the default language (%(language)s)."
+                )
                 % {"language": region.default_language.translated_name},
             )
 

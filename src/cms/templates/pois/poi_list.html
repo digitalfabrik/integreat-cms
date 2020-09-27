@@ -17,7 +17,7 @@
         <div class="w-1/2 flex flex-wrap flex-col justify-center">
             <div class="flex flex-wrap justify-end">
                 <a href="{% url 'archived_pois' region_slug=region.slug language_code=language.code %}" class="font-bold text-xs text-gray-800 block pb-2 hover:underline">
-                    {% trans 'Archived POIs' %}
+                    {% trans 'Archived locations' %}
                     <span class="inline-block rounded-full bg-integreat text-gray-800 px-2 py-1 text-xs font-bold">
                         {{ archived_count }}
                     </span>
@@ -33,7 +33,7 @@
         {% if region.default_language == language %}
         <div class="w-3/4 flex flex-wrap justify-end">
             <a href="{% url 'new_poi' region_slug=region.slug language_code=language.code %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-	            {% trans 'Create POI' %}
+	            {% trans 'Create location' %}
             </a>
         </div>
         {% endif %}
@@ -79,7 +79,7 @@
         {% empty %}
             <tr>
                 <td colspan="7" class="px-4 py-3">
-	                {% trans 'No POIs available yet.' %}
+	                {% trans 'No locations available yet.' %}
                 </td>
             </tr>
         {% endfor %}
