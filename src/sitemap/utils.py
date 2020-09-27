@@ -3,7 +3,7 @@ This module contains utils for the sitemap app.
 """
 import logging
 
-from .sitemaps import PageSitemap, EventSitemap, POISitemap
+from .sitemaps import PageSitemap, EventSitemap, POISitemap, OfferSitemap
 
 
 logger = logging.getLogger(__name__)
@@ -24,7 +24,11 @@ def get_sitemaps(region, language):
     :return: All sitemaps for the given region and language
     :rtype: list [ ~sitemap.sitemaps.WebappSitemap ]
     """
-    sitemaps = [PageSitemap(region, language), POISitemap(region, language)]
+    sitemaps = [
+        PageSitemap(region, language),
+        POISitemap(region, language),
+        OfferSitemap(region, language),
+    ]
     if region.events_enabled:
         sitemaps.append(EventSitemap(region, language))
 
