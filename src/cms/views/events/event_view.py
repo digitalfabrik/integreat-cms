@@ -66,7 +66,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
             request,
             self.template_name,
             {
-                "current_menu_item": "events",
+                "current_menu_item": "events_form",
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
