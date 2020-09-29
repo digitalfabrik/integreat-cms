@@ -4,11 +4,14 @@ This module contains all sitemap classes which are all based on :class:`django.c
 from abc import ABC, abstractmethod
 from urllib.parse import urlsplit
 
+import logging
 from django.contrib.sitemaps import Sitemap
 
 from backend.settings import WEBAPP_URL
-from cms.models import PageTranslation, EventTranslation, POITranslation
+from cms.models import PageTranslation, EventTranslation, POITranslation, Offer
 from cms.constants import status
+
+logger = logging.getLogger(__name__)
 
 
 class WebappSitemap(ABC, Sitemap):
@@ -98,8 +101,12 @@ class WebappSitemap(ABC, Sitemap):
         urls = super()._urls(page, splitted_url.scheme, splitted_url.hostname)
         for url in urls:
             # Add information about alternative languages
-            url["alternates"] = url["item"].sitemap_alternates
+            url["alternates"] = self.sitemap_alternates(url["item"])
         return urls
+
+    # pylint: disable=no-self-use
+    def sitemap_alternates(self, obj):
+        return obj.sitemap_alternates
 
 
 class PageSitemap(WebappSitemap):
@@ -214,3 +221,64 @@ class POISitemap(WebappSitemap):
         self.queryset = self.queryset.filter(
             poi__in=self.region.pois.all(), language=self.language
         )
+
+
+class OfferSitemap(WebappSitemap):
+    """
+    This sitemap contains all urls to offers for a specific region.
+
+    :param priority: The priority of this sitemap's urls (``1.0``)
+    :type priority: float
+
+    :param queryset: The queryset of this sitemap
+    :type queryset: :class:`~django.db.models.query.QuerySet` [ :class:`~cms.models.offers.offer.Offer` ]
+
+    Parameters inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
+
+    :param changefreq: The usual change frequency of this sitemap's urls (``monthly``)
+    :type changefreq: str
+    """
+
+    priority = 1.0
+    queryset = Offer.objects.all()
+
+    def __init__(self, region, language):
+        """
+        This init function filters the queryset of offers objects based on the given region.
+
+        :param region: The region of this sitemap's urls
+        :type region: ~cms.models.regions.region.Region
+
+        :param language: The language of this sitemap's urls
+        :type language: ~cms.models.languages.language.Language
+        """
+        # Instantiate WebappSitemap
+        super().__init__(region, language)
+        # Filter queryset based on region
+        self.queryset = self.queryset.filter(region=self.region)
+
+    def location(self, obj):
+        """
+        This location function returns the absolute path for a given object returned by items().
+
+        :param obj: Objects passed from items() method
+        :type obj: ~cms.models.offers.offer.Offer
+        """
+        return "/" + "/".join([obj.region.slug, self.language.code, "offers", obj.slug])
+
+    def sitemap_alternates(self, obj):
+        """
+        This sitemap_alternates function returns the language alternatives of offers for the use in sitemaps.
+
+        :return: A list of dictionaries containing the alternative translations of offers
+        :rtype: list [ dict ]
+        """
+        return [
+            {
+                "location": f"{WEBAPP_URL}/{self.region.slug}/{language_tree_node.code}/offers/{obj.slug}",
+                "lang_code": language_tree_node.code,
+            }
+            for language_tree_node in self.region.language_tree_nodes.filter(
+                active=True
+            ).exclude(language=self.language)
+        ]
