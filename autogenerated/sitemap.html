@@ -633,7 +633,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 <p>This module contains all sitemap classes which are all based on <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap</span></code></a>.</p>
 <dl class="py class">
 <dt id="sitemap.sitemaps.EventSitemap">
-<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">EventSitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L144"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.EventSitemap" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">EventSitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L151"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.EventSitemap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sitemap.sitemaps.WebappSitemap" title="sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">sitemap.sitemaps.WebappSitemap</span></code></a></p>
 <p>This sitemap contains all urls to event translations for a specific region and language.</p>
 <dl class="field-list simple">
@@ -652,7 +652,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dl>
 <dl class="py method">
 <dt id="sitemap.sitemaps.EventSitemap.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L165"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.EventSitemap.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L172"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.EventSitemap.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>This init function filters the queryset of event translation objects based on the given region and language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -667,8 +667,68 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dd></dl>
 
 <dl class="py class">
+<dt id="sitemap.sitemaps.OfferSitemap">
+<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">OfferSitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L226"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.OfferSitemap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sitemap.sitemaps.WebappSitemap" title="sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">sitemap.sitemaps.WebappSitemap</span></code></a></p>
+<p>This sitemap contains all urls to offers for a specific region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>priority</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The priority of this sitemap’s urls (<code class="docutils literal notranslate"><span class="pre">1.0</span></code>)</p></li>
+<li><p><strong>queryset</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> [ <a class="reference internal" href="cms.models.offers.html#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a> ]) – The queryset of this sitemap</p></li>
+</ul>
+</dd>
+</dl>
+<p>Parameters inherited from <a class="reference internal" href="#sitemap.sitemaps.WebappSitemap" title="sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a>:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>changefreq</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The usual change frequency of this sitemap’s urls (<code class="docutils literal notranslate"><span class="pre">monthly</span></code>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="sitemap.sitemaps.OfferSitemap.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L245"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.OfferSitemap.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>This init function filters the queryset of offers objects based on the given region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sitemap.sitemaps.OfferSitemap.location">
+<code class="sig-name descname">location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L260"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.OfferSitemap.location" title="Permalink to this definition">¶</a></dt>
+<dd><p>This location function returns the absolute path for a given object returned by items().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<a class="reference internal" href="cms.models.offers.html#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><em>Offer</em></a>) – Objects passed from items() method</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sitemap.sitemaps.OfferSitemap.sitemap_alternates">
+<code class="sig-name descname">sitemap_alternates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L269"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.OfferSitemap.sitemap_alternates" title="Permalink to this definition">¶</a></dt>
+<dd><p>This sitemap_alternates function returns the language alternatives of offers for the use in sitemaps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of dictionaries containing the alternative translations of offers</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="sitemap.sitemaps.POISitemap">
-<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">POISitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L183"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.POISitemap" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">POISitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L190"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.POISitemap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sitemap.sitemaps.WebappSitemap" title="sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">sitemap.sitemaps.WebappSitemap</span></code></a></p>
 <p>This sitemap contains all urls to POI translations for a specific region and language.</p>
 <dl class="field-list simple">
@@ -687,7 +747,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dl>
 <dl class="py method">
 <dt id="sitemap.sitemaps.POISitemap.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L201"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.POISitemap.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L208"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.POISitemap.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>This init function filters the queryset of POI translation objects based on the given region and language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -703,7 +763,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py class">
 <dt id="sitemap.sitemaps.PageSitemap">
-<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">PageSitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L105"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.PageSitemap" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">PageSitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L112"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.PageSitemap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sitemap.sitemaps.WebappSitemap" title="sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">sitemap.sitemaps.WebappSitemap</span></code></a></p>
 <p>This sitemap contains all urls to page translations for a specific region and language.</p>
 <dl class="field-list simple">
@@ -722,7 +782,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dl>
 <dl class="py method">
 <dt id="sitemap.sitemaps.PageSitemap.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L126"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.PageSitemap.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L133"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.PageSitemap.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>This init function filters the queryset of page translation objects based on the given region and language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -738,7 +798,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py class">
 <dt id="sitemap.sitemaps.WebappSitemap">
-<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">WebappSitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">sitemap.sitemaps.</code><code class="sig-name descname">WebappSitemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABC" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap</span></code></a></p>
 <p>This is an abstract base class for all webapp sitemaps.</p>
 <dl class="field-list simple">
@@ -751,7 +811,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dl>
 <dl class="py method">
 <dt id="sitemap.sitemaps.WebappSitemap._urls">
-<code class="sig-name descname">_urls</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em>, <em class="sig-param"><span class="n">protocol</span></em>, <em class="sig-param"><span class="n">domain</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L74"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap._urls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">_urls</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em>, <em class="sig-param"><span class="n">protocol</span></em>, <em class="sig-param"><span class="n">domain</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L77"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap._urls" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a patched version of <code class="xref py py-func docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap._urls()</span></code> which adds the alternative languages
 to the list of urls.
 This patch is required because the inbuilt function can only deal with the i18n backend languages and not with
@@ -778,7 +838,7 @@ box, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/r
 
 <dl class="py method">
 <dt id="sitemap.sitemaps.WebappSitemap.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L37"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L40"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>This init function sets the region and language parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -792,7 +852,7 @@ box, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/r
 
 <dl class="py method">
 <dt id="sitemap.sitemaps.WebappSitemap.items">
-<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L50"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap.items" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L53"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap.items" title="Permalink to this definition">¶</a></dt>
 <dd><p>This functions returns the public translations contained in this sitemap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -806,7 +866,7 @@ box, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/r
 
 <dl class="py method">
 <dt id="sitemap.sitemaps.WebappSitemap.lastmod">
-<em class="property">static </em><code class="sig-name descname">lastmod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">translation</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L59"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap.lastmod" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">lastmod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">translation</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L62"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap.lastmod" title="Permalink to this definition">¶</a></dt>
 <dd><p>This functions returns the date when a translation was last modified.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -825,7 +885,7 @@ box, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/r
 
 <dl class="py method">
 <dt id="sitemap.sitemaps.WebappSitemap.queryset">
-<em class="property">abstract property </em><code class="sig-name descname">queryset</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap.queryset" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract property </em><code class="sig-name descname">queryset</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/sitemap/sitemaps.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sitemap.sitemaps.WebappSitemap.queryset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Each subclass needs at least a <code class="docutils literal notranslate"><span class="pre">queryset</span></code> attribute defined.</p>
 </dd></dl>
 
@@ -972,7 +1032,7 @@ or if the sitemap is empty.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 25, 2020.
+        Last updated on Sep 29, 2020.
       </span>
 
     </p>
