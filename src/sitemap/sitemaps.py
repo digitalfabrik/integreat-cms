@@ -101,11 +101,12 @@ class WebappSitemap(ABC, Sitemap):
         urls = super()._urls(page, splitted_url.scheme, splitted_url.hostname)
         for url in urls:
             # Add information about alternative languages
-            try:
-                url["alternates"] = url["item"].sitemap_alternates
-            except AttributeError:
-                logger.debug("%s has no attribute sitemap_alternates", url["item"])
+            url["alternates"] = self.sitemap_alternates(url["item"])
         return urls
+
+    # pylint: disable=no-self-use
+    def sitemap_alternates(self, obj):
+        return obj.sitemap_alternates
 
 
 class PageSitemap(WebappSitemap):
@@ -255,7 +256,6 @@ class OfferSitemap(WebappSitemap):
         super().__init__(region, language)
         # Filter queryset based on region
         self.queryset = self.queryset.filter(region=self.region)
-        self.language = language
 
     def location(self, obj):
         """
@@ -265,3 +265,20 @@ class OfferSitemap(WebappSitemap):
         :type obj: ~cms.models.offers.offer.Offer
         """
         return "/" + "/".join([obj.region.slug, self.language.code, "offers", obj.slug])
+
+    def sitemap_alternates(self, obj):
+        """
+        This sitemap_alternates function returns the language alternatives of offers for the use in sitemaps.
+
+        :return: A list of dictionaries containing the alternative translations of offers
+        :rtype: list [ dict ]
+        """
+        return [
+            {
+                "location": f"{WEBAPP_URL}/{self.region.slug}/{language_tree_node.code}/offers/{obj.slug}",
+                "lang_code": language_tree_node.code,
+            }
+            for language_tree_node in self.region.language_tree_nodes.filter(
+                active=True
+            ).exclude(language=self.language)
+        ]
