@@ -23,7 +23,7 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
     raise_exception = True
 
     template_name = "language_tree/language_tree_node_form.html"
-    base_context = {"current_menu_item": "language_tree"}
+    base_context = {"current_menu_item": "language_tree_form"}
 
     def get(self, request, *args, **kwargs):
         # current region
