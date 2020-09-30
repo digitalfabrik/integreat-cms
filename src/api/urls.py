@@ -2,6 +2,7 @@
 Expansion of API-Endpoints for the CMS
 """
 from django.conf.urls import include, url
+from django.views.decorators.csrf import csrf_exempt
 
 from .v3.feedback import (
     page_feedback,
@@ -32,7 +33,10 @@ urlpatterns = [
                     r"(?P<language_code>[-\w]+)/sent_push_notifications/$",
                     sent_push_notifications,
                 ),
-                url(r"(?P<language_code>[-\w]+)/feedback/$", page_feedback.feedback),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/$",
+                    csrf_exempt(page_feedback.feedback),
+                ),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/categories$",
                     region_feedback.region_feedback,

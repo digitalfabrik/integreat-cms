@@ -1,4 +1,5 @@
 import json
+from urllib.parse import urlparse
 
 from django.http import HttpResponse
 
@@ -23,11 +24,12 @@ class FeedbackData:
     :type emotion: int, optional
     """
 
-    def __init__(self, page_id, permalink, comment, emotion):
+    def __init__(self, page_id, permalink, comment, emotion, category):
         self.page_id = page_id
         self.permalink = permalink
         self.comment = comment
         self.emotion = emotion
+        self.category = category
 
     @classmethod
     def from_dict(cls, feedback_dict):
@@ -36,6 +38,7 @@ class FeedbackData:
             feedback_dict.get("permalink", None),
             feedback_dict.get("comment", None),
             feedback_dict.get("emotion", None),
+            feedback_dict.get("category", None),
         )
 
     def has_id(self):
@@ -49,6 +52,11 @@ class FeedbackData:
 
     def get_emotion(self):
         return self.emotion if self.emotion else "NA"
+
+    def get_category(self):
+        if self.category == "Technisches Feedback":
+            return True
+        return False
 
     @staticmethod
     def __is_either_exist(one, two):
@@ -84,8 +92,10 @@ def feedback(request, region_slug, language_code):
         potential_page_translation = PageTranslation.objects.get(
             slug=slug,
             language__code=language_code,
+            page__region=region
         )
-        if potential_page_translation.permalink == feedback_data.permalink:
+        feedback_data.permalink = urlparse(feedback_data.permalink).path
+        if potential_page_translation.permalink.strip("/") == feedback_data.permalink.strip("/"):
             page = potential_page_translation.page
         else:
             return HttpResponse("Bad request.", content_type="text/plain", status=400)
@@ -95,6 +105,7 @@ def feedback(request, region_slug, language_code):
             page=page,
             emotion=feedback_data.get_emotion(),
             comment=feedback_data.get_comment(),
+            is_technical=feedback_data.get_category(),
         )
         page_feedback.save()
         return HttpResponse(status=200)
