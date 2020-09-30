@@ -48,7 +48,7 @@ class LanguageTreeNodeForm(forms.ModelForm):
 
         if self.instance.id:
             children = self.instance.get_descendants(include_self=True)
-            parent_queryset = parent_queryset.difference(children)
+            parent_queryset = parent_queryset.exclude(id__in=children)
         else:
             self.instance.region = region
 
