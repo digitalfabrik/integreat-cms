@@ -24,12 +24,12 @@ class FeedbackData:
     :type emotion: int, optional
     """
 
-    def __init__(self, page_id, permalink, comment, emotion, category):
+    def __init__(self, page_id, permalink, comment, rating, category):
         self.page_id = page_id
         self.permalink = permalink
         self.comment = comment
-        self.emotion = emotion
         self.category = category
+        self.rating = rating
 
     @classmethod
     def from_dict(cls, feedback_dict):
@@ -37,7 +37,7 @@ class FeedbackData:
             feedback_dict.get("id", None),
             feedback_dict.get("permalink", None),
             feedback_dict.get("comment", None),
-            feedback_dict.get("emotion", None),
+            feedback_dict.get("rating", None),
             feedback_dict.get("category", None),
         )
 
@@ -45,13 +45,17 @@ class FeedbackData:
         return self.__is_either_exist(self.page_id, self.permalink)
 
     def has_content(self):
-        return self.__is_either_exist(self.comment, self.emotion)
+        return self.__is_either_exist(self.comment, self.rating)
 
     def get_comment(self):
         return self.comment if self.comment else ""
 
     def get_emotion(self):
-        return self.emotion if self.emotion else "NA"
+        if self.rating == "up":
+            return "POS"
+        if self.rating == "down":
+            return "NEG"
+        return "NA"
 
     def get_category(self):
         if self.category == "Technisches Feedback":
@@ -90,12 +94,12 @@ def feedback(request, region_slug, language_code):
     if not page:
         slug = feedback_data.permalink.split("/")[-1]
         potential_page_translation = PageTranslation.objects.get(
-            slug=slug,
-            language__code=language_code,
-            page__region=region
+            slug=slug, language__code=language_code, page__region=region
         )
         feedback_data.permalink = urlparse(feedback_data.permalink).path
-        if potential_page_translation.permalink.strip("/") == feedback_data.permalink.strip("/"):
+        if potential_page_translation.permalink.strip(
+            "/"
+        ) == feedback_data.permalink.strip("/"):
             page = potential_page_translation.page
         else:
             return HttpResponse("Bad request.", content_type="text/plain", status=400)

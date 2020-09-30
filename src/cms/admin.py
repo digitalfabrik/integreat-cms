@@ -20,6 +20,8 @@ from .models import Region
 from .models import RecurrenceRule
 from .models import UserMfa
 from .models import UserProfile
+from .models import Feedback
+from .models import PageFeedback
 
 admin.site.register(Event)
 admin.site.register(EventTranslation)
@@ -36,3 +38,5 @@ admin.site.register(Region)
 admin.site.register(RecurrenceRule)
 admin.site.register(UserMfa)
 admin.site.register(UserProfile)
+admin.site.register(Feedback)
+admin.site.register(PageFeedback)
