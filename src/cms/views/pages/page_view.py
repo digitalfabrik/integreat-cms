@@ -30,7 +30,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
     raise_exception = True
 
     template_name = "pages/page_form.html"
-    base_context = {"current_menu_item": "pages", "PUBLIC": status.PUBLIC}
+    base_context = {"current_menu_item": "new_page", "PUBLIC": status.PUBLIC}
 
     def get(self, request, *args, **kwargs):
 
@@ -115,7 +115,6 @@ class PageView(PermissionRequiredMixin, TemplateView):
                 # Languages for tab view
                 "languages": region.languages if page else [language],
                 "side_by_side_language_options": side_by_side_language_options,
-                "current_menu_item": "new_page",
             },
         )
 
