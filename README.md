@@ -5,9 +5,9 @@
 
 # Integreat Django CMS
 
-This project aims to develop a content management system tailored to the needs of municipalities to provide multilingual local information.
-Its goal is to be easy to use and easy to maintain over a long time.
-This project uses Python3.7 and Django 2.2 and is supposed to run on Ubuntu 18.04.
+[![Logo](.github/logo.png) Integreat - The mobile guide for newcomers.](https://integreat-app.de/en/) Multilingual. Offline. Open Source.
+
+This content management system helps local integration experts to provide multilingual information for newcomers.
 
 ## TL;DR
 
