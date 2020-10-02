@@ -8,6 +8,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.contrib.auth import views as auth_views
+from django.views.generic import RedirectView
 
 from .forms.authentication import PasswordResetConfirmForm
 from .views import (
@@ -708,4 +709,5 @@ urlpatterns = [
             ]
         ),
     ),
+    url(r"^favicon\.ico$", RedirectView.as_view(url="/static/images/favicon.ico")),
 ] + static(django_settings.MEDIA_URL, document_root=django_settings.MEDIA_ROOT)
