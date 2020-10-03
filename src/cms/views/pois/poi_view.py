@@ -26,7 +26,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
     raise_exception = True
 
     template_name = "pois/poi_form.html"
-    base_context = {"current_menu_item": "pois"}
+    base_context = {"current_menu_item": "pois_form"}
 
     def get(self, request, *args, **kwargs):
 

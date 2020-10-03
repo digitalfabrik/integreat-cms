@@ -19,7 +19,7 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
     raise_exception = True
 
     template_name = "users/region/user.html"
-    base_context = {"current_menu_item": "region_users"}
+    base_context = {"current_menu_item": "region_users_form"}
 
     def get(self, request, *args, **kwargs):
 
