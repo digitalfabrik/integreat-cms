@@ -24,7 +24,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
     raise_exception = True
 
     template_name = "push_notifications/push_notification_form.html"
-    base_context = {"current_menu_item": "push_notifications"}
+    base_context = {"current_menu_item": "push_notifications_form"}
     push_sender = PushNotificationSender()
 
     def get(self, request, *args, **kwargs):

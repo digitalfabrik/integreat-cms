@@ -122,34 +122,102 @@
 		        {% trans 'Statistics' %}
 	        </a>
 			{% endif %}
-			<a href="{% url 'media' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'media' %}active{% endif %}">
-	            <i data-feather='file' class="absolute"></i>
-		        {% trans 'Media Library' %}
-	        </a>
-	        <a href="{% url 'pages' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'pages' %}active{% endif %}">
-	            <i data-feather="layout" class="absolute"></i>
-		        {% trans 'Pages' %}
-	        </a>
-	        <a href="{% url 'events' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'events' %}active{% endif %}">
-	            <i data-feather="calendar" class="absolute"></i>
-		        {% trans 'Events' %}
-	        </a>
-		    <a href="{% url 'pois' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'pois' %}active{% endif %}">
-			    <i data-feather="map-pin" class="absolute"></i>
-			    {% trans 'Points of Interest' %}
-		    </a>
-	        <a href="{% url 'region_users' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_users' %}active{% endif %}">
-	            <i data-feather="users" class="absolute"></i>
-		        {% trans 'Users' %}
-	        </a>
+			<div class="{% if current_menu_item == 'media' %}active{% elif current_menu_item == 'media_upload' %}active{% endif %}">
+				<a href="{% url 'media' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
+					<i data-feather='file' class="absolute"></i>
+					{% trans 'Media Library' %}
+				</a>
+				<div class="dropdown-container flex-col">
+					<a href="{% url 'media' region_slug=region.slug %}" class="{% if current_menu_item == 'media' %}active{% endif %}">
+						{% trans 'All media files' %}
+					</a>
+					<a href="{% url 'new_upload_file' document_id='0' region_slug=region.slug %}" class="{% if current_menu_item == 'media_upload' %}active{% endif %}">
+						{% trans 'Upload new media file' %}
+					</a>
+				</div>
+			</div>
+			<div class="{% if current_menu_item == 'pages' %}active{% elif current_menu_item == 'new_page' %}active{% endif %}">
+				<a href="{% url 'pages' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
+					<i data-feather="layout" class="absolute"></i>
+					{% trans 'Pages' %}
+				</a>
+				<div class="dropdown-container flex-col">
+					<a href="{% url 'pages' region_slug=region.slug %}" class="{% if current_menu_item == 'pages' %}active{% endif %}">
+						{% trans 'All pages' %}
+					</a>
+					{% if region.default_language == language and language != null %}
+						<a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'new_page' and not page %}active{% endif %}">
+							{% trans 'Create page' %}
+						</a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="{% if current_menu_item == 'events' %}active{% elif current_menu_item == 'events_form' %}active{% endif %}">
+				<a href="{% url 'events' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
+					<i data-feather="calendar" class="absolute"></i>
+					{% trans 'Events' %}
+				</a>
+				<div class="dropdown-container flex-col">
+					<a href="{% url 'events' region_slug=region.slug %}" class="{% if current_menu_item == 'events' %}active{% endif %}">
+						{% trans 'All events' %}
+					</a>
+					{% if language %}
+					<a href="{% url 'new_event' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'events_form' and not event_form.instance.id %}active{% endif %}">
+						{% trans 'Create event' %}
+					</a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="{% if current_menu_item == 'pois' %}active{% elif current_menu_item == 'pois_form' %}active{% endif %}">
+				<a href="{% url 'pois' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
+					<i data-feather="map-pin" class="absolute"></i>
+					{% trans 'Points of Interest' %}
+				</a>
+				<div class="dropdown-container flex-col">
+					<a href="{% url 'pois' region_slug=region.slug %}" class="{% if current_menu_item == 'pois' %}active{% endif %}">
+						{% trans 'All POIs' %}
+					</a>
+					{% if language %}
+					<a href="{% url 'new_poi' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'pois_form' and not poi_form.instance.id %}active{% endif %}">
+						{% trans 'Create POI' %}
+					</a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="{% if current_menu_item == 'region_users' %}active{% elif current_menu_item == 'region_users_form' %}active{% endif %}">
+				<a href="{% url 'region_users' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
+					<i data-feather="users" class="absolute"></i>
+					{% trans 'Users' %}
+				</a>
+				<div class="dropdown-container flex-col">
+					<a href="{% url 'pois' region_slug=region.slug %}" class="{% if current_menu_item == 'region_users' %}active{% endif %}">
+						{% trans 'All users' %}
+					</a>
+					<a href="{% url 'new_region_user' region_slug=region.slug %}" class="{% if current_menu_item == 'region_users_form' and not user_form.instance.id %}active{% endif %}">
+						{% trans 'Create user' %}
+					</a>
+				</div>
+			</div>
 	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_feedback' %}active{% endif %}">
 	            <i data-feather="thumbs-up" class="absolute"></i>
 		        {% trans 'Feedback' %}
-	        </a>
-	        <a href="{% url 'push_notifications' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'push_notifications' %}active{% endif %}">
-	            <i data-feather="send" class="absolute"></i>
-		        {% trans 'Push Notifications' %}
-	        </a>
+			</a>
+			<div class="{% if current_menu_item == 'push_notifications' %}active{% elif current_menu_item == 'push_notifications_form' %}active{% endif %}">
+				<a href="{% url 'push_notifications' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
+					<i data-feather="send" class="absolute"></i>
+					{% trans 'Push Notifications' %}
+				</a>
+				<div class="dropdown-container flex-col">
+					<a href="{% url 'push_notifications' region_slug=region.slug %}" class="{% if current_menu_item == 'push_notifications' %}active{% endif %}">
+						{% trans 'All push notifications' %}
+					</a>
+					{% if language %}
+					<a href="{% url 'new_push_notification' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'push_notifications_form' and not push_notification %}active{% endif %}">
+						{% trans 'Create push notification' %}
+					</a>
+					{% endif %}
+				</div>
+			</div>
 	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'pdf_export' %}active{% endif %}">
 	            <i data-feather="layers" class="absolute"></i>
 		        {% trans 'PDF Export' %}
@@ -161,44 +229,54 @@
 	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'imprint' %}active{% endif %}">
 	            <i data-feather="file-text" class="absolute"></i>
 		        {% trans 'Imprint' %}
-	        </a>
-		    <a href="{% url 'language_tree' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'language_tree' %}active{% endif %}">
-			    <i data-feather="flag" class="absolute"></i>
-			    {% trans 'Language tree' %}
-		    </a>
+			</a>
+			<div class="{% if current_menu_item == 'language_tree' %}active{% elif current_menu_item == 'language_tree_form' %}active{% endif %}">
+				<a href="{% url 'language_tree' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
+					<i data-feather="flag" class="absolute"></i>
+					{% trans 'Language tree' %}
+				</a>
+				<div class="dropdown-container flex-col">
+					<a href="{% url 'language_tree' region_slug=region.slug %}" class="{% if current_menu_item == 'language_tree' %}active{% endif %}">
+						{% trans 'All language tree nodes' %}
+					</a>
+					<a href="{% url 'new_language_tree_node' region_slug=region.slug %}" class="{% if current_menu_item == 'language_tree_form' and not language_tree_node_form.instance.id %}active{% endif %}">
+						{% trans 'Create language tree node' %}
+					</a>
+				</div>
+			</div>
 	        <a href="{% url 'settings' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_settings' %}active{% endif %}">
 	            <i data-feather="sliders" class="absolute"></i>
 		        {% trans 'Settings' %}
 	        </a>
-	    {% else %}
+		{% else %}
 		    <a href="{% url 'admin_dashboard' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_dashboard' %}active{% endif %}">
 			    <i data-feather="grid" class="absolute"></i>
 			    {% trans 'Admin Dashboard' %}
-		    </a>
+			</a>
 		    <a href="{% url 'regions' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'regions' %}active{% endif %}">
 			    <i data-feather="map" class="absolute"></i>
 			    {% trans 'Regions' %}
-		    </a>
+			</a>		
 		    <a href="{% url 'languages' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'languages' %}active{% endif %}">
 			    <i data-feather="flag" class="absolute"></i>
 			    {% trans 'Languages' %}
-		    </a>
-	    <a href="{% url 'users' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'users' %}active{% endif %}">
-		    <i data-feather="users" class="absolute"></i>
-		    {% trans 'Users' %}
-	    </a>
-	    <a href="{% url 'roles' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'roles' %}active{% endif %}">
-		    <i data-feather="key" class="absolute"></i>
-		    {% trans 'Roles' %}
-	    </a>
+			</a>
+			<a href="{% url 'users' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'users' %}active{% endif %}">
+				<i data-feather="users" class="absolute"></i>
+				{% trans 'Users' %}
+			</a>
+			<a href="{% url 'roles' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'roles' %}active{% endif %}">
+				<i data-feather="key" class="absolute"></i>
+				{% trans 'Roles' %}
+			</a>
 		    <a href="{% url 'organizations' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'organizations' %}active{% endif %}">
 			    <i data-feather="umbrella" class="absolute"></i>
 			    {% trans 'Organizations' %}
-		    </a>
+			</a>
 		    <a href="{% url 'offer_templates' %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'offer_templates' %}active{% endif %}">
 			    <i data-feather="star" class="absolute"></i>
 			    {% trans 'Offer templates' %}
-		    </a>
+			</a>
 		    <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
 			    <i data-feather="thumbs-up" class="absolute"></i>
 			    {% trans 'Feedback' %}

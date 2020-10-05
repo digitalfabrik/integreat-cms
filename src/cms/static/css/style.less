@@ -135,7 +135,8 @@ nav#primary-navigation {
     #menu {
         max-height: calc(~"100vh - 50px");
         overflow-y: auto;
-        > a {
+        a {
+            color: #e2e8f0;
             padding: 15px 22px 15px 50px;
             svg {
                 width: 18px;
@@ -151,6 +152,26 @@ nav#primary-navigation {
         }
         h4 {
             padding: 0 22px;
+        }
+        .dropdown-container {
+            display: none;
+        }
+        .active > a {
+            color: #606f7b;
+            background-color: #fbda16;
+        }
+        .active > .dropdown-container {
+            display: flex;
+            color: #e2e8f0;
+            background-color: #657584;
+        }
+        .dropdown-container > .active {
+            color: #354556;
+            background-color:#8392a0;
+            &:hover {
+                color: #606f7b;
+                background-color: #fbda16;
+            }
         }
     }
 }

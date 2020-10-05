@@ -13,7 +13,7 @@ from ...utils.file_utils import save_file
 @method_decorator(region_permission_required, name="dispatch")
 class MediaEditView(TemplateView):
     template_name = "media/media_form.html"
-    base_context = {"current_menu_item": "media"}
+    base_context = {"current_menu_item": "media_upload"}
 
     def get(self, request, *args, **kwargs):
         region = Region.get_current_region(request)

@@ -30,7 +30,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
     raise_exception = True
 
     template_name = "pages/page_form.html"
-    base_context = {"current_menu_item": "pages", "PUBLIC": status.PUBLIC}
+    base_context = {"current_menu_item": "new_page", "PUBLIC": status.PUBLIC}
 
     def get(self, request, *args, **kwargs):
 
