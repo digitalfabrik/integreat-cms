@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div id="filter-form-container" class="hidden w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    <div id="filter-form-container" class="{% if not filter_form.has_changed %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
         {% include 'events/_event_filter_form.html' %}
     </div>
     <div class="table-listing">
@@ -101,7 +101,11 @@
                 <tr>
                     <td></td>
                     <td colspan="5" class="px-2 py-3">
-                        {% trans 'No events available yet.' %}
+                        {% if filter_form.has_changed %}
+                            {% trans 'No events found with these filters.' %}
+                        {% else %}
+                            {% trans 'No events available yet.' %}
+                        {% endif %}
                     </td>
                 </tr>
             {% endif %}

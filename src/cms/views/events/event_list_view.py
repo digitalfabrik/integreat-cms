@@ -1,3 +1,5 @@
+from datetime import date, time
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -6,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from ...constants import all_day, recurrence
 from ...decorators import region_permission_required
 from ...models import Region
 from ...forms.events import EventFilterForm
@@ -26,6 +29,7 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     def template_name(self):
         return self.template_archived if self.archived else self.template
 
+    # pylint: disable=too-many-branches
     def get(self, request, *args, **kwargs):
         # current region
         region = Region.get_current_region(request)
@@ -57,7 +61,73 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         # all events of the current region in the current language
         events = region.events.filter(archived=self.archived)
 
-        event_filter_form = EventFilterForm()
+        # Filter events according to given filters, if any
+        filter_data = kwargs.get("filter_data")
+        if filter_data is not None:
+            # Set data for filter form rendering
+            event_filter_form = EventFilterForm(data=filter_data)
+            poi = None
+            if event_filter_form.is_valid():
+                poi = region.pois.filter(
+                    id=event_filter_form.cleaned_data["poi_id"]
+                ).first()
+                # Filter events for their start and end
+                events = events.filter(
+                    start_date__gte=event_filter_form.cleaned_data["after_date"]
+                    or date.min,
+                    start_time__gte=event_filter_form.cleaned_data["after_time"]
+                    or time.min,
+                    end_date__lte=event_filter_form.cleaned_data["before_date"]
+                    or date.max,
+                    end_time__lte=event_filter_form.cleaned_data["before_time"]
+                    or time.max,
+                )
+                # Filter events for their location
+                if poi is not None:
+                    events = events.filter(location=poi)
+                # Filter events for their all-day property
+                if (
+                    len(event_filter_form.cleaned_data["all_day"])
+                    == len(all_day.CHOICES)
+                    or len(event_filter_form.cleaned_data["all_day"]) == 0
+                ):
+                    # Either all or no checkboxes are checked => skip filtering
+                    pass
+                elif all_day.ALL_DAY in event_filter_form.cleaned_data["all_day"]:
+                    # Filter for all-day events
+                    events = events.filter(
+                        start_time=time.min,
+                        end_time=time.max.replace(second=0, microsecond=0),
+                    )
+                elif all_day.NOT_ALL_DAY in event_filter_form.cleaned_data["all_day"]:
+                    # Exclude all-day events
+                    events = events.exclude(
+                        start_time=time.min,
+                        end_time=time.max.replace(second=0, microsecond=0),
+                    )
+                # Filter events for recurrence
+                if (
+                    len(event_filter_form.cleaned_data["recurring"])
+                    == len(recurrence.CHOICES)
+                    or len(event_filter_form.cleaned_data["recurring"]) == 0
+                ):
+                    # Either all or no checkboxes are checked => skip filtering
+                    pass
+                elif (
+                    recurrence.RECURRING in event_filter_form.cleaned_data["recurring"]
+                ):
+                    # Only recurring events
+                    events = events.filter(recurrence_rule__isnull=False)
+                elif (
+                    recurrence.NOT_RECURRING
+                    in event_filter_form.cleaned_data["recurring"]
+                ):
+                    # Only non-recurring events
+                    events = events.filter(recurrence_rule__isnull=True)
+        else:
+            event_filter_form = EventFilterForm()
+            event_filter_form.changed_data.clear()
+            poi = None
 
         return render(
             request,
@@ -69,8 +139,9 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
                 "language": language,
                 "languages": region.languages,
                 "filter_form": event_filter_form,
+                "filter_poi": poi,
             },
         )
 
     def post(self, request, *args, **kwargs):
-        return self.get(request, *args, **kwargs)
+        return self.get(request, *args, **kwargs, filter_data=request.POST)
