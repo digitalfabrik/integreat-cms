@@ -25,7 +25,9 @@ class RecurrenceRule(models.Model):
     :param event: The event this recurrence rule belongs to
     """
 
-    frequency = models.CharField(max_length=7, choices=frequency.CHOICES, blank=True)
+    frequency = models.CharField(
+        max_length=7, choices=frequency.CHOICES, default=frequency.WEEKLY
+    )
     interval = models.IntegerField(default=1, validators=[MinValueValidator(1)])
     weekdays_for_weekly = ArrayField(
         models.IntegerField(choices=weekdays.CHOICES), blank=True
