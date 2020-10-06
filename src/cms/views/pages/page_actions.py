@@ -25,6 +25,8 @@ from ...forms.pages import PageForm
 from ...models import Page, Language, Region, PageTranslation
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 
+from backend.settings import WEBAPP_URL
+
 logger = logging.getLogger(__name__)
 
 
@@ -149,12 +151,7 @@ def redirect_to_view(request, short_url_id):
     queryset = PageTranslation.objects.filter(short_url_id=short_url_id)
     page_translation = queryset.first()
 
-    return redirect(
-        request.scheme
-        + "://"
-        + request.get_host()
-        + page_translation.get_absolute_url()
-    )
+    return redirect(WEBAPP_URL + page_translation.get_absolute_url())
 
 
 @login_required

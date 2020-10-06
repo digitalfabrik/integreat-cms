@@ -103,11 +103,11 @@
             {% endif %}
         {% endif %}
         {% if page_translation %}
-        <a href="{% url 'copy_link' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Copy link' %}" class="py-3 px-2">
+        <a href="{% url 'copy_link' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Copy short link' %}" class="py-3 px-2">
             <i data-feather="copy" class="inline-block text-gray-800"></i>
         </a>
         {% else %}
-        <a title="{% trans 'You cannot copy a link of a page which has no translation.' %}" class="py-3 px-2">
+        <a title="{% trans 'You cannot copy a short link of a page which has no translation.' %}" class="py-3 px-2">
             <i data-feather="copy" class="inline-block text-gray-400"></i>
         </a>
         {% endif %}
