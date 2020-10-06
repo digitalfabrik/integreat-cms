@@ -1,6 +1,8 @@
 import logging
 
 from django import forms
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 from ...constants import status
 from ...models import PageTranslation
@@ -85,3 +87,14 @@ class PageTranslationForm(forms.ModelForm):
 
     def clean_slug(self):
         return generate_unique_slug(self, "page")
+
+    def clean_text(self):
+        text = self.data["text"]
+
+        if "<h1>" in text:
+            raise ValidationError(
+                _("Use of Heading 1 style not allowed."),
+                code="no-heading-1",
+            )
+
+        return text
