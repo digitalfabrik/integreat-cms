@@ -8,6 +8,8 @@ from .page_actions import (
     restore_page,
     view_page,
     delete_page,
+    copy_link,
+    redirect_to_view,
     download_xliff,
     upload_xliff,
     confirm_xliff_import,
