@@ -1,6 +1,8 @@
 import logging
 
 from django import forms
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 from ...constants import status
 from ...models import EventTranslation
@@ -89,3 +91,14 @@ class EventTranslationForm(forms.ModelForm):
         self.data = self.data.copy()
         self.data["slug"] = unique_slug
         return unique_slug
+
+    def clean_description(self):
+        description = self.data["description"]
+
+        if "<h1>" in description:
+            raise ValidationError(
+                _("Use of Heading 1 style not allowed."),
+                code="no-heading-1",
+            )
+
+        return description
