@@ -19,6 +19,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import ugettext as _
 from django.views.static import serve
+from django.http import HttpResponseNotFound
 
 from ...decorators import region_permission_required, staff_required
 from ...forms.pages import PageForm
@@ -151,7 +152,10 @@ def redirect_to_view(request, short_url_id):
     queryset = PageTranslation.objects.filter(short_url_id=short_url_id)
     page_translation = queryset.first()
 
-    return redirect(WEBAPP_URL + page_translation.get_absolute_url())
+    if page_translation:
+        return redirect(WEBAPP_URL + page_translation.get_absolute_url())
+    else:
+        return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
 @login_required
