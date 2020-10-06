@@ -1,3 +1,5 @@
+import shortuuid
+
 from django.db import models
 from django.utils import timezone
 
@@ -38,6 +40,7 @@ class AbstractBasePageTranslation(models.Model):
     minor_edit = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+    short_url_id = models.CharField(max_length=5, default="")
 
     @property
     def page(self):
@@ -93,6 +96,18 @@ class AbstractBasePageTranslation(models.Model):
         :rtype: str
         """
         return "/" + self.permalink
+
+    def get_short_url(self):
+        """
+        This function generates unique string and returns the short url to the page translation
+
+        :return: The short url of a page translation
+        :rtype: str
+        """
+        if not (self.short_url_id):
+            self.short_url_id = shortuuid.ShortUUID().random(length=5)
+            self.save()
+        return "s/" + self.short_url_id
 
     @property
     def available_languages(self):

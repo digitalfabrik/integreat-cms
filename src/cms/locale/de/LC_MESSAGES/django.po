@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-05 17:55+0000\n"
+"POT-Creation-Date: 2020-10-06 12:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1606,7 +1606,7 @@ msgstr "Seite löschen"
 
 #: templates/pages/page_form.html:295
 #: templates/pages/page_tree_archived_node.html:92
-#: templates/pages/page_tree_node.html:96 views/pages/page_actions.py:98
+#: templates/pages/page_tree_node.html:96 views/pages/page_actions.py:99
 msgid "You cannot delete a page which has children."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -1729,6 +1729,16 @@ msgstr "Seite ansehen"
 #: templates/pages/page_tree_node.html:87
 msgid "Edit page"
 msgstr "Seite bearbeiten"
+
+#: templates/pages/page_tree_node.html:106
+msgid "Copy link"
+msgstr ""
+
+#: templates/pages/page_tree_node.html:110
+#, fuzzy
+#| msgid "You cannot delete a page which has children."
+msgid "You cannot copy a link of a page which has no translation."
+msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
 #: templates/pages/page_xliff_confirm.html:31
 msgid "Review XLIFF Import"
@@ -2675,44 +2685,50 @@ msgstr "Organisation wurde erfolgreich erstellt."
 msgid "Organization saved successfully"
 msgstr "Organisation wurde erfolgreich gespeichert."
 
-#: views/pages/page_actions.py:42
+#: views/pages/page_actions.py:43
 msgid "Page was successfully archived."
 msgstr "Seite wurde erfolgreich archiviert."
 
-#: views/pages/page_actions.py:65
+#: views/pages/page_actions.py:66
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page_actions.py:101
+#: views/pages/page_actions.py:102
 msgid "Page was successfully deleted."
 msgstr "Seite wurde erfolgreich gelöscht."
 
-#: views/pages/page_actions.py:229
+#: views/pages/page_actions.py:129
+#, fuzzy
+#| msgid "User was successfully created."
+msgid "URL '{}' was successfuly copied to clipboard."
+msgstr "Benutzer wurde erfolgreich erstellt."
+
+#: views/pages/page_actions.py:263
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: views/pages/page_actions.py:307 views/pages/page_actions.py:322
+#: views/pages/page_actions.py:341 views/pages/page_actions.py:356
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page_actions.py:314
+#: views/pages/page_actions.py:348
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page_actions.py:330
+#: views/pages/page_actions.py:364
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: views/pages/page_actions.py:339 views/pages/page_actions.py:442
+#: views/pages/page_actions.py:373 views/pages/page_actions.py:476
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: views/pages/page_actions.py:410
+#: views/pages/page_actions.py:444
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -2722,12 +2738,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: views/pages/page_actions.py:416
+#: views/pages/page_actions.py:450
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page_actions.py:427
+#: views/pages/page_actions.py:461
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -2737,7 +2753,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: views/pages/page_actions.py:433
+#: views/pages/page_actions.py:467
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -3009,6 +3025,16 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#, fuzzy
+#~| msgid "Translation not available"
+#~ msgid "Translation is not available."
+#~ msgstr "Übersetzung nicht verfügbar"
+
+#, fuzzy
+#~| msgid "Create"
+#~ msgid "great!"
+#~ msgstr "Erstellen"
 
 #~ msgid ""
 #~ "The source language belongs to another region.Please specify a source "
