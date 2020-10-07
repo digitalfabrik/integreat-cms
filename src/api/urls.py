@@ -35,7 +35,11 @@ urlpatterns = [
                 ),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/$",
-                    csrf_exempt(page_feedback.feedback),
+                    page_feedback.page_feedback,  # todo: add legacy endpoint
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/page$",
+                    page_feedback.page_feedback,
                 ),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/categories$",

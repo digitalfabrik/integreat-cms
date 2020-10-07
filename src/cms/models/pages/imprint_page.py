@@ -31,8 +31,8 @@ class ImprintPage(AbstractBasePage):
     """
 
     icon = models.ImageField(blank=True, null=True, upload_to="imprints/%Y/%m/%d")
-    region = models.ForeignKey(
-        Region, related_name="imprints", on_delete=models.CASCADE
+    region = models.OneToOneField(
+        Region, related_name="imprint", on_delete=models.CASCADE
     )
 
     class Meta:
