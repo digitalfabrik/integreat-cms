@@ -145,7 +145,7 @@
 					<a href="{% url 'pages' region_slug=region.slug %}" class="{% if current_menu_item == 'pages' %}active{% endif %}">
 						{% trans 'All pages' %}
 					</a>
-					{% if region.default_language == language and language != null %}
+					{% if language %}
 						<a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'new_page' and not page %}active{% endif %}">
 							{% trans 'Create page' %}
 						</a>
