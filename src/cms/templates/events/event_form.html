@@ -192,7 +192,7 @@
                                 <label for="start_date" class="mb-2 block font-bold text-sm">{% trans 'Start' %}</label>
                                 {% render_field event_form.start_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
-                            <div class="w-1/2 pr-2">
+                            <div class="w-1/2">
                                 <label for="end_date" class="mb-2 block font-bold text-sm">{% trans 'End' %}</label>
                                 {% render_field event_form.end_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
@@ -206,7 +206,7 @@
                                 <label for="start_time" class="mb-2 block font-bold text-sm">{% trans 'Start' %}</label>
                                 {% render_field event_form.start_time|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
-                            <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
+                            <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
                                 <label for="end_time" class="mb-2 block font-bold text-sm">{% trans 'End' %}</label>
                                 {% render_field event_form.end_time|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
@@ -401,7 +401,7 @@
 {% endblock %}
 {% block javascript_nocompress %}
     {% if not event_form.disabled %}
-        <script src="{% static 'js/event.js' %}"></script>
+        <script src="{% static 'js/events/event_query_pois.js' %}"></script>
     {% endif %}
     <script>
         {% get_current_language as LANGUAGE_CODE %}

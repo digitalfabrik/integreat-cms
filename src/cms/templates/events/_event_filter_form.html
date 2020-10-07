@@ -1,0 +1,95 @@
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% load content_filters %}
+{% load poi_filters %}
+<form method="post">
+    {% csrf_token %}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% get_language LANGUAGE_CODE as current_language %}
+    <div class="flex flex-wrap p-4 items-start">
+        <div class="w-1/3 pr-6">
+            <h3 class="font-bold mb-3">{% trans 'Date and time' %}</h3>
+            <div class="flex flex-wrap mb-2 items-end">
+                <div class="w-1/2 pr-1">
+                    <label for="after_date" class="mb-2 block font-bold text-sm">{% trans 'Not before' %}</label>
+                    {% render_field filter_form.after_date|add_error_class:"border-red-500" class+="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                </div>
+                <div class="w-1/2 pl-1">
+                    {% render_field filter_form.after_time|add_error_class:"border-red-500" class+="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                </div>
+            </div>
+            <div class="flex flex-wrap items-end">
+                <div class="w-1/2 pr-1">
+                    <label for="before_date" class="mb-2 block font-bold text-sm">{% trans 'Not after' %}</label>
+                    {% render_field filter_form.before_date|add_error_class:"border-red-500" class+="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                </div>
+                <div class="w-1/2 pl-1">
+                    {% render_field filter_form.before_time|add_error_class:"border-red-500" class+="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                </div>
+            </div>
+        </div>
+        <div class="w-1/3 pr-6">
+            <h3 class="font-bold mb-3">{% trans 'Location' %}</h3>
+            <label for="poi-query-input" class="mb-2 block font-bold text-sm">{% trans 'Event location' %}</label>
+            <div class="relative my-2">
+                {% trans 'Search' as search_placeholder %}
+                <input id="poi-query-input" type="search" autocomplete="off" class="no-new-poi appearance-none block w-full bg-gray-200 text-gray-600 placeholder-gray-600 border border-gray-200 rounded py-3 pl-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" placeholder="{% if filter_poi %}{{ filter_poi|poi_translation_title:current_language }}{% else %}{{ search_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' %}" data-region-slug="{{ region.slug }}" data-default-placeholder="{{ search_placeholder }}">
+                <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                    <button id="poi-remove" title="{% trans 'Empty query input' %}">
+                        <i data-feather="trash-2" class="h-5 w-5"></i>
+                    </button>
+                </div>
+            </div>
+            {% render_field filter_form.poi_id id="poi-id" class+="hidden" %}
+            <div class="relative" id="poi-query-result">
+                {% include 'events/_poi_query_result.html' %}
+            </div>
+        </div>
+        <div class="w-1/3">
+            <h3 class="font-bold mb-3">{% trans 'All day events' %}</h3>
+            <div class="flex flex-wrap">
+                {% render_field filter_form.all_day|add_error_class:"border-red-500" class+="leading-normal rounded" %}
+            </div>
+            <h3 class="font-bold mb-3 pt-4">{% trans 'Recurring events' %}</h3>
+            <div class="flex flex-wrap">
+                {% render_field filter_form.recurring|add_error_class:"border-red-500" class+="leading-normal rounded" %}
+            </div>
+        </div>
+    </div>
+    <div class="w-full flex p-4 justify-end">
+        <button type="button" id="filter-reset"
+                class="bg-gray-500 hover:bg-gray-600 text-gray-800 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+            {% trans 'Reset filter' %}
+        </button>
+        <input type="submit" name="filter" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded"
+               value="{% trans 'Apply filter' %}"/>
+    </div>
+</form>
+
+{% block javascript %}
+    <script src="{% static 'js/events/event_query_pois.js' %}"></script>
+    <script>
+        // event handler to reset filter form
+        u('#filter-reset').on('click', (event) => {
+            // Manual reset implementation instead of just calling reset on the form is necessary
+            // because the form may be pre-populated with POST data
+            remove_poi();
+            u(event.target).closest('form').find('input').each((node) => {
+               if (u(node).is('[type=checkbox]')) {
+                   if (u(node).hasClass('default-checked')) {
+                       // Checkbox marked to be checked by default
+                       u(node).first().checked = true;
+                   } else if (u(node).hasClass('default-not-checked')) {
+                       // Checkbox marked to be unchecked by default
+                       u(node).first().checked = false;
+                   }
+               } else if (u(node).hasClass('default-value')) {
+                   // Non-checkbox input marked to have a default value
+                   u(node).first().value = u(node).data('default-value');
+               }
+            });
+        });
+    </script>
+{% endblock %}
