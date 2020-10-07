@@ -29,11 +29,11 @@ class Language(models.Model):
     :param push_notification_translations: All push notification translations in this language
     """
 
-    code = models.CharField(
+    code = models.SlugField(
         max_length=8, unique=True, validators=[MinLengthValidator(2)]
     )
-    native_name = models.CharField(max_length=250, blank=False)
-    english_name = models.CharField(max_length=250, blank=False)
+    native_name = models.SlugField(max_length=250, blank=False)
+    english_name = models.SlugField(max_length=250, blank=False)
     text_direction = models.CharField(
         default=text_directions.LTR, choices=text_directions.CHOICES, max_length=3
     )
