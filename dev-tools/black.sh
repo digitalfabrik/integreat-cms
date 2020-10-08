@@ -6,3 +6,6 @@ cd $(dirname "$BASH_SOURCE")/..
 
 # Run black
 pipenv run black .
+
+# Update translations (because changed formatting affects line numbers)
+./translate.sh
