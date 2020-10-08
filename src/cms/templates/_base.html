@@ -171,15 +171,15 @@
 			<div class="{% if current_menu_item == 'pois' %}active{% elif current_menu_item == 'pois_form' %}active{% endif %}">
 				<a href="{% url 'pois' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
 					<i data-feather="map-pin" class="absolute"></i>
-					{% trans 'Points of Interest' %}
+					{% trans 'Locations on map' %}
 				</a>
 				<div class="dropdown-container flex-col">
 					<a href="{% url 'pois' region_slug=region.slug %}" class="{% if current_menu_item == 'pois' %}active{% endif %}">
-						{% trans 'All POIs' %}
+						{% trans 'All locations' %}
 					</a>
 					{% if language %}
 					<a href="{% url 'new_poi' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'pois_form' and not poi_form.instance.id %}active{% endif %}">
-						{% trans 'Create POI' %}
+						{% trans 'Create location' %}
 					</a>
 					{% endif %}
 				</div>

@@ -8,7 +8,7 @@
     <select size="{% if poi_query_result|length > 5 %}5{% else %}{{ poi_query_result|length|add:"1" }}{% endif %}" class="appearance-none absolute block w-full bg-white text-gray-800 border border-gray-500 mb-2 py-2 px-2">
         {% if create_poi_option %}
             <option class="option-new-poi" data-url="{% url 'new_poi' region_slug=region.slug language_code=region.default_language.code %}" data-poi-title="{{ poi_query }}" value="-1">
-                {% blocktrans %}Create POI with title "{{ poi_query }}"{% endblocktrans %}
+                {% blocktrans %}Create location with title "{{ poi_query }}"{% endblocktrans %}
             </option>
         {% endif %}
         {% for poi in poi_query_result %}

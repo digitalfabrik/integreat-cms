@@ -42,21 +42,19 @@
                 {% if poi_form.instance.id %}
                     {% if poi_translation_form.instance.id %}
                         {% with poi_translation_form.instance.title as poi_title %}
-                        {% blocktrans %}Edit POI "{{ poi_title }}"{% endblocktrans %}
+                        {% blocktrans %}Edit location "{{ poi_title }}"{% endblocktrans %}
                         {% endwith %}
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
-                        {% if LANGUAGE_CODE != language.code %}
-                            {% get_translation poi_form.instance LANGUAGE_CODE as backend_translation %}
-                            {% if backend_translation %}
-                                ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
-                            {% endif %}
-                        {% endif %}
                     {% else %}
-                        {% trans 'Create new POI translation' %}
+                        {% trans 'Create new translation of the location' %}
+                    {% endif %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+                    {% get_translation poi_form.instance LANGUAGE_CODE as backend_translation %}
+                    {% if backend_translation and LANGUAGE_CODE != language.code %}
+                        ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
                     {% endif %}
                 {% else %}
-                    {% trans 'Create new POI' %}
+                    {% trans 'Create new location' %}
                 {% endif %}
             </h2>
         </div>
@@ -212,22 +210,22 @@
                     {% if poi_form.instance.id %}
                         <div class="pt-2 pb-4">
                             {% if poi_form.instance.archived %}
-                            <span class="block font-bold mb-4">{% trans 'Restore POI' %}</span>
-                                <button title="{% trans 'Restore POI' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-poi">
-                                    <i data-feather="refresh-ccw" class="inline-block mr-2"></i> {% trans 'Restore this POI' %}
+                            <span class="block font-bold mb-4">{% trans 'Restore location' %}</span>
+                                <button title="{% trans 'Restore location' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-poi">
+                                    <i data-feather="refresh-ccw" class="inline-block mr-2"></i> {% trans 'Restore this location' %}
                                 </button>
                             {% else %}
-                                <span class="block font-bold mb-4">{% trans 'Archive POI' %}</span>
-                                <button title="{% trans 'Archive POI' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
-                                    <i data-feather="archive" class="inline-block mr-2"></i> {% trans 'Archive this POI' %}
+                                <span class="block font-bold mb-4">{% trans 'Archive location' %}</span>
+                                <button title="{% trans 'Archive location' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-poi">
+                                    <i data-feather="archive" class="inline-block mr-2"></i> {% trans 'Archive this location' %}
                                 </button>
                             {% endif %}
                         </div>
                         {% if user.is_superuser or user.is_staff %}
                             <div class="pt-2 pb-4">
-                                <span class="block font-bold mb-4">{% trans 'Delete POI' %}</span>
-                                <button title="{% trans 'Delete POI' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
-                                    <i data-feather="trash-2" class="inline-block mr-2"></i> {% trans 'Delete this POI' %}
+                                <span class="block font-bold mb-4">{% trans 'Delete location' %}</span>
+                                <button title="{% trans 'Delete location' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{{ poi_form.instance|poi_translation_title:language }}" data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-poi">
+                                    <i data-feather="trash-2" class="inline-block mr-2"></i> {% trans 'Delete this location' %}
                                 </button>
                             </div>
                         {% endif %}
