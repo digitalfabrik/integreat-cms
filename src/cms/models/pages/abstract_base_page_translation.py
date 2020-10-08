@@ -97,7 +97,8 @@ class AbstractBasePageTranslation(models.Model):
         """
         return "/" + self.permalink
 
-    def get_short_url(self):
+    @property
+    def short_url(self):
         """
         This function generates unique string and returns the short url to the page translation
 
