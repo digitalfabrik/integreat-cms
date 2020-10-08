@@ -21,12 +21,11 @@ from django.utils.translation import ugettext as _
 from django.views.static import serve
 from django.http import HttpResponseNotFound
 
+from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, staff_required
 from ...forms.pages import PageForm
 from ...models import Page, Language, Region, PageTranslation
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
-
-from backend.settings import WEBAPP_URL
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +49,7 @@ def archive_page(request, page_id, region_slug, language_code):
         **{
             "region_slug": region_slug,
             "language_code": language_code,
-        }
+        },
     )
 
 
@@ -73,7 +72,7 @@ def restore_page(request, page_id, region_slug, language_code):
         **{
             "region_slug": region_slug,
             "language_code": language_code,
-        }
+        },
     )
 
 
@@ -109,12 +108,12 @@ def delete_page(request, page_id, region_slug, language_code):
         **{
             "region_slug": region_slug,
             "language_code": language_code,
-        }
+        },
     )
 
 
 @login_required
-def copy_link(request, page_id, region_slug, language_code):
+def copy_short_url(request, page_id, region_slug, language_code):
     """
     Creates short url of page and copies url to clipboard.
     """
@@ -122,30 +121,32 @@ def copy_link(request, page_id, region_slug, language_code):
     page = get_object_or_404(region.pages, id=page_id)
     page_translation = page.get_translation(language_code)
 
-    short_url = (
-        str(request.scheme)
-        + "://"
-        + str(request.get_host())
-        + "/"
-        + str(page_translation.get_short_url())
-    )
-    pyperclip.copy(short_url)
-    messages.success(
-        request,
-        _("URL '{}' was successfuly copied to clipboard.".format(short_url)),
-    )
+    short_url = f"{request.scheme}://{request.get_host()}/{page_translation.short_url}"
+    try:
+        pyperclip.copy(short_url)
+        messages.success(
+            request,
+            _("URL '{}' was successfully copied to clipboard.".format(short_url)),
+        )
+    # pylint: disable=broad-except
+    except Exception as e:
+        logger.exception(e)
+        messages.warning(
+            request,
+            _("URL '{}' could not be copied to clipboard.".format(short_url)),
+        )
 
     return redirect(
         "pages",
         **{
             "region_slug": region_slug,
             "language_code": language_code,
-        }
+        },
     )
 
 
 @login_required
-def redirect_to_view(request, short_url_id):
+def expand_short_url(request, short_url_id):
     """
     Searches for a page with requested short_url_id and redirects to that page.
     """
@@ -154,8 +155,7 @@ def redirect_to_view(request, short_url_id):
 
     if page_translation:
         return redirect(WEBAPP_URL + page_translation.get_absolute_url())
-    else:
-        return HttpResponseNotFound("<h1>Page not found</h1>")
+    return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
 @login_required
@@ -195,7 +195,7 @@ def download_xliff(request, region_slug, language_code):
         **{
             "region_slug": region_slug,
             "language_code": language_code,
-        }
+        },
     )
 
 
@@ -235,7 +235,7 @@ def upload_xliff(request, region_slug, language_code):
         **{
             "region_slug": region_slug,
             "language_code": language_code,
-        }
+        },
     )
 
 
@@ -258,7 +258,7 @@ def confirm_xliff_import(request, region_slug, language_code):
         **{
             "region_slug": region_slug,
             "language_code": language_code,
-        }
+        },
     )
 
 
@@ -288,7 +288,7 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
         **{
             "region_slug": region_slug,
             "language_code": language_code,
-        }
+        },
     )
 
 
