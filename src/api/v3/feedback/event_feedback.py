@@ -15,7 +15,7 @@ def event_feedback_internal(data, region, language, comment, emotion, is_technic
     event_slug = data.get("slug")
     print(event_slug)
     if not event_slug:
-        return JsonResponse({"error": f"Event slug is required."}, status=400)
+        return JsonResponse({"error": "Event slug is required."}, status=400)
     try:
         event = EventTranslation.objects.get(
             event__region=region, language=language, slug=event_slug

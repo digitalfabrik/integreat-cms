@@ -1,8 +1,7 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 
 from api.decorators import feedback_handler
-from cms.models import Region, RegionFeedback
+from cms.models import RegionFeedback
 
 
 @feedback_handler

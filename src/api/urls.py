@@ -2,7 +2,6 @@
 Expansion of API-Endpoints for the CMS
 """
 from django.conf.urls import include, url
-from django.views.decorators.csrf import csrf_exempt
 
 from .v3.feedback import (
     page_feedback,

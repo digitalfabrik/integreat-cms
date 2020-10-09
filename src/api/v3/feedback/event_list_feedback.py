@@ -1,8 +1,7 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 
 from api.decorators import feedback_handler
-from cms.models import Region, EventListFeedback
+from cms.models import EventListFeedback
 
 
 @feedback_handler

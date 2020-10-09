@@ -11,7 +11,7 @@ from backend.settings import IMPRINT_SLUG
 def legacy_feedback_endpoint(data, region, language, comment, emotion, is_technical):
     link = data.get("permalink")
     if not link:
-        return JsonResponse({"error": f"Link is required."}, status=400)
+        return JsonResponse({"error": "Link is required."}, status=400)
     link_components = list(filter(None, link.split("/")))
     if link_components[-1] == IMPRINT_SLUG:
         return imprint_page_feedback_internal(
@@ -22,7 +22,6 @@ def legacy_feedback_endpoint(data, region, language, comment, emotion, is_techni
         return event_feedback_internal(
             data, region, language, comment, emotion, is_technical
         )
-    else:
-        return page_feedback_internal(
-            data, region, language, comment, emotion, is_technical
-        )
+    return page_feedback_internal(
+        data, region, language, comment, emotion, is_technical
+    )

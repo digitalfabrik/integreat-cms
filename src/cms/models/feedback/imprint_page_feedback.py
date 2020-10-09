@@ -3,10 +3,10 @@ from django.db import models
 from .feedback import Feedback
 from ..regions.region import Region
 
-# todo: doku
+
 class ImprintPageFeedback(Feedback):
     """
-    Database model representing feedback about regions in general.
+    Database model representing feedback about imprint pages.
 
     Fields inherited from the base model :class:`~cms.models.feedback.feedback.Feedback`:
 
@@ -20,7 +20,7 @@ class ImprintPageFeedback(Feedback):
 
     Relationship fields:
 
-    :param region: The region the feedback is referring to (related name: ``feedback``)
+    :param region: The region whose imprint page the feedback is referring to (related name: ``imprint_page_feedback``)
     :param feedback_ptr: A pointer to the base class
     """
 

@@ -11,6 +11,7 @@ def imprint_page_feedback(data, region, language, comment, emotion, is_technical
     )
 
 
+# pylint: disable=unused-argument
 def imprint_page_feedback_internal(
     data, region, language, comment, emotion, is_technical
 ):
