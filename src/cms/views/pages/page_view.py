@@ -210,22 +210,22 @@ class PageView(PermissionRequiredMixin, TemplateView):
         if not page_instance:
             if published:
                 messages.success(
-                    request, _("Page was successfully created and published.")
+                    request, _("Page was successfully created and published")
                 )
             else:
-                messages.success(request, _("Page was successfully created."))
+                messages.success(request, _("Page was successfully created"))
         elif not page_translation_instance:
             if published:
                 messages.success(
-                    request, _("Translation was successfully created and published.")
+                    request, _("Translation was successfully created and published")
                 )
             else:
-                messages.success(request, _("Translation was successfully created."))
+                messages.success(request, _("Translation was successfully created"))
         else:
             if published:
-                messages.success(request, _("Translation was successfully published."))
+                messages.success(request, _("Translation was successfully published"))
             else:
-                messages.success(request, _("Translation was successfully saved."))
+                messages.success(request, _("Translation was successfully saved"))
 
         return redirect(
             "edit_page",

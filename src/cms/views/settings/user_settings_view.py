@@ -51,7 +51,7 @@ class UserSettingsView(TemplateView):
                 messages.info(request, _("No changes detected."))
             else:
                 user_email_form.save()
-                messages.success(request, _("E-mail-address was successfully saved."))
+                messages.success(request, _("E-mail-address was successfully saved"))
 
         elif request.POST.get("submit_form") == "password_form":
             user_password_form = UserPasswordForm(request.POST, instance=user)
@@ -70,6 +70,6 @@ class UserSettingsView(TemplateView):
                 user = user_password_form.save()
                 # Prevent user from being logged out after password has changed
                 update_session_auth_hash(request, user)
-                messages.success(request, _("Password was successfully saved."))
+                messages.success(request, _("Password was successfully saved"))
 
         return redirect("user_settings")

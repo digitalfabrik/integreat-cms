@@ -34,10 +34,10 @@ class OfferTemplateView(PermissionRequiredMixin, TemplateView):
         if offer_template_id:
             offer_template = OfferTemplate.objects.get(id=offer_template_id)
             form = OfferTemplateForm(request.POST, instance=offer_template)
-            success_message = _("Offer template saved successfully")
+            success_message = _("Offer template was successfully saved")
         else:
             form = OfferTemplateForm(request.POST)
-            success_message = _("Offer template created successfully")
+            success_message = _("Offer template was successfully created")
 
         if form.is_valid():
             messages.success(request, success_message)

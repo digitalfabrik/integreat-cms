@@ -39,7 +39,7 @@ def archive_page(request, page_id, region_slug, language_code):
     page.archived = True
     page.save()
 
-    messages.success(request, _("Page was successfully archived."))
+    messages.success(request, _("Page was successfully archived"))
 
     return redirect(
         "pages",
@@ -62,7 +62,7 @@ def restore_page(request, page_id, region_slug, language_code):
     page.archived = False
     page.save()
 
-    messages.success(request, _("Page was successfully restored."))
+    messages.success(request, _("Page was successfully restored"))
 
     return redirect(
         "pages",
@@ -95,10 +95,10 @@ def delete_page(request, page_id, region_slug, language_code):
     page = get_object_or_404(region.pages, id=page_id)
 
     if page.children.exists():
-        messages.error(request, _("You cannot delete a page which has children."))
+        messages.error(request, _("You cannot delete a page which has children"))
     else:
         page.delete()
-        messages.success(request, _("Page was successfully deleted."))
+        messages.success(request, _("Page was successfully deleted"))
 
     return redirect(
         "pages",

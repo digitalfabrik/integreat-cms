@@ -63,17 +63,17 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
                 messages.error(request, _(error))
 
         elif not language_tree_node_form.has_changed():
-            messages.info(request, _("No changes detected."))
+            messages.info(request, _("No changes detected"))
 
         else:
             language_tree_node = language_tree_node_form.save()
             if language_tree_node_instance:
                 messages.success(
-                    request, _("Language tree node was saved successfully.")
+                    request, _("Language tree node was successfully saved")
                 )
             else:
                 messages.success(
-                    request, _("Language tree node was created successfully.")
+                    request, _("Language tree node was successfully created")
                 )
             return redirect(
                 "edit_language_tree_node",

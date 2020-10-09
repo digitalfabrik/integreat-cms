@@ -34,15 +34,15 @@ class RoleView(PermissionRequiredMixin, TemplateView):
         if role_id:
             role = Role.objects.get(id=role_id)
             form = RoleForm(request.POST, instance=role)
-            success_message = _("Role saved successfully")
+            success_message = _("Role was successfully saved")
         else:
             form = RoleForm(request.POST)
-            success_message = _("Role created successfully")
+            success_message = _("Role was successfully created")
         if form.is_valid():
             form.save()
             messages.success(request, success_message)
         else:
             # TODO: improve messages
-            messages.error(request, _("Errors have occurred."))
+            messages.error(request, _("Errors have occurred"))
 
         return render(request, self.template_name, {"form": form, **self.base_context})

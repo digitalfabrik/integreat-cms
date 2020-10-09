@@ -14,6 +14,6 @@ def delete_user(request, user_id):
 
     get_user_model().objects.get(id=user_id).delete()
 
-    messages.success(request, _("User was successfully deleted."))
+    messages.success(request, _("User was successfully deleted"))
 
     return redirect("users")
