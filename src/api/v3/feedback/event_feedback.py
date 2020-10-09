@@ -13,7 +13,6 @@ def event_feedback(data, region, language, comment, emotion, is_technical):
 
 def event_feedback_internal(data, region, language, comment, emotion, is_technical):
     event_slug = data.get("slug")
-    print(event_slug)
     if not event_slug:
         return JsonResponse({"error": "Event slug is required."}, status=400)
     try:
