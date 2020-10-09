@@ -12,6 +12,7 @@ from .v3.feedback import (
     event_list_feedback,
     event_feedback,
     imprint_page_feedback,
+    legacy_feedback_endpoint,
 )
 from .v3.languages import languages
 from .v3.pages import pages
@@ -36,8 +37,8 @@ urlpatterns = [
                     sent_push_notifications,
                 ),
                 url(
-                    r"(?P<language_code>[-\w]+)/feedback/$",
-                    page_feedback.page_feedback,  # todo: add legacy endpoint
+                    r"(?P<language_code>[-\w]+)/feedback$",
+                    legacy_feedback_endpoint.legacy_feedback_endpoint,
                 ),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/page$",

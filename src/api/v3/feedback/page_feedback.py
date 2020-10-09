@@ -5,8 +5,13 @@ from cms.models import PageFeedback, PageTranslation
 
 
 @feedback_handler
-# pylint: disable=unused-argument
 def page_feedback(data, region, language, comment, emotion, is_technical):
+    return page_feedback_internal(
+        data, region, language, comment, emotion, is_technical
+    )
+
+
+def page_feedback_internal(data, region, language, comment, emotion, is_technical):
     page_slug = data.get("slug")
     if not page_slug:
         return JsonResponse({"error": f"Page slug is required."}, status=400)
