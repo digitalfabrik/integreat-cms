@@ -10,6 +10,8 @@ from .v3.feedback import (
     region_feedback,
     offer_list_feedback,
     event_list_feedback,
+    event_feedback,
+    imprint_page_feedback,
 )
 from .v3.languages import languages
 from .v3.pages import pages
@@ -40,6 +42,14 @@ urlpatterns = [
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/page$",
                     page_feedback.page_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/event$",
+                    event_feedback.event_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/imprint-page$",
+                    imprint_page_feedback.imprint_page_feedback,
                 ),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/categories$",
