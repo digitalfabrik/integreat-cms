@@ -34,6 +34,18 @@ from .views import (
 
 
 urlpatterns = [
+    url(
+        r"^s/",
+        include(
+            [
+                url(
+                    r"^(?P<short_url_id>[-\w]+)/",
+                    pages.expand_short_url,
+                    name="expand_short_url",
+                )
+            ]
+        ),
+    ),
     url(r"^$", dashboard.RedirectView.as_view(), name="redirect"),
     url(
         r"^admin_dashboard/$",
@@ -394,6 +406,11 @@ urlpatterns = [
                                                         r"^delete$",
                                                         pages.delete_page,
                                                         name="delete_page",
+                                                    ),
+                                                    url(
+                                                        r"^copy-short-url$",
+                                                        pages.copy_short_url,
+                                                        name="copy_short_url",
                                                     ),
                                                     # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
                                                     url(
