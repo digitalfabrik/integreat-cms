@@ -16,9 +16,18 @@ pipenv run integreat-cms-cli makemessages -l de > /dev/null
 
 # Check for missing entries
 if ! git diff --shortstat locale/de/LC_MESSAGES/django.po | grep -q "1 file changed, 1 insertion(+), 1 deletion(-)"; then
-    echo "Your translation file is not up to date. Please run ./dev-tools/translate.sh and check if any strings need manual translation." >&2
+    echo "Your translation file is not up to date." >&2
+    # Check if script is running in CircleCI context
+    if [[ -z "$CIRCLECI" ]]; then
+        echo "Please check if any strings need manual translation." >&2
+    else
+        echo "Please run ./dev-tools/translate.sh and check if any strings need manual translation." >&2
+    fi
     exit 1
 fi
+
+# Reset the translation file if only the POT-Creation-Date changed
+git checkout -- locale/de/LC_MESSAGES/django.po
 
 # Check for empty entries
 if pcregrep -Mq 'msgstr ""\n\n' locale/de/LC_MESSAGES/django.po; then
