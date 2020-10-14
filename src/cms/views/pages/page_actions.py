@@ -10,15 +10,28 @@ import uuid
 
 from mptt.exceptions import InvalidMove
 
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.staticfiles import finders
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import ugettext as _
 from django.views.static import serve
 from django.http import HttpResponseNotFound
+from django.template.loader import get_template
+
+
+from reportlab.pdfgen import canvas
+from reportlab.lib.enums import TA_JUSTIFY
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+
+from xhtml2pdf import pisa
 
 from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, staff_required
@@ -111,7 +124,123 @@ def delete_page(request, page_id, region_slug, language_code):
     )
 
 
+<<<<<<< HEAD
 def expand_short_url(request, short_url_id):
+=======
+""" def export_pdf(request, page_id, region_slug, language_code):
+    region = Region.get_current_region(request)
+    page = get_object_or_404(region.pages, pk=page_id)
+    page_translation = page.get_translation(language_code)
+    # create file-like buffer to receive pdf data
+    buffer = io.BytesIO()
+    
+    print(page_translation.text)
+    doc = SimpleDocTemplate(
+        buffer, 
+        pagesize=A4, 
+        rightMargin=72, 
+        leftMargin=72, 
+        topMargin=72, 
+        bottomMargin=18
+    )
+    Story = []
+    styles = getSampleStyleSheet()
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+    header = '<font size="8">%s</font>' % page_translation.title
+    styles.add(ParagraphStyle(
+        'IntegreatHeader',
+        fontName='Courier-Bold',
+        alignment=TA_JUSTIFY
+    ))
+    Story.append(Paragraph(header, styles["IntegreatHeader"]))
+    Story.append(Spacer(1, 12))
+    paragraph = '<font size="12">%s</font>' % page_translation.text
+    # paragraph = page_translation.text
+    styles.add(ParagraphStyle(
+        'integreat-text',
+        fontName='Courier',
+        alignment=TA_JUSTIFY
+    ))
+    Story.append(Paragraph(paragraph, styles["Normal"]))
+    doc.build(Story)
+
+    # FileResponse sets content-disposition header 
+    # so that browser offers to save to save the file
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename='hello.pdf') """
+
+
+"""
+To allow URL references to be resolved using Django's STATIC_URL,
+specify a link_callback parameter to point to function that 
+converts relative to absolute URLs 
+"""
+
+
+def link_callback(uri, rel):
+    """result = finders.find(uri)
+    if result:
+        if not isinstance(result, (list, tuple)):
+            result = [result]
+        result = list(os.path.realpath(path) for path in result)
+        path = result[0]
+    else:"""
+    sUrl = settings.STATIC_URL
+    SRoot = settings.STATIC_ROOT
+    mUrl = settings.MEDIA_URL
+    mRoot = settings.MEDIA_ROOT
+    if uri.startswith(mUrl):
+        path = os.path.join(mRoot, uri.replace(mUrl, ""))
+    elif uri.startswith(sUrl):
+        path = os.path.join(SRoot, uri.replace(sUrl, ""))
+    else:
+        return uri
+    # make sure that file exists
+    if not os.path.isfile(path):
+        raise Exception("media URI must start with %s or %s" % (sUrl, mUrl))
+    return path
+
+
+def export_pdf(request, page_id, region_slug, language_code):
+    region = Region.get_current_region(request)
+    page = get_object_or_404(region.pages, pk=page_id)
+    page_translation = page.get_translation(language_code)
+    # create file-like buffer to receive pdf data
+    # buffer = io.BytesIO()
+    # create pdf object, using the buffer as its file
+    # p = canvas.Canvas(buffer)
+    template_path = "pages/page_view.html"
+    context = {
+        "page_translation": page_translation,
+        "html2pdf": True,
+        "region": region_slug,
+    }
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = (
+        "attachment; filename=%s.pdf" % page_translation.title
+    )
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
+    if pisa_status.err:
+        return HttpResponse(
+            "There was an error while rendering the following html <pre>"
+            + html
+            + "</pre>"
+        )
+    return response
+    """ result = io.BytesIO()
+    pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result, link_callback=link_callback)
+    if not pdf.err:
+        response = HttpResponse(result.getvalue(), content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s.pdf' % page_translation.title
+        return response
+    return None """
+
+
+@login_required
+def copy_short_url(request, page_id, region_slug, language_code):
+>>>>>>> installed xhtml2pdf: html content of page editor
     """
     Searches for a page with requested short_url_id and redirects to that page.
     """

@@ -1,10 +1,68 @@
 {% extends "_raw.html" %}
 {% load i18n %}
+{% load static %}
+
+{% block css %}
+    {% if html2pdf %}
+        <!-- these style settings are only set to pdf exported pages -->
+        <style>
+            @page {
+                size: a4;
+                margin: 2cm;
+                /* static frames: stay the same across different pages
+                due to the limited set of css styling abilities inside the @page and @frame notation
+                the whole footer is split into three parts */
+                @frame left_footer {
+                    -pdf-frame-content: left_footer;
+                    left: 2cm;
+                    bottom: 0;
+                    width: 300pt;
+                    height: 35pt;
+                }
+                @frame center_footer {
+                    -pdf-frame-content: center_footer;
+                    left: 280pt;
+                    bottom: 0;
+                    width: 300pt;
+                    height: 35pt;
+                }
+                @frame right_footer {
+                    -pdf-frame-content: right_footer;
+                    left: 520pt;
+                    bottom: 0;
+                    width: 300pt;
+                    height: 50pt;
+                }
+            }
+            #content, #footer {
+                font-size: large;
+            }
+            h1 {
+                font-size: xx-large;
+            }
+            h2,h3,h4,h5,h6 {
+                font-size: x-large;
+            }
+        </style>
+    {% endif %}
+{% endblock css %}
 
 {% block raw_content %}
 <h1>{{page_translation.title}}</h1>
-
-<div style="padding-top: 30px">
+<div id="content" style="padding-top: 30px;">
     {{ page_translation.text|safe }}
 </div>
+{% if html2pdf %}
+    <div id="footer">
+        <div id="left_footer">
+            <span><pdf:pagenumber></span>
+        </div>
+        <div id="center_footer">
+            <span>{{ region|capfirst }}</span>
+        </div>
+        <div id="right_footer">
+            <span><img src="{% static 'images/favicon.ico' %}"></span>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

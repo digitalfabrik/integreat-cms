@@ -17,7 +17,7 @@ function bulk_action_execute() {
     if ( action == "archive_pages" ) {
         // TODO
     } else if ( action == 'pdf_export') {
-        u()
+        
     } else { // no previous match, than language code -> XLIFF export
         var page_selected = document.getElementsByName("page_selected");
         var pages = [];

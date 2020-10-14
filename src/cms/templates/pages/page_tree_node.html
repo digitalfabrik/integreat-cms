@@ -102,6 +102,7 @@
                 </button>
             {% endif %}
         {% endif %}
+<<<<<<< HEAD
         {% if page_translation %}
         <a href="#" onclick="short_url_to_clipboard('s/{{ page_translation.short_url }}');" title="{% trans 'Copy short link' %}" class="py-3 px-2">
             <i data-feather="copy" class="inline-block text-gray-800"></i>
@@ -111,5 +112,10 @@
             <i data-feather="copy" class="inline-block text-gray-400"></i>
         </a>
         {% endif %}
+=======
+        <a href="{% url 'export_pdf' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Export as PDF' %}" class="py-3 px-2">
+            <i data-feather="save" class="inline-block text-gray-800"></i>
+        </a>
+>>>>>>> installed xhtml2pdf to convert the html content of the page editor to pdf
     </td>
 </tr>
