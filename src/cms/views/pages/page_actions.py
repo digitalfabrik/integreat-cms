@@ -24,12 +24,12 @@ from django.http import HttpResponseNotFound
 from django.template.loader import get_template
 
 
-from reportlab.pdfgen import canvas
+""" from reportlab.pdfgen import canvas
 from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
+from reportlab.lib.units import inch """
 
 from xhtml2pdf import pisa
 
@@ -203,8 +203,11 @@ def link_callback(uri, rel):
 
 def export_pdf(request, page_id, region_slug, language_code):
     region = Region.get_current_region(request)
+    pages = region.pages.filter(archived=False)
     page = get_object_or_404(region.pages, pk=page_id)
     page_translation = page.get_translation(language_code)
+    language = Language.objects.get(code=language_code)
+    print(page.level)
     # create file-like buffer to receive pdf data
     # buffer = io.BytesIO()
     # create pdf object, using the buffer as its file
@@ -214,6 +217,9 @@ def export_pdf(request, page_id, region_slug, language_code):
         "page_translation": page_translation,
         "html2pdf": True,
         "region": region_slug,
+        "page_level": page.level,
+        "pages": pages,
+        "language": language,
     }
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = (

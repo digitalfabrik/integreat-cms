@@ -1,6 +1,8 @@
 {% extends "_raw.html" %}
 {% load i18n %}
 {% load static %}
+{% load mptt_tags %}
+{% load content_filters %}
 
 {% block css %}
     {% if html2pdf %}
@@ -48,10 +50,28 @@
 {% endblock css %}
 
 {% block raw_content %}
+{% if page_level == 0 %}
+    <pdf:toc />
+    {% recursetree pages %}
+        <li>
+            {% get_translation node language.code as page_node_translation %}
+            <h1>{{ page_node_translation.title }}</h1>
+            <div id="content" style="padding-top: 30px;">
+                {{ page_node_translation.text|safe }}
+            </div>
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+{% else %}
 <h1>{{page_translation.title}}</h1>
 <div id="content" style="padding-top: 30px;">
     {{ page_translation.text|safe }}
 </div>
+{% endif %}
 {% if html2pdf %}
     <div id="footer">
         <div id="left_footer">
