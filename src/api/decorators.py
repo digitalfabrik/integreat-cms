@@ -7,8 +7,31 @@ from cms.models import Region, Language
 
 
 def feedback_handler(func):
+    """
+    Decorator definition for feedback API functions and methods
+
+    :param func: decorated function
+    :type func: func
+
+    :return: return handle_feedback function
+    :rtype: func
+    """
+
     @csrf_exempt
     def handle_feedback(request, region_slug, language_code):
+        """
+        Parse feedback API request parameters
+
+        :param request: Django request
+        :type request: ~django.http.HttpRequest
+        :param region_slug: slug of a region
+        :type region_slug: str
+        :param language_code: code of a language
+        :type language_code: str
+
+        :return: return decorated function
+        :rtype: func
+        """
         if request.method != "POST":
             return JsonResponse({"error": "Invalid request."}, status=405)
         try:

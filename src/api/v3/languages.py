@@ -11,12 +11,13 @@ def languages(request, region_slug):
     """
     Function to add all languages related to a region to a JSON.
 
-    Args:
-        request : Originally the request parameter, but is not used in this case.
-        region_slug ([String]): Slug to identify the desired region.
+    :param request: Django request
+    :type request: ~django.http.HttpRequest
+    :param region_slug: slug of a region
+    :type region_slug: str
 
-    Returns:
-        [String]: JSON with all used languages in a region.
+    :return: JSON object according to APIv3 languages endpoint definition
+    :rtype: ~django.http.JsonResponse
     """
     try:
         region = Region.objects.get(slug=region_slug)
