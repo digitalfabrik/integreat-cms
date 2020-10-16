@@ -29,10 +29,10 @@ urlpatterns = [
         r"(?P<region_slug>[-\w]+)/",
         include(
             [
-                url(r"languages/$", languages),
-                url(r"offers/$", offers),
+                url(r"languages$", languages),
+                url(r"offers$", offers),
                 url(
-                    r"(?P<language_code>[-\w]+)/sent_push_notifications/$",
+                    r"(?P<language_code>[-\w]+)/sent_push_notifications$",
                     sent_push_notifications,
                 ),
                 url(
