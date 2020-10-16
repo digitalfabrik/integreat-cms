@@ -19,15 +19,15 @@ def event_feedback_internal(data, region, language, comment, emotion, is_technic
         event = EventTranslation.objects.get(
             event__region=region, language=language, slug=event_slug
         ).event
-        EventFeedback.objects.create(
-            event=event,
-            language=language,
-            emotion=emotion,
-            comment=comment,
-            is_technical=is_technical,
-        )
-        return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
     except EventTranslation.DoesNotExist:
         return JsonResponse(
             {"error": f'No event found with slug "{event_slug}"'}, status=404
         )
+    EventFeedback.objects.create(
+        event=event,
+        language=language,
+        emotion=emotion,
+        comment=comment,
+        is_technical=is_technical,
+    )
+    return JsonResponse({"success": "Feedback successfully submitted"}, status=201)

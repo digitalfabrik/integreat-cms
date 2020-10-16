@@ -13,7 +13,7 @@ def page_feedback(data, region, language, comment, emotion, is_technical):
 
 def page_feedback_internal(data, region, language, comment, emotion, is_technical):
     page_slug = data.get("slug", None)
-    if page_slug is None or not page_slug:
+    if not page_slug:
         return JsonResponse({"error": "Page slug is required."}, status=400)
     page_translation = PageTranslation.objects.filter(
         page__region=region, language=language, slug=page_slug

@@ -25,9 +25,7 @@ def feedback_handler(func):
         if request.content_type == "application/json":
             data = json.loads(request.body.decode())
         else:
-            data = {}
-            for key in request.POST:
-                data[key] = request.POST.get(key)
+            data = request.POST.dict()
         comment = data.pop("comment", "")
         rating = data.pop("rating", None)
         category = data.pop("category", None)
