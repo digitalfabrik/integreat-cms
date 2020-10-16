@@ -407,11 +407,6 @@ urlpatterns = [
                                                         pages.delete_page,
                                                         name="delete_page",
                                                     ),
-                                                    url(
-                                                        r"^copy-short-url$",
-                                                        pages.copy_short_url,
-                                                        name="copy_short_url",
-                                                    ),
                                                     # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
                                                     url(
                                                         r"^move/(?P<target_id>[0-9]+)/(?P<position>[-\w]+)$",

@@ -7,7 +7,6 @@ import json
 import logging
 import os
 import uuid
-import pyperclip
 
 from mptt.exceptions import InvalidMove
 
@@ -102,39 +101,6 @@ def delete_page(request, page_id, region_slug, language_code):
     else:
         page.delete()
         messages.success(request, _("Page was successfully deleted"))
-
-    return redirect(
-        "pages",
-        **{
-            "region_slug": region_slug,
-            "language_code": language_code,
-        },
-    )
-
-
-@login_required
-def copy_short_url(request, page_id, region_slug, language_code):
-    """
-    Creates short url of page and copies url to clipboard.
-    """
-    region = Region.get_current_region(request)
-    page = get_object_or_404(region.pages, id=page_id)
-    page_translation = page.get_translation(language_code)
-
-    short_url = f"{request.scheme}://{request.get_host()}/{page_translation.short_url}"
-    try:
-        pyperclip.copy(short_url)
-        messages.success(
-            request,
-            _("URL '{}' was successfully copied to clipboard.".format(short_url)),
-        )
-    # pylint: disable=broad-except
-    except Exception as e:
-        logger.exception(e)
-        messages.warning(
-            request,
-            _("URL '{}' could not be copied to clipboard.".format(short_url)),
-        )
 
     return redirect(
         "pages",

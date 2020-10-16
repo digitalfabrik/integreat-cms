@@ -8,7 +8,6 @@ from .page_actions import (
     restore_page,
     view_page,
     delete_page,
-    copy_short_url,
     expand_short_url,
     download_xliff,
     upload_xliff,

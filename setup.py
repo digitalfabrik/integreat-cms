@@ -42,6 +42,7 @@ setup(
         "rules",
         "six",
         "webauthn",
+        "shortuuid",
     ],
     author="Integreat App Project",
     author_email="info@integreat-app.de",
