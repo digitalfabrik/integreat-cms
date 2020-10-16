@@ -11,9 +11,13 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}">
     {% compress css %}
     {% block css %}{% endblock %}
+    {% if not html2pdf %}
+    <!-- the following css files generste error messages in combination with the xhtml2pdf library,
+    so when exporting the page_view.html to generate the pdf document they should not be included -->
     <link href="{% static 'css/style.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/upload_form.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'tailwindcss/dist/tailwind.css' %}" rel="stylesheet" type="text/css">
+    {% endif %}
     {% endcompress %}
     {% compress js %}
     <script src="{% static 'umbrellajs/umbrella.js' %}"></script>

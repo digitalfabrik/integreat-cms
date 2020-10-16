@@ -6,57 +6,30 @@
 
 {% block css %}
     {% if html2pdf %}
-        <!-- these style settings are only set to pdf exported pages -->
-        <style>
-            @page {
-                size: a4;
-                margin: 2cm;
-                /* static frames: stay the same across different pages
-                due to the limited set of css styling abilities inside the @page and @frame notation
-                the whole footer is split into three parts */
-                @frame left_footer {
-                    -pdf-frame-content: left_footer;
-                    left: 2cm;
-                    bottom: 0;
-                    width: 300pt;
-                    height: 35pt;
-                }
-                @frame center_footer {
-                    -pdf-frame-content: center_footer;
-                    left: 280pt;
-                    bottom: 0;
-                    width: 300pt;
-                    height: 35pt;
-                }
-                @frame right_footer {
-                    -pdf-frame-content: right_footer;
-                    left: 520pt;
-                    bottom: 0;
-                    width: 300pt;
-                    height: 50pt;
-                }
-            }
-            #content, #footer {
-                font-size: large;
-            }
-            h1 {
-                font-size: xx-large;
-            }
-            h2,h3,h4,h5,h6 {
-                font-size: x-large;
-            }
-        </style>
+        <!-- these style settings are only set to pdf exported pages
+        for detailed information about the applied library concepts see
+        the documentation of xhtml2pdf -->
+        <link href="{% static 'css/pdf_page_export.css' %}" rel="stylesheet" type="text/css">
     {% endif %}
 {% endblock css %}
 
 {% block raw_content %}
+
 {% if page_level == 0 %}
-    <pdf:toc />
+    <!-- if this page is a root page, additionally insert table of content
+        with all childrens all children pages -->
+    <h1 id="title_page">{{page_translation.title}}</h1>
+    <!-- according to xhtml2pdf documentation all custum tags like <pdf:toc/>, <pdf:nextpage>, etc.
+        should be wrapped inside block tags like <div> to avoid problems -->
+    <div class="toc">
+        <pdf:toc />
+    </div>
+    <div><pdf:nextpage></div>
     {% recursetree pages %}
         <li>
             {% get_translation node language.code as page_node_translation %}
-            <h1>{{ page_node_translation.title }}</h1>
-            <div id="content" style="padding-top: 30px;">
+            <h1 class="{% if node.level == 0 %}root_title{% endif %}">{{ page_node_translation.title }}</h1>
+            <div class="content" style="padding-bottom: 30px;">
                 {{ page_node_translation.text|safe }}
             </div>
             {% if not node.is_leaf_node %}
@@ -67,18 +40,21 @@
         </li>
     {% endrecursetree %}
 {% else %}
-<h1>{{page_translation.title}}</h1>
-<div id="content" style="padding-top: 30px;">
-    {{ page_translation.text|safe }}
-</div>
+    <!-- if this page is not a root page, just show up content for this single page -->
+    <h1>{{page_translation.title}}</h1>
+    <div class="content" style="padding-bottom: 30px;">
+        {{ page_translation.text|safe }}
+    </div>
 {% endif %}
 {% if html2pdf %}
-    <div id="footer">
+    <div id="footer" class="seperator">
+        <!-- due to the limited set of css styling abilities for xhtml2pdf
+        the footer is split into three parts -->
         <div id="left_footer">
             <span><pdf:pagenumber></span>
         </div>
         <div id="center_footer">
-            <span>{{ region|capfirst }}</span>
+            <span>{{ region.name }}</span>
         </div>
         <div id="right_footer">
             <span><img src="{% static 'images/favicon.ico' %}"></span>
