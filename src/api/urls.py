@@ -7,6 +7,7 @@ from .v3.feedback import (
     page_feedback,
     search_result_feedback,
     region_feedback,
+    offer_feedback,
     offer_list_feedback,
     event_list_feedback,
     event_feedback,
@@ -62,6 +63,18 @@ urlpatterns = [
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/extras$",
                     offer_list_feedback.offer_list_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/offers$",
+                    offer_list_feedback.offer_list_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/extra$",
+                    offer_feedback.offer_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/offer$",
+                    offer_feedback.offer_feedback,
                 ),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/events$",
