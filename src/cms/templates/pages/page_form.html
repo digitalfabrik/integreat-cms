@@ -70,10 +70,13 @@
             {% endif %}
             {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
             {% if can_publish_page %}
-                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Publish' %}" />
             {% else %}
-                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Submit for review' %}" />
             {% endif %}
+            <button type="button" onclick="short_url_to_clipboard('{{ page_translation_form.instance.id }}');" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded">
+                <i data-feather="globe" class="inline-block text-gray-200"></i>
+            </button>
         {% endif %}
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
@@ -350,6 +353,17 @@
 </script>
 {% endif %}
 <script>
+function short_url_to_clipboard(url) {
+    u('#mirrored_page_first_div').removeClass('hidden');
+    var copyText = document.getElementById("copy_to_clipboard");
+    copyText.value = "https://" + location.hostname + "/s/p/" + url;
+    u('#copy_to_clipboard').removeClass('hidden');
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    u('#copy_to_clipboard').addClass('hidden');
+}
+
 document.addEventListener('DOMContentLoaded', function(){
     tinymce.init({
         selector: '.tinymce_textarea',
