@@ -10,6 +10,7 @@ from .page_actions import (
     delete_page,
     copy_short_url,
     expand_short_url,
+    expand_page_translation_id,
     download_xliff,
     upload_xliff,
     confirm_xliff_import,

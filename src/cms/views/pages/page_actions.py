@@ -145,13 +145,23 @@ def copy_short_url(request, page_id, region_slug, language_code):
     )
 
 
-@login_required
 def expand_short_url(request, short_url_id):
     """
     Searches for a page with requested short_url_id and redirects to that page.
     """
     queryset = PageTranslation.objects.filter(short_url_id=short_url_id)
     page_translation = queryset.first()
+
+    if page_translation:
+        return redirect(WEBAPP_URL + page_translation.get_absolute_url())
+    return HttpResponseNotFound("<h1>Page not found</h1>")
+
+
+def expand_page_translation_id(request, short_url_id):
+    """
+    Searches for a page translation with corresponding ID and redirects browser to web app
+    """
+    page_translation = PageTranslation.objects.get(short_url_id=short_url_id)
 
     if page_translation:
         return redirect(WEBAPP_URL + page_translation.get_absolute_url())
