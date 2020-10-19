@@ -309,6 +309,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
@@ -513,7 +514,11 @@
 <li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">V3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
@@ -533,7 +538,6 @@
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">Urls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.views">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gvz_api.html">Gvz API</a><ul>
@@ -627,7 +631,11 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
@@ -643,11 +651,18 @@
 <dt id="api.v3.languages.languages">
 <code class="sig-prename descclassname">api.v3.languages.</code><code class="sig-name descname">languages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/languages.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.languages.languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to add all languages related to a region to a JSON.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>request : Originally the request parameter, but is not used in this case.
-region_slug ([String]): Slug to identify the desired region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
+</ul>
 </dd>
-<dt>Returns:</dt><dd><p>[String]: JSON with all used languages in a region.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON object according to APIv3 languages endpoint definition</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.JsonResponse" title="(in Django v2.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -658,10 +673,21 @@ region_slug ([String]): Slug to identify the desired region.</p>
 <p>Provides an endpoint for delivering a JSON with all active offers.</p>
 <dl class="py function">
 <dt id="api.v3.offers.offers">
-<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">offers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.offers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">offers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L29"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.offers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to iterate through all offers related to a region and adds them to a JSON.</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>[String]: [description]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
+<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language code</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON object according to APIv3 offers endpoint definition</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.JsonResponse" title="(in Django v2.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -669,20 +695,104 @@ region_slug ([String]): Slug to identify the desired region.</p>
 <dl class="py function">
 <dt id="api.v3.offers.transform_offer">
 <code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">transform_offer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offer</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.transform_offer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a JSON from a single offer Object.
-Returns:</p>
-<blockquote>
-<div><p>[String]: JSON-String with fields for the parameter of the offer</p>
-</div></blockquote>
+<dd><p>Function to create a JSON from a single offer Object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>offer</strong> (<a class="reference internal" href="cms.models.offers.html#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><em>Offer</em></a>) – one offer (formerly extra)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return data necessary for API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-api.v3.pages">
 <span id="pages"></span><h2>Pages<a class="headerlink" href="#module-api.v3.pages" title="Permalink to this headline">¶</a></h2>
+<p>pages API endpoint</p>
+<dl class="py function">
+<dt id="api.v3.pages.pages">
+<code class="sig-prename descclassname">api.v3.pages.</code><code class="sig-name descname">pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/pages.py#L48"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pages.pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to iterate through all pages related to a region and adds them to a JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
+<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language code</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON object according to APIv3 pages endpoint definition</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.JsonResponse" title="(in Django v2.2)">JsonResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="api.v3.pages.transform_page">
+<code class="sig-prename descclassname">api.v3.pages.</code><code class="sig-name descname">transform_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page_translation</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/pages.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pages.transform_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a JSON from a single page_translation Object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>page_translation</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>) – single page translation object</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return data necessary for API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-api.v3.push_notifications">
 <span id="push-notifications"></span><h2>Push Notifications<a class="headerlink" href="#module-api.v3.push_notifications" title="Permalink to this headline">¶</a></h2>
 <p>Retrieve push notifications that have been sent, optionally filtering by channel.</p>
+<dl class="py function">
+<dt id="api.v3.push_notifications.sent_push_notifications">
+<code class="sig-prename descclassname">api.v3.push_notifications.</code><code class="sig-name descname">sent_push_notifications</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/push_notifications.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.push_notifications.sent_push_notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to iterate through all sent push notifications related to a region and adds them to a JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
+<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language code</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON object according to APIv3 push notifications definition</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.JsonResponse" title="(in Django v2.2)">JsonResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="api.v3.push_notifications.transform_notification">
+<code class="sig-prename descclassname">api.v3.push_notifications.</code><code class="sig-name descname">transform_notification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pn</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/push_notifications.py#L38"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.push_notifications.transform_notification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a JSON from a single push_notification Object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>offer</strong> (<a class="reference internal" href="cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification" title="cms.models.push_notifications.push_notification.PushNotification"><em>PushNotification</em></a>) – one offer (formerly extra)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return data necessary for API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-api.v3.regions">
 <span id="regions"></span><h2>Regions<a class="headerlink" href="#module-api.v3.regions" title="Permalink to this headline">¶</a></h2>

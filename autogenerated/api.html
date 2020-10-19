@@ -309,6 +309,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
@@ -513,7 +514,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
@@ -533,7 +538,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-api.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-api.tests">Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-api.urls">Urls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-api.views">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gvz_api.html">Gvz API</a><ul>
@@ -626,7 +630,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.v3.html">V3</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
@@ -657,6 +665,23 @@
 </div>
 <div class="section" id="module-api.decorators">
 <span id="decorators"></span><h2>Decorators<a class="headerlink" href="#module-api.decorators" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="api.decorators.feedback_handler">
+<code class="sig-prename descclassname">api.decorators.</code><code class="sig-name descname">feedback_handler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/decorators.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.decorators.feedback_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator definition for feedback API functions and methods</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>Callable</em>) – decorated function</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return handle_feedback function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-api.tests">
 <span id="tests"></span><h2>Tests<a class="headerlink" href="#module-api.tests" title="Permalink to this headline">¶</a></h2>
@@ -664,9 +689,6 @@
 <div class="section" id="module-api.urls">
 <span id="urls"></span><h2>Urls<a class="headerlink" href="#module-api.urls" title="Permalink to this headline">¶</a></h2>
 <p>Expansion of API-Endpoints for the CMS</p>
-</div>
-<div class="section" id="module-api.views">
-<span id="views"></span><h2>Views<a class="headerlink" href="#module-api.views" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -696,7 +718,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 25, 2020.
+        Last updated on Oct 19, 2020.
       </span>
 
     </p>

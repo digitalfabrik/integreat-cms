@@ -309,6 +309,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
@@ -513,7 +514,11 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_feedback">Event Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
@@ -533,7 +538,6 @@
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">Urls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.views">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gvz_api.html">Gvz API</a><ul>
@@ -664,6 +668,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>event</strong> (ForeignKey to <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – The event the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
 </dd>
 </dl>
@@ -709,6 +714,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region to which event list the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">event_list_feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
 </dd>
 </dl>
@@ -731,9 +737,46 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <h2>Feedback<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-cms.models.feedback.feedback"></span><dl class="py class">
 <dt id="cms.models.feedback.feedback.Feedback">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.feedback.feedback.</code><code class="sig-name descname">Feedback</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.feedback.feedback.</code><code class="sig-name descname">Feedback</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Database model representing feedback from app-users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" title="(in Django v2.2)"><em>AutoField</em></a>) – The database id of the feedback</p></li>
+<li><p><strong>emotion</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – Whether the feedback is positive or negative (choices: <a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions" title="cms.constants.feedback_emotions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.feedback_emotions</span></code></a>)</p></li>
+<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – A comment describing the feedback</p></li>
+<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the feedback is targeted at the developers</p></li>
+<li><p><strong>read_status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the feedback is marked as read</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the feedback was created</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the feedback was last updated</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py exception">
+<dt id="cms.models.feedback.feedback.Feedback.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.models.feedback.imprint_page_feedback">
+<span id="imprint-page-feedback"></span><h2>Imprint Page Feedback<a class="headerlink" href="#module-cms.models.feedback.imprint_page_feedback" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.models.feedback.imprint_page_feedback.ImprintPageFeedback">
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.feedback.imprint_page_feedback.</code><code class="sig-name descname">ImprintPageFeedback</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/imprint_page_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.imprint_page_feedback.ImprintPageFeedback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
+<p>Database model representing feedback about imprint pages.</p>
+<p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -747,16 +790,26 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 </ul>
 </dd>
 </dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region whose imprint page the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">imprint_page_feedback</span></code>)</p></li>
+<li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py exception">
-<dt id="cms.models.feedback.feedback.Feedback.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+<dt id="cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/imprint_page_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="cms.models.feedback.feedback.Feedback.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.DoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/feedback.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+<dt id="cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/feedback/imprint_page_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -789,6 +842,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>offer</strong> (ForeignKey to <a class="reference internal" href="cms.models.offers.html#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a>) – The offer the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
 </dd>
 </dl>
@@ -834,6 +888,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region to which offer list the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">offer_list_feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
 </dd>
 </dl>
@@ -879,6 +934,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>page</strong> (ForeignKey to <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – The page the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
 </dd>
 </dl>
@@ -924,6 +980,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
 </dd>
 </dl>
@@ -971,7 +1028,10 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <p>Relationship fields:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
+<li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py exception">
@@ -1017,7 +1077,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 25, 2020.
+        Last updated on Oct 09, 2020.
       </span>
 
     </p>
