@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from cms.models import Region, Language
+from cms.constants import feedback_emotions
 
 
 def feedback_handler(func):
@@ -60,11 +61,11 @@ def feedback_handler(func):
                 {"error": "Either comment or rating is required."}, status=400
             )
         if rating == "up":
-            emotion = "POS"
+            emotion = feedback_emotions.POS
         elif rating == "down":
-            emotion = "NEG"
+            emotion = feedback_emotions.NEG
         else:
-            emotion = "NA"
+            emotion = feedback_emotions.NA
         is_technical = category == "Technisches Feedback"
         return func(data, region, language, comment, emotion, is_technical)
 
