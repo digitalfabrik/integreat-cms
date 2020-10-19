@@ -1,4 +1,5 @@
-import shortuuid
+import string
+import random
 
 from django.db import models
 from django.utils import timezone
@@ -40,7 +41,7 @@ class AbstractBasePageTranslation(models.Model):
     minor_edit = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
-    short_url_id = models.CharField(max_length=5, default="")
+    short_url_id = models.CharField(max_length=10, default="")
 
     @property
     def page(self):
@@ -106,9 +107,10 @@ class AbstractBasePageTranslation(models.Model):
         :rtype: str
         """
         if not (self.short_url_id):
-            self.short_url_id = shortuuid.ShortUUID().random(length=5)
+            chars = string.ascii_letters + string.digits
+            self.short_url_id = "".join((random.choice(chars) for i in range(10)))
             self.save()
-        return "s/" + self.short_url_id
+        return self.short_url_id
 
     @property
     def available_languages(self):

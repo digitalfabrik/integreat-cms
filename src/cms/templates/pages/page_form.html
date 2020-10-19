@@ -33,6 +33,7 @@
     <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
     <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
     <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
+    <script src="{% static 'js/copy-clipboard.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -70,10 +71,13 @@
             {% endif %}
             {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
             {% if can_publish_page %}
-                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Publish' %}" />
             {% else %}
-                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Submit for review' %}" />
             {% endif %}
+            <button type="button" onclick="short_url_to_clipboard('s/p/{{ page_translation_form.instance.id }}');" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded">
+                <i data-feather="globe" class="inline-block text-gray-200"></i>
+            </button>
         {% endif %}
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2">

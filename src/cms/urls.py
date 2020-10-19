@@ -39,10 +39,15 @@ urlpatterns = [
         include(
             [
                 url(
+                    r"^p/(?P<short_url_id>[0-9]+)$",
+                    pages.expand_page_translation_id,
+                    name="expand_page_translation_id",
+                ),
+                url(
                     r"^(?P<short_url_id>[-\w]+)/",
                     pages.expand_short_url,
                     name="expand_short_url",
-                )
+                ),
             ]
         ),
     ),
@@ -406,11 +411,6 @@ urlpatterns = [
                                                         r"^delete$",
                                                         pages.delete_page,
                                                         name="delete_page",
-                                                    ),
-                                                    url(
-                                                        r"^copy-short-url$",
-                                                        pages.copy_short_url,
-                                                        name="copy_short_url",
                                                     ),
                                                     # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
                                                     url(
