@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 
-from cms.models import Region
+from cms.models import Region, Page
 
 
 def transform_page(page_translation):
@@ -36,10 +36,20 @@ def transform_page(page_translation):
 def pages(request, region_slug, language_code):
     region = Region.get_current_region(request)
     result = []
-    for page in region.pages.all():
+    for page in Page.objects.filter(region=region, parent=None):  # get main level
         page_translation = page.get_public_translation(language_code)
         if page_translation:
             result.append(transform_page(page_translation))
+            result = get_children(region, page, language_code, result)
     return JsonResponse(
         result, safe=False
     )  # Turn off Safe-Mode to allow serializing arrays
+
+
+def get_children(region, parent, language_code, result):
+    for page in Page.objects.filter(region=region, parent=parent):
+        page_translation = page.get_public_translation(language_code)
+        if page_translation:
+            result.append(transform_page(page_translation))
+            result = get_children(region, page, language_code, result)
+    return result
