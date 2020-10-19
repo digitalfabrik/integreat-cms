@@ -58,7 +58,6 @@ def pages(request, region_slug, language_code):
 
     :return: JSON object according to APIv3 pages endpoint definition
     :rtype: ~django.http.JsonResponse
-
     """
     region = Region.get_current_region(request)
     result = []

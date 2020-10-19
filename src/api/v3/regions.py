@@ -1,3 +1,6 @@
+"""
+Views to return JSON representations of regions
+"""
 from django.db.models import Exists, OuterRef
 from django.http import JsonResponse, HttpResponse
 
@@ -6,6 +9,15 @@ from cms.constants import region_status
 
 
 def transform_region(region):
+    """
+    Function to create a JSON from a single region object, including information if region is live/ative.
+
+    :param page_translation: single region object
+    :type page_translation: ~cms.models.regions.region.Region
+
+    :return: return data necessary for API
+    :rtype: dict
+    """
     return {
         "id": region.id,
         "name": region.get_administrative_division_display() + " " + region.name,
@@ -24,6 +36,15 @@ def transform_region(region):
 
 
 def transform_region_by_status(region):
+    """
+    Function to create a JSON from a single "active" region object.
+
+    :param page_translation: single region object
+    :type page_translation: ~cms.models.regions.region.Region
+
+    :return: return data necessary for API
+    :rtype: dict
+    """
     return {
         "id": region.id,
         "name": region.get_administrative_division_display() + " " + region.name,
@@ -41,6 +62,15 @@ def transform_region_by_status(region):
 
 
 def regions(_):
+    """
+    List all regions that are not archived and transform result into JSON
+
+    :param _: not used Django request
+    :type _: ~django.http.HttpRequest
+
+    :return: JSON object according to APIv3 regions endpoint definition
+    :rtype: ~django.http.JsonResponse
+    """
     result = list(
         map(
             transform_region,
@@ -55,6 +85,15 @@ def regions(_):
 
 
 def liveregions(_):
+    """
+    List all regions that are not archived and transform result into JSON
+
+    :param _: not used Django request
+    :type _: ~django.http.HttpRequest
+
+    :return: JSON object according to APIv3 live regions endpoint definition
+    :rtype: ~django.http.JsonResponse
+    """
     result = list(
         map(
             transform_region_by_status,
@@ -69,6 +108,15 @@ def liveregions(_):
 
 
 def hiddenregions(_):
+    """
+    List all regions that are hidden and transform result into JSON
+
+    :param _: not used Django request
+    :type _: ~django.http.HttpRequest
+
+    :return: JSON object according to APIv3 hidden regions endpoint definition
+    :rtype: ~django.http.JsonResponse
+    """
     result = list(
         map(
             transform_region_by_status,
@@ -84,8 +132,17 @@ def hiddenregions(_):
 
 def pushnew(_):
     """
-    This is a convenience function for development.
-    todo: To be removed on deploy.
+    This is a magic black box convenience function for development. There is no
+    reason for it, but we like it. As we do not care about randomly generated languages
+    and it only consumes a few bytes of disk space, there is also no need to remove.
+    And as non-profit projects rarely generate little money, this also does not pose a
+    problem.
+
+    :param _: not used Django request
+    :type _: ~django.http.HttpRequest
+
+    :return: All is right with the world
+    :rtype: ~realms.magic.unicorn
     """
     de = Language(code="de", title="Deutsch", text_direction="ltr")
     dutch = Language(code="nl", title="Netherlands", text_direction="ltr")
