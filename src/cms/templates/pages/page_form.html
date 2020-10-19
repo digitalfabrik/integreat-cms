@@ -33,6 +33,7 @@
     <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
     <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
     <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
+    <script src="{% static 'js/copy-clipboard.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -74,7 +75,7 @@
             {% else %}
                 <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Submit for review' %}" />
             {% endif %}
-            <button type="button" onclick="short_url_to_clipboard('{{ page_translation_form.instance.id }}');" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded">
+            <button type="button" onclick="short_url_to_clipboard('s/p/{{ page_translation_form.instance.id }}');" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded">
                 <i data-feather="globe" class="inline-block text-gray-200"></i>
             </button>
         {% endif %}
@@ -353,17 +354,6 @@
 </script>
 {% endif %}
 <script>
-function short_url_to_clipboard(url) {
-    u('#mirrored_page_first_div').removeClass('hidden');
-    var copyText = document.getElementById("copy_to_clipboard");
-    copyText.value = "https://" + location.hostname + "/s/p/" + url;
-    u('#copy_to_clipboard').removeClass('hidden');
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-    document.execCommand("copy");
-    u('#copy_to_clipboard').addClass('hidden');
-}
-
 document.addEventListener('DOMContentLoaded', function(){
     tinymce.init({
         selector: '.tinymce_textarea',

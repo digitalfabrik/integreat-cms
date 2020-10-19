@@ -110,7 +110,7 @@ class AbstractBasePageTranslation(models.Model):
             chars = string.ascii_letters + string.digits
             self.short_url_id = "".join((random.choice(chars) for i in range(10)))
             self.save()
-        return "s/" + self.short_url_id
+        return self.short_url_id
 
     @property
     def available_languages(self):

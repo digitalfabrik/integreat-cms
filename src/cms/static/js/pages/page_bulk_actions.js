@@ -31,14 +31,3 @@ function bulk_action_execute() {
         window.open(bulk_action_url+"?target_lang="+action+"&pages="+pages.join(','), "_blank");
     }
 }
-
-function short_url_to_clipboard(url) {
-    u('#mirrored_page_first_div').removeClass('hidden');
-    var copyText = document.getElementById("copy_to_clipboard");
-    copyText.value = "https://" + location.hostname + "/" + url;
-    u('#copy_to_clipboard').removeClass('hidden');
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-    document.execCommand("copy");
-    u('#copy_to_clipboard').addClass('hidden');
-}
