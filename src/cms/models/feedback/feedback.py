@@ -1,5 +1,6 @@
 from django.db import models
 
+from ..languages.language import Language
 from ...constants import feedback_emotions
 
 
@@ -16,6 +17,7 @@ class Feedback(models.Model):
     :param last_updated: The date and time when the feedback was last updated
     """
 
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
     emotion = models.CharField(max_length=3, choices=feedback_emotions.CHOICES)
     comment = models.CharField(max_length=1000)
     is_technical = models.BooleanField()

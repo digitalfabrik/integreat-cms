@@ -1,16 +1,16 @@
 """
-APIv3 endpoint for feedback bout single pages
+APIv3 endpoint for feedback about the imprint
 """
 from django.http import JsonResponse
 
 from api.decorators import feedback_handler
-from cms.models import PageFeedback, PageTranslation
+from cms.models.feedback.imprint_page_feedback import ImprintPageFeedback
 
 
 @feedback_handler
-def page_feedback(data, region, language, comment, emotion, is_technical):
+def imprint_page_feedback(data, region, language, comment, emotion, is_technical):
     """
-    Decorate function for storing feedback about single page in database
+    Store feedback about imprint in database
 
     :param data: HTTP request body data
     :type data: dict
@@ -28,14 +28,17 @@ def page_feedback(data, region, language, comment, emotion, is_technical):
     :return: decorated function that saves feedback in database
     :rtype: ~collections.abc.Callable
     """
-    return page_feedback_internal(
+    return imprint_page_feedback_internal(
         data, region, language, comment, emotion, is_technical
     )
 
 
-def page_feedback_internal(data, region, language, comment, emotion, is_technical):
+# pylint: disable=unused-argument
+def imprint_page_feedback_internal(
+    data, region, language, comment, emotion, is_technical
+):
     """
-    Store feedback about single event in database
+    Store feedback about imprint in database
 
     :param data: HTTP request body data
     :type data: dict
@@ -50,21 +53,11 @@ def page_feedback_internal(data, region, language, comment, emotion, is_technica
     :param is_technical: is feedback on content or on tech
     :type is_technical: bool
 
-    :return: JSON object according to APIv3 single page feedback endpoint definition
+    :return: JSON object according to APIv3 imprint feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    page_slug = data.get("slug", None)
-    if not page_slug:
-        return JsonResponse({"error": "Page slug is required."}, status=400)
-    page_translation = PageTranslation.objects.filter(
-        page__region=region, language=language, slug=page_slug
-    ).first()
-    if page_translation is None:
-        return JsonResponse(
-            {"error": f'No page found with slug "{page_slug}"'}, status=404
-        )
-    PageFeedback.objects.create(
-        page=page_translation.page,
+    ImprintPageFeedback.objects.create(
+        region=region,
         language=language,
         emotion=emotion,
         comment=comment,

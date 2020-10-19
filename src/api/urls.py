@@ -7,8 +7,12 @@ from .v3.feedback import (
     page_feedback,
     search_result_feedback,
     region_feedback,
+    offer_feedback,
     offer_list_feedback,
     event_list_feedback,
+    event_feedback,
+    imprint_page_feedback,
+    legacy_feedback_endpoint,
 )
 from .v3.languages import languages
 from .v3.pages import pages
@@ -26,13 +30,28 @@ urlpatterns = [
         r"(?P<region_slug>[-\w]+)/",
         include(
             [
-                url(r"languages/$", languages),
-                url(r"offers/$", offers),
+                url(r"languages$", languages),
+                url(r"offers$", offers),
                 url(
-                    r"(?P<language_code>[-\w]+)/sent_push_notifications/$",
+                    r"(?P<language_code>[-\w]+)/sent_push_notifications$",
                     sent_push_notifications,
                 ),
-                url(r"(?P<language_code>[-\w]+)/feedback/$", page_feedback.feedback),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback$",
+                    legacy_feedback_endpoint.legacy_feedback_endpoint,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/page$",
+                    page_feedback.page_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/event$",
+                    event_feedback.event_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/imprint-page$",
+                    imprint_page_feedback.imprint_page_feedback,
+                ),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/categories$",
                     region_feedback.region_feedback,
@@ -44,6 +63,18 @@ urlpatterns = [
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/extras$",
                     offer_list_feedback.offer_list_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/offers$",
+                    offer_list_feedback.offer_list_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/extra$",
+                    offer_feedback.offer_feedback,
+                ),
+                url(
+                    r"(?P<language_code>[-\w]+)/feedback/offer$",
+                    offer_feedback.offer_feedback,
                 ),
                 url(
                     r"(?P<language_code>[-\w]+)/feedback/events$",
