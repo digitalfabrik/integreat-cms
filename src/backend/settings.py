@@ -325,3 +325,5 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
     "x-integreat-development",
 ]
+
+TEST_BLOG_ID = 154

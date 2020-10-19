@@ -5,6 +5,7 @@ File routing to the admin region
 
 from django.contrib import admin
 
+from .models import Configuration
 from .models import Event
 from .models import EventTranslation
 from .models import Offer
@@ -16,11 +17,13 @@ from .models import Page
 from .models import PageTranslation
 from .models import POI
 from .models import POITranslation
+from .models import PushNotificationChannel
 from .models import Region
 from .models import RecurrenceRule
 from .models import UserMfa
 from .models import UserProfile
 
+admin.site.register(Configuration)
 admin.site.register(Event)
 admin.site.register(EventTranslation)
 admin.site.register(Offer)
@@ -32,6 +35,7 @@ admin.site.register(Page)
 admin.site.register(PageTranslation)
 admin.site.register(POI)
 admin.site.register(POITranslation)
+admin.site.register(PushNotificationChannel)
 admin.site.register(Region)
 admin.site.register(RecurrenceRule)
 admin.site.register(UserMfa)

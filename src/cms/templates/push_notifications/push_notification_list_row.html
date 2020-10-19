@@ -15,7 +15,9 @@
 			<div class="lang-grid">
 				{% for other_language in languages %}
 				<a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_code=other_language.code %}">
-					<i data-feather="{% if push_notification|translation:other_language %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
+					{% with pnt=push_notification|translation:other_language %}
+					<i data-feather="{% if pnt.title != "" %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
+					{% endwith %}
 				</a>
 				{% endfor %}
 			</div>

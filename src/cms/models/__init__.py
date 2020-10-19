@@ -32,6 +32,7 @@ from .pages.page_translation import PageTranslation
 from .pois.poi import POI
 from .pois.poi_translation import POITranslation
 
+from .push_notifications.push_notification_channel import PushNotificationChannel
 from .push_notifications.push_notification import PushNotification
 from .push_notifications.push_notification_translation import (
     PushNotificationTranslation,

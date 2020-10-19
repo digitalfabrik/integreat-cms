@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-09 11:10+0000\n"
+"POT-Creation-Date: 2020-10-19 08:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -188,6 +188,14 @@ msgstr "PLZ an die URL anhängen"
 #: constants/postal_code.py:21
 msgid "Add postal code to post parameters"
 msgstr "PLZ zu den Post-Parametern hinzufügen"
+
+#: constants/push_notifications.py:14
+msgid "Only send available translations"
+msgstr "Nur verfügbare Übersetzungen senden"
+
+#: constants/push_notifications.py:15
+msgid "Use main language if no translation is available"
+msgstr "Benutze Haupt-Sprache, wenn keine Übersetzung verfügbar"
 
 #: constants/recurrence.py:20 templates/events/_event_filter_form.html:55
 msgid "Recurring events"
@@ -948,7 +956,7 @@ msgstr ""
 #: templates/pages/page_revisions.html:77 templates/pages/page_sbs.html:98
 #: templates/pages/page_sbs.html:170 templates/pages/page_xliff_confirm.html:43
 #: templates/pois/poi_form.html:150
-#: templates/push_notifications/push_notification_form.html:49
+#: templates/push_notifications/push_notification_form.html:62
 #: templates/push_notifications/push_notification_list.html:24
 msgid "Title"
 msgstr "Titel"
@@ -1210,7 +1218,6 @@ msgstr "Veranstaltung bearbeiten"
 
 #: templates/language_tree/language_tree.html:30
 #: templates/language_tree/language_tree_node_form.html:27
-#: templates/push_notifications/push_notification_form.html:62
 msgid "Language"
 msgstr "Sprache"
 
@@ -1230,7 +1237,7 @@ msgstr "Sprache hinzufügen"
 #: templates/languages/language_form.html:21
 #: templates/offer_templates/offer_template_form.html:22
 #: templates/organizations/organization_form.html:21
-#: templates/push_notifications/push_notification_form.html:26
+#: templates/push_notifications/push_notification_form.html:38
 #: templates/regions/region_form.html:21 templates/roles/role.html:21
 #: templates/users/admin/user.html:21 templates/users/region/user.html:21
 msgid "Save"
@@ -1597,7 +1604,7 @@ msgstr "Revisionen anzeigen"
 #: templates/pages/page_form.html:171 templates/pages/page_revisions.html:66
 #: templates/pages/page_revisions.html:78 templates/pages/page_sbs.html:101
 #: templates/pages/page_sbs.html:173 templates/pages/page_xliff_confirm.html:45
-#: templates/push_notifications/push_notification_form.html:54
+#: templates/push_notifications/push_notification_form.html:67
 msgid "Content"
 msgstr "Inhalt"
 
@@ -1979,62 +1986,38 @@ msgstr "Noch keine Orte vorhanden."
 msgid "No locations archived yet."
 msgstr "Noch keine Orte archiviert."
 
-#: templates/push_notifications/push_notification_form.html:15
+#: templates/push_notifications/push_notification_form.html:27
 #, python-format
 msgid "Edit push notification \"%(push_notification_title)s\""
 msgstr "Push Benachrichtigung \"%(push_notification_title)s\" bearbeiten"
 
-#: templates/push_notifications/push_notification_form.html:18
+#: templates/push_notifications/push_notification_form.html:30
 msgid "Create new translation for push notification"
 msgstr "Übersetzung für Push-Benachrichtigung erstellen"
 
-#: templates/push_notifications/push_notification_form.html:21
+#: templates/push_notifications/push_notification_form.html:33
 msgid "Create new push notification"
 msgstr "Neue Push-Benachrichtigung verfassen"
 
-#: templates/push_notifications/push_notification_form.html:27
+#: templates/push_notifications/push_notification_form.html:39
 msgid "Save & Send"
 msgstr "Speichern & Senden"
 
-#: templates/push_notifications/push_notification_form.html:34
-#, python-format
-msgid ""
-"This push notification has already been sent on the "
-"%(push_notification_sent_date)s."
-msgstr ""
-"Diese Push-Benachrichtigung wurde bereits am %(push_notification_sent_date)s "
-"gesendet."
+#: templates/push_notifications/push_notification_form.html:63
+msgid "Insert title"
+msgstr "Titel eingeben"
 
-#: templates/push_notifications/push_notification_form.html:43
+#: templates/push_notifications/push_notification_form.html:68
+msgid "Insert content"
+msgstr "Inhalt eingeben"
+
+#: templates/push_notifications/push_notification_form.html:97
+msgid "Mode"
+msgstr "Modus"
+
 #: templates/push_notifications/push_notification_list.html:27
 msgid "Channel"
 msgstr "Kanal"
-
-#: templates/push_notifications/push_notification_form.html:44
-msgid "This affects all translations of this notification."
-msgstr "Dies betrifft alle Übersetzungen dieser Benachrichtigung"
-
-#: templates/push_notifications/push_notification_form.html:45
-msgid "Insert channel name here"
-msgstr "Kanal-Name hier eingeben"
-
-#: templates/push_notifications/push_notification_form.html:50
-#, python-format
-msgid "Insert title in %(language)s here"
-msgstr "Titel auf %(language)s hier eingeben"
-
-#: templates/push_notifications/push_notification_form.html:55
-#, python-format
-msgid "Insert content in %(language)s here"
-msgstr "Inhalt auf %(language)s hier eingeben"
-
-#: templates/push_notifications/push_notification_form.html:63
-msgid "Current language"
-msgstr "Aktuelle Sprache"
-
-#: templates/push_notifications/push_notification_form.html:70
-msgid "Translations"
-msgstr "Übersetzungen"
 
 #: templates/push_notifications/push_notification_list.html:39
 msgid "Sent"
@@ -2725,10 +2708,8 @@ msgstr "Angebots-Vorlage wurde erfolgreich erstellt"
 
 #: views/offer_templates/offer_template_view.py:49
 #: views/organizations/organization_view.py:47 views/pages/page_sbs_view.py:154
-#: views/pages/page_view.py:168
-#: views/push_notifications/push_notification_view.py:152
-#: views/regions/region_view.py:40 views/users/region_user_view.py:95
-#: views/users/user_view.py:89
+#: views/pages/page_view.py:168 views/regions/region_view.py:40
+#: views/users/region_user_view.py:95 views/users/user_view.py:89
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
 
@@ -2988,21 +2969,25 @@ msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
 "Benachrichtigungen verwalten."
 
-#: views/push_notifications/push_notification_view.py:84
-msgid "Push notification was successfully saved"
-msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert"
+#: views/push_notifications/push_notification_view.py:137
+msgid "Push Notification saved"
+msgstr "Push-Benachrichtigung gespeichert"
 
-#: views/push_notifications/push_notification_view.py:87
-msgid "Push notification was successfully created"
-msgstr "Push-Benachrichtigung wurde erfolgreich erstellt"
+#: views/push_notifications/push_notification_view.py:139
+msgid "Error while saving Push Notification"
+msgstr "Fehler während des Speicherns der Push-Benachrichtigung"
 
-#: views/push_notifications/push_notification_view.py:144
-msgid "Push notification was successfully sent"
+#: views/push_notifications/push_notification_view.py:147
+msgid "Push Notification send successfully"
 msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
 
-#: views/push_notifications/push_notification_view.py:148
-msgid "Error occurred sending the push notification"
+#: views/push_notifications/push_notification_view.py:151
+msgid "Error while sending Push Notification"
 msgstr "Fehler während des Sendens der Push-Benachrichtigung"
+
+#: views/push_notifications/push_notification_view.py:154
+msgid "Required Push Notification texts are missing"
+msgstr "Benötigte Texte für die Push-Benachrichtigung fehlen"
 
 #: views/regions/region_actions.py:22
 msgid "Region was successfully deleted"
@@ -3100,6 +3085,40 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid ""
+#~ "This push notification has already been sent on the "
+#~ "%(push_notification_sent_date)s."
+#~ msgstr ""
+#~ "Diese Push-Benachrichtigung wurde bereits am "
+#~ "%(push_notification_sent_date)s gesendet."
+
+#~ msgid "This affects all translations of this notification."
+#~ msgstr "Dies betrifft alle Übersetzungen dieser Benachrichtigung"
+
+#~ msgid "Insert channel name here"
+#~ msgstr "Kanal-Name hier eingeben"
+
+#~ msgid "Insert title in %(language)s here"
+#~ msgstr "Titel auf %(language)s hier eingeben"
+
+#~ msgid "Insert content in %(language)s here"
+#~ msgstr "Inhalt auf %(language)s hier eingeben"
+
+#~ msgid "Current language"
+#~ msgstr "Aktuelle Sprache"
+
+#~ msgid "Translations"
+#~ msgstr "Übersetzungen"
+
+#~ msgid "Push notification was successfully saved"
+#~ msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert"
+
+#~ msgid "Push notification was successfully created"
+#~ msgstr "Push-Benachrichtigung wurde erfolgreich erstellt"
+
+#~ msgid "Push notification was successfully sent"
+#~ msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
 
 #~ msgid "Page was successfully archived."
 #~ msgstr "Seite wurde erfolgreich archiviert."
@@ -3245,9 +3264,6 @@ msgstr ""
 #~ msgid "Organization saved successfully"
 #~ msgstr "Organisation wurde erfolgreich gespeichert."
 
-#~ msgid "Push notification saved successfully."
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert."
-
 #~ msgid "Push notification created successfully."
 #~ msgstr "Push-Benachrichtigung wurde erfolgreich erstellt."
 
@@ -3386,9 +3402,6 @@ msgstr ""
 
 #~ msgid "User"
 #~ msgstr "Benutzer"
-
-#~ msgid "Publish all translations"
-#~ msgstr "Alle Übersetzungen veröffentlichen"
 
 #~ msgid "Publish this translation"
 #~ msgstr "Diese Übersetzung veröffentlichen"

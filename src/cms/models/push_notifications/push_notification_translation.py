@@ -19,8 +19,8 @@ class PushNotificationTranslation(models.Model):
                      ``push_notification_translations``)
     """
 
-    title = models.CharField(max_length=250)
-    text = models.CharField(max_length=250)
+    title = models.CharField(max_length=250, blank=True)
+    text = models.CharField(max_length=250, blank=True)
     language = models.ForeignKey(
         "Language",
         related_name="push_notification_translations",
@@ -51,3 +51,4 @@ class PushNotificationTranslation(models.Model):
         """
 
         default_permissions = ()
+        unique_together = ["push_notification", "language"]

@@ -1,43 +1,135 @@
+"""
+Module for sending Push Notifications
+"""
 import logging
 import requests
 
-from ...models import Configuration
+from django.conf import settings
 
+from ...models import Configuration
+from ...models import PushNotificationTranslation
+from ...constants import push_notifications as pnt_const
 
 # pylint: disable=too-few-public-methods
 class PushNotificationSender:
+    """
+    Sends push notifications via FCM HTTP API.
+    Definition: https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json
+    """
+
     logger = logging.getLogger(__name__)
     fcm_url = "https://fcm.googleapis.com/fcm/send"
 
-    """
-    Sends push notifications via FCM legacy http api.
-    Returns boolean indicating success or failure
-    """
+    def __init__(self, push_notification):
+        """
+        Load relevant push notification translations and prepare content for sending
 
-    # pylint: disable=too-many-arguments
-    def send(self, region_slug, channel, title, message, lan_code):
+        :param push_notification: the push notification that should be sent
+        :type push_notification: ~cms.models.push_notifications.push_notification.PushNotification
+        """
+        self.push_notification = push_notification
+        self.prepared_pnts = []
+        self.primary_pnt = PushNotificationTranslation.objects.get(
+            push_notification=push_notification,
+            language=push_notification.region.default_language,
+        )
+        if len(self.primary_pnt.title) > 0:
+            self.prepared_pnts.append(self.primary_pnt)
+        self.load_secondary_pnts()
+        self.auth_key = self.get_auth_key()
+
+    def load_secondary_pnts(self):
+        """
+        Load push notification translations in other languages
+        """
+        secondary_pnts = PushNotificationTranslation.objects.filter(
+            push_notification=self.push_notification
+        ).exclude(id=self.primary_pnt.id)
+        for secondary_pnt in secondary_pnts:
+            if (
+                secondary_pnt.title == ""
+                and pnt_const.USE_MAIN_LANGUAGE == self.push_notification.mode
+            ):
+                secondary_pnt.title = self.primary_pnt.title
+                secondary_pnt.text = self.primary_pnt.text
+                self.prepared_pnts.append(secondary_pnt)
+            if len(secondary_pnt.title) > 0:
+                self.prepared_pnts.append(secondary_pnt)
+
+    def is_valid(self):
+        """
+        Check if all data for sending push notifications is available
+
+        :return: all prepared push notification translations are valid
+        :rtype: bool
+        """
+        if self.auth_key is None:
+            return False
+        for pnt in self.prepared_pnts:
+            if not pnt.title:
+                self.logger.info("Push Notification Translation invalid: %s", str(pnt))
+                return False
+        return True
+
+    def get_auth_key(self):
+        """
+        Get FCM API auth key
+
+        :return: FCM API auth key
+        :rtype: str
+        """
         fcm_auth_config_key = "fcm_auth_key"
         auth_key = Configuration.objects.filter(key=fcm_auth_config_key)
         if auth_key.exists():
             self.logger.info("Got fcm_auth_key from database")
-        else:
-            self.logger.info(
-                "Could not get %s from configuration database.", fcm_auth_config_key
-            )
-            return False
-        payload = {
-            "to": f"/topics/{region_slug}-{lan_code}-{channel}",
-            "notification": {"title": title, "body": message},
-            "data": {"lanCode": lan_code, "city": region_slug},
-        }
-        headers = {"Authorization": f"key={auth_key.first().value}"}
-        res = requests.post(self.fcm_url, json=payload, headers=headers)
-        if res.status_code == 200:
-            self.logger.info("Message sent, id: %s", res.json()["message_id"])
-            return True
+            return auth_key.first().value
         self.logger.info(
-            "Received invalid response from FCM for push notification: %s, response body: %s",
-            res.status_code,
-            res.text,
+            "Could not get %s from configuration database", fcm_auth_config_key
         )
-        return False
+        return None
+
+    def send_pn(self, pnt):
+        """
+        Send single push notification translation
+
+        :param pnt: the prepared push notification translation to be sent
+        :type pnt: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+        """
+        if settings.DEBUG:
+            blog_id = (
+                settings.TEST_BLOG_ID
+            )  # Testumgebung Blog ID - prevent sending PNs to actual users
+        else:
+            blog_id = self.push_notification.region.id
+        payload = {
+            "to": f"/topics/{blog_id}-{pnt.language.code}-{self.push_notification.channel}",
+            "notification": {"title": pnt.title, "body": pnt.text},
+            "data": {
+                "lanCode": pnt.language.code,
+                "city": self.push_notification.region.slug,
+            },
+        }
+        headers = {"Authorization": f"key={self.auth_key}"}
+        return requests.post(self.fcm_url, json=payload, headers=headers)
+
+    # pylint: disable=too-many-arguments
+    def send_all(self):
+        """
+        Send all prepared push notification translations
+
+        :return: Success status
+        :rtype: bool
+        """
+        status = True
+        for pnt in self.prepared_pnts:
+            res = self.send_pn(pnt)
+            if res.status_code == 200:
+                self.logger.info("Message sent, id: %s", res.json()["message_id"])
+            else:
+                status = False
+                self.logger.info(
+                    "Received invalid response from FCM for push notification: %s, response body: %s",
+                    res.status_code,
+                    res.text,
+                )
+        return status
