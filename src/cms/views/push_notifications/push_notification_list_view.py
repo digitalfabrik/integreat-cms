@@ -1,3 +1,6 @@
+"""
+Overview list of existing push notifications
+"""
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -13,6 +16,10 @@ from ...models import Language, Region
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class PushNotificationListView(PermissionRequiredMixin, TemplateView):
+    """
+    Class that handles HTTP GET requests for listing push notifications
+    """
+
     permission_required = "cms.view_push_notifications"
     raise_exception = True
 
@@ -20,6 +27,16 @@ class PushNotificationListView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "push_notifications"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Create a list that shows existing push notifications and translations
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+
         # current region
         region = Region.get_current_region(request)
 

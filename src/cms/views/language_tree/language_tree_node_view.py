@@ -1,7 +1,5 @@
 """
-
-Returns:
-    [type]: [description]
+Module for viewing single nodes in the language tree. These views are available within regions.
 """
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -19,6 +17,10 @@ from ...models import Region
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
+    """
+    Class that handles viewing single language in the language tree
+    """
+
     permission_required = "cms.manage_language_tree"
     raise_exception = True
 
@@ -26,6 +28,16 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "language_tree_form"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Show form for editing a single language (HTTP GET) in the language tree
+
+        :param request: The current request
+        :type request: django.http.HttpResponse
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+
         # current region
         region = Region.get_current_region(request)
         # current language tree node
@@ -45,6 +57,15 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
+        """
+        Save and show form for editing a single language (HTTP POST) in the language tree
+
+        :param request: The current request
+        :type request: django.http.HttpResponse
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         # current region
         region = Region.get_current_region(request)
         # current language tree node

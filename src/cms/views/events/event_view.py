@@ -1,3 +1,6 @@
+"""
+Contains a class for handling requests to render the event form
+"""
 import logging
 
 from django.contrib import messages
@@ -20,6 +23,10 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class EventView(PermissionRequiredMixin, TemplateView):
+    """
+    Class for rendering the events form
+    """
+
     permission_required = "cms.view_events"
     raise_exception = True
 
@@ -27,6 +34,15 @@ class EventView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
+        """
+        Render event form for HTTP GET requests
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         region = Region.get_current_region(request)
         language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
 
@@ -78,6 +94,15 @@ class EventView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=too-many-locals,too-many-branches
     def post(self, request, **kwargs):
+        """
+        Save event and ender event form for HTTP POST requests
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         region = Region.get_current_region(request)
         language = Language.objects.get(code=kwargs.get("language_code"))
         poi = POI.objects.filter(id=request.POST.get("poi_id")).first()

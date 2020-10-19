@@ -23,7 +23,15 @@ from ...utils.mfa_utils import generate_challenge
 
 class MfaEnableAuthentication(auth_views.LoginView):
     def form_valid(self, form):
-        """Security check complete. Log the user in."""
+        """
+        Security check complete. Log the user in.
+
+        :param form: User login form
+        :type form: ~django.contrib.auth.forms.AuthenticationForm
+
+        :return: redirect
+        :rtype: ~django.shortcuts.redirect
+        """
 
         user = form.get_user()
         if user.mfa_keys.count() > 0:
@@ -34,10 +42,14 @@ class MfaEnableAuthentication(auth_views.LoginView):
 
 
 def login(request):
-    """View to provide login functionality
+    """
+    View to provide login functionality
 
     :param request: Object representing the user call
-    :return: HttpResponseRedirect: View function to render the Login page
+    :type request: ~django.http.HttpRequest
+
+    :return: The login form
+    :rtype: ~django.template.response.TemplateResponse
     """
     return MfaEnableAuthentication.as_view(template_name="authentication/login.html")(
         request
@@ -45,10 +57,14 @@ def login(request):
 
 
 def mfa(request):
-    """View to check 2FA authentication if applicable
+    """
+    View to check 2FA authentication if applicable
 
     :param request: Object representing the user call
-    :return: HttpResponseRedirect: View function to render the MFA page
+    :type request: ~django.http.HttpRequest
+
+    :return: The second factor form
+    :rtype: ~django.template.response.TemplateResponse
     """
     return auth_views.LoginView.as_view(template_name="authentication/login_mfa.html")(
         request
@@ -56,6 +72,9 @@ def mfa(request):
 
 
 def makeWebauthnUsers(user):
+    """
+    Unknown
+    """
     webauthn_users = []
 
     for key in user.mfa_keys.all():
@@ -76,6 +95,17 @@ def makeWebauthnUsers(user):
 
 
 def mfaAssert(request):
+    """
+    Multi factor authentication assert
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :return: second factor assertion
+    :rtype: ~django.http.JsonResponse
+
+    """
+
     if "mfa_user_id" not in request.session:
         return JsonResponse({"success": False, "error": _("You need to log in first")})
 
@@ -96,6 +126,15 @@ def mfaAssert(request):
 
 
 def mfaVerify(request):
+    """
+    Verify second factor authentication attempt
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :return: success notification
+    :rtype: ~django.http.JsonResponse
+    """
     if "mfa_user_id" not in request.session:
         return JsonResponse({"success": False, "error": _("You need to log in first")})
 
@@ -141,10 +180,14 @@ def mfaVerify(request):
 
 
 def logout(request):
-    """View to provide logout functionality
+    """
+    View to provide logout functionality
 
     :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
     :return: HttpResponseRedirect: Redirect to the login page after logout
+    :rtype: ~django.http.HttpResponseRedirect
     """
 
     django_logout(request)
@@ -153,10 +196,14 @@ def logout(request):
 
 
 def password_reset_done(request):
-    """View linked to the Password reset functionality
+    """
+    View linked to the Password reset functionality
 
     :param request: Object representing the user call
-    :return: HttpResponseRedirect: Redirect after password reset
+    :type request: ~django.http.HttpRequest
+
+    :return: Redirect after password reset
+    :rtype: ~django.http.HttpResponseRedirect
     """
 
     messages.info(
@@ -172,9 +219,12 @@ def password_reset_done(request):
 
 
 def password_reset_confirm(request):
-    """View linked to the Password reset functionality
+    """
+    View linked to the Password reset functionality
 
     :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
     :return: PasswordChangeDoneView: Linked to Template to build view for user
     """
 
@@ -183,10 +233,14 @@ def password_reset_confirm(request):
 
 
 def password_reset_complete(request):
-    """View linked to the Password reset functionality
+    """
+    View linked to the Password reset functionality
 
     :param request: Object representing the user call
-    :return: HttpResponseRedirect: Redirect to login page after password is reseted
+    :type request: ~django.http.HttpRequest
+
+    :return: Redirect to login page after password is reseted
+    :rtype: ~django.http.HttpResponseRedirect
     """
 
     messages.success(

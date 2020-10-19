@@ -19,6 +19,15 @@ class TranslationCoverageView(TemplateView):
     base_context = {"current_menu_item": "translation_coverage"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Calculate and show translation coverage (up to date translations, missing translation, etc)
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region = Region.get_current_region(request)
         num_pages = region.pages.count()

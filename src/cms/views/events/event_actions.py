@@ -1,3 +1,6 @@
+"""
+This module contains action methods for events (archive, restore, ...)
+"""
 import json
 import logging
 
@@ -18,6 +21,21 @@ logger = logging.getLogger(__name__)
 @login_required
 @region_permission_required
 def archive(request, event_id, region_slug, language_code):
+    """
+    Set archived flag for an event
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+    :param event_id: internal id of the event to be archived
+    :type event_id: int
+    :param region_slug: slug of the region which the event belongs to
+    :type region_slug: str
+    :param language_code: current GUI language code
+    :type language_code: str
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     region = Region.get_current_region(request)
     event = get_object_or_404(region.events, id=event_id)
 
@@ -41,6 +59,21 @@ def archive(request, event_id, region_slug, language_code):
 @login_required
 @region_permission_required
 def restore(request, event_id, region_slug, language_code):
+    """
+    Remove archived flag for an event
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+    :param event_id: internal id of the event to be un-archived
+    :type event_id: int
+    :param region_slug: slug of the region which the event belongs to
+    :type region_slug: str
+    :param language_code: current GUI language code
+    :type language_code: str
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     region = Region.get_current_region(request)
     event = get_object_or_404(region.events, id=event_id)
 
@@ -64,6 +97,21 @@ def restore(request, event_id, region_slug, language_code):
 @login_required
 @staff_required
 def delete(request, event_id, region_slug, language_code):
+    """
+    Delete a single event
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+    :param event_id: internal id of the event to be deleted
+    :type event_id: int
+    :param region_slug: slug of the region which the event belongs to
+    :type region_slug: str
+    :param language_code: current GUI language code
+    :type language_code: str
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     region = Region.get_current_region(request)
     event = get_object_or_404(region.events, id=event_id)
 
@@ -84,6 +132,15 @@ def delete(request, event_id, region_slug, language_code):
 @login_required
 @region_permission_required
 def search_poi_ajax(request):
+    """
+    AJAX endpoint for searching POIs
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     data = json.loads(request.body.decode("utf-8"))
 
     poi_query = data.get("query_string")

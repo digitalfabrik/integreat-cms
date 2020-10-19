@@ -1,3 +1,6 @@
+"""
+Contains a class for handling requests to render the events list
+"""
 from datetime import date, time
 
 from django.contrib import messages
@@ -18,6 +21,10 @@ from ...forms.events import EventFilterForm
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
 class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    """
+    Class for rendering the events list
+    """
+
     permission_required = "cms.view_events"
     raise_exception = True
 
@@ -27,10 +34,25 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
     @property
     def template_name(self):
+        """
+        Select correct HTML template, depending on archived state
+
+        :return: Path to HTML template
+        :rtype: str
+        """
         return self.template_archived if self.archived else self.template
 
     # pylint: disable=too-many-branches
     def get(self, request, *args, **kwargs):
+        """
+        Render events list for HTTP GET requests
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         # current region
         region = Region.get_current_region(request)
 
@@ -144,4 +166,13 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         )
 
     def post(self, request, *args, **kwargs):
+        """
+        Render events list for HTTP POST requests
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         return self.get(request, *args, **kwargs, filter_data=request.POST)
