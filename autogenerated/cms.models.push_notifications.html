@@ -220,6 +220,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
@@ -345,6 +346,7 @@
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.push_notifications.push_notification_channel">Push Notification Channel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
 </ul>
 </li>
@@ -631,19 +633,20 @@
 <span id="push-notification"></span><h2>Push Notification<a class="headerlink" href="#module-cms.models.push_notifications.push_notification" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.push_notifications.push_notification.PushNotification">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.push_notifications.push_notification.</code><code class="sig-name descname">PushNotification</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.push_notifications.push_notification.</code><code class="sig-name descname">PushNotification</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing a push notification</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" title="(in Django v2.2)"><em>AutoField</em></a>) – The database id of the push notification</p></li>
-<li><p><strong>channel</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – The channel of the push notification</p></li>
+<li><p><strong>channel</strong> (ForeignKey to <a class="reference internal" href="#cms.models.push_notifications.push_notification_channel.PushNotificationChannel" title="cms.models.push_notifications.push_notification_channel.PushNotificationChannel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationChannel</span></code></a>) – The channel of the push notification</p></li>
 <li><p><strong>draft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the push notification is a draft (drafts cannot be sent)</p></li>
 <li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the push notification was sent (<a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if the push notification is
 not yet sent)</p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the push notification was created</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the push notification was last updated</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – Sets behavior for dealing with not existing push notification translations</p></li>
 </ul>
 </dd>
 </dl>
@@ -661,13 +664,44 @@ not yet sent)</p></li>
 </dl>
 <dl class="py exception">
 <dt id="cms.models.push_notifications.push_notification.PushNotification.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.push_notifications.push_notification.PushNotification.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification.PushNotification.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.models.push_notifications.push_notification_channel">
+<span id="push-notification-channel"></span><h2>Push Notification Channel<a class="headerlink" href="#module-cms.models.push_notifications.push_notification_channel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.models.push_notifications.push_notification_channel.PushNotificationChannel">
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.push_notifications.push_notification_channel.</code><code class="sig-name descname">PushNotificationChannel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_channel.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_channel.PushNotificationChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Data model representing a push notification channels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – The channel of the push notification</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.AutoField" title="(in Django v2.2)"><em>AutoField</em></a>) – Id</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.CharField" title="(in Django v2.2)"><em>CharField</em></a>) – Name</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py exception">
+<dt id="cms.models.push_notifications.push_notification_channel.PushNotificationChannel.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_channel.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_channel.PushNotificationChannel.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="cms.models.push_notifications.push_notification_channel.PushNotificationChannel.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/push_notifications/push_notification_channel.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.push_notifications.push_notification_channel.PushNotificationChannel.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -745,7 +779,7 @@ not yet sent)</p></li>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 30, 2020.
+        Last updated on Oct 19, 2020.
       </span>
 
     </p>

@@ -220,6 +220,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
@@ -345,6 +346,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_channel">Push Notification Channel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
 </ul>
 </li>
@@ -636,13 +638,129 @@
 </div>
 <div class="section" id="module-cms.views.push_notifications.push_notification_sender">
 <span id="push-notification-sender"></span><h2>Push Notification Sender<a class="headerlink" href="#module-cms.views.push_notifications.push_notification_sender" title="Permalink to this headline">¶</a></h2>
+<p>Module for sending Push Notifications</p>
+<dl class="py class">
+<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.push_notifications.push_notification_sender.</code><code class="sig-name descname">PushNotificationSender</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">push_notification</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Sends push notifications via FCM HTTP API.
+Definition: <a class="reference external" href="https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json">https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json</a></p>
+<dl class="py method">
+<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">push_notification</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load relevant push notification translations and prepare content for sending</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>push_notification</strong> (<a class="reference internal" href="cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification" title="cms.models.push_notifications.push_notification.PushNotification"><em>PushNotification</em></a>) – the push notification that should be sent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.get_auth_key">
+<code class="sig-name descname">get_auth_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L74"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.get_auth_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get FCM API auth key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>FCM API auth key</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.is_valid">
+<code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L59"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if all data for sending push notifications is available</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>all prepared push notification translations are valid</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.load_secondary_pnts">
+<code class="sig-name descname">load_secondary_pnts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L41"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.load_secondary_pnts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load push notification translations in other languages</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_all">
+<code class="sig-name descname">send_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L116"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send all prepared push notification translations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Success status</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn">
+<code class="sig-name descname">send_pn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pnt</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L91"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send single push notification translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pnt</strong> (<a class="reference internal" href="cms.models.push_notifications.html#cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><em>PushNotificationTranslation</em></a>) – the prepared push notification translation to be sent</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-cms.views.push_notifications.push_notification_view">
 <span id="push-notification-view"></span><h2>Push Notification View<a class="headerlink" href="#module-cms.views.push_notifications.push_notification_view" title="Permalink to this headline">¶</a></h2>
+<p>View for editing Push Notifications</p>
 <dl class="py class">
 <dt id="cms.views.push_notifications.push_notification_view.PushNotificationView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.push_notifications.push_notification_view.</code><code class="sig-name descname">PushNotificationView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L22"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.push_notifications.push_notification_view.</code><code class="sig-name descname">PushNotificationView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L27"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<p>Class that handles HTTP POST and GET requests for editing push notifications</p>
+<dl class="py method">
+<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L38"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open form for creating or editing a push notification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.push_notifications.push_notification_view.PushNotificationView.post">
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L98"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.push_notifications.push_notification_view.PushNotificationView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save and show form for creating or editing a push notification. Send push notification
+if asked for by user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -674,7 +792,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Oct 07, 2020.
+        Last updated on Oct 19, 2020.
       </span>
 
     </p>

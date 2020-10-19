@@ -220,6 +220,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
@@ -345,6 +346,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_channel">Push Notification Channel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
 </ul>
 </li>
@@ -629,28 +631,16 @@
 <span id="push-notification-form"></span><h2>Push Notification Form<a class="headerlink" href="#module-cms.forms.push_notifications.push_notification_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.forms.push_notifications.push_notification_form.PushNotificationForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.push_notifications.push_notification_form.</code><code class="sig-name descname">PushNotificationForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/push_notifications/push_notification_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.push_notifications.push_notification_form.PushNotificationForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.push_notifications.push_notification_form.</code><code class="sig-name descname">PushNotificationForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/push_notifications/push_notification_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.push_notifications.push_notification_form.PushNotificationForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelForm</span></code></p>
 <p>Form for creating and modifying push notification objects</p>
-<dl class="py method">
-<dt id="cms.forms.push_notifications.push_notification_form.PushNotificationForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/push_notifications/push_notification_form.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.push_notifications.push_notification_form.PushNotificationForm.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt id="cms.forms.push_notifications.push_notification_form.PushNotificationTranslationForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.push_notifications.push_notification_form.</code><code class="sig-name descname">PushNotificationTranslationForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/push_notifications/push_notification_form.py#L19"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.push_notifications.push_notification_form.PushNotificationTranslationForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.push_notifications.push_notification_form.</code><code class="sig-name descname">PushNotificationTranslationForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/push_notifications/push_notification_form.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.push_notifications.push_notification_form.PushNotificationTranslationForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelForm</span></code></p>
 <p>Form for creating and modifying push notification translation objects</p>
-<dl class="py method">
-<dt id="cms.forms.push_notifications.push_notification_form.PushNotificationTranslationForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/forms/push_notifications/push_notification_form.py#L28"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.push_notifications.push_notification_form.PushNotificationTranslationForm.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -682,7 +672,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 03, 2020.
+        Last updated on Aug 01, 2020.
       </span>
 
     </p>
