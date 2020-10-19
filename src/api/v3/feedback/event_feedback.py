@@ -23,7 +23,7 @@ def event_feedback(data, region, language, comment, emotion, is_technical):
     :type is_technical: bool
 
     :return: decorated function that saves feedback in database
-    :rtype: func
+    :rtype: ~collections.abc.Callable
     """
     return event_feedback_internal(
         data, region, language, comment, emotion, is_technical

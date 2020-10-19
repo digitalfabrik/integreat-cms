@@ -30,7 +30,7 @@ def legacy_feedback_endpoint(data, region, language, comment, emotion, is_techni
     :type is_technical: bool
 
     :return: decorated function that saves feedback in database
-    :rtype: func
+    :rtype: ~collections.abc.Callable
     """
     link = data.get("permalink")
     if not link:

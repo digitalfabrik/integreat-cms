@@ -11,10 +11,10 @@ def feedback_handler(func):
     Decorator definition for feedback API functions and methods
 
     :param func: decorated function
-    :type func: func
+    :type func: ~collection.abc.Callable
 
     :return: return handle_feedback function
-    :rtype: func
+    :rtype: ~collections.abc.Callable
     """
 
     @csrf_exempt
@@ -30,7 +30,7 @@ def feedback_handler(func):
         :type language_code: str
 
         :return: return decorated function
-        :rtype: func
+        :rtype: ~collections.abc.Callable
         """
         if request.method != "POST":
             return JsonResponse({"error": "Invalid request."}, status=405)

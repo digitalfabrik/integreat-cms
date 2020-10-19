@@ -11,7 +11,7 @@ def transform_page(page_translation):
     Function to create a JSON from a single page_translation Object.
 
     :param page_translation: single page translation object
-    :type offer: ~cms.models.pages.page_translation.PageTranslation
+    :type page_translation: ~cms.models.pages.page_translation.PageTranslation
 
     :return: return data necessary for API
     :rtype: dict
