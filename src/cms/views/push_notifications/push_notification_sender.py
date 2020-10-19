@@ -79,10 +79,10 @@ class PushNotificationSender:
         :rtype: str
         """
         fcm_auth_config_key = "fcm_auth_key"
-        auth_key = Configuration.objects.filter(key=fcm_auth_config_key).first().value
-        if auth_key:
+        auth_key = Configuration.objects.filter(key=fcm_auth_config_key)
+        if auth_key.exists():
             self.logger.info("Got fcm_auth_key from database")
-            return auth_key
+            return auth_key.first().value
         self.logger.info(
             "Could not get %s from configuration database", fcm_auth_config_key
         )
@@ -96,7 +96,9 @@ class PushNotificationSender:
         :type pnt: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
         if settings.DEBUG:
-            blog_id = 154  # Testumgebung Blog ID - prevent sending PNs to actual users
+            blog_id = (
+                settings.TEST_BLOG_ID
+            )  # Testumgebung Blog ID - prevent sending PNs to actual users
         else:
             blog_id = self.push_notification.region.id
         payload = {

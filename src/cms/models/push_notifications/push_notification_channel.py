@@ -8,7 +8,7 @@ class PushNotificationChannel(models.Model):
     :param channel: The channel of the push notification
     """
 
-    channel = models.CharField(max_length=60)
+    name = models.CharField(max_length=60)
 
     def __str__(self):
         """
@@ -17,4 +17,4 @@ class PushNotificationChannel(models.Model):
         :return: channel name
         :rtype: str
         """
-        return self.channel
+        return self.name

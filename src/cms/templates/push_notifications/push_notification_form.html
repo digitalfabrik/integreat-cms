@@ -8,17 +8,13 @@
 {% load rules %}
 {% load compress %}
 
+{% block javascript_head %}
+    <script src="{% static 'js/push_notifications.js' %}"></script>
+{% endblock %}
+
+
 <script>
-    function switch_language(language) {
-        var languages = [{% for lang in languages %}'{{ lang.id }}', {% endfor %}];
-        console.log(languages);
-        languages.forEach(function(language){
-            u("#tab-"+language).addClass("hidden");
-            u("#li-"+language).removeClass("z-10");
-        });
-        u("#tab-"+language).removeClass("hidden");
-        u("#li-"+language).addClass("z-10");
-}
+    var languages = [{% for lang in languages %}'{{ lang.id }}', {% endfor %}];
 </script>
 <form method="post">
     {% csrf_token %}
@@ -50,7 +46,7 @@
                 <li id="li-{{ other_language.id }}" class="mr-1 {% if other_language.id == language.id %}z-10{% endif %}" style="margin-bottom: -2px" onclick="switch_language('{{ other_language.id }}')">
                         <div class="bg-white text-blue-500 hover:bg-blue-500 hover:text-white border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                             <div class="border-b-2 border-white">
-                                <div class="p-4">{{ other_language }}</div>
+                                <div class="p-4">{{ other_language.translated_name }}</div>
                             </div>
                         </div>
                     </li>
