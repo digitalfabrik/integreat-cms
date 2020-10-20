@@ -3,6 +3,7 @@
 Returns:
     [type]: [description]
 """
+import hashlib
 import json
 import logging
 import os
@@ -18,6 +19,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
@@ -209,7 +211,7 @@ def link_callback(uri, rel):
 @login_required
 @region_permission_required
 # pylint: disable=unused-argument
-def export_pdf(request, region_slug, page_id, language_code):
+def export_pdf(request, region_slug, language_code):
     """
     function for handling a pdf export request for a single page
     if the page is a root page the corresponding django template
@@ -217,43 +219,55 @@ def export_pdf(request, region_slug, page_id, language_code):
 
     :param request: request submitted for rendering pdf document
     :type request: ~django.http.HttpRequest
-    :param page_id: database id for selected page
-    :type page_id: int
     :param language_code: bcp47 code of the current language
     :type language_code: str
     :raises PermissionDenied: user login and permissions required
     :return: pdf document offered for download
     :rtype: ~django.http.HttpRequest
     """
+    page_ids = []
     region = Region.get_current_region(request)
-    page = get_object_or_404(region.pages, pk=page_id)
-    # get all pages of the same tree
-    pages = region.pages.filter(archived=False, tree_id=page.tree_id)
-    page_translation = page.get_translation(language_code)
-    language = Language.objects.get(code=language_code)
-    template_path = "pages/page_view.html"
-    context = {
-        "page_translation": page_translation,
-        "html2pdf": True,
-        "region": region,
-        "page_level": page.level,
-        "pages": pages,
-        "language": language,
-    }
-    response = HttpResponse(content_type="application/pdf")
-    response["Content-Disposition"] = (
-        "attachment; filename=%s.pdf" % page_translation.title
-    )
-    template = get_template(template_path)
-    html = template.render(context)
-    pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
-    if pisa_status.err:
-        return HttpResponse(
-            "There was an error while rendering the following html <pre>"
-            + html
-            + "</pre>"
+    for page_id in request.GET.get('pages').split(','):
+        page_ids.append(page_id)
+    # retrieve all selected pages
+    pages = region.pages.filter(archived=False, id__in=page_ids)
+    amount_pages = len(pages)
+    pdf_key_list = [region_slug]
+    for page in pages:
+        # retrieve the translation for each page
+        page_translation = page.get_translation(language_code)
+        pdf_key_list.append(page_translation.id)
+        pdf_key_list.append(page_translation.last_updated)
+    pdf_key_string = '_'.join(map(str, pdf_key_list))
+    pdf_hash_key = hashlib.sha256(bytes(pdf_key_string, 'utf-8')).hexdigest()
+    cached_response = cache.get(pdf_hash_key, 'has_expired')
+    if (cached_response is not 'has_expired'):
+        return cached_response
+    else:
+        language = Language.objects.get(code=language_code)
+        template_path = "pages/page_view.html"
+        context = {
+            "html2pdf": True,
+            "region": region,
+            "pages": pages,
+            "language": language,
+            "amount_pages": amount_pages
+        }
+        response = HttpResponse(content_type="application/pdf")
+        response["Content-Disposition"] = (
+            "attachment; filename=%s.pdf" % page_translation.title
         )
-    return response
+        template = get_template(template_path)
+        html = template.render(context)
+        pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
+        if pisa_status.err:
+            return HttpResponse(
+                "There was an error while rendering the following html <pre>"
+                + html
+                + "</pre>"
+            )
+        cache.set(pdf_hash_key, response, 60*60*24)
+        return response
 
 
 @login_required

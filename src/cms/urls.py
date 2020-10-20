@@ -362,6 +362,11 @@ urlpatterns = [
                                             name="download_xliff",
                                         ),
                                         url(
+                                            r"^export$",
+                                            pages.export_pdf,
+                                            name="export_pdf",
+                                        ),
+                                        url(
                                             r"^(?P<page_id>[0-9]+)/",
                                             include(
                                                 [
@@ -412,19 +417,14 @@ urlpatterns = [
                                                         pages.delete_page,
                                                         name="delete_page",
                                                     ),
-<<<<<<< HEAD
-=======
-                                                    url(
-                                                        r"^copy-short-url$",
-                                                        pages.copy_short_url,
-                                                        name="copy_short_url",
-                                                    ),
                                                     url(
                                                         r"^export$",
                                                         pages.export_pdf,
                                                         name="export_pdf",
                                                     ),
 >>>>>>> added comments and bundled pdf styling in css file
+=======
+>>>>>>> added PDF response caching
                                                     # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
                                                     url(
                                                         r"^move/(?P<target_id>[0-9]+)/(?P<position>[-\w]+)$",

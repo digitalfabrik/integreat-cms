@@ -198,6 +198,15 @@ STATICFILES_DIRS = [
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "cms/static/")
 
+# Caches
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(STATIC_ROOT, "CACHE/django_cache"),
+    }
+}
+
 # Login
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"

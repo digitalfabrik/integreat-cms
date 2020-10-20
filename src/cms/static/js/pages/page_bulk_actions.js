@@ -16,6 +16,18 @@ function bulk_action_execute() {
     // match action types
     if ( action == "archive_pages" ) {
         // TODO
+    } else if (action == "pdf_export") {
+        var selected_pages = document.getElementsByName("page_selected");
+        pages = [];
+        selected_pages.forEach(e => {
+            if(e.checked) {
+            pages.push(e.value)
+            }
+        })
+        if (pages.length != 0) {
+            var pdf_export_url = document.getElementById("pdf_export_url").value;
+            window.open(pdf_export_url+"?pages="+pages.join(','));
+        } 
     } else { // no previous match, than language code -> XLIFF export
         var page_selected = document.getElementsByName("page_selected");
         var pages = [];
