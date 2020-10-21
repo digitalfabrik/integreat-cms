@@ -30,6 +30,7 @@ from .views import (
     settings,
     statistics,
     users,
+    feedbacks,
 )
 
 
@@ -689,6 +690,7 @@ urlpatterns = [
                         ]
                     ),
                 ),
+              
                 url(
                     r"^users/",
                     include(
@@ -726,5 +728,6 @@ urlpatterns = [
             ]
         ),
     ),
+    url(r"^feedbacks/", url(r"^$", feedbacks.feedback_view.as_view()),),
     url(r"^favicon\.ico$", RedirectView.as_view(url="/static/images/favicon.ico")),
 ] + static(django_settings.MEDIA_URL, document_root=django_settings.MEDIA_ROOT)
