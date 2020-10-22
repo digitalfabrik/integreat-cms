@@ -65,7 +65,7 @@ class PushNotification(models.Model):
 
         default_permissions = ()
         permissions = (
-            ("view_push_notifications", "Can view push notification"),
-            ("edit_push_notifications", "Can edit push notification"),
-            ("send_push_notifications", "Can send push notification"),
+            ("view_push_notifications", "Can view push notifications"),
+            ("edit_push_notifications", "Can edit push notifications"),
+            ("send_push_notifications", "Can send push notifications"),
         )
