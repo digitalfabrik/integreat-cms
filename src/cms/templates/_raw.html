@@ -12,8 +12,13 @@
     {% compress css %}
     {% block css %}{% endblock %}
     {% if not html2pdf %}
-    <!-- the following css files generste error messages in combination with the xhtml2pdf library,
-    so when exporting the page_view.html to generate the pdf document they should not be included -->
+    {% comment %}
+        These files are not included when the template is rendered in the html2pdf view,
+        because xhtml2pdf does not work in combination with tailwind css.
+        Tailwind css uses the @media without a mediatype, but xhtml2pdf expects the media identifier.
+        See https://github.com/xhtml2pdf/xhtml2pdf/issues/498 for more information.
+        Once this issue is fixed, we can use tailwind in the pdf context.
+    {% endcomment %}
     <link href="{% static 'css/style.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/upload_form.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'tailwindcss/dist/tailwind.css' %}" rel="stylesheet" type="text/css">

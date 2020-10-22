@@ -8,13 +8,8 @@ from .page_actions import (
     restore_page,
     view_page,
     delete_page,
-<<<<<<< HEAD
     expand_short_url,
     expand_page_translation_id,
-=======
-    copy_short_url,
-    expand_short_url,
->>>>>>> added comments and bundled pdf styling in css file
     export_pdf,
     download_xliff,
     upload_xliff,

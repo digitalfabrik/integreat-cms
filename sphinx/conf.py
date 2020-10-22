@@ -74,6 +74,7 @@ intersphinx_mapping = {
     ),
     "django-mptt": ("https://django-mptt.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
+    "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest", None),
 }
 
 # The path for patched template files
