@@ -28,6 +28,8 @@ from .media.document import Document
 
 from .pages.page import Page
 from .pages.page_translation import PageTranslation
+from .pages.imprint_page import ImprintPage
+from .pages.imprint_page_translation import ImprintPageTranslation
 
 from .pois.poi import POI
 from .pois.poi_translation import POITranslation
