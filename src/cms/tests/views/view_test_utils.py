@@ -21,7 +21,7 @@ def generate_test_functions(class_variables, views, kwargs):
         # pylint: disable=cell-var-from-loop
         url = reverse(view, args=(), kwargs=kwargs)
 
-        def test_function(self):
+        def test_function(self, url=url):
             response = self.client.get(url)
             self.assertHttp200(response)
 
