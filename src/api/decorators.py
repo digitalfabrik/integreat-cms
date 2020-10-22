@@ -12,7 +12,7 @@ def feedback_handler(func):
     Decorator definition for feedback API functions and methods
 
     :param func: decorated function
-    :type func: ~collection.abc.Callable
+    :type func: ~collections.abc.Callable
 
     :return: return handle_feedback function
     :rtype: ~collections.abc.Callable
