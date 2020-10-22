@@ -76,7 +76,7 @@ def can_edit_all_pages(user, page):
     :rtype: bool
     """
     if not (user.is_superuser or user.is_staff):
-        if page.region not in user.profile.regions.all():
+        if page and page.region not in user.profile.regions.all():
             return False
     return user.has_perm("cms.edit_pages")
 
@@ -96,7 +96,7 @@ def can_publish_all_pages(user, page):
     :rtype: bool
     """
     if not (user.is_superuser or user.is_staff):
-        if page.region not in user.profile.regions.all():
+        if page and page.region not in user.profile.regions.all():
             return False
     return user.has_perm("cms.publish_pages")
 
