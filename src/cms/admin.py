@@ -24,6 +24,8 @@ from .models import UserMfa
 from .models import UserProfile
 from .models import Feedback
 from .models import PageFeedback
+from .models import ImprintPage
+from .models import ImprintPageTranslation
 
 admin.site.register(Configuration)
 admin.site.register(Event)
@@ -44,3 +46,5 @@ admin.site.register(UserMfa)
 admin.site.register(UserProfile)
 admin.site.register(Feedback)
 admin.site.register(PageFeedback)
+admin.site.register(ImprintPage)
+admin.site.register(ImprintPageTranslation)

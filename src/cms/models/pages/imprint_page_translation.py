@@ -66,6 +66,16 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
             )
         )
 
+    @property
+    def slug(self):
+        """
+        For compatibility with the other page translations, a slug property is useful.
+
+        :return: pseudo slug for the imprint translation
+        :rtype: str
+        """
+        return settings.IMPRINT_SLUG
+
     def __str__(self):
         """
         This overwrites the default Python __str__ method which would return <ImprintPageTranslation object at 0xDEADBEEF>
