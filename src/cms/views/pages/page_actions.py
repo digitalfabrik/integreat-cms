@@ -27,6 +27,7 @@ from django.http import HttpResponseNotFound
 from django.template.loader import get_template
 
 from backend.settings import WEBAPP_URL, STATIC_URL, MEDIA_URL
+from ...constants import text_directions
 from ...decorators import region_permission_required, staff_required
 from ...forms.pages import PageForm
 from ...models import Page, Language, Region, PageTranslation
@@ -202,6 +203,7 @@ def export_pdf(request, region_slug, language_code):
     template_path = "pages/page_pdf.html"
     context = {
         "html2pdf": True,
+        "right_to_left": language.text_direction == text_directions.RTL,
         "region": region,
         "pages": pages,
         "language": language,
@@ -228,7 +230,9 @@ def export_pdf(request, region_slug, language_code):
     response["Content-Disposition"] = f'attachment; filename="{filename}"'
     template = get_template(template_path)
     html = template.render(context)
-    pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
+    pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback, encoding="UTF-8"
+    )
     if pisa_status.err:
         logger.error(
             "The following PDF could not be rendered: Region: %s, Language: %s, Pages: %s.",

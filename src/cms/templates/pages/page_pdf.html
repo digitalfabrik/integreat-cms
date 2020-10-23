@@ -11,7 +11,10 @@
 {% endblock css %}
 
 {% block raw_content %}
-
+{% if right_to_left %}
+    <div><pdf:language name="arabic"/></div>
+    <div class="right-to-left">
+{% endif %}
 {% if amount_pages > 1 %}
     <!-- if the user selected several pages, additionally insert table of content -->
     <h1 id="title_page">Table of Contents</h1>
@@ -37,6 +40,9 @@
         {% endif %}
     </li>
 {% endrecursetree %}
+{% if right_to_left %}
+    </div>
+{% endif %}
 
 <div id="footer" class="seperator">
     <!-- due to the limited set of css styling abilities for xhtml2pdf
