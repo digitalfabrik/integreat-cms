@@ -1,0 +1,61 @@
+{% extends "_raw.html" %}
+{% load static %}
+{% load mptt_tags %}
+{% load content_filters %}
+
+{% block css %}
+    <!-- these style settings are only set to pdf exported pages
+    for detailed information about the applied library concepts see
+    the documentation of xhtml2pdf -->
+    <link href="{% static 'css/pdf_page_export.css' %}" rel="stylesheet" type="text/css">
+{% endblock css %}
+
+{% block raw_content %}
+{% if right_to_left %}
+    <div><pdf:language name="arabic"/></div>
+    <div class="right-to-left">
+{% endif %}
+{% if amount_pages > 1 %}
+    <!-- if the user selected several pages, additionally insert table of content -->
+    <h1 id="title_page">Table of Contents</h1>
+    <!-- according to xhtml2pdf documentation all custom tags like <pdf:toc/>, <pdf:nextpage>, etc.
+        should be wrapped inside block tags like <div> to avoid problems -->
+    <div class="toc">
+        <pdf:toc />
+    </div>
+    <div><pdf:nextpage></div>
+{% endif %}
+
+{% recursetree pages %}
+    <li>
+        {% get_public_translation node language.code as page_translation %}
+        <h1 class="{% if node.level == 0 %}root_title{% endif %}">{{ page_translation.title }}</h1>
+        <div class="content" style="padding-bottom: 30px;">
+            {{ page_translation.text|safe }}
+        </div>
+        {% if not node.is_leaf_node %}
+            <ul class="children">
+                {{ children }}
+            </ul>
+        {% endif %}
+    </li>
+{% endrecursetree %}
+{% if right_to_left %}
+    </div>
+{% endif %}
+
+<div id="footer" class="seperator">
+    <!-- due to the limited set of css styling abilities for xhtml2pdf
+    the footer is split into three parts -->
+    <div id="left_footer">
+        <span><pdf:pagenumber></span>
+    </div>
+    <div id="center_footer">
+        <span>{{ region.name }}</span>
+    </div>
+    <div id="right_footer">
+        <span><img src="{% static 'images/favicon.ico' %}"></span>
+    </div>
+</div>
+
+{% endblock %}

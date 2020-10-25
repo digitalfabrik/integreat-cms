@@ -362,6 +362,11 @@ urlpatterns = [
                                             name="download_xliff",
                                         ),
                                         url(
+                                            r"^export$",
+                                            pages.export_pdf,
+                                            name="export_pdf",
+                                        ),
+                                        url(
                                             r"^(?P<page_id>[0-9]+)/",
                                             include(
                                                 [

@@ -1,0 +1,90 @@
+@page {
+    size: a4;
+    margin: 2cm;
+    /* static frames: stay the same across different pages
+    due to the limited set of css styling abilities inside the @page and @frame notation
+    the whole footer is split into three parts */
+    @frame left_footer {
+        -pdf-frame-content: left_footer;
+        left: 2cm;
+        bottom: 0;
+        width: 300pt;
+        height: 35pt;
+    }
+    @frame center_footer {
+        -pdf-frame-content: center_footer;
+        left: 280pt;
+        bottom: 0;
+        width: 300pt;
+        height: 35pt;
+    }
+    @frame right_footer {
+        -pdf-frame-content: right_footer;
+        left: 520pt;
+        bottom: 0;
+        width: 300pt;
+        height: 50pt;
+    }
+}
+@font-face {
+    font-family: DejaVu;
+    src: url('../fonts/dejavu_sans/DejaVuSans.ttf') format('truetype');
+}
+html, body {
+    font-family: DejaVu;
+}
+.content, #footer {
+    font-size: large;
+}
+/* the following styles are apllied only to the table of content
+at the first page of the pdf document */
+pdftoc {
+    /* applied to the whole toc */
+    font-size: large;
+} 
+pdftoc.pdftoclevel0 {
+    /* applied only to the root of the page tree */
+    font-weight: bold;
+}
+pdftoc.pdftoclevel1 {
+    /* applied for all children of the root page */
+    font-weight: bold;
+    margin-left: 2em;
+}
+pdftoc.pdftoclevel2 {
+    /* applied to all sub headers of the pages */
+    font-weight: normal;
+    margin-left: 4em;
+    font-style: italic;
+}
+h1 {
+    font-size: xx-large;
+    margin: 0.67em 0;
+    /* set the level on which the tag is mapped to toc */
+    -pdf-outline-level: 1;
+}
+h2,h3,h4,h5,h6 {
+    font-size: x-large;
+    margin: 0.83em 0;
+    padding: 3px 0px;
+    -pdf-outline-level: 2;
+}
+.root_title {
+    -pdf-outline-level: 0;
+    /* keep the following html tag in the same frame */
+    -pdf-keep-with-next: true;
+}
+/* title of document on first page should not show up
+    in the table of content */
+#title_page {
+    -pdf-outline: false;
+}
+p, ol, ul {
+    padding: 0;
+}
+li {
+    padding: 1px 0px;
+}
+.right-to-left {
+    text-align: right;
+}

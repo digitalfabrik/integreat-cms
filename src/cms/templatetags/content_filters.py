@@ -27,7 +27,25 @@ def get_translation(instance, language_code):
     :rtype: ~cms.models.pages.page_translation.PageTranslation, ~cms.models.events.event_translation.EventTranslation,
             or ~cms.models.pois.poi_translation.POITranslation
     """
-    return instance.translations.filter(language__code=language_code).first()
+    return instance.get_translation(language_code)
+
+
+@register.simple_tag
+def get_public_translation(instance, language_code):
+    """
+    This tag returns the most recent public translation of the requested content object in the requested language.
+
+    :param instance: The content object instance
+    :type instance: ~cms.models.pages.page.Page, ~cms.models.events.event.Event or ~cms.models.pois.poi.POI
+
+    :param language_code: The code of the requested language
+    :type language_code: str
+
+    :return: The translation object of the requested instance
+    :rtype: ~cms.models.pages.page_translation.PageTranslation, ~cms.models.events.event_translation.EventTranslation,
+            or ~cms.models.pois.poi_translation.POITranslation
+    """
+    return instance.get_public_translation(language_code)
 
 
 @register.simple_tag
