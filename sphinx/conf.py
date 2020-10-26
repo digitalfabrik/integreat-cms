@@ -1,9 +1,8 @@
 """
 Configuration file for the Sphinx documentation builder.
 
-This file only contains a selection of the most common options. For a full
-list see the documentation:
-https://www.sphinx-doc.org/en/master/usage/configuration.html
+This file only contains the options which deviate from the default values.
+For a full list see the documentation: :doc:`sphinx:usage/configuration`
 """
 
 # -- Path setup --------------------------------------------------------------
@@ -18,6 +17,8 @@ from backend.settings import VERSION
 
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath("../src/"))
+# Append sphinx source directory to path environment variable to allow documentation for this file
+sys.path.append(os.path.abspath("./"))
 os.environ["DJANGO_SETTINGS_MODULE"] = "backend.settings"
 
 
@@ -27,28 +28,35 @@ django.setup()
 
 def setup(app):
     """
-    Registeration and setup.
+    This method performs the initial setup for this sphinx configuration.
+    It connects the function :func:`process_django_models` to the :event:`sphinx:autodoc-process-docstring` event.
+    Furthermore, it registers the custom text role ``:event:`` to allow intersphinx mappings to e.g. :ref:`sphinx:events`.
 
-    This method does the initial setup for the docs generation.
+    :param app: The sphinx application object
+    :type app: ~sphinx.application.Sphinx
     """
     # Register the docstring processor with sphinx to improve the appearance of Django models
     app.connect("autodoc-process-docstring", process_django_models)
+    # Allow the usage of the custom :event: text role in intersphinx mappings
+    app.add_object_type("event", "event")
 
 
 # -- Project information -----------------------------------------------------
 
-
+#: The project name
 project = "integreat-cms"
 # pylint: disable=redefined-builtin
+#: The copyright notice
 copyright = "2020, Integreat"
+#: The project author
 author = "Integreat"
 
-# The full version, including alpha/beta/rc tags
+#: The full version, including alpha/beta/rc tags
 release = VERSION
 
 # -- General configuration ---------------------------------------------------
 
-# All enabled sphinx extensions
+#: All enabled sphinx extensions
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.githubpages",
@@ -58,12 +66,15 @@ extensions = [
     "sphinx_rtd_theme",
     "sphinx_last_updated_by_git",
 ]
-
-# Enable cross-references to other documentations
+#: Enable cross-references to other documentations
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.7", None),
     "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
+    "sphinx-rtd-theme": (
+        "https://sphinx-rtd-theme.readthedocs.io/en/latest/",
+        None,
+    ),
     "sphinx-rtd-tutorial": (
         "https://sphinx-rtd-tutorial.readthedocs.io/en/latest/",
         None,
@@ -77,29 +88,30 @@ intersphinx_mapping = {
     "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest", None),
 }
 
-# The path for patched template files
+
+#: The path for patched template files
 templates_path = ["templates"]
 
 # -- Options for HTML output -------------------------------------------------
 
-# The theme to use for HTML and HTML Help pages.
+#: The theme to use for HTML and HTML Help pages.
 html_theme = "sphinx_rtd_theme"
-# Do not show the project name, only the logo
+#: Do not show the project name, only the logo
 html_theme_options = {
     "logo_only": False,
     "collapse_navigation": False,
 }
-# The logo shown in the menu bar
+#: The logo shown in the menu bar
 html_logo = "../src/cms/static/images/integreat-logo-white.png"
-# The facivon of the html doc files
+#: The facivon of the html doc files
 html_favicon = "../src/cms/static/images/favicon.ico"
-# The url where the docs should be published (via gh-pages)
+#: The url where the docs should be published (via gh-pages)
 html_baseurl = "https://Integreat.github.io/cms-django/"
-# Do not include links to the documentation source (.rst files) in build
+#: Do not include links to the documentation source (.rst files) in build
 html_show_sourcelink = False
-# Do not include a link to sphinx
+#: Do not include a link to sphinx
 html_show_sphinx = False
-# Include last updated timestamp
+#: Include last updated timestamp
 html_last_updated_fmt = "%b %d, %Y"
 
 # -- Modify default Django model parameter types------------------------------
@@ -107,7 +119,38 @@ html_last_updated_fmt = "%b %d, %Y"
 
 # pylint: disable=unused-argument, too-many-locals, too-many-branches
 def process_django_models(app, what, name, obj, options, lines):
-    """Append correct param types from fields to model documentation."""
+    """
+    This function is executed when sphinx emits the :event:`sphinx:autodoc-process-docstring` event.
+    Even though it gets invoked on all objects which have docstrings, it only modifies the docstrings of Django models.
+    It allows to omit parameter types in model docstrings and determines the correct types from the model fields.
+    It is an improvement of the function `_add_model_fields_as_params() <https://github.com/edoburu/sphinxcontrib-django/blob/5417a320aedb9d6eb76ba1d076a9b9aa2eb3801e/sphinxcontrib_django/docstrings.py#L122>`__
+    of the `sphinxcontrib-django <https://pypi.org/project/sphinxcontrib-django/>`__ extension.
+
+    :param app: The sphinx application object
+    :type app: ~sphinx.application.Sphinx
+
+    :param what: The type of the object which the docstring belongs to (one of ``module``, ``class``, ``exception``,
+                 ``function``, ``method`` and ``attribute``)
+    :type what: str
+
+    :param name: The fully qualified name of the object
+    :type name: str
+
+    :param obj: The documented object
+    :type obj: object
+
+    :param options: The options given to the directive: an object with attributes ``inherited_members``,
+                    ``undoc_members``, ``show_inheritance`` and ``noindex`` that are ``True`` if the flag option of same
+                    name was given to the auto directive
+    :type options: object
+
+    :param lines: A list of strings – the lines of the processed docstring – that the event handler can modify in place
+                  to change what Sphinx puts into the output.
+    :type lines: list [ str ]
+
+    :return: The modified list of lines
+    :rtype: list [ str ]
+    """
     if inspect.isclass(obj) and issubclass(obj, django.db.models.Model):
         # Intersphinx mapping to django.contrib.postgres documentation does not work, so here the manual link
         postgres_docu = (
@@ -182,7 +225,19 @@ def process_django_models(app, what, name, obj, options, lines):
 
 
 def linkcode_resolve(domain, info):
-    """Link source code to GitHub."""
+    """
+    This function adds source code links to all modules (see :mod:`sphinx:sphinx.ext.linkcode`).
+    It links all classes and functions to their source files on GitHub including line numbers.
+
+    :param domain: The programming language of the given object (e.g. ``py``, ``c``, ``cpp`` or ``javascript``)
+    :type domain: str
+
+    :param info: Information about the given object. For a python object, it has the keys ``module`` and ``fullname``.
+    :type info: dict
+
+    :return: The URL of the given module on GitHub
+    :rtype: str
+    """
     if domain != "py" or not info["module"]:
         return None
     filename = info["module"].replace(".", "/")

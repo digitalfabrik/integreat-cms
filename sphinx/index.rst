@@ -36,9 +36,11 @@ Basic Concepts
 
     virtualenv
     internationalization
+    documentation
 
 * :doc:`virtualenv`: Virtual Python environment and Pipenv
 * :doc:`internationalization`: Multi-language support for the backend UI
+* :doc:`documentation`: This Sphinx documentation
 
 
 Contributing
