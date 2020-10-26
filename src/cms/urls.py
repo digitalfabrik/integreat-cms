@@ -548,6 +548,15 @@ urlpatterns = [
                     ),
                 ),
                 url(
+                    r"^feedbacks/",
+                    include(
+                    [
+                        url(
+                            r"^$",
+                            feedbacks.FeedbackView.as_view(),
+                            name="feedbacks",
+                        )])),
+                url(
                     r"^push_notifications/",
                     include(
                         [
@@ -726,12 +735,5 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^feedbacks/",  include(
-                        [
-                            url(
-                                r"^$",
-                                feedbacks.FeedbackView.as_view(),
-                                name="feedbacks",
-                            )])),
     url(r"^favicon\.ico$", RedirectView.as_view(url="/static/images/favicon.ico")),
 ] + static(django_settings.MEDIA_URL, document_root=django_settings.MEDIA_ROOT)
