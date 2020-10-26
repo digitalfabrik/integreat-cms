@@ -4,12 +4,4 @@
 {% load static %}
 {% load widget_tweaks %}
 <h2>Feedback</h2>
-<form  action="{% url 'feedback_form' feedback_id=feedback_id%}" method="post">
-    {% csrf_token %}
-    <div>
-       {{feedback_form}}
-    </div>
-   
-
-</form>
 {% endblock %}
