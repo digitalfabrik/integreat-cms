@@ -4,4 +4,15 @@
 {% load static %}
 {% load widget_tweaks %}
 <h2>Feedback</h2>
+<h3>Event Feedback</h3>
+<ul>
+{% for item in feedback_events %}
+<li>{{ item.comment }}</li>
+{% endfor %}
+<h3>Offer Feedback</h3>
+<ul>
+{% for item in feedback_offers %}
+<li>{{ item.comment }}</li>
+{% endfor %}
+
 {% endblock %}
