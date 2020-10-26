@@ -1,8 +1,11 @@
 from django import forms
-
-from ...constants import feedback_emotions
+from ...models import Feedback
+#from ...constants import feedback_emotions
+#from cms.constants import feedback_emotions
 
 class FeedbackForm(forms.Form):
-    emotion = forms.CharField(max_length=3, choices=feedback_emotions.CHOICES)
-    comment = forms.CharField(max_length=1000)
-    is_technical = forms.BooleanField()
+   class Meta:
+        model = Feedback 
+        fields = ["emotion", 
+                  "comment",
+                  " is_technical"]
