@@ -9,7 +9,6 @@ from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
-
 from .forms.authentication import PasswordResetConfirmForm
 from .views import (
     authentication,
@@ -690,7 +689,6 @@ urlpatterns = [
                         ]
                     ),
                 ),
-              
                 url(
                     r"^users/",
                     include(
@@ -728,6 +726,12 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^feedbacks/", url(r"^$", feedbacks.feedback_view.as_view()),),
+    url(r"^feedbacks/",  include(
+                        [
+                            url(
+                                r"^$",
+                                feedbacks.FeedbackView.as_view(),
+                                name="feedbacks",
+                            )])),
     url(r"^favicon\.ico$", RedirectView.as_view(url="/static/images/favicon.ico")),
 ] + static(django_settings.MEDIA_URL, document_root=django_settings.MEDIA_ROOT)

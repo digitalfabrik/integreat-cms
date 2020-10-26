@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .forms import FeedbackForm
+from django.views.generic import TemplateView
+from cms.forms.feedbacks.feedback import FeedbackForm
 
 
-def Feedback(request):
-    form = FeedbackForm()
-    return render(request, 'feedback_form.html', {'form':form})
+class FeedbackView(TemplateView):
+   template_name= "feedbacks/feedback_form.html"
+   def get(self, request):
+        form = FeedbackForm()
+        return render(request, self.template_name, {'form': form} )
+       
