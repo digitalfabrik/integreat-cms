@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Development Server &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Documentation &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -38,8 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorials" href="tutorials.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="next" title="Issue Reporting Guidelines" href="issue-reporting.html" />
+    <link rel="prev" title="Internationalization (i18n)" href="internationalization.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,7 +82,7 @@
             
             
               <p class="caption"><span class="caption-text">First Steps</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#download-sources">Download sources</a></li>
@@ -90,9 +90,9 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html#create-debian-package">Create debian package</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Development Server</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#webserver">Webserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev-server.html">Development Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev-server.html#webserver">Webserver</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -117,7 +117,7 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Basic Concepts</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a></li>
@@ -137,14 +137,14 @@
 <li class="toctree-l2"><a class="reference internal" href="internationalization.html#developer-tools">Developer Tools</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#sphinx">Sphinx</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-tools">Developer Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#docstrings">Docstrings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#cross-referencing">Cross-referencing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#github-pages">GitHub Pages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#extensions">Extensions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#module-conf">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sphinx">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developer-tools">Developer Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extensions">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-conf">Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -618,7 +618,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Development Server</li>
+      <li>Documentation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -635,66 +635,287 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="development-server">
-<h1>Development Server<a class="headerlink" href="#development-server" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="database">
-<h2>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h2>
-<p>Two different types of local database servers are supported:</p>
+  <div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sphinx">
+<h2>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline">¶</a></h2>
+<p>To generate this documentation, we use the Python documentation generator Sphinx (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/index.html" title="(in Sphinx v4.0.0+)"><span>Using Sphinx</span></a>).</p>
+<p>The generation process is divided into two stages:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html" title="(in Sphinx v4.0.0+)"><span>sphinx-apidoc</span></a> is a tool which scans the whole source code of our application in the <code class="docutils literal notranslate"><span class="pre">src</span></code>
+directory and generates <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files out of the Python docstrings. These files are then placed in the
+<code class="docutils literal notranslate"><span class="pre">sphinx/autogenerated</span></code> directory.</p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html" title="(in Sphinx v4.0.0+)"><span>sphinx-build</span></a> generates the html documentation out of the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files located in the sphinx directory.
+It merges the static <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files directly in the <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> directory together with the files generated in step 1
+in <code class="docutils literal notranslate"><span class="pre">sphinx/autogenerated</span></code>.</p></li>
+</ol>
+</div>
+<div class="section" id="developer-tools">
+<h2>Developer Tools<a class="headerlink" href="#developer-tools" title="Permalink to this headline">¶</a></h2>
+<p>Generate this documentation with <code class="docutils literal notranslate"><span class="pre">generate_documentation.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/generate_documentation.sh">Source</a>]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">generate_documentation</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Apart from the two steps above, this tool also performs the additional tasks:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.docker.com/">Docker</a> container (recommended)</p>
-<ul>
-<li><p>Will be automatically created and started if you use the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script without a local server running on port 5432</p></li>
-<li><p>Uses the alternate port 5433 (configured at <a class="reference internal" href="autogenerated/backend.html#module-backend.docker_settings" title="backend.docker_settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.docker_settings</span></code></a>)</p></li>
-<li><p>Requires <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to connect to the docker daemon (the dev server will still run as the user who invoked <code class="docutils literal notranslate"><span class="pre">sudo</span></code>)</p></li>
+<li><p><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/sphinx/patches/footer.diff">Patch</a> the footer template
+which allows custom URLs in the copyright notice.</p></li>
+<li><p>Move the translation file to make sure the documentation doesn’t get partially translated.</p></li>
+<li><p>Remove all old autogenerated <code class="docutils literal notranslate"><span class="pre">.rst</span></code> and <code class="docutils literal notranslate"><span class="pre">.html</span></code> files to make sure no remains of deleted source files end up in
+the documentation</p></li>
+<li><p>Modify the autogenerated <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files to improve the readability by removing module paths in headings.</p></li>
+<li><p><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/sphinx/patches/cms.diff">Patch</a> the autogenerated <code class="docutils literal notranslate"><span class="pre">cms.rst</span></code> file to make sure decorated functions are included in the documentation.</p></li>
+<li><p>Remove all temporary build files to exclude them from the contents hosted on GitHub Pages.</p></li>
 </ul>
-</li>
-<li><p>Native <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> installation on your system</p>
-<ul>
-<li><p>Install and run manually before starting the local webserver</p></li>
-<li><p>Installation process varies across different distros (e.g. on <a class="reference external" href="https://wiki.ubuntuusers.de/PostgreSQL/">Ubuntu</a>)</p></li>
-<li><p>Configuration: (see <a class="reference internal" href="autogenerated/backend.html#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a>)</p>
-<ul>
-<li><p>Port: <code class="docutils literal notranslate"><span class="pre">5432</span></code></p></li>
-<li><p>Database: <code class="docutils literal notranslate"><span class="pre">integreat</span></code></p></li>
-<li><p>Username: <code class="docutils literal notranslate"><span class="pre">integreat</span></code></p></li>
-<li><p>Password: <code class="docutils literal notranslate"><span class="pre">password</span></code></p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+</div>
+<div class="section" id="docstrings">
+<h2>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h2>
+<p>Please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">[Summary]</span>
+
+<span class="sd">:param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]</span>
+<span class="sd">:type [ParamName]: [ParamType](, optional)</span>
+<span class="sd">...</span>
+
+<span class="sd">:raises [ErrorType]: [ErrorDescription]</span>
+<span class="sd">...</span>
+
+<span class="sd">:return: [ReturnDescription]</span>
+<span class="sd">:rtype: [ReturnType]</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you want to remove all contents of your database, use the dev-tool <code class="docutils literal notranslate"><span class="pre">prune_database.sh</span></code>.</p>
+<p>Please use the correct Python <a class="reference external" href="https://docs.python.org/3.7/library/datatypes.html" title="(in Python v3.7)"><span>Data Types</span></a> (e.g. <code class="docutils literal notranslate"><span class="pre">str</span></code> instead of <code class="docutils literal notranslate"><span class="pre">string</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code> instead
+of <code class="docutils literal notranslate"><span class="pre">integer</span></code>) and provide absolute paths to any referenced classes (e.g. <code class="docutils literal notranslate"><span class="pre">~cms.models.regions.region.Region</span></code>).
+If the module path is very long or doesn’t add much information, consider using a tilde <code class="docutils literal notranslate"><span class="pre">~</span></code> as prefix to show only
+the class name.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>In the model documentation, the parameter types are not required, because they are automatically derived from the
+model field type. See <a class="reference internal" href="#conf.process_django_models" title="conf.process_django_models"><code class="xref py py-func docutils literal notranslate"><span class="pre">process_django_models()</span></code></a> for more information.</p>
 </div>
 </div>
-<div class="section" id="webserver">
-<h2>Webserver<a class="headerlink" href="#webserver" title="Permalink to this headline">¶</a></h2>
-<p>Run the inbuilt local webserver with <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/run.sh">Source</a>]:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-<p>This is a convenience script which also performs the following actions:</p>
-<ul class="simple">
-<li><p>Compile and minify CSS</p></li>
-<li><p>Compress JS and CSS files</p></li>
-<li><p>Regenerate and compile translation file</p></li>
-<li><p>Migrate database</p></li>
-</ul>
-<p>If you want to speed up this process and don’t need the extra functionality, you might also use:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">run</span> <span class="n">integreat</span><span class="o">-</span><span class="n">cms</span><span class="o">-</span><span class="n">cli</span> <span class="n">runserver</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span> <span class="o">--</span><span class="n">settings</span><span class="o">=</span><span class="n">backend</span><span class="o">.</span><span class="n">docker_settings</span>
-</pre></div>
-</div>
-<p>or:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">run</span> <span class="n">integreat</span><span class="o">-</span><span class="n">cms</span><span class="o">-</span><span class="n">cli</span> <span class="n">runserver</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span>
-</pre></div>
-</div>
-<p>Depending on your local database server.</p>
-<p>After that, open your browser and navigate to <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>.</p>
+<div class="section" id="cross-referencing">
+<h2>Cross-referencing<a class="headerlink" href="#cross-referencing" title="Permalink to this headline">¶</a></h2>
+<p>Whenever you want to reference another module, class or function inside a static documentation page or within a
+docstring, use the according <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html" title="(in Sphinx v4.0.0+)"><span>Domains</span></a> and have a look at <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#python-roles" title="(in Sphinx v4.0.0+)"><span>Cross-referencing Python objects</span></a>.</p>
+<p>Example:
+<code class="docutils literal notranslate"><span class="pre">:class:`~cms.models.regions.region.Region`</span></code> becomes <a class="reference internal" href="autogenerated/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+<p>Many other python projects also use Sphinx for their documentation. Whenever you use e.g. a library function or want
+to reference external classes or documentation pages, you can do this with <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx" title="(in Sphinx v4.0.0+)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">intersphinx</span></code></a>.
+All available documentations are listed in the dict <a class="reference internal" href="#conf.intersphinx_mapping" title="conf.intersphinx_mapping"><code class="xref py py-const docutils literal notranslate"><span class="pre">intersphinx_mapping</span></code></a>.
+If you want to reference another documentation which is not yet listed, just add it to this dict. After that, you can
+reference them with the normal directives plus the key specified in the <a class="reference internal" href="#conf.intersphinx_mapping" title="conf.intersphinx_mapping"><code class="xref py py-const docutils literal notranslate"><span class="pre">intersphinx_mapping</span></code></a> dict.</p>
+<p>Example:
+<code class="docutils literal notranslate"><span class="pre">:doc:`python:howto/regex</span></code> becomes <a class="reference external" href="https://docs.python.org/3.7/howto/regex.html" title="(in Python v3.7)"><span>Regular Expression HOWTO</span></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you want to use another port than <code class="docutils literal notranslate"><span class="pre">8000</span></code>, start the server with <code class="docutils literal notranslate"><span class="pre">integreat-cms-cli</span></code> and choose another port, or edit the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> dev-tool.</p>
+<p>If the cross-referenced documentation uses <a class="reference external" href="https://docutils.sourceforge.io/docs/howto/rst-roles.html">custom text roles</a>,
+the usage of these custom roles will only work after these roles have been registered in <a class="reference internal" href="#conf.setup" title="conf.setup"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup()</span></code></a>.</p>
 </div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If you don’t know which references to the external documentation are possible, you can use the tool <a class="reference external" href="https://pypi.org/project/sphobjinv/">sphobjinv</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sphobjinv suggest -u https://docs.python.org/3.7/objects.inv &quot;regex&quot;
+
+Remote inventory found.
+
+:std:doc:`howto/regex`
+:std:label:`regex-howto`
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="github-pages">
+<h2>GitHub Pages<a class="headerlink" href="#github-pages" title="Permalink to this headline">¶</a></h2>
+<p>The CircleCI job <code class="docutils literal notranslate"><span class="pre">deploy-documentation</span></code> uses the GitHub user <a class="reference external" href="https://github.com/IntegreatAPI">IntegreatAPI</a> to
+push all changes to the documentation on the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch to our repository’s <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch.
+This branch is then automatically deployed to <a class="reference external" href="https://integreat.github.io/cms-django/">https://integreat.github.io/cms-django/</a>.</p>
+</div>
+<div class="section" id="extensions">
+<h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline">¶</a></h2>
+<p>We use the following sphinx extensions:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.autodoc</span></code></a> allows to use directives like <code class="docutils literal notranslate"><span class="pre">automodule</span></code> in <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files to automatically
+import the modules and pull in documentation from docstrings in a semi-automatic way.</p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/githubpages.html#module-sphinx.ext.githubpages" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.githubpages</span></code></a> creates a <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code> file on generated HTML directory to publish the document
+on GitHub Pages.</p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.intersphinx</span></code></a> allows to reference other project’s documentations.</p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a> adds external links to the source code of documented modules, see
+<a class="reference internal" href="#conf.linkcode_resolve" title="conf.linkcode_resolve"><code class="xref py py-func docutils literal notranslate"><span class="pre">linkcode_resolve()</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/sphinxcontrib-django/">sphinxcontrib_django</a> adds improvements to the docstrings of
+Django models and forms.</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/sphinx-rtd-theme/">sphinx_rtd_theme</a> is the theme we use for our documentation:
+<a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/en/latest/index.html" title="(in Read the Docs Sphinx Theme v0.5.0)"><span>Read the Docs Sphinx Theme</span></a></p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/sphinx-last-updated-by-git/">sphinx_last_updated_by_git</a> determines the “last updated”
+date on the generated html documentation by the modification date of the source files in git.</p></li>
+</ul>
+</div>
+<div class="section" id="module-conf">
+<span id="configuration"></span><h2>Configuration<a class="headerlink" href="#module-conf" title="Permalink to this headline">¶</a></h2>
+<p>Configuration file for the Sphinx documentation builder.</p>
+<p>This file only contains the options which deviate from the default values.
+For a full list see the documentation: <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html" title="(in Sphinx v4.0.0+)"><span>Configuration</span></a></p>
+<dl class="py data">
+<dt id="conf.author">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">author</code><em class="property"> = 'Integreat'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.author" title="Permalink to this definition">¶</a></dt>
+<dd><p>The project author</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.copyright">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">copyright</code><em class="property"> = '2020, Integreat'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.copyright" title="Permalink to this definition">¶</a></dt>
+<dd><p>The copyright notice</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.extensions">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">extensions</code><em class="property"> = ['sphinx.ext.autodoc', 'sphinx.ext.githubpages', 'sphinx.ext.intersphinx', 'sphinx.ext.linkcode', 'sphinxcontrib_django', 'sphinx_rtd_theme', 'sphinx_last_updated_by_git']</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>All enabled sphinx extensions</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.html_baseurl">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">html_baseurl</code><em class="property"> = 'https://Integreat.github.io/cms-django/'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.html_baseurl" title="Permalink to this definition">¶</a></dt>
+<dd><p>The url where the docs should be published (via gh-pages)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.html_favicon">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">html_favicon</code><em class="property"> = '../src/cms/static/images/favicon.ico'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.html_favicon" title="Permalink to this definition">¶</a></dt>
+<dd><p>The facivon of the html doc files</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.html_last_updated_fmt">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">html_last_updated_fmt</code><em class="property"> = '%b %d, %Y'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.html_last_updated_fmt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Include last updated timestamp</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.html_logo">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">html_logo</code><em class="property"> = '../src/cms/static/images/integreat-logo-white.png'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.html_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p>The logo shown in the menu bar</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.html_show_sourcelink">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">html_show_sourcelink</code><em class="property"> = False</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.html_show_sourcelink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not include links to the documentation source (.rst files) in build</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.html_show_sphinx">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">html_show_sphinx</code><em class="property"> = False</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.html_show_sphinx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not include a link to sphinx</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.html_theme">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">html_theme</code><em class="property"> = 'sphinx_rtd_theme'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.html_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>The theme to use for HTML and HTML Help pages.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.html_theme_options">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">html_theme_options</code><em class="property"> = {'collapse_navigation': False, 'logo_only': False}</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.html_theme_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not show the project name, only the logo</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.intersphinx_mapping">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">intersphinx_mapping</code><em class="property"> = {'django': ('https://docs.djangoproject.com/en/2.2/', 'https://docs.djangoproject.com/en/2.2/_objects/'), 'django-mptt': ('https://django-mptt.readthedocs.io/en/latest/', None), 'pipenv': ('https://pipenv.pypa.io/en/latest/', None), 'python': ('https://docs.python.org/3.7', None), 'sphinx': ('https://www.sphinx-doc.org/en/master/', None), 'sphinx-rtd-theme': ('https://sphinx-rtd-theme.readthedocs.io/en/latest/', None), 'sphinx-rtd-tutorial': ('https://sphinx-rtd-tutorial.readthedocs.io/en/latest/', None), 'wsgi': ('https://wsgi.readthedocs.io/en/latest/', None), 'xhtml2pdf': ('https://xhtml2pdf.readthedocs.io/en/latest', None)}</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.intersphinx_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable cross-references to other documentations</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="conf.linkcode_resolve">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">linkcode_resolve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">domain</span></em>, <em class="sig-param"><span class="n">info</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py#L227"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
+It links all classes and functions to their source files on GitHub including line numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The programming language of the given object (e.g. <code class="docutils literal notranslate"><span class="pre">py</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, <code class="docutils literal notranslate"><span class="pre">cpp</span></code> or <code class="docutils literal notranslate"><span class="pre">javascript</span></code>)</p></li>
+<li><p><strong>info</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Information about the given object. For a python object, it has the keys <code class="docutils literal notranslate"><span class="pre">module</span></code> and <code class="docutils literal notranslate"><span class="pre">fullname</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The URL of the given module on GitHub</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="conf.process_django_models">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">process_django_models</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app</span></em>, <em class="sig-param"><span class="n">what</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">obj</span></em>, <em class="sig-param"><span class="n">options</span></em>, <em class="sig-param"><span class="n">lines</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py#L121"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.process_django_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is executed when sphinx emits the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#event-autodoc-process-docstring" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">autodoc-process-docstring</span></code></a> event.
+Even though it gets invoked on all objects which have docstrings, it only modifies the docstrings of Django models.
+It allows to omit parameter types in model docstrings and determines the correct types from the model fields.
+It is an improvement of the function <a class="reference external" href="https://github.com/edoburu/sphinxcontrib-django/blob/5417a320aedb9d6eb76ba1d076a9b9aa2eb3801e/sphinxcontrib_django/docstrings.py#L122">_add_model_fields_as_params()</a>
+of the <a class="reference external" href="https://pypi.org/project/sphinxcontrib-django/">sphinxcontrib-django</a> extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> (<a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx" title="(in Sphinx v4.0.0+)"><em>Sphinx</em></a>) – The sphinx application object</p></li>
+<li><p><strong>what</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The type of the object which the docstring belongs to (one of <code class="docutils literal notranslate"><span class="pre">module</span></code>, <code class="docutils literal notranslate"><span class="pre">class</span></code>, <code class="docutils literal notranslate"><span class="pre">exception</span></code>,
+<code class="docutils literal notranslate"><span class="pre">function</span></code>, <code class="docutils literal notranslate"><span class="pre">method</span></code> and <code class="docutils literal notranslate"><span class="pre">attribute</span></code>)</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The fully qualified name of the object</p></li>
+<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><em>object</em></a>) – The documented object</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><em>object</em></a>) – The options given to the directive: an object with attributes <code class="docutils literal notranslate"><span class="pre">inherited_members</span></code>,
+<code class="docutils literal notranslate"><span class="pre">undoc_members</span></code>, <code class="docutils literal notranslate"><span class="pre">show_inheritance</span></code> and <code class="docutils literal notranslate"><span class="pre">noindex</span></code> that are <code class="docutils literal notranslate"><span class="pre">True</span></code> if the flag option of same
+name was given to the auto directive</p></li>
+<li><p><strong>lines</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> [ </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> ]</em>) – A list of strings – the lines of the processed docstring – that the event handler can modify in place
+to change what Sphinx puts into the output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The modified list of lines</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.project">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">project</code><em class="property"> = 'integreat-cms'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.project" title="Permalink to this definition">¶</a></dt>
+<dd><p>The project name</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.release">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">release</code><em class="property"> = '0.0.14'</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>The full version, including alpha/beta/rc tags</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="conf.setup">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py#L29"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method performs the initial setup for this sphinx configuration.
+It connects the function <a class="reference internal" href="#conf.process_django_models" title="conf.process_django_models"><code class="xref py py-func docutils literal notranslate"><span class="pre">process_django_models()</span></code></a> to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#event-autodoc-process-docstring" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">autodoc-process-docstring</span></code></a> event.
+Furthermore, it registers the custom text role <code class="docutils literal notranslate"><span class="pre">:event:</span></code> to allow intersphinx mappings to e.g. <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#events" title="(in Sphinx v4.0.0+)"><span>Sphinx core events</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>app</strong> (<a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx" title="(in Sphinx v4.0.0+)"><em>Sphinx</em></a>) – The sphinx application object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="conf.templates_path">
+<code class="sig-prename descclassname">conf.</code><code class="sig-name descname">templates_path</code><em class="property"> = ['templates']</em><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/conf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#conf.templates_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path for patched template files</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -706,10 +927,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="issue-reporting.html" class="btn btn-neutral float-right" title="Issue Reporting Guidelines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="internationalization.html" class="btn btn-neutral float-left" title="Internationalization (i18n)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -724,7 +945,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 22, 2020.
+        Last updated on Oct 26, 2020.
       </span>
 
     </p>

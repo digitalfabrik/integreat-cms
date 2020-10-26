@@ -137,6 +137,16 @@
 <li class="toctree-l2"><a class="reference internal" href="internationalization.html#developer-tools">Developer Tools</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-tools">Developer Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#extensions">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#module-conf">Configuration</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing</span></p>
 <ul class="current">
@@ -670,12 +680,26 @@ Run pylint with our developer tool <code class="docutils literal notranslate"><s
 <span class="sd">:param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]</span>
 <span class="sd">:type [ParamName]: [ParamType](, optional)</span>
 <span class="sd">...</span>
+
 <span class="sd">:raises [ErrorType]: [ErrorDescription]</span>
 <span class="sd">...</span>
+
 <span class="sd">:return: [ReturnDescription]</span>
 <span class="sd">:rtype: [ReturnType]</span>
 <span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please use the correct Python <a class="reference external" href="https://docs.python.org/3.7/library/datatypes.html" title="(in Python v3.7)"><span>Data Types</span></a> (e.g. <code class="docutils literal notranslate"><span class="pre">str</span></code> instead of <code class="docutils literal notranslate"><span class="pre">string</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code> instead
+of <code class="docutils literal notranslate"><span class="pre">integer</span></code>) and provide absolute paths to any referenced classes (e.g. <code class="docutils literal notranslate"><span class="pre">~cms.models.regions.region.Region</span></code>).
+If the module path is very long or doesn’t add much information, consider using a tilde <code class="docutils literal notranslate"><span class="pre">~</span></code> as prefix to show only
+the class name.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>In the model documentation, the parameter types are not required, because they are automatically derived from the
+model field type. See <a class="reference internal" href="documentation.html#conf.process_django_models" title="conf.process_django_models"><code class="xref py py-func docutils literal notranslate"><span class="pre">process_django_models()</span></code></a> for more information.</p>
 </div>
 </div>
 </div>
@@ -706,7 +730,7 @@ Run pylint with our developer tool <code class="docutils literal notranslate"><s
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 30, 2020.
+        Last updated on Oct 26, 2020.
       </span>
 
     </p>
