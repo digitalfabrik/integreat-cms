@@ -35,7 +35,9 @@ class Language(models.Model):
     native_name = models.CharField(max_length=250, blank=False)
     english_name = models.CharField(max_length=250, blank=False)
     text_direction = models.CharField(
-        default=text_directions.LTR, choices=text_directions.CHOICES, max_length=3
+        default=text_directions.LEFT_TO_RIGHT,
+        choices=text_directions.CHOICES,
+        max_length=13,
     )
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)

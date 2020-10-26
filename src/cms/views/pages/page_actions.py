@@ -203,7 +203,7 @@ def export_pdf(request, region_slug, language_code):
     template_path = "pages/page_pdf.html"
     context = {
         "html2pdf": True,
-        "right_to_left": language.text_direction == text_directions.RTL,
+        "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,
         "region": region,
         "pages": pages,
         "language": language,
