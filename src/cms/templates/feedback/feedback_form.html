@@ -4,15 +4,13 @@
 {% load static %}
 {% load widget_tweaks %}
 <h2>Feedback</h2>
-<h3>Event Feedback</h3>
-<ul>
+<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+  <tr class="border-b border-solid border-gray-200"><th>Type</th><th>Comment</th><th>Rating</th><th>Date</th></tr>
 {% for item in feedback_events %}
-<li>{{ item.comment }}</li>
+<tr ><td>Event</td><td>{{ item.comment }}</td><td>{{ item.rating }}</td><td>{{ item.created_date }}</td></tr>
 {% endfor %}
-<h3>Offer Feedback</h3>
-<ul>
 {% for item in feedback_offers %}
-<li>{{ item.comment }}</li>
+<tr><td>Offer</td><td>{{ item.comment }}</td><td>{{ item.rating }}</td><td>{{ item.created_date }}</td></tr>
 {% endfor %}
 
 {% endblock %}
