@@ -29,7 +29,7 @@ from .views import (
     settings,
     statistics,
     users,
-    feedbacks,
+    feedback,
 )
 
 
@@ -181,6 +181,14 @@ urlpatterns = [
             ]
         ),
     ),
+    url(r"^feedback/",  include(
+                        [
+                            url(
+                                r"^$",
+                                feedback.FeedbackView.as_view(),
+                                name="feedback",
+                            )])),
+
     url(
         r"^offer_templates/",
         include(
@@ -726,12 +734,5 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^feedbacks/",  include(
-                        [
-                            url(
-                                r"^$",
-                                feedbacks.FeedbackView.as_view(),
-                                name="feedbacks",
-                            )])),
     url(r"^favicon\.ico$", RedirectView.as_view(url="/static/images/favicon.ico")),
 ] + static(django_settings.MEDIA_URL, document_root=django_settings.MEDIA_ROOT)
