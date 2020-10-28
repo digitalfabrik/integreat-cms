@@ -8,6 +8,7 @@ from django.conf import settings
 
 from ...models import Configuration
 from ...models import PushNotificationTranslation
+from ...models import Region
 from ...constants import push_notifications as pnt_const
 
 # pylint: disable=too-few-public-methods
@@ -96,13 +97,13 @@ class PushNotificationSender:
         :type pnt: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
         if settings.DEBUG:
-            blog_id = (
-                settings.TEST_BLOG_ID
-            )  # Testumgebung Blog ID - prevent sending PNs to actual users
+            region_slug = Region.objects.get(
+                id=settings.TEST_BLOG_ID
+            ).slug  # Testumgebung - prevent sending PNs to actual users in development
         else:
-            blog_id = self.push_notification.region.id
+            region_slug = self.push_notification.region.slug
         payload = {
-            "to": f"/topics/{blog_id}-{pnt.language.code}-{self.push_notification.channel}",
+            "to": f"/topics/{region_slug}-{pnt.language.code}-{self.push_notification.channel}",
             "notification": {"title": pnt.title, "body": pnt.text},
             "data": {
                 "lanCode": pnt.language.code,
