@@ -19,6 +19,7 @@ class Language(models.Model):
     :param text_direction: The text direction of the language (choices: :mod:`cms.constants.text_directions`)
     :param created_date: The date and time when the language was created
     :param last_updated: The date and time when the language was last updated
+    :param table_of_contents: The native name for 'Table of contents'
 
     Reverse relationships:
 
@@ -41,6 +42,7 @@ class Language(models.Model):
     )
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+    table_of_contents = models.CharField(max_length=250, blank=False)
 
     @property
     def translated_name(self):

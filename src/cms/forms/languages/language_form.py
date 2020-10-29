@@ -15,4 +15,5 @@ class LanguageForm(forms.ModelForm):
             "english_name",
             "native_name",
             "text_direction",
+            "table_of_contents",
         ]
