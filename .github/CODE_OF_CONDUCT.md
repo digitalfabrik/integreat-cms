@@ -2,4 +2,4 @@
 
 Our code of conduct can be found in our documentation:
 
-https://integreat.github.io/cms-django/code-of-conduct.html
+https://integreat.github.io/integreat-cms/code-of-conduct.html

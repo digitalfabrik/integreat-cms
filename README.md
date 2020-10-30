@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Integreat/cms-django.svg?style=shield)](https://circleci.com/gh/Integreat/cms-django)
+[![CircleCI](https://circleci.com/gh/Integreat/integreat-cms.svg?style=shield)](https://circleci.com/gh/Integreat/integreat-cms)
 [![Pylint](https://img.shields.io/badge/pylint-10.00-brightgreen)](https://www.pylint.org/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -26,8 +26,8 @@ Following packages are required before installing the project (install them with
 ### Installation
 
 ````
-git clone git@github.com:Integreat/cms-django.git
-cd cms-django
+git clone git@github.com:Integreat/integreat-cms.git
+cd integreat-cms
 ./dev-tools/install.sh
 ````
 
@@ -44,4 +44,4 @@ cd cms-django
 
 For detailed instructions, tutorials and the source code reference have a look at our great documentation:
 
-<p align="center">:notebook: https://integreat.github.io/cms-django/</p>
+<p align="center">:notebook: https://integreat.github.io/integreat-cms/</p>

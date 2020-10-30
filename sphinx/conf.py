@@ -53,7 +53,7 @@ author = "Integreat"
 #: GitHub username
 github_username = "Integreat"
 #: GitHub repository name
-github_repository = "cms-django"
+github_repository = "integreat-cms"
 #: GitHub URL
 github_url = f"https://github.com/{github_username}/{github_repository}"
 #: GitHub pages URL (target of gh-pages branch)
