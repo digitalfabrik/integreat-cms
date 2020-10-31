@@ -10,13 +10,7 @@ u('.drag').each(function(node) {
 function dragstart(event) {
     // prepare the dragged node id for data transfer
     event.dataTransfer.setData("text", u(event.target).attr("data-drag-id"));
-    // change appearance of dragged item
-    u(event.target).removeClass('text-gray-800');
-    u(event.target).addClass('text-blue-500');
-    // show dropping regions between table rows
-    u('.drop-between').each(function(node)  {
-        u(node).closest('tr').removeClass("hidden");
-    });
+    window.setTimeout(change_dom, 50, event.target);
     // get descendants of dragged node
     var descendants = JSON.parse(u(event.target).attr("data-node-descendants"));
     // add event listeners for hovering over drop regions
@@ -30,6 +24,18 @@ function dragstart(event) {
             // else, the move would be valid and dropping is allowed
             u(node).handle('dragover', drop_allow);
         }
+    });
+}
+
+/* manipulating the dom during dragstart event fires immediately a dragend event (chrome browser)
+so the changes to the dom must be delayed */
+function change_dom(target) {
+    // change appearance of dragged item
+    u(target).removeClass('text-gray-800');
+    u(target).addClass('text-blue-500');
+    // show dropping regions between table rows
+    u('.drop-between').each(function(node)  {
+        u(node).closest('tr').removeClass("hidden");
     });
 }
 
