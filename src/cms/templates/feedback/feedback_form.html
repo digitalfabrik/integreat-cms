@@ -3,14 +3,91 @@
 {% block content %}
 {% load static %}
 {% load widget_tweaks %}
-<h2>Feedback</h2>
-<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
-  <tr class="border-b border-solid border-gray-200"><th>Type</th><th>Comment</th><th>Rating</th><th>Date</th></tr>
-{% for item in feedback_events %}
-<tr ><td>Event</td><td>{{ item.comment }}</td><td>{{ item.rating }}</td><td>{{ item.created_date }}</td></tr>
+<h2>Feedback</h2> 
+
+<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white" border="1">
+<tr class="border-b border-solid border-gray-200">
+  <th>Type</th>
+  <th>Objekt</th>
+  <th>Comment</th>
+  <th>Rating</th>
+  <th>Date</th>
+</tr>
+
+
+{% for item in feedback_events %} 
+<tr><td align="center">Event</td>
+<td align="center">{{ feedback_events.url }}</td>
+<td align="center">{{ item.comment }}</td>
+  {% if item.emotion == "NEG"  %}
+       <td align="center"> Down </td>
+  {% else %}
+      <td align="center" >Up</td>
+  {% endif %}
+  <td align="center">{{ item.created_date }}</td></tr>
 {% endfor %}
 {% for item in feedback_offers %}
-<tr><td>Offer</td><td>{{ item.comment }}</td><td>{{ item.rating }}</td><td>{{ item.created_date }}</td></tr>
+<tr><td align="center">Offer</td>
+<td align="center">{{ feedback_offers.url }}</td>
+  <td align="center">{{ item.comment }}</td>>
+   {% if item.emotion == "NEG" %}
+       <td align="center"> Down </td>
+  {% else %}
+      <td align="center">Up</td>
+  {% endif %}<td align="center">{{ item.created_date }}</td></tr>
 {% endfor %}
+{% for item in feedback_regions %}
+<tr><td align="center">Region</td>
+  <td align="center">{{ feedback_regions.url }}</td>
+  <td align="center">{{ item.comment }}</td>
+  {% if item.emotion == "up"  %}
+    <td align="center"> up</td>
+  {% else %}
+     <td align="center">down</td>
+  {% endif %}<td align="center">{{ item.created_date }}</td></tr>
+{% endfor %}
+{% for item in feedback_pages %}
+<tr><td align="center">Pages</td>
+  <td align="center">{{ feedback_pages.url }}</td>
+  <td align="center">{{ item.comment }}</td>
+  {% if item.emotion == "up"  %}
+    <td align="center"> up</td>
+  {% else %}
+    <td align="center"> down</td>
+  {% endif %}<td align="center">{{ item.created_date }}</td></tr>
+{% endfor %}
+</table>
+<br>
+<h2>Rating</h2>
 
+  <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    <tr class="border-b border-solid border-gray-200">
+      <th>Type</th> 
+      <th>Object</th>
+       <th>Like &#128077;</th>
+       <th>DisLike &#128078;</th>
+    </tr>
+  <tr >
+    <td align="center"> Event</td><td align="center">{{feedback_events.url}}</td>
+    <td align="center">{{countUp_event}}</td>
+    <td align="center">{{countDown_event}}</td>
+  </tr>
+  <tr >
+    <td align="center">Offer</td><td align="center">{{feedback_events.permalink }}</td>
+    <td align="center">{{countUp_offer}}</td>
+    <td align="center">{{countDown_offer}}</td>
+  </tr>
+  <tr >
+    <td align="center">Region</td><td align="center">{{feedback_events.permalink }}</td>
+    <td align="center">{{countUp_region}}</td>
+    <td align="center">{{countDown_region}}</td>
+  </tr>
+  <tr >
+    <td align="center">Page</td><td align="center">{{feedback_events.permalink }}</td>
+    <td align="center">{{countUp_page}}</td>
+    <td align="center">{{countDown_page}}</td>
+  </tr>
+</table>
 {% endblock %}
+
+
