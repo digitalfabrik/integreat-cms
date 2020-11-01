@@ -3,6 +3,7 @@
 {% block content %}
 {% load static %}
 {% load widget_tweaks %}
+<<<<<<< HEAD
 <h2>Feedback</h2> 
 
 <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white" border="1">
@@ -88,6 +89,46 @@
     <td align="center">{{countDown_page}}</td>
   </tr>
 </table>
+=======
+<h2>Feedback</h2>
+<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+  <tr class="border-b border-solid border-gray-200">
+     <th>Type</th>
+     <th>Comment</th>
+     <th>Rating</th>
+     <th>Date</th>
+  </tr>
+{% for item in feedback_events %}
+<tr >
+  <td>Event</td>
+  <td>{{ item.comment }}</td>
+  {% if "up" == item.rating  %}
+  <td> up</td>
+  {% else %}
+  <td>down</td>
+  {% endif %}
+  <td>{{ item.created_date }}</td>
+</tr>
+{% endfor %}
+{% for item in feedback_offers %}
+<tr>
+  <td>Offer</td>
+  <td>{{ item.comment }}</td>
+  {% if "up" == item.rating  %}
+  <td> up</td>
+  {% else %}
+  <td>down</td>
+  {% endif %}
+  <td>{{ item.created_date }}</td>
+</tr>
+{% endfor %}
+<h2>Rating</h2>
+<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+  <tr class="border-b border-solid border-gray-200">
+     <th>&#128077;</th>
+     <th>&#128078;</th>
+  </tr>
+>>>>>>> c5353f5f88f46ab97a12b12a8dbfda92ae64b1f8
 {% endblock %}
 
 
