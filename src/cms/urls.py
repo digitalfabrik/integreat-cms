@@ -185,7 +185,7 @@ urlpatterns = [
                         [
                             url(
                                 r"^$",
-                                feedback.FeedbackView.as_view(),
+                                feedback.FeedbackListView.as_view(),
                                 name="feedback",
                             )])),
 
