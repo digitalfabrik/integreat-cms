@@ -17,7 +17,7 @@
 
 {% for item in feedback_events %} 
 <tr><td align="center">Event</td>
-<td align="center">{{ feedback_events.url }}</td>
+<td align="center">https://integreat.app/{{item.event.permalink}}</td>
 <td align="center">{{ item.comment }}</td>
   {% if item.emotion == "NEG"  %}
        <td align="center"> Down </td>
@@ -28,7 +28,7 @@
 {% endfor %}
 {% for item in feedback_offers %}
 <tr><td align="center">Offer</td>
-<td align="center">{{ feedback_offers.url }}</td>
+<td align="center">{{item.offer.url}}</td>
   <td align="center">{{ item.comment }}</td>>
    {% if item.emotion == "NEG" %}
        <td align="center"> Down </td>
@@ -38,7 +38,7 @@
 {% endfor %}
 {% for item in feedback_regions %}
 <tr><td align="center">Region</td>
-  <td align="center">{{ feedback_regions.url }}</td>
+  <td align="center">{{item.region.permalink}}</td>
   <td align="center">{{ item.comment }}</td>
   {% if item.emotion == "up"  %}
     <td align="center"> up</td>
@@ -48,7 +48,7 @@
 {% endfor %}
 {% for item in feedback_pages %}
 <tr><td align="center">Pages</td>
-  <td align="center">{{ feedback_pages.url }}</td>
+  <td align="center">{{ item.page.url }}</td>
   <td align="center">{{ item.comment }}</td>
   {% if item.emotion == "up"  %}
     <td align="center"> up</td>
@@ -63,31 +63,43 @@
   <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
     <tr class="border-b border-solid border-gray-200">
       <th>Type</th> 
-      <th>Object</th>
-       <th>Like &#128077;</th>
-       <th>DisLike &#128078;</th>
+      <th>Like &#128077;</th>
+      <th>DisLike &#128078;</th>
     </tr>
+  {% if feedback_events %}
   <tr >
-    <td align="center"> Event</td><td align="center">{{feedback_events.url}}</td>
+    <td align="center"> Event</td>
     <td align="center">{{countUp_event}}</td>
     <td align="center">{{countDown_event}}</td>
   </tr>
+  {%else%}
+  {%endif%}
+  {% if feedback_offers %}
   <tr >
-    <td align="center">Offer</td><td align="center">{{feedback_events.permalink }}</td>
+    <td align="center">Offer</td>
     <td align="center">{{countUp_offer}}</td>
     <td align="center">{{countDown_offer}}</td>
   </tr>
+  {%else%}
+  {%endif%}
+  {% if feedback_regions %}
   <tr >
-    <td align="center">Region</td><td align="center">{{feedback_events.permalink }}</td>
+    <td align="center">Region</td>
     <td align="center">{{countUp_region}}</td>
     <td align="center">{{countDown_region}}</td>
   </tr>
+  {%else%}
+  {%endif%}
+  {% if feedback_pages %}
   <tr >
-    <td align="center">Page</td><td align="center">{{feedback_events.permalink }}</td>
+    <td align="center">Page</td>
     <td align="center">{{countUp_page}}</td>
     <td align="center">{{countDown_page}}</td>
   </tr>
+  {%else%}
+  {%endif%}
 </table>
+  
 
 {% endblock %}
 

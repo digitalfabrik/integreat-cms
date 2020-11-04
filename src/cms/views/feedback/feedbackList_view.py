@@ -24,7 +24,7 @@ class FeedbackView(TemplateView):
         feedback_offers = OfferFeedback.objects.filter()
         feedback_pages = PageFeedback.objects.filter()
         feedback_regions = RegionFeedback.objects.filter()
-
+        # event__isnull=False).distinct
         for event in feedback_events:
             if event.emotion == "POS":
                 countUp_event = countUp_event + 1

@@ -181,14 +181,18 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^feedback/",  include(
-                        [
-                            url(
-                                r"^$",
-                                feedback.FeedbackListView.as_view(),
-                                name="feedback",
-                            )])),
-
+    url(
+        r"^feedback/",
+        include(
+            [
+                url(
+                    r"^$",
+                    feedback.FeedbackView.as_view(),
+                    name="feedback",
+                )
+            ]
+        ),
+    ),
     url(
         r"^offer_templates/",
         include(
