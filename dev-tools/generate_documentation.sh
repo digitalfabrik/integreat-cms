@@ -61,7 +61,7 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_DIR} -type f -name "*.rst" | xargs sed -i \
     -e 's/\( module\| package\)//' `# Remove module & package strings at the end of headings` \
     -e '/^[^ ]\+$/s/\(.*\.\)\?\([^\.]\+\)/\u\2/' `# Remove module path in headings (separated by dots) and make first letter uppercase` \
     -e '/^[^ ]\+$/s/\\_\([a-z]\)/ \u\1/g' `# Replace \_ with spaces in headings and make following letter uppercase` \
-    -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g' # Make specific keywords uppercase
+    -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g;s/Pdf/PDF/g' # Make specific keywords uppercase
 
 # Patch cms.rst to add the decorated functions
 if ! patch ${SPHINX_DIR}/${SPHINX_APIDOC_DIR}/cms.rst ${SPHINX_DIR}/patches/cms.diff; then

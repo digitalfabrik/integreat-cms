@@ -17,6 +17,7 @@ from .v3.feedback import (
 from .v3.imprint import imprint
 from .v3.languages import languages
 from .v3.pages import pages
+from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import regions, liveregions, hiddenregions, pushnew
 from .v3.offers import offers
@@ -77,6 +78,7 @@ urlpatterns = [
                 url(r"(?P<language_code>[-\w]+)/(offers|extras)/?$", offers),
                 url(r"(?P<language_code>[-\w]+)/page/?$", single_page),
                 url(r"(?P<language_code>[-\w]+)/(imprint|disclaimer)/?$", imprint),
+                url(r"(?P<language_code>[-\w]+)/pdf/?$", pdf_export),
             ]
         ),
     ),

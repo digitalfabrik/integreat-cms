@@ -163,9 +163,9 @@ def link_callback(uri, rel):
 # pylint: disable=unused-argument, too-many-locals
 def export_pdf(request, region_slug, language_code):
     """
-    Function for handling a pdf export request for a single page.
-    If the page is a root page, the corresponding django template
-    inserts the content of all children pages.
+    Function for handling a pdf export request for pages.
+    The pages were either selected by cms user (see :func:`cms.static.js.pages.page_bulk_action.bulk_action_execute`)
+    or by API request (see :func:`api.v3.pdf_export`)
     For more information on xhtml2pdf, see :doc:`xhtml2pdf:index`
 
     :param request: Request submitted for rendering pdf document
@@ -177,12 +177,16 @@ def export_pdf(request, region_slug, language_code):
     :raises ~django.core.exceptions.PermissionDenied: User login and permissions required
 
     :return: PDF document offered for download
-    :rtype: ~django.http.HttpRequest
+    :rtype: ~django.http.HttpResponse
     """
     region = Region.get_current_region(request)
-    page_ids = request.GET.get("pages").split(",")
-    # retrieve all selected pages
-    pages = region.pages.filter(archived=False, id__in=page_ids)
+    if request.GET.get("pages"):
+        # if the cms users sends an internal request, then retrieve the selected pages
+        page_ids = request.GET.get("pages").split(",")
+        pages = region.pages.filter(archived=False, id__in=page_ids)
+    elif request.GET.get("api"):
+        # if api requests pages
+        pages = request.GET.get("api")
     pdf_key_list = [region_slug]
     for page in pages:
         # retrieve the translation for each page
