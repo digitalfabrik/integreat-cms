@@ -5,7 +5,7 @@ be selected via the id or the permalink.
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
-from cms.models import Region, Page
+from cms.models import Region
 from .pages import transform_page
 
 
@@ -40,9 +40,13 @@ def single_page(request, region_slug, language_code):
     elif request.GET.get("url"):
         # Strip leading and trailing slashes to avoid ambiguous urls
         url = request.GET.get("url").strip("/")
-        # Get potential page candidate by only filtering for the translation slug
+        # The last path component of the url is the page translation slug
+        page_translation_slug = url.split("/")[-1]
+        # Get page by filtering for translation slug and translation language code
         page = get_object_or_404(
-            Page, region=region, translations__slug=url.split("/")[-1]
+            region.pages,
+            translations__slug=page_translation_slug,
+            translations__language__code=language_code,
         )
         # Get most recent public revision of the page
         page_translation = page.get_public_translation(language_code)
