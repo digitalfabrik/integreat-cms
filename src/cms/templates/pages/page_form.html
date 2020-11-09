@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post" id="content_form">
+<form enctype="multipart/form-data" method="post" id="content_form">
     {% csrf_token %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
@@ -241,25 +241,25 @@
                         {% include "pages/_page_order_table.html" %}
                     </div>
                     {% if page %}
-                    <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
-                    <div class="relative my-2">
-                        {% render_field page_form.mirrored_page_region id="mirrored_page_region" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
+                        <div class="relative my-2">
+                            {% render_field page_form.mirrored_page_region id="mirrored_page_region" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div">
-                        {% render_field page_form.mirrored_page id="mirrored_page" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div">
+                            {% render_field page_form.mirrored_page id="mirrored_page" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
-                        {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
+                            {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
                         </div>
-                    </div>
                     {% endif %}
                     {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
                         <span class="block font-bold mb-2">{% trans 'Additional permissions for this page' %}</span>

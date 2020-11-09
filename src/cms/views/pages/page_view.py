@@ -120,6 +120,19 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
+        """
+        Binds the user input data to the page form and validates the input.
+        Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
+        see :doc:`django:topics/http/file-uploads`
+
+        :param request: Request submitted for saving page form
+        :type request: ~django.http.HttpRequest
+
+        :raises ~django.core.exceptions.PermissionDenied: user has no permission to edit this page
+
+        :return: Redirection to the populated page form
+        :rtype: ~django.http.HttpRespnseRedirect
+        """
 
         region = Region.get_current_region(request)
         language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
@@ -141,6 +154,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
 
         page_form = PageForm(
             request.POST,
+            request.FILES,
             instance=page_instance,
             region=region,
             language=language,
