@@ -50,9 +50,7 @@ def single_page(request, region_slug, language_code):
         )
         # Get most recent public revision of the page
         page_translation = page.get_public_translation(language_code)
-        # Check if the whole path is correct, not only the slug
-        # TODO: Once we have a permalink mapping of old versions, we also have to check whether the permalink was valid in the past
-        if page_translation.permalink == url:
+        if page_translation:
             return JsonResponse(transform_page(page_translation), safe=False)
 
     raise Http404("No Page matches the given url or id.")
