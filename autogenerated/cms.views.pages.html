@@ -753,7 +753,7 @@ It returns the absolute paths to the files on the file system.</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <dl class="py method">
 <dt id="cms.views.pages.page_view.PageView.get_side_by_side_language_options">
-<em class="property">static </em><code class="sig-name descname">get_side_by_side_language_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/pages/page_view.py#L239"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.get_side_by_side_language_options" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">get_side_by_side_language_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/pages/page_view.py#L253"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.get_side_by_side_language_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a helper function to generate the side-by-side langauge options for both the get and post requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -768,6 +768,28 @@ It returns the absolute paths to the files on the file system.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.pages.page_view.PageView.post">
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/views/pages/page_view.py#L122"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binds the user input data to the page form and validates the input.
+Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
+see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/file-uploads/" title="(in Django v2.2)"><span>File Uploads</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Request submitted for saving page form</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v2.2)"><strong>PermissionDenied</strong></a> – user has no permission to edit this page</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Redirection to the populated page form</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>HttpRespnseRedirect</p>
 </dd>
 </dl>
 </dd></dl>
@@ -803,7 +825,7 @@ It returns the absolute paths to the files on the file system.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Oct 29, 2020.
+        Last updated on Nov 08, 2020.
       </span>
 
     </p>
