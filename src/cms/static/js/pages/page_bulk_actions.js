@@ -21,7 +21,7 @@ function bulk_action_execute() {
         pages = [];
         selected_pages.forEach(e => {
             if(e.checked) {
-            pages.push(e.value)
+                pages.push(e.value)
             }
         })
         if (pages.length != 0) {

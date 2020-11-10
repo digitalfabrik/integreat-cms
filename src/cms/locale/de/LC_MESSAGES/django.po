@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 12:43+0000\n"
+"POT-Creation-Date: 2020-11-10 16:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -2544,6 +2544,15 @@ msgstr "Dies kann nicht rückgängig gemacht werden."
 msgid "Yes, delete this user now"
 msgstr "Ja, diesen Benutzer jetzt löschen"
 
+#: utils/pdf_utils.py:65
+msgid "No valid pages selected for PDF generation."
+msgstr ""
+"Es wurden keine gültigen Seiten zur Erzeugung der PDF-Datei ausgewählt."
+
+#: utils/pdf_utils.py:105
+msgid "The PDF could not be successfully generated."
+msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
+
 #: utils/slug_utils.py:57
 #, python-format
 msgid "Cannot generate slug from %(fallback)s."
@@ -2743,57 +2752,48 @@ msgstr "Organisation wurde erfolgreich erstellt"
 msgid "Organization was successfully saved"
 msgstr "Organisation wurde erfolgreich gespeichert"
 
-#: views/pages/page_actions.py:51
+#: views/pages/page_actions.py:45
 msgid "Page was successfully archived"
 msgstr "Seite wurde erfolgreich archiviert"
 
-#: views/pages/page_actions.py:74
+#: views/pages/page_actions.py:68
 msgid "Page was successfully restored"
 msgstr "Seite wurde erfolgreich wiederhergestellt"
 
-#: views/pages/page_actions.py:107
+#: views/pages/page_actions.py:101
 msgid "You cannot delete a page which has children"
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt"
 
-#: views/pages/page_actions.py:110
+#: views/pages/page_actions.py:104
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
-#: views/pages/page_actions.py:214
-msgid "No valid pages selected for PDF generation."
-msgstr ""
-"Es wurden keine gültigen Seiten zur Erzeugung der PDF-Datei ausgewählt."
-
-#: views/pages/page_actions.py:243
-msgid "The PDF could not be successfully generated."
-msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
-
-#: views/pages/page_actions.py:390
+#: views/pages/page_actions.py:291
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: views/pages/page_actions.py:468 views/pages/page_actions.py:483
+#: views/pages/page_actions.py:369 views/pages/page_actions.py:384
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page_actions.py:475
+#: views/pages/page_actions.py:376
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page_actions.py:491
+#: views/pages/page_actions.py:392
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: views/pages/page_actions.py:500 views/pages/page_actions.py:603
+#: views/pages/page_actions.py:401 views/pages/page_actions.py:504
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: views/pages/page_actions.py:571
+#: views/pages/page_actions.py:472
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -2803,12 +2803,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: views/pages/page_actions.py:577
+#: views/pages/page_actions.py:478
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page_actions.py:588
+#: views/pages/page_actions.py:489
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -2818,7 +2818,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: views/pages/page_actions.py:594
+#: views/pages/page_actions.py:495
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -3098,6 +3098,9 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "The PDF request has a wrong format."
+#~ msgstr "Die PDF Anfrage hat das falsche Format."
 
 #~ msgid "URL '{}' was successfully copied to clipboard."
 #~ msgstr "URL '{}' wurde erfolgreich in die Zwischenablage kopiert."
