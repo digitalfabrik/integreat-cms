@@ -1,7 +1,6 @@
 /**
- * This file contains all functions which are needed for the bulk actions for pages.
+ * Handles the checkbox for selecting and unselecting all pages.
  */
-
 function select_all_pages() {
     var selected_pages = document.getElementsByName("page_selected");
     if (document.getElementsByName("select_all_pages")[0].checked == true) {
@@ -11,6 +10,11 @@ function select_all_pages() {
     }
 }
 
+/**
+ * Handles bulk action execution depending on the selected action.
+ * In general the selected pages get retrieved and forwarded to the django view
+ * that corresponds to the selected action.
+ */
 function bulk_action_execute() {
     var action = document.getElementById('bulk_action').value;
     // match action types

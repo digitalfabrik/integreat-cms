@@ -65,6 +65,7 @@ extensions = [
     "sphinxcontrib_django",
     "sphinx_rtd_theme",
     "sphinx_last_updated_by_git",
+    "sphinx_js",
 ]
 #: Enable cross-references to other documentations
 intersphinx_mapping = {
@@ -113,6 +114,11 @@ html_show_sourcelink = False
 html_show_sphinx = False
 #: Include last updated timestamp
 html_last_updated_fmt = "%b %d, %Y"
+
+# -- Settings for sphinx-js
+
+#: Path to javascript files
+js_source_path = "../src/cms/static/js"
 
 # -- Modify default Django model parameter types------------------------------
 

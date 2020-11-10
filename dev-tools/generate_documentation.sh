@@ -23,6 +23,15 @@ if [ $(id -u) = 0 ]; then
     fi
 fi
 
+# check if jsdoc is contained in PATH enviroment variable
+if ! command -v jsdoc &> /dev/null
+then
+    # because jsdoc is locally in venv installed, PATH must be explicitly set
+	export PATH="$PATH:$(realpath $(dirname $BASH_SOURCE)/../node_modules/.bin)"
+    echo $(realpath $(dirname $BASH_SOURCE)/../node_modules/.bin)
+    echo $PATH
+fi
+
 cd $(dirname "${BASH_SOURCE}")/..
 
 # Copy original footer file
