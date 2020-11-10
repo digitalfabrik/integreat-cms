@@ -399,6 +399,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 </ul>
 </li>
@@ -539,6 +540,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.languages">Languages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.offers">Offers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.pages">Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-api.v3.pdf_export">PDF Export</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.regions">Regions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.single_page">Single Page</a></li>
@@ -805,6 +807,35 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-api.v3.pdf_export">
+<span id="pdf-export"></span><h2>PDF Export<a class="headerlink" href="#module-api.v3.pdf_export" title="Permalink to this headline">¶</a></h2>
+<p>View to return PDF document containg the requested pages.
+Single pages may be requested by url parameter, if no parameter is included all pages
+related to the current region and language will be returned.</p>
+<dl class="py function">
+<dt id="api.v3.pdf_export.pdf_export">
+<code class="sig-prename descclassname">api.v3.pdf_export.</code><code class="sig-name descname">pdf_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/pdf_export.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pdf_export.pdf_export" title="Permalink to this definition">¶</a></dt>
+<dd><p>View function that either returns the requested page specified by the
+url parameter or returns all pages of current region and language as PDF document
+by forwarding the request to <a class="reference internal" href="cms.utils.html#cms.utils.pdf_utils.generate_pdf" title="cms.utils.pdf_utils.generate_pdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_pdf()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – request that was sent to the server</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Slug defining the region</p></li>
+<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current language code</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The requested pages as PDF document (inline)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)">HttpResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-api.v3.push_notifications">
 <span id="push-notifications"></span><h2>Push Notifications<a class="headerlink" href="#module-api.v3.push_notifications" title="Permalink to this headline">¶</a></h2>
 <p>Retrieve push notifications that have been sent, optionally filtering by channel.</p>
@@ -1015,7 +1046,7 @@ requested page does not exist.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 09, 2020.
+        Last updated on Nov 10, 2020.
       </span>
 
     </p>

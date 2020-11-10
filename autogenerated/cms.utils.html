@@ -399,6 +399,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.slug_utils">Slug Utils</a></li>
 </ul>
 </li>
@@ -539,6 +540,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.languages">Languages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.offers">Offers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.pages">Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.pdf_export">PDF Export</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.regions">Regions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.single_page">Single Page</a></li>
@@ -685,6 +687,55 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-cms.utils.pdf_utils">
+<span id="pdf-utils"></span><h2>PDF Utils<a class="headerlink" href="#module-cms.utils.pdf_utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="cms.utils.pdf_utils.generate_pdf">
+<code class="sig-prename descclassname">cms.utils.pdf_utils.</code><code class="sig-name descname">generate_pdf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language_code</span></em>, <em class="sig-param"><span class="n">pages</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/utils/pdf_utils.py#L21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.utils.pdf_utils.generate_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function for handling a pdf export request for pages.
+The pages were either selected by cms user (see <code class="xref py py-func docutils literal notranslate"><span class="pre">cms.static.js.pages.page_bulk_action.bulk_action_execute()</span></code>)
+or by API request (see <a class="reference internal" href="api.v3.html#module-api.v3.pdf_export" title="api.v3.pdf_export"><code class="xref py py-func docutils literal notranslate"><span class="pre">api.v3.pdf_export()</span></code></a>)
+For more information on xhtml2pdf, see <a class="reference external" href="https://xhtml2pdf.readthedocs.io/en/latest/index.html" title="(in xhtml2pdf v0.2.5)"><span>Welcome to xhtml2pdf’s documentation!</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – region which requested the pdf document</p></li>
+<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – bcp47 code of the current language</p></li>
+<li><p><strong>pages</strong> (<a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.11.0)"><em>TreeQuerySet</em></a>) – at least on page to render as PDF document</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v2.2)"><strong>PermissionDenied</strong></a> – User login and permissions required</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>PDF document wrapped in a HtmlResponse</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)">HttpResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.utils.pdf_utils.link_callback">
+<code class="sig-prename descclassname">cms.utils.pdf_utils.</code><code class="sig-name descname">link_callback</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">rel</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/utils/pdf_utils.py#L112"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.utils.pdf_utils.link_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>According to xhtml2pdf documentation (see <a class="reference external" href="https://xhtml2pdf.readthedocs.io/en/latest/usage.html" title="(in xhtml2pdf v0.2.5)"><span>Usage</span></a>),
+this function is neccessary for resolving the django static files references.
+It returns the absolute paths to the files on the file system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uri</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – URI that is generated by django template tag ‘static’</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The absolute path on the file system according to django’s static file settings</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.utils.slug_utils">
 <span id="slug-utils"></span><h2>Slug Utils<a class="headerlink" href="#module-cms.utils.slug_utils" title="Permalink to this headline">¶</a></h2>
 <p>This module contains helpers regarding unique string identifiers without special characters (“slugs”).</p>
@@ -748,7 +799,7 @@ a content-object), this paramaeter contains the model of the foreign related obj
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 30, 2020.
+        Last updated on Nov 10, 2020.
       </span>
 
     </p>
