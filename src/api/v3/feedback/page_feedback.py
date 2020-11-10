@@ -64,7 +64,7 @@ def page_feedback_internal(data, region, language, comment, emotion, is_technica
             {"error": f'No page found with slug "{page_slug}"'}, status=404
         )
     PageFeedback.objects.create(
-        page=page_translation.page,
+        page_translation=page_translation,
         language=language,
         emotion=emotion,
         comment=comment,

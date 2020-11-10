@@ -20,11 +20,11 @@ class EventFeedback(Feedback):
 
     Relationship fields:
 
-    :param event: The event the feedback is referring to (related name: ``feedback``)
+    :param event_translation: The event translation the feedback is referring to (related name: ``feedback``)
     :param feedback_ptr: A pointer to the base class
     """
 
-    event = models.ForeignKey(
+    event_translation = models.ForeignKey(
         EventTranslation, related_name="feedback", on_delete=models.CASCADE
     )
 

@@ -20,6 +20,7 @@ from .feedback.feedback import Feedback
 from .feedback.page_feedback import PageFeedback
 from .feedback.region_feedback import RegionFeedback
 from .feedback.search_result_feedback import SearchResultFeedback
+from .feedback.imprint_page_feedback import ImprintPageFeedback
 
 from .languages.language import Language
 from .languages.language_tree_node import LanguageTreeNode

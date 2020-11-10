@@ -187,8 +187,8 @@ urlpatterns = [
             [
                 url(
                     r"^$",
-                    feedback.FeedbackView.as_view(),
-                    name="feedback",
+                    feedback.AdminFeedbackListView.as_view(),
+                    name="admin_feedback",
                 )
             ]
         ),
@@ -556,6 +556,18 @@ urlpatterns = [
                                     ]
                                 ),
                             ),
+                        ]
+                    ),
+                ),
+                url(
+                    r"^feedback/",
+                    include(
+                        [
+                            url(
+                                r"^$",
+                                feedback.RegionFeedbackListView.as_view(),
+                                name="region_feedback",
+                            )
                         ]
                     ),
                 ),

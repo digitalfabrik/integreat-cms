@@ -1,6 +1,7 @@
 from django.db import models
 
 from .feedback import Feedback
+from ..regions.region import Region
 
 
 class SearchResultFeedback(Feedback):
@@ -21,10 +22,14 @@ class SearchResultFeedback(Feedback):
 
     Relationship fields:
 
+    :param region: The region to which the feedback is referring to (related name: ``search_result_feedback``)
     :param feedback_ptr: A pointer to the base class
     """
 
     searchQuery = models.CharField(max_length=1000)
+    region = models.ForeignKey(
+        Region, related_name="search_result_feedback", on_delete=models.CASCADE
+    )
 
     class Meta:
         default_permissions = ()

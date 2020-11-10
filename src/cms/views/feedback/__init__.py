@@ -1,4 +1,2 @@
-"""
-Python standard Init-File
-"""
-from .feedbackList_view import FeedbackView
+from .admin_feedback_list_view import AdminFeedbackListView
+from .region_feedback_list_view import RegionFeedbackListView
