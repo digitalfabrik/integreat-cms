@@ -6,10 +6,9 @@ related to the current region and language will be returned.
 import logging
 
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 
-from cms.models import Region, Page
-from cms.views.pages.page_actions import export_pdf
+from cms.models import Region
+from cms.utils.pdf_utils import generate_pdf
 
 logger = logging.getLogger(__name__)
 
@@ -17,26 +16,22 @@ logger = logging.getLogger(__name__)
 def pdf_export(request, region_slug, language_code):
     """
     View function that either returns the requested page specified by the
-    GET parameter or returns all pages of current region and language as PDF document
-    by manipulating the GET parameter (see :class:`django.http.QueryDict`)
-    and forwarding the request to view :func:`~cms.views.pages.page_actions.export_pdf`
+    url parameter or returns all pages of current region and language as PDF document
+    by forwarding the request to :func:`~cms.utils.pdf_utils.generate_pdf`
 
-    :param request: The request that was sent to the server
+    :param request: request that was sent to the server
     :type request: ~django.http.HttpRequest
 
     :param region_slug: Slug defining the region
     :type region_slug: str
 
-    :param language_code: The current language code
+    :param language_code: current language code
     :type language_code: str
 
     :return: The requested pages as PDF document (inline)
     :rtype: ~django.http.HttpResponse
     """
     region = Region.get_current_region(request)
-    # since instances of GET are immutable,
-    # they must be copied before modified
-    request.GET = request.GET.copy()
     if request.GET.get("url"):
         # remove leading and trailing slashed to avoid ambiguos urls
         url = request.GET.get("url").strip("/")
@@ -48,13 +43,7 @@ def pdf_export(request, region_slug, language_code):
             translations__slug=page_translation_slug,
             translations__language__code=language_code,
         )
-        # get recent page translation
-        page_translation = page.get_public_translation(language_code)
+        pages = page.get_descendants(include_self=True)
     else:
-        request.GET.update({"api": region.pages.filter(archived=False)})
-    response = export_pdf(request, region_slug, language_code)
-    # remove file attachment to display the pdf document inline
-    response["Content-Disposition"] = response["Content-Disposition"].replace(
-        "attachment; ", ""
-    )
-    return response
+        pages = region.pages.filter(archived=False)
+    return generate_pdf(region_slug, language_code, region, pages)
