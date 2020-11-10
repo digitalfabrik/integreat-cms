@@ -40,26 +40,16 @@ def pdf_export(request, region_slug, language_code):
     if request.GET.get("url"):
         # remove leading and trailing slashed to avoid ambiguos urls
         url = request.GET.get("url").strip("/")
-        # get page candidate by filtering for translation slug
+        # the last path component of the url is the page translation slug
+        page_translation_slug = url.split("/")[-1]
+        # get page by filtering for translation slug and translation language code
         page = get_object_or_404(
-            Page, region=region, translations__slug=url.split("/")[-1]
+            region.pages,
+            translations__slug=page_translation_slug,
+            translations__language__code=language_code,
         )
         # get recent page translation
         page_translation = page.get_public_translation(language_code)
-        # Check if the whole path is correct, not only the slug
-        # TODO: Once we have a permalink mapping of old versions, we also have to check whether the permalink was valid in the past
-        if page_translation.permalink == url:
-            pages = page.get_descendants(include_self=True)
-            request.GET.update({"api": pages})
-        else:
-            logger.error(
-                "The requested url: %s does not match the permalink for this page translation: %s",
-                url,
-                page_translation.permalink,
-            )
-            return HttpResponse(
-                "There exists no appropriate page for the requested url."
-            )
     else:
         request.GET.update({"api": region.pages.filter(archived=False)})
     response = export_pdf(request, region_slug, language_code)
