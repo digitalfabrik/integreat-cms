@@ -12,7 +12,7 @@ from cms.utils.pdf_utils import generate_pdf
 
 logger = logging.getLogger(__name__)
 
-
+# pylint: disable=unused-argument
 def pdf_export(request, region_slug, language_code):
     """
     View function that either returns the requested page specified by the
@@ -46,4 +46,4 @@ def pdf_export(request, region_slug, language_code):
         pages = page.get_descendants(include_self=True)
     else:
         pages = region.pages.filter(archived=False)
-    return generate_pdf(region_slug, language_code, region, pages)
+    return generate_pdf(region, language_code, pages)

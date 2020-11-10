@@ -18,26 +18,29 @@ logger = logging.getLogger(__name__)
 
 
 # pylint: disable=too-many-locals
-def generate_pdf(region_slug, language_code, region, pages):
+def generate_pdf(region, language_code, pages):
     """
     Function for handling a pdf export request for pages.
     The pages were either selected by cms user (see :func:`cms.static.js.pages.page_bulk_action.bulk_action_execute`)
     or by API request (see :func:`api.v3.pdf_export`)
     For more information on xhtml2pdf, see :doc:`xhtml2pdf:index`
 
-    :param region_slug: Request submitted for rendering pdf document
-    :type region_slug: ~django.http.HttpRequest
+    :param region: region which requested the pdf document
+    :type region: ~cms.models.regions.region.Region
 
     :param language_code: bcp47 code of the current language
     :type language_code: str
 
+    :param pages: at least on page to render as PDF document
+    :type pages: ~mptt.querysets.TreeQuerySet
+
     :raises ~django.core.exceptions.PermissionDenied: User login and permissions required
 
-    :return: PDF document offered for download
+    :return: PDF document wrapped in a HtmlResponse
     :rtype: ~django.http.HttpResponse
     """
-    # first all necessary data for hashing are collected, starting at region_slug
-    pdf_key_list = [region_slug]
+    # first all necessary data for hashing are collected, starting at region slug
+    pdf_key_list = [region.slug]
     for page in pages:
         # add translation id and last_updated to hash key list if they exist
         page_translation = page.get_public_translation(language_code)
@@ -56,20 +59,11 @@ def generate_pdf(region_slug, language_code, region, pages):
     if cached_response != "has_expired":
         # if django cache already contains a response object
         return cached_response
-
     amount_pages = pages.count()
-    language = Language.objects.get(code=language_code)
-    context = {
-        "html2pdf": True,
-        "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,
-        "region": region,
-        "pages": pages,
-        "language": language,
-        "amount_pages": amount_pages,
-    }
-    response = HttpResponse(content_type="application/pdf")
     if amount_pages == 0:
-        return HttpResponse(_("No valid pages selected for PDF generation."))
+        return HttpResponse(
+            _("No valid pages selected for PDF generation."), status=400
+        )
     if amount_pages == 1:
         # If pdf contains only one page, take its title as filename
         title = pages.first().get_public_translation(language_code).title
@@ -84,7 +78,17 @@ def generate_pdf(region_slug, language_code, region, pages):
         else:
             # In any other case, take the region name
             title = region.name
+    language = Language.objects.get(code=language_code)
     filename = f"Integreat - {language.translated_name} - {title}.pdf"
+    context = {
+        "html2pdf": True,
+        "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,
+        "region": region,
+        "pages": pages,
+        "language": language,
+        "amount_pages": amount_pages,
+    }
+    response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = f'filename="{filename}"'
     html = get_template("pages/page_pdf.html").render(context)
     pisa_status = pisa.CreatePDF(
@@ -97,7 +101,9 @@ def generate_pdf(region_slug, language_code, region, pages):
             language,
             pages,
         )
-        return HttpResponse(_("The PDF could not be successfully generated."))
+        return HttpResponse(
+            _("The PDF could not be successfully generated."), status=500
+        )
     cache.set(pdf_hash, response, 60 * 60 * 24)
     return response
 

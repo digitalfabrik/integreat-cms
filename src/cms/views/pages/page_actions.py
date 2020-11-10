@@ -118,7 +118,7 @@ def delete_page(request, page_id, region_slug, language_code):
 def export_pdf(request, region_slug, language_code):
     """
     Function for handling a pdf export request for pages.
-    The pages get extracted from request.GET attribute and the request is forwarded to :func:`cms.utils.pdf_utils.generate_pdf`
+    The pages get extracted from request.GET attribute and the request is forwarded to :func:`~cms.utils.pdf_utils.generate_pdf`
 
     :param request: Request submitted for rendering pdf document
     :type request: ~django.http.HttpRequest
@@ -140,7 +140,7 @@ def export_pdf(request, region_slug, language_code):
     # collect the corresponding page objects
     pages = region.pages.filter(archived=False, id__in=page_ids)
     # generate PDF document wrapped in a HtmlResponse object
-    response = generate_pdf(region_slug, language_code, region, pages)
+    response = generate_pdf(region, language_code, pages)
     # offer PDF document for download
     response["Content-Disposition"] = response["Content-Disposition"] + "; attachment"
     return response
