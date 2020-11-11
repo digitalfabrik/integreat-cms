@@ -22,21 +22,9 @@ Pipenv not found
     :class: hint
 
     Probably you have installed pipenv via pip into ``~/.local/bin``, which is not in your ``PATH`` environment variable.
-    Fix this by appending it to your default shell config
+    Fix this by appending ``export PATH=$PATH:~/.local/bin`` to your default shell config (e.g. ``~/.bashrc`` or ``~/.zshrc``).
 
-    .. container:: two-columns
-
-        .. container:: left-side
-
-            for BASH::
-
-                echo "export PATH=\$PATH:~/.local/bin" >> ~/.bashrc
-
-        .. container:: right-side
-
-            for ZSH::
-
-                echo "export PATH=\$PATH:~/.local/bin" >> ~/.zshrc
+    .. include:: include/pipenv-path-environment-variable.rst
 
 
 Integreat-cms-cli not found
