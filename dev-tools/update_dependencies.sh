@@ -2,6 +2,11 @@
 
 # This script checks if all dependencies in the lock files are up to date and increments the version numbers if necessary.
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 # Check if script is running as root
 if [ $(id -u) = 0 ]; then
     # Check if script was invoked by the root user or with sudo

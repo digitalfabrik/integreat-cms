@@ -2,6 +2,11 @@
 
 # This script can be used to check the translation file for missing or empty entries.
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 # Check if pcregrep is installed
 if [ ! -x "$(command -v pcregrep)" ]; then
     echo "PCRE grep is not installed. Please install pcregrep manually and run this script again." >&2
