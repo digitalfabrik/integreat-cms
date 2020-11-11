@@ -649,12 +649,12 @@
 <ul class="simple">
 <li><p><a class="reference external" href="https://git-scm.com/">git</a></p></li>
 <li><p><a class="reference external" href="https://www.npmjs.com/">npm</a></p></li>
-<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7">python3.7</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a> <a class="footnote-reference brackets" href="#ppa" id="id1">1</a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python37/">python37</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
-<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7-dev">python3.7-dev</a> (only required on <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>)</p></li>
-<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
+<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7">python3.7</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a> <a class="footnote-reference brackets" href="#ppa" id="id1">1</a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python37/">python37</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
+<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7-dev">python3.7-dev</a> (only required on <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>)</p></li>
+<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
 <li><p><a class="reference external" href="https://pipenv.pypa.io/en/latest/">pipenv</a> for python3 <a class="footnote-reference brackets" href="#pip" id="id5">2</a></p></li>
 <li><p>Either <a class="reference external" href="https://www.postgresql.org/">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/">docker</a> to run a local database server</p></li>
-<li><p><a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> to use the translation features</p></li>
+<li><p><a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> and <a class="reference external" href="https://pcre.org/original/doc/html/pcregrep.html">pcregrep</a> to use the translation features</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -669,7 +669,21 @@
 <dl class="footnote brackets">
 <dt class="label" id="pip"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
 <dd><p>If no recent version of pipenv is packaged for your distro, use <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pipenv</span> <span class="pre">--user</span></code>.</p>
-<p>You might have to add <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=\$PATH:~/.local/bin</span></code> to your default shell config (e.g. <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>).</p>
+<p>You might have to add <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=$PATH:~/.local/bin</span></code> to your default shell config (e.g. <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>).</p>
+<div class="two-columns docutils container">
+<div class="left-side docutils container">
+<p>Shortcut command for <a class="reference external" href="https://www.gnu.org/software/bash/">Bash</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
+</pre></div>
+</div>
+</div>
+<div class="right-side docutils container">
+<p>Shortcut command for <a class="reference external" href="https://www.zsh.org/">Zsh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">zshrc</span>
+</pre></div>
+</div>
+</div>
+</div>
 </dd>
 </dl>
 </div>
@@ -763,7 +777,7 @@ gdebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 29, 2020.
+        Last updated on Nov 10, 2020.
       </span>
 
     </p>

@@ -658,16 +658,16 @@
 <div class="hint admonition">
 <p class="admonition-title">Solution</p>
 <p>Probably you have installed pipenv via pip into <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code>, which is not in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable.
-Fix this by appending it to your default shell config</p>
+Fix this by appending <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=$PATH:~/.local/bin</span></code> to your default shell config (e.g. <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>).</p>
 <div class="two-columns docutils container">
 <div class="left-side docutils container">
-<p>for BASH:</p>
+<p>Shortcut command for <a class="reference external" href="https://www.gnu.org/software/bash/">Bash</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> &gt;&gt; ~/.bashrc
 </pre></div>
 </div>
 </div>
 <div class="right-side docutils container">
-<p>for ZSH:</p>
+<p>Shortcut command for <a class="reference external" href="https://www.zsh.org/">Zsh</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> &gt;&gt; ~/.zshrc
 </pre></div>
 </div>
@@ -720,7 +720,7 @@ To fix this error, remove the version you have installed with your package manag
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 18, 2020.
+        Last updated on Nov 10, 2020.
       </span>
 
     </p>
