@@ -113,6 +113,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pipenv-not-found">Pipenv not found</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#not-a-git-repository">Not a git repository</a></li>
 </ul>
 </li>
 </ul>
@@ -692,6 +693,33 @@ To fix this error, remove the version you have installed with your package manag
 <p>instead.</p>
 </div>
 </div>
+<div class="section" id="not-a-git-repository">
+<h2>Not a git repository<a class="headerlink" href="#not-a-git-repository" title="Permalink to this headline">¶</a></h2>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<div class="line-block">
+<div class="line">Not a git repository</div>
+<div class="line">To compare two paths outside a working tree:</div>
+<div class="line">usage: git diff [–no-index] &lt;path&gt; &lt;path&gt;</div>
+<div class="line">Your translation file is not up to date.</div>
+<div class="line">Please check if any strings need manual translation.</div>
+</div>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Solution</p>
+<p>If you encounter this problem during a rebase, you probably have installed an old version of git (this bug was fixed
+in <a class="reference external" href="https://github.com/git/git/blob/b3d7a52fac39193503a0b6728771d1bf6a161464/Documentation/RelNotes/2.27.0.txt#L83">git 2.27.0</a>).</p>
+<p>Check your installed version of git by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git --version
+</pre></div>
+</div>
+<p>If your distribution does not package a recent version of git, you might have to add a ppa repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo add-apt-repository ppa:git-core/ppa
+sudo apt-get update
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -720,7 +748,7 @@ To fix this error, remove the version you have installed with your package manag
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 10, 2020.
+        Last updated on Nov 12, 2020.
       </span>
 
     </p>
