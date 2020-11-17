@@ -5,7 +5,10 @@ from django.http import JsonResponse
 
 from cms.models import PushNotificationTranslation
 
+from ..decorators import json_response
 
+
+@json_response
 def sent_push_notifications(request, region_slug, language_code):
     """
     Function to iterate through all sent push notifications related to a region and adds them to a JSON.

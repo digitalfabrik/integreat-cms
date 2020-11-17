@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from cms.models import Region, Offer, Language
 from cms.constants import region_status
 
+from ..decorators import json_response
+
 
 def transform_region(region):
     """
@@ -61,6 +63,7 @@ def transform_region_by_status(region):
     }
 
 
+@json_response
 def regions(_):
     """
     List all regions that are not archived and transform result into JSON
@@ -84,6 +87,7 @@ def regions(_):
     )  # Turn off Safe-Mode to allow serializing arrays
 
 
+@json_response
 def liveregions(_):
     """
     List all regions that are not archived and transform result into JSON
@@ -107,6 +111,7 @@ def liveregions(_):
     )  # Turn off Safe-Mode to allow serializing arrays
 
 
+@json_response
 def hiddenregions(_):
     """
     List all regions that are hidden and transform result into JSON
@@ -130,6 +135,7 @@ def hiddenregions(_):
     )  # Turn off Safe-Mode to allow serializing arrays
 
 
+@json_response
 def pushnew(_):
     """
     This is a magic black box convenience function for development. There is no

@@ -3,11 +3,13 @@ APIv3 endpoint for the events (list)
 """
 from django.http import JsonResponse
 
-from api.decorators import feedback_handler
 from cms.models import EventListFeedback
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 # pylint: disable=unused-argument
 def event_list_feedback(data, region, language, comment, emotion, is_technical):
     """

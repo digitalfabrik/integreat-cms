@@ -5,7 +5,10 @@ from django.http import JsonResponse
 
 from cms.models import Region
 
+from ..decorators import json_response
 
+
+@json_response
 # pylint: disable=unused-argument
 def languages(request, region_slug):
     """

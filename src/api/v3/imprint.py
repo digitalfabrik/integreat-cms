@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from backend.settings import BASE_URL
 from cms.models import Region
 
+from ..decorators import json_response
+
 
 def transform_imprint(imprint_translation):
     """
@@ -35,6 +37,7 @@ def transform_imprint(imprint_translation):
     }
 
 
+@json_response
 # pylint: disable=unused-argument
 def imprint(request, region_slug, language_code):
     """

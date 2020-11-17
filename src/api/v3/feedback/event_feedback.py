@@ -1,11 +1,13 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
-from api.decorators import feedback_handler
 from cms.models import EventFeedback, EventTranslation
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 def event_feedback(data, region, language, comment, emotion, is_technical):
     """
     Store feedback about single event in database

@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from django.http import Http404
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 from ...constants import region_status, administrative_division
 from ..languages.language import Language
@@ -133,10 +133,7 @@ class Region(models.Model):
         region_slug = request.resolver_match.kwargs.get("region_slug")
         if not region_slug:
             return None
-        region = cls.objects.filter(slug=region_slug)
-        if not region.exists():
-            raise Http404
-        return region.first()
+        return get_object_or_404(cls, slug=region_slug)
 
     def __str__(self):
         """

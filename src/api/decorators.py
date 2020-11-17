@@ -1,6 +1,8 @@
 import json
 
-from django.http import JsonResponse
+from functools import wraps
+
+from django.http import JsonResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 
 from cms.models import Region, Language
@@ -70,3 +72,25 @@ def feedback_handler(func):
         return func(data, region, language, comment, emotion, is_technical)
 
     return handle_feedback
+
+
+def json_response(function):
+    """
+    This decorator can be used to catch :class:`~django.http.Http404` exceptions and convert them to a :class:`~django.http.JsonResponse`.
+    Without this decorator, the exceptions would be converted to :class:`~django.http.HttpResponse`.
+
+    :param function: The view function which should always return JSON
+    :type function: ~collections.abc.Callable
+
+    :return: The decorated function
+    :rtype: ~collections.abc.Callable
+    """
+
+    @wraps(function)
+    def wrap(request, *args, **kwargs):
+        try:
+            return function(request, *args, **kwargs)
+        except Http404 as e:
+            return JsonResponse({"error": str(e) or "Not found."}, status=404)
+
+    return wrap

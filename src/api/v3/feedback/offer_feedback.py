@@ -4,11 +4,13 @@ APIv3 feedback endpoint for feedback about single offer
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
-from api.decorators import feedback_handler
 from cms.models import OfferFeedback, Offer
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 # pylint: disable=unused-argument
 def offer_feedback(data, region, language, comment, emotion, is_technical):
     """

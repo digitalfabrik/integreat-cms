@@ -4,11 +4,13 @@ APIv3 endpoint for feedback bout single pages
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
-from api.decorators import feedback_handler
 from cms.models import PageFeedback, PageTranslation
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 def page_feedback(data, region, language, comment, emotion, is_technical):
     """
     Decorate function for storing feedback about single page in database

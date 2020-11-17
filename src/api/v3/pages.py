@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from backend.settings import BASE_URL
 from cms.models import Region
 
+from ..decorators import json_response
+
 
 def transform_page(page_translation):
     """
@@ -49,6 +51,7 @@ def transform_page(page_translation):
     }
 
 
+@json_response
 # pylint: disable=unused-argument
 def pages(request, region_slug, language_code):
     """
