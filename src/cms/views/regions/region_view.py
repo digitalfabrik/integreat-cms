@@ -33,7 +33,7 @@ class RegionView(PermissionRequiredMixin, TemplateView):
 
         region_instance = Region.objects.filter(slug=kwargs.get("region_slug")).first()
 
-        form = RegionForm(request.POST, instance=region_instance)
+        form = RegionForm(request.POST, request.FILES, instance=region_instance)
 
         # TODO: error handling
         if not form.is_valid():

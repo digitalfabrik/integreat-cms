@@ -43,6 +43,7 @@ class RegionForm(forms.ModelForm):
             "page_permissions_enabled",
             "administrative_division",
             "aliases",
+            "icon",
         ]
 
     # pylint: disable=signature-differs

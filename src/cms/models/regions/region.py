@@ -92,6 +92,8 @@ class Region(models.Model):
 
     page_permissions_enabled = models.BooleanField(default=False)
 
+    icon = models.ImageField(blank=True, null=True, upload_to="regions/%Y/%m/%d")
+
     @property
     def languages(self):
         """
