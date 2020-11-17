@@ -2,7 +2,7 @@
 Views to return JSON representations of regions
 """
 from django.db.models import Exists, OuterRef
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 
 from cms.models import Region, Offer, Language
 from cms.constants import region_status
@@ -155,4 +155,4 @@ def pushnew(_):
         push_notification_channels=[],
     )
     region.save()
-    return HttpResponse("Pushing successful")
+    return JsonResponse({"success": "Pushing successful"}, status=201)

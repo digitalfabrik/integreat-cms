@@ -3,6 +3,7 @@ pages API endpoint
 """
 from django.http import JsonResponse
 
+from backend.settings import BASE_URL
 from cms.models import Region
 
 
@@ -16,6 +17,10 @@ def transform_page(page_translation):
     :return: return data necessary for API
     :rtype: dict
     """
+    if page_translation.page.icon:
+        thumbnail = BASE_URL + page_translation.page.icon.url
+    else:
+        thumbnail = None
     if page_translation.page.parent:
         parent = {
             "id": page_translation.page.parent.id,
@@ -39,7 +44,7 @@ def transform_page(page_translation):
         "parent": parent,
         "order": page_translation.page.lft,  # use left edge indicator of mptt model for order
         "available_languages": page_translation.available_languages,
-        "thumbnail": None,
+        "thumbnail": thumbnail,
         "hash": None,
     }
 
