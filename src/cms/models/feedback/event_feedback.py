@@ -1,7 +1,7 @@
 from django.db import models
 
 from .feedback import Feedback
-from ..events.event import Event
+from ..events.event_translation import EventTranslation
 
 
 class EventFeedback(Feedback):
@@ -20,11 +20,13 @@ class EventFeedback(Feedback):
 
     Relationship fields:
 
-    :param event: The event the feedback is referring to (related name: ``feedback``)
+    :param event_translation: The event translation the feedback is referring to (related name: ``feedback``)
     :param feedback_ptr: A pointer to the base class
     """
 
-    event = models.ForeignKey(Event, related_name="feedback", on_delete=models.CASCADE)
+    event_translation = models.ForeignKey(
+        EventTranslation, related_name="feedback", on_delete=models.CASCADE
+    )
 
     class Meta:
         default_permissions = ()

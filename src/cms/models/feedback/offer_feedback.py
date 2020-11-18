@@ -2,6 +2,7 @@ from django.db import models
 
 from .feedback import Feedback
 from ..offers.offer import Offer
+from ..regions.region import Region
 
 
 class OfferFeedback(Feedback):
@@ -21,10 +22,14 @@ class OfferFeedback(Feedback):
     Relationship fields:
 
     :param offer: The offer the feedback is referring to (related name: ``feedback``)
+    :param region: The region to which the feedback is referring to (related name: ``offer_feedback``)
     :param feedback_ptr: A pointer to the base class
     """
 
     offer = models.ForeignKey(Offer, related_name="feedback", on_delete=models.CASCADE)
+    region = models.ForeignKey(
+        Region, related_name="offer_feedback", on_delete=models.CASCADE
+    )
 
     class Meta:
         default_permissions = ()
