@@ -11,6 +11,10 @@ from ...utils.slug_utils import generate_unique_slug
 logger = logging.getLogger(__name__)
 
 
+class IconWidget(forms.ClearableFileInput):
+    template_name = "regions/region_icon_widget.html"
+
+
 class RegionForm(forms.ModelForm):
     """
     Form for creating and modifying region objects
@@ -45,6 +49,9 @@ class RegionForm(forms.ModelForm):
             "aliases",
             "icon",
         ]
+        widgets = {
+            "icon": IconWidget(),
+        }
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):

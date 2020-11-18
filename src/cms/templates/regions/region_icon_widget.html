@@ -1,0 +1,28 @@
+{% load static %}
+{% load i18n %}
+{% load form_icon_filters %}
+<span class="block mb-1 mt-5 px-2 font-bold">{% trans 'Icon' %}</span>
+<div class="flex justify-center lg:justify-between flex-wrap w-full">
+    {% with icon=widget.attrs.icon %}
+    <div class="w-40">
+        <img class="w-full h-full object-contain p-2 pl-0" id="icon_preview" src="{% if not icon %}https://tailwindcss.com/img/card-top.jpg{% else %}{{ icon }}{% endif %}" />
+    </div>
+    <div class="flex flex-col items-end max-w-28 p-2 pr-0">
+        <label for="icon" class="w-28 flex flex-col items-center px-4 py-6 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white">
+            <svg class="w-10 h-10" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+            </svg>
+            <span class="mt-2 text-base text-center leading-normal">{% trans 'Set icon' %}</span>
+            <input type="file" name="{{ widget.name }}" id="icon" class="hidden absolute" accept="image/*">
+        </label>
+        <div id="icon_status" class="block flex-none max-w-32 break-all">{% if icon %}{{ icon|strip_path }}{% else %}{% trans 'No icon selected' %}{% endif %}</div>
+        <div id="clear_icon" class="{% if icon %}block{% else %}hidden{% endif %}">
+            <label for="{{ widget.checkbox_id }}" class="font-bold cursor-pointer mr-2">{% trans 'Clear' %}</label>
+            <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+        </div>
+    </div>
+    {% endwith %}
+</div>
+{% block javascript_head %}
+<script src="{% static 'js/region-form-icon.js' %}"></script>
+{% endblock %}
