@@ -50,15 +50,24 @@ project = "integreat-cms"
 copyright = "2020, Integreat"
 #: The project author
 author = "Integreat"
+#: GitHub username
+github_username = "Integreat"
+#: GitHub repository name
+github_repository = "cms-django"
+#: GitHub URL
+github_url = f"https://github.com/{github_username}/{github_repository}"
+#: GitHub pages URL (target of gh-pages branch)
+github_pages_url = f"https://{github_username}.github.io/{github_repository}"
 
 #: The full version, including alpha/beta/rc tags
 release = VERSION
 
 # -- General configuration ---------------------------------------------------
 
-#: All enabled sphinx extensions
+#: All enabled sphinx extensions (see :ref:`sphinx-extensions`)
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.extlinks",
     "sphinx.ext.githubpages",
     "sphinx.ext.intersphinx",
     "sphinx.ext.linkcode",
@@ -87,10 +96,19 @@ intersphinx_mapping = {
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
     "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest", None),
 }
-
-
 #: The path for patched template files
 templates_path = ["templates"]
+#: Markup to shorten external links (see :doc:`sphinx:usage/extensions/extlinks`)
+extlinks = {
+    "github": (f"{github_url}/%s", ""),
+    "github-source": (f"{github_url}/blob/develop/%s", ""),
+}
+#: A string of reStructuredText that will be included at the end of every source file that is read. Used for substitutions.
+rst_epilog = f"""
+.. |github-username| replace:: {github_username}
+.. |github-repository| replace:: {github_repository}
+.. |github-pages-url| replace:: {github_pages_url}
+"""
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -106,7 +124,7 @@ html_logo = "../src/cms/static/images/integreat-logo-white.png"
 #: The facivon of the html doc files
 html_favicon = "../src/cms/static/images/favicon.ico"
 #: The url where the docs should be published (via gh-pages)
-html_baseurl = "https://Integreat.github.io/cms-django/"
+html_baseurl = github_pages_url
 #: Do not include links to the documentation source (.rst files) in build
 html_show_sourcelink = False
 #: Do not include a link to sphinx
@@ -253,4 +271,4 @@ def linkcode_resolve(domain, info):
             line_number_reference = f"#L{inspect.getsourcelines(item)[1]}"
         except (TypeError, IOError):
             pass
-    return f"https://github.com/Integreat/cms-django/blob/develop/src/{filename}.py{line_number_reference}"
+    return f"{github_url}/blob/develop/src/{filename}.py{line_number_reference}"

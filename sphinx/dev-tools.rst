@@ -9,15 +9,15 @@ They are targeted at as much platforms and configurations as possible, but there
 Installation
 ============
 
-Install all project dependencies and the local python package with ``ìnstall.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/install.sh>`__]::
+Install all project dependencies and the local python package with :github-source:`dev-tools/install.sh`::
 
     ./dev-tools/install.sh
 
-Update all project dependencies and fix security issues with ``update_dependencies.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/update_dependencies.sh>`__]::
+Update all project dependencies and fix security issues with :github-source:`dev-tools/update_dependencies.sh`::
 
     ./dev-tools/update_dependencies.sh
 
-Create portable debian package with ``package.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/package.sh>`__]::
+Create portable debian package with :github-source:`dev-tools/package.sh`::
 
     ./dev-tools/package.sh
 
@@ -25,7 +25,7 @@ Create portable debian package with ``package.sh`` [`Source <https://github.com/
 Development Server
 ==================
 
-Run the inbuilt local webserver with ``run.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/run.sh>`__]::
+Run the inbuilt local webserver with :github-source:`dev-tools/run.sh`::
 
     ./dev-tools/run.sh
 
@@ -33,19 +33,19 @@ Run the inbuilt local webserver with ``run.sh`` [`Source <https://github.com/Int
 Database
 ========
 
-Migrate the database with ``run.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/migrate.sh>`__]::
+Migrate the database with :github-source:`dev-tools/migrate.sh`::
 
     ./dev-tools/migrate.sh
 
-Import initial test data with ``loadtestdata.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/loadtestdata.sh>`__]::
+Import initial test data with :github-source:`dev-tools/loadtestdata.sh`::
 
     ./dev-tools/loadtestdata.sh
 
-Create a new superuser with ``create_superuser.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/create_superuser.sh>`__]::
+Create a new superuser with :github-source:`dev-tools/create_superuser.sh`::
 
     ./dev-tools/create_superuser.sh
 
-Delete all database content with ``prune_database.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/prune_database.sh>`__]::
+Delete all database content with :github-source:`dev-tools/prune_database.sh`::
 
     ./dev-tools/prune_database.sh
 
@@ -53,15 +53,15 @@ Delete all database content with ``prune_database.sh`` [`Source <https://github.
 Translations
 ============
 
-Perform ``makemessages`` and ``compilemessages`` in one step with ``translate.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/translate.sh>`__]::
+Perform ``makemessages`` and ``compilemessages`` in one step with :github-source:`dev-tools/translate.sh`::
 
     ./dev-tools/translate.sh
 
-Resolve merge/rebase conflicts with ``resolve_translation_conflicts.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/resolve_translation_conflicts.sh>`__]::
+Resolve merge/rebase conflicts with :github-source:`dev-tools/resolve_translation_conflicts.sh`::
 
     ./dev-tools/resolve_translation_conflicts.sh
 
-Check whether your translations is up-to-date with ``check_translations.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/check_translations.sh>`__]::
+Check whether your translations is up-to-date with :github-source:`dev-tools/check_translations.sh`::
 
     ./dev-tools/check_translations.sh
 
@@ -69,11 +69,11 @@ Check whether your translations is up-to-date with ``check_translations.sh`` [`S
 Testing
 =======
 
-Run unit tests with ``test.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/test.sh>`__]::
+Run unit tests with :github-source:`dev-tools/test.sh`::
 
     ./dev-tools/test.sh
 
-Calculate test coverage with ``test_cov.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/test_cov.sh>`__]::
+Calculate test coverage with :github-source:`dev-tools/test_cov.sh`::
 
     ./dev-tools/test_cov.sh
 
@@ -81,15 +81,15 @@ Calculate test coverage with ``test_cov.sh`` [`Source <https://github.com/Integr
 Code Quality
 ============
 
-Automatically apply our coding style with ``black.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/black.sh>`__]::
+Automatically apply our coding style with :github-source:`dev-tools/black.sh`::
 
     ./dev-tools/black.sh
 
-Check the code for semantic correctness with ``pylint.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/pylint.sh>`__]::
+Check the code for semantic correctness with :github-source:`dev-tools/pylint.sh`::
 
     ./dev-tools/pylint.sh
 
-Execute both tools at once with ``code_style.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/code_style.sh>`__]::
+Execute both tools at once with :github-source:`dev-tools/code_style.sh`::
 
     ./dev-tools/code_style.sh
 
@@ -97,6 +97,6 @@ Execute both tools at once with ``code_style.sh`` [`Source <https://github.com/I
 Documentation
 =============
 
-Generate this documentation with ``generate_documentation.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/generate_documentation.sh>`__]::
+Generate this documentation with :github-source:`dev-tools/generate_documentation.sh`::
 
     ./dev-tools/generate_documentation.sh

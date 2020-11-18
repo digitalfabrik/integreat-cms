@@ -46,7 +46,7 @@ After you finished your changes to the code base, run the following command::
     cd src/cms
     pipenv run integreat-cms-cli makemessages -l de
 
-Then, open the file ``./src/cms/locale/de/LC_MESSAGES/django.po`` and fill in the german translations::
+Then, open the file :github-source:`src/cms/locale/de/LC_MESSAGES/django.po` and fill in the german translations::
 
     msgid "Your string"
     msgstr "Deine Zeichenkette"
@@ -64,14 +64,14 @@ To actually see the translated strings in the backend UI, compile the django.po 
 Developer Tools
 ===============
 
-To do ``makemessages`` and ``compilemessages`` in one step, use ``translate.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/translate.sh>`__]::
+To do ``makemessages`` and ``compilemessages`` in one step, use :github-source:`dev-tools/translate.sh`::
 
     ./dev-tools/translate.sh
 
-If you run into merge/rebase conflicts inside the translation file, use ``resolve_translation_conflicts.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/resolve_translation_conflicts.sh>`__]::
+If you run into merge/rebase conflicts inside the translation file, use :github-source:`dev-tools/resolve_translation_conflicts.sh`::
 
     ./dev-tools/resolve_translation_conflicts.sh
 
-If you want to check, whether your translations is up-to-date or if there are any actions required, run ``check_translations.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/check_translations.sh>`__]::
+If you want to check, whether your translations is up-to-date or if there are any actions required, run :github-source:`dev-tools/check_translations.sh`::
 
     ./dev-tools/check_translations.sh

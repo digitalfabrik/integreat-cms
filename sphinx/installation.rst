@@ -46,23 +46,27 @@ Clone the project, either
 
     .. container:: left-side
 
-        via SSH::
+        via SSH:
 
-            git clone git@github.com:Integreat/cms-django.git
-            cd cms-django
+        .. parsed-literal::
+
+            git clone git\@github.com:|github-username|/|github-repository|.git
+            cd |github-repository|
 
     .. container:: right-side
 
-        or HTTPS::
+        or HTTPS:
 
-            git clone https://github.com/Integreat/cms-django.git
-            cd cms-django
+        .. parsed-literal::
+
+            git clone \https://github.com/|github-username|/|github-repository|.git
+            cd |github-repository|
 
 
 Install dependencies and local package
 ======================================
 
-And install it using our developer tool ``ìnstall.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/install.sh>`__]::
+And install it using our developer tool :github-source:`dev-tools/install.sh`::
 
     ./dev-tools/install.sh
 
@@ -91,12 +95,12 @@ Then install both packages with gdebi::
 
     apt install gdebi postgresql
     gdebi django-widget-tweaks/deb_dist/python3-django-widget-tweaks_1.4.3-1_all.deb
-    gdebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
+    gdebi |github-repository|/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
 
 In the end, create a PostgreSQL user and database and adjust the ``/usr/lib/python3/dist-packages/backend/settings.py``.
 
 .. Note::
 
-    In some cases, you can just use the developer tool ``package.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/package.sh>`__]::
+    In some cases, you can just use the developer tool :github-source:`dev-tools/package.sh`::
 
         ./dev-tools/package.sh
