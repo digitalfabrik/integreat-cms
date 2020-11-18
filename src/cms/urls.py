@@ -565,6 +565,18 @@ urlpatterns = [
                     ),
                 ),
                 url(
+                    r"^feedback/",
+                    include(
+                        [
+                            url(
+                                r"^$",
+                                feedback.RegionFeedbackListView.as_view(),
+                                name="region_feedback",
+                            )
+                        ]
+                    ),
+                ),
+                url(
                     r"^push_notifications/",
                     include(
                         [
