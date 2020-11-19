@@ -143,7 +143,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
 </ul>
@@ -663,7 +665,7 @@
 <p>imprint API endpoint</p>
 <dl class="py function">
 <dt id="api.v3.imprint.imprint">
-<code class="sig-prename descclassname">api.v3.imprint.</code><code class="sig-name descname">imprint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/imprint.py#L34"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.imprint.imprint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.imprint.</code><code class="sig-name descname">imprint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L34"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.imprint.imprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get imprint for language and return JSON object to client</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -684,7 +686,7 @@
 
 <dl class="py function">
 <dt id="api.v3.imprint.transform_imprint">
-<code class="sig-prename descclassname">api.v3.imprint.</code><code class="sig-name descname">transform_imprint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">imprint_translation</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/imprint.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.imprint.transform_imprint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.imprint.</code><code class="sig-name descname">transform_imprint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">imprint_translation</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.imprint.transform_imprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single imprint_translation object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -705,7 +707,7 @@
 <p>API-endpoint to deliver a JSON with all active languages of an region.</p>
 <dl class="py function">
 <dt id="api.v3.languages.languages">
-<code class="sig-prename descclassname">api.v3.languages.</code><code class="sig-name descname">languages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/languages.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.languages.languages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.languages.</code><code class="sig-name descname">languages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/languages.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.languages.languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to add all languages related to a region to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -729,7 +731,7 @@
 <p>Provides an endpoint for delivering a JSON with all active offers.</p>
 <dl class="py function">
 <dt id="api.v3.offers.offers">
-<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">offers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L29"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.offers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">offers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L29"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.offers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to iterate through all offers related to a region and adds them to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -750,7 +752,7 @@
 
 <dl class="py function">
 <dt id="api.v3.offers.transform_offer">
-<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">transform_offer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offer</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/offers.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.transform_offer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.offers.</code><code class="sig-name descname">transform_offer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offer</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.offers.transform_offer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single offer Object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -771,7 +773,7 @@
 <p>pages API endpoint</p>
 <dl class="py function">
 <dt id="api.v3.pages.pages">
-<code class="sig-prename descclassname">api.v3.pages.</code><code class="sig-name descname">pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/pages.py#L48"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pages.pages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.pages.</code><code class="sig-name descname">pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L48"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pages.pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to iterate through all pages related to a region and adds them to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -792,7 +794,7 @@
 
 <dl class="py function">
 <dt id="api.v3.pages.transform_page">
-<code class="sig-prename descclassname">api.v3.pages.</code><code class="sig-name descname">transform_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page_translation</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/pages.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pages.transform_page" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.pages.</code><code class="sig-name descname">transform_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page_translation</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pages.transform_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single page_translation Object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -815,7 +817,7 @@ Single pages may be requested by url parameter, if no parameter is included all 
 related to the current region and language will be returned.</p>
 <dl class="py function">
 <dt id="api.v3.pdf_export.pdf_export">
-<code class="sig-prename descclassname">api.v3.pdf_export.</code><code class="sig-name descname">pdf_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/pdf_export.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pdf_export.pdf_export" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.pdf_export.</code><code class="sig-name descname">pdf_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pdf_export.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.pdf_export.pdf_export" title="Permalink to this definition">¶</a></dt>
 <dd><p>View function that either returns the requested page specified by the
 url parameter or returns all pages of current region and language as PDF document
 by forwarding the request to <a class="reference internal" href="cms.utils.html#cms.utils.pdf_utils.generate_pdf" title="cms.utils.pdf_utils.generate_pdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_pdf()</span></code></a></p>
@@ -842,7 +844,7 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 <p>Retrieve push notifications that have been sent, optionally filtering by channel.</p>
 <dl class="py function">
 <dt id="api.v3.push_notifications.sent_push_notifications">
-<code class="sig-prename descclassname">api.v3.push_notifications.</code><code class="sig-name descname">sent_push_notifications</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/push_notifications.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.push_notifications.sent_push_notifications" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.push_notifications.</code><code class="sig-name descname">sent_push_notifications</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/push_notifications.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.push_notifications.sent_push_notifications" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to iterate through all sent push notifications related to a region and adds them to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -863,7 +865,7 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 
 <dl class="py function">
 <dt id="api.v3.push_notifications.transform_notification">
-<code class="sig-prename descclassname">api.v3.push_notifications.</code><code class="sig-name descname">transform_notification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pn</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/push_notifications.py#L38"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.push_notifications.transform_notification" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.push_notifications.</code><code class="sig-name descname">transform_notification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pn</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/push_notifications.py#L38"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.push_notifications.transform_notification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single push_notification Object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -884,7 +886,7 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 <p>Views to return JSON representations of regions</p>
 <dl class="py function">
 <dt id="api.v3.regions.hiddenregions">
-<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">hiddenregions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/regions.py#L110"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.hiddenregions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">hiddenregions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L110"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.hiddenregions" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all regions that are hidden and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -901,7 +903,7 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 
 <dl class="py function">
 <dt id="api.v3.regions.liveregions">
-<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">liveregions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/regions.py#L87"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.liveregions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">liveregions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L87"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.liveregions" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all regions that are not archived and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -918,7 +920,7 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 
 <dl class="py function">
 <dt id="api.v3.regions.pushnew">
-<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">pushnew</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/regions.py#L133"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.pushnew" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">pushnew</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L133"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.pushnew" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a magic black box convenience function for development. There is no
 reason for it, but we like it. As we do not care about randomly generated languages
 and it only consumes a few bytes of disk space, there is also no need to remove.
@@ -939,7 +941,7 @@ problem.</p>
 
 <dl class="py function">
 <dt id="api.v3.regions.regions">
-<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/regions.py#L64"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.regions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L64"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.regions" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all regions that are not archived and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -956,7 +958,7 @@ problem.</p>
 
 <dl class="py function">
 <dt id="api.v3.regions.transform_region">
-<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">transform_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/regions.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.transform_region" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">transform_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.transform_region" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single region object, including information if region is live/ative.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -973,7 +975,7 @@ problem.</p>
 
 <dl class="py function">
 <dt id="api.v3.regions.transform_region_by_status">
-<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">transform_region_by_status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/regions.py#L38"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.transform_region_by_status" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.regions.</code><code class="sig-name descname">transform_region_by_status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L38"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.regions.transform_region_by_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single “active” region object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -995,7 +997,7 @@ problem.</p>
 be selected via the id or the permalink.</p>
 <dl class="py function">
 <dt id="api.v3.single_page.single_page">
-<code class="sig-prename descclassname">api.v3.single_page.</code><code class="sig-name descname">single_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/api/v3/single_page.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.single_page.single_page" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.v3.single_page.</code><code class="sig-name descname">single_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/single_page.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.single_page.single_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>View function returning the desired page as a JSON or a 404 if the
 requested page does not exist.</p>
 <dl class="field-list simple">

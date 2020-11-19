@@ -143,7 +143,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
 </ul>
@@ -652,7 +654,7 @@
 <span id="event"></span><h2>Event<a class="headerlink" href="#module-cms.models.events.event" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.events.event.Event">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.events.event.</code><code class="sig-name descname">Event</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.events.event.</code><code class="sig-name descname">Event</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing an event.</p>
 <dl class="field-list simple">
@@ -691,19 +693,19 @@ event (related name: <code class="docutils literal notranslate"><span class="pre
 </dl>
 <dl class="py exception">
 <dt id="cms.models.events.event.Event.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.events.event.Event.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.get_occurrences">
-<code class="sig-name descname">get_occurrences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">end</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L110"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_occurrences" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_occurrences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">end</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L110"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_occurrences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get occurrences of the event that overlap with <code class="docutils literal notranslate"><span class="pre">[start,</span> <span class="pre">end]</span></code>.
 Expects <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">end</span></code>.</p>
 <dl class="field-list simple">
@@ -724,7 +726,7 @@ Expects <code class="docutils literal notranslate"><span class="pre">start</span
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.get_public_translation">
-<code class="sig-name descname">get_public_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L178"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_public_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_public_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L178"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_public_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function retrieves the newest public translation of an event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -741,7 +743,7 @@ Expects <code class="docutils literal notranslate"><span class="pre">start</span
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.get_translation">
-<code class="sig-name descname">get_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L96"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L96"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.get_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
 and filters them to the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> code.</p>
 <dl class="field-list simple">
@@ -760,7 +762,7 @@ if no translation exists</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.has_location">
-<em class="property">property </em><code class="sig-name descname">has_location</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.has_location" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">has_location</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.has_location" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether the event has a physical location (<a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -774,7 +776,7 @@ if no translation exists</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.is_all_day">
-<em class="property">property </em><code class="sig-name descname">is_all_day</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.is_all_day" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_all_day</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.is_all_day" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether an event takes place the whole day by checking if start time is minimal and end
 time is maximal.</p>
 <dl class="field-list simple">
@@ -789,7 +791,7 @@ time is maximal.</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.is_recurring">
-<em class="property">property </em><code class="sig-name descname">is_recurring</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.is_recurring" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_recurring</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.is_recurring" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks if the event has a recurrence rule and thereby determines, whether the event is recurring.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -803,7 +805,7 @@ time is maximal.</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event.Event.languages">
-<em class="property">property </em><code class="sig-name descname">languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.languages" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">languages</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event.Event.languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns a QuerySet of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects, to which an event
 translation exists.</p>
 <dl class="field-list simple">
@@ -823,7 +825,7 @@ translation exists.</p>
 <span id="event-translation"></span><h2>Event Translation<a class="headerlink" href="#module-cms.models.events.event_translation" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.events.event_translation.EventTranslation">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.events.event_translation.</code><code class="sig-name descname">EventTranslation</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.events.event_translation.</code><code class="sig-name descname">EventTranslation</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing an event translation</p>
 <dl class="field-list simple">
@@ -856,19 +858,19 @@ languages</p></li>
 </dl>
 <dl class="py exception">
 <dt id="cms.models.events.event_translation.EventTranslation.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.available_languages">
-<em class="property">property </em><code class="sig-name descname">available_languages</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.available_languages" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">available_languages</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.available_languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks in which <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the event is translated apart
 from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
 It only returns languages which have a public translation, so drafts are not included here.
@@ -894,7 +896,7 @@ The returned dict has the following format:</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.foreign_object">
-<em class="property">property </em><code class="sig-name descname">foreign_object</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">foreign_object</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is an alias of the event foreign key and is needed to generalize the <a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
 <dl class="field-list simple">
@@ -909,7 +911,7 @@ for all content types</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.get_absolute_url">
-<code class="sig-name descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L83"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L83"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.get_absolute_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>This helper function returns the absolute url to the webapp view of the event translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -923,7 +925,7 @@ for all content types</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.is_outdated">
-<em class="property">property </em><code class="sig-name descname">is_outdated</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_outdated</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
 This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
 <ul class="simple">
@@ -949,7 +951,7 @@ source translation.</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.is_up_to_date">
-<em class="property">property </em><code class="sig-name descname">is_up_to_date</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_up_to_date</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether a translation is up to date.
 A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
 <dl class="field-list simple">
@@ -964,7 +966,7 @@ A translation is considered up to date when it is not outdated and not being tra
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.latest_major_public_revision">
-<em class="property">property </em><code class="sig-name descname">latest_major_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_major_public_revision</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent major public version of this translation.
 This is used when translations, which are derived from this translation, check whether they are up to date.</p>
 <dl class="field-list simple">
@@ -979,7 +981,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.latest_major_revision">
-<em class="property">property </em><code class="sig-name descname">latest_major_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_major_revision</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent major version of this translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -993,7 +995,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.latest_public_revision">
-<em class="property">property </em><code class="sig-name descname">latest_public_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">latest_public_revision</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent public version of this translation.
 If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <dl class="field-list simple">
@@ -1008,7 +1010,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.permalink">
-<em class="property">property </em><code class="sig-name descname">permalink</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.permalink" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">permalink</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.permalink" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1022,7 +1024,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.previous_revision">
-<em class="property">property </em><code class="sig-name descname">previous_revision</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">previous_revision</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a shortcut to the previous revision of this translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1036,7 +1038,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.sitemap_alternates">
-<em class="property">property </em><code class="sig-name descname">sitemap_alternates</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.sitemap_alternates" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">sitemap_alternates</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.sitemap_alternates" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns the language alternatives of a event translation for the use in sitemaps.
 Similar to <a class="reference internal" href="#cms.models.events.event_translation.EventTranslation.available_languages" title="cms.models.events.event_translation.EventTranslation.available_languages"><code class="xref py py-func docutils literal notranslate"><span class="pre">cms.models.events.event_translation.EventTranslation.available_languages()</span></code></a>, but in a slightly
 different format.</p>
@@ -1052,7 +1054,7 @@ different format.</p>
 
 <dl class="py method">
 <dt id="cms.models.events.event_translation.EventTranslation.source_translation">
-<em class="property">property </em><code class="sig-name descname">source_translation</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.source_translation" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">source_translation</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.source_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
 It derives this information from the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
 <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
@@ -1075,7 +1077,7 @@ the translation is in the <a class="reference internal" href="cms.models.regions
 <span id="recurrence-rule"></span><h2>Recurrence Rule<a class="headerlink" href="#module-cms.models.events.recurrence_rule" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.events.recurrence_rule.RecurrenceRule">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.events.recurrence_rule.</code><code class="sig-name descname">RecurrenceRule</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.events.recurrence_rule.</code><code class="sig-name descname">RecurrenceRule</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing the recurrence frequency and interval of an event</p>
 <dl class="field-list simple">
@@ -1102,13 +1104,13 @@ takes place (choices: <a class="reference internal" href="cms.constants.html#mod
 </dl>
 <dl class="py exception">
 <dt id="cms.models.events.recurrence_rule.RecurrenceRule.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.events.recurrence_rule.RecurrenceRule.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/events/recurrence_rule.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.events.recurrence_rule.RecurrenceRule.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 

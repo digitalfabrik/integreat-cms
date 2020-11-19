@@ -143,7 +143,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
 </ul>
@@ -650,7 +652,7 @@
 <span id="offer"></span><h2>Offer<a class="headerlink" href="#module-cms.models.offers.offer" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.offers.offer.Offer">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.offers.offer.</code><code class="sig-name descname">Offer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.offers.offer.</code><code class="sig-name descname">Offer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>The offer model is used to activate an <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a> for a specific
 <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>. Integreat offers are extended features apart from pages and events and
@@ -684,19 +686,19 @@ region/template-combination, it is deactivated.</p>
 </dl>
 <dl class="py exception">
 <dt id="cms.models.offers.offer.Offer.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.offers.offer.Offer.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.offers.offer.Offer.name">
-<em class="property">property </em><code class="sig-name descname">name</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.name" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">name</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The offer should inherit the name property from its template</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -710,7 +712,7 @@ region/template-combination, it is deactivated.</p>
 
 <dl class="py method">
 <dt id="cms.models.offers.offer.Offer.post_data">
-<em class="property">property </em><code class="sig-name descname">post_data</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.post_data" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">post_data</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.post_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>In case the url expects additional post data, it is stored inside the <code class="docutils literal notranslate"><span class="pre">post_data</span></code>-dict. Some offers depend on
 the location which is realized by adding the postal code of the current region to the request. If the offer
 template indicates that the postal code should be used as <code class="docutils literal notranslate"><span class="pre">GET</span></code>-parameter, the class attribute
@@ -729,7 +731,7 @@ format, it has to be hard-coded here or we need other changes to the offer model
 
 <dl class="py method">
 <dt id="cms.models.offers.offer.Offer.slug">
-<em class="property">property </em><code class="sig-name descname">slug</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.slug" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">slug</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.slug" title="Permalink to this definition">¶</a></dt>
 <dd><p>The offer should inherit the slug property from its template</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -743,7 +745,7 @@ format, it has to be hard-coded here or we need other changes to the offer model
 
 <dl class="py method">
 <dt id="cms.models.offers.offer.Offer.thumbnail">
-<em class="property">property </em><code class="sig-name descname">thumbnail</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.thumbnail" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">thumbnail</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.thumbnail" title="Permalink to this definition">¶</a></dt>
 <dd><p>The offer should inherit the thumbnail property from its template</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -757,7 +759,7 @@ format, it has to be hard-coded here or we need other changes to the offer model
 
 <dl class="py method">
 <dt id="cms.models.offers.offer.Offer.url">
-<em class="property">property </em><code class="sig-name descname">url</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.url" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">url</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.url" title="Permalink to this definition">¶</a></dt>
 <dd><p>The offer should inherit the slug property from its template. This is the url to an API endpoint in most cases.
 Some offers depend on the location which is realized by adding the postal code of the current region to the
 request. If the offer template indicates that the postal code should be used as <code class="docutils literal notranslate"><span class="pre">GET</span></code>-parameter, the class
@@ -780,7 +782,7 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 <span id="offer-template"></span><h2>Offer Template<a class="headerlink" href="#module-cms.models.offers.offer_template" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.offers.offer_template.OfferTemplate">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.offers.offer_template.</code><code class="sig-name descname">OfferTemplate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.offers.offer_template.</code><code class="sig-name descname">OfferTemplate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer_template.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>The OfferTemplate model is used to store templates of offers which can be activated for specific regions. The
 information stored in an offer template is global, so if you need parameters, which depend on local information
@@ -809,13 +811,13 @@ of a region, it has to be added to the <a class="reference internal" href="#cms.
 </dl>
 <dl class="py exception">
 <dt id="cms.models.offers.offer_template.OfferTemplate.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer_template.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.offers.offer_template.OfferTemplate.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/offers/offer_template.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer_template.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 

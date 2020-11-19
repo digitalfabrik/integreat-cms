@@ -143,7 +143,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
 </ul>
@@ -649,7 +651,7 @@
 <span id="document"></span><h2>Document<a class="headerlink" href="#module-cms.models.media.document" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.media.document.Document">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.media.document.</code><code class="sig-name descname">Document</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/media/document.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.media.document.Document" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.media.document.</code><code class="sig-name descname">Document</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.media.document.Document" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>The Document model is used to store meta-data about files which are uploaded to the CMS.</p>
 <dl class="field-list simple">
@@ -664,19 +666,19 @@
 </dl>
 <dl class="py exception">
 <dt id="cms.models.media.document.Document.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/media/document.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.media.document.Document.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.media.document.Document.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.media.document.Document.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/media/document.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.media.document.Document.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.media.document.Document.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.media.document.Document.delete">
-<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">using</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">keep_parents</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/src/cms/models/media/document.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.media.document.Document.delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">using</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">keep_parents</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.media.document.Document.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes both the database entry and the actual file of a document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

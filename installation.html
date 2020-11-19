@@ -143,7 +143,9 @@
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-tools">Developer Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#docstrings">Docstrings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#substitutions">Substitutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#external-links">External Links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#module-conf">Configuration</a></li>
 </ul>
@@ -695,23 +697,19 @@
 <div class="two-columns docutils container">
 <div class="left-side docutils container">
 <p>via SSH:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:Integreat/cms-django.git
-<span class="nb">cd</span> cms-django
-</pre></div>
-</div>
+<pre class="literal-block">git clone git&#64;github.com:Integreat/integreat-cms.git
+cd integreat-cms</pre>
 </div>
 <div class="right-side docutils container">
 <p>or HTTPS:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Integreat/cms-django.git
-<span class="nb">cd</span> cms-django
-</pre></div>
-</div>
+<pre class="literal-block">git clone https://github.com/Integreat/integreat-cms.git
+cd integreat-cms</pre>
 </div>
 </div>
 </div>
 <div class="section" id="install-dependencies-and-local-package">
 <h2>Install dependencies and local package<a class="headerlink" href="#install-dependencies-and-local-package" title="Permalink to this headline">¶</a></h2>
-<p>And install it using our developer tool <code class="docutils literal notranslate"><span class="pre">ìnstall.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/install.sh">Source</a>]:</p>
+<p>And install it using our developer tool <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/install.sh">dev-tools/install.sh</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh
 </pre></div>
 </div>
@@ -738,13 +736,13 @@ python3 setup.py --command-packages<span class="o">=</span>stdeb.command bdist_d
 <p>Then install both packages with gdebi:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt install gdebi postgresql
 gdebi django-widget-tweaks/deb_dist/python3-django-widget-tweaks_1.4.3-1_all.deb
-gdebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
+gdebi <span class="p">|</span>github-repository<span class="p">|</span>/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
 </pre></div>
 </div>
 <p>In the end, create a PostgreSQL user and database and adjust the <code class="docutils literal notranslate"><span class="pre">/usr/lib/python3/dist-packages/backend/settings.py</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In some cases, you can just use the developer tool <code class="docutils literal notranslate"><span class="pre">package.sh</span></code> [<a class="reference external" href="https://github.com/Integreat/cms-django/blob/develop/dev-tools/package.sh">Source</a>]:</p>
+<p>In some cases, you can just use the developer tool <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/package.sh">dev-tools/package.sh</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/package.sh
 </pre></div>
 </div>
@@ -778,7 +776,7 @@ gdebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 10, 2020.
+        Last updated on Nov 18, 2020.
       </span>
 
     </p>
