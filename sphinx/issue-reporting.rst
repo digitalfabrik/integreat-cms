@@ -7,7 +7,7 @@ To maintain an effective bugfix workflow and make sure issues will be solved in 
 Before creating an issue, please do the following:
 
 * Check this documentation for a solution to your problem
-* Check the `existing issues <https://github.com/Integreat/cms-django/issues>`_ to make sure you are not duplicating somebody’s work.
+* Check the :github:`existing issues <issues>` to make sure you are not duplicating somebody’s work.
 
 
 Issue Templates
@@ -15,14 +15,14 @@ Issue Templates
 
 We have two different issue templates:
 
-*  `Bug Report Template <https://github.com/Integreat/cms-django/blob/develop/.github/ISSUE_TEMPLATE/bug-report.md>`_
-*  `Feature Request Template <https://github.com/Integreat/cms-django/blob/develop/.github/ISSUE_TEMPLATE/feature-request.md>`_
+*  :github-source:`Bug Report Template <.github/ISSUE_TEMPLATE/bug-report.md>`
+*  :github-source:`Feature Request Template <.github/ISSUE_TEMPLATE/feature-request.md>`
 
 
 Bug Report
 ==========
 
-If you are sure that the behaviour you are experiencing is really a bug (not a feature), `report a new bug <https://github.com/Integreat/cms-django/issues/new?template=bug-report.md>`_ in the Github issue tracker following the recommendations below.
+If you are sure that the behaviour you are experiencing is really a bug (not a feature), :github:`report a new bug <issues/new?template=bug-report.md>` in the Github issue tracker following the recommendations below.
 Please note, that higher level of detail in the report increases chance that someone will be able to reproduce the issue.
 
 
@@ -60,7 +60,7 @@ Add any other context (e.g. logs, screenshots, etc.) about the problem here.
 Feature Request
 ===============
 
-If you are sure the feature you want to propose doesn't already exist, `request a new feature <https://github.com/Integreat/cms-django/issues/new?template=feature-request.md>`_ in the Github issue tracker following the recommendations below.
+If you are sure the feature you want to propose doesn't already exist, :github:`request a new feature <issues/new?template=feature-request.md>` in the Github issue tracker following the recommendations below.
 
 
 Motivation

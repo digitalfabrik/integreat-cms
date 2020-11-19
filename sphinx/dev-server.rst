@@ -27,13 +27,13 @@ Two different types of local database servers are supported:
 
 .. Note::
 
-    If you want to remove all contents of your database, use the dev-tool ``prune_database.sh``.
+    If you want to remove all contents of your database, use :github-source:`dev-tools/prune_database.sh`.
 
 
 Webserver
 =========
 
-Run the inbuilt local webserver with ``run.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/run.sh>`_]::
+Run the inbuilt local webserver with :github-source:`dev-tools/run.sh`::
 
     ./dev-tools/run.sh
 
@@ -54,8 +54,8 @@ or::
 
 Depending on your local database server.
 
-After that, open your browser and navigate to `http://localhost:8000/ <http://localhost:8000/>`_.
+After that, open your browser and navigate to http://localhost:8000/.
 
 .. Note::
 
-    If you want to use another port than ``8000``, start the server with ``integreat-cms-cli`` and choose another port, or edit the ``run.sh`` dev-tool.
+    If you want to use another port than ``8000``, start the server with ``integreat-cms-cli`` and choose another port, or edit :github-source:`dev-tools/run.sh`.
