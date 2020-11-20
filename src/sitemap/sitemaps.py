@@ -126,9 +126,7 @@ class PageSitemap(WebappSitemap):
     """
 
     priority = 1.0
-    queryset = PageTranslation.objects.filter(
-        page__explicitly_archived=False, status=status.PUBLIC
-    )
+    queryset = PageTranslation.objects.filter(status=status.PUBLIC)
 
     def __init__(self, region, language):
         """
@@ -144,7 +142,7 @@ class PageSitemap(WebappSitemap):
         super().__init__(region, language)
         # Filter queryset based on region and langauge
         self.queryset = self.queryset.filter(
-            page__in=self.region.pages.all(), language=self.language
+            page__in=self.region.non_archived_pages, language=self.language
         )
 
 

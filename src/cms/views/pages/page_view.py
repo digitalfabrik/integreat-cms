@@ -76,6 +76,14 @@ class PageView(PermissionRequiredMixin, TemplateView, PageMixin):
                 messages.warning(
                     request, _("You cannot edit this page because it is archived.")
                 )
+            elif page.implicitly_archived:
+                disabled = True
+                messages.warning(
+                    request,
+                    _(
+                        "You cannot edit this page, because one of its parent pages is archived and therefore, this page is archived as well."
+                    ),
+                )
             elif not request.user.has_perm("cms.edit_page", page):
                 disabled = True
                 messages.warning(

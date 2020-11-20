@@ -91,20 +91,20 @@
         <button title="{% trans 'Archive page' %}" class="confirmation-button py-3 px-2"
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
-                data-confirmation-subject="{{ page_translation.title }}"
+                data-confirmation-subject="{{ page.best_language_title }}"
                 data-action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
             <i data-feather="archive" class="inline-block text-gray-800"></i>
         </button>
         {% if user.is_superuser or user.is_staff %}
             {% if page.children.all %}
-                <button title="{% trans 'You cannot delete a page which has children.' %}" class="py-3 px-2">
+                <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="py-3 px-2">
                     <i data-feather="trash-2" class="inline-block text-gray-400"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 px-2"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
-                        data-confirmation-subject="{{ page_translation.title }}"
+                        data-confirmation-subject="{{ page.best_language_title }}"
                         data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
                     <i data-feather="trash-2" class="inline-block text-gray-800"></i>
                 </button>
