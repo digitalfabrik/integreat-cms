@@ -5,6 +5,8 @@ from django.http import JsonResponse
 
 from cms.models import Region
 
+from ..decorators import json_response
+
 
 def transform_offer(offer):
     """
@@ -25,6 +27,7 @@ def transform_offer(offer):
     }
 
 
+@json_response
 # pylint: disable=unused-argument
 def offers(request, region_slug, language_code=None):
     """

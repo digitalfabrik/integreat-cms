@@ -1,10 +1,13 @@
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
-from api.decorators import feedback_handler
 from cms.models import EventFeedback, EventTranslation
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 def event_feedback(data, region, language, comment, emotion, is_technical):
     """
     Store feedback about single event in database
@@ -50,17 +53,10 @@ def event_feedback_internal(data, region, language, comment, emotion, is_technic
     :return: JSON object according to APIv3 single page feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    event_slug = data.get("slug")
-    if not event_slug:
-        return JsonResponse({"error": "Event slug is required."}, status=400)
-    try:
-        event = EventTranslation.objects.get(
-            event__region=region, language=language, slug=event_slug
-        ).event
-    except EventTranslation.DoesNotExist:
-        return JsonResponse(
-            {"error": f'No event found with slug "{event_slug}"'}, status=404
-        )
+    event = get_object_or_404(
+        EventTranslation, event__region=region, language=language, slug=data.get("slug")
+    )
+
     EventFeedback.objects.create(
         event=event,
         language=language,

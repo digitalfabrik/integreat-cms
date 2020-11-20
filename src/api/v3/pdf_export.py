@@ -10,8 +10,12 @@ from django.shortcuts import get_object_or_404
 from cms.models import Region
 from cms.utils.pdf_utils import generate_pdf
 
+from ..decorators import json_response
+
 logger = logging.getLogger(__name__)
 
+
+@json_response
 # pylint: disable=unused-argument
 def pdf_export(request, region_slug, language_code):
     """

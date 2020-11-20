@@ -2,12 +2,15 @@
 APIv3 endpoint for feedback bout single pages
 """
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
-from api.decorators import feedback_handler
 from cms.models import PageFeedback, PageTranslation
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 def page_feedback(data, region, language, comment, emotion, is_technical):
     """
     Decorate function for storing feedback about single page in database
@@ -53,18 +56,12 @@ def page_feedback_internal(data, region, language, comment, emotion, is_technica
     :return: JSON object according to APIv3 single page feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    page_slug = data.get("slug", None)
-    if not page_slug:
-        return JsonResponse({"error": "Page slug is required."}, status=400)
-    page_translation = PageTranslation.objects.filter(
-        page__region=region, language=language, slug=page_slug
-    ).first()
-    if page_translation is None:
-        return JsonResponse(
-            {"error": f'No page found with slug "{page_slug}"'}, status=404
-        )
+    page = get_object_or_404(
+        PageTranslation, page__region=region, language=language, slug=data.get("slug")
+    ).page
+
     PageFeedback.objects.create(
-        page=page_translation.page,
+        page=page,
         language=language,
         emotion=emotion,
         comment=comment,

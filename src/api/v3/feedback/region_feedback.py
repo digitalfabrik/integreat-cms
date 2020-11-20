@@ -3,11 +3,13 @@ APIv3 endpoint for feedback about full region (main level of content)
 """
 from django.http import JsonResponse
 
-from api.decorators import feedback_handler
 from cms.models import RegionFeedback
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 # pylint: disable=unused-argument
 def region_feedback(data, region, language, comment, emotion, is_technical):
     """

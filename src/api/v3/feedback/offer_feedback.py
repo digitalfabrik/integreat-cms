@@ -2,12 +2,15 @@
 APIv3 feedback endpoint for feedback about single offer
 """
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
-from api.decorators import feedback_handler
 from cms.models import OfferFeedback, Offer
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 # pylint: disable=unused-argument
 def offer_feedback(data, region, language, comment, emotion, is_technical):
     """
@@ -29,14 +32,7 @@ def offer_feedback(data, region, language, comment, emotion, is_technical):
     :return: JSON object according to APIv3 offer feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    offer_slug = data.get("slug", None)
-    if not offer_slug:
-        return JsonResponse({"error": "Offer slug is required."}, status=400)
-    offer = Offer.objects.filter(region=region, template__slug=offer_slug).first()
-    if offer is None:
-        return JsonResponse(
-            {"error": f'No offer found with slug "{offer_slug}"'}, status=404
-        )
+    offer = get_object_or_404(Offer, region=region, template__slug=data.get("slug"))
 
     OfferFeedback.objects.create(
         offer=offer,
