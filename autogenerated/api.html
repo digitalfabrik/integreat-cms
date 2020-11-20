@@ -687,7 +687,7 @@
 <span id="decorators"></span><h2>Decorators<a class="headerlink" href="#module-api.decorators" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="api.decorators.feedback_handler">
-<code class="sig-prename descclassname">api.decorators.</code><code class="sig-name descname">feedback_handler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/decorators.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.decorators.feedback_handler" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">api.decorators.</code><code class="sig-name descname">feedback_handler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/decorators.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.decorators.feedback_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator definition for feedback API functions and methods</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -695,6 +695,24 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>return handle_feedback function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="api.decorators.json_response">
+<code class="sig-prename descclassname">api.decorators.</code><code class="sig-name descname">json_response</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/decorators.py#L77"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.decorators.json_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>This decorator can be used to catch <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/views/#django.http.Http404" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Http404</span></code></a> exceptions and convert them to a <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.JsonResponse" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">JsonResponse</span></code></a>.
+Without this decorator, the exceptions would be converted to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HttpResponse</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should always return JSON</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
@@ -738,7 +756,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 10, 2020.
+        Last updated on Nov 17, 2020.
       </span>
 
     </p>
