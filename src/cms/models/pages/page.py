@@ -69,6 +69,37 @@ class Page(MPTTModel, AbstractBasePage):
     )
 
     @property
+    def explicitly_archived_ancestors(self):
+        """
+        This returns all of the page's ancestors which are archived.
+
+        :return: The QuerySet of archived ancestors
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        """
+        return self.get_ancestors().filter(explicitly_archived=True)
+
+    @property
+    def implicitly_archived(self):
+        """
+        This checks whether one of the page's ancestors is archived which means that this page is implicitly archived as well.
+
+        :return: Whether or not this page is implicitly archived
+        :rtype: bool
+        """
+        return self.explicitly_archived_ancestors.exists()
+
+    @property
+    def archived(self):
+        """
+        A hierarchical page is archived either explicitly if ``explicitly_archived=True`` or implicitly if one of its
+        ancestors is explicitly archived.
+
+        :return: Whether or not this page is archived
+        :rtype: bool
+        """
+        return self.explicitly_archived or self.implicitly_archived
+
+    @property
     def depth(self):
         """
         Counts how many ancestors the page has. If the page is the root page, its depth is `0`.

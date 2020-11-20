@@ -43,14 +43,14 @@ class SetupClass(TestCase):
         language_code,
         page_id=None,
         publish=False,
-        archived=False,
+        explicitly_archived=False,
     ):
         # TODO: fix form usage to page_form and page_translation_form
         page_form = PageForm(
             page_data,
             page_id=page_id,
             publish=publish,
-            archived=archived,
+            explicitly_archived=explicitly_archived,
             region_slug=region_slug,
             language_code=language_code,
             user=user,

@@ -58,7 +58,7 @@ def archive_page(request, page_id, region_slug, language_code):
     if not request.user.has_perm("cms.edit_page", page):
         raise PermissionDenied
 
-    page.archived = True
+    page.explicitly_archived = True
     page.save()
 
     messages.success(request, _("Page was successfully archived"))
@@ -102,7 +102,7 @@ def restore_page(request, page_id, region_slug, language_code):
     if not request.user.has_perm("cms.edit_page", page):
         raise PermissionDenied
 
-    page.archived = False
+    page.explicitly_archived = False
     page.save()
 
     messages.success(request, _("Page was successfully restored"))
@@ -217,7 +217,7 @@ def export_pdf(request, region_slug, language_code):
     # retrieve the selected page ids
     page_ids = request.GET.get("pages").split(",")
     # collect the corresponding page objects
-    pages = region.pages.filter(archived=False, id__in=page_ids)
+    pages = region.pages.filter(explicitly_archived=False, id__in=page_ids)
     # generate PDF document wrapped in a HtmlResponse object
     response = generate_pdf(region, language_code, pages)
     # offer PDF document for download

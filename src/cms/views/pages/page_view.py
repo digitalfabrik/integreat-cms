@@ -71,7 +71,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageMixin):
         # Make form disabled if user has no permission to edit the page
         disabled = False
         if page:
-            if page.archived:
+            if page.explicitly_archived:
                 disabled = True
                 messages.warning(
                     request, _("You cannot edit this page because it is archived.")

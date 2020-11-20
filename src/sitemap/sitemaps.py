@@ -127,7 +127,7 @@ class PageSitemap(WebappSitemap):
 
     priority = 1.0
     queryset = PageTranslation.objects.filter(
-        page__archived=False, status=status.PUBLIC
+        page__explicitly_archived=False, status=status.PUBLIC
     )
 
     def __init__(self, region, language):

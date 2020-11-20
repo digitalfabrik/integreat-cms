@@ -9,7 +9,7 @@ class AbstractBasePage(models.Model):
     """
     Abstract base class for page and imprint page models.
 
-    :param archived: Whether or not the page is archived
+    :param explicitly_archived: Whether or not the page is explicitly archived
     :param created_date: The date and time when the page was created
     :param last_updated: The date and time when the page was last updated
 
@@ -19,9 +19,20 @@ class AbstractBasePage(models.Model):
     :param region: The :class:`~cms.models.regions.region.Region` to which the page belongs
     """
 
-    archived = models.BooleanField(default=False)
+    explicitly_archived = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+
+    @property
+    def archived(self):
+        """
+        This is an alias of ``explicitly_archived``. Used for hierarchical pages to implement a more complex notion of
+        explicitly and implicitly archived pages (see :func:`~cms.models.pages.page.Page.archived`).
+
+        :return: Whether or not this page is archived
+        :rtype: bool
+        """
+        return self.explicitly_archived
 
     @property
     def icon(self):
