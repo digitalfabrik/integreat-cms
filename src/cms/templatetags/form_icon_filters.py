@@ -1,4 +1,4 @@
-import ntpath
+import os
 
 from django import template
 from django.template.defaultfilters import stringfilter
@@ -17,4 +17,4 @@ def strip_path(icon):
     :return: name of icon file
     :rtype: str
     """
-    return ntpath.basename(icon)
+    return os.path.basename(icon)
