@@ -297,7 +297,10 @@
                         <div class="pt-2 pb-4">
                             {% if event_form.instance.archived %}
                                 <span class="block font-bold mb-4">{% trans 'Restore event' %}</span>
-                                <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{% if event_translation_form.instance %}{{ event_translation_form.instance.title }}{% endif %}" data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-event">
+                                <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                    data-confirmation-title="{% if event_translation_form.instance %}{{ event_translation_form.instance.title }}{% endif %}"
+                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}"
+                                    data-confirmation-popup="#confirm-restore-event">
                                     <i data-feather="refresh-ccw" class="inline-block mr-2"></i>
                                     {% trans 'Restore this event' %}
                                 </button>

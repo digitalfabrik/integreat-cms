@@ -71,9 +71,5 @@
         </tbody>
     </table>
 </div>
-{% include "./confirmation_popups/archive_page.html" %}
-{% include "./confirmation_popups/restore_page.html" %}
-{% if user.is_superuser or user.is_staff %}
-    {% include "./confirmation_popups/delete_page.html" %}
-{% endif %}
+{% include "../generic_confirmation_dialog.html" %}
 {% endblock %}

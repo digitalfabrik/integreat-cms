@@ -1,8 +1,13 @@
 {% extends "_base.html" %}
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load mptt_tags %}
+
+{% block javascript_head %}
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
+{% endblock %}
+
+{% block content %}
 <div class="table-header">
     <div class="flex flex-wrap">
         <div class="w-1/2">
@@ -28,7 +33,8 @@
             <tr class="border-b border-solid border-gray-200">
                 <th class="text-sm text-left uppercase py-3 pl-4 pr-2"></th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Language' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Active' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2 w-4">{% trans 'Active' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Delete' %}</th>
             </tr>
         </thead>
         <tbody>
@@ -50,6 +56,7 @@
         </tbody>
     </table>
 </div>
+{% include "../generic_confirmation_dialog.html" %}
 {% endblock %}
 
 {% block javascript %}
