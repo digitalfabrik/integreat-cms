@@ -2,9 +2,9 @@
 Django URL dispatcher for the sitemap package.
 It contains the following routes:
 
-* ``/sitemap.xml`` is routed to :mod:`~sitemap.SitemapIndexView`
+* ``/sitemap.xml`` is routed to :mod:`~sitemap.views.SitemapIndexView`
 
-* ``/<region_slug>/<language_code>/sitemap.xml`` is routed to :mod:`~sitemap.SitemapView`
+* ``/<region_slug>/<language_code>/sitemap.xml`` is routed to :mod:`~sitemap.views.SitemapView`
 
 See :mod:`backend.urls` for the other namespaces of this application.
 

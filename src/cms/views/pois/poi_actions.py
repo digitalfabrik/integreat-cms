@@ -1,5 +1,5 @@
 """
-A view representing an instance of a point of interest. POIs can be added, changed or retrieved via this view.
+This module contains view actions for objects related to POIs.
 """
 import logging
 
@@ -19,6 +19,24 @@ logger = logging.getLogger(__name__)
 @region_permission_required
 @permission_required("cms.manage_pois", raise_exception=True)
 def archive_poi(request, poi_id, region_slug, language_code):
+    """
+    Archive POI object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param poi_id: The id of the POI which should be archived
+    :type poi_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
     poi = POI.objects.get(id=poi_id)
 
     poi.archived = True
@@ -39,6 +57,24 @@ def archive_poi(request, poi_id, region_slug, language_code):
 @region_permission_required
 @permission_required("cms.manage_pois", raise_exception=True)
 def restore_poi(request, poi_id, region_slug, language_code):
+    """
+    Restore POI object (set ``archived=False``)
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param poi_id: The id of the POI which should be restored
+    :type poi_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
     poi = POI.objects.get(id=poi_id)
 
     poi.archived = False
@@ -58,6 +94,24 @@ def restore_poi(request, poi_id, region_slug, language_code):
 @login_required
 @staff_required
 def delete_poi(request, poi_id, region_slug, language_code):
+    """
+    Delete POI object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param poi_id: The id of the POI which should be deleted
+    :type poi_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
 
     poi = POI.objects.get(id=poi_id)
     poi.delete()
@@ -77,6 +131,27 @@ def delete_poi(request, poi_id, region_slug, language_code):
 @permission_required("cms.manage_pois", raise_exception=True)
 # pylint: disable=unused-argument
 def view_poi(request, poi_id, region_slug, language_code):
+    """
+    View POI object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param poi_id: The id of the POI which should be viewed
+    :type poi_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :raises ~django.http.Http404: If user no translation exists for the requested POI and language
+
+    :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pois/poi_view.html"
     poi = POI.objects.get(id=poi_id)
 

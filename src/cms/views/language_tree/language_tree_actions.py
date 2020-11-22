@@ -27,7 +27,7 @@ def move_language_tree_node(
     This action moves the given language tree node to the given position relative to the given target.
 
     :param request: The current request
-    :type request: django.http.HttpResponse
+    :type request: ~django.http.HttpResponse
 
     :param region_slug: The slug of the region which language tree should be modified
     :type region_slug: str
@@ -42,7 +42,7 @@ def move_language_tree_node(
     :type position: str
 
     :return: A redirection to the language tree
-    :rtype: django.http.HttpResponseRedirect
+    :rtype: ~django.http.HttpResponseRedirect
     """
 
     try:

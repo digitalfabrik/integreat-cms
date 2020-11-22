@@ -79,6 +79,7 @@ extensions = [
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.7", None),
     "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
+    "requests": ("https://requests.readthedocs.io/en/master/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
     "sphinx-rtd-theme": (
         "https://sphinx-rtd-theme.readthedocs.io/en/latest/",

@@ -1,7 +1,5 @@
 """
-
-Returns:
-    [type]: [description]
+This module contains view actions related to pages.
 """
 import json
 import logging
@@ -33,6 +31,27 @@ logger = logging.getLogger(__name__)
 @login_required
 @region_permission_required
 def archive_page(request, page_id, region_slug, language_code):
+    """
+    Archive page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page which should be archived
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
@@ -56,6 +75,27 @@ def archive_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 def restore_page(request, page_id, region_slug, language_code):
+    """
+    Restore page object (set ``archived=False``)
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page which should be restored
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
@@ -81,9 +121,29 @@ def restore_page(request, page_id, region_slug, language_code):
 @permission_required("cms.view_pages", raise_exception=True)
 # pylint: disable=unused-argument
 def view_page(request, page_id, region_slug, language_code):
+    """
+    View page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page which should be viewed
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_view.html"
 
     page_translation = page.get_translation(language_code)
@@ -94,6 +154,25 @@ def view_page(request, page_id, region_slug, language_code):
 @login_required
 @staff_required
 def delete_page(request, page_id, region_slug, language_code):
+    """
+    Delete page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page which should be deleted
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
@@ -149,7 +228,17 @@ def export_pdf(request, region_slug, language_code):
 def expand_short_url(request, short_url_id):
     """
     Searches for a page with requested short_url_id and redirects to that page.
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param short_url_id: The short url id of the requested page
+    :type short_url_id: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
     """
+
     queryset = PageTranslation.objects.filter(short_url_id=short_url_id)
     page_translation = queryset.first().latest_public_revision
 
@@ -161,7 +250,17 @@ def expand_short_url(request, short_url_id):
 def expand_page_translation_id(request, short_url_id):
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param short_url_id: The id of the reqested page
+    :type short_url_id: int
+
+    :return: A redirection to :class:`~backend.settings.WEBAPP_URL`
+    :rtype: ~django.http.HttpResponseRedirect
     """
+
     page_translation = PageTranslation.objects.get(
         id=short_url_id
     ).latest_public_revision
@@ -176,8 +275,22 @@ def expand_page_translation_id(request, short_url_id):
 @permission_required("cms.view_pages", raise_exception=True)
 def download_xliff(request, region_slug, language_code):
     """
-    Create zip file that contains XLIFF files for target language.
+    Download a zip file of XLIFF files.
+    The target languages and pages are selected and the source languages automatically determined.
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
     """
+
     page_ids = []
     for page_id in request.GET.get("pages").split(","):
         if page_id.isnumeric():
@@ -216,6 +329,22 @@ def download_xliff(request, region_slug, language_code):
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
 def upload_xliff(request, region_slug, language_code):
+    """
+    Upload and import an XLIFF file
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     if request.FILES.get("xliff_file"):
         xliff_helper = PageXliffHelper()
         upload_file = request.FILES["xliff_file"]
@@ -256,6 +385,22 @@ def upload_xliff(request, region_slug, language_code):
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
 def confirm_xliff_import(request, region_slug, language_code):
+    """
+    Confirm a started XLIFF import
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     if request.POST.get("upload_dir"):
         upload_dir = os.path.join(XLIFFS_DIR, "upload", request.POST.get("upload_dir"))
         xliff_paths = [
@@ -280,6 +425,31 @@ def confirm_xliff_import(request, region_slug, language_code):
 @permission_required("cms.edit_pages", raise_exception=True)
 # pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_code, page_id, target_id, position):
+    """
+    Move a page object in the page tree
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :param page_id: The id of the page which should be moved
+    :type page_id: int
+
+    :param target_id: The id of the page which determines the new position
+    :type target_id: int
+
+    :param position: The new position of the page relative to the target (choices: :mod:`cms.constants.position`)
+    :type position: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
     target = get_object_or_404(region.pages, id=target_id)
@@ -311,6 +481,18 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
 @permission_required("cms.grant_page_permissions", raise_exception=True)
 # pylint: disable=too-many-branches
 def grant_page_permission_ajax(request):
+    """
+    Grant a user editing or publishing permissions on a specific page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
+                                                      not have the permission to grant page permissions
+
+    :return: The rendered page permission table
+    :rtype: ~django.template.response.TemplateResponse
+    """
 
     try:
         data = json.loads(request.body.decode("utf-8"))
@@ -420,6 +602,18 @@ def grant_page_permission_ajax(request):
 @permission_required("cms.grant_page_permissions", raise_exception=True)
 # pylint: disable=too-many-branches
 def revoke_page_permission_ajax(request):
+    """
+    Remove a page permission for a given user and page
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
+                                                      not have the permission to revoke page permissions
+
+    :return: The rendered page permission table
+    :rtype: ~django.template.response.TemplateResponse
+    """
 
     try:
         data = json.loads(request.body.decode("utf-8"))
@@ -522,6 +716,25 @@ def revoke_page_permission_ajax(request):
 @permission_required("cms.edit_pages", raise_exception=True)
 # pylint: disable=unused-argument
 def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
+    """
+    Retrieve the order table for a given page and a given parent page.
+    This is used in the page form to change the order of a page relative to its siblings.
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param page_id: The id of the page of the current page form
+    :type page_id: int
+
+    :param parent_id: The id of the parent page to which the order table should be returned
+    :type parent_id: int
+
+    :return: The rendered page order table
+    :rtype: ~django.template.response.TemplateResponse
+    """
 
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
@@ -552,6 +765,22 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
 @permission_required("cms.edit_pages", raise_exception=True)
 # pylint: disable=unused-argument
 def get_new_page_order_table_ajax(request, region_slug, parent_id):
+    """
+    Retrieve the order table for a new page and a given parent page.
+    This is used in the page form to set the position of a new page relative to its siblings.
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param parent_id: The id of the parent page to which the order table should be returned
+    :type parent_id: int
+
+    :return: The rendered page order table
+    :rtype: ~django.template.response.TemplateResponse
+    """
 
     region = Region.get_current_region(request)
 
@@ -576,6 +805,17 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
 
 @login_required
 def get_pages_list_ajax(request):
+    """
+    Retrieve the page list as JSON
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+    :return: A JSON containing the list of all pages of a region
+    :rtype: ~django.http.JsonResponse
+    """
     decoded_json = json.loads(request.body.decode("utf-8"))
     if "region" not in decoded_json or decoded_json["region"] == "":
         page = Page.objects.get(id=decoded_json["current_page"])
@@ -611,6 +851,17 @@ def get_pages_list_ajax(request):
 
 @login_required
 def save_mirrored_page(request):
+    """
+    Save the ``mirrored_page``-attribute of a page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+    :return: A JSON response on success
+    :rtype: ~django.http.JsonResponse
+    """
     decoded_json = json.loads(request.body.decode("utf-8"))
     page = Page.objects.get(id=decoded_json["current_page"])
 

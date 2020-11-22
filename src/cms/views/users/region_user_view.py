@@ -15,13 +15,35 @@ from ...models import Region, UserProfile
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class RegionUserView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.manage_region_users"
-    raise_exception = True
+    """
+    View for the user form and user profile form of region users
+    """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.manage_region_users"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "users/region/user.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "region_users_form"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Render :class:`~cms.forms.users.user_form.UserForm` and :class:`~cms.forms.users.user_profile_form.UserProfileForm` for region users
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region = Region.get_current_region(request)
 
@@ -51,6 +73,23 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
+        """
+        Submit :class:`~cms.forms.users.user_form.UserForm` and
+        :class:`~cms.forms.users.user_profile_form.UserProfileForm` and save :class:`~django.contrib.auth.models.User`
+        and :class:`~cms.models.users.user_profile.UserProfile` objects for region users
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region = Region.get_current_region(request)
 

@@ -1,6 +1,3 @@
-"""
-Handling of login, logout and password reset functionality.
-"""
 import json
 import datetime
 import webauthn
@@ -22,15 +19,24 @@ from ...utils.mfa_utils import generate_challenge
 
 
 class MfaEnableAuthentication(auth_views.LoginView):
+    """
+    View to extend the default login behaviour from :class:`~django.contrib.auth.views.LoginView` with
+    multi-factor-authentication.
+    """
+
     def form_valid(self, form):
         """
-        Security check complete. Log the user in.
+        This function overwrites :meth:`~django.views.generic.edit.FormMixin.form_valid` which is called if the login
+        form is valid. In case the user has mfa-keys configured, the login is delegated to
+        :func:`~cms.views.authentication.authentication_actions.mfa`. Else, the default method
+        :func:`~django.contrib.auth.login` is used to log the user in. After that, the user is redirected to
+        :attr:`~backend.settings.LOGIN_REDIRECT_URL`.
 
         :param form: User login form
         :type form: ~django.contrib.auth.forms.AuthenticationForm
 
-        :return: redirect
-        :rtype: ~django.shortcuts.redirect
+        :return: Redirect user to mfa login view or to :attr:`~backend.settings.LOGIN_REDIRECT_URL`
+        :rtype: ~django.http.HttpResponseRedirect
         """
 
         user = form.get_user()
@@ -43,14 +49,15 @@ class MfaEnableAuthentication(auth_views.LoginView):
 
 def login(request):
     """
-    View to provide login functionality
+    View for the login. Aliased to :class:`~cms.views.authentication.authentication_actions.MfaEnableAuthentication`
 
-    :param request: Object representing the user call
+    :param request: The current request
     :type request: ~django.http.HttpRequest
 
     :return: The login form
     :rtype: ~django.template.response.TemplateResponse
     """
+
     return MfaEnableAuthentication.as_view(template_name="authentication/login.html")(
         request
     )
@@ -58,14 +65,15 @@ def login(request):
 
 def mfa(request):
     """
-    View to check 2FA authentication if applicable
+    View to check 2FA authentication. Aliased to :class:`~django.contrib.auth.views.LoginView` with a custom template.
 
-    :param request: Object representing the user call
+    :param request: The current request
     :type request: ~django.http.HttpRequest
 
     :return: The second factor form
     :rtype: ~django.template.response.TemplateResponse
     """
+
     return auth_views.LoginView.as_view(template_name="authentication/login_mfa.html")(
         request
     )
@@ -73,8 +81,16 @@ def mfa(request):
 
 def makeWebauthnUsers(user):
     """
-    Unknown
+    Create WebAuthnUser objects for each mfa key of the user (see `webauthn <https://pypi.org/project/webauthn/>`_ for
+    more information)
+
+    :param user: The user object of this webauthn assertion
+    :type user: ~django.contrib.auth.models.User
+
+    :return: The list ob webauthn user objects
+    :rtype: list [ ~webauthn.WebAuthnUser ]
     """
+
     webauthn_users = []
 
     for key in user.mfa_keys.all():
@@ -96,14 +112,16 @@ def makeWebauthnUsers(user):
 
 def mfaAssert(request):
     """
-    Multi factor authentication assert
+    Generate challenge for multi factor authentication.
+    If the user did not provide the first factor (password) or already authenticated with multiple factors, an error is
+    returned.
+    This AJAX view is called asynchronously by JavaScript.
 
-    :param request: Object representing the user call
+    :param request: The current request
     :type request: ~django.http.HttpRequest
 
-    :return: second factor assertion
+    :return: Error message or challenge for multi factor authentication
     :rtype: ~django.http.JsonResponse
-
     """
 
     if "mfa_user_id" not in request.session:
@@ -127,14 +145,16 @@ def mfaAssert(request):
 
 def mfaVerify(request):
     """
-    Verify second factor authentication attempt
+    Verify the response to the callenge generated in :func:`~cms.views.authentication.authentication_actions.mfaAssert`.
+    After a successful verification, the user is logged in.
 
-    :param request: Object representing the user call
+    :param request: The current request
     :type request: ~django.http.HttpRequest
 
-    :return: success notification
+    :return: Whether or not the verification was successful
     :rtype: ~django.http.JsonResponse
     """
+
     if "mfa_user_id" not in request.session:
         return JsonResponse({"success": False, "error": _("You need to log in first")})
 
@@ -181,9 +201,9 @@ def mfaVerify(request):
 
 def logout(request):
     """
-    View to provide logout functionality
+    View to log off a user
 
-    :param request: Object representing the user call
+    :param request: The current request
     :type request: ~django.http.HttpRequest
 
     :return: HttpResponseRedirect: Redirect to the login page after logout
@@ -197,9 +217,9 @@ def logout(request):
 
 def password_reset_done(request):
     """
-    View linked to the Password reset functionality
+    View to indicate that the password reset process has been initiated
 
-    :param request: Object representing the user call
+    :param request: The current request
     :type request: ~django.http.HttpRequest
 
     :return: Redirect after password reset
@@ -220,12 +240,13 @@ def password_reset_done(request):
 
 def password_reset_confirm(request):
     """
-    View linked to the Password reset functionality
+    View to confirm that the password should be reset
 
-    :param request: Object representing the user call
+    :param request: The current request
     :type request: ~django.http.HttpRequest
 
     :return: PasswordChangeDoneView: Linked to Template to build view for user
+    :rtype: ~django.contrib.auth.views.PasswordChangeDoneView
     """
 
     template = "authentication/password_reset_confirm.html"
@@ -234,9 +255,9 @@ def password_reset_confirm(request):
 
 def password_reset_complete(request):
     """
-    View linked to the Password reset functionality
+    View to indicate that the password was successfully reset
 
-    :param request: Object representing the user call
+    :param request: The current request
     :type request: ~django.http.HttpRequest
 
     :return: Redirect to login page after password is reseted

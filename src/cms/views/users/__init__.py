@@ -1,5 +1,5 @@
 """
-Python standard Init-File
+This package contains all views related to users
 """
 from .user_list_view import UserListView
 from .user_view import UserView

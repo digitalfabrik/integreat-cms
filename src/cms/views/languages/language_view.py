@@ -1,6 +1,3 @@
-"""
-This module is for showing and editing languages in the network administration back end.
-"""
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -18,13 +15,16 @@ from ...models import Language
 @method_decorator(staff_required, name="dispatch")
 class LanguageView(PermissionRequiredMixin, TemplateView):
     """
-    Handles viewing of a language
+    This view shows and editing languages in the network administration back end.
     """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
     permission_required = "cms.manage_languages"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
     raise_exception = True
-
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "languages/language_form.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "languages"}
 
     def get(self, request, *args, **kwargs):
@@ -32,7 +32,13 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         Handle HTTP GET to show form for a language
 
         :param request: The current request
-        :type request: django.http.HttpResponse
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -47,7 +53,13 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         Handle HTTP to save and show form for a language
 
         :param request: The current request
-        :type request: django.http.HttpResponse
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

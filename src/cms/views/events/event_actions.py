@@ -26,12 +26,17 @@ def archive(request, event_id, region_slug, language_code):
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
+
     :param event_id: internal id of the event to be archived
     :type event_id: int
+
     :param region_slug: slug of the region which the event belongs to
     :type region_slug: str
+
     :param language_code: current GUI language code
     :type language_code: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
 
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
@@ -64,12 +69,17 @@ def restore(request, event_id, region_slug, language_code):
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
+
     :param event_id: internal id of the event to be un-archived
     :type event_id: int
+
     :param region_slug: slug of the region which the event belongs to
     :type region_slug: str
+
     :param language_code: current GUI language code
     :type language_code: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
 
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
@@ -102,10 +112,13 @@ def delete(request, event_id, region_slug, language_code):
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
+
     :param event_id: internal id of the event to be deleted
     :type event_id: int
+
     :param region_slug: slug of the region which the event belongs to
     :type region_slug: str
+
     :param language_code: current GUI language code
     :type language_code: str
 

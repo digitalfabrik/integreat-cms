@@ -1,6 +1,3 @@
-"""
-Contains a class for handling requests to render the event form
-"""
 import logging
 
 from django.contrib import messages
@@ -27,9 +24,11 @@ class EventView(PermissionRequiredMixin, TemplateView):
     Class for rendering the events form
     """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
     permission_required = "cms.view_events"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
     raise_exception = True
-
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "events/event_form.html"
 
     # pylint: disable=too-many-locals
@@ -39,6 +38,12 @@ class EventView(PermissionRequiredMixin, TemplateView):
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -99,6 +104,11 @@ class EventView(PermissionRequiredMixin, TemplateView):
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

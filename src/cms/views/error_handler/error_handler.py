@@ -1,6 +1,3 @@
-"""
-Handler for HTTP Error codes
-"""
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 
@@ -12,6 +9,7 @@ def handler400(request, exception):
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
+
     :param exception: Exception (unused)
     :type exception: BaseException
 
@@ -27,15 +25,15 @@ def handler400(request, exception):
     response.status_code = 400
     return response
 
-    # pylint: disable=unused-argument
 
-
+# pylint: disable=unused-argument
 def handler403(request, exception):
     """
     Render a HTTP 403 Error code
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
+
     :param exception: Exception (unused)
     :type exception: BaseException
 
@@ -51,15 +49,15 @@ def handler403(request, exception):
     response.status_code = 403
     return response
 
-    # pylint: disable=unused-argument
 
-
+# pylint: disable=unused-argument
 def handler404(request, exception):
     """
     Render a HTTP 404 Error code
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
+
     :param exception: Exception (unused)
     :type exception: BaseException
 
@@ -75,8 +73,6 @@ def handler404(request, exception):
     response.status_code = 404
     return response
 
-    # pylint: disable=unused-argument
-
 
 def handler500(request):
     """
@@ -84,8 +80,6 @@ def handler500(request):
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
-    :param exception: Exception (unused)
-    :type exception: BaseException
 
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
@@ -99,15 +93,15 @@ def handler500(request):
     response.status_code = 500
     return response
 
-    # pylint: disable=unused-argument
 
-
+# pylint: disable=unused-argument
 def csrf_failure(request, reason):
     """
     Render a CSRF failure notice
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
+
     :param reason: Description of reason for CSRF failure
     :type reason: str
 

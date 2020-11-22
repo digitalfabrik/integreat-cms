@@ -11,6 +11,7 @@ from ...models import PushNotificationTranslation
 from ...models import Region
 from ...constants import push_notifications as pnt_const
 
+
 # pylint: disable=too-few-public-methods
 class PushNotificationSender:
     """
@@ -95,6 +96,9 @@ class PushNotificationSender:
 
         :param pnt: the prepared push notification translation to be sent
         :type pnt: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+
+        :return: Response of the :mod:`requests` library
+        :rtype: ~requests.Response
         """
         if settings.DEBUG:
             region_slug = Region.objects.get(

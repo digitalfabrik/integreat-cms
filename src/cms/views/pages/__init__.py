@@ -1,5 +1,5 @@
 """
-Python standard Init-File
+This package contains all views related to pages
 """
 from .page_tree_view import PageTreeView
 from .page_view import PageView
