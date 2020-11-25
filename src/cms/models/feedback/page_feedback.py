@@ -1,7 +1,7 @@
 from django.db import models
 
 from .feedback import Feedback
-from ..pages.page import Page
+from ..pages.page_translation import PageTranslation
 
 
 class PageFeedback(Feedback):
@@ -20,11 +20,13 @@ class PageFeedback(Feedback):
 
     Relationship fields:
 
-    :param page: The page the feedback is referring to (related name: ``feedback``)
+    :param page_translation: The page translation the feedback is referring to (related name: ``feedback``)
     :param feedback_ptr: A pointer to the base class
     """
 
-    page = models.ForeignKey(Page, related_name="feedback", on_delete=models.CASCADE)
+    page_translation = models.ForeignKey(
+        PageTranslation, related_name="feedback", on_delete=models.CASCADE
+    )
 
     class Meta:
         default_permissions = ()

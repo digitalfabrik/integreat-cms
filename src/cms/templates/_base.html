@@ -198,7 +198,7 @@
 					</a>
 				</div>
 			</div>
-	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_feedback' %}active{% endif %}">
+	        <a href="{% url 'region_feedback' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_feedback' %}active{% endif %}">
 	            <i data-feather="thumbs-up" class="absolute"></i>
 		        {% trans 'Feedback' %}
 			</a>
@@ -277,7 +277,7 @@
 			    <i data-feather="star" class="absolute"></i>
 			    {% trans 'Offer templates' %}
 			</a>
-		    <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
+		    <a href="{% url 'admin_feedback'%}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
 			    <i data-feather="thumbs-up" class="absolute"></i>
 			    {% trans 'Feedback' %}
 		    </a>

@@ -9,7 +9,6 @@ from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
-
 from .forms.authentication import PasswordResetConfirmForm
 from .views import (
     authentication,
@@ -30,6 +29,7 @@ from .views import (
     settings,
     statistics,
     users,
+    feedback,
 )
 
 
@@ -178,6 +178,18 @@ urlpatterns = [
                         ]
                     ),
                 ),
+            ]
+        ),
+    ),
+    url(
+        r"^feedback/",
+        include(
+            [
+                url(
+                    r"^$",
+                    feedback.AdminFeedbackListView.as_view(),
+                    name="admin_feedback",
+                )
             ]
         ),
     ),
@@ -549,6 +561,18 @@ urlpatterns = [
                                     ]
                                 ),
                             ),
+                        ]
+                    ),
+                ),
+                url(
+                    r"^feedback/",
+                    include(
+                        [
+                            url(
+                                r"^$",
+                                feedback.RegionFeedbackListView.as_view(),
+                                name="region_feedback",
+                            )
                         ]
                     ),
                 ),

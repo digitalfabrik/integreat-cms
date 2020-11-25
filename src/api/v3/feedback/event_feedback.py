@@ -53,12 +53,13 @@ def event_feedback_internal(data, region, language, comment, emotion, is_technic
     :return: JSON object according to APIv3 single page feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    event = get_object_or_404(
+
+    event_translation = get_object_or_404(
         EventTranslation, event__region=region, language=language, slug=data.get("slug")
     )
 
     EventFeedback.objects.create(
-        event=event,
+        event_translation=event_translation,
         language=language,
         emotion=emotion,
         comment=comment,

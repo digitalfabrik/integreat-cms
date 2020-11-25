@@ -56,12 +56,13 @@ def page_feedback_internal(data, region, language, comment, emotion, is_technica
     :return: JSON object according to APIv3 single page feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    page = get_object_or_404(
+
+    page_translation = get_object_or_404(
         PageTranslation, page__region=region, language=language, slug=data.get("slug")
-    ).page
+    )
 
     PageFeedback.objects.create(
-        page=page,
+        page_translation=page_translation,
         language=language,
         emotion=emotion,
         comment=comment,

@@ -36,6 +36,7 @@ def search_result_feedback(data, region, language, comment, emotion, is_technica
         return JsonResponse({"error": "Search query is required."}, status=400)
     SearchResultFeedback.objects.create(
         searchQuery=query,
+        region=region,
         language=language,
         emotion=emotion,
         comment=comment,

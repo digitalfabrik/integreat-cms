@@ -36,6 +36,7 @@ def offer_feedback(data, region, language, comment, emotion, is_technical):
 
     OfferFeedback.objects.create(
         offer=offer,
+        region=region,
         language=language,
         emotion=emotion,
         comment=comment,
