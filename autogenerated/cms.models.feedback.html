@@ -432,6 +432,11 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#module-cms.views.feedback.admin_feedback_list_view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#module-cms.views.feedback.region_feedback_list_view">Region Feedback List View</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_actions">Language Tree Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
@@ -683,7 +688,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>event</strong> (ForeignKey to <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – The event the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
+<li><p><strong>event_translation</strong> (ForeignKey to <a class="reference internal" href="cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a>) – The event translation the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
 <li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
@@ -836,7 +841,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <span id="offer-feedback"></span><h2>Offer Feedback<a class="headerlink" href="#module-cms.models.feedback.offer_feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.feedback.offer_feedback.OfferFeedback">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.feedback.offer_feedback.</code><code class="sig-name descname">OfferFeedback</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.feedback.offer_feedback.</code><code class="sig-name descname">OfferFeedback</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
 <p>Database model representing feedback about offers.</p>
 <p>Fields inherited from the base model <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>:</p>
@@ -858,6 +863,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>offer</strong> (ForeignKey to <a class="reference internal" href="cms.models.offers.html#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a>) – The offer the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
+<li><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region to which the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">offer_feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
 <li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
@@ -865,13 +871,13 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 </dl>
 <dl class="py exception">
 <dt id="cms.models.feedback.offer_feedback.OfferFeedback.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="cms.models.feedback.feedback.Feedback.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.DoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.feedback.offer_feedback.OfferFeedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -949,7 +955,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>page</strong> (ForeignKey to <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – The page the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
+<li><p><strong>page_translation</strong> (ForeignKey to <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>) – The page translation the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
 <li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
@@ -1020,7 +1026,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <span id="search-result-feedback"></span><h2>Search Result Feedback<a class="headerlink" href="#module-cms.models.feedback.search_result_feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.feedback.search_result_feedback.SearchResultFeedback">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.feedback.search_result_feedback.</code><code class="sig-name descname">SearchResultFeedback</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.feedback.search_result_feedback.</code><code class="sig-name descname">SearchResultFeedback</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback</span></code></a></p>
 <p>Database model representing feedback about search results (e.g. empty results).</p>
 <dl class="field-list simple">
@@ -1046,6 +1052,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (ForeignKey to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The region to which the feedback is referring to (related name: <code class="docutils literal notranslate"><span class="pre">search_result_feedback</span></code>)</p></li>
 <li><p><strong>feedback_ptr</strong> (OneToOneField to <a class="reference internal" href="#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – A pointer to the base class</p></li>
 <li><p><strong>language</strong> (ForeignKey to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language</p></li>
 </ul>
@@ -1053,13 +1060,13 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
 </dl>
 <dl class="py exception">
 <dt id="cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.DoesNotExist" title="cms.models.feedback.feedback.Feedback.DoesNotExist"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.DoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.MultipleObjectsReturned" title="cms.models.feedback.feedback.Feedback.MultipleObjectsReturned"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.feedback.feedback.Feedback.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -1094,7 +1101,7 @@ The base model <a class="reference internal" href="#cms.models.feedback.feedback
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 17, 2020.
+        Last updated on Nov 18, 2020.
       </span>
 
     </p>
