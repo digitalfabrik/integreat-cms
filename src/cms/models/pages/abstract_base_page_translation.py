@@ -1,9 +1,7 @@
-import string
-import random
-
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
-
+from backend.settings import BASE_URL
 from backend.settings import WEBAPP_URL
 
 from ...constants import status
@@ -41,7 +39,6 @@ class AbstractBasePageTranslation(models.Model):
     minor_edit = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
-    short_url_id = models.CharField(max_length=10, default="")
 
     @property
     def page(self):
@@ -101,16 +98,15 @@ class AbstractBasePageTranslation(models.Model):
     @property
     def short_url(self):
         """
-        This function generates unique string and returns the short url to the page translation
+        This function returns the absolute short url to the page translation
 
         :return: The short url of a page translation
         :rtype: str
         """
-        if not (self.short_url_id):
-            chars = string.ascii_letters + string.digits
-            self.short_url_id = "".join((random.choice(chars) for i in range(10)))
-            self.save()
-        return self.short_url_id
+
+        return BASE_URL + reverse(
+            "expand_page_translation_id", kwargs={"short_url_id": self.id}
+        )
 
     @property
     def available_languages(self):
