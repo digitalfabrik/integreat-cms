@@ -43,11 +43,6 @@ urlpatterns = [
                     pages.expand_page_translation_id,
                     name="expand_page_translation_id",
                 ),
-                url(
-                    r"^(?P<short_url_id>[-\w]+)/",
-                    pages.expand_short_url,
-                    name="expand_short_url",
-                ),
             ]
         ),
     ),

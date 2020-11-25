@@ -225,28 +225,6 @@ def export_pdf(request, region_slug, language_code):
     return response
 
 
-def expand_short_url(request, short_url_id):
-    """
-    Searches for a page with requested short_url_id and redirects to that page.
-
-    :param request: The current request
-    :type request: ~django.http.HttpResponse
-
-    :param short_url_id: The short url id of the requested page
-    :type short_url_id: str
-
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
-    :rtype: ~django.http.HttpResponseRedirect
-    """
-
-    queryset = PageTranslation.objects.filter(short_url_id=short_url_id)
-    page_translation = queryset.first().latest_public_revision
-
-    if page_translation and not page_translation.page.archived:
-        return redirect(WEBAPP_URL + page_translation.get_absolute_url())
-    return HttpResponseNotFound("<h1>Page not found</h1>")
-
-
 def expand_page_translation_id(request, short_url_id):
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
