@@ -4,6 +4,18 @@ from django.utils.translation import ugettext as _
 
 # pylint: disable=unused-argument
 def handler400(request, exception):
+    """
+    Render a HTTP 400 Error code
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param exception: Exception (unused)
+    :type exception: BaseException
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     ctx = {
         "code": 400,
         "title": _("Bad request"),
@@ -13,10 +25,21 @@ def handler400(request, exception):
     response.status_code = 400
     return response
 
-    # pylint: disable=unused-argument
 
-
+# pylint: disable=unused-argument
 def handler403(request, exception):
+    """
+    Render a HTTP 403 Error code
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param exception: Exception (unused)
+    :type exception: BaseException
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     ctx = {
         "code": 403,
         "title": _("Forbidden"),
@@ -26,10 +49,21 @@ def handler403(request, exception):
     response.status_code = 403
     return response
 
-    # pylint: disable=unused-argument
 
-
+# pylint: disable=unused-argument
 def handler404(request, exception):
+    """
+    Render a HTTP 404 Error code
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param exception: Exception (unused)
+    :type exception: BaseException
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     ctx = {
         "code": 404,
         "title": _("Page not found"),
@@ -39,10 +73,17 @@ def handler404(request, exception):
     response.status_code = 404
     return response
 
-    # pylint: disable=unused-argument
-
 
 def handler500(request):
+    """
+    Render a HTTP 500 Error code
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     ctx = {
         "code": 500,
         "title": _("Internal Server Error"),
@@ -52,8 +93,19 @@ def handler500(request):
     response.status_code = 500
     return response
 
-    # pylint: disable=unused-argument
 
-
+# pylint: disable=unused-argument
 def csrf_failure(request, reason):
+    """
+    Render a CSRF failure notice
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param reason: Description of reason for CSRF failure
+    :type reason: str
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
     return render(request, "error_handler/csrf_failure.html")

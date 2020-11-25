@@ -12,7 +12,7 @@ class ViewTest(TestCase):
         This function checks whether the given response returns the http status code 200 and lets a test fail if not.
 
         :param response: The given http response
-        :type response: django.http.HttpResponse
+        :type response: ~django.http.HttpResponse
         """
         status_code = response.status_code
         self.assertEqual(

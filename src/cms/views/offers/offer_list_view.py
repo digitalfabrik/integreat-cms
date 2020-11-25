@@ -11,13 +11,35 @@ from ...models import Region, OfferTemplate
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class OfferListView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.manage_offers"
-    raise_exception = True
+    """
+    View for listing offers
+    """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.manage_offers"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "offers/offer_list.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "offers"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Render offer list
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         # current region
         region = Region.get_current_region(request)
         offer_templates = OfferTemplate.objects.all()

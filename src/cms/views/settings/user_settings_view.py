@@ -12,10 +12,31 @@ from ...forms.users import UserEmailForm, UserPasswordForm
 
 @method_decorator(login_required, name="dispatch")
 class UserSettingsView(TemplateView):
+    """
+    View for the individual user settings
+    """
+
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "settings/user.html"
 
     @never_cache
     def get(self, request, *args, **kwargs):
+        """
+        Render :class:`~cms.forms.users.user_email_form.UserEmailForm` and
+        :class:`~cms.forms.users.user_password_form.UserPasswordForm`
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         user = request.user
         user_email_form = UserEmailForm(instance=user)
@@ -33,6 +54,23 @@ class UserSettingsView(TemplateView):
 
     # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
+        """
+        Submit :class:`~cms.forms.users.user_email_form.UserEmailForm` and
+        :class:`~cms.forms.users.user_password_form.UserPasswordForm` and save :class:`~django.contrib.auth.models.User`
+        object
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         user = request.user
 

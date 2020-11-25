@@ -1,6 +1,3 @@
-"""
-    Side by side view
-"""
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -19,13 +16,35 @@ from ...models import Region, Language
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class PageSideBySideView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.view_pages"
-    raise_exception = True
+    """
+    View for the page side by side form
+    """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.view_pages"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_sbs.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "pages"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Render :class:`~cms.forms.pages.page_translation_form.PageTranslationForm` on the side by side view
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region = Region.get_current_region(request)
         page = region.pages.get(id=kwargs.get("page_id"))
@@ -89,6 +108,24 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
+        """
+        Submit :class:`~cms.forms.pages.page_translation_form.PageTranslationForm` and save
+        :class:`~cms.models.pages.page_translation.PageTranslation` object
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit pages
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region = Region.get_current_region(request)
         page = region.pages.get(id=kwargs.get("page_id"))

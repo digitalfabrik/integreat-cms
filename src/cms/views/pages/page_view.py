@@ -1,8 +1,3 @@
-"""
-
-Returns:
-    [type]: [description]
-"""
 import logging
 
 from django.contrib import messages
@@ -26,13 +21,37 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class PageView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.view_pages"
-    raise_exception = True
+    """
+    View for the page form and page translation form
+    """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.view_pages"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_form.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "new_page", "PUBLIC": status.PUBLIC}
 
     def get(self, request, *args, **kwargs):
+        """
+        Render :class:`~cms.forms.pages.page_form.PageForm` and :class:`~cms.forms.pages.page_translation_form.PageTranslationForm`
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region = Region.get_current_region(request)
         language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
@@ -121,17 +140,25 @@ class PageView(PermissionRequiredMixin, TemplateView):
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
         """
-        Binds the user input data to the page form and validates the input.
+        Submit :class:`~cms.forms.pages.page_form.PageForm` and
+        :class:`~cms.forms.pages.page_translation_form.PageTranslationForm` and save :class:`~cms.models.pages.page.Page`
+        and :class:`~cms.models.pages.page_translation.PageTranslation` objects.
         Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
         see :doc:`django:topics/http/file-uploads`
 
-        :param request: Request submitted for saving page form
-        :type request: ~django.http.HttpRequest
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
 
-        :raises ~django.core.exceptions.PermissionDenied: user has no permission to edit this page
+        :param args: The supplied arguments
+        :type args: list
 
-        :return: Redirection to the populated page form
-        :rtype: ~django.http.HttpRespnseRedirect
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = Region.get_current_region(request)
@@ -267,6 +294,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
         :return: The list of language options, each represented by a dict
         :rtype: list
         """
+
         side_by_side_language_options = []
         for language_node in region.language_tree_nodes.all():
             if language_node.parent:

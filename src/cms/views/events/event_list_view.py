@@ -18,19 +18,50 @@ from ...forms.events import EventFilterForm
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
 class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.view_events"
-    raise_exception = True
+    """
+    View for listing events (either non-archived or archived events depending on
+    :attr:`~cms.views.events.event_list_view.EventListView.archived`)
+    """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.view_events"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
+    #: Template for list of non-archived events
     template = "events/event_list.html"
+    #: Template for list of archived events
     template_archived = "events/event_list_archived.html"
+    #: Whether or not to show archived events
     archived = False
 
     @property
     def template_name(self):
+        """
+        Select correct HTML template, depending on :attr:`~cms.views.events.event_list_view.EventListView.archived` flag
+        (see :class:`~django.views.generic.base.TemplateResponseMixin`)
+
+        :return: Path to HTML template
+        :rtype: str
+        """
         return self.template_archived if self.archived else self.template
 
     # pylint: disable=too-many-branches
     def get(self, request, *args, **kwargs):
+        """
+        Render events list for HTTP GET requests
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         # current region
         region = Region.get_current_region(request)
 
@@ -144,4 +175,19 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         )
 
     def post(self, request, *args, **kwargs):
+        """
+        Render event list with applied filters
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         return self.get(request, *args, **kwargs, filter_data=request.POST)

@@ -13,18 +13,50 @@ from ...models import Region, Language
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class PageTreeView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.view_pages"
-    raise_exception = True
+    """
+    View for showing the page tree
+    """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.view_pages"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
+    #: Template for list of non-archived pages
     template = "pages/page_tree.html"
+    #: Template for list of archived pages
     template_archived = "pages/page_tree_archived.html"
+    #: Whether or not to show archived pages
     archived = False
 
     @property
     def template_name(self):
+        """
+        Select correct HTML template, depending on :attr:`~cms.views.pages.page_tree_view.PageTreeView.archived` flag
+        (see :class:`~django.views.generic.base.TemplateResponseMixin`)
+
+        :return: Path to HTML template
+        :rtype: str
+        """
+
         return self.template_archived if self.archived else self.template
 
     def get(self, request, *args, **kwargs):
+        """
+        Render page tree
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+
         # current region
         region_slug = kwargs.get("region_slug")
         region = Region.get_current_region(request)
