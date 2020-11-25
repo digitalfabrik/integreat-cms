@@ -647,9 +647,34 @@
             
   <div class="section" id="module-cms.views.regions">
 <span id="regions"></span><h1>Regions<a class="headerlink" href="#module-cms.views.regions" title="Permalink to this headline">¶</a></h1>
-<p>Python standard Init-File</p>
+<p>This package contains all views related to regions</p>
 <div class="section" id="module-cms.views.regions.region_actions">
 <span id="region-actions"></span><h2>Region Actions<a class="headerlink" href="#module-cms.views.regions.region_actions" title="Permalink to this headline">¶</a></h2>
+<p>This module contains view actions for region objects.</p>
+<dl class="py function">
+<dt id="cms.views.regions.region_actions.delete_region">
+<code class="sig-prename descclassname">cms.views.regions.region_actions.</code><code class="sig-name descname">delete_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_actions.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_actions.delete_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>This view deletes a region</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v2.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to manage regions</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A redirection to the media library</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-cms.views.regions.region_list_view">
 <span id="region-list-view"></span><h2>Region List View<a class="headerlink" href="#module-cms.views.regions.region_list_view" title="Permalink to this headline">¶</a></h2>
@@ -657,6 +682,52 @@
 <dt id="cms.views.regions.region_list_view.RegionListView">
 <em class="property">class </em><code class="sig-prename descclassname">cms.views.regions.region_list_view.</code><code class="sig-name descname">RegionListView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_list_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_list_view.RegionListView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<p>View for listing regions</p>
+<dl class="py attribute">
+<dt id="cms.views.regions.region_list_view.RegionListView.base_context">
+<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'regions'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_list_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_list_view.RegionListView.base_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.regions.region_list_view.RegionListView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_list_view.py#L28"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_list_view.RegionListView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render region list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.regions.region_list_view.RegionListView.permission_required">
+<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.manage_regions'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_list_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_list_view.RegionListView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.regions.region_list_view.RegionListView.raise_exception">
+<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_list_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_list_view.RegionListView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.regions.region_list_view.RegionListView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'regions/region_list.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_list_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_list_view.RegionListView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -666,6 +737,74 @@
 <dt id="cms.views.regions.region_view.RegionView">
 <em class="property">class </em><code class="sig-prename descclassname">cms.views.regions.region_view.</code><code class="sig-name descname">RegionView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_view.RegionView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<p>View for the region form</p>
+<dl class="py attribute">
+<dt id="cms.views.regions.region_view.RegionView.base_context">
+<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'regions'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_view.RegionView.base_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.regions.region_view.RegionView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_view.py#L31"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_view.RegionView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render <a class="reference internal" href="cms.forms.regions.html#cms.forms.regions.region_form.RegionForm" title="cms.forms.regions.region_form.RegionForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">RegionForm</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.regions.region_view.RegionView.permission_required">
+<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.manage_regions'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_view.RegionView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.regions.region_view.RegionView.post">
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_view.py#L55"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_view.RegionView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render <a class="reference internal" href="cms.forms.regions.html#cms.forms.regions.region_form.RegionForm" title="cms.forms.regions.region_form.RegionForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">RegionForm</span></code></a> and save <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>
+object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.regions.region_view.RegionView.raise_exception">
+<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_view.RegionView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.regions.region_view.RegionView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'regions/region_form.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_view.RegionView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -697,7 +836,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 18, 2020.
+        Last updated on Nov 22, 2020.
       </span>
 
     </p>

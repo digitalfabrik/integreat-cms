@@ -647,7 +647,7 @@
             
   <div class="section" id="module-cms.views.statistics">
 <span id="statistics"></span><h1>Statistics<a class="headerlink" href="#module-cms.views.statistics" title="Permalink to this headline">¶</a></h1>
-<p>Python standard Init-File</p>
+<p>This package contains all views related to statistics</p>
 <div class="section" id="module-cms.views.statistics.analytics_view">
 <span id="analytics-view"></span><h2>Analytics View<a class="headerlink" href="#module-cms.views.statistics.analytics_view" title="Permalink to this headline">¶</a></h2>
 <p>Views related to the statistics module</p>
@@ -655,11 +655,59 @@
 <dt id="cms.views.statistics.analytics_view.AnalyticsView">
 <em class="property">class </em><code class="sig-prename descclassname">cms.views.statistics.analytics_view.</code><code class="sig-name descname">AnalyticsView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/analytics_view.py#L21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.analytics_view.AnalyticsView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
-<p>Class to create the statistic page, that can be found via -&gt; “Statistiken”</p>
+<p>View for the statistics</p>
+<dl class="py attribute">
+<dt id="cms.views.statistics.analytics_view.AnalyticsView.base_context">
+<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'statistics'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/analytics_view.py#L21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.analytics_view.AnalyticsView.base_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.statistics.analytics_view.AnalyticsView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/analytics_view.py#L65"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.analytics_view.AnalyticsView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render statistics of access numbers tracked by Matomo</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="cms.views.statistics.analytics_view.AnalyticsView.prepare_csv">
-<em class="property">static </em><code class="sig-name descname">prepare_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">languages</span></em>, <em class="sig-param"><span class="n">hits</span></em>, <em class="sig-param"><span class="n">dates</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/analytics_view.py#L29"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.analytics_view.AnalyticsView.prepare_csv" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">prepare_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">languages</span></em>, <em class="sig-param"><span class="n">hits</span></em>, <em class="sig-param"><span class="n">dates</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/analytics_view.py#L31"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.analytics_view.AnalyticsView.prepare_csv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to create CSV String from the API hits</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>languages</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The list languages which sould be evaluated</p></li>
+<li><p><strong>hits</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The list of response hits</p></li>
+<li><p><strong>dates</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The list of response dates</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The raw csv string of the results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.statistics.analytics_view.AnalyticsView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'statistics/statistics_dashboard.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/analytics_view.py#L21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.analytics_view.AnalyticsView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -672,50 +720,90 @@
 <dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager">
 <em class="property">class </em><code class="sig-prename descclassname">cms.views.statistics.matomo_api_manager.</code><code class="sig-name descname">MatomoApiManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matomo_url</span></em>, <em class="sig-param"><span class="n">matomo_api_key</span></em>, <em class="sig-param"><span class="n">ssl_verify</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>This class helps to interact with Matomo API
-There are several functions to retrieve unique visitors for last 30 days,
-a month, and a year.
+<p>This class helps to interact with Matomo API.
+There are several functions to retrieve unique visitors for last 30 days, a month, and a year.
 You are also able to add new regions to your matomo instance and furthermore.</p>
 <dl class="py method">
 <dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matomo_url</span></em>, <em class="sig-param"><span class="n">matomo_api_key</span></em>, <em class="sig-param"><span class="n">ssl_verify</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L29"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor initialises matomo_url, matomo_api_key, ssl_verify
-:param matomo_url:
-:param matomo_api_key:
-:param ssl_verify:</p>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matomo_url</span></em>, <em class="sig-param"><span class="n">matomo_api_key</span></em>, <em class="sig-param"><span class="n">ssl_verify</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L28"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor initialises matomo_url, matomo_api_key and ssl_verify</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matomo_url</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – URL to Matomo-Instance</p></li>
+<li><p><strong>matomo_api_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Matomo API-key</p></li>
+<li><p><strong>ssl_verify</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to check for broken SSL-certificates</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager.checkmatomo_url">
-<code class="sig-name descname">checkmatomo_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L59"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.checkmatomo_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method checks the proper functionality of a simple url request
-:return: True or False</p>
+<code class="sig-name descname">checkmatomo_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L66"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.checkmatomo_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method checks the proper functionality of a simple url request</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not Matomo is available</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager.cleanmatomo_url">
-<code class="sig-name descname">cleanmatomo_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L44"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.cleanmatomo_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cleanmatomo_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L50"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.cleanmatomo_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cleans Matomo-URL for proper requests.
 Checks ending slash and beginning http(s)://</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager.get_visitors_per_timerange">
-<code class="sig-name descname">get_visitors_per_timerange</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date_string</span></em>, <em class="sig-param"><span class="n">region_id</span></em>, <em class="sig-param"><span class="n">period</span></em>, <em class="sig-param"><span class="n">lang</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L74"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.get_visitors_per_timerange" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the total unique visitors in a timerange as definded in period
-:param region_id: String
-:param date_string: String “yyyy-mm-dd,yyyy-mm-dd”
-:param period: String “day”, “week”, “month”, “year”
-:param lang: String contains the language, that is called
-:return: List[Date, Hits]</p>
+<code class="sig-name descname">get_visitors_per_timerange</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date_string</span></em>, <em class="sig-param"><span class="n">region_id</span></em>, <em class="sig-param"><span class="n">period</span></em>, <em class="sig-param"><span class="n">lang</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L84"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.get_visitors_per_timerange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the total unique visitors in a timerange as definded in period</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date_string</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Time range in the format <code class="docutils literal notranslate"><span class="pre">&quot;yyyy-mm-dd,yyyy-mm-dd&quot;</span></code></p></li>
+<li><p><strong>region_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The id of the requested region</p></li>
+<li><p><strong>period</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The period (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;day&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;week&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;month&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;year&quot;</span></code>)</p></li>
+<li><p><strong>lang</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The requested language code</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of visitors in the requested time range</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager.matomo_api_key">
+<code class="sig-name descname">matomo_api_key</code><em class="property"> = ''</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.matomo_api_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matomo API-key</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager.matomo_url">
+<code class="sig-name descname">matomo_url</code><em class="property"> = ''</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.matomo_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL to Matomo-Instance</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager.protocol">
 <code class="sig-name descname">protocol</code><em class="property"> = 'https://'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.protocol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Variable which allows you also to accept broken ssl-certificates with
-requests library (False == ignore ssl-issues, True == dont allow broken
-ssl-certificates</p>
+<dd><p>HTTP Protocol: “<a class="reference external" href="http://">http://</a>” or “<a class="reference external" href="https://">https://</a>”</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.statistics.matomo_api_manager.MatomoApiManager.ssl_verify">
+<code class="sig-name descname">ssl_verify</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/statistics/matomo_api_manager.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.statistics.matomo_api_manager.MatomoApiManager.ssl_verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variable which allows you also to accept broken SSL-certificates with requests library (<code class="docutils literal notranslate"><span class="pre">False</span></code> means: ignore
+SSL-issues, <code class="docutils literal notranslate"><span class="pre">True</span></code> means: don’t allow broken SSL-certificates)</p>
 </dd></dl>
 
 </dd></dl>
@@ -749,7 +837,7 @@ ssl-certificates</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 17, 2020.
+        Last updated on Nov 22, 2020.
       </span>
 
     </p>

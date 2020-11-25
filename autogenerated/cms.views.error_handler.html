@@ -647,9 +647,107 @@
             
   <div class="section" id="module-cms.views.error_handler">
 <span id="error-handler"></span><h1>Error Handler<a class="headerlink" href="#module-cms.views.error_handler" title="Permalink to this headline">¶</a></h1>
+<p>This package contains views to handle HTTP errors</p>
 <div class="section" id="id1">
 <h2>Error Handler<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-cms.views.error_handler.error_handler"></span></div>
+<span class="target" id="module-cms.views.error_handler.error_handler"></span><dl class="py function">
+<dt id="cms.views.error_handler.error_handler.csrf_failure">
+<code class="sig-prename descclassname">cms.views.error_handler.error_handler.</code><code class="sig-name descname">csrf_failure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">reason</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/error_handler/error_handler.py#L98"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.error_handler.error_handler.csrf_failure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a CSRF failure notice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
+<li><p><strong>reason</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Description of reason for CSRF failure</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.views.error_handler.error_handler.handler400">
+<code class="sig-prename descclassname">cms.views.error_handler.error_handler.</code><code class="sig-name descname">handler400</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">exception</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/error_handler/error_handler.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.error_handler.error_handler.handler400" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a HTTP 400 Error code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
+<li><p><strong>exception</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#BaseException" title="(in Python v3.7)"><em>BaseException</em></a>) – Exception (unused)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.views.error_handler.error_handler.handler403">
+<code class="sig-prename descclassname">cms.views.error_handler.error_handler.</code><code class="sig-name descname">handler403</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">exception</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/error_handler/error_handler.py#L30"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.error_handler.error_handler.handler403" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a HTTP 403 Error code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
+<li><p><strong>exception</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#BaseException" title="(in Python v3.7)"><em>BaseException</em></a>) – Exception (unused)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.views.error_handler.error_handler.handler404">
+<code class="sig-prename descclassname">cms.views.error_handler.error_handler.</code><code class="sig-name descname">handler404</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">exception</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/error_handler/error_handler.py#L54"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.error_handler.error_handler.handler404" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a HTTP 404 Error code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
+<li><p><strong>exception</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#BaseException" title="(in Python v3.7)"><em>BaseException</em></a>) – Exception (unused)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.views.error_handler.error_handler.handler500">
+<code class="sig-prename descclassname">cms.views.error_handler.error_handler.</code><code class="sig-name descname">handler500</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/error_handler/error_handler.py#L77"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.error_handler.error_handler.handler500" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a HTTP 500 Error code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -678,7 +776,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 30, 2020.
+        Last updated on Nov 22, 2020.
       </span>
 
     </p>

@@ -647,7 +647,7 @@
             
   <div class="section" id="module-cms.views.language_tree">
 <span id="language-tree"></span><h1>Language Tree<a class="headerlink" href="#module-cms.views.language_tree" title="Permalink to this headline">¶</a></h1>
-<p>Python standard Init-File</p>
+<p>This package contains all views related to the language tree of a region</p>
 <div class="section" id="module-cms.views.language_tree.language_tree_actions">
 <span id="language-tree-actions"></span><h2>Language Tree Actions<a class="headerlink" href="#module-cms.views.language_tree.language_tree_actions" title="Permalink to this headline">¶</a></h2>
 <p>This module contains view actions for the language tree.
@@ -659,7 +659,7 @@ Typically, they do not render a whole page, but only parts of it or they redirec
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>django.http.HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the region which language tree should be modified</p></li>
 <li><p><strong>language_tree_node_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the language tree node wich should be moved</p></li>
 <li><p><strong>target_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the target language tree node</p></li>
@@ -670,7 +670,7 @@ Typically, they do not render a whole page, but only parts of it or they redirec
 <dd class="field-even"><p>A redirection to the language tree</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">django.http.HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -678,14 +678,78 @@ Typically, they do not render a whole page, but only parts of it or they redirec
 </div>
 <div class="section" id="module-cms.views.language_tree.language_tree_node_view">
 <span id="language-tree-node-view"></span><h2>Language Tree Node View<a class="headerlink" href="#module-cms.views.language_tree.language_tree_node_view" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
-</dd>
-</dl>
 <dl class="py class">
 <dt id="cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.language_tree.language_tree_node_view.</code><code class="sig-name descname">LanguageTreeNodeView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_node_view.py#L21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.language_tree.language_tree_node_view.</code><code class="sig-name descname">LanguageTreeNodeView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_node_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<p>Class that handles viewing single language in the language tree.
+This view is available within regions.</p>
+<dl class="py attribute">
+<dt id="cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.base_context">
+<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'language_tree_form'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_node_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.base_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_node_view.py#L31"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render <a class="reference internal" href="cms.forms.language_tree.html#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm" title="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNodeForm</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.permission_required">
+<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.manage_language_tree'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_node_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.post">
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_node_view.py#L66"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save and show form for editing a single language (HTTP POST) in the language tree</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.raise_exception">
+<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_node_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'language_tree/language_tree_node_form.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_node_view.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -695,6 +759,53 @@ Typically, they do not render a whole page, but only parts of it or they redirec
 <dt id="cms.views.language_tree.language_tree_view.LanguageTreeView">
 <em class="property">class </em><code class="sig-prename descclassname">cms.views.language_tree.language_tree_view.</code><code class="sig-name descname">LanguageTreeView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_view.LanguageTreeView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<p>View for rendering the language tree view.
+This view is available in regions.</p>
+<dl class="py attribute">
+<dt id="cms.views.language_tree.language_tree_view.LanguageTreeView.base_context">
+<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'language_tree'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_view.LanguageTreeView.base_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.language_tree.language_tree_view.LanguageTreeView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_view.py#L28"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_view.LanguageTreeView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render language tree</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.language_tree.language_tree_view.LanguageTreeView.permission_required">
+<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.manage_language_tree'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_view.LanguageTreeView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.language_tree.language_tree_view.LanguageTreeView.raise_exception">
+<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_view.LanguageTreeView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.language_tree.language_tree_view.LanguageTreeView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'language_tree/language_tree.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/language_tree/language_tree_view.py#L13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.language_tree.language_tree_view.LanguageTreeView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -726,7 +837,7 @@ Typically, they do not render a whole page, but only parts of it or they redirec
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 17, 2020.
+        Last updated on Nov 22, 2020.
       </span>
 
     </p>

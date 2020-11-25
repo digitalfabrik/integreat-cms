@@ -647,9 +647,31 @@
             
   <div class="section" id="module-cms.views.media">
 <span id="media"></span><h1>Media<a class="headerlink" href="#module-cms.views.media" title="Permalink to this headline">¶</a></h1>
-<p>Python standard Init-File</p>
+<p>This package contains all views related to media files</p>
 <div class="section" id="module-cms.views.media.media_actions">
 <span id="media-actions"></span><h2>Media Actions<a class="headerlink" href="#module-cms.views.media.media_actions" title="Permalink to this headline">¶</a></h2>
+<p>This module contains view actions for media related objects.</p>
+<dl class="py function">
+<dt id="cms.views.media.media_actions.delete_file">
+<code class="sig-prename descclassname">cms.views.media.media_actions.</code><code class="sig-name descname">delete_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">document_id</span></em>, <em class="sig-param"><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_actions.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_actions.delete_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>This view deletes a file both from the database and the file system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>document_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the document which is being deleted</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the region to which this document belongs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the media library</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-cms.views.media.media_edit_view">
 <span id="media-edit-view"></span><h2>Media Edit View<a class="headerlink" href="#module-cms.views.media.media_edit_view" title="Permalink to this headline">¶</a></h2>
@@ -657,6 +679,62 @@
 <dt id="cms.views.media.media_edit_view.MediaEditView">
 <em class="property">class </em><code class="sig-prename descclassname">cms.views.media.media_edit_view.</code><code class="sig-name descname">MediaEditView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_edit_view.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_edit_view.MediaEditView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<p>View for editing media elements</p>
+<dl class="py attribute">
+<dt id="cms.views.media.media_edit_view.MediaEditView.base_context">
+<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'media_upload'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_edit_view.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_edit_view.MediaEditView.base_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.media.media_edit_view.MediaEditView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_edit_view.py#L24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_edit_view.MediaEditView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render <a class="reference internal" href="cms.forms.media.html#cms.forms.media.document_form.DocumentForm" title="cms.forms.media.document_form.DocumentForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentForm</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.media.media_edit_view.MediaEditView.post">
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_edit_view.py#L58"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_edit_view.MediaEditView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit <a class="reference internal" href="cms.forms.media.html#cms.forms.media.document_form.DocumentForm" title="cms.forms.media.document_form.DocumentForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentForm</span></code></a> and save both the
+<a class="reference internal" href="cms.models.media.html#cms.models.media.document.Document" title="cms.models.media.document.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a> object in the database and file on the file system</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.media.media_edit_view.MediaEditView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'media/media_form.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_edit_view.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_edit_view.MediaEditView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -666,6 +744,40 @@
 <dt id="cms.views.media.media_list_view.MediaListView">
 <em class="property">class </em><code class="sig-prename descclassname">cms.views.media.media_list_view.</code><code class="sig-name descname">MediaListView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_list_view.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<p>View for listing media elements</p>
+<dl class="py attribute">
+<dt id="cms.views.media.media_list_view.MediaListView.base_context">
+<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'media'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_list_view.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.base_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.media.media_list_view.MediaListView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_list_view.py#L22"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render media list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.media.media_list_view.MediaListView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'media/media_list.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_list_view.py#L12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -697,7 +809,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 17, 2020.
+        Last updated on Nov 22, 2020.
       </span>
 
     </p>

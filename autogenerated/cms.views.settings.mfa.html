@@ -649,12 +649,15 @@
             
   <div class="section" id="module-cms.views.settings.mfa">
 <span id="mfa"></span><h1>MFA<a class="headerlink" href="#module-cms.views.settings.mfa" title="Permalink to this headline">¶</a></h1>
+<p>This package contains all views related to multi-factor authentication</p>
 <div class="section" id="id1">
 <h2>MFA<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-cms.views.settings.mfa.mfa"></span><dl class="py class">
+<span class="target" id="module-cms.views.settings.mfa.mfa"></span><p>This module contains all views related to multi-factor authentication</p>
+<dl class="py class">
 <dt id="cms.views.settings.mfa.mfa.AddMfaKeyForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AddMfaKeyForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">field_order=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L22"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AddMfaKeyForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">field_order=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.forms.Form</span></code></p>
+<p>Form to add an multi-factor-authentication key</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">nickname</span></code>: Nickname (<code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code>)</p></li>
@@ -663,38 +666,82 @@
 
 <dl class="py class">
 <dt id="cms.views.settings.mfa.mfa.AddMfaKeyView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AddMfaKeyView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L28"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AddMfaKeyView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L35"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/generic-editing/#django.views.generic.edit.FormView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.FormView</span></code></a></p>
+<p>View to render and submit the <a class="reference internal" href="#cms.views.settings.mfa.mfa.AddMfaKeyForm" title="cms.views.settings.mfa.mfa.AddMfaKeyForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddMfaKeyForm</span></code></a></p>
 <dl class="py attribute">
 <dt id="cms.views.settings.mfa.mfa.AddMfaKeyView.form_class">
-<code class="sig-name descname">form_class</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L22"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView.form_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#cms.views.settings.mfa.mfa.AddMfaKeyForm" title="cms.views.settings.mfa.mfa.AddMfaKeyForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddMfaKeyForm</span></code></a></p>
+<code class="sig-name descname">form_class</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>The form class to instantiate for this form view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormMixin</span></code></a>)</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nickname</span></code>: Nickname (<code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code>)</p></li>
+</ul>
+<p>alias of <a class="reference internal" href="#cms.views.settings.mfa.mfa.AddMfaKeyForm" title="cms.views.settings.mfa.mfa.AddMfaKeyForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddMfaKeyForm</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.settings.mfa.mfa.AddMfaKeyView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'settings/mfa/add_key.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L35"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AddMfaKeyView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AuthenticateModifyMfaView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L39"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AuthenticateModifyMfaView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L56"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/generic-editing/#django.views.generic.edit.FormView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.FormView</span></code></a></p>
+<p>View to authenticate a user before changing the mfa settings</p>
 <dl class="py attribute">
 <dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_class">
-<code class="sig-name descname">form_class</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L33"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#cms.views.settings.mfa.mfa.AuthenticationForm" title="cms.views.settings.mfa.mfa.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a></p>
+<code class="sig-name descname">form_class</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L46"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>The form class for this form view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormMixin</span></code></a>)</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code>: Password (<code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code>)</p></li>
+</ul>
+<p>alias of <a class="reference internal" href="#cms.views.settings.mfa.mfa.AuthenticationForm" title="cms.views.settings.mfa.mfa.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_valid">
-<code class="sig-name descname">form_valid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">form</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L44"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>If the form is valid, redirect to the supplied URL.</p>
+<code class="sig-name descname">form_valid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">form</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L68"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the
+<a class="reference internal" href="#cms.views.settings.mfa.mfa.AuthenticationForm" title="cms.views.settings.mfa.mfa.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a> is valid. In case the user provided correct credentials,
+the current time is saved in a session variable so a timeout of the authentication can be implemented.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>form</strong> (<a class="reference internal" href="#cms.views.settings.mfa.mfa.AuthenticationForm" title="cms.views.settings.mfa.mfa.AuthenticationForm"><em>AuthenticationForm</em></a>) – Authentication form</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirect user to mfa login view or to <code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.success_url">
+<code class="sig-name descname">success_url</code><em class="property"> = '/user_settings/add_new_mfa_key/'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L56"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL to redirect to when the form is successfully processed (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'settings/mfa/authenticate.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L56"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="cms.views.settings.mfa.mfa.AuthenticationForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AuthenticationForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">field_order=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L33"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticationForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">AuthenticationForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">field_order=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L46"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.AuthenticationForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.forms.Form</span></code></p>
+<p>Form to authenticate a user</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">password</span></code>: Password (<code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code>)</p></li>
@@ -703,14 +750,97 @@
 
 <dl class="py class">
 <dt id="cms.views.settings.mfa.mfa.DeleteMfaKey">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">DeleteMfaKey</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L77"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">DeleteMfaKey</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L126"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<p>View to delete a multi-factor-authentication key</p>
+<dl class="py method">
+<dt id="cms.views.settings.mfa.mfa.DeleteMfaKey.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L134"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render mfa-deletion view</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.settings.mfa.mfa.DeleteMfaKey.post">
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L158"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a multi-factor-authentication key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the user settings</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.settings.mfa.mfa.DeleteMfaKey.template_name">
+<code class="sig-name descname">template_name</code><em class="property"> = 'settings/mfa/delete.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L126"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.DeleteMfaKey.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt id="cms.views.settings.mfa.mfa.GetChallengeView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">GetChallengeView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L56"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.GetChallengeView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">GetChallengeView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L91"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.GetChallengeView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
+<p>View to generate a challenge for multi-factor-authentication</p>
+<dl class="py method">
+<dt id="cms.views.settings.mfa.mfa.GetChallengeView.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L96"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.GetChallengeView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return MFA challenge</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The mfa challenge as JSON</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.JsonResponse" title="(in Django v2.2)">JsonResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.views.settings.mfa.mfa.register_mfa_key">
+<code class="sig-prename descclassname">cms.views.settings.mfa.mfa.</code><code class="sig-name descname">register_mfa_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/mfa.py#L177"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.settings.mfa.mfa.register_mfa_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>View to register a multi-factor-authentication key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The success status as JSON</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.JsonResponse" title="(in Django v2.2)">JsonResponse</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -742,7 +872,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 03, 2020.
+        Last updated on Nov 22, 2020.
       </span>
 
     </p>
