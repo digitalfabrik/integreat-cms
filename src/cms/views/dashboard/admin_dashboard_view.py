@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...decorators import staff_required
+from ...models import Feedback
 
 
 @method_decorator(login_required, name="dispatch")
@@ -34,6 +35,14 @@ class AdminDashboardView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
+        all_feedback = Feedback.objects.filter(is_technical=True)[:5]
 
-        val = "To be defined"
-        return render(request, self.template_name, {"key": val, **self.base_context})
+        return render(
+            request,
+            self.template_name,
+            {
+                "current_menu_item": "admin_feedback",
+                "all_feedback": all_feedback,
+                **self.base_context,
+            },
+        )

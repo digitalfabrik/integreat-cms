@@ -41,7 +41,6 @@ class DashboardView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        val = "To be defined"
         language_code = translation.get_language()
         feed = feedparser.parse(RSS_FEED_URLS[language_code])
         # select five most recent feeds
@@ -54,7 +53,6 @@ class DashboardView(TemplateView):
             request,
             self.template_name,
             {
-                "key": val,
                 **self.base_context,
                 "feed": feed,
                 "home_page": RSS_FEED_URLS["home-page"],
