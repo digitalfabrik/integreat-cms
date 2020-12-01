@@ -406,13 +406,29 @@ document.addEventListener('DOMContentLoaded', function(){
             {
                 tooltip: '{% trans 'Do not translate the selected text.' %}',
                 icon: 'permanent-pen',
-                    onAction: () => {
+                onAction: () => {
                     editor.focus();
-                    val = tinymce.activeEditor.dom.getAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", "yes");
-                    if(val == "no") {
-                        tinymce.activeEditor.dom.setAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", null);
-                    } else if (editor.selection.getContent().length > 0) {
-                        editor.selection.setContent('<span class="notranslate" translate="no">' + editor.selection.getContent() + '</span>');
+                    let current_node = tinymce.activeEditor.selection.getStart();
+                    let end_node = tinymce.activeEditor.selection.getEnd();
+                    let current_no_translate = editor.dom.getAttrib(current_node, "translate", null);
+                    if (current_node != end_node) {
+                        while (current_node) {
+                            if (current_no_translate == "no") {
+                                editor.dom.setAttrib(current_node, "translate", null);
+                            } else {
+                                editor.dom.setAttrib(current_node, "translate", "no");
+                            }
+                            if (current_node === end_node) {
+                                break;
+                            }
+                            current_node = current_node.nextSibling;
+                        }
+                    } else {
+                        if(current_no_translate == "no") {
+                            editor.dom.setAttrib(current_node, "translate", null);
+                        } else if (editor.selection.getContent().length > 0) {
+                            editor.execCommand('mceInsertContent', false, '<span translate="no">' + editor.selection.getContent({'format': 'html'}) + '</span>');
+                        }
                     }
                 }
             });
