@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, ugettext_lazy
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
@@ -27,6 +27,27 @@ class POIListView(PermissionRequiredMixin, TemplateView):
     template_archived = "pois/poi_list_archived.html"
     #: Whether or not to show archived POIs
     archived = False
+    #: Messages in confirmation dialogs for delete, archive, restore operations
+    confirmation_dialog_context = {
+        "archive_dialog_title": ugettext_lazy(
+            "Please confirm that you really want to archive this location"
+        ),
+        "archive_dialog_text": ugettext_lazy(
+            "All translations of this location will also be archived."
+        ),
+        "restore_dialog_title": ugettext_lazy(
+            "Please confirm that you really want to restore this location"
+        ),
+        "restore_dialog_text": ugettext_lazy(
+            "All translations of this location will also be restored."
+        ),
+        "delete_dialog_title": ugettext_lazy(
+            "Please confirm that you really want to delete this location"
+        ),
+        "delete_dialog_text": ugettext_lazy(
+            "All translations of this location will also be deleted."
+        ),
+    }
 
     @property
     def template_name(self):
@@ -104,5 +125,6 @@ class POIListView(PermissionRequiredMixin, TemplateView):
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
                 "languages": region.languages,
+                **self.confirmation_dialog_context,
             },
         )

@@ -29,8 +29,8 @@
 			<button title="{% if not node.is_leaf_node %}{% trans 'You cannot delete a node which has children.' %}{% else %}{% trans 'Delete entire language node' %}{% endif %}"
 				class="confirmation-button"
 				{% if not node.is_leaf_node %}disabled{% endif %}
-				data-confirmation-title="{% trans 'Please confirm that you really want to delete this node.' %}"
-				data-confirmation-text="{% trans 'All page translations related to that language will also be deleted.' %}"
+				data-confirmation-title="{{ delete_dialog_title }}"
+				data-confirmation-text="{{ delete_dialog_text }}"
 				data-confirmation-subject="{{ node.translated_name }}"
 				data-action="{% url 'delete_language_tree_node' region_slug=region.slug language_tree_node_id=node.id %}">
 				<i data-feather="trash-2" class="{% if not node.is_leaf_node %}text-gray-400{% else %}text-gray-800{% endif %}"></i>

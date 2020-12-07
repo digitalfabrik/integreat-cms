@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-07 09:45+0000\n"
+"POT-Creation-Date: 2020-12-07 17:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -759,8 +759,8 @@ msgid "Not after"
 msgstr "Nicht nach"
 
 #: templates/events/_event_filter_form.html:34
-#: templates/events/event_form.html:478 templates/pages/page_form.html:443
-#: templates/pages/page_sbs.html:267 templates/pois/poi_form.html:321
+#: templates/events/event_form.html:480 templates/pages/page_form.html:443
+#: templates/pages/page_sbs.html:267 templates/pois/poi_form.html:326
 msgid "Location"
 msgstr "Ort"
 
@@ -790,56 +790,6 @@ msgstr "Filter anwenden"
 #, python-format
 msgid "Create location with title \"%(poi_query)s\""
 msgstr "Ort mit Titel \"%(poi_query)s\" erstellen"
-
-#: templates/events/confirmation_popups/archive_event.html:5
-msgid "Please confirm that you really want to archive this event"
-msgstr "Bitte bestätigen Sie, dass dieses Event archiviert werden soll."
-
-#: templates/events/confirmation_popups/archive_event.html:8
-msgid "All translations of this event will also be archived."
-msgstr "Es werden auch alle Übersetzungen dieses Events archiviert."
-
-#: templates/events/confirmation_popups/archive_event.html:12
-msgid "Yes, archive this event now."
-msgstr "Ja, dieses Event jetzt archivieren"
-
-#: templates/events/confirmation_popups/archive_event.html:14
-#: templates/events/confirmation_popups/delete_event.html:14
-#: templates/events/confirmation_popups/restore_event.html:14
-#: templates/generic_confirmation_dialog.html:22
-#: templates/pois/confirmation_popups/archive_poi.html:14
-#: templates/pois/confirmation_popups/delete_poi.html:14
-#: templates/pois/confirmation_popups/restore_poi.html:14
-#: templates/regions/region_form.html:206
-#: templates/users/confirmation_popups/delete_region_user.html:12
-#: templates/users/confirmation_popups/delete_user.html:12
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: templates/events/confirmation_popups/delete_event.html:5
-msgid "Please confirm that you really want to delete this event"
-msgstr "Bitte bestätigen Sie, dass dieses Event gelöscht werden soll"
-
-#: templates/events/confirmation_popups/delete_event.html:8
-msgid "All translations of this event will also be deleted."
-msgstr "Alle Übersetzungen dieses Events werden gelöscht."
-
-#: templates/events/confirmation_popups/delete_event.html:12
-msgid "Yes, delete this event now."
-msgstr "Ja, dieses Event jetzt löschen"
-
-#: templates/events/confirmation_popups/restore_event.html:5
-msgid "Please confirm that you really want to restore this event"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Veranstaltung wiederhergestellt werden soll"
-
-#: templates/events/confirmation_popups/restore_event.html:8
-msgid "All translations of this event will also be restored."
-msgstr "Alle Übersetzungen dieser Veranstaltung werden wiederhergestellt."
-
-#: templates/events/confirmation_popups/restore_event.html:12
-msgid "Yes, restore this event now."
-msgstr "Ja, diese Veranstaltung wiederherstellen."
 
 #: templates/events/event_form.html:48
 #, python-format
@@ -1105,56 +1055,91 @@ msgstr "Icon festlegen"
 msgid "Restore event"
 msgstr "Veranstaltung wiederherstellen"
 
-#: templates/events/event_form.html:305
+#: templates/events/event_form.html:301
+#: templates/events/event_list_archived_row.html:98
+#: views/events/event_list_view.py:45
+msgid "Please confirm that you really want to restore this event"
+msgstr ""
+"Bitte bestätigen Sie, dass diese Veranstaltung wiederhergestellt werden soll"
+
+#: templates/events/event_form.html:302
+#: templates/events/event_list_archived_row.html:99
+#: views/events/event_list_view.py:48
+msgid "All translations of this event will also be restored."
+msgstr "Alle Übersetzungen dieser Veranstaltung werden wiederhergestellt."
+
+#: templates/events/event_form.html:306
 msgid "Restore this event"
 msgstr "Diese Veranstaltung wiederherstellen"
 
-#: templates/events/event_form.html:308
+#: templates/events/event_form.html:309
 #: templates/events/event_list_row.html:100
 msgid "Archive event"
 msgstr "Veranstaltung archivieren"
 
 #: templates/events/event_form.html:311
+#: templates/events/event_list_row.html:101 views/events/event_list_view.py:39
+msgid "Please confirm that you really want to archive this event"
+msgstr "Bitte bestätigen Sie, dass dieses Event archiviert werden soll."
+
+#: templates/events/event_form.html:312
+#: templates/events/event_list_row.html:102 views/events/event_list_view.py:42
+msgid "All translations of this event will also be archived."
+msgstr "Es werden auch alle Übersetzungen dieses Events archiviert."
+
+#: templates/events/event_form.html:316
 msgid "Archive this event"
 msgstr "Diese Veranstaltung archivieren"
 
-#: templates/events/event_form.html:317
-#: templates/events/event_list_archived_row.html:102
-#: templates/events/event_list_row.html:105
+#: templates/events/event_form.html:322
+#: templates/events/event_list_archived_row.html:106
+#: templates/events/event_list_row.html:109
 msgid "Delete event"
 msgstr "Veranstaltung löschen"
 
-#: templates/events/event_form.html:320
+#: templates/events/event_form.html:324
+#: templates/events/event_list_archived_row.html:107
+#: templates/events/event_list_row.html:110 views/events/event_list_view.py:51
+msgid "Please confirm that you really want to delete this event"
+msgstr "Bitte bestätigen Sie, dass dieses Event gelöscht werden soll"
+
+#: templates/events/event_form.html:325
+#: templates/events/event_list_archived_row.html:108
+#: templates/events/event_list_row.html:111 views/events/event_list_view.py:54
+msgid "All translations of this event will also be deleted."
+msgstr "Alle Übersetzungen dieses Events werden gelöscht."
+
+#: templates/events/event_form.html:329
 msgid "Delete this event"
 msgstr "Diese Veranstaltung löschen"
 
-#: templates/events/event_form.html:459 templates/pages/page_form.html:408
-#: templates/pages/page_sbs.html:248 templates/pois/poi_form.html:302
+#: templates/events/event_form.html:461 templates/pages/page_form.html:408
+#: templates/pages/page_sbs.html:248 templates/pois/poi_form.html:307
 msgid "Do not translate the selected text."
 msgstr "Der markierte Text wird nicht übersetzt."
 
-#: templates/events/event_form.html:485 templates/pages/page_form.html:450
-#: templates/pages/page_sbs.html:274 templates/pois/poi_form.html:328
+#: templates/events/event_form.html:487 templates/pages/page_form.html:450
+#: templates/pages/page_sbs.html:274 templates/pois/poi_form.html:333
 msgid "Link"
 msgstr "Link"
 
-#: templates/events/event_form.html:492 templates/pages/page_form.html:457
-#: templates/pages/page_sbs.html:281 templates/pois/poi_form.html:335
+#: templates/events/event_form.html:494 templates/pages/page_form.html:457
+#: templates/pages/page_sbs.html:281 templates/pois/poi_form.html:340
 msgid "Phone"
 msgstr "Telefon"
 
-#: templates/events/event_form.html:499 templates/pages/page_form.html:464
-#: templates/pages/page_sbs.html:288 templates/pois/poi_form.html:342
+#: templates/events/event_form.html:501 templates/pages/page_form.html:464
+#: templates/pages/page_sbs.html:288 templates/pois/poi_form.html:347
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
-#: templates/events/event_form.html:506 templates/pages/page_form.html:471
-#: templates/pages/page_sbs.html:295 templates/pois/poi_form.html:349
+#: templates/events/event_form.html:508 templates/pages/page_form.html:471
+#: templates/pages/page_sbs.html:295 templates/pois/poi_form.html:354
 msgid "Email"
 msgstr "Email"
 
-#: templates/events/event_form.html:513 templates/pages/page_form.html:478
-#: templates/pages/page_sbs.html:302 templates/pois/poi_form.html:356
+#: templates/events/event_form.html:515 templates/pages/page_form.html:478
+#: templates/pages/page_sbs.html:302 templates/pois/poi_form.html:361
 msgid "Hint"
 msgstr "Tipp"
 
@@ -1317,6 +1302,13 @@ msgstr "Warnung"
 msgid "Confirm"
 msgstr "Bestätigen"
 
+#: templates/generic_confirmation_dialog.html:22
+#: templates/regions/region_form.html:206
+#: templates/users/confirmation_popups/delete_region_user.html:12
+#: templates/users/confirmation_popups/delete_user.html:12
+msgid "Cancel"
+msgstr "Abbrechen"
+
 #: templates/language_tree/language_tree.html:37
 msgid "Delete"
 msgstr "Löschen"
@@ -1332,16 +1324,6 @@ msgstr "Sie können keinen Knoten mit untergeordneten Sprachen löschen."
 #: templates/language_tree/language_tree_node.html:29
 msgid "Delete entire language node"
 msgstr "Lösche gesamten Sprachknoten"
-
-#: templates/language_tree/language_tree_node.html:32
-msgid "Please confirm that you really want to delete this node."
-msgstr "Bitte bestätigen Sie, dass dieser Sprachknoten gelöscht werden soll"
-
-#: templates/language_tree/language_tree_node.html:33
-msgid "All page translations related to that language will also be deleted."
-msgstr ""
-"Alle Seitenübersetzungen in Bezug zu dieser Sprache werden ebenfalls "
-"gelöscht."
 
 #: templates/language_tree/language_tree_node_form.html:12
 msgid "Edit language tree node"
@@ -1747,16 +1729,6 @@ msgstr ""
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: templates/pages/page_form.html:287
-#: templates/pages/page_tree_archived_node.html:88
-msgid "Please confirm that you really want to restore this page"
-msgstr "Bitte bestätigen Sie, dass diese Seite wiederhergestellt werden soll"
-
-#: templates/pages/page_form.html:288
-#: templates/pages/page_tree_archived_node.html:89
-msgid "All translations of this page will also be restored."
-msgstr "Alle Übersetzungen dieser Seite werden wiederhergestellt."
-
 #: templates/pages/page_form.html:291
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
@@ -1765,14 +1737,6 @@ msgstr "Diese Seite wiederherstellen"
 #: templates/pages/page_tree_node.html:91
 msgid "Archive page"
 msgstr "Seite archivieren"
-
-#: templates/pages/page_form.html:296 templates/pages/page_tree_node.html:92
-msgid "Please confirm that you really want to archive this page"
-msgstr "Bitte bestätigen Sie, dass diese Seite archiviert werden soll."
-
-#: templates/pages/page_form.html:297 templates/pages/page_tree_node.html:93
-msgid "All translations of this page will also be archived."
-msgstr "Es werden auch alle Übersetzungen dieser Seite archiviert."
 
 #: templates/pages/page_form.html:301
 msgid "Archive this page"
@@ -1789,18 +1753,6 @@ msgstr "Seite löschen"
 #: templates/pages/page_tree_node.html:100
 msgid "You cannot delete a page which has children."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
-
-#: templates/pages/page_form.html:312
-#: templates/pages/page_tree_archived_node.html:101
-#: templates/pages/page_tree_node.html:105
-msgid "Please confirm that you really want to delete this page"
-msgstr "Bitte bestätigen Sie, dass diese Seite gelöscht werden soll"
-
-#: templates/pages/page_form.html:313
-#: templates/pages/page_tree_archived_node.html:102
-#: templates/pages/page_tree_node.html:106
-msgid "All translations of this page will also be deleted."
-msgstr "Alle Übersetzungen dieser Seite werden gelöscht."
 
 #: templates/pages/page_form.html:317
 msgid "Delete this page"
@@ -1964,42 +1916,6 @@ msgstr ""
 msgid "No change"
 msgstr "Keine Änderungen vorgenommen."
 
-#: templates/pois/confirmation_popups/archive_poi.html:5
-msgid "Please confirm that you really want to archive this location"
-msgstr "Bitte bestätigen Sie, dass dieser Ort archiviert werden soll."
-
-#: templates/pois/confirmation_popups/archive_poi.html:8
-msgid "All translations of this location will also be archived."
-msgstr "Es werden auch alle Übersetzungen dieses Ortes archiviert."
-
-#: templates/pois/confirmation_popups/archive_poi.html:12
-msgid "Yes, archive this location now."
-msgstr "Ja, diesen Ort jetzt archivieren"
-
-#: templates/pois/confirmation_popups/delete_poi.html:5
-msgid "Please confirm that you really want to delete this location"
-msgstr "Bitte bestätigen Sie, dass dieser Ort gelöscht werden soll"
-
-#: templates/pois/confirmation_popups/delete_poi.html:8
-msgid "All translations of this location will also be deleted."
-msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
-
-#: templates/pois/confirmation_popups/delete_poi.html:12
-msgid "Yes, delete this location now."
-msgstr "Ja, diesen Ort jetzt löschen"
-
-#: templates/pois/confirmation_popups/restore_poi.html:5
-msgid "Please confirm that you really want to restore this location"
-msgstr "Bitte bestätigen Sie, dass dieser Ort wiederhergestellt werden soll"
-
-#: templates/pois/confirmation_popups/restore_poi.html:8
-msgid "All translations of this location will also be restored."
-msgstr "Alle Übersetzungen dieses Ortes werden wiederhergestellt."
-
-#: templates/pois/confirmation_popups/restore_poi.html:12
-msgid "Yes, restore this location now."
-msgstr "Ja, dien Ort jetzt wiederherstellen."
-
 #: templates/pois/poi_form.html:45
 #, python-format
 msgid "Edit location \"%(poi_title)s\""
@@ -2071,26 +1987,26 @@ msgstr "Geographische Breite hier eingeben"
 msgid "Restore location"
 msgstr "Ort wiederherstellen"
 
-#: templates/pois/poi_form.html:215
+#: templates/pois/poi_form.html:219
 msgid "Restore this location"
 msgstr "Diesen Ort wiederherstellen"
 
-#: templates/pois/poi_form.html:218 templates/pois/poi_form.html:219
+#: templates/pois/poi_form.html:222 templates/pois/poi_form.html:223
 #: templates/pois/poi_list_row.html:92
 msgid "Archive location"
 msgstr "Ort archivieren"
 
-#: templates/pois/poi_form.html:220
+#: templates/pois/poi_form.html:228
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
-#: templates/pois/poi_form.html:226 templates/pois/poi_form.html:227
-#: templates/pois/poi_list_archived_row.html:62
-#: templates/pois/poi_list_row.html:96
+#: templates/pois/poi_form.html:234 templates/pois/poi_form.html:235
+#: templates/pois/poi_list_archived_row.html:66
+#: templates/pois/poi_list_row.html:100
 msgid "Delete location"
 msgstr "Ort löschen"
 
-#: templates/pois/poi_form.html:228
+#: templates/pois/poi_form.html:240
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
@@ -2747,84 +2663,84 @@ msgstr "Veranstaltung wurde erfolgreich wiederhergestellt"
 msgid "Event was successfully deleted"
 msgstr "Veranstaltung wurde erfolgreich gelöscht"
 
-#: views/events/event_list_view.py:83
+#: views/events/event_list_view.py:104
 msgid "Please create at least one language node before creating events."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie "
 "Veranstaltungen verwalten."
 
-#: views/events/event_list_view.py:89
+#: views/events/event_list_view.py:110
 msgid "You don't have the permission to edit or create events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten "
 "oder zu erstellen."
 
-#: views/events/event_view.py:68
+#: views/events/event_view.py:69
 msgid "You don't have the permission to edit this event."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Veranstaltung zu "
 "bearbeiten."
 
-#: views/events/event_view.py:73
+#: views/events/event_view.py:74
 msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
 
-#: views/events/event_view.py:178 views/pages/page_sbs_view.py:193
-#: views/pages/page_view.py:227 views/regions/region_view.py:85
+#: views/events/event_view.py:180 views/pages/page_sbs_view.py:193
+#: views/pages/page_view.py:232 views/regions/region_view.py:85
 #: views/settings/user_settings_view.py:89
 #: views/settings/user_settings_view.py:106 views/users/region_user_view.py:131
 #: views/users/user_view.py:119
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
-#: views/events/event_view.py:202
+#: views/events/event_view.py:204
 msgid "Event was successfully created and published"
 msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/events/event_view.py:205
+#: views/events/event_view.py:207
 msgid "Event was successfully created"
 msgstr "Veranstaltung wurde erfolgreich erstellt"
 
-#: views/events/event_view.py:218
+#: views/events/event_view.py:220
 msgid "Event translation was successfully created and published"
 msgstr ""
 "Veranstaltungsübersetzung wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/events/event_view.py:222
+#: views/events/event_view.py:224
 msgid "Event translation was successfully created"
 msgstr "Veranstaltungsübersetzung wurde erfolgreich erstellt"
 
-#: views/events/event_view.py:226
+#: views/events/event_view.py:228
 msgid "Event was successfully published"
 msgstr "Veranstaltung wurde erfolgreich veröffentlicht"
 
-#: views/events/event_view.py:228
+#: views/events/event_view.py:230
 msgid "Event was successfully saved"
 msgstr "Veranstaltung wurde erfolgreich gespeichert"
 
-#: views/language_tree/language_tree_actions.py:55
+#: views/language_tree/language_tree_actions.py:54
 msgid "You can only move language tree nodes within one region."
 msgstr "Sie können Sprach-Knoten nur innerhalb einer Region verschieben."
 
-#: views/language_tree/language_tree_actions.py:58
+#: views/language_tree/language_tree_actions.py:57
 msgid "A region can only have one root language."
 msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 
-#: views/language_tree/language_tree_actions.py:62
+#: views/language_tree/language_tree_actions.py:61
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
-#: views/language_tree/language_tree_actions.py:104
+#: views/language_tree/language_tree_actions.py:121
 msgid ""
-"The language tree node \"{}\" and all corresponding page translations were "
+"The language tree node \"{}\" and all corresponding translations were "
 "successfully deleted."
 msgstr ""
 "Der Sprach-Knoten \"{}\" und alle entsprechenden Übersetzungen wurden "
 "erfolgreich gelöscht."
 
 #: views/language_tree/language_tree_node_view.py:100
-#: views/pois/poi_view.py:149
+#: views/pois/poi_view.py:151
 msgid "No changes detected"
 msgstr "Keine Änderungen vorgenommen"
 
@@ -2835,6 +2751,18 @@ msgstr "Sprach-Baum wurde erfolgreich gespeichert"
 #: views/language_tree/language_tree_node_view.py:110
 msgid "Language tree node was successfully created"
 msgstr "Sprach-Baum wurde erfolgreich erstellt"
+
+#: views/language_tree/language_tree_view.py:31
+msgid "Please confirm that you really want to delete this language node"
+msgstr "Bitte bestätigen Sie, dass dieser Sprachknoten gelöscht werden soll"
+
+#: views/language_tree/language_tree_view.py:34
+msgid ""
+"All translations for pages, locations, events and push notifications of this "
+"language will also be deleted."
+msgstr ""
+"Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
+"Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
 
 #: views/languages/language_view.py:73
 msgid "Language was successfully saved"
@@ -2854,7 +2782,7 @@ msgstr "Angebots-Vorlage wurde erfolgreich erstellt"
 
 #: views/offer_templates/offer_template_view.py:84
 #: views/organizations/organization_view.py:82 views/pages/page_sbs_view.py:191
-#: views/pages/page_view.py:209 views/regions/region_view.py:79
+#: views/pages/page_view.py:214 views/regions/region_view.py:79
 #: views/users/region_user_view.py:134 views/users/user_view.py:129
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
@@ -2994,39 +2922,63 @@ msgstr ""
 msgid "You don't have the permission to edit this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
 
-#: views/pages/page_sbs_view.py:201 views/pages/page_view.py:261
+#: views/pages/page_sbs_view.py:201 views/pages/page_view.py:266
 msgid "Translation was successfully created and published"
 msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/pages/page_sbs_view.py:204 views/pages/page_view.py:264
+#: views/pages/page_sbs_view.py:204 views/pages/page_view.py:269
 msgid "Translation was successfully created"
 msgstr "Übersetzung wurde erfolgreich erstellt"
 
-#: views/pages/page_sbs_view.py:208 views/pages/page_view.py:267
+#: views/pages/page_sbs_view.py:208 views/pages/page_view.py:272
 msgid "Translation was successfully published"
 msgstr "Übersetzung wurde erfolgreich veröffentlicht"
 
-#: views/pages/page_sbs_view.py:211 views/pages/page_view.py:269
+#: views/pages/page_sbs_view.py:211 views/pages/page_view.py:274
 msgid "Translation was successfully saved"
 msgstr "Übersetzung wurde erfolgreich gespeichert"
 
-#: views/pages/page_tree_view.py:79
+#: views/pages/page_tree_view.py:34
+msgid "Please confirm that you really want to archive this page"
+msgstr "Bitte bestätigen Sie, dass diese Seite archiviert werden soll"
+
+#: views/pages/page_tree_view.py:37
+msgid "All translations of this page will also be archived."
+msgstr "Es werden auch alle Übersetzungen dieser Seite archiviert."
+
+#: views/pages/page_tree_view.py:40
+msgid "Please confirm that you really want to restore this page"
+msgstr "Bitte bestätigen Sie, dass diese Seite wiederhergestellt werden soll"
+
+#: views/pages/page_tree_view.py:43
+msgid "All translations of this page will also be restored."
+msgstr "Alle Übersetzungen dieser Seite werden wiederhergestellt."
+
+#: views/pages/page_tree_view.py:46
+msgid "Please confirm that you really want to delete this page"
+msgstr "Bitte bestätigen Sie, dass diese Seite gelöscht werden soll"
+
+#: views/pages/page_tree_view.py:49
+msgid "All translations of this page will also be deleted."
+msgstr "Alle Übersetzungen dieser Seite werden gelöscht."
+
+#: views/pages/page_tree_view.py:101
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
 "verwalten."
 
-#: views/pages/page_tree_view.py:90
+#: views/pages/page_tree_view.py:112
 msgid "You don't have the permission to edit or create pages."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Seiten zu bearbeiten oder zu "
 "erstellen."
 
-#: views/pages/page_view.py:72
+#: views/pages/page_view.py:76
 msgid "You cannot edit this page because it is archived."
 msgstr "Sie können diese Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: views/pages/page_view.py:79
+#: views/pages/page_view.py:83
 msgid ""
 "You don't have the permission to edit this page, but you can propose changes "
 "and submit them for review instead."
@@ -3034,7 +2986,7 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten, aber "
 "Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: views/pages/page_view.py:87
+#: views/pages/page_view.py:91
 #, python-format
 msgid ""
 "This is <b>not</b> the most recent public revision of this translation. "
@@ -3045,15 +2997,15 @@ msgstr ""
 "Stattdessen wird die <a href='%(revision_url)s' class='underline hover:no-"
 "underline'>Revision %(revision)s</a> in den Apps angezeigt."
 
-#: views/pages/page_view.py:254
+#: views/pages/page_view.py:259
 msgid "Page was successfully created and published"
 msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/pages/page_view.py:257
+#: views/pages/page_view.py:262
 msgid "Page was successfully created"
 msgstr "Seite wurde erfolgreich erstellt"
 
-#: views/pages/page_view.py:308
+#: views/pages/page_view.py:313
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
@@ -3070,33 +3022,57 @@ msgstr "Ort wurde erfolgreich wiederhergestellt"
 msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
 
-#: views/pois/poi_list_view.py:79
+#: views/pois/poi_list_view.py:33
+msgid "Please confirm that you really want to archive this location"
+msgstr "Bitte bestätigen Sie, dass dieser Ort archiviert werden soll."
+
+#: views/pois/poi_list_view.py:36
+msgid "All translations of this location will also be archived."
+msgstr "Es werden auch alle Übersetzungen dieses Ortes archiviert."
+
+#: views/pois/poi_list_view.py:39
+msgid "Please confirm that you really want to restore this location"
+msgstr "Bitte bestätigen Sie, dass dieser Ort wiederhergestellt werden soll"
+
+#: views/pois/poi_list_view.py:42
+msgid "All translations of this location will also be restored."
+msgstr "Alle Übersetzungen dieses Ortes werden wiederhergestellt."
+
+#: views/pois/poi_list_view.py:45
+msgid "Please confirm that you really want to delete this location"
+msgstr "Bitte bestätigen Sie, dass dieser Ort gelöscht werden soll"
+
+#: views/pois/poi_list_view.py:48
+msgid "All translations of this location will also be deleted."
+msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
+
+#: views/pois/poi_list_view.py:100
 msgid "Please create at least one language node before creating locations."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Orte verwalten."
 
-#: views/pois/poi_list_view.py:93
+#: views/pois/poi_list_view.py:114
 #, python-format
 msgid "You can only create locations in the default language (%(language)s)."
 msgstr "Sie können Orte nur in der Standard-Sprache (%(language)s) anlegen"
 
-#: views/pois/poi_view.py:68
+#: views/pois/poi_view.py:69
 msgid "You cannot edit this location because it is archived."
 msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
 
-#: views/pois/poi_view.py:160
+#: views/pois/poi_view.py:162
 msgid "Location was successfully created and published"
 msgstr "Ort wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/pois/poi_view.py:163
+#: views/pois/poi_view.py:165
 msgid "Location was successfully created"
 msgstr "Ort wurde erfolgreich erstellt"
 
-#: views/pois/poi_view.py:173
+#: views/pois/poi_view.py:175
 msgid "Location was successfully published"
 msgstr "Ort wurde erfolgreich veröffentlicht"
 
-#: views/pois/poi_view.py:175
+#: views/pois/poi_view.py:177
 msgid "Location was successfully saved"
 msgstr "Ort wurde erfolgreich gespeichert"
 
@@ -3223,6 +3199,24 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "Yes, archive this location now."
+#~ msgstr "Ja, diesen Ort jetzt archivieren"
+
+#~ msgid "Yes, delete this location now."
+#~ msgstr "Ja, diesen Ort jetzt löschen"
+
+#~ msgid "Yes, restore this location now."
+#~ msgstr "Ja, dien Ort jetzt wiederherstellen."
+
+#~ msgid "Yes, archive this event now."
+#~ msgstr "Ja, dieses Event jetzt archivieren"
+
+#~ msgid "Yes, delete this event now."
+#~ msgstr "Ja, dieses Event jetzt löschen"
+
+#~ msgid "Yes, restore this event now."
+#~ msgstr "Ja, diese Veranstaltung wiederherstellen."
 
 #~ msgid "Yes, archive this page now."
 #~ msgstr "Ja, diese Seite jetzt archivieren"

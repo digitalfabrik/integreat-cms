@@ -13,6 +13,7 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.events import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
+from .event_list_view import EventListView
 
 logger = logging.getLogger(__name__)
 
@@ -87,6 +88,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
             request,
             self.template_name,
             {
+                **EventListView.confirmation_dialog_context,
                 "current_menu_item": "events_form",
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
@@ -231,6 +233,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
             request,
             self.template_name,
             {
+                **EventListView.confirmation_dialog_context,
                 "current_menu_item": "events",
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,

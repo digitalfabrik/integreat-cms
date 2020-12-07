@@ -14,6 +14,7 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.pages import PageForm, PageTranslationForm
 from ...models import PageTranslation, Region
+from .page_tree_view import PageTreeView
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,10 @@ class PageView(PermissionRequiredMixin, TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "new_page", "PUBLIC": status.PUBLIC}
+    base_context = {
+        "current_menu_item": "new_page",
+        "PUBLIC": status.PUBLIC,
+    }
 
     def get(self, request, *args, **kwargs):
         """
@@ -126,6 +130,7 @@ class PageView(PermissionRequiredMixin, TemplateView):
             self.template_name,
             {
                 **self.base_context,
+                **PageTreeView.confirmation_dialog_context,
                 "page_form": page_form,
                 "page_translation_form": page_translation_form,
                 "page": page,

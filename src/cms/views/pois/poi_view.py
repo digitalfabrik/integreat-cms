@@ -15,6 +15,7 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.pois import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Region, Language
+from .poi_list_view import POIListView
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +82,7 @@ class POIView(PermissionRequiredMixin, TemplateView):
                 "language": language,
                 # Languages for tab view
                 "languages": region.languages if poi else [language],
+                **POIListView.confirmation_dialog_context,
             },
         )
 
@@ -184,5 +186,6 @@ class POIView(PermissionRequiredMixin, TemplateView):
                 "language": language,
                 # Languages for tab view
                 "languages": region.languages if poi_instance else [language],
+                **POIListView.confirmation_dialog_context,
             },
         )

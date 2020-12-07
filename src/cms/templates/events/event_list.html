@@ -112,10 +112,7 @@
             </tbody>
         </table>
     </div>
-    {% include "./confirmation_popups/archive_event.html" %}
-    {% if user.is_superuser or user.is_staff %}
-        {% include "./confirmation_popups/delete_event.html" %}
-    {% endif %}
+    {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}
 {% block javascript %}
     <script src="{% static 'tablesort/dist/tablesort.min.js' %}"></script>

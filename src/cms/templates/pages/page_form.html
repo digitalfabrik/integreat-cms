@@ -284,8 +284,8 @@
                             {% if page.archived %}
                                 <span class="block font-bold mb-4">{% trans 'Restore page' %}</span>
                                 <button title="{% trans 'Restore page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                    data-confirmation-title="{% trans 'Please confirm that you really want to restore this page' %}"
-                                    data-confirmation-text="{% trans 'All translations of this page will also be restored.' %}"
+                                    data-confirmation-title="{{ restore_dialog_title }}"
+                                    data-confirmation-text="{{ restore_dialog_text }}"
                                     data-confirmation-subject="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}"
                                     data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}">
                                     <i data-feather="refresh-ccw" class="inline-block mr-2"></i> {% trans 'Restore this page' %}
@@ -293,8 +293,8 @@
                             {% else %}
                                 <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
                                 <button title="{% trans 'Archive page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                    data-confirmation-title="{% trans 'Please confirm that you really want to archive this page' %}"
-                                    data-confirmation-text="{% trans 'All translations of this page will also be archived.' %}"
+                                    data-confirmation-title="{{ archive_dialog_title }}"
+                                    data-confirmation-text="{{ archive_dialog_text }}"
                                     data-confirmation-subject="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}"
                                     data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}">
                                     <i data-feather="archive" class="inline-block mr-2"></i>
@@ -309,8 +309,8 @@
                                     {% trans 'You cannot delete a page which has children.' %}
                                 {% else %}
                                     <button title="{% trans 'Delete page' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                                        data-confirmation-title="{% trans 'Please confirm that you really want to delete this page' %}"
-                                        data-confirmation-text="{% trans 'All translations of this page will also be deleted.' %}"
+                                        data-confirmation-title="{{ delete_dialog_title }}"
+                                        data-confirmation-text="{{ delete_dialog_text }}"
                                         data-confirmation-subject="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}"
                                         data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}">
                                         <i data-feather="trash-2" class="inline-block mr-2"></i>

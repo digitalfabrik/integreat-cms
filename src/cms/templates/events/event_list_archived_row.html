@@ -94,12 +94,20 @@
         </a>
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <button title="{% trans 'Restore event' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'restore_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-restore-event">
+            <button title="{% trans 'Restore event' %}" class="confirmation-button py-3 px-2" 
+                data-confirmation-title="{% trans 'Please confirm that you really want to restore this event' %}"
+                data-confirmation-text="{% trans 'All translations of this event will also be restored.' %}"
+                data-confirmation-subject="{% if event_translation %}{{ event_translation.title }}{% endif %}"
+                data-action="{% url 'restore_event' event_id=event.id region_slug=region.slug language_code=language.code %}">
                 <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
             </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
-            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-event">
+            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2"
+                data-confirmation-title="{% trans 'Please confirm that you really want to delete this event' %}"
+                data-confirmation-text="{% trans 'All translations of this event will also be deleted.' %}"
+                data-confirmation-subject="{% if event_translation %}{{ event_translation.title }}{% endif %}"
+                data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}">
                 <i data-feather="trash-2" class="inline-block text-gray-800"></i>
             </button>
         {% endif %}

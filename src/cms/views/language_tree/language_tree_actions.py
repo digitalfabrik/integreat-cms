@@ -8,8 +8,7 @@ from mptt.exceptions import InvalidMove
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 
 from ...decorators import region_permission_required
@@ -70,6 +69,9 @@ def move_language_tree_node(
     return redirect("language_tree", **{"region_slug": region_slug})
 
 
+@login_required
+@region_permission_required
+@permission_required("cms.manage_language_tree", raise_exception=True)
 def delete_language_tree_node(request, region_slug, language_tree_node_id):
     """
     Deletes the language node of distinct region
@@ -87,24 +89,36 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
     :return: A redirection to the language tree
     :rtype: ~django.http.HttpResponseRedirect
     """
-    try:
-        # get current selected language node
-        language_node = LanguageTreeNode.objects.get(pk=language_tree_node_id)
-        # get all page translation assigned to the language node
-        page_translations = language_node.language.page_translations
-        # filter these translation that belong to the region
-        current_region_translations = page_translations.filter(
-            page__region__slug=region_slug
-        )
-        current_region_translations.delete()
-        language_node.delete()
-        messages.success(
-            request,
-            _(
-                'The language tree node "{}" and all corresponding page translations were successfully deleted.'
-            ).format(language_node.translated_name),
-        )
-    except (ObjectDoesNotExist) as e:
-        messages.error(request, e)
-        logger.exception(e)
+    # get current region
+    region = Region.get_current_region(request)
+    # get current selected language node
+    language_node = get_object_or_404(
+        region.language_tree_nodes, id=language_tree_node_id
+    )
+    # get all page translation assigned to the language node
+    page_translations = language_node.language.page_translations
+    # filter those translation that belong to the region and delete them
+    page_translations.filter(page__region=region).delete()
+    # get all event translation assigned to the language node
+    event_translations = language_node.language.event_translations
+    # filter those translation that belong to the region and delete them
+    event_translations.filter(event__region=region).delete()
+    # get all poi translation assigned to the language node
+    poi_translations = language_node.language.poi_translations
+    # filter those translation that belong to the region and delete them
+    poi_translations.filter(poi__region=region).delete()
+    # get all push notification translation assigned to the language node
+    push_notification_translations = (
+        language_node.language.push_notification_translations
+    )
+    # filter those translation that belong to the region and delete them
+    push_notification_translations.filter(push_notification__region=region).delete()
+
+    language_node.delete()
+    messages.success(
+        request,
+        _(
+            'The language tree node "{}" and all corresponding translations were successfully deleted.'
+        ).format(language_node.translated_name),
+    )
     return redirect("language_tree", **{"region_slug": region_slug})

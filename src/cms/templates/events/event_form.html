@@ -298,15 +298,20 @@
                             {% if event_form.instance.archived %}
                                 <span class="block font-bold mb-4">{% trans 'Restore event' %}</span>
                                 <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                    data-confirmation-title="{% if event_translation_form.instance %}{{ event_translation_form.instance.title }}{% endif %}"
-                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}"
-                                    data-confirmation-popup="#confirm-restore-event">
+                                    data-confirmation-title="{% trans 'Please confirm that you really want to restore this event' %}"
+                                    data-confirmation-text="{% trans 'All translations of this event will also be restored.' %}"
+                                    data-confirmation-subject="{% if event_translation_form.instance %}{{ event_translation_form.instance.title }}{% endif %}"
+                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}">
                                     <i data-feather="refresh-ccw" class="inline-block mr-2"></i>
                                     {% trans 'Restore this event' %}
                                 </button>
                             {% else %}
                                 <span class="block font-bold mb-4">{% trans 'Archive event' %}</span>
-                                <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{% if event_translation_form.instance %}{{ event_translation_form.instance.title }}{% endif %}" data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-event">
+                                <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                    data-confirmation-title="{% trans 'Please confirm that you really want to archive this event' %}"
+                                    data-confirmation-text="{% trans 'All translations of this event will also be archived.' %}"
+                                    data-confirmation-subject="{% if event_translation_form.instance %}{{ event_translation_form.instance.title }}{% endif %}"
+                                    data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}">
                                     <i data-feather="archive" class="inline-block mr-2"></i>
                                     {% trans 'Archive this event' %}
                                 </button>
@@ -315,7 +320,11 @@
                         {% if user.is_superuser or user.is_staff %}
                             <div class="pt-2 pb-4">
                                 <span class="block font-bold mb-4">{% trans 'Delete event' %}</span>
-                                <button class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" data-confirmation-title="{% if event_translation_form.instance %}{{ event_translation_form.instance.title }}{% endif %}" data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-event">
+                                <button class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" 
+                                    data-confirmation-title="{% trans 'Please confirm that you really want to delete this event' %}"
+                                    data-confirmation-text="{% trans 'All translations of this event will also be deleted.' %}"
+                                    data-confirmation-subject="{% if event_translation_form.instance %}{{ event_translation_form.instance.title }}{% endif %}"
+                                    data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}">
                                     <i data-feather="trash-2" class="inline-block mr-2"></i>
                                     {% trans 'Delete this event' %}
                                 </button>
@@ -331,14 +340,7 @@
     </div>
 </form>
 {% if event_form.instance.id %}
-    {% if event_form.instance.archived %}
-        {% include "./confirmation_popups/restore_event.html" %}
-    {% else %}
-        {% include "./confirmation_popups/archive_event.html" %}
-    {% endif %}
-    {% if user.is_superuser or user.is_staff %}
-        {% include "./confirmation_popups/delete_event.html" %}
-    {% endif %}
+    {% include '../generic_confirmation_dialog.html' %}
 {% endif %}
 {% endblock %}
 

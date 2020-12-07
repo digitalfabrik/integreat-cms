@@ -60,8 +60,5 @@
         </tbody>
     </table>
 </div>
-{% include "./confirmation_popups/restore_poi.html" %}
-{% if user.is_superuser or user.is_staff %}
-    {% include "./confirmation_popups/delete_poi.html" %}
-{% endif %}
+{% include "../generic_confirmation_dialog.html" %}
 {% endblock %}
