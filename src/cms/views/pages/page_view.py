@@ -14,14 +14,15 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.pages import PageForm, PageTranslationForm
 from ...models import PageTranslation, Region
-from .page_tree_view import PageTreeView
+from .page_mixin import PageMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class PageView(PermissionRequiredMixin, TemplateView):
+# pylint: disable=too-many-ancestors
+class PageView(PermissionRequiredMixin, TemplateView, PageMixin):
     """
     View for the page form and page translation form
     """
@@ -124,13 +125,13 @@ class PageView(PermissionRequiredMixin, TemplateView):
             siblings = region.pages.filter(level=0)
         else:
             siblings = page.parent.children.all()
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
-                **PageTreeView.confirmation_dialog_context,
+                **context,
                 "page_form": page_form,
                 "page_translation_form": page_translation_form,
                 "page": page,

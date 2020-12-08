@@ -87,7 +87,7 @@
         <button title="{% trans 'Restore page' %}" class="confirmation-button py-3 pl-4"
             data-confirmation-title="{{ restore_dialog_title }}"
             data-confirmation-text="{{ restore_dialog_text }}"
-            data-confirmation-subject="{% if page_translation %}{{ page_translation.title }}{% endif %}"
+            data-confirmation-subject="{{ page_translation.title }}"
             data-action="{% url 'restore_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
             <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
         </button>
@@ -100,7 +100,7 @@
                 <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 pl-4"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"
-                    data-confirmation-subject="{% if page_translation %}{{ page_translation.title }}{% endif %}"
+                    data-confirmation-subject="{{ page_translation.title }}"
                     data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
                     <i data-feather="trash-2" class="inline-block text-gray-800"></i>
                 </button>

@@ -286,7 +286,7 @@
                                 <button title="{% trans 'Restore page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
-                                    data-confirmation-subject="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}"
+                                    data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                     data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}">
                                     <i data-feather="refresh-ccw" class="inline-block mr-2"></i> {% trans 'Restore this page' %}
                                 </button>
@@ -295,7 +295,7 @@
                                 <button title="{% trans 'Archive page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
-                                    data-confirmation-subject="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}"
+                                    data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                     data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}">
                                     <i data-feather="archive" class="inline-block mr-2"></i>
                                     {% trans 'Archive this page' %}
@@ -311,7 +311,7 @@
                                     <button title="{% trans 'Delete page' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                                         data-confirmation-title="{{ delete_dialog_title }}"
                                         data-confirmation-text="{{ delete_dialog_text }}"
-                                        data-confirmation-subject="{% if page_translation_form.instance %}{{ page_translation_form.instance.title }}{% endif %}"
+                                        data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                         data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=region.slug language_code=language.code %}">
                                         <i data-feather="trash-2" class="inline-block mr-2"></i>
                                         {% trans 'Delete this page' %}

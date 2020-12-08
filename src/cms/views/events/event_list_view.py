@@ -5,19 +5,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import all_day, recurrence
 from ...decorators import region_permission_required
 from ...models import Region
 from ...forms.events import EventFilterForm
+from .event_mixin import EventMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
-class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class EventListView(
+    LoginRequiredMixin, PermissionRequiredMixin, TemplateView, EventMixin
+):
     """
     View for listing events (either non-archived or archived events depending on
     :attr:`~cms.views.events.event_list_view.EventListView.archived`)
@@ -33,27 +36,6 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_archived = "events/event_list_archived.html"
     #: Whether or not to show archived events
     archived = False
-    #: Messages in confirmation dialogs for delete, archive, restore operations
-    confirmation_dialog_context = {
-        "archive_dialog_title": ugettext_lazy(
-            "Please confirm that you really want to archive this event"
-        ),
-        "archive_dialog_text": ugettext_lazy(
-            "All translations of this event will also be archived."
-        ),
-        "restore_dialog_title": ugettext_lazy(
-            "Please confirm that you really want to restore this event"
-        ),
-        "restore_dialog_text": ugettext_lazy(
-            "All translations of this event will also be restored."
-        ),
-        "delete_dialog_title": ugettext_lazy(
-            "Please confirm that you really want to delete this event"
-        ),
-        "delete_dialog_text": ugettext_lazy(
-            "All translations of this event will also be deleted."
-        ),
-    }
 
     @property
     def template_name(self):
@@ -180,12 +162,12 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             event_filter_form = EventFilterForm()
             event_filter_form.changed_data.clear()
             poi = None
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
-                **self.confirmation_dialog_context,
+                **context,
                 "current_menu_item": "events",
                 "events": events,
                 "archived_count": region.events.filter(archived=True).count(),

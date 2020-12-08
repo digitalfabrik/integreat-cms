@@ -92,7 +92,7 @@
         <button title="{% trans 'Archive location' %}" class="confirmation-button py-3 pl-4"
             data-confirmation-title="{{ archive_dialog_title }}"
             data-confirmation-text="{{ archive_dialog_text }}"
-            data-confirmation-subject="{% if poi_translation %}{{ poi_translation.title }}{% endif %}"
+            data-confirmation-subject="{{ poi_translation.title }}"
             data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}">
             <i data-feather="archive" class="inline-block text-gray-800"></i>
         </button>
@@ -100,7 +100,7 @@
             <button title="{% trans 'Delete location' %}" class="confirmation-button py-3 pl-4"
                 data-confirmation-title="{{ delete_dialog_title }}"
                 data-confirmation-text="{{ delete_dialog_text }}"
-                data-confirmation-subject="{% if poi_translation %}{{ poi_translation.title }}{% endif %}"
+                data-confirmation-subject="{{ poi_translation.title }}"
                 data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_code=language.code %}">
                 <i data-feather="trash-2" class="inline-block text-gray-800"></i>
             </button>

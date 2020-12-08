@@ -2,16 +2,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext_lazy
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
 from ...models import Region
+from .language_tree_mixin import LanguageTreeMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class LanguageTreeView(PermissionRequiredMixin, TemplateView):
+# pylint: disable=too-many-ancestors
+class LanguageTreeView(PermissionRequiredMixin, TemplateView, LanguageTreeMixin):
     """
     View for rendering the language tree view.
     This view is available in regions.
@@ -25,15 +26,6 @@ class LanguageTreeView(PermissionRequiredMixin, TemplateView):
     template_name = "language_tree/language_tree.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "language_tree"}
-    #: Messages in confirmation dialogs for delete, archive, restore operations
-    confirmation_dialog_context = {
-        "delete_dialog_title": ugettext_lazy(
-            "Please confirm that you really want to delete this language node"
-        ),
-        "delete_dialog_text": ugettext_lazy(
-            "All translations for pages, locations, events and push notifications of this language will also be deleted."
-        ),
-    }
 
     def get(self, request, *args, **kwargs):
         """
@@ -53,13 +45,13 @@ class LanguageTreeView(PermissionRequiredMixin, TemplateView):
         """
         region = Region.get_current_region(request)
         language_tree = region.language_tree_nodes.all()
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
-                **self.confirmation_dialog_context,
+                **context,
                 "language_tree": language_tree,
             },
         )
