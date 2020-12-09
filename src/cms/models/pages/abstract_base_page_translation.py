@@ -1,7 +1,5 @@
 from django.db import models
-from django.urls import reverse
 from django.utils import timezone
-from backend.settings import BASE_URL
 from backend.settings import WEBAPP_URL
 
 from ...constants import status
@@ -69,9 +67,14 @@ class AbstractBasePageTranslation(models.Model):
         """
         This property calculates the permalink dynamically
         To be implemented in the inheriting model
+        """
+        raise NotImplementedError
 
-        :return: The permalink of the page
-        :rtype: str
+    @property
+    def short_url(self):
+        """
+        This property calculates the short url dynamically
+        To be implemented in the inheriting model
         """
         raise NotImplementedError
 
@@ -94,19 +97,6 @@ class AbstractBasePageTranslation(models.Model):
         :rtype: str
         """
         return "/" + self.permalink
-
-    @property
-    def short_url(self):
-        """
-        This function returns the absolute short url to the page translation
-
-        :return: The short url of a page translation
-        :rtype: str
-        """
-
-        return BASE_URL + reverse(
-            "expand_page_translation_id", kwargs={"short_url_id": self.id}
-        )
 
     @property
     def available_languages(self):
