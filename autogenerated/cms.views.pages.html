@@ -429,6 +429,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.views.events.html">Events</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_actions">Event Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_list_view">Event List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_mixin">Event Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
 </ul>
 </li>
@@ -439,6 +440,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_actions">Language Tree Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_mixin">Language Tree Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
 </ul>
@@ -471,6 +473,7 @@
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Pages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pages.page_actions">Page Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pages.page_mixin">Page Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pages.page_revision_view">Page Revision View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
@@ -480,6 +483,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_actions">POI Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_list_view">POI List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_mixin">POI Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_view">POI View</a></li>
 </ul>
 </li>
@@ -1011,6 +1015,15 @@ not have the permission to revoke page permissions</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-cms.views.pages.page_mixin">
+<span id="page-mixin"></span><h2>Page Mixin<a class="headerlink" href="#module-cms.views.pages.page_mixin" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.views.pages.page_mixin.PageMixin">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.pages.page_mixin.</code><code class="sig-name descname">PageMixin</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_mixin.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_mixin.PageMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.ContextMixin</span></code></a></p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.views.pages.page_revision_view">
 <span id="page-revision-view"></span><h2>Page Revision View<a class="headerlink" href="#module-cms.views.pages.page_revision_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
@@ -1177,18 +1190,18 @@ not have the permission to revoke page permissions</p>
 <span id="page-tree-view"></span><h2>Page Tree View<a class="headerlink" href="#module-cms.views.pages.page_tree_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.views.pages.page_tree_view.PageTreeView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.pages.page_tree_view.</code><code class="sig-name descname">PageTreeView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.pages.page_tree_view.</code><code class="sig-name descname">PageTreeView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.pages.page_mixin.PageMixin" title="cms.views.pages.page_mixin.PageMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.pages.page_mixin.PageMixin</span></code></a></p>
 <p>View for showing the page tree</p>
 <dl class="py attribute">
 <dt id="cms.views.pages.page_tree_view.PageTreeView.archived">
-<code class="sig-name descname">archived</code><em class="property"> = False</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.archived" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">archived</code><em class="property"> = False</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.archived" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not to show archived pages</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.pages.page_tree_view.PageTreeView.get">
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L43"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L46"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render page tree</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1209,31 +1222,31 @@ not have the permission to revoke page permissions</p>
 
 <dl class="py attribute">
 <dt id="cms.views.pages.page_tree_view.PageTreeView.permission_required">
-<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.view_pages'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.view_pages'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.pages.page_tree_view.PageTreeView.raise_exception">
-<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.raise_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.pages.page_tree_view.PageTreeView.template">
-<code class="sig-name descname">template</code><em class="property"> = 'pages/page_tree.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.template" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">template</code><em class="property"> = 'pages/page_tree.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Template for list of non-archived pages</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.pages.page_tree_view.PageTreeView.template_archived">
-<code class="sig-name descname">template_archived</code><em class="property"> = 'pages/page_tree_archived.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.template_archived" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">template_archived</code><em class="property"> = 'pages/page_tree_archived.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.template_archived" title="Permalink to this definition">¶</a></dt>
 <dd><p>Template for list of archived pages</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.pages.page_tree_view.PageTreeView.template_name">
-<em class="property">property </em><code class="sig-name descname">template_name</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.template_name" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">template_name</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_tree_view.PageTreeView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select correct HTML template, depending on <a class="reference internal" href="#cms.views.pages.page_tree_view.PageTreeView.archived" title="cms.views.pages.page_tree_view.PageTreeView.archived"><code class="xref py py-attr docutils literal notranslate"><span class="pre">archived</span></code></a> flag
 (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 <dl class="field-list simple">
@@ -1253,18 +1266,18 @@ not have the permission to revoke page permissions</p>
 <span id="page-view"></span><h2>Page View<a class="headerlink" href="#module-cms.views.pages.page_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.views.pages.page_view.PageView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.pages.page_view.</code><code class="sig-name descname">PageView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.pages.page_view.</code><code class="sig-name descname">PageView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.pages.page_mixin.PageMixin" title="cms.views.pages.page_mixin.PageMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.pages.page_mixin.PageMixin</span></code></a></p>
 <p>View for the page form and page translation form</p>
 <dl class="py attribute">
 <dt id="cms.views.pages.page_view.PageView.base_context">
-<code class="sig-name descname">base_context</code><em class="property"> = {'PUBLIC': 'PUBLIC', 'current_menu_item': 'new_page'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.base_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">base_context</code><em class="property"> = {'PUBLIC': 'PUBLIC', 'current_menu_item': 'new_page'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.base_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.pages.page_view.PageView.get">
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L37"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L42"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render <a class="reference internal" href="cms.forms.pages.html#cms.forms.pages.page_form.PageForm" title="cms.forms.pages.page_form.PageForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageForm</span></code></a> and <a class="reference internal" href="cms.forms.pages.html#cms.forms.pages.page_translation_form.PageTranslationForm" title="cms.forms.pages.page_translation_form.PageTranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslationForm</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1288,7 +1301,7 @@ not have the permission to revoke page permissions</p>
 
 <dl class="py method">
 <dt id="cms.views.pages.page_view.PageView.get_side_by_side_language_options">
-<em class="property">static </em><code class="sig-name descname">get_side_by_side_language_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L280"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.get_side_by_side_language_options" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">get_side_by_side_language_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L286"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.get_side_by_side_language_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a helper function to generate the side-by-side langauge options for both the get and post requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1309,13 +1322,13 @@ not have the permission to revoke page permissions</p>
 
 <dl class="py attribute">
 <dt id="cms.views.pages.page_view.PageView.permission_required">
-<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.view_pages'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.view_pages'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.pages.page_view.PageView.post">
-<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L141"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.post" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L147"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit <a class="reference internal" href="cms.forms.pages.html#cms.forms.pages.page_form.PageForm" title="cms.forms.pages.page_form.PageForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageForm</span></code></a> and
 <a class="reference internal" href="cms.forms.pages.html#cms.forms.pages.page_translation_form.PageTranslationForm" title="cms.forms.pages.page_translation_form.PageTranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslationForm</span></code></a> and save <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>
 and <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> objects.
@@ -1343,13 +1356,13 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/to
 
 <dl class="py attribute">
 <dt id="cms.views.pages.page_view.PageView.raise_exception">
-<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.raise_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.pages.page_view.PageView.template_name">
-<code class="sig-name descname">template_name</code><em class="property"> = 'pages/page_form.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.template_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">template_name</code><em class="property"> = 'pages/page_form.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_view.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_view.PageView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1384,7 +1397,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/to
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 25, 2020.
+        Last updated on Dec 08, 2020.
       </span>
 
     </p>

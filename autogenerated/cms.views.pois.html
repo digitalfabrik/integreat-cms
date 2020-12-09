@@ -429,6 +429,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.views.events.html">Events</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_actions">Event Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_list_view">Event List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_mixin">Event Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
 </ul>
 </li>
@@ -439,6 +440,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_actions">Language Tree Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_mixin">Language Tree Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
 </ul>
@@ -471,6 +473,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html">Pages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_actions">Page Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_mixin">Page Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_revision_view">Page Revision View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
@@ -480,6 +483,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">POIs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pois.poi_actions">POI Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pois.poi_list_view">POI List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pois.poi_mixin">POI Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.views.pois.poi_view">POI View</a></li>
 </ul>
 </li>
@@ -752,18 +756,18 @@
 <span id="poi-list-view"></span><h2>POI List View<a class="headerlink" href="#module-cms.views.pois.poi_list_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.views.pois.poi_list_view.POIListView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.pois.poi_list_view.</code><code class="sig-name descname">POIListView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.pois.poi_list_view.</code><code class="sig-name descname">POIListView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.pois.poi_mixin.POIMixin" title="cms.views.pois.poi_mixin.POIMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.pois.poi_mixin.POIMixin</span></code></a></p>
 <p>View for listing POIs (points of interests)</p>
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_list_view.POIListView.archived">
-<code class="sig-name descname">archived</code><em class="property"> = False</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.archived" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">archived</code><em class="property"> = False</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.archived" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not to show archived POIs</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.pois.poi_list_view.POIListView.get">
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L42"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L44"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render POI list</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -784,31 +788,31 @@
 
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_list_view.POIListView.permission_required">
-<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.manage_pois'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.manage_pois'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_list_view.POIListView.raise_exception">
-<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.raise_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_list_view.POIListView.template">
-<code class="sig-name descname">template</code><em class="property"> = 'pois/poi_list.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.template" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">template</code><em class="property"> = 'pois/poi_list.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Template for list of non-archived POIs</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_list_view.POIListView.template_archived">
-<code class="sig-name descname">template_archived</code><em class="property"> = 'pois/poi_list_archived.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.template_archived" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">template_archived</code><em class="property"> = 'pois/poi_list_archived.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.template_archived" title="Permalink to this definition">¶</a></dt>
 <dd><p>Template for list of archived POIs</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.pois.poi_list_view.POIListView.template_name">
-<em class="property">property </em><code class="sig-name descname">template_name</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.template_name" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">template_name</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_list_view.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_list_view.POIListView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select correct HTML template, depending on <a class="reference internal" href="#cms.views.pois.poi_list_view.POIListView.archived" title="cms.views.pois.poi_list_view.POIListView.archived"><code class="xref py py-attr docutils literal notranslate"><span class="pre">archived</span></code></a> flag
 (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 <dl class="field-list simple">
@@ -824,23 +828,32 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-cms.views.pois.poi_mixin">
+<span id="poi-mixin"></span><h2>POI Mixin<a class="headerlink" href="#module-cms.views.pois.poi_mixin" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.views.pois.poi_mixin.POIMixin">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.pois.poi_mixin.</code><code class="sig-name descname">POIMixin</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_mixin.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_mixin.POIMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.ContextMixin</span></code></a></p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.views.pois.poi_view">
 <span id="poi-view"></span><h2>POI View<a class="headerlink" href="#module-cms.views.pois.poi_view" title="Permalink to this headline">¶</a></h2>
 <p>A view representing an instance of a point of interest. POIs can be created or updated via this view.</p>
 <dl class="py class">
 <dt id="cms.views.pois.poi_view.POIView">
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.pois.poi_view.</code><code class="sig-name descname">POIView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.pois.poi_view.</code><code class="sig-name descname">POIView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.pois.poi_mixin.POIMixin" title="cms.views.pois.poi_mixin.POIMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.pois.poi_mixin.POIMixin</span></code></a></p>
 <p>View for editing POIs</p>
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_view.POIView.base_context">
-<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'pois_form'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.base_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'pois_form'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.base_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.pois.poi_view.POIView.get">
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L39"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L41"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render <a class="reference internal" href="cms.forms.pois.html#cms.forms.pois.poi_form.POIForm" title="cms.forms.pois.poi_form.POIForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">POIForm</span></code></a> and <a class="reference internal" href="cms.forms.pois.html#cms.forms.pois.poi_translation_form.POITranslationForm" title="cms.forms.pois.poi_translation_form.POITranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslationForm</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -861,13 +874,13 @@
 
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_view.POIView.permission_required">
-<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.manage_pois'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.manage_pois'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.pois.poi_view.POIView.post">
-<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L88"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.post" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L91"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit <a class="reference internal" href="cms.forms.pois.html#cms.forms.pois.poi_form.POIForm" title="cms.forms.pois.poi_form.POIForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">POIForm</span></code></a> and
 <a class="reference internal" href="cms.forms.pois.html#cms.forms.pois.poi_translation_form.POITranslationForm" title="cms.forms.pois.poi_translation_form.POITranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslationForm</span></code></a> and save <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a> and
 <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a> objects</p>
@@ -890,13 +903,13 @@
 
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_view.POIView.raise_exception">
-<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.raise_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.pois.poi_view.POIView.template_name">
-<code class="sig-name descname">template_name</code><em class="property"> = 'pois/poi_form.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.template_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">template_name</code><em class="property"> = 'pois/poi_form.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_view.py#L26"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pois.poi_view.POIView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -931,7 +944,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 22, 2020.
+        Last updated on Dec 08, 2020.
       </span>
 
     </p>
