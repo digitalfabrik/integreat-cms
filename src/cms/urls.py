@@ -662,7 +662,7 @@ urlpatterns = [
                                         ),
                                         url(
                                             r"^delete$",
-                                            language_tree.LanguageTreeNodeView.as_view(),
+                                            language_tree.delete_language_tree_node,
                                             name="delete_language_tree_node",
                                         ),
                                         # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js

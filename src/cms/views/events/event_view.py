@@ -13,13 +13,15 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.events import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
+from .event_mixin import EventMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class EventView(PermissionRequiredMixin, TemplateView):
+# pylint: disable=too-many-ancestors
+class EventView(PermissionRequiredMixin, TemplateView, EventMixin):
     """
     Class for rendering the events form
     """
@@ -82,11 +84,12 @@ class EventView(PermissionRequiredMixin, TemplateView):
         recurrence_rule_form = RecurrenceRuleForm(
             instance=recurrence_rule_instance, disabled=disabled
         )
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
+                **context,
                 "current_menu_item": "events_form",
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
@@ -226,7 +229,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
                     messages.success(request, _("Event was successfully published"))
                 else:
                     messages.success(request, _("Event was successfully saved"))
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
@@ -238,5 +241,6 @@ class EventView(PermissionRequiredMixin, TemplateView):
                 "poi": poi,
                 "language": language,
                 "languages": region.languages if event_instance else [language],
+                **context,
             },
         )

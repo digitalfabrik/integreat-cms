@@ -6,11 +6,13 @@ from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
 from ...models import Region
+from .language_tree_mixin import LanguageTreeMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class LanguageTreeView(PermissionRequiredMixin, TemplateView):
+# pylint: disable=too-many-ancestors
+class LanguageTreeView(PermissionRequiredMixin, TemplateView, LanguageTreeMixin):
     """
     View for rendering the language tree view.
     This view is available in regions.
@@ -43,9 +45,13 @@ class LanguageTreeView(PermissionRequiredMixin, TemplateView):
         """
         region = Region.get_current_region(request)
         language_tree = region.language_tree_nodes.all()
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
-            {**self.base_context, "language_tree": language_tree},
+            {
+                **self.base_context,
+                **context,
+                "language_tree": language_tree,
+            },
         )

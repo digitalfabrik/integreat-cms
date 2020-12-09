@@ -12,12 +12,15 @@ from ...constants import all_day, recurrence
 from ...decorators import region_permission_required
 from ...models import Region
 from ...forms.events import EventFilterForm
+from .event_mixin import EventMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
-class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class EventListView(
+    LoginRequiredMixin, PermissionRequiredMixin, TemplateView, EventMixin
+):
     """
     View for listing events (either non-archived or archived events depending on
     :attr:`~cms.views.events.event_list_view.EventListView.archived`)
@@ -159,11 +162,12 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
             event_filter_form = EventFilterForm()
             event_filter_form.changed_data.clear()
             poi = None
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
+                **context,
                 "current_menu_item": "events",
                 "events": events,
                 "archived_count": region.events.filter(archived=True).count(),

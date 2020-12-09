@@ -13,8 +13,10 @@ u(document).handle('DOMContentLoaded', function() {
 
 function show_confirmation_popup(e) {
     let button = u(e.target).closest('button');
-    let confirmation_popup = u(button.attr('data-confirmation-popup'));
-    confirmation_popup.find('.confirmation-title').html(button.attr('data-confirmation-title'));
+    let confirmation_popup = u('#confirmation-dialog');
+    confirmation_popup.find('#confirmation-subject').html(button.attr('data-confirmation-subject'));
+    confirmation_popup.find('#confirmation-title').html(button.attr('data-confirmation-title'));
+    confirmation_popup.find('#confirmation-text').html(button.attr('data-confirmation-text'));
     confirmation_popup.find('form').attr('action', button.attr('data-action'));
     confirmation_popup.addClass('flex');
     confirmation_popup.removeClass('hidden');

@@ -55,11 +55,13 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
         language_tree_node_form = LanguageTreeNodeForm(
             instance=language_tree_node, region=region
         )
-
         return render(
             request,
             self.template_name,
-            {"language_tree_node_form": language_tree_node_form, **self.base_context},
+            {
+                "language_tree_node_form": language_tree_node_form,
+                **self.base_context,
+            },
         )
 
     # pylint: disable=unused-argument

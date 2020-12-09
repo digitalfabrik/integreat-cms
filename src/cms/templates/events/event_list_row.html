@@ -97,12 +97,20 @@
             <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3 px-2" title="{% trans 'Edit event' %}">
                 <i data-feather="edit" class="text-gray-800"></i>
             </a>
-            <button title="{% trans 'Archive event' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'archive_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-archive-event">
+            <button title="{% trans 'Archive event' %}" class="confirmation-button py-3 px-2" 
+                data-confirmation-title="{{ archive_dialog_title }}"
+                data-confirmation-text="{{ archive_dialog_text }}"
+                data-confirmation-subject="{{ event_translation.title }}" 
+                data-action="{% url 'archive_event' event_id=event.id region_slug=region.slug language_code=language.code %}">
                 <i data-feather="archive" class="inline-block text-gray-800"></i>
             </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
-            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2" data-confirmation-title="{% if event_translation %}{{ event_translation.title }}{% endif %}" data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}" data-confirmation-popup="#confirm-delete-event">
+            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2" 
+                data-confirmation-title="{{ delete_dialog_title }}"
+                data-confirmation-text="{{ delete_dialog_text }}"
+                data-confirmation-subject="{{ event_translation.title }}"
+                data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_code=language.code %}">
                 <i data-feather="trash-2" class="inline-block text-gray-800"></i>
             </button>
         {% endif %}

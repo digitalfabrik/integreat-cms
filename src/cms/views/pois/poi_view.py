@@ -15,13 +15,15 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.pois import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Region, Language
+from .poi_mixin import POIMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class POIView(PermissionRequiredMixin, TemplateView):
+# pylint: disable=too-many-ancestors
+class POIView(PermissionRequiredMixin, TemplateView, POIMixin):
     """
     View for editing POIs
     """
@@ -70,12 +72,13 @@ class POIView(PermissionRequiredMixin, TemplateView):
 
         poi_form = POIForm(instance=poi)
         poi_translation_form = POITranslationForm(instance=poi_translation)
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
+                **context,
                 "poi_form": poi_form,
                 "poi_translation_form": poi_translation_form,
                 "language": language,
@@ -173,12 +176,13 @@ class POIView(PermissionRequiredMixin, TemplateView):
                 messages.success(request, _("Location was successfully published"))
             else:
                 messages.success(request, _("Location was successfully saved"))
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
+                **context,
                 "poi_form": poi_form,
                 "poi_translation_form": poi_translation_form,
                 "language": language,

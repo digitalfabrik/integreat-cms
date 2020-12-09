@@ -8,11 +8,13 @@ from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
 from ...models import Region, Language
+from .poi_mixin import POIMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class POIListView(PermissionRequiredMixin, TemplateView):
+# pylint: disable=too-many-ancestors
+class POIListView(PermissionRequiredMixin, TemplateView, POIMixin):
     """
     View for listing POIs (points of interests)
     """
@@ -94,7 +96,7 @@ class POIListView(PermissionRequiredMixin, TemplateView):
                 )
                 % {"language": region.default_language.translated_name},
             )
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
@@ -104,5 +106,6 @@ class POIListView(PermissionRequiredMixin, TemplateView):
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
                 "languages": region.languages,
+                **context,
             },
         )

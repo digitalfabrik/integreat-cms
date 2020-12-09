@@ -4,15 +4,18 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
+
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
 from ...models import Region, Language
+from .page_mixin import PageMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class PageTreeView(PermissionRequiredMixin, TemplateView):
+# pylint: disable=too-many-ancestors
+class PageTreeView(PermissionRequiredMixin, TemplateView, PageMixin):
     """
     View for showing the page tree
     """
@@ -89,11 +92,12 @@ class PageTreeView(PermissionRequiredMixin, TemplateView):
             messages.warning(
                 request, _("You don't have the permission to edit or create pages.")
             )
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
+                **context,
                 "current_menu_item": "pages",
                 "pages": region.pages.filter(archived=self.archived),
                 "archived_count": region.pages.filter(archived=True).count(),
