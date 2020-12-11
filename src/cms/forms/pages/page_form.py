@@ -114,8 +114,8 @@ class PageForm(forms.ModelForm):
         (True, _("Embed mirrored page before this page")),
         (False, _("Embed mirrored page after this page")),
     )
-    mirrored_page_first = forms.ChoiceField(
-        choices=TRUE_FALSE_CHOICES, widget=forms.Select(), required=False
+    mirrored_page_first = forms.BooleanField(
+        widget=forms.Select(choices=TRUE_FALSE_CHOICES), required=False, initial=True
     )
 
     class Meta:
