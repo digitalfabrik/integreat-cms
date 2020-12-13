@@ -110,6 +110,32 @@ rst_epilog = f"""
 .. |github-repository| replace:: {github_repository}
 .. |github-pages-url| replace:: {github_pages_url}
 """
+#: Warn about all references where the target cannot be found
+nitpicky = True
+#: A list of (type, target) tuples that should be ignored when :attr:`nitpicky` is ``True``
+nitpick_ignore = [
+    ("py:class", "builtins.int"),
+    ("py:class", "builtins.AssertionError"),
+    ("py:attr", "django.contrib.auth.models.User.profile"),
+    ("py:attr", "django.contrib.auth.models.User.mfa_keys"),
+    ("py:attr", "django.contrib.auth.models.User.editable_pages"),
+    ("py:attr", "django.contrib.auth.models.User.publishable_pages"),
+    ("py:attr", "django.contrib.auth.models.User.page_translations"),
+    ("py:attr", "django.contrib.auth.models.User.event_translations"),
+    ("py:attr", "django.contrib.auth.models.User.poi_translations"),
+    ("py:attr", "django.contrib.auth.models.User.imprint_translations"),
+    ("py:attr", "django.contrib.auth.models.User.chat_messages"),
+    ("py:func", "django.contrib.sitemaps.Sitemap._urls"),
+    ("py:class", "django.core.handlers.WSGIHandler"),
+    ("py:class", "django.forms.models.ModelChoiceIterator"),
+    ("py:class", "mptt.models.MPTTModel"),
+    ("py:class", "mptt.fields.TreeForeignKey"),
+    ("py:class", "webauthn.WebAuthnUser"),
+    ("py:class", "realms.magic.unicorn"),
+    ("js:func", "cms.static.js.pages.page_bulk_action.bulk_action_execute"),
+]
+#: A list of prefixes that are ignored for sorting the Python module index
+modindex_common_prefix = ["cms"]
 
 # -- Options for HTML output -------------------------------------------------
 

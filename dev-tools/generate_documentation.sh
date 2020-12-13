@@ -77,7 +77,10 @@ if ! patch ${SPHINX_DIR}/${SPHINX_APIDOC_DIR}/cms.rst ${SPHINX_DIR}/patches/cms.
 fi
 
 # Compile .rst files to html documentation
-pipenv run sphinx-build -j auto ${SPHINX_DIR} ${DOC_DIR}
+pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+
+# Get exit status of sphinx-build
+status=$?
 
 # Move german translation file to original file again
 if [[ -f "${TRANSLATION_FILE}.lock" ]]; then
@@ -88,3 +91,6 @@ fi
 rm -r docs/.doctrees
 rm -r docs/_sources
 rm docs/.buildinfo
+
+# Exit with status of sphinx-build
+exit $status
