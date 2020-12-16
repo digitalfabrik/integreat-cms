@@ -1,8 +1,14 @@
+import html
+from urllib.parse import urlparse
+import feedparser
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.utils import translation
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from backend.settings import RSS_FEED_URLS
 from ...decorators import region_permission_required
 
 
@@ -36,4 +42,22 @@ class DashboardView(TemplateView):
         """
 
         val = "To be defined"
-        return render(request, self.template_name, {"key": val, **self.base_context})
+        language_code = translation.get_language()
+        feed = feedparser.parse(RSS_FEED_URLS[language_code])
+        # select five most recent feeds
+        feed["entries"] = feed["entries"][:5]
+        # decode html entities like dash and split after line break
+        for entry in feed["entries"]:
+            entry["summary"] = html.unescape(entry["summary"]).split("\n")[0]
+        domain = urlparse(RSS_FEED_URLS["home-page"]).netloc
+        return render(
+            request,
+            self.template_name,
+            {
+                "key": val,
+                **self.base_context,
+                "feed": feed,
+                "home_page": RSS_FEED_URLS["home-page"],
+                "domain": domain,
+            },
+        )

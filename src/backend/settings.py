@@ -336,3 +336,10 @@ CORS_ALLOW_HEADERS = [
 ]
 
 TEST_BLOG_ID = 154
+
+# RSS feed urls
+RSS_FEED_URLS = {
+    "en-us": "https://integreat-app.de/en/feed/",
+    "de-de": "https://integreat-app.de/feed/",
+    "home-page": "https://integreat-app.de/",
+}
