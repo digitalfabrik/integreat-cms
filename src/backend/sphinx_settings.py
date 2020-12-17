@@ -1,0 +1,15 @@
+"""
+Django settings for the Sphinx documentation builder.
+All configuration is imported from :mod:`backend.settings` except it sets :attr:`USE_I18N` to ``False`` to make sure
+the documentation is not partially translated.
+
+For more information on this file, see :doc:`topics/settings`.
+For the full list of settings and their values, see :doc:`ref/settings`.
+"""
+# pylint: disable=wildcard-import
+# pylint: disable=unused-wildcard-import
+from .settings import *
+
+#: A boolean that specifies whether Django’s translation system should be enabled
+#: (see :setting:`django:USE_I18N` and :doc:`topics/i18n/index`)
+USE_I18N = False

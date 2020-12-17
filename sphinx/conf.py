@@ -19,7 +19,7 @@ from backend.settings import VERSION
 sys.path.append(os.path.abspath("../src/"))
 # Append sphinx source directory to path environment variable to allow documentation for this file
 sys.path.append(os.path.abspath("./"))
-os.environ["DJANGO_SETTINGS_MODULE"] = "backend.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "backend.sphinx_settings"
 
 
 # Setup Django
@@ -97,6 +97,7 @@ intersphinx_mapping = {
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
     "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest", None),
 }
+intersphinx_timeout = 5
 #: The path for patched template files
 templates_path = ["templates"]
 #: Markup to shorten external links (see :doc:`sphinx:usage/extensions/extlinks`)

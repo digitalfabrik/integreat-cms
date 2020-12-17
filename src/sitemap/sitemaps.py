@@ -23,8 +23,6 @@ class WebappSitemap(ABC, Sitemap):
 
     :param priority: The default priority for all sitemap's urls (``0.5``)
     :type priority: float
-
-    .. automethod:: _urls
     """
 
     changefreq = "monthly"
