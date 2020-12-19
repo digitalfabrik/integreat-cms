@@ -34,6 +34,7 @@ setup(
         "django-filer",
         "django-mptt",
         "django-widget-tweaks",
+        "feedparser",
         "idna",
         "lxml",
         "psycopg2-binary",

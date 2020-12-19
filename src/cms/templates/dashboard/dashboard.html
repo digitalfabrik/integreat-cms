@@ -1,5 +1,45 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load static %}
+{% load parse_struct_time %}
 {% block content %}
-    Dashboard
+    <div class="dashboard">
+        <h1 class="font-bold">Dashboard</h1>
+        <div class="flex items-start">
+            <div class="flex flex-col w-1/2 ">
+                <div class="bg-white p-4 my-3 mr-3 shadow">
+                    <h2 class="font-bold">{% trans 'At a glance' %}</h2>
+                </div>
+                <div class="bg-white p-4 my-3 mr-3 shadow">
+                    <h2 class="font-bold">{% trans 'Author Chat' %}</h2>
+                </div>
+            </div>
+            <div class="flex flex-col bg-white w-1/2 px-4 mt-3 ml-3 shadow">
+                <button type="button" class="collapsible font-bold py-4 text-left relative focus:outline-none">
+                    <span class="font-bold">Tür an Tür - Digitalfabrik News</span>
+                    <i data-feather="chevron-up" id="up-arrow" class="inline absolute right-0"></i>
+                    <i data-feather="chevron-down" id="down-arrow" class="inline hidden absolute right-0"></i>
+                </button>
+                <div class="collapsible-content flex flex-col active">
+                    <div class="flex py-4">
+                        <img src="{% static 'images/favicon.ico' %}"/>
+                        <div class="flex flex-col mx-auto">
+                            <h3 class="text-gray-700 font-bold">Tür an Tür - Digitalfabrik</h2>
+                            <a href="{{ home_page }}" class="font-bold text-blue-500 hover:text-blue-700">{{ domain }}</a>
+                        </div>
+                    </div>
+                    {% for entry in feed.entries %}
+                        <div class="py-4 border-b border-gray-400">
+                            <a href="{{ entry.link }}" class="block py-2 font-bold text-blue-500 hover:text-blue-700">{{ entry.title }}</a>
+                            <div class="text-gray-600 py-2">{{ entry.published_parsed|parse_struct_time }}</div>
+                            <p class="py-2">{{ entry.summary|striptags|truncatewords:35 }}</p>
+                        </div>
+                    {% endfor %}
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/toggle-dashboard-section.js' %}"></script>
 {% endblock %}
