@@ -381,6 +381,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.offer_filters">Offer Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.page_filters">Page Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.tree_filters">Tree Filters</a></li>
@@ -859,6 +860,26 @@ This is used to treat British English and American English as the same language.
 </dd></dl>
 
 </div>
+<div class="section" id="module-cms.templatetags.parse_struct_time">
+<span id="parse-struct-time"></span><h2>Parse Struct Time<a class="headerlink" href="#module-cms.templatetags.parse_struct_time" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="cms.templatetags.parse_struct_time.parse_struct_time">
+<code class="sig-prename descclassname">cms.templatetags.parse_struct_time.</code><code class="sig-name descname">parse_struct_time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">struct_time</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/parse_struct_time.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.parse_struct_time.parse_struct_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts timestamp to datetime and returns date only</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>struct_time</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/time.html#time.struct_time" title="(in Python v3.7)"><em>time.struct_time</em></a>) – timestamp received from rss feed</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>proper parsed date</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.templatetags.poi_filters">
 <span id="poi-filters"></span><h2>POI Filters<a class="headerlink" href="#module-cms.templatetags.poi_filters" title="Permalink to this headline">¶</a></h2>
 <p>This is a collection of tags and filters for points of interest (<a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
@@ -958,7 +979,7 @@ objects.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 22, 2020.
+        Last updated on Dec 16, 2020.
       </span>
 
     </p>
