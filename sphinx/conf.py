@@ -284,19 +284,23 @@ def linkcode_resolve(domain, info):
     :return: The URL of the given module on GitHub
     :rtype: str
     """
-    if domain != "py" or not info["module"]:
+    module_str = info["module"]
+    if domain != "py" or not module_str:
         return None
-    filename = info["module"].replace(".", "/")
-    module = importlib.import_module(info["module"])
-    basename = os.path.splitext(module.__file__)[0]
-    if basename.endswith("__init__"):
-        filename += "/__init__"
-    item = module
+    item = importlib.import_module(module_str)
     line_number_reference = ""
     for piece in info["fullname"].split("."):
         item = getattr(item, piece)
         try:
             line_number_reference = f"#L{inspect.getsourcelines(item)[1]}"
+            module_str = item.__module__
         except (TypeError, IOError):
             pass
-    return f"{github_url}/blob/develop/src/{filename}.py{line_number_reference}"
+    module = importlib.import_module(module_str)
+    module_path = module_str.replace(".", "/")
+    filename = module.__file__.partition(module_path)[2]
+    if module_str.startswith("django."):
+        url = "https://github.com/django/django/blob/stable/2.2.x"
+    else:
+        url = f"{github_url}/blob/develop/src"
+    return f"{url}/{module_path}{filename}{line_number_reference}"
