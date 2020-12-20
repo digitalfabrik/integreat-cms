@@ -14,7 +14,14 @@ class RegionUserProfileForm(UserProfileForm):
     """
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = UserProfile
+        #: The fields of the model which should be handled by this form
         fields = ["organization", "expert_mode"]
 
     def __init__(self, data=None, instance=None):
@@ -29,6 +36,19 @@ class RegionUserProfileForm(UserProfileForm):
         super().__init__(data=data, instance=instance)
 
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved user profile object
+        :rtype: ~cms.models.users.user_profile.UserProfile
+        """
 
         logger.info(
             "RegionUserProfileForm saved with cleaned data %s and changed data %s",

@@ -21,6 +21,10 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class ImprintView(PermissionRequiredMixin, TemplateView):
+    """
+    View for the imprint page form and imprint page translation form
+    """
+
     permission_required = "cms.manage_imprint"
     raise_exception = True
 
@@ -32,6 +36,24 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
     }
 
     def get(self, request, *args, **kwargs):
+        """
+        Render :class:`~cms.forms.imprint.imprint_form.ImprintForm` and
+        :class:`~cms.forms.imprint.imprint_translation_form.ImprintTranslationForm`
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         # current region
         region = Region.get_current_region(request)
@@ -134,8 +156,14 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
         :param request: Request submitted for saving imprint form
         :type request: ~django.http.HttpRequest
 
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
         :return: Redirection to the populated imprint form
-        :rtype: ~django.http.HttpRespnseRedirect
+        :rtype: ~django.http.HttpResponseRedirect
         """
 
         region = Region.get_current_region(request)
@@ -244,7 +272,7 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
     @staticmethod
     def get_side_by_side_language_options(region, language, imprint):
         """
-        This is a helper function to generate the side-by-side langauge options for both the get and post requests.
+        This is a helper function to generate the side-by-side language options for both the get and post requests.
 
         :param region: The current region
         :type region: ~cms.models.regions.region.Region

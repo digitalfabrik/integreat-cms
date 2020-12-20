@@ -13,7 +13,7 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.events import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
-from .event_mixin import EventMixin
+from .event_context_mixin import EventContextMixin
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
-class EventView(PermissionRequiredMixin, TemplateView, EventMixin):
+class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
     """
     Class for rendering the events form
     """

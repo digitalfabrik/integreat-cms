@@ -1,14 +1,13 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class PushNotificationChannel(models.Model):
     """
     Data model representing a push notification channels
-
-    :param channel: The channel of the push notification
     """
 
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=60, verbose_name=_("name"))
 
     def __str__(self):
         """
@@ -20,18 +19,13 @@ class PushNotificationChannel(models.Model):
         return self.name
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-
-        :param permissions: The custom permissions for this model
-        :type permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("push notification channel")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("push notification channels")
+        #: The default permissions for this model
         default_permissions = ()
+        #: The custom permissions for this model
         permissions = (
             (
                 "manage_push_notification_channels",

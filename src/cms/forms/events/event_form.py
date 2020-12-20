@@ -15,12 +15,22 @@ class EventForm(forms.ModelForm):
     Form for creating and modifying event objects
     """
 
+    # Whether or not the event is all day
     is_all_day = forms.BooleanField(required=False)
+    # Whether or not the event is recurring
     is_recurring = forms.BooleanField(required=False)
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = Event
+        #: The fields of the model which should be handled by this form
         fields = ["start_date", "start_time", "end_date", "end_time", "picture"]
+        #: The widgets which are used in this form
         widgets = {
             "start_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
             "end_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
@@ -29,6 +39,18 @@ class EventForm(forms.ModelForm):
         }
 
     def __init__(self, data=None, instance=None, disabled=False):
+        """
+        Initialize form
+
+        :param data: submitted POST data
+        :type data: dict
+
+        :param instance: The  instance of this form
+        :type instance: ~cms.models.events.event.Event
+
+        :param disabled: Whether or not the form is readonly
+        :type disabled: bool
+        """
         logger.info(
             "EventForm instantiated with data %s and instance %s", data, instance
         )
@@ -49,6 +71,22 @@ class EventForm(forms.ModelForm):
 
     # pylint: disable=arguments-differ
     def save(self, region=None, recurrence_rule=None, location=None):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param region: The region of this form's event instance
+        :type region: ~cms.models.regions.region.Region
+
+        :param recurrence_rule: The recurrence rule of this form's event istance
+        :type recurrence_rule: ~cms.models.events.recurrence_rule.RecurrenceRule
+
+        :param location: The location of this form's event instance
+        :type location: ~cms.models.pois.poi.POI
+
+        :return: The saved event object
+        :rtype: ~cms.models.events.event.Event
+        """
         logger.info(
             "EventForm saved with cleaned data %s and changed data %s",
             self.cleaned_data,
@@ -73,6 +111,12 @@ class EventForm(forms.ModelForm):
         return event
 
     def clean(self):
+        """
+        Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
+
+        :return: The cleaned form data
+        :rtype: dict
+        """
         cleaned_data = super().clean()
         logger.info("EventForm cleaned [1/2] with cleaned data %s", cleaned_data)
 

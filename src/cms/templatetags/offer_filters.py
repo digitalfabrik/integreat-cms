@@ -18,6 +18,6 @@ def active_since(region_offers, offer_template):
     :type offer_template: ~cms.models.offers.offer_template.OfferTemplate
 
     :return: The date and time when the offer was activated
-    :rtype: datetime
+    :rtype: ~datetime.datetime
     """
     return region_offers.filter(template=offer_template).first().created_date

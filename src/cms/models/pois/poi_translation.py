@@ -1,60 +1,85 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 from backend.settings import WEBAPP_URL
 
 from .poi import POI
 from ..languages.language import Language
 from ...constants import status
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 
 class POITranslation(models.Model):
     """
     Data model representing a POI translation
-
-    :param id: The database id of the POI translation
-    :param slug: The slug identifier of the translation (unique per :class:`~cms.models.regions.region.Region` and
-                 :class:`~cms.models.languages.language.Language`)
-    :param status: The status of the POI translation (choices: :mod:`cms.constants.status`)
-    :param title: The title of the POI translation
-    :param description: The content of the POI translation
-    :param currently_in_translation: Flag to indicate a translation is being updated by an external translator
-    :param version: The revision number of the POI translation
-    :param minor_edit: Flag to indicate whether the difference to the previous revision requires an update in other
-                       languages
-    :param created_date: The date and time when the POI translation was created
-    :param last_updated: The date and time when the POI translation was last updated
-
-    Relationship fields:
-
-    :param poi: The POI the translation belongs to (related name: ``translations``)
-    :param language: The language of the POI translation (related name: ``poi_translations``)
-    :param creator: The user who created the POI translation (related name: ``poi_translations``)
     """
 
-    title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
-    poi = models.ForeignKey(POI, related_name="translations", on_delete=models.CASCADE)
+    title = models.CharField(max_length=250, verbose_name=_("title"))
+    slug = models.SlugField(
+        max_length=200,
+        blank=True,
+        allow_unicode=True,
+        verbose_name=_("URL parameter"),
+        help_text=__(
+            _("String identifier without spaces and special characters."),
+            _("Unique per region and language."),
+            _("Leave blank to generate unique parameter from title."),
+        ),
+    )
+    poi = models.ForeignKey(
+        POI,
+        on_delete=models.CASCADE,
+        related_name="translations",
+        verbose_name=_("location"),
+    )
+    #: Manage choices in :mod:`cms.constants.status`
     status = models.CharField(
-        max_length=6, choices=status.CHOICES, default=status.DRAFT
+        max_length=6,
+        choices=status.CHOICES,
+        default=status.DRAFT,
+        verbose_name=_("status"),
     )
-    short_description = models.CharField(max_length=250)
-    description = models.TextField(blank=True)
+    short_description = models.CharField(
+        max_length=250, verbose_name=_("short description")
+    )
+    description = models.TextField(blank=True, verbose_name=_("content"))
     language = models.ForeignKey(
-        Language, related_name="poi_translations", on_delete=models.CASCADE
+        Language,
+        on_delete=models.CASCADE,
+        related_name="poi_translations",
+        verbose_name=_("language"),
     )
-    currently_in_translation = models.BooleanField(default=False)
-    version = models.PositiveIntegerField(default=0)
-    minor_edit = models.BooleanField(default=False)
-    public = models.BooleanField(default=False)
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    currently_in_translation = models.BooleanField(
+        default=False,
+        verbose_name=_("currently in translation"),
+        help_text=_(
+            "Flag to indicate a translation is being updated by an external translator"
+        ),
+    )
+    version = models.PositiveIntegerField(default=0, verbose_name=_("revision"))
+    minor_edit = models.BooleanField(
+        default=False,
+        verbose_name=_("minor edit"),
+        help_text=_(
+            "Tick if this change does not require an update of translations in other languages."
+        ),
+    )
+    created_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("modification date"),
+    )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name="poi_translations",
         null=True,
         on_delete=models.SET_NULL,
+        related_name="poi_translations",
+        verbose_name=_("creator"),
     )
 
     @property
@@ -121,7 +146,7 @@ class POITranslation(models.Model):
     @property
     def sitemap_alternates(self):
         """
-        This property returns the langauge alternatives of a POI translation for the use in sitemaps.
+        This property returns the language alternatives of a POI translation for the use in sitemaps.
         Similar to :func:`cms.models.pois.poi_translation.POITranslation.available_languages`, but in a slightly
         different format.
 
@@ -266,16 +291,11 @@ class POITranslation(models.Model):
         return not self.currently_in_translation and not self.is_outdated
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param ordering: The fields which are used to sort the returned objects of a QuerySet
-        :type ordering: list [ str ]
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("location translation")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("location translations")
+        #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["poi", "-version"]
+        #: The default permissions for this model
         default_permissions = ()

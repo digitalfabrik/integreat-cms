@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import get_language
+from django.utils.translation import get_language, ugettext_lazy as _
 from django.utils import timezone
 
 from ...constants import status
@@ -8,20 +8,19 @@ from ...constants import status
 class AbstractBasePage(models.Model):
     """
     Abstract base class for page and imprint page models.
-
-    :param explicitly_archived: Whether or not the page is explicitly archived
-    :param created_date: The date and time when the page was created
-    :param last_updated: The date and time when the page was last updated
-
-    Fields to be implemented in the inheriting model:
-
-    :param icon: The title image of the page
-    :param region: The :class:`~cms.models.regions.region.Region` to which the page belongs
     """
 
-    explicitly_archived = models.BooleanField(default=False)
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    explicitly_archived = models.BooleanField(
+        default=False,
+        verbose_name=_("explicitly archived"),
+        help_text=_("Whether or not the page is explicitly archived"),
+    )
+    created_date = models.DateTimeField(
+        default=timezone.now, verbose_name=_("creation date")
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True, verbose_name=_("modification date")
+    )
 
     @property
     def archived(self):
@@ -89,7 +88,7 @@ class AbstractBasePage(models.Model):
 
         :param priority_language_codes: A list of :class:`~cms.models.languages.language.Language` codes,
                                         defaults to ``None``
-        :type priority_language_codes: list [ str ], optional
+        :type priority_language_codes: list [ str ]
 
         :return: The first page translation which matches one of the :class:`~cms.models.languages.language.Language`
                  given or :obj:`None` if no translation exists
@@ -148,4 +147,9 @@ class AbstractBasePage(models.Model):
         return super().__str__()
 
     class Meta:
+        #: The verbose name of the model
+        verbose_name = _("page")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("pages")
+        #: This model is an abstract base class
         abstract = True

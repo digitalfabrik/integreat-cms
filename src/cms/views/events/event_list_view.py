@@ -12,14 +12,14 @@ from ...constants import all_day, recurrence
 from ...decorators import region_permission_required
 from ...models import Region
 from ...forms.events import EventFilterForm
-from .event_mixin import EventMixin
+from .event_context_mixin import EventContextMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
 class EventListView(
-    LoginRequiredMixin, PermissionRequiredMixin, TemplateView, EventMixin
+    LoginRequiredMixin, PermissionRequiredMixin, TemplateView, EventContextMixin
 ):
     """
     View for listing events (either non-archived or archived events depending on

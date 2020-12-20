@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from .feedback import Feedback
 from ..offers.offer import Offer
@@ -8,28 +9,25 @@ from ..regions.region import Region
 class OfferFeedback(Feedback):
     """
     Database model representing feedback about offers.
-
-    Fields inherited from the base model :class:`~cms.models.feedback.feedback.Feedback`:
-
-    :param id: The database id of the feedback
-    :param emotion: Whether the feedback is positive or negative (choices: :mod:`cms.constants.feedback_emotions`)
-    :param comment: A comment describing the feedback
-    :param is_technical: Whether or not the feedback is targeted at the developers
-    :param read_status: Whether or not the feedback is marked as read
-    :param created_date: The date and time when the feedback was created
-    :param last_updated: The date and time when the feedback was last updated
-
-    Relationship fields:
-
-    :param offer: The offer the feedback is referring to (related name: ``feedback``)
-    :param region: The region to which the feedback is referring to (related name: ``offer_feedback``)
-    :param feedback_ptr: A pointer to the base class
     """
 
-    offer = models.ForeignKey(Offer, related_name="feedback", on_delete=models.CASCADE)
+    offer = models.ForeignKey(
+        Offer,
+        on_delete=models.CASCADE,
+        related_name="feedback",
+        verbose_name=_("offer"),
+    )
     region = models.ForeignKey(
-        Region, related_name="offer_feedback", on_delete=models.CASCADE
+        Region,
+        on_delete=models.CASCADE,
+        related_name="offer_feedback",
+        verbose_name=_("region"),
     )
 
     class Meta:
+        #: The verbose name of the model
+        verbose_name = _("offer feedback")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("offer feedback")
+        #: The default permissions for this model
         default_permissions = ()

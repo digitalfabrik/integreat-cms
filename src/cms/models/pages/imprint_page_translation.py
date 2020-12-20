@@ -3,10 +3,10 @@ import logging
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from backend.settings import BASE_URL, IMPRINT_SLUG
 from .abstract_base_page_translation import AbstractBasePageTranslation
-
 from .imprint_page import ImprintPage
 from ..languages.language import Language
 
@@ -16,40 +16,27 @@ logger = logging.getLogger(__name__)
 
 class ImprintPageTranslation(AbstractBasePageTranslation):
     """
-    Data model representing an imprint translation
-
-    :param id: The database id of the imprint translation
-
-    Fields inherited from the :class:`~cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation` model:
-
-    :param status: The status of the imprint translation (choices: :mod:`cms.constants.status`)
-    :param title: The title of the imprint translation
-    :param text: The content of the imprint translation
-    :param currently_in_translation: Flag to indicate a translation is being updated by an external translator
-    :param version: The revision number of the imprint translation
-    :param minor_edit: Flag to indicate whether the difference to the previous revision requires an update in other
-                       languages
-    :param created_date: The date and time when the imprint translation was created
-    :param last_updated: The date and time when the imprint translation was last updated
-
-    Relationship fields:
-
-    :param page: The imprint page the translation belongs to (related name: ``translations``)
-    :param language: The language of the imprint translation (related name: ``imprint_translations``)
-    :param creator: The user who created the imprint translation (related name: ``imprint_translations``)
+    Data model representing a imprint translation
     """
 
     page = models.ForeignKey(
-        ImprintPage, related_name="translations", on_delete=models.CASCADE
+        ImprintPage,
+        on_delete=models.CASCADE,
+        related_name="translations",
+        verbose_name=_("imprint"),
     )
     language = models.ForeignKey(
-        Language, related_name="imprint_translations", on_delete=models.CASCADE
+        Language,
+        on_delete=models.CASCADE,
+        related_name="imprint_translations",
+        verbose_name=_("language"),
     )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name="imprint_translations",
         null=True,
         on_delete=models.SET_NULL,
+        related_name="imprint_translations",
+        verbose_name=_("creator"),
     )
 
     @property
@@ -103,16 +90,11 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         return super().__str__()
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param ordering: The fields which are used to sort the returned objects of a QuerySet
-        :type ordering: list [ str ]
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("imprint translation")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("imprint translations")
+        #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["page", "-version"]
+        #: The default permissions for this model
         default_permissions = ()

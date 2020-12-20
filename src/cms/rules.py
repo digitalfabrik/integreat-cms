@@ -112,7 +112,7 @@ def can_delete_chat_message(user, chat_message):
     :param chat_message: The requested chat message
     :type chat_message: ~cms.models.chat.chat_message.ChatMessage
 
-    :return: Whether or not ``user`` is allower to delete ``chat_message``
+    :return: Whether or not ``user`` is allowed to delete ``chat_message``
     :rtype: bool
     """
     # Superusers and staff can delete all messages

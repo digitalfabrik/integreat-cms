@@ -16,7 +16,7 @@ GET = "GET"
 POST = "POST"
 
 CHOICES = (
-    (NONE, _("No")),
+    (NONE, _("Do not use postcode")),
     (GET, _("Append postal code to URL")),
     (POST, _("Add postal code to post parameters")),
 )

@@ -3,6 +3,7 @@ from mptt.models import MPTTModel, raise_if_unsaved
 
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 from .language import Language
 from ..regions.region import Region
@@ -13,44 +14,43 @@ class LanguageTreeNode(MPTTModel):
     Data model representing a region's language tree. Each tree node is a single object instance and the whole tree is
     identified by the root node. The base functionality inherits from the package `django-mptt
     <https://django-mptt.readthedocs.io/en/latest/index.html>`_ (Modified Preorder Tree Traversal).
-
-    :param id: The database id of the language tree node
-    :param active: Whether or not it should be possible to create new pages in this language and content of this
-                   language should be delivered via the API
-    :param created_date: The date and time when the language tree node was created
-    :param last_updated: The date and time when the language tree node was last updated
-
-    Fields inherited from the MPTT model (see :doc:`models` for more information):
-
-    :param tree_id: The id of this language tree (all nodes of one language tree share this id)
-    :param lft: The left neighbour of this node
-    :param rght: The right neighbour of this node
-    :param level: The depth of the node. Root nodes are level `0`, their immediate children are level `1`, their
-                  immediate children are level `2` and so on...
-
-    Relationship fields:
-
-    :param parent: The parent node of this node (related name: ``children``)
-    :param language: Language this tree node refers to (related name: ``language_tree_nodes``)
-    :param region: The region this node belongs to (related name: ``language_tree_nodes``)
-
-    Reverse relationships:
-
-    :param children: The children of this language tree node
     """
 
     language = models.ForeignKey(
-        Language, related_name="language_tree_nodes", on_delete=models.PROTECT
+        Language,
+        on_delete=models.PROTECT,
+        related_name="language_tree_nodes",
+        verbose_name=_("language"),
     )
     parent = TreeForeignKey(
-        "self", blank=True, null=True, related_name="children", on_delete=models.PROTECT
+        "self",
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="children",
+        verbose_name=_("source language"),
     )
     region = models.ForeignKey(
-        Region, related_name="language_tree_nodes", on_delete=models.CASCADE
+        Region,
+        on_delete=models.CASCADE,
+        related_name="language_tree_nodes",
+        verbose_name=_("region"),
     )
-    active = models.BooleanField(default=True)
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_("active"),
+        help_text=_(
+            "Whether or not it should be possible to create new pages in this language and content of this language should be delivered via the API"
+        ),
+    )
+    created_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("modification date"),
+    )
 
     @property
     def code(self):
@@ -164,25 +164,18 @@ class LanguageTreeNode(MPTTModel):
         return self.language.english_name
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param unique_together: There cannot be two language tree nodes with the same region and language
-        :type default_permissions: tuple
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-
-        :param permissions: The custom permissions for this model
-        :type permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("language tree node")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("language tree nodes")
+        #: There cannot be two language tree nodes with the same region and language
         unique_together = (
             (
                 "language",
                 "region",
             ),
         )
+        #: The default permissions for this model
         default_permissions = ()
+        #: The custom permissions for this model
         permissions = (("manage_language_tree", "Can manage language tree"),)

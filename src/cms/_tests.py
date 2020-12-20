@@ -1,3 +1,7 @@
+"""
+This module contains old unit tests which do not longer work.
+They can be removed once they are migrated to the cms.tests package.
+"""
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
@@ -9,9 +13,10 @@ from .forms.pages import PageForm
 from .forms.regions import RegionForm
 
 
-# pylint: disable=too-many-instance-attributes
+# pylint: disable=too-many-instance-attributes,missing-class-docstring
 class SetupClass(TestCase):
     @staticmethod
+    # pylint: disable=missing-function-docstring
     def create_region(region_data):
         region_form = RegionForm(region_data)
         region_form.is_valid()
@@ -19,6 +24,7 @@ class SetupClass(TestCase):
         return Region.objects.get(slug=region_data["name"])
 
     @staticmethod
+    # pylint: disable=missing-function-docstring
     def create_language(language_data):
         language_form = LanguageForm(language_data)
         language_form.is_valid()
@@ -26,6 +32,7 @@ class SetupClass(TestCase):
         return Language.objects.get(name=language_data["name"])
 
     @staticmethod
+    # pylint: disable=missing-function-docstring
     def create_language_tree_node(language_tree_node_data, region_slug=None):
         region = Region.objects.get(slug=region_slug)
         language_tree_node_form = LanguageTreeNodeForm(
@@ -35,7 +42,7 @@ class SetupClass(TestCase):
         return language_tree_node_form.save()
 
     @staticmethod
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments,missing-function-docstring
     def create_page(
         page_data,
         user,
@@ -59,6 +66,7 @@ class SetupClass(TestCase):
             return page_form.save()
         return None
 
+    # pylint: disable=missing-function-docstring
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             "test", "test@integreat.com", "test"
@@ -215,15 +223,22 @@ class SetupClass(TestCase):
         )
 
 
+# pylint: disable=missing-class-docstring
 class LanguageTreeNodeTestCase(SetupClass):
+
+    # pylint: disable=missing-function-docstring
     def test_node_region(self):
         self.assertEqual(self.english_node.region, self.region)
 
+    # pylint: disable=missing-function-docstring
     def test_parent_node(self):
         self.assertEqual(self.deutsch_node.parent, self.english_node)
 
 
+# pylint: disable=missing-class-docstring
 class PageFormTestCase(SetupClass):
+
+    # pylint: disable=missing-function-docstring
     def test_page(self):
         self.assertEqual(len(self.page_tunews.languages), 1)
         self.assertEqual(len(self.page_slot_one.languages), 2)
@@ -232,5 +247,6 @@ class PageFormTestCase(SetupClass):
         self.assertIsNone(self.page_tunews.get_translation("de-de"))
         self.assertIsNotNone(self.page_slot_one.get_translation("de-de"))
 
+    # pylint: disable=missing-function-docstring
     def test_pages(self):
         self.assertEqual(self.region.pages.count(), 4)
