@@ -77,7 +77,7 @@ extensions = [
 ]
 #: Enable cross-references to other documentations
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3.7", None),
+    "python": ("https://docs.python.org/3.7/", None),
     "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
     "requests": ("https://requests.readthedocs.io/en/master/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
@@ -93,9 +93,12 @@ intersphinx_mapping = {
         "https://docs.djangoproject.com/en/2.2/",
         "https://docs.djangoproject.com/en/2.2/_objects/",
     ),
+    "django-compressor": ("https://django-compressor.readthedocs.io/en/stable/", None),
+    "django-filer": ("https://django-filer.readthedocs.io/en/latest/", None),
     "django-mptt": ("https://django-mptt.readthedocs.io/en/latest/", None),
+    "easy-thumbnails": ("https://easy-thumbnails.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
-    "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest", None),
+    "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest/", None),
 }
 intersphinx_timeout = 5
 #: The path for patched template files
