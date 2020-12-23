@@ -1,21 +1,23 @@
 """
 This module contains all string representations of all day filter options, used by :class:`~cms.forms.events.event_filter_form.EventFilterForm` and
-:class:`~cms.views.events.event_list_view.EventListView`:
+:class:`~cms.views.events.event_list_view.EventListView`.
 
-* ``ALL_DAY``: Only events which are all day long
-
-* ``NOT_ALL_DAY``: Exclude events which are all day long
-
-The module also contains a constant ``DATATYPE`` which contains the type of the constant values linked to the strings and is used for correctly
-instantiating :class:`django.forms.TypedMultipleChoiceField` instances in :class:`~cms.forms.events.event_filter_form.EventFilterForm`.
+The module also contains a constant :attr:`~cms.constants.all_day.DATATYPE`, which contains the type of the constant
+values linked to the strings and is used for correctly instantiating :class:`django.forms.TypedMultipleChoiceField`
+instances in :class:`~cms.forms.events.event_filter_form.EventFilterForm`.
 """
 from django.utils.translation import ugettext_lazy as _
 
+
+#: This docstring is overridden by "alias of builtins.int"
 DATATYPE = int
 
+#: Only events which are all day long
 ALL_DAY = 1
+#: Exclude events which are all day long
 NOT_ALL_DAY = 2
 
+#: Choices to use these constants in a database field
 CHOICES = (
     (ALL_DAY, _("All day long events")),
     (NOT_ALL_DAY, _("Not all day long events")),

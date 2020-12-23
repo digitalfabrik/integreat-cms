@@ -1,31 +1,25 @@
 """
-This module contains all string representations of weekdays, used by :class:`~cms.models.events.event.Event`:
-
-* ``MONDAY``: Monday
-
-* ``TUESDAY``: Tuesday
-
-* ``WEDNESDAY``: Wednesday
-
-* ``THURSDAY``: Thursday
-
-* ``FRIDAY``: Friday
-
-* ``SATURDAY``: Saturday
-
-* ``SUNDAY``: Sunday
+This module contains all string representations of weekdays, used by :class:`~cms.models.events.event.Event`.
 """
 from django.utils.translation import ugettext_lazy as _
 
 
+#: Monday
 MONDAY = 0
+#: Tuesday
 TUESDAY = 1
+#: Wednesday
 WEDNESDAY = 2
+#: Thursday
 THURSDAY = 3
+#: Friday
 FRIDAY = 4
+#: Saturday
 SATURDAY = 5
+#: Sunday
 SUNDAY = 6
 
+#: Choices to use these constants in a database field
 CHOICES = (
     (MONDAY, _("Monday")),
     (TUESDAY, _("Tuesday")),
