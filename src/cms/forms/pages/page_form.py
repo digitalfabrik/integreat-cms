@@ -213,7 +213,7 @@ class PageForm(forms.ModelForm):
         if not self.instance.id:
             # only update these values when page is created
             page.region = self.region
-        page.archived = bool(self.data.get("submit_archive"))
+        page.explicitly_archived = bool(self.data.get("submit_archive"))
         page.mirrored_page = self.cleaned_data["mirrored_page"]
         page.save()
         page.move_to(self.cleaned_data["related_page"], self.cleaned_data["position"])

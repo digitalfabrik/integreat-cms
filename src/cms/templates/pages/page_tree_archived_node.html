@@ -18,9 +18,15 @@
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
-            {{ page_translation.get_status_display }}
-        </a>
+        {% if page.explicitly_archived %}
+            <a  title="{% trans 'This page is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+                {% trans 'Archived' %}
+            </a>
+        {% else %}
+            <a  title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+                {% trans 'Archived, because a parent page is archived' %}
+            </a>
+        {% endif %}
     </td>
     <td>
         <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
@@ -81,26 +87,32 @@
     <td class="pl-2 pr-4 text-right">
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
-           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="py-3" style="padding-right:4px;">
+           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="py-3">
             <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
-        <button title="{% trans 'Restore page' %}" class="confirmation-button py-3 pl-4"
-            data-confirmation-title="{{ restore_dialog_title }}"
-            data-confirmation-text="{{ restore_dialog_text }}"
-            data-confirmation-subject="{{ page_translation.title }}"
-            data-action="{% url 'restore_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
-            <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
-        </button>
+        {% if page.explicitly_archived %}
+            <button title="{% trans 'Restore page' %}" class="confirmation-button py-3 pl-4"
+                    data-confirmation-title="{{ restore_dialog_title }}"
+                    data-confirmation-text="{{ restore_dialog_text }}"
+                    data-confirmation-subject="{{ page.best_language_title }}"
+                    data-action="{% url 'restore_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
+                <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
+            </button>
+        {% else %}
+            <button title="{% trans 'To restore this page, you have to restore its archived parent page.' %}" class="py-3 pl-2">
+                <i data-feather="refresh-ccw" class="inline-block text-gray-400"></i>
+            </button>
+        {% endif %}
         {% if user.is_superuser or user.is_staff %}
             {% if page.children.all %}
-                <button title="{% trans 'You cannot delete a page which has children.' %}" class="py-3" style="padding-left:4px;">
+                <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves non-archived subpages.' %}" class="py-3 pl-2">
                     <i data-feather="trash-2" class="inline-block text-gray-400"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 pl-4"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"
-                    data-confirmation-subject="{{ page_translation.title }}"
+                    data-confirmation-subject="{{ page.best_language_title }}"
                     data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
                     <i data-feather="trash-2" class="inline-block text-gray-800"></i>
                 </button>

@@ -40,10 +40,13 @@ function get_page_order_table(event) {
 // Event handler for updating the page title
 u('#id_title').on('input', update_page_title);
 
+// save initial page title
+const initial_page_title = u('#id_title').first().value;
+
 // This function inserts the updated page title in the page order table
 function update_page_title() {
     let page_title = u('#id_title').first().value;
-    if (page_title == "") {
+    if (page_title == "" || page_title == initial_page_title) {
         page_title = u('#page_title').data('default-title');
     }
     u('#page_title').html(page_title);

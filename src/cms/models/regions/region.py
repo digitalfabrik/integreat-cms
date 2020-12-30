@@ -137,6 +137,63 @@ class Region(models.Model):
             return None
         return get_object_or_404(cls, slug=region_slug)
 
+    @property
+    def archived_pages(self):
+        """
+        This property returns a QuerySet of all archived pages and their descendants of this region.
+
+        :return: A QuerySet of all archived pages of this region
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        """
+        # Queryset of explicitly archived pages
+        explicitly_archived_pages = self.pages.filter(explicitly_archived=True)
+        # Multiple order_by clauses are not allowed in sql queries, so to make combined queries with union() work,
+        # we have to remove ordering from the input querysets and apply the default ordering to the resulting queryset.
+        explicitly_archived_pages = explicitly_archived_pages.order_by()
+        # List of QuerySets of descendants of archived pages
+        implicitly_archived_pages = [
+            page.get_descendants().order_by() for page in explicitly_archived_pages
+        ]
+        # Merge explicitly and implicitly archived pages
+        archived_pages = explicitly_archived_pages.union(*implicitly_archived_pages)
+        # Order the resulting :class:`~mptt.querysets.TreeQuerySet` to restore the tree-structure which is required for
+        # the custom template tag "recursetree" of django-mptt (see :doc:`django-mptt:templates`)
+        return archived_pages.order_by("tree_id", "lft")
+
+    @property
+    def non_archived_pages(self):
+        """
+        This property returns a QuerySet of all non-archived pages of this region.
+        A page is considered as "non-archived" if its ``explicitly_archived`` property is ``False`` and all of the
+        page's ancestors are not archived as well.
+
+        :return: A QuerySet of all non-archived pages of this region
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        """
+        # Multiple order_by clauses are not allowed in sql queries, so to make combined queries with difference() work,
+        # we have to remove ordering from the input querysets and apply the default ordering to the resulting queryset.
+        archived_pages = self.archived_pages.order_by()
+        # Exclude archived pages from all pages
+        non_archived_pages = self.pages.difference(archived_pages)
+        # Order the resulting TreeQuerySet to restore the tree-structure which is required for  the custom template tag
+        # "recursetree" of django-mptt (see :doc:`django-mptt:templates`)
+        return non_archived_pages.order_by("tree_id", "lft")
+
+    def get_pages(self, archived):
+        """
+        This method returns either all archived or all non-archived pages of this region.
+        To retrieve all pages independently from their archived-state, use the reverse foreign key ``region.pages``.
+
+        :param archived: Whether or not only archived pages should be returned
+        :type archived: bool
+
+        :return: Either the archived or the non-archived pages of this region
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        """
+        if archived:
+            return self.archived_pages
+        return self.non_archived_pages
+
     def __str__(self):
         """
         This overwrites the default Python __str__ method which would return <Region object at 0xDEADBEEF>

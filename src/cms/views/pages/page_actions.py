@@ -58,7 +58,7 @@ def archive_page(request, page_id, region_slug, language_code):
     if not request.user.has_perm("cms.edit_page", page):
         raise PermissionDenied
 
-    page.archived = True
+    page.explicitly_archived = True
     page.save()
 
     messages.success(request, _("Page was successfully archived"))
@@ -102,11 +102,26 @@ def restore_page(request, page_id, region_slug, language_code):
     if not request.user.has_perm("cms.edit_page", page):
         raise PermissionDenied
 
-    page.archived = False
+    page.explicitly_archived = False
     page.save()
 
-    messages.success(request, _("Page was successfully restored"))
-
+    if page.implicitly_archived:
+        messages.info(
+            request,
+            _("Page was successfully restored.")
+            + " "
+            + _(
+                "However, it is still archived because one of its parent pages is archived."
+            ),
+        )
+        return redirect(
+            "archived_pages",
+            **{
+                "region_slug": region_slug,
+                "language_code": language_code,
+            },
+        )
+    messages.success(request, _("Page was successfully restored."))
     return redirect(
         "pages",
         **{
@@ -177,7 +192,7 @@ def delete_page(request, page_id, region_slug, language_code):
     page = get_object_or_404(region.pages, id=page_id)
 
     if page.children.exists():
-        messages.error(request, _("You cannot delete a page which has children"))
+        messages.error(request, _("You cannot delete a page which has subpages."))
     else:
         page.delete()
         messages.success(request, _("Page was successfully deleted"))
@@ -217,7 +232,7 @@ def export_pdf(request, region_slug, language_code):
     # retrieve the selected page ids
     page_ids = request.GET.get("pages").split(",")
     # collect the corresponding page objects
-    pages = region.pages.filter(archived=False, id__in=page_ids)
+    pages = region.pages.filter(explicitly_archived=False, id__in=page_ids)
     # generate PDF document wrapped in a HtmlResponse object
     response = generate_pdf(region, language_code, pages)
     # offer PDF document for download

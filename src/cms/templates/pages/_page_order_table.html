@@ -8,15 +8,14 @@
             {% get_current_language as LANGUAGE_CODE %}
             {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
             {% recursetree siblings %}
-                {% get_translation node LANGUAGE_CODE as node_backend_translation %}
                 {% if node == page %}
                     <tr class="border-2 border-blue-500 hover:bg-gray-100">
                         <td class="single_icon min">
-                            <span data-contained-in-siblings="true" class="drag text-gray-800 block py-3 pr-2 cursor-move" draggable="true">
+                            <span data-contained-in-siblings="true" class="drag text-gray-800 block py-3 pr-2 cursor-move" {% if not page.archived %}draggable="true"{% endif %}>
                                 <i data-feather="move"></i>
                             </span>
                         </td>
-                        <td id="page_title" data-default-title="{{ node_backend_translation.title }}">{{ node_backend_translation.title }}</td>
+                        <td id="page_title" data-default-title="{{ node.best_language_title }}">{{ node.best_language_title }}</td>
                     </tr>
                 {% else %}
                     {% if page and node.get_previous_sibling == page %}
@@ -26,7 +25,7 @@
                     {% endif %}
                     <tr class="border border-gray-200 hover:bg-gray-100">
                         <td></td>
-                        <td>{{ node_backend_translation.title }}</td>
+                        <td>{{ node.best_language_title }}</td>
                     </tr>
                     {% if not node.get_next_sibling %}
                         {% if not page in node.get_siblings %}
@@ -48,14 +47,13 @@
                         <td id="page_title" data-default-title="{% trans 'New Page' %}">{% trans 'New Page' %}</td>
                     </tr>
                 {% else %}
-                    {% get_translation page LANGUAGE_CODE as backend_translation %}
                     <tr class="border-2 border-blue-500 hover:bg-gray-100">
                         <td class="single_icon min">
                             <span class="drag text-gray-800 block py-3 pr-2 cursor-move" draggable="true">
                                 <i data-feather="move"></i>
                             </span>
                         </td>
-                        <td id="page_title" data-default-title="{{ backend_translation.title }}">{{ backend_translation.title }}</td>
+                        <td id="page_title" data-default-title="{{ page.best_language_title }}">{{ page.best_language_title }}</td>
                     </tr>
                 {% endif %}
             {% endif %}

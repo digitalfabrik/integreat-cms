@@ -21,8 +21,8 @@ LEFT = "left"
 RIGHT = "right"
 
 CHOICES = (
-    (FIRST_CHILD, _("First child of")),
-    (LAST_CHILD, _("Last child of")),
+    (FIRST_CHILD, _("First subpage of")),
+    (LAST_CHILD, _("Last subpage of")),
     (LEFT, _("Left neighbor of")),
     (RIGHT, _("Right neighbor of")),
 )
