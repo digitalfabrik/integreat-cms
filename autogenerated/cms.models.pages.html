@@ -688,7 +688,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the page is archived</p></li>
+<li><p><strong>explicitly_archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the page is explicitly archived</p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the page was created</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the page was last updated</p></li>
 </ul>
@@ -704,8 +704,23 @@
 </dd>
 </dl>
 <dl class="py method">
+<dt id="cms.models.pages.abstract_base_page.AbstractBasePage.archived">
+<em class="property">property </em><code class="sig-name descname">archived</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.archived" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is an alias of <code class="docutils literal notranslate"><span class="pre">explicitly_archived</span></code>. Used for hierarchical pages to implement a more complex notion of
+explicitly and implicitly archived pages (see <a class="reference internal" href="#cms.models.pages.page.Page.archived" title="cms.models.pages.page.Page.archived"><code class="xref py py-func docutils literal notranslate"><span class="pre">archived()</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not this page is archived</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.pages.abstract_base_page.AbstractBasePage.best_language_title">
-<code class="sig-name descname">best_language_title</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L110"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.best_language_title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">best_language_title</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L121"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.best_language_title" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function tries to determine which title to be used for a page. The first priority is the current backend
 language. If no translation is present in this language, the fallback is the region’s default language.</p>
 <dl class="field-list simple">
@@ -720,7 +735,7 @@ language. If no translation is present in this language, the fallback is the reg
 
 <dl class="py method">
 <dt id="cms.models.pages.abstract_base_page.AbstractBasePage.get_first_translation">
-<code class="sig-name descname">get_first_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">priority_language_codes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L72"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.get_first_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_first_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">priority_language_codes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L83"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.get_first_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Helper function for page labels, second level paths etc. where the ancestor translation might not exist
 This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
 and filters them to the first requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> code that matches.
@@ -742,7 +757,7 @@ given or <a class="reference external" href="https://docs.python.org/3.7/library
 
 <dl class="py method">
 <dt id="cms.models.pages.abstract_base_page.AbstractBasePage.get_public_translation">
-<code class="sig-name descname">get_public_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L95"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.get_public_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_public_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L106"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.get_public_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function retrieves the newest public translation of a page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -759,7 +774,7 @@ given or <a class="reference external" href="https://docs.python.org/3.7/library
 
 <dl class="py method">
 <dt id="cms.models.pages.abstract_base_page.AbstractBasePage.get_translation">
-<code class="sig-name descname">get_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L58"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.get_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/abstract_base_page.py#L69"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.abstract_base_page.AbstractBasePage.get_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
 and filters them to the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> code.</p>
 <dl class="field-list simple">
@@ -1086,7 +1101,7 @@ the translation is in the <a class="reference internal" href="cms.models.regions
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the page is archived</p></li>
+<li><p><strong>archived</strong> – Whether or not the page is archived</p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the page was created</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the page was last updated</p></li>
 </ul>
@@ -1101,7 +1116,10 @@ the translation is in the <a class="reference internal" href="cms.models.regions
 <p>Reverse relationships:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>) – The translations of this imprint</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>) – The translations of this imprint</p></li>
+<li><p><strong>explicitly_archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Explicitly archived</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py exception">
@@ -1247,7 +1265,7 @@ immediate children are level <cite>2</cite> and so on…</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Whether or not the page is archived</p></li>
+<li><p><strong>archived</strong> – Whether or not the page is archived</p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the page was created</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – The date and time when the page was last updated</p></li>
 </ul>
@@ -1275,6 +1293,7 @@ pages anyway.</p></li>
 <li><p><strong>children</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – The children of this page</p></li>
 <li><p><strong>translations</strong> (Reverse ManyToOne Relation from <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>) – The translations of this page</p></li>
 <li><p><strong>feedback</strong> – The feedback to this page</p></li>
+<li><p><strong>explicitly_archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Explicitly archived</p></li>
 </ul>
 </dd>
 </dl>
@@ -1288,6 +1307,21 @@ pages anyway.</p></li>
 <dt id="cms.models.pages.page.Page.MultipleObjectsReturned">
 <em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.archived">
+<em class="property">property </em><code class="sig-name descname">archived</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.archived" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hierarchical page is archived either explicitly if <code class="docutils literal notranslate"><span class="pre">explicitly_archived=True</span></code> or implicitly if one of its
+ancestors is explicitly archived.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not this page is archived</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1305,8 +1339,22 @@ pages anyway.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.pages.page.Page.explicitly_archived_ancestors">
+<em class="property">property </em><code class="sig-name descname">explicitly_archived_ancestors</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.explicitly_archived_ancestors" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns all of the page’s ancestors which are archived.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The QuerySet of archived ancestors</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.11.0)">TreeQuerySet</a> [ <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page">Page</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.pages.page.Page.get_mirrored_text">
-<code class="sig-name descname">get_mirrored_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L97"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_mirrored_text" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_mirrored_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L128"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_mirrored_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mirrored content always includes the live content from another page. This content needs to be added when
 delivering content to end users.</p>
 <dl class="field-list simple">
@@ -1324,26 +1372,40 @@ delivering content to end users.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_next_sibling">
-<code class="sig-name descname">get_next_sibling</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">filter_args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">filter_kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L86"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_next_sibling" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_next_sibling</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">filter_args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">filter_kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L117"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_next_sibling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns this model instance’s next sibling in the tree, or
 <code class="docutils literal notranslate"><span class="pre">None</span></code> if it doesn’t have a next sibling.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_previous_sibling">
-<code class="sig-name descname">get_previous_sibling</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">filter_args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">filter_kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L81"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_previous_sibling" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_previous_sibling</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">filter_args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">filter_kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L112"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_previous_sibling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns this model instance’s previous sibling in the tree, or
 <code class="docutils literal notranslate"><span class="pre">None</span></code> if it doesn’t have a previous sibling.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_siblings">
-<code class="sig-name descname">get_siblings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L91"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_siblings" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_siblings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L122"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_siblings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing siblings of this model
 instance. Root nodes are considered to be siblings of other root
 nodes.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">include_self</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> will also
 include this model instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.pages.page.Page.implicitly_archived">
+<em class="property">property </em><code class="sig-name descname">implicitly_archived</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page.Page.implicitly_archived" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks whether one of the page’s ancestors is archived which means that this page is implicitly archived as well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not this page is implicitly archived</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

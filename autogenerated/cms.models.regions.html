@@ -742,6 +742,20 @@ object-instances.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.regions.region.Region.archived_pages">
+<em class="property">property </em><code class="sig-name descname">archived_pages</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.regions.region.Region.archived_pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property returns a QuerySet of all archived pages and their descendants of this region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A QuerySet of all archived pages of this region</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.11.0)">TreeQuerySet</a> [ <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page">Page</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.regions.region.Region.default_language">
 <em class="property">property </em><code class="sig-name descname">default_language</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.regions.region.Region.default_language" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns the language <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> which corresponds to the
@@ -772,6 +786,24 @@ root <a class="reference internal" href="cms.models.languages.html#cms.models.la
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.regions.region.Region.get_pages">
+<code class="sig-name descname">get_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">archived</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L182"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.regions.region.Region.get_pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns either all archived or all non-archived pages of this region.
+To retrieve all pages independently from their archived-state, use the reverse foreign key <code class="docutils literal notranslate"><span class="pre">region.pages</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>archived</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether or not only archived pages should be returned</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Either the archived or the non-archived pages of this region</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.11.0)">TreeQuerySet</a> [ <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page">Page</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.regions.region.Region.languages">
 <em class="property">property </em><code class="sig-name descname">languages</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.regions.region.Region.languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns a QuerySet of all <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects which have a
@@ -782,6 +814,22 @@ root <a class="reference internal" href="cms.models.languages.html#cms.models.la
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v2.2)">QuerySet</a> [ <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language">Language</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.regions.region.Region.non_archived_pages">
+<em class="property">property </em><code class="sig-name descname">non_archived_pages</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.regions.region.Region.non_archived_pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property returns a QuerySet of all non-archived pages of this region.
+A page is considered as “non-archived” if its <code class="docutils literal notranslate"><span class="pre">explicitly_archived</span></code> property is <code class="docutils literal notranslate"><span class="pre">False</span></code> and all of the
+page’s ancestors are not archived as well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A QuerySet of all non-archived pages of this region</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.11.0)">TreeQuerySet</a> [ <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page">Page</a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -817,7 +865,7 @@ root <a class="reference internal" href="cms.models.languages.html#cms.models.la
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 17, 2020.
+        Last updated on Nov 20, 2020.
       </span>
 
     </p>
