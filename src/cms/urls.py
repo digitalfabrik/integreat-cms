@@ -21,6 +21,7 @@ from .views import (
     languages,
     media,
     organizations,
+    imprint,
     pages,
     pois,
     push_notifications,
@@ -42,6 +43,11 @@ urlpatterns = [
                     r"^p/(?P<short_url_id>[0-9]+)$",
                     pages.expand_page_translation_id,
                     name="expand_page_translation_id",
+                ),
+                url(
+                    r"^i/(?P<imprint_translation_id>[0-9]+)$",
+                    imprint.expand_imprint_translation_id,
+                    name="expand_imprint_translation_id",
                 ),
             ]
         ),
@@ -435,6 +441,67 @@ urlpatterns = [
                                         ),
                                     ]
                                 ),
+                            ),
+                        ]
+                    ),
+                ),
+                url(
+                    r"^imprint/",
+                    include(
+                        [
+                            url(
+                                r"^$",
+                                imprint.ImprintView.as_view(),
+                                name="edit_imprint",
+                            ),
+                            url(
+                                r"^(?P<language_code>[-\w]+)/",
+                                include(
+                                    [
+                                        url(
+                                            r"^$",
+                                            imprint.ImprintView.as_view(),
+                                            name="edit_imprint",
+                                        ),
+                                        url(
+                                            r"^sbs_edit$",
+                                            imprint.ImprintSideBySideView.as_view(),
+                                            name="sbs_edit_imprint",
+                                        ),
+                                        url(
+                                            r"^revisions/",
+                                            include(
+                                                [
+                                                    url(
+                                                        r"^$",
+                                                        imprint.ImprintRevisionView.as_view(),
+                                                        name="imprint_revisions",
+                                                    ),
+                                                    url(
+                                                        r"^(?P<selected_revision>[0-9]+)$",
+                                                        imprint.ImprintRevisionView.as_view(),
+                                                        name="imprint_revisions",
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            url(
+                                r"^archive$",
+                                imprint.archive_imprint,
+                                name="archive_imprint",
+                            ),
+                            url(
+                                r"^restore$",
+                                imprint.restore_imprint,
+                                name="restore_imprint",
+                            ),
+                            url(
+                                r"^delete$",
+                                imprint.delete_imprint,
+                                name="delete_imprint",
                             ),
                         ]
                     ),

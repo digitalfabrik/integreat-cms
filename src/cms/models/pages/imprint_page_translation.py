@@ -2,8 +2,9 @@ import logging
 
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
-from backend.settings import IMPRINT_SLUG
+from backend.settings import BASE_URL, IMPRINT_SLUG
 from .abstract_base_page_translation import AbstractBasePageTranslation
 
 from .imprint_page import ImprintPage
@@ -15,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 class ImprintPageTranslation(AbstractBasePageTranslation):
     """
-    Data model representing a imprint translation
+    Data model representing an imprint translation
 
     :param id: The database id of the imprint translation
 
@@ -64,6 +65,19 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
                 None,
                 [self.page.region.slug, self.language.code, IMPRINT_SLUG],
             )
+        )
+
+    @property
+    def short_url(self):
+        """
+        This function returns the absolute short url to the imprint translation
+
+        :return: The short url of an imprint translation
+        :rtype: str
+        """
+
+        return BASE_URL + reverse(
+            "expand_imprint_translation_id", kwargs={"imprint_translation_id": self.id}
         )
 
     @property

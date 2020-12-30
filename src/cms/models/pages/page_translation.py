@@ -2,9 +2,10 @@ import logging
 
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
+from backend.settings import BASE_URL
 from .abstract_base_page_translation import AbstractBasePageTranslation
-
 from .page import Page
 from ..languages.language import Language
 
@@ -86,6 +87,19 @@ class PageTranslation(AbstractBasePageTranslation):
                     self.slug,
                 ],
             )
+        )
+
+    @property
+    def short_url(self):
+        """
+        This function returns the absolute short url to the page translation
+
+        :return: The short url of a page translation
+        :rtype: str
+        """
+
+        return BASE_URL + reverse(
+            "expand_page_translation_id", kwargs={"short_url_id": self.id}
         )
 
     @property

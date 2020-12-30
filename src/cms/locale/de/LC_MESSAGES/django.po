@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-16 17:00+0000\n"
+"POT-Creation-Date: 2020-12-30 13:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -306,6 +306,7 @@ msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
 
 #: forms/events/event_translation_form.py:100
+#: forms/imprint/imprint_translation_form.py:92
 #: forms/pages/page_translation_form.py:96
 #: forms/pois/poi_translation_form.py:103
 msgid "Use of Heading 1 style not allowed."
@@ -581,9 +582,12 @@ msgstr "Aktuelle Übersetzungen"
 #: templates/analytics/translation_coverage.html:46
 #: templates/events/event_form.html:93 templates/events/event_form.html:122
 #: templates/events/event_list_archived_row.html:54
-#: templates/events/event_list_row.html:54 templates/pages/page_form.html:102
-#: templates/pages/page_form.html:131 templates/pages/page_sbs.html:66
-#: templates/pages/page_sbs.html:125
+#: templates/events/event_list_row.html:54
+#: templates/imprint/imprint_form.html:77
+#: templates/imprint/imprint_form.html:106
+#: templates/imprint/imprint_sbs.html:59 templates/imprint/imprint_sbs.html:114
+#: templates/pages/page_form.html:97 templates/pages/page_form.html:126
+#: templates/pages/page_sbs.html:66 templates/pages/page_sbs.html:125
 #: templates/pages/page_tree_archived_node.html:59
 #: templates/pages/page_tree_node.html:54 templates/pois/poi_form.html:82
 #: templates/pois/poi_form.html:111 templates/pois/poi_list_row.html:53
@@ -763,7 +767,8 @@ msgid "Not after"
 msgstr "Nicht nach"
 
 #: templates/events/_event_filter_form.html:34
-#: templates/events/event_form.html:480 templates/pages/page_form.html:443
+#: templates/events/event_form.html:480 templates/imprint/imprint_form.html:327
+#: templates/imprint/imprint_sbs.html:257 templates/pages/page_form.html:443
 #: templates/pages/page_sbs.html:267 templates/pois/poi_form.html:326
 msgid "Location"
 msgstr "Ort"
@@ -821,12 +826,14 @@ msgstr "Neue Event-Übersetzung erstellen"
 msgid "Create new event"
 msgstr "Veranstaltung erstellen"
 
-#: templates/events/event_form.html:68 templates/pages/page_form.html:70
+#: templates/events/event_form.html:68 templates/imprint/imprint_form.html:56
+#: templates/imprint/imprint_sbs.html:42 templates/pages/page_form.html:70
 #: templates/pages/page_sbs.html:43 templates/pois/poi_form.html:63
 msgid "Save as draft"
 msgstr "Als Entwurf speichern"
 
-#: templates/events/event_form.html:71 templates/pages/page_form.html:74
+#: templates/events/event_form.html:71 templates/imprint/imprint_form.html:57
+#: templates/imprint/imprint_sbs.html:43 templates/pages/page_form.html:74
 #: templates/pages/page_sbs.html:47 templates/pois/poi_form.html:64
 msgid "Publish"
 msgstr "Veröffentlichen"
@@ -838,9 +845,12 @@ msgstr "Zur Überprüfung vorlegen"
 
 #: templates/events/event_form.html:89 templates/events/event_form.html:118
 #: templates/events/event_list_archived_row.html:58
-#: templates/events/event_list_row.html:58 templates/pages/page_form.html:98
-#: templates/pages/page_form.html:127 templates/pages/page_sbs.html:62
-#: templates/pages/page_sbs.html:121
+#: templates/events/event_list_row.html:58
+#: templates/imprint/imprint_form.html:73
+#: templates/imprint/imprint_form.html:102
+#: templates/imprint/imprint_sbs.html:55 templates/imprint/imprint_sbs.html:110
+#: templates/pages/page_form.html:93 templates/pages/page_form.html:122
+#: templates/pages/page_sbs.html:62 templates/pages/page_sbs.html:121
 #: templates/pages/page_tree_archived_node.html:63
 #: templates/pages/page_tree_node.html:58 templates/pois/poi_form.html:78
 #: templates/pois/poi_form.html:107 templates/pois/poi_list_row.html:57
@@ -849,9 +859,12 @@ msgstr "Übersetzung ist veraltet"
 
 #: templates/events/event_form.html:97 templates/events/event_form.html:126
 #: templates/events/event_list_archived_row.html:62
-#: templates/events/event_list_row.html:62 templates/pages/page_form.html:106
-#: templates/pages/page_form.html:135 templates/pages/page_sbs.html:70
-#: templates/pages/page_sbs.html:129
+#: templates/events/event_list_row.html:62
+#: templates/imprint/imprint_form.html:81
+#: templates/imprint/imprint_form.html:110
+#: templates/imprint/imprint_sbs.html:63 templates/imprint/imprint_sbs.html:118
+#: templates/pages/page_form.html:101 templates/pages/page_form.html:130
+#: templates/pages/page_sbs.html:70 templates/pages/page_sbs.html:129
 #: templates/pages/page_tree_archived_node.html:67
 #: templates/pages/page_tree_node.html:62 templates/pois/poi_form.html:86
 #: templates/pois/poi_form.html:115 templates/pois/poi_list_row.html:61
@@ -860,40 +873,52 @@ msgstr "Übersetzung ist aktuell"
 
 #: templates/events/event_form.html:102 templates/events/event_form.html:131
 #: templates/events/event_list_archived_row.html:67
-#: templates/events/event_list_row.html:67 templates/pages/page_form.html:111
-#: templates/pages/page_form.html:140
+#: templates/events/event_list_row.html:67
+#: templates/imprint/imprint_form.html:86
+#: templates/imprint/imprint_form.html:115 templates/pages/page_form.html:106
+#: templates/pages/page_form.html:135
 #: templates/pages/page_tree_archived_node.html:72
 #: templates/pages/page_tree_node.html:67 templates/pois/poi_form.html:91
 #: templates/pois/poi_form.html:120 templates/pois/poi_list_row.html:66
 msgid "Translation missing"
 msgstr "Übersetzung fehlt"
 
-#: templates/events/event_form.html:107 templates/pages/page_form.html:116
+#: templates/events/event_form.html:107 templates/imprint/imprint_form.html:91
+#: templates/imprint/imprint_sbs.html:123 templates/pages/page_form.html:111
 #: templates/pages/page_sbs.html:134 templates/pois/poi_form.html:96
 msgid "Create Translation"
 msgstr "Übersetzung erstellen"
 
 #: templates/events/event_form.html:146 templates/events/event_list.html:68
 #: templates/events/event_list_archived.html:51
-#: templates/pages/page_sbs.html:80 templates/pages/page_sbs.html:147
-#: templates/pages/page_sbs.html:152 templates/pages/page_tree_archived.html:31
-#: templates/pois/poi_form.html:135 templates/pois/poi_list.html:48
-#: templates/pois/poi_list_archived.html:31
+#: templates/imprint/imprint_sbs.html:73 templates/imprint/imprint_sbs.html:136
+#: templates/imprint/imprint_sbs.html:151 templates/pages/page_sbs.html:80
+#: templates/pages/page_sbs.html:147 templates/pages/page_sbs.html:152
+#: templates/pages/page_tree_archived.html:31 templates/pois/poi_form.html:135
+#: templates/pois/poi_list.html:48 templates/pois/poi_list_archived.html:31
 msgid "Version"
 msgstr "Version"
 
 #: templates/events/event_form.html:148 templates/events/event_list.html:69
 #: templates/events/event_list_archived.html:52
-#: templates/pages/page_form.html:158 templates/pages/page_revisions.html:44
-#: templates/pages/page_sbs.html:82 templates/pages/page_sbs.html:149
-#: templates/pages/page_sbs.html:154 templates/pages/page_tree.html:61
-#: templates/pages/page_tree_archived.html:32 templates/pois/poi_form.html:137
-#: templates/pois/poi_list.html:49 templates/pois/poi_list_archived.html:32
+#: templates/imprint/imprint_form.html:133
+#: templates/imprint/imprint_revisions.html:42
+#: templates/imprint/imprint_sbs.html:75 templates/imprint/imprint_sbs.html:138
+#: templates/imprint/imprint_sbs.html:153 templates/pages/page_form.html:153
+#: templates/pages/page_revisions.html:44 templates/pages/page_sbs.html:82
+#: templates/pages/page_sbs.html:149 templates/pages/page_sbs.html:154
+#: templates/pages/page_tree.html:61 templates/pages/page_tree_archived.html:32
+#: templates/pois/poi_form.html:137 templates/pois/poi_list.html:49
+#: templates/pois/poi_list_archived.html:32
 #: templates/regions/region_form.html:87 templates/regions/region_list.html:32
 msgid "Status"
 msgstr "Status"
 
-#: templates/events/event_form.html:151 templates/pages/page_form.html:161
+#: templates/events/event_form.html:151 templates/imprint/imprint_form.html:135
+#: templates/imprint/imprint_revisions.html:60
+#: templates/imprint/imprint_revisions.html:74
+#: templates/imprint/imprint_sbs.html:77 templates/imprint/imprint_sbs.html:140
+#: templates/imprint/imprint_sbs.html:155 templates/pages/page_form.html:161
 #: templates/pages/page_revisions.html:62
 #: templates/pages/page_revisions.html:76 templates/pages/page_sbs.html:84
 #: templates/pages/page_sbs.html:157 templates/pois/poi_form.html:140
@@ -908,8 +933,11 @@ msgstr ""
 " Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
 "generieren"
 
-#: templates/events/event_form.html:164 templates/pages/page_form.html:174
-#: templates/pages/page_revisions.html:64
+#: templates/events/event_form.html:164 templates/imprint/imprint_form.html:146
+#: templates/imprint/imprint_revisions.html:62
+#: templates/imprint/imprint_revisions.html:75
+#: templates/imprint/imprint_sbs.html:87 templates/imprint/imprint_sbs.html:160
+#: templates/pages/page_form.html:174 templates/pages/page_revisions.html:64
 #: templates/pages/page_revisions.html:77 templates/pages/page_sbs.html:98
 #: templates/pages/page_sbs.html:170 templates/pages/page_xliff_confirm.html:43
 #: templates/pois/poi_form.html:150
@@ -918,7 +946,8 @@ msgstr ""
 msgid "Title"
 msgstr "Titel"
 
-#: templates/events/event_form.html:165 templates/pages/page_form.html:175
+#: templates/events/event_form.html:165 templates/imprint/imprint_form.html:147
+#: templates/imprint/imprint_sbs.html:161 templates/pages/page_form.html:175
 #: templates/pages/page_sbs.html:171 templates/pois/poi_form.html:151
 msgid "Insert title here"
 msgstr "Titel hier eingeben"
@@ -931,18 +960,20 @@ msgstr "Beschreibung"
 msgid "Insert description here"
 msgstr "Beschreibung hier eingeben"
 
-#: templates/events/event_form.html:170 templates/pages/page_form.html:180
+#: templates/events/event_form.html:170 templates/imprint/imprint_form.html:152
+#: templates/imprint/imprint_sbs.html:166 templates/pages/page_form.html:180
 #: templates/pages/page_sbs.html:176 templates/pois/poi_form.html:158
 msgid "Implications on other translations"
 msgstr "Auswirkungen auf andere Übersetzungen"
 
-#: templates/events/event_form.html:172 templates/pages/page_form.html:182
+#: templates/events/event_form.html:172 templates/imprint/imprint_form.html:154
+#: templates/imprint/imprint_sbs.html:168 templates/pages/page_form.html:182
 #: templates/pages/page_sbs.html:178 templates/pois/poi_form.html:160
 msgid "This change does not require an update of the translations"
 msgstr "Diese Änderung erfordert keine angepasste Übersetzung"
 
-#: templates/events/event_form.html:182 templates/pages/page_form.html:224
-#: templates/pois/poi_form.html:170
+#: templates/events/event_form.html:182 templates/imprint/imprint_form.html:196
+#: templates/pages/page_form.html:224 templates/pois/poi_form.html:170
 msgid "Settings for all translations"
 msgstr "Einstellungen für alle Übersetzungen"
 
@@ -1042,12 +1073,13 @@ msgstr "Land"
 msgid "Map"
 msgstr "Karte"
 
-#: templates/events/event_form.html:288 templates/pages/page_form.html:274
-#: templates/pois/poi_form.html:202 templates/regions/region_icon_widget.html:4
+#: templates/events/event_form.html:288 templates/imprint/imprint_form.html:204
+#: templates/pages/page_form.html:274 templates/pois/poi_form.html:202
+#: templates/regions/region_icon_widget.html:4
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/events/event_form.html:292
+#: templates/events/event_form.html:292 templates/imprint/imprint_form.html:208
 #: templates/organizations/organization_form.html:65
 #: templates/pages/page_form.html:278 templates/pois/poi_form.html:206
 #: templates/regions/region_icon_widget.html:15
@@ -1082,32 +1114,38 @@ msgstr "Veranstaltung löschen"
 msgid "Delete this event"
 msgstr "Diese Veranstaltung löschen"
 
-#: templates/events/event_form.html:461 templates/pages/page_form.html:408
+#: templates/events/event_form.html:461 templates/imprint/imprint_form.html:308
+#: templates/imprint/imprint_sbs.html:238 templates/pages/page_form.html:408
 #: templates/pages/page_sbs.html:248 templates/pois/poi_form.html:307
 msgid "Do not translate the selected text."
 msgstr "Der markierte Text wird nicht übersetzt."
 
-#: templates/events/event_form.html:487 templates/pages/page_form.html:450
+#: templates/events/event_form.html:487 templates/imprint/imprint_form.html:334
+#: templates/imprint/imprint_sbs.html:264 templates/pages/page_form.html:450
 #: templates/pages/page_sbs.html:274 templates/pois/poi_form.html:333
 msgid "Link"
 msgstr "Link"
 
-#: templates/events/event_form.html:494 templates/pages/page_form.html:457
+#: templates/events/event_form.html:494 templates/imprint/imprint_form.html:341
+#: templates/imprint/imprint_sbs.html:271 templates/pages/page_form.html:457
 #: templates/pages/page_sbs.html:281 templates/pois/poi_form.html:340
 msgid "Phone"
 msgstr "Telefon"
 
-#: templates/events/event_form.html:501 templates/pages/page_form.html:464
+#: templates/events/event_form.html:501 templates/imprint/imprint_form.html:348
+#: templates/imprint/imprint_sbs.html:278 templates/pages/page_form.html:464
 #: templates/pages/page_sbs.html:288 templates/pois/poi_form.html:347
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
-#: templates/events/event_form.html:508 templates/pages/page_form.html:471
+#: templates/events/event_form.html:508 templates/imprint/imprint_form.html:355
+#: templates/imprint/imprint_sbs.html:285 templates/pages/page_form.html:471
 #: templates/pages/page_sbs.html:295 templates/pois/poi_form.html:354
 msgid "Email"
 msgstr "Email"
 
-#: templates/events/event_form.html:515 templates/pages/page_form.html:478
+#: templates/events/event_form.html:515 templates/imprint/imprint_form.html:362
+#: templates/imprint/imprint_sbs.html:292 templates/pages/page_form.html:478
 #: templates/pages/page_sbs.html:302 templates/pois/poi_form.html:361
 msgid "Hint"
 msgstr "Tipp"
@@ -1277,6 +1315,181 @@ msgstr "Bestätigen"
 #: templates/users/confirmation_popups/delete_user.html:12
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: templates/imprint/imprint_form.html:45
+msgid "Edit imprint"
+msgstr "Impressum bearbeiten"
+
+#: templates/imprint/imprint_form.html:47
+msgid "Create new imprint translation"
+msgstr "Neue Übersetzung des Impressums erstellen"
+
+#: templates/imprint/imprint_form.html:50
+msgid "Create imprint"
+msgstr "Impressum erstellen"
+
+#: templates/imprint/imprint_form.html:130 templates/pages/page_form.html:150
+msgid "Revision"
+msgstr "Revision"
+
+#: templates/imprint/imprint_form.html:132 templates/pages/page_form.html:152
+msgid "Show revisions"
+msgstr "Revisionen anzeigen"
+
+#: templates/imprint/imprint_form.html:137
+#: templates/imprint/imprint_form.html:142
+#: templates/imprint/imprint_sbs.html:79 templates/imprint/imprint_sbs.html:84
+#: templates/imprint/imprint_sbs.html:142
+#: templates/imprint/imprint_sbs.html:147 templates/pages/page_form.html:157
+msgid "Copy to clipboard"
+msgstr "In die Zwischenablage kopieren"
+
+#: templates/imprint/imprint_form.html:140
+#: templates/imprint/imprint_sbs.html:82 templates/imprint/imprint_sbs.html:145
+#: templates/imprint/imprint_sbs.html:157 templates/pages/page_form.html:155
+msgid "Short URL"
+msgstr "Kurz-URL"
+
+#: templates/imprint/imprint_form.html:149
+#: templates/imprint/imprint_revisions.html:64
+#: templates/imprint/imprint_revisions.html:76
+#: templates/imprint/imprint_sbs.html:90 templates/imprint/imprint_sbs.html:163
+#: templates/pages/page_form.html:177 templates/pages/page_revisions.html:66
+#: templates/pages/page_revisions.html:78 templates/pages/page_sbs.html:101
+#: templates/pages/page_sbs.html:173 templates/pages/page_xliff_confirm.html:45
+#: templates/push_notifications/push_notification_form.html:67
+msgid "Content"
+msgstr "Inhalt"
+
+#: templates/imprint/imprint_form.html:150
+#: templates/imprint/imprint_sbs.html:164 templates/pages/page_form.html:178
+#: templates/pages/page_sbs.html:174
+msgid "Insert content here"
+msgstr "Inhalt hier eingeben"
+
+#: templates/imprint/imprint_form.html:165 templates/pages/page_form.html:193
+msgid "Side-by-Side view"
+msgstr "Side-by-Side-Ansicht"
+
+#: templates/imprint/imprint_form.html:172 templates/pages/page_form.html:200
+msgid "Direction of translation"
+msgstr "Übersetzungsrichtung"
+
+#: templates/imprint/imprint_form.html:186 templates/pages/page_form.html:214
+msgid "Show translations side by side"
+msgstr "Übersetzungen nebeneinander anzeigen"
+
+#: templates/imprint/imprint_form.html:214
+#: templates/imprint/imprint_form.html:215
+msgid "Restore imprint"
+msgstr "Impressum wiederherstellen"
+
+#: templates/imprint/imprint_form.html:216
+msgid "Please confirm that you really want to restore the imprint"
+msgstr "Bitte bestätigen Sie, dass das Impressum wiederhergestellt werden soll"
+
+#: templates/imprint/imprint_form.html:217
+msgid "All translations of the imprint will also be restored."
+msgstr "Alle Übersetzungen des Impressums werden wiederhergestellt."
+
+#: templates/imprint/imprint_form.html:221
+msgid "Restore the imprint"
+msgstr "Das Impressum wiederherstellen"
+
+#: templates/imprint/imprint_form.html:224
+#: templates/imprint/imprint_form.html:225
+msgid "Archive imprint"
+msgstr "Impressum archivieren"
+
+#: templates/imprint/imprint_form.html:226
+msgid "Please confirm that you really want to archive the imprint"
+msgstr "Bitte bestätigen Sie, dass das Impressum archiviert werden soll."
+
+#: templates/imprint/imprint_form.html:227
+msgid "All translations of the imprint will also be archived."
+msgstr "Es werden auch alle Übersetzungen des Impressums archiviert."
+
+#: templates/imprint/imprint_form.html:231
+msgid "Archive the imprint"
+msgstr "Das Impressum archivieren"
+
+#: templates/imprint/imprint_form.html:237
+#: templates/imprint/imprint_form.html:238
+msgid "Delete imprint"
+msgstr "Impressum löschen"
+
+#: templates/imprint/imprint_form.html:239
+msgid "Please confirm that you really want to delete the imprint"
+msgstr "Bitte bestätigen Sie, dass das Impressum gelöscht werden soll"
+
+#: templates/imprint/imprint_form.html:240
+msgid "All translations of the imprint will also be deleted."
+msgstr "Alle Übersetzungen des Impressums werden gelöscht."
+
+#: templates/imprint/imprint_form.html:244
+msgid "Delete the imprint"
+msgstr "Das Impressum löschen"
+
+#: templates/imprint/imprint_revisions.html:11
+msgid "Imprint revisions"
+msgstr "Revisionen des Impressums"
+
+#: templates/imprint/imprint_revisions.html:45
+#: templates/pages/page_revisions.html:47
+msgid "This is the revision shown in the apps."
+msgstr "Diese Revision wird in den Apps angezeigt."
+
+#: templates/imprint/imprint_revisions.html:47
+#: templates/pages/page_revisions.html:49
+msgid "This is <b>not</b> the revision shown in the apps."
+msgstr "Diese Revision wird <b>nicht</b> in den Apps angezeigt."
+
+#: templates/imprint/imprint_revisions.html:50
+#: templates/pages/page_revisions.html:52
+msgid "Editor"
+msgstr "Bearbeiter"
+
+#: templates/imprint/imprint_revisions.html:81
+#: templates/pages/page_revisions.html:85
+msgid "Restore this revision as draft"
+msgstr "Diese Revision als Entwurf wiederherstellen"
+
+#: templates/imprint/imprint_revisions.html:82
+#: templates/pages/page_revisions.html:88
+msgid "Restore and publish this revision"
+msgstr "Diese Revision wiederherstellen und veröffentlichen"
+
+#: templates/imprint/imprint_revisions.html:85
+#: templates/imprint/imprint_sbs.html:39
+msgid "Go back to imprint editor"
+msgstr "Zurück zum Impressums-Editor"
+
+#: templates/imprint/imprint_sbs.html:33
+#, python-format
+msgid ""
+"Translate the imprint from %(source_language)s to %(target_language_name)s"
+msgstr ""
+"Übersetze das Impressum von %(source_language)s nach %(target_language_name)s"
+
+#: templates/imprint/imprint_sbs.html:94 templates/imprint/imprint_sbs.html:95
+#: templates/pages/page_sbs.html:105 templates/pages/page_sbs.html:106
+msgid "Copy content"
+msgstr "Inhalt kopieren"
+
+#: templates/imprint/imprint_sbs.html:97 templates/pages/page_sbs.html:108
+#, python-format
+msgid "Copy content of %(source_language)s to %(target_language_name)s"
+msgstr "Inhalt von %(source_language)s nach %(target_language_name)s kopieren"
+
+#: templates/imprint/imprint_sbs.html:152 templates/pages/page_sbs.html:153
+msgid "New"
+msgstr "Neu"
+
+#: templates/imprint/imprint_sbs.html:154
+#: templates/imprint/imprint_sbs.html:156
+#: templates/imprint/imprint_sbs.html:158 templates/pages/page_sbs.html:155
+msgid "Not saved yet"
+msgstr "Noch nicht gespeichert"
 
 #: templates/language_tree/language_tree.html:37
 msgid "Delete"
@@ -1634,37 +1847,6 @@ msgstr "Neue Übersetzung erstellen"
 msgid "Create new page"
 msgstr "Neue Seite erstellen"
 
-#: templates/pages/page_form.html:155
-msgid "Revision"
-msgstr "Revision"
-
-#: templates/pages/page_form.html:157
-msgid "Show revisions"
-msgstr "Revisionen anzeigen"
-
-#: templates/pages/page_form.html:177 templates/pages/page_revisions.html:66
-#: templates/pages/page_revisions.html:78 templates/pages/page_sbs.html:101
-#: templates/pages/page_sbs.html:173 templates/pages/page_xliff_confirm.html:45
-#: templates/push_notifications/push_notification_form.html:67
-msgid "Content"
-msgstr "Inhalt"
-
-#: templates/pages/page_form.html:178 templates/pages/page_sbs.html:174
-msgid "Insert content here"
-msgstr "Inhalt hier eingeben"
-
-#: templates/pages/page_form.html:193
-msgid "Side-by-Side view"
-msgstr "Side-by-Side-Ansicht"
-
-#: templates/pages/page_form.html:200
-msgid "Direction of translation"
-msgstr "Übersetzungsrichtung"
-
-#: templates/pages/page_form.html:214
-msgid "Show translations side by side"
-msgstr "Übersetzungen nebeneinander anzeigen"
-
 #: templates/pages/page_form.html:231
 msgid "Positioning"
 msgstr "Anordnung"
@@ -1732,26 +1914,6 @@ msgstr "Diese Seite löschen"
 msgid "Page revisions of \"%(page_title)s\""
 msgstr "Revisionen der Seite \"%(page_title)s\""
 
-#: templates/pages/page_revisions.html:47
-msgid "This is the revision shown in the apps."
-msgstr "Diese Revision wird in den Apps angezeigt."
-
-#: templates/pages/page_revisions.html:49
-msgid "This is <b>not</b> the revision shown in the apps."
-msgstr "Diese Revision wird <b>nicht</b> in den Apps angezeigt."
-
-#: templates/pages/page_revisions.html:52
-msgid "Editor"
-msgstr "Bearbeiter"
-
-#: templates/pages/page_revisions.html:85
-msgid "Restore this revision as draft"
-msgstr "Diese Revision als Entwurf wiederherstellen"
-
-#: templates/pages/page_revisions.html:88
-msgid "Restore and publish this revision"
-msgstr "Diese Revision wiederherstellen und veröffentlichen"
-
 #: templates/pages/page_revisions.html:90
 msgid "Restore this revision and submit for review"
 msgstr "Diese Revision wiederherstellen und zum Review vorlegen"
@@ -1768,23 +1930,6 @@ msgid ""
 msgstr ""
 "Übersetze \"%(page_title)s\" von %(source_language)s nach "
 "%(target_language_name)s"
-
-#: templates/pages/page_sbs.html:105 templates/pages/page_sbs.html:106
-msgid "Copy content"
-msgstr "Inhalt kopieren"
-
-#: templates/pages/page_sbs.html:108
-#, python-format
-msgid "Copy content of %(source_language)s to %(target_language_name)s"
-msgstr "Inhalt von %(source_language)s nach %(target_language_name)s kopieren"
-
-#: templates/pages/page_sbs.html:153
-msgid "New"
-msgstr "Neu"
-
-#: templates/pages/page_sbs.html:155
-msgid "Not saved yet"
-msgstr "Noch nicht gespeichert"
 
 #: templates/pages/page_tree.html:24
 msgid "Archived pages"
@@ -2680,7 +2825,8 @@ msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
 
-#: views/events/event_view.py:181 views/pages/page_sbs_view.py:193
+#: views/events/event_view.py:181 views/imprint/imprint_sbs_view.py:193
+#: views/imprint/imprint_view.py:193 views/pages/page_sbs_view.py:193
 #: views/pages/page_view.py:233 views/regions/region_view.py:85
 #: views/settings/user_settings_view.py:89
 #: views/settings/user_settings_view.py:106 views/users/region_user_view.py:131
@@ -2712,6 +2858,123 @@ msgstr "Veranstaltung wurde erfolgreich veröffentlicht"
 #: views/events/event_view.py:231
 msgid "Event was successfully saved"
 msgstr "Veranstaltung wurde erfolgreich gespeichert"
+
+#: views/imprint/imprint_actions.py:47
+msgid "Imprint was successfully archived"
+msgstr "Impressum wurde erfolgreich archiviert"
+
+#: views/imprint/imprint_actions.py:84
+msgid "Imprint was successfully restored"
+msgstr "Impressum wurde erfolgreich erstellt"
+
+#: views/imprint/imprint_actions.py:119
+msgid "Imprint was successfully deleted"
+msgstr "Impressum wurde erfolgreich erstellt"
+
+#: views/imprint/imprint_revision_view.py:56
+#: views/imprint/imprint_revision_view.py:104
+#: views/pages/page_revision_view.py:80 views/pages/page_revision_view.py:142
+msgid "This revision does not exist."
+msgstr "Diese Revision existiert nicht."
+
+#: views/imprint/imprint_revision_view.py:69
+msgid "You cannot restore revisions of this imprint because it is archived."
+msgstr ""
+"Sie können Revisionen dieses Impressums nicht bearbeiten, weil es archiviert "
+"ist."
+
+#: views/imprint/imprint_revision_view.py:122
+#: views/pages/page_revision_view.py:162
+msgid "This revision is identical to the current version of this translation."
+msgstr ""
+"Diese Revision ist identisch mit der aktuellen Version dieser Übersetzung."
+
+#: views/imprint/imprint_revision_view.py:145
+#: views/pages/page_revision_view.py:188
+msgid "The revision was successfully restored"
+msgstr "Die Revision wurde erfolgreich wiederhergestellt"
+
+#: views/imprint/imprint_sbs_view.py:72 views/imprint/imprint_sbs_view.py:155
+#: views/pages/page_sbs_view.py:63 views/pages/page_sbs_view.py:153
+#, python-brace-format
+msgid ""
+"You cannot use the side-by-side-view for the region's default language (in "
+"this case {default_language})."
+msgstr ""
+"Sie können die Side-by-Side-Ansicht nicht für die Standard-Sprache (in "
+"diesem Fall {default_language}) verwenden."
+
+#: views/imprint/imprint_sbs_view.py:90 views/imprint/imprint_sbs_view.py:172
+#: views/pages/page_sbs_view.py:82 views/pages/page_sbs_view.py:171
+#, python-brace-format
+msgid ""
+"You cannot use the side-by-side-view if the source translation (in this case "
+"{source_language}) does not exist."
+msgstr ""
+"Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
+"Übersetzung (in diesem Fall {source_language}) nicht existiert."
+
+#: views/imprint/imprint_sbs_view.py:191 views/imprint/imprint_view.py:173
+#: views/offer_templates/offer_template_view.py:84
+#: views/organizations/organization_view.py:82 views/pages/page_sbs_view.py:191
+#: views/pages/page_view.py:215 views/regions/region_view.py:79
+#: views/users/region_user_view.py:134 views/users/user_view.py:129
+msgid "Errors have occurred."
+msgstr "Es sind Fehler aufgetreten."
+
+#: views/imprint/imprint_sbs_view.py:203 views/imprint/imprint_view.py:226
+#: views/pages/page_sbs_view.py:201 views/pages/page_view.py:267
+msgid "Translation was successfully created and published"
+msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht"
+
+#: views/imprint/imprint_sbs_view.py:206 views/imprint/imprint_view.py:229
+#: views/pages/page_sbs_view.py:204 views/pages/page_view.py:270
+msgid "Translation was successfully created"
+msgstr "Übersetzung wurde erfolgreich erstellt"
+
+#: views/imprint/imprint_sbs_view.py:210 views/imprint/imprint_view.py:232
+#: views/pages/page_sbs_view.py:208 views/pages/page_view.py:273
+msgid "Translation was successfully published"
+msgstr "Übersetzung wurde erfolgreich veröffentlicht"
+
+#: views/imprint/imprint_sbs_view.py:213 views/imprint/imprint_view.py:234
+#: views/pages/page_sbs_view.py:211 views/pages/page_view.py:275
+msgid "Translation was successfully saved"
+msgstr "Übersetzung wurde erfolgreich gespeichert"
+
+#: views/imprint/imprint_view.py:54 views/pages/page_tree_view.py:82
+msgid "Please create at least one language node before creating pages."
+msgstr ""
+"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
+"verwalten."
+
+#: views/imprint/imprint_view.py:80
+msgid "You cannot manage the imprint because it is archived."
+msgstr "Sie können das Impressum nicht bearbeiten, weil es archiviert ist."
+
+#: views/imprint/imprint_view.py:87 views/pages/page_view.py:92
+#, python-format
+msgid ""
+"This is <b>not</b> the most recent public revision of this translation. "
+"Instead, <a href='%(revision_url)s' class='underline hover:no-"
+"underline'>revision %(revision)s</a> is shown in the apps."
+msgstr ""
+"Dies ist <b>nicht</b> die neueste öffentliche Revision dieser Übersetzung. "
+"Stattdessen wird die <a href='%(revision_url)s' class='underline hover:no-"
+"underline'>Revision %(revision)s</a> in den Apps angezeigt."
+
+#: views/imprint/imprint_view.py:219
+msgid "imprint was successfully created and published"
+msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht"
+
+#: views/imprint/imprint_view.py:222
+msgid "imprint was successfully created"
+msgstr "Veranstaltung wurde erfolgreich erstellt"
+
+#: views/imprint/imprint_view.py:271 views/pages/page_view.py:314
+#, python-brace-format
+msgid "{source_language} to {target_language}"
+msgstr "{source_language} nach {target_language}"
 
 #: views/language_tree/language_tree_actions.py:54
 msgid "You can only move language tree nodes within one region."
@@ -2773,13 +3036,6 @@ msgstr "Angebots-Vorlage wurde erfolgreich gespeichert"
 #: views/offer_templates/offer_template_view.py:75
 msgid "Offer template was successfully created"
 msgstr "Angebots-Vorlage wurde erfolgreich erstellt"
-
-#: views/offer_templates/offer_template_view.py:84
-#: views/organizations/organization_view.py:82 views/pages/page_sbs_view.py:191
-#: views/pages/page_view.py:215 views/regions/region_view.py:79
-#: views/users/region_user_view.py:134 views/users/user_view.py:129
-msgid "Errors have occurred."
-msgstr "Es sind Fehler aufgetreten."
 
 #: views/offers/offer_actions.py:37
 #, python-format
@@ -2900,67 +3156,14 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Revisionen dieser Seite "
 "wiederherzustellen."
 
-#: views/pages/page_revision_view.py:80 views/pages/page_revision_view.py:142
-msgid "This revision does not exist."
-msgstr "Diese Revision existiert nicht."
-
 #: views/pages/page_revision_view.py:93
 msgid "You cannot restore revisions of this page because it is archived."
 msgstr ""
 "Sie können Revisionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: views/pages/page_revision_view.py:162
-msgid "This revision is identical to the current version of this translation."
-msgstr ""
-"Diese Revision ist identisch mit der aktuellen Version dieser Übersetzung."
-
-#: views/pages/page_revision_view.py:188
-msgid "The revision was successfully restored"
-msgstr "Die Revision wurde erfolgreich wiederhergestellt"
-
-#: views/pages/page_sbs_view.py:63 views/pages/page_sbs_view.py:153
-#, python-brace-format
-msgid ""
-"You cannot use the side-by-side-view for the region's default language (in "
-"this case {default_language})."
-msgstr ""
-"Sie können die Side-by-Side-Ansicht nicht für die Standard-Sprache (in "
-"diesem Fall {default_language}) verwenden."
-
-#: views/pages/page_sbs_view.py:82 views/pages/page_sbs_view.py:171
-#, python-brace-format
-msgid ""
-"You cannot use the side-by-side-view if the source translation (in this case "
-"{source_language}) does not exist."
-msgstr ""
-"Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
-"Übersetzung (in diesem Fall {source_language}) nicht existiert."
-
 #: views/pages/page_sbs_view.py:136
 msgid "You don't have the permission to edit this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
-
-#: views/pages/page_sbs_view.py:201 views/pages/page_view.py:267
-msgid "Translation was successfully created and published"
-msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht"
-
-#: views/pages/page_sbs_view.py:204 views/pages/page_view.py:270
-msgid "Translation was successfully created"
-msgstr "Übersetzung wurde erfolgreich erstellt"
-
-#: views/pages/page_sbs_view.py:208 views/pages/page_view.py:273
-msgid "Translation was successfully published"
-msgstr "Übersetzung wurde erfolgreich veröffentlicht"
-
-#: views/pages/page_sbs_view.py:211 views/pages/page_view.py:275
-msgid "Translation was successfully saved"
-msgstr "Übersetzung wurde erfolgreich gespeichert"
-
-#: views/pages/page_tree_view.py:82
-msgid "Please create at least one language node before creating pages."
-msgstr ""
-"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
-"verwalten."
 
 #: views/pages/page_tree_view.py:93
 msgid "You don't have the permission to edit or create pages."
@@ -2980,17 +3183,6 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten, aber "
 "Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: views/pages/page_view.py:92
-#, python-format
-msgid ""
-"This is <b>not</b> the most recent public revision of this translation. "
-"Instead, <a href='%(revision_url)s' class='underline hover:no-"
-"underline'>revision %(revision)s</a> is shown in the apps."
-msgstr ""
-"Dies ist <b>nicht</b> die neueste öffentliche Revision dieser Übersetzung. "
-"Stattdessen wird die <a href='%(revision_url)s' class='underline hover:no-"
-"underline'>Revision %(revision)s</a> in den Apps angezeigt."
-
 #: views/pages/page_view.py:260
 msgid "Page was successfully created and published"
 msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
@@ -2998,11 +3190,6 @@ msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
 #: views/pages/page_view.py:263
 msgid "Page was successfully created"
 msgstr "Seite wurde erfolgreich erstellt"
-
-#: views/pages/page_view.py:314
-#, python-brace-format
-msgid "{source_language} to {target_language}"
-msgstr "{source_language} nach {target_language}"
 
 #: views/pois/poi_actions.py:45
 msgid "Location was successfully archived"
@@ -3194,14 +3381,26 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
-#~ msgid "Yes, archive this location now."
-#~ msgstr "Ja, diesen Ort jetzt archivieren"
+#~ msgid "Yes, archive this page now."
+#~ msgstr "Ja, diese Seite jetzt archivieren"
 
-#~ msgid "Yes, delete this location now."
-#~ msgstr "Ja, diesen Ort jetzt löschen"
+#~ msgid "Yes, delete this page now."
+#~ msgstr "Ja, die Seite jetzt löschen."
 
-#~ msgid "Yes, restore this location now."
-#~ msgstr "Ja, dien Ort jetzt wiederherstellen."
+#~ msgid "Yes, restore this page now."
+#~ msgstr "Ja, die Seite wiederherstellen."
+
+#~ msgid "You don't have the permission to restore revisions of the imprint."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um Revisionen des Impressums "
+#~ "wiederherzustellen."
+
+#~ msgid ""
+#~ "You don't have the permission to manage the imprint, but you can propose "
+#~ "changes and submit them for review instead."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten, "
+#~ "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
 #~ msgid "Yes, archive this event now."
 #~ msgstr "Ja, dieses Event jetzt archivieren"
@@ -3212,17 +3411,26 @@ msgstr ""
 #~ msgid "Yes, restore this event now."
 #~ msgstr "Ja, diese Veranstaltung wiederherstellen."
 
-#~ msgid "Yes, archive this page now."
-#~ msgstr "Ja, diese Seite jetzt archivieren"
+#~ msgid "Yes, archive this location now."
+#~ msgstr "Ja, diesen Ort jetzt archivieren"
 
-#~ msgid "Yes, restore this page now."
-#~ msgstr "Ja, die Seite wiederherstellen."
+#~ msgid "Yes, delete this location now."
+#~ msgstr "Ja, diesen Ort jetzt löschen"
 
-#~ msgid "Yes, delete this page now."
-#~ msgstr "Ja, die Seite jetzt löschen."
+#~ msgid "Yes, restore this location now."
+#~ msgstr "Ja, dien Ort jetzt wiederherstellen."
 
 #~ msgid "The PDF request has a wrong format."
 #~ msgstr "Die PDF Anfrage hat das falsche Format."
+
+#~ msgid "Revisions of the imprint"
+#~ msgstr "Revisionen des Impressums"
+
+#~ msgid "Embed mirrored imprint before this page"
+#~ msgstr "Gespiegelte Seite vor dieser Seite einbinden"
+
+#~ msgid "Embed mirrored imprint after this page"
+#~ msgstr "Gespiegelte Seite nach dieser Seite einbinden"
 
 #~ msgid "URL '{}' was successfully copied to clipboard."
 #~ msgstr "URL '{}' wurde erfolgreich in die Zwischenablage kopiert."
