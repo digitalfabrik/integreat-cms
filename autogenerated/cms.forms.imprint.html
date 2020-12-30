@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pages &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Imprint &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -38,8 +38,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="POIs" href="cms.forms.pois.html" />
-    <link rel="prev" title="Organizations" href="cms.forms.organizations.html" /> 
+    <link rel="next" title="Language Tree" href="cms.forms.language_tree.html" />
+    <link rel="prev" title="Events" href="cms.forms.events.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -254,9 +254,9 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.recurrence_rule_form">Recurrence Rule Form</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.language_tree.html">Language Tree</a><ul>
@@ -279,9 +279,9 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.organizations.html#module-cms.forms.organizations.organization_form">Organization Form</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Pages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.pages.page_form">Page Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
@@ -650,7 +650,7 @@
         
           <li><a href="cms.forms.html">Forms</a> &raquo;</li>
         
-      <li>Pages</li>
+      <li>Imprint</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -667,40 +667,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cms.forms.pages">
-<span id="pages"></span><h1>Pages<a class="headerlink" href="#module-cms.forms.pages" title="Permalink to this headline">¶</a></h1>
-<p>Forms for creating and modifying page and page translation objects</p>
-<div class="section" id="module-cms.forms.pages.page_form">
-<span id="page-form"></span><h2>Page Form<a class="headerlink" href="#module-cms.forms.pages.page_form" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="module-cms.forms.imprint">
+<span id="imprint"></span><h1>Imprint<a class="headerlink" href="#module-cms.forms.imprint" title="Permalink to this headline">¶</a></h1>
+<p>Forms for creating and modifying imprint and imprint translation objects</p>
+<div class="section" id="module-cms.forms.imprint.imprint_form">
+<span id="imprint-form"></span><h2>Imprint Form<a class="headerlink" href="#module-cms.forms.imprint.imprint_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.forms.pages.page_form.MirrorPageField">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.pages.page_form.</code><code class="sig-name descname">MirrorPageField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">queryset</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">empty_label</span><span class="o">=</span><span class="default_value">'---------'</span></em>, <em class="sig-param"><span class="n">required</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">widget</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">help_text</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">to_field_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">limit_choices_to</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L72"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_form.MirrorPageField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelChoiceField</span></code></p>
-<p>Form field helper class to show ancestors page titles in mirror page select</p>
-<dl class="py method">
-<dt id="cms.forms.pages.page_form.MirrorPageField.label_from_instance">
-<code class="sig-name descname">label_from_instance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L78"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_form.MirrorPageField.label_from_instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert objects into strings and generate the labels for the choices
-presented by this object. Subclasses can override this method to
-customize the display of the choices.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="cms.forms.pages.page_form.PageForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.pages.page_form.</code><code class="sig-name descname">PageForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L87"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.forms.imprint.imprint_form.ImprintForm">
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.imprint.imprint_form.</code><code class="sig-name descname">ImprintForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_form.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.imprint.imprint_form.ImprintForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelForm</span></code></p>
-<p>Form for creating and modifying page objects</p>
+<p>Form for creating and modifying imprint objects</p>
 <dl class="py method">
-<dt id="cms.forms.pages.page_form.PageForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L125"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.forms.imprint.imprint_form.ImprintForm.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_form.py#L20"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.imprint.imprint_form.ImprintForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.pages.page_form.PageForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L199"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.save" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.forms.imprint.imprint_form.ImprintForm.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_form.py#L39"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.imprint.imprint_form.ImprintForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -708,45 +693,23 @@ is saved manually at a later time. Return the model instance.</p>
 
 </dd></dl>
 
-<dl class="py class">
-<dt id="cms.forms.pages.page_form.ParentField">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.pages.page_form.</code><code class="sig-name descname">ParentField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">queryset</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">empty_label</span><span class="o">=</span><span class="default_value">'---------'</span></em>, <em class="sig-param"><span class="n">required</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">widget</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">help_text</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">to_field_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">limit_choices_to</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L53"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_form.ParentField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelChoiceField</span></code></p>
-<p>Form field helper class to overwrite the label function (which would otherwise call __str__)</p>
-<dl class="py method">
-<dt id="cms.forms.pages.page_form.ParentField.label_from_instance">
-<code class="sig-name descname">label_from_instance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L61"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_form.ParentField.label_from_instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert objects into strings and generate the labels for the choices
-presented by this object. Subclasses can override this method to
-customize the display of the choices.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="cms.forms.pages.page_form.ParentFieldWidget">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.pages.page_form.</code><code class="sig-name descname">ParentFieldWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attrs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">choices</span><span class="o">=</span><span class="default_value">()</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_form.ParentFieldWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.widgets.Select</span></code></p>
-<p>This Widget class is used to append the url for retrieving the page order tables to the data attributes of the options</p>
-</dd></dl>
-
 </div>
-<div class="section" id="module-cms.forms.pages.page_translation_form">
-<span id="page-translation-form"></span><h2>Page Translation Form<a class="headerlink" href="#module-cms.forms.pages.page_translation_form" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cms.forms.imprint.imprint_translation_form">
+<span id="imprint-translation-form"></span><h2>Imprint Translation Form<a class="headerlink" href="#module-cms.forms.imprint.imprint_translation_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.forms.pages.page_translation_form.PageTranslationForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.pages.page_translation_form.</code><code class="sig-name descname">PageTranslationForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_translation_form.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.forms.imprint.imprint_translation_form.ImprintTranslationForm">
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.imprint.imprint_translation_form.</code><code class="sig-name descname">ImprintTranslationForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_translation_form.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.imprint.imprint_translation_form.ImprintTranslationForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.models.ModelForm</span></code></p>
-<p>Form for creating and modifying page translation objects</p>
+<p>Form for creating and modifying imprint translation objects</p>
 <dl class="py method">
-<dt id="cms.forms.pages.page_translation_form.PageTranslationForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_translation_form.py#L24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.forms.imprint.imprint_translation_form.ImprintTranslationForm.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_translation_form.py#L23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.imprint.imprint_translation_form.ImprintTranslationForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.pages.page_translation_form.PageTranslationForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_translation_form.py#L58"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.save" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.forms.imprint.imprint_translation_form.ImprintTranslationForm.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_translation_form.py#L57"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.imprint.imprint_translation_form.ImprintTranslationForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -765,10 +728,10 @@ is saved manually at a later time. Return the model instance.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cms.forms.pois.html" class="btn btn-neutral float-right" title="POIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cms.forms.language_tree.html" class="btn btn-neutral float-right" title="Language Tree" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cms.forms.organizations.html" class="btn btn-neutral float-left" title="Organizations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cms.forms.events.html" class="btn btn-neutral float-left" title="Events" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -783,7 +746,7 @@ is saved manually at a later time. Return the model instance.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Dec 11, 2020.
+        Last updated on Dec 09, 2020.
       </span>
 
     </p>
