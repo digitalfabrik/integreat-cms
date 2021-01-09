@@ -4,6 +4,17 @@ Django settings for backend project.
 For more information on this file, see :doc:`topics/settings`.
 For the full list of settings and their values, see :doc:`ref/settings`.
 
+For production use, the following settings can be set with environment variables:
+* SECRET_KEY
+* DEBUG
+* ALLOWED_HOSTS via BASE_URL
+* WEBAPP_URL
+* BASE_URL
+* WEBAPP_URL
+* STATIC_ROOT
+* MEDIA_ROOT
+* Database settings
+
 Our custom settings
 ===================
 
@@ -36,6 +47,7 @@ Default: ``True``
 Whether or not the GVZ (Gemeindeverzeichnis) API is enabled (see :mod:`gvz_api` for more information).
 """
 import os
+import urllib
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,19 +60,33 @@ VERSION = "0.0.14"
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "-!v282$zj815_q@htaxcubylo)(l%a+k*-xi78hw*#s2@i86@_"
+if "DJANGO_SECRET_KEY" in os.environ:
+    SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+else:
+    SECRET_KEY = "-!v282$zj815_q@htaxcubylo)(l%a+k*-xi78hw*#s2@i86@_"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if "DJANGO_DEBUG" in os.environ:
+    DEBUG = bool(os.environ["DJANGO_DEBUG"])
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+if "DJANGO_BASE_URL" in os.environ:
+    ALLOWED_HOSTS = [urllib.parse.urlparse(os.environ["DJANGO_BASE_URL"]).netloc]
+else:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 
-# Needed for webauthn (this is a setting in case the application runs behind a proxy)
-HOSTNAME = "localhost"
-BASE_URL = "http://localhost:8000"
+if "DJANGO_BASE_URL" in os.environ:
+    HOSTNAME = urllib.parse.urlparse(os.environ["DJANGO_BASE_URL"]).netloc
+    BASE_URL = os.environ["DJANGO_BASE_URL"]
+else:
+    BASE_URL = "http://localhost:8000"
+    HOSTNAME = "localhost"
 
-# The protocol and domain of the webapp
-WEBAPP_URL = "https://integreat.app"
+if "DJANGO_WEBAPP_URL" in os.environ:
+    WEBAPP_URL = os.environ["DJANGO_WEBAPP_URL"]
+else:
+    WEBAPP_URL = "https://integreat.app"
 
 # Custom slugs
 IMPRINT_SLUG = "imprint"
@@ -126,16 +152,34 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "integreat",
-        "USER": "integreat",
-        "PASSWORD": "password",
-        "HOST": "localhost",
-        "PORT": "5432",
+if (
+    "DJANGO_DB_HOST" in os.environ
+    and "DJANGO_DB_NAME" in os.environ
+    and "DJANGO_DB_PASSWORD" in os.environ
+    and "DJANGO_DB_USER" in os.environ
+    and "DJANGO_DB_PORT" in os.environ
+):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": os.environ["DJANGO_DB_NAME"],
+            "USER": os.environ["DJANGO_DB_USER"],
+            "PASSWORD": os.environ["DJANGO_DB_PASSWORD"],
+            "HOST": os.environ["DJANGO_DB_HOST"],
+            "PORT": os.environ["DJANGO_DB_PORT"],
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": "integreat",
+            "USER": "integreat",
+            "PASSWORD": "password",
+            "HOST": "localhost",
+            "PORT": "5432",
+        }
+    }
 
 # Directory for initial database contents
 
@@ -196,7 +240,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "../node_modules"),
 ]
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "cms/static/")
+if "DJANGO_STATIC_PARENT" in os.environ:
+    STATIC_ROOT = os.environ["DJANGO_STATIC_ROOT"]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, "cms/static/")
 
 # Caches
 
@@ -217,7 +264,10 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 CSRF_FAILURE_VIEW = "cms.views.error_handler.csrf_failure"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+if "DJANGO_MEDIA_PARENT" in os.environ:
+    MEDIA_ROOT = os.environ["DJANGO_MEDIA_ROOT"]
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 FILER_CANONICAL_URL = "media/"
 
 LOGGING = {
