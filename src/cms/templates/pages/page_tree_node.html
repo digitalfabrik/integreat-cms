@@ -5,7 +5,14 @@
 <tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
 <tr id="page-{{ node.id }}" data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
     <td class="single_icon">
-        <span data-drag-id="{{ page.id }}" data-node-descendants="{{ page|get_descendants }}" class="drag text-gray-800 block py-3 pl-4 pr-2 cursor-move" draggable="true">
+        <span data-drag-id="{{ page.id }}"
+              data-node-descendants="{{ page|get_descendants }}"
+              class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 block py-3 pl-4 pr-2"
+              {% if enable_drag_and_drop %}
+              draggable="true"
+              {% else %}
+              title="{% trans 'Drag & drop is disabled when filters are applied.' %}"
+              {% endif %}>
             <i data-feather="move"></i>
         </span>
     </td>

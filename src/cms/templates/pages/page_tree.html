@@ -34,9 +34,14 @@
             <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
         </form>
 
-        {% has_perm 'cms.edit_page' request.user as can_edit_pages %}
-        {% if can_edit_pages %}
-            <div class="w-1/2 flex flex-wrap justify-end">
+
+        <div class="w-1/2 flex flex-wrap justify-end">
+            <button id="filter-toggle"
+                    class="bg-gray-500 hover:bg-gray-600 text-gray-800 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+                {% trans 'Filter pages' %}
+            </button>
+            {% has_perm 'cms.edit_page' request.user as can_edit_pages %}
+            {% if can_edit_pages %}
                 {% if region.default_language == language %}
                     <a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         {% trans 'Create page' %}
@@ -46,9 +51,12 @@
                         {% trans 'Create page' %}
                     </button>
                 {% endif %}
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
+</div>
+<div id="filter-form-container" class="{% if not filter_form.has_changed %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    {% include 'pages/_page_filter_form.html' %}
 </div>
 
 <div class="table-listing">
@@ -85,7 +93,7 @@
             {% get_last_root_page pages as last_root_page %}
             {% recursetree pages %}
                 {% get_translation node language.code as page_translation %}
-                {% include "pages/page_tree_node.html" with page=node page_translation=page_translation %}
+                {% include "pages/page_tree_node.html" with page=node %}
                 {% if not node.is_leaf_node %}
                     {{children}}
                 {% endif %}
@@ -159,4 +167,10 @@
 {% block javascript %}
 <script src="{% static 'js/tree_drag_and_drop.js' %}"></script>
 <script src="{% static 'js/pages/page_bulk_actions.js' %}"></script>
+<script>
+    // event handler to toggle filter form
+    u('#filter-toggle').on('click', () => {
+        u('#filter-form-container').toggleClass('hidden');
+    });
+</script>
 {% endblock %}
