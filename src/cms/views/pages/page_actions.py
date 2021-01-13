@@ -162,8 +162,17 @@ def view_page(request, page_id, region_slug, language_code):
     template_name = "pages/page_view.html"
 
     page_translation = page.get_translation(language_code)
+    mirrored_translation = page.get_mirrored_page(language_code)
 
-    return render(request, template_name, {"page_translation": page_translation})
+    return render(
+        request,
+        template_name,
+        {
+            "page_translation": page_translation,
+            "mirrored_translation": mirrored_translation,
+            "mirrored_page_first": page.mirrored_page_first,
+        },
+    )
 
 
 @login_required

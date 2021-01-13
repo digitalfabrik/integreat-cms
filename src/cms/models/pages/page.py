@@ -125,7 +125,7 @@ class Page(MPTTModel, AbstractBasePage):
             super().get_siblings(include_self=include_self).filter(region=self.region)
         )
 
-    def get_mirrored_text(self, language_code):
+    def get_mirrored_page(self, language_code):
         """
         Mirrored content always includes the live content from another page. This content needs to be added when
         delivering content to end users.
@@ -137,7 +137,7 @@ class Page(MPTTModel, AbstractBasePage):
         :rtype: str
         """
         if self.mirrored_page:
-            return self.mirrored_page.get_translation(language_code).text
+            return self.mirrored_page.get_translation(language_code)
         return None
 
     class Meta:

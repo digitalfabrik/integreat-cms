@@ -112,7 +112,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :return: The combined content of this page and the mirrored page
         :rtype: str
         """
-        attached_text = self.page.get_mirrored_text(self.language.code)
+        attached_text = self.page.get_mirrored_page(self.language.code).text
         if attached_text is None:
             return self.text
         if self.page.mirrored_page_first:
