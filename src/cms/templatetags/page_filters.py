@@ -12,9 +12,9 @@ def get_last_root_page(pages):
     This tag returns the last page on the root level.
 
     :param pages: The requested page tree
-    :type pages: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+    :type pages: list [ ~cms.models.pages.page.Page ]
 
-    :return: The last root page of the given :class:`~django.db.models.query.QuerySet`
+    :return: The last root page of the given page list
     :rtype: ~cms.models.pages.page.Page
     """
-    return pages.filter(parent=None).last()
+    return list(filter(lambda p: not p.parent, pages))[-1]
