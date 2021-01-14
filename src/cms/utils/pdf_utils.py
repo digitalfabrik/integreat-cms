@@ -40,7 +40,8 @@ def generate_pdf(region, language_code, pages):
     :rtype: ~django.http.HttpResponse
     """
     # first all necessary data for hashing are collected, starting at region slug
-    pdf_key_list = [region.slug]
+    # region last_updated field taking into account, to keep track of maybe edited region icons
+    pdf_key_list = [region.slug, region.last_updated]
     for page in pages:
         # add translation id and last_updated to hash key list if they exist
         page_translation = page.get_public_translation(language_code)
@@ -81,7 +82,6 @@ def generate_pdf(region, language_code, pages):
     language = Language.objects.get(code=language_code)
     filename = f"Integreat - {language.translated_name} - {title}.pdf"
     context = {
-        "html2pdf": True,
         "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,
         "region": region,
         "pages": pages,
