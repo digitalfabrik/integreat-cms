@@ -8,7 +8,6 @@
 
 {% block javascript_head %}
     <script src="{% static 'js/confirmation-popups.js' %}"></script>
-    <script src="{% static 'js/pages/page_bulk_actions.js' %}"></script>
     <script src="{% static 'js/copy-clipboard.js' %}"></script>
 {% endblock %}
 
@@ -57,7 +56,7 @@
         <thead>
             <tr class="border-b border-solid border-gray-200">
                 <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"></th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min"><input type="checkbox" class="h-full" name="select_all_pages" onclick="select_all_pages();"></th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min"><input type="checkbox" class="h-full" name="select_all_pages"></th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
@@ -125,9 +124,10 @@
                     </select>
                 </div>
                 <div class="pl-3">
-                    <input type="button" onclick="bulk_action_execute();" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-2 px-4 rounded" value="{% trans 'Execute' %}" />
+                    <input id="bulk_action_btn" type="button" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-2 px-4 rounded" value="{% trans 'Execute' %}" />
                     <input type="hidden" id="bulk_action_url" value="{% url 'download_xliff' region_slug=region.slug language_code=language.code%}">
                     <input type="hidden" id="pdf_export_url" value="{% url 'export_pdf' region_slug=region.slug language_code=language.code %}"> 
+                    <div id="ajax_url" class="hidden" data-url="{% url 'post_translation_state_ajax' region_slug=region.slug %}"></div>
                 </div>
             </form>
         </div>
@@ -158,4 +158,5 @@
 
 {% block javascript %}
 <script src="{% static 'js/tree_drag_and_drop.js' %}"></script>
+<script src="{% static 'js/pages/page_bulk_actions.js' %}"></script>
 {% endblock %}

@@ -84,35 +84,47 @@
                     <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
                         <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                             <div class="border-b-2 border-white">
-                        {% if other_language == language %}
-                            <div class="p-4">
-                                {% if page %}
-                                    {% if other_language in page.languages %}
-                                        {% if page_translation_form.instance.is_outdated %}
+                                {% if other_language == language %}
+                                    <div class="{{ language.code }} p-4">
+                                        {% if page %}
+                                            {% if other_language in page.languages %}
+                                                {% if page_translation_form.instance.is_outdated %}
+                                                    <span title="{% trans 'Translation outdated' %}">
+                                                        <i data-feather="alert-triangle" class="inline-block"></i>
+                                                    </span>
+                                                {% elif page_translation_form.instance.currently_in_translation %}
+                                                    <span title="{% trans 'Currently in translation' %}">
+                                                        <i data-feather="clock" class="inline-block"></i>
+                                                    </span>
+                                                {% else %}
+                                                    <span title="{% trans 'Translation up-to-date' %}">
+                                                        <i data-feather="check" class="inline-block"></i>
+                                                    </span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span title="{% trans 'Translation missing' %}">
+                                                    <i data-feather="x" class="inline-block"></i>
+                                                </span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span title="{% trans 'Create Translation' %}">
+                                                <i data-feather="plus" class="inline-block"></i>
+                                            </span>
+                                        {% endif %}
+                                        {{ other_language.translated_name }}
+                                    </div>
+                                    <div class="hidden ajax p-4">
+                                        {% if page_translation_form.instance.is_outdated_helper %}
                                             <span title="{% trans 'Translation outdated' %}">
                                                 <i data-feather="alert-triangle" class="inline-block"></i>
-                                            </span>
-                                        {% elif page_translation_form.instance.currently_in_translation %}
-                                            <span title="{% trans 'Currently in translation' %}">
-                                                <i data-feather="clock" class="inline-block"></i>
                                             </span>
                                         {% else %}
                                             <span title="{% trans 'Translation up-to-date' %}">
                                                 <i data-feather="check" class="inline-block"></i>
                                             </span>
                                         {% endif %}
-                                    {% else %}
-                                        <span title="{% trans 'Translation missing' %}">
-                                            <i data-feather="x" class="inline-block"></i>
-                                        </span>
-                                    {% endif %}
-                                {% else %}
-                                    <span title="{% trans 'Create Translation' %}">
-                                        <i data-feather="plus" class="inline-block"></i>
-                                    </span>
-                                {% endif %}
-                                {{ other_language.translated_name }}
-                            </div>
+                                        {{ other_language.translated_name }}
+                                    </div>
                         {% else %}
                             <a class="p-4 block" style="color: inherit;" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}">
                                 {% if other_language in page.languages %}
@@ -161,7 +173,20 @@
                         <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
                         <a href="#" onclick="short_url_to_clipboard('{{ page_translation_form.instance.short_url }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="copy" class="inline-block"></i>
-                        </a>
+                        </a><br>
+                        {% if page_translation_form.instance.currently_in_translation %}
+                            <div id="trans-warn">
+                                <i data-feather="alert-triangle" class="inline-block text-red-800"></i>
+                                <label class="inline-block mb-2 font-bold">{% trans 'Warning' %}:</label>
+                                {% trans 'Translation in progress' %}
+                                <a href="#" onclick="unset_translation_state('{{ page.id }}', '{{ page_translation_form.instance.language.code }}');"
+                                        id="undo-translation"
+                                        class="italic text-purple-500"
+                                        data-url="{% url 'post_translation_state_ajax' region_slug=region.slug %}">
+                                    {% trans 'Abort translation process' %}
+                                </a><br>
+                            </div>
+                        {% endif %}
                     {% endif %}
                     <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
                     <div class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
@@ -364,6 +389,7 @@
 {% block javascript %}
 <script src="{% static 'js/pages/page_order.js' %}"></script>
 <script src="{% static 'js/pages/page_mirroring.js' %}"></script>
+<script src="{% static 'js/pages/unset_translation_state.js' %}"></script>
 {% endblock %}
 
 {% block javascript_nocompress %}
