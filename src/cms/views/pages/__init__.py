@@ -18,8 +18,7 @@ from .page_actions import (
     revoke_page_permission_ajax,
     get_page_order_table_ajax,
     get_new_page_order_table_ajax,
-    get_pages_list_ajax,
-    save_mirrored_page,
+    render_mirrored_page_field,
 )
 from .page_sbs_view import PageSideBySideView
 from .page_revision_view import PageRevisionView

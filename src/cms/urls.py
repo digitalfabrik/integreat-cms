@@ -292,6 +292,18 @@ urlpatterns = [
         include(
             [
                 url(
+                    r"^render/",
+                    include(
+                        [
+                            url(
+                                r"^mirrored_page_field/",
+                                pages.render_mirrored_page_field,
+                                name="render_mirrored_page_field",
+                            ),
+                        ]
+                    ),
+                ),
+                url(
                     r"^grant_page_permission$",
                     pages.grant_page_permission_ajax,
                     name="grant_page_permission_ajax",
@@ -300,16 +312,6 @@ urlpatterns = [
                     r"^revoke_page_permission$",
                     pages.revoke_page_permission_ajax,
                     name="revoke_page_permission_ajax",
-                ),
-                url(
-                    r"^get_pages_list$",
-                    pages.get_pages_list_ajax,
-                    name="get_pages_list_ajax",
-                ),
-                url(
-                    r"^save_mirrored_page$",
-                    pages.save_mirrored_page,
-                    name="save_mirrored_page",
                 ),
                 url(
                     r"^(?P<region_slug>[-\w]+)/(?P<parent_id>[0-9]+)/new_order_table$",

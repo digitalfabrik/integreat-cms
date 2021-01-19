@@ -12,7 +12,6 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
-from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import ugettext as _
 from django.views.static import serve
@@ -806,79 +805,31 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
 
 
 @login_required
-def get_pages_list_ajax(request):
+def render_mirrored_page_field(request):
     """
-    Retrieve the page list as JSON
+    Retrieve the rendered mirrored page field template
 
     :param request: The current request
     :type request: ~django.http.HttpResponse
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
-
-    :return: A JSON containing the list of all pages of a region
-    :rtype: ~django.http.JsonResponse
+    :return: The rendered mirrored page field
+    :rtype: ~django.template.response.TemplateResponse
     """
-    decoded_json = json.loads(request.body.decode("utf-8"))
-    if "region" not in decoded_json or decoded_json["region"] == "":
-        page = Page.objects.get(id=decoded_json["current_page"])
+    # Get the region from wich the content should be embedded
+    region = get_object_or_404(Region, id=request.GET.get("region_id"))
+    # Get the page in which the content should be embedded (to exclude it from the possible selections)
+    page = Page.objects.filter(id=request.GET.get("page_id")).first()
 
-        if not request.user.has_perm("cms.edit_page", page):
-            logger.info(
-                "Error: The user %s cannot edit page %s.",
-                request.user.username,
-                page,
-            )
-            raise PermissionDenied
+    page_form = PageForm(
+        {"mirrored_page_region": region.id},
+        instance=page,
+        region=region,
+    )
 
-        page.mirrored_page = None
-        page.save()
-        return JsonResponse({"nolist": True})
-    region = get_object_or_404(Region, id=decoded_json["region"])
-    result = []
-    for page in region.pages.all():
-        result.append(
-            {
-                "id": page.id,
-                "name": " -> ".join(
-                    [
-                        page_iter.best_language_title()
-                        for page_iter in page.get_ancestors(include_self=True)
-                    ]
-                ),
-            }
-        )
-    result = sorted(result, key=lambda k: k["name"])
-    return JsonResponse(result, safe=False)
-
-
-@login_required
-def save_mirrored_page(request):
-    """
-    Save the ``mirrored_page``-attribute of a page object
-
-    :param request: The current request
-    :type request: ~django.http.HttpResponse
-
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
-
-    :return: A JSON response on success
-    :rtype: ~django.http.JsonResponse
-    """
-    decoded_json = json.loads(request.body.decode("utf-8"))
-    page = Page.objects.get(id=decoded_json["current_page"])
-
-    if not request.user.has_perm("cms.edit_page", page):
-        logger.info(
-            "Error: The user %s cannot edit page %s.",
-            request.user.username,
-            page,
-        )
-        raise PermissionDenied
-
-    if int(decoded_json["mirrored_page"]) == 0:
-        page.mirrored_page = None
-    else:
-        page.mirrored_page = Page.objects.get(id=int(decoded_json["mirrored_page"]))
-        page.mirrored_page_first = decoded_json["mirrored_page_first"] == "True"
-    page.save()
-    return JsonResponse({"code": True})
+    return render(
+        request,
+        "pages/_mirrored_page_field.html",
+        {
+            "page_form": page_form,
+        },
+    )

@@ -17,7 +17,6 @@
     <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/autosave.js' %}"></script>
-    <script src="{% static 'js/pages/page_mirroring.js' %}"></script>
     <script src="{% static 'js/pages/page_permissions.js' %}"></script>
     <script src="{% static 'js/pages/page_side_by_side.js' %}"></script>
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
@@ -256,11 +255,8 @@
                                 <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                             </div>
                         </div>
-                        <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div">
-                            {% render_field page_form.mirrored_page id="mirrored_page" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
+                        <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' %}?page_id={{ page_form.instance.id }}&region_id=">
+                            {% include "pages/_mirrored_page_field.html" %}
                         </div>
                         <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
                             {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
@@ -367,32 +363,12 @@
 
 {% block javascript %}
 <script src="{% static 'js/pages/page_order.js' %}"></script>
+<script src="{% static 'js/pages/page_mirroring.js' %}"></script>
 {% endblock %}
 
 {% block javascript_nocompress %}
 {% get_current_language as LANGUAGE_CODE %}
 {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
-{% if page %}
-<script>
-    // preselect mirrored page when document is loaded
-    document.addEventListener('DOMContentLoaded', function () {
-        update_mirrored_pages_list("{% url 'get_pages_list_ajax' %}", {{ page.id }}, {{ page.mirrored_page.id }});
-    });
-
-    // event handler for showing the page selection for attach pages
-    u("#mirrored_page_region").handle('change', update_mirrored_pages_list_wrapper);
-    async function update_mirrored_pages_list_wrapper(e) {
-        update_mirrored_pages_list("{% url 'get_pages_list_ajax' %}", {{ page.id }});
-    }
-
-    // event handler for saving attached pages
-    u("#mirrored_page").handle('change', save_mirrored_page_wrapper);
-    u("#mirrored_page_first").handle('change', save_mirrored_page_wrapper);
-    async function save_mirrored_page_wrapper(e){
-        save_mirrored_page("{% url 'save_mirrored_page' %}", {{ page.id }});
-    }
-</script>
-{% endif %}
 <script>
 document.addEventListener('DOMContentLoaded', function(){
     tinymce.init({

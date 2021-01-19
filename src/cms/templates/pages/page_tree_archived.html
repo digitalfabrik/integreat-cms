@@ -53,7 +53,6 @@
         </thead>
         <tbody>
         {% if pages %}
-            {% get_last_root_page pages as last_root_page %}
             {% recursetree pages %}
                 {% get_translation node language.code as page_translation %}
                 {% include "pages/page_tree_archived_node.html" with page=node page_translation=page_translation %}
