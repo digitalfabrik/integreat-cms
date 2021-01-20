@@ -14,7 +14,7 @@
     </div>
     <form id="chat-form" action="{% url 'send_chat_message' %}" method="post" class="pt-4">
         {% csrf_token %}
-        {% render_field chat_form.text rows="2" class+="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+        {% render_field chat_form.text rows="2" %}
 
         <button id="send-chat-message" type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold mt-2 py-3 px-4 rounded">
             <i data-feather="send" class="h-4"></i> {% trans "Send message" %}

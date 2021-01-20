@@ -40,7 +40,7 @@ export default function UploadFile({
         className="p-4"
       >
         <input name="parent_directory" type="hidden" value={directory ? directory.id : ""} />
-        <label for="file-upload" class="font-bold cursor-pointer">
+        <label for="file-upload">
           {mediaTranslations.label_file_name}
         </label>
         <div class="flex flex-row gap-2 pt-2">
@@ -48,7 +48,7 @@ export default function UploadFile({
             for="file-upload"
             title={mediaTranslations.btn_select_file}
             className={cn(
-              "block w-full truncate whitespace-nowrap text-white leading-tight font-bold py-3 px-4 rounded",
+              "w-full truncate whitespace-nowrap text-white leading-tight font-bold py-3 px-4 m-0 rounded",
               { "cursor-not-allowed bg-gray-500": isLoading },
               { "cursor-pointer bg-gray-500 hover:bg-gray-600": !isLoading && selectedFile },
               { "cursor-pointer bg-blue-500 hover:bg-blue-600": !isLoading && !selectedFile }

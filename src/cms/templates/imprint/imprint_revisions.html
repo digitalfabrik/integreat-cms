@@ -60,11 +60,11 @@
             {% endwith %}
         </span>
         <div class="revision-plain hidden">
-            <label class="block mb-2 font-bold">{% trans 'Permalink' %}:</label>
+            <label>{% trans 'Permalink' %}:</label>
             {{ imprint_translation.get_absolute_url }}
-            <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
+            <label>{% trans 'Title' %}</label>
             <h1>{{ imprint_translation.title }}</h1>
-            <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
+            <label>{% trans 'Content' %}</label>
             {{ imprint_translation.text|safe }}
         </div>
         <div class="revision-diff w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
@@ -74,9 +74,9 @@
 
     <div id="revision-0" class="hidden">
         <div class="revision-plain">
-            <label class="block mb-2 font-bold">{% trans 'Permalink' %}:</label>
-            <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
-            <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
+            <label>{% trans 'Permalink' %}:</label>
+            <label>{% trans 'Title' %}</label>
+            <label>{% trans 'Content' %}</label>
         </div>
     </div>
     <div class="w-full p-4 flex justify-end">

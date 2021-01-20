@@ -5,79 +5,73 @@
 {% load widget_tweaks %}
 <form method="post">
     {% csrf_token %}
-    <div class="flex flex-wrap mb-4">
-        <div class="w-2/5 flex flex-wrap flex-col justify-center">
-            <h1 class="heading">
-	            {% if form.initial %}
-		            {% with form.name.value as offer_template_name %}
-			            {% blocktrans %}Edit offer template "{{ offer_template_name }}"{% endblocktrans %}
-		            {% endwith %}
-	            {% else %}
-		            {% trans 'Create new offer template' %}
-	            {% endif %}
-            </h1>
-        </div>
-        <div class="w-3/5 flex justify-end">
-	        {% if form.initial %}
-		        <input type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
-	        {% else %}
-		        <input type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Create' %}" />
-	        {% endif %}
-        </div>
+    <div class="flex justify-between mb-4">
+		<h1 class="heading">
+			{% if form.initial %}
+				{% with form.name.value as offer_template_name %}
+					{% blocktrans %}Edit offer template "{{ offer_template_name }}"{% endblocktrans %}
+				{% endwith %}
+			{% else %}
+				{% trans 'Create new offer template' %}
+			{% endif %}
+		</h1>
+		{% if form.initial %}
+			<input type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+		{% else %}
+			<input type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Create' %}" />
+		{% endif %}
     </div>
 
-    <div class="flex flex-wrap">
-	    <div class="w-1/2 pr-2">
-		    {{form.errors}}
-		    <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-				<div class="w-full p-4 rounded bg-blue-500">
-					<h3 class="heading font-bold text-white">{% trans 'General Settings' %}</h3>
-				</div>
-				<div class="w-full p-4">
-
+	{{form.errors}}
+    <div class="grid xl:grid-cols-2 gap-4">
+		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			<div class="p-4 rounded bg-blue-500">
+				<h3 class="heading font-bold text-white"><i data-feather="star" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+			</div>
+			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+				<div>
 					<!-- General Options for offer_template management -->
-                    <label for="{{ form.name.id_for_label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ form.name.label }}</label>
-                    {% render_field form.name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-
-                    <label for="{{ form.slug.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.slug.label }}</label>
-					<div class="px-2 mb-2 text-s text-gray-600">{{ form.slug.help_text }}</div>
-                    {% render_field form.slug class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-
-					<label for="{{ form.url.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.url.label }}</label>
-					<div class="px-2 mb-2 text-s text-gray-600">{{ form.url.help_text }}</div>
-					{% render_field form.url class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-
-					<label for="{{ form.thumbnail.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.thumbnail.label }}</label>
+					<label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+					{% render_field form.name %}
+				</div>
+				<div>
+					<label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
+					<div class="help-text">{{ form.slug.help_text }}</div>
+					{% render_field form.slug %}
+				</div>
+				<div>
+					<label for="{{ form.url.id_for_label }}">{{ form.url.label }}</label>
+					<div class="help-text">{{ form.url.help_text }}</div>
+					{% render_field form.url %}
+				</div>
+				<div>
+					<label for="{{ form.thumbnail.id_for_label }}">{{ form.thumbnail.label }}</label>
 					<div class="mb-2 text-s text-gray-600">{{ form.thumbnail.help_text }}</div>
-					{% render_field form.thumbnail class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+					{% render_field form.thumbnail %}
 				</div>
 			</div>
 		</div>
-	<div class="w-1/2 pl-2">
-		<div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-			<div class="w-full p-4 rounded bg-blue-500">
-				<h3 class="heading font-bold text-white">{% trans 'Extended Settings' %}</h3>
+		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			<div class="p-4 rounded bg-blue-500">
+				<h3 class="heading font-bold text-white"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
 			</div>
-			<div class="w-full p-4">
-				<label for="{{ form.post_data.id_for_label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ form.post_data.label }}</label>
-				<div class="px-2 mb-2 text-s text-gray-600">{{ form.post_data.help_text }}</div>
-				{% if form.post_data.value == "null" %}
-					{% render_field form.post_data value="{}" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-				{% else %}
-					{% render_field form.post_data class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-				{% endif %}
-
-				<label for="{{ form.use_postal_code.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.use_postal_code.label }}</label>
-				<div class="px-2 mb-2 text-s text-gray-600">{{ form.use_postal_code.help_text }}</div>
-				<div class="relative">
-					{% render_field form.use_postal_code class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-					<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-						<img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-					</div>
+			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+				<div>
+					<label for="{{ form.post_data.id_for_label }}">{{ form.post_data.label }}</label>
+					<div class="help-text">{{ form.post_data.help_text }}</div>
+					{% if form.post_data.value == "null" %}
+						{% render_field form.post_data value="{}" %}
+					{% else %}
+						{% render_field form.post_data %}
+					{% endif %}
+				</div>
+				<div>
+					<label for="{{ form.use_postal_code.id_for_label }}">{{ form.use_postal_code.label }}</label>
+					<div class="help-text">{{ form.use_postal_code.help_text }}</div>
+					{% render_field form.use_postal_code %}
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </form>
 {% endblock %}

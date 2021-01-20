@@ -82,6 +82,15 @@ class AbstractBasePageTranslation(models.Model):
         raise NotImplementedError
 
     @property
+    def base_link(self):
+        """
+        This property calculates the page link without the slug dynamically
+
+        To be implemented in the inheriting model
+        """
+        raise NotImplementedError
+
+    @property
     def short_url(self):
         """
         This property calculates the short url dynamically

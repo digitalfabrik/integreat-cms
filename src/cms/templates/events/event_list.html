@@ -5,39 +5,35 @@
 
 {% block content %}
     <div class="table-header">
-        <div class="flex flex-wrap">
-            <div class="w-1/2">
-                <h1 class="heading">{% trans 'Events' %}</h1>
-            </div>
-            <div class="w-1/2 flex flex-wrap justify-end">
-                <a href="{% url 'events_archived' region_slug=region.slug language_slug=language.slug %}"
-                   class="font-bold text-xs text-gray-800 block pb-2 hover:underline">
-                    {% trans 'Archived events' %}
-                    <span class="inline-block rounded-full bg-integreat-500 text-gray-800 px-2 py-1 text-xs font-bold">
-                        {{ archived_count }}
-                    </span>
-                </a>
-            </div>
+        <div class="flex justify-between">
+            <h1 class="heading">{% trans 'Events' %}</h1>
+            <a href="{% url 'events_archived' region_slug=region.slug language_slug=language.slug %}"
+               class="font-bold text-xs text-gray-800 block pb-2 hover:underline">
+                {% trans 'Archived events' %}
+                <span class="inline-block rounded-full bg-integreat-500 text-gray-800 px-2 py-1 text-xs font-bold">
+                    {{ archived_count }}
+                </span>
+            </a>
         </div>
-        <div class="flex flex-wrap justify-between">
+        <div class="flex justify-between">
             <div class="flex flex-wrap">
                 {% include "generic_language_switcher.html" with target='events' %}
-                <form class="table-search relative w-1/2">
+                <form class="table-search relative">
                     <i data-feather="search" class="absolute"></i>
                     <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
                 </form>
             </div>
             <div class="flex flex-wrap">
-                    <button id="filter-toggle"
-                            class="bg-gray-500 hover:bg-gray-600 text-white hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
-                        {% trans 'Filter events' %}
-                    </button>
-                    {% if region.default_language == language %}
-                        <a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}"
-                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            {% trans 'Create event' %}
-                        </a>
-                    {% endif %}
+                <button id="filter-toggle"
+                        class="bg-gray-500 hover:bg-gray-600 text-white hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+                    {% trans 'Filter events' %}
+                </button>
+                {% if region.default_language == language %}
+                    <a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}"
+                       class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        {% trans 'Create event' %}
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>

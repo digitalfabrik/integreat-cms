@@ -3,7 +3,7 @@ import logging
 from datetime import time
 
 from django import forms
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from ...models import Event
 from ..custom_model_form import CustomModelForm
@@ -20,7 +20,11 @@ class EventForm(CustomModelForm):
     # Whether or not the event is all day
     is_all_day = forms.BooleanField(required=False, label=_("All-day"))
     # Whether or not the event is recurring
-    is_recurring = forms.BooleanField(required=False, label=_("Recurring"))
+    is_recurring = forms.BooleanField(
+        required=False,
+        label=_("Recurring"),
+        help_text=_("Determines whether the event is repeated at regular intervals."),
+    )
 
     class Meta:
         """
@@ -31,7 +35,14 @@ class EventForm(CustomModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = Event
         #: The fields of the model which should be handled by this form
-        fields = ["start_date", "start_time", "end_date", "end_time", "icon"]
+        fields = [
+            "start_date",
+            "start_time",
+            "end_date",
+            "end_time",
+            "icon",
+            "location",
+        ]
         #: The widgets which are used in this form
         widgets = {
             "start_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),

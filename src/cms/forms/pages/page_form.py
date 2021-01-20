@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
 
 from ...constants import position, mirrored_page_first
 from ...models import Page, Region
@@ -35,10 +36,18 @@ class PageForm(CustomModelForm):
         widget=forms.HiddenInput(),
     )
     editors = forms.ModelChoiceField(
-        queryset=get_user_model().objects.all(), required=False
+        queryset=get_user_model().objects.all(),
+        required=False,
+        label=_("Editors"),
+        help_text=_(
+            "These users can edit this page, but are not allowed to publish it."
+        ),
     )
     publishers = forms.ModelChoiceField(
-        queryset=get_user_model().objects.all(), required=False
+        queryset=get_user_model().objects.all(),
+        required=False,
+        label=_("Publishers"),
+        help_text=_("These users can edit and publish this page."),
     )
     mirrored_page_region = forms.ModelChoiceField(
         queryset=Region.objects.all(), required=False

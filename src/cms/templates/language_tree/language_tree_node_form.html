@@ -20,41 +20,28 @@
         </div>
     </div>
 
-    <div class="flex flex-wrap">
-        <div class="w-1/2 pl-2">
-            <div class="w-full px-4 py-2 rounded border border-solid border-gray-200 shadow bg-white">
-                <div class="py-2 border-b solid border-gray-200 mb-2">
-                    <label for="{{ language_tree_node_form.language.id_for_label }}" class="block mb-2 font-bold">{{ language_tree_node_form.language.label }}</label>
-                    <div class="relative my-2">
-                        {% render_field language_tree_node_form.language|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                        </div>
-                    </div>
-                </div>
-                <div class="py-2 border-b solid border-gray-200 mb-2">
-                    <label for="{{ language_tree_node_form.parent.id_for_label }}" class="font-bold mb-2 block">{{ language_tree_node_form.parent.label }}</label>
-                    <div class="relative my-2">
-                        {% render_field language_tree_node_form.parent|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                        </div>
-                    </div>
-                </div>
-                <div class="py-2 border-b solid border-gray-200 mb-2">
-                    <div class="py-2 pb-4">
-                        {% render_field language_tree_node_form.visible|add_error_class:"border-red-500" id="visible" %}
-                        <label for="{{ language_tree_node_form.visible.id_for_label }}" class="font-bold px-2">{{ language_tree_node_form.visible.label }}</label>
-                    </div>
-                    <div class="my-2 text-s text-gray-600">{{ language_tree_node_form.visible.help_text }}</div>
-                </div>
-                <div class="py-2 border-b solid border-gray-200 mb-2">
-                    <div class="py-2 pb-4">
-                        {% render_field language_tree_node_form.active|add_error_class:"border-red-500" id="active" %}
-                        <label for="{{ language_tree_node_form.active.id_for_label }}" class="font-bold px-2">{{ language_tree_node_form.active.label }}</label>
-                        <div class="my-2 text-s text-gray-600">{{ language_tree_node_form.active.help_text }}</div>
-                    </div>
-                </div>
+    <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <div class="p-4 rounded bg-blue-500">
+            <h3 class="heading font-bold text-white"><i data-feather="flag" class="mr-2"></i> {% trans 'Language tree node' %}</h3>
+        </div>
+        <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+            <div>
+                <label for="{{ language_tree_node_form.language.id_for_label }}">{{ language_tree_node_form.language.label }}</label>
+                {% render_field language_tree_node_form.language|add_error_class:"border-red-500" %}
+            </div>
+            <div>
+                <label for="{{ language_tree_node_form.parent.id_for_label }}">{{ language_tree_node_form.parent.label }}</label>
+                {% render_field language_tree_node_form.parent|add_error_class:"border-red-500" %}
+            </div>
+            <div>
+                {% render_field language_tree_node_form.visible|add_error_class:"border-red-500" id="visible" %}
+                <label for="{{ language_tree_node_form.visible.id_for_label }}">{{ language_tree_node_form.visible.label }}</label>
+                <div class="help-text">{{ language_tree_node_form.visible.help_text }}</div>
+            </div>
+            <div>
+                {% render_field language_tree_node_form.active|add_error_class:"border-red-500" id="active" %}
+                <label for="{{ language_tree_node_form.active.id_for_label }}">{{ language_tree_node_form.active.label }}</label>
+                <div class="help-text">{{ language_tree_node_form.active.help_text }}</div>
             </div>
         </div>
     </div>

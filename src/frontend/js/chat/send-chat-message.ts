@@ -53,7 +53,7 @@ async function sendChatMessage(event: Event) {
       // Clear input field
       chatForm.reset();
       // Trigger icon replacement
-      feather.replace();
+      feather.replace({ class: 'inline-block' });
 
       refreshAjaxConfirmationHandlers(deleteChatMessage);
     } else {

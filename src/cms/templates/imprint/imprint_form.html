@@ -99,32 +99,31 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
                     {% if imprint_translation_form.instance.id %}
-                        <span class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</span>
+                        <label class="inline-block">{% trans 'Version' %}:</label>
                         {{ imprint_translation_form.instance.version }}
                         (<a href="{% url 'imprint_revisions' region_slug=region.slug language_slug=language.slug %}" class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)<br>
-                        <span class="inline-block mb-2 font-bold">{% trans 'Status' %}:</span>
+                        <label class="inline-block">{% trans 'Status' %}:</label>
                         {{ imprint_translation_form.instance.get_status_display }}<br>
-                        <span class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</span>
+                        <label class="inline-block">{% trans 'Link to the imprint' %}:</label>
                         <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}</a>
                         <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="copy"></i>
                         </a><br>
                         {% if region.short_urls_enabled and request.user.profile.expert_mode %}
-                        <span class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</span>
-                        <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
-                        <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
-                            <i data-feather="copy"></i>
-                        </a>
+                            <label class="inline-block">{% trans 'Short URL' %}:</label>
+                            <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
+                            <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
+                                <i data-feather="copy"></i>
+                            </a>
                         {% endif %}
                     {% endif %}
-                    <label for="{{ imprint_translation_form.title.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ imprint_translation_form.title.label }}</label>
-                    {% render_field imprint_translation_form.title class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label for="{{ imprint_translation_form.text.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ imprint_translation_form.text.label }}</label>
-                    {% render_field imprint_translation_form.text class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
-                    <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
+                    <label for="{{ imprint_translation_form.title.id_for_label }}">{{ imprint_translation_form.title.label }}</label>
+                    {% render_field imprint_translation_form.title %}
+                    <label for="{{ imprint_translation_form.text.id_for_label }}">{{ imprint_translation_form.text.label }}</label>
+                    {% render_field imprint_translation_form.text class="tinymce_textarea" %}
                     {% render_field imprint_translation_form.minor_edit %}
-                    <label for="{{ imprint_translation_form.minor_edit.id_for_label }}" class="text-s px-2">{{ imprint_translation_form.minor_edit.label }}</label>
-                    <div class="my-2 text-s text-gray-600">{{ imprint_translation_form.minor_edit.help_text }}</div>
+                    <label for="{{ imprint_translation_form.minor_edit.id_for_label }}">{{ imprint_translation_form.minor_edit.label }}</label>
+                    <div class="help-text">{{ imprint_translation_form.minor_edit.help_text }}</div>
                 </div>
             </div>
         </div>
@@ -142,18 +141,13 @@
                 </ul>
                 <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                     <div class="w-full p-4">
-                        <span class="font-bold mb-2 mt-4 block">{% trans 'Direction of translation' %}</span>
-                        <div class="relative">
-                            <select id="side-by-side-select" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                                <option value="">---------</option>
-                                {% for side_by_side_language_option in side_by_side_language_options %}
-                                <option value="{% url 'sbs_edit_imprint' region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
-                        </div>
+                        <span>{% trans 'Direction of translation' %}</span>
+                        <select id="side-by-side-select">
+                            <option value="">---------</option>
+                            {% for side_by_side_language_option in side_by_side_language_options %}
+                            <option value="{% url 'sbs_edit_imprint' region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
+                            {% endfor %}
+                        </select>
                         <a id="side-by-side-link" class="block pointer-events-none w-full bg-gray-400 text-white text-center font-bold py-2 px-4 mt-2 rounded">
                             <i data-feather="external-link" class="mr-2"></i>
                             {% trans 'Show translations side by side' %}
@@ -175,7 +169,7 @@
                 <div class="w-full p-4">
                     <div class="pt-2 pb-4">
                         {% if imprint.archived %}
-                            <span class="block font-bold mb-4">{% trans 'Restore imprint' %}</span>
+                            <label>{% trans 'Restore imprint' %}</label>
                             <button title="{% trans 'Restore imprint' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{% trans 'Please confirm that you really want to restore the imprint' %}"
                                     data-confirmation-text="{% trans 'All translations of the imprint will also be restored.' %}"
@@ -185,7 +179,7 @@
                                 {% trans 'Restore the imprint' %}
                             </button>
                         {% else %}
-                            <span class="block font-bold mb-4">{% trans 'Archive imprint' %}</span>
+                            <label>{% trans 'Archive imprint' %}</label>
                             <button title="{% trans 'Archive imprint' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{% trans 'Please confirm that you really want to archive the imprint' %}"
                                     data-confirmation-text="{% trans 'All translations of the imprint will also be archived.' %}"
@@ -198,7 +192,7 @@
                     </div>
                     {% if user.is_superuser or user.is_staff %}
                         <div class="pt-2 pb-4">
-                            <span class="block font-bold mb-4">{% trans 'Delete imprint' %}</span>
+                            <label>{% trans 'Delete imprint' %}</label>
                             <button title="{% trans 'Delete imprint' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{% trans 'Please confirm that you really want to delete the imprint' %}"
                                     data-confirmation-text="{% trans 'All translations of the imprint will also be deleted.' %}"

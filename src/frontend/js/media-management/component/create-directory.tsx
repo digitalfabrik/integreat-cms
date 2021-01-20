@@ -42,7 +42,7 @@ export default function CreateDirectory({
         className="p-4"
       >
         <input name="parent" type="hidden" value={parentDirectoryId} />
-        <label for="create-directory-name-input" class="font-bold cursor-pointer">
+        <label for="create-directory-name-input">
           {mediaTranslations.label_directory_name}
         </label>
         <div class="flex flex-row gap-2 pt-2">
@@ -52,7 +52,6 @@ export default function CreateDirectory({
             name="name"
             maxLength={255}
             placeholder={mediaTranslations.text_enter_directory_name}
-            className="w-full block bg-gray-200 text-gray-600 placeholder-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
             disabled={isLoading}
             required
           />

@@ -51,12 +51,12 @@
                     <div class="w-full p-4">
                         {{push_notification_translation_form.errors}}
                         <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-                            <label for="{{ form.title.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ form.title.label }}</label>
-                            {% render_field form.title class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                            {% render_field form.title %}
                         </div>
                         <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-                            <label for="{{ form.text.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ form.text.label }}</label>
-                            {% render_field form.text class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+                            {% render_field form.text %}
                             <p><span class="input-length-counter"></span>/{{ form.fields.text.max_length }}</p>
                         </div>
                         <div class="hidden">
@@ -81,12 +81,12 @@
             </ul>
             <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                 <div class="w-full p-4">
-                    <label for="{{ push_notification_form.channel.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ push_notification_form.channel.label }}</label>
-                    {% render_field push_notification_form.channel class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ push_notification_form.channel.id_for_label }}">{{ push_notification_form.channel.label }}</label>
+                    {% render_field push_notification_form.channel %}
                 </div>
                 <div class="w-full p-4">
-                    <label for="{{ push_notification_form.mode.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ push_notification_form.mode.label }}</label>
-                    {% render_field push_notification_form.mode class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ push_notification_form.mode.id_for_label }}">{{ push_notification_form.mode.label }}</label>
+                    {% render_field push_notification_form.mode %}
                 </div>
             </div>
         </div>

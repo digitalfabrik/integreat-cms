@@ -110,20 +110,15 @@
     </table>
     <div class="flex flex-wrap mt-5">
         <div class="flex-wrap relative w-1/2">
-            <div class="relative w-auto inline-block">
-                <select id="bulk-action" class="block appearance-none bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                    <option>{% trans 'Select bulk action' %}</option>
-                    <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
-                    <option id="pdf-export-option" data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
-                        data-target="_blank" data-language-slug="{{ language.slug }}">{% trans 'Export as PDF' %}</option>
-                    {% if request.user.profile.expert_mode and language != region.default_language %}
-                        <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}</option>
-                    {% endif %}
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                    <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                </div>
-            </div>
+            <select id="bulk-action" class="w-auto">
+                <option>{% trans 'Select bulk action' %}</option>
+                <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
+                <option id="pdf-export-option" data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
+                    data-target="_blank" data-language-slug="{{ language.slug }}">{% trans 'Export as PDF' %}</option>
+                {% if request.user.profile.expert_mode and language != region.default_language %}
+                    <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}</option>
+                {% endif %}
+            </select>
             <input id="bulk-action-execute" type="submit" class="inline-block bg-gray-500 cursor-not-allowed h-full text-white font-bold py-2 px-4 ml-2 rounded" value="{% trans 'Execute' %}" />
         </div>
     </div>

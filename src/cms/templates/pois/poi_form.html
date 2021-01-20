@@ -104,35 +104,35 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
                     {% if poi_translation_form.instance.id %}
-                        <span class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</span>
+                        <label class="inline-block">{% trans 'Version' %}:</label>
                         {{ poi_translation_form.instance.version }}<br>
-                        <span class="inline-block mb-2 font-bold">{% trans 'Status' %}:</span>
+                        <label class="inline-block">{% trans 'Status' %}:</label>
                         {{ poi_translation_form.instance.get_status_display }}
                     {% endif %}
-                    <label for="{{ poi_translation_form.title.id_for_label }}" 
-                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}"
-                        class="block mb-2 mt-4 font-bold">{{ poi_translation_form.title.label }}
+                    <label for="{{ poi_translation_form.title.id_for_label }}"
+                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
+                        {{ poi_translation_form.title.label }}
                     </label>
-                    {% render_field poi_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    {% render_field poi_translation_form.title|add_error_class:"border-red-500" %}
                     <div id="link-container" class="flex items-center mt-4">
-                        <label for="{{ poi_translation_form.slug.id_for_label }}" class="block mr-2 font-bold">
-                            {{ poi_translation_form.slug.label }}: 
+                        <label for="{{ poi_translation_form.slug.id_for_label }}">
+                            {{ poi_translation_form.slug.label }}:
                         </label>
                         {% spaceless %}
-                            <a href="https://integreat.app/{{ region.slug }}/{{ language.slug }}/{{ poi_translation_form.instance.slug }}" class="mr-2 text-blue-500 hover:underline">https://integreat.app/{{ region.slug }}/{{ language.slug }}/{{ poi_translation_form.instance.slug }}</a>
-                            <div class="flex mr-2 hidden flex-grow">
-                                {% spaceless %}
-                                <span>https://integreat.app/{{ region.slug }}/{{ language.slug }}/</span>
-                                {% render_field poi_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
-                                {% endspaceless %}
-                            </div>
-                            <button id="edit-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500">
+                            <a href="https://integreat.app/{{ region.slug }}/{{ language.slug }}/" class="mr-2 text-blue-500 hover:underline">https://integreat.app/{{ region.slug }}/{{ language.slug }}/</a>
+                            <button id="edit-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500">
                                 <i data-feather="edit-3"></i>
                             </button>
                             <button id="copy-slug-btn" type="button" class="text-gray-800 hover:text-blue-500">
                                 <i data-feather="copy"></i>
                             </button>
-                            <button id="save-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500 hidden">
+                            <div class="slug-field hidden">
+                                <label for="{{ poi_translation_form.slug.id_for_label }}">
+                                    https://integreat.app/{{ region.slug }}/{{ language.slug }}/
+                                </label>
+                                {% render_field poi_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
+                            </div>
+                            <button id="save-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500 hidden">
                                 <i data-feather="save"></i>
                             </button>
                             <button id="restore-slug-btn" type="button" class="text-gray-800 hover:text-blue-500 hidden">
@@ -140,14 +140,10 @@
                             </button>
                         {% endspaceless %}
                     </div>
-                    <label for="{{ poi_translation_form.short_description.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ poi_translation_form.short_description.label }}</label>
-                    {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label for="{{ poi_translation_form.description.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ poi_translation_form.description.label }}</label>
-                    {% render_field poi_translation_form.description class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
-                    <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
-                    {% render_field poi_translation_form.minor_edit id="minor_edit" %}
-                    <label for="{{ poi_translation_form.minor_edit.id_for_label }}" class="text-s p-2">{{ poi_translation_form.minor_edit.label }}</label>
-                    <div class="my-2 text-s text-gray-600">{{ poi_translation_form.minor_edit.help_text }}</div>
+                    <label for="{{ poi_translation_form.short_description.id_for_label }}">{{ poi_translation_form.short_description.label }}</label>
+                    {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" %}
+                    <label for="{{ poi_translation_form.description.id_for_label }}">{{ poi_translation_form.description.label }}</label>
+                    {% render_field poi_translation_form.description class="tinymce_textarea" %}
                 </div>
             </div>
         </div>
@@ -162,40 +158,41 @@
                     </div>
                 </li>
             </ul>
-            <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                <div class="w-full p-4">
-                    <div class="pt-2 pb-4">
-                        <span class="block mb-2 font-bold">{% trans 'Address' %}</span>
-                        <label for="{{ poi_form.address.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.address.label }}</label>
-                        {% render_field poi_form.address|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <label for="{{ poi_form.postcode.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.postcode.label }}</label>
-                        {% render_field poi_form.postcode|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <label for="{{ poi_form.city.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.city.label }}</label>
-                        {% render_field poi_form.city|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <label for="{{ poi_form.country.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.country.label }}</label>
-                        {% render_field poi_form.country|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <span class="block mb-2 mt-4 font-bold">{% trans 'Location on map' %}</span>
-                        {% render_field poi_form.location_not_on_map id="location_not_on_map" %}
-                        <label for="{{ poi_form.location_not_on_map.id_for_label }}" class="text-s p-2">{{ poi_form.location_not_on_map.label }}</label>
-                        <div class="my-2 text-s text-gray-600">{{ poi_form.location_not_on_map.help_text }}</div>
+            <div class="mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
+                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                    <div>
+                        <label>{% trans 'Address' %}</label>
+                        <label for="{{ poi_form.address.id_for_label }}" class="secondary">{{ poi_form.address.label }}</label>
+                        {% render_field poi_form.address|add_error_class:"border-red-500" %}
+                        <label for="{{ poi_form.postcode.id_for_label }}" class="secondary">{{ poi_form.postcode.label }}</label>
+                        {% render_field poi_form.postcode|add_error_class:"border-red-500" %}
+                        <label for="{{ poi_form.city.id_for_label }}" class="secondary">{{ poi_form.city.label }}</label>
+                        {% render_field poi_form.city|add_error_class:"border-red-500" %}
+                        <label for="{{ poi_form.country.id_for_label }}" class="secondary">{{ poi_form.country.label }}</label>
+                        {% render_field poi_form.country|add_error_class:"border-red-500" %}
                     </div>
-                    <div class="pt-2 pb-4">
-                        <span class="block mb-2 font-bold">{% trans 'Position' %}</span>
-                        <label for="{{ poi_form.longitude.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.longitude.label }}</label>
-                        <div class="my-2 text-s text-gray-600">{{ poi_form.longitude.help_text }}</div>
-                        {% render_field poi_form.longitude|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <label for="{{ poi_form.latitude.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.latitude.label }}</label>
-                        <div class="my-2 text-s text-gray-600">{{ poi_form.latitude.help_text }}</div>
-                        {% render_field poi_form.latitude|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <div>
+                        {% render_field poi_form.location_not_on_map %}
+                        <label for="{{ poi_form.location_not_on_map.id_for_label }}">{{ poi_form.location_not_on_map.label }}</label>
+                        <div class="help-text">{{ poi_form.location_not_on_map.help_text }}</div>
                     </div>
-                    <div class="pt-4 pb-4">
-                        <span class="block font-bold mb-4">{{ poi_form.icon.label }}</span>
+                    <div>
+                        <label>{% trans 'Position' %}</label>
+                        <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">{{ poi_form.longitude.label }}</label>
+                        {% render_field poi_form.longitude|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ poi_form.longitude.help_text }}</div>
+                        <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
+                        {% render_field poi_form.latitude|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ poi_form.latitude.help_text }}</div>
+                    </div>
+                    <div>
+                        <label for="{{ poi_form.icon.id_for_label }}">{{ poi_form.icon.label }}</label>
                         {% render_field poi_form.icon label=poi_form.icon.label %}
                     </div>
                     {% if poi_form.instance.id %}
-                        <div class="pt-2 pb-4">
+                        <div>
                             {% if poi_form.instance.archived %}
-                            <span class="block font-bold mb-4">{% trans 'Restore location' %}</span>
+                            <label>{% trans 'Restore location' %}</label>
                                 <button title="{% trans 'Restore location' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
@@ -204,7 +201,7 @@
                                     <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this location' %}
                                 </button>
                             {% else %}
-                                <span class="block font-bold mb-4">{% trans 'Archive location' %}</span>
+                            <label>{% trans 'Archive location' %}</label>
                                 <button title="{% trans 'Archive location' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
@@ -215,8 +212,8 @@
                             {% endif %}
                         </div>
                         {% if user.is_superuser or user.is_staff %}
-                            <div class="pt-2 pb-4">
-                                <span class="block font-bold mb-4">{% trans 'Delete location' %}</span>
+                            <div>
+                                <label>{% trans 'Delete location' %}</label>
                                 <button title="{% trans 'Delete location' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{{ delete_dialog_title }}"
                                     data-confirmation-text="{{ delete_dialog_text }}"

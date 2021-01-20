@@ -27,23 +27,16 @@
 		    {{form.errors}}
 		    <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
 				<div class="w-full p-4 rounded bg-blue-500">
-					<label for="{{ form.name.id_for_label }}" class="heading font-bold text-white">{{ form.name.label }}</label>
+					<h3 class="heading font-bold text-white"><i data-feather="key" class="mr-2"></i> {% trans 'Role settings' %}</h3>
 				</div>
-				<div class="w-full p-4">
-                    {% render_field form.name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+				<div class="px-4 pb-4">
+					<label for="{{ form.name.id_for_label }}" >{{ form.name.label }}</label>
+                    {% render_field form.name %}
+					<label for="{{ form.permissions.id_for_label }}">{{ form.permissions.label }}</label>
+					{% render_field form.permissions %}
 				</div>
 			</div>
 		</div>
-	<div class="w-full">
-		<div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-			<div class="w-full p-4 rounded bg-blue-500">
-				<label for="{{ form.permissions.id_for_label }}" class="heading font-bold text-white">{{ form.permissions.label }}</label>
-			</div>
-			<div class="w-full p-4">
-				{% render_field form.permissions class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-			</div>
-		</div>
-	</div>
 </div>
 </form>
 {% endblock %}

@@ -115,45 +115,40 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
                     {% if event_translation_form.instance.id %}
-                        <span class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</span>
+                        <label class="inline-block">{% trans 'Version' %}:</label>
                         {{ event_translation_form.instance.version }}<br>
-                        <span class="inline-block mb-2 font-bold">{% trans 'Status' %}:</span>
+                        <label class="inline-block">{% trans 'Status' %}:</label>
                         {{ event_translation_form.instance.get_status_display }}
                     {% endif %}
                     <label for="{{ event_translation_form.title.id_for_label }}" 
-                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='event' %}{% if event_form.instance.id %}?model_id={{ event_form.instance.id }}{% endif %}"
-                        class="block mb-2 mt-4 font-bold">{{ event_translation_form.title.label }}</label>
-                    {% render_field event_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='event' %}{% if event_form.instance.id %}?model_id={{ event_form.instance.id }}{% endif %}">
+                        {{ event_translation_form.title.label }}
+                    </label>
+                    {% render_field event_translation_form.title|add_error_class:"border-red-500" %}
                     <div id="link-container" class="flex items-center mt-4">
-                        <label for="{{ event_translation_form.slug.id_for_label }}" class="block mr-2 font-bold">
+                        <label for="{{ event_translation_form.slug.id_for_label }}">
                             {{ event_translation_form.slug.label }}: 
                         </label>
                         <a href="{{ url_link }}{{ event_translation_form.instance.slug }}" class="mr-2 text-blue-500 hover:underline">{{ url_link }}{{ event_translation_form.instance.slug }}</a>
-                        <div class="flex mr-2 hidden flex-grow">
-                            {% spaceless %}
-                            <span>{{ url_link }}</span>
-                            {% render_field event_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
-                            {% endspaceless %}
-                        </div>
-                        <button id="edit-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500">
+                        <button id="edit-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="edit-3"></i>
                         </button>
                         <button id="copy-slug-btn" type="button" class="text-gray-800 hover:text-blue-500">
                             <i data-feather="copy"></i>
                         </button>
-                        <button id="save-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500 hidden">
+                        <div class="slug-field hidden">
+                            <label for="{{ event_translation_form.slug.id_for_label }}">{{ url_link }}</label>
+                            {% render_field event_translation_form.slug|add_error_class:"slug-error" %}
+                        </div>
+                        <button id="save-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500 hidden">
                             <i data-feather="save"></i>
                         </button>
                         <button id="restore-slug-btn" type="button" class="text-gray-800 hover:text-blue-500 hidden">
                             <i data-feather="x-circle"></i>
                         </button>
                     </div>
-                    <label for="{{ event_translation_form.description.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ event_translation_form.description.label }}</label>
-                    {% render_field event_translation_form.description|add_error_class:"border-red-500" class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
-                    <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
-                    {% render_field event_translation_form.minor_edit id="minor_edit" %}
-                    <label for="{{ event_translation_form.minor_edit.id_for_label }}" class="text-s">{{ event_translation_form.minor_edit.label }}</label>
-                    <div class="my-2 text-s text-gray-600">{{ event_translation_form.minor_edit.help_text }}</div>
+                    <label for="{{ event_translation_form.description.id_for_label }}">{{ event_translation_form.description.label }}</label>
+                    {% render_field event_translation_form.description|add_error_class:"border-red-500" class="tinymce_textarea" %}
                 </div>
             </div>
         </div>
@@ -169,48 +164,41 @@
                 </li>
             </ul>
             <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                <div class="w-full p-4">
-                        <div class="flex flex-wrap">
-                            <div class="w-1/2 pr-2">
-                                <label for="{{ event_form.start_date.id_for_label }}" class="mb-2 block font-bold text-sm">{{ event_form.start_date.label }}</label>
-                                {% render_field event_form.start_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                        <div>
+                            <div class="flex flex-wrap">
+                                <div class="w-1/2 pr-2">
+                                    <label for="{{ event_form.start_date.id_for_label }}">{{ event_form.start_date.label }}</label>
+                                    {% render_field event_form.start_date|add_error_class:"border-red-500" %}
+                                </div>
+                                <div class="w-1/2">
+                                    <label for="{{ event_form.end_date.id_for_label }}">{{ event_form.end_date.label }}</label>
+                                    {% render_field event_form.end_date|add_error_class:"border-red-500" %}
+                                </div>
                             </div>
-                            <div class="w-1/2">
-                                <label for="{{ event_form.end_date.id_for_label }}" class="mb-2 block font-bold text-sm">{{ event_form.end_date.label }}</label>
-                                {% render_field event_form.end_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <div class="flex flex-wrap my-3">
+                                <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
+                                    <label for="{{ event_form.start_time.id_for_label }}">{{ event_form.start_time.label }}</label>
+                                    {% render_field event_form.start_time|add_error_class:"border-red-500" %}
+                                </div>
+                                <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
+                                    <label for="{{ event_form.end_time.id_for_label }}">{{ event_form.end_time.label }}</label>
+                                    {% render_field event_form.end_time|add_error_class:"border-red-500" %}
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex flex-wrap my-3">
-                            <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                                <label for="{{ event_form.start_time.id_for_label }}" class="mb-2 block font-bold text-sm">{{ event_form.start_time.label }}</label>
-                                {% render_field event_form.start_time|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                            </div>
-                            <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                                <label for="{{ event_form.end_time.id_for_label }}" class="mb-2 block font-bold text-sm">{{ event_form.end_time.label }}</label>
-                                {% render_field event_form.end_time|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                            </div>
-                        </div>
-                        <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
                             {% render_field event_form.is_all_day %}
-                            <label for="{{ event_form.is_all_day.id_for_label }}" class="mb-2 p-2 font-bold text-sm">{{ event_form.is_all_day.label }}</label>
+                            <label for="{{ event_form.is_all_day.id_for_label }}">{{ event_form.is_all_day.label }}</label>
                         </div>
                         <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
-                            <h3 class="font-bold mb-3 pt-4">{% trans 'Recurrence' %}</h3>
-                            <div class="checkbox-wrap relative my-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left: 0">
-                                {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
-                                <label for="{{ event_form.is_recurring.id_for_label }}">{{ event_form.is_recurring.label }}</label>
-                            </div>
+                            {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
+                            <label for="recurrence-rule-checkbox">{{ event_form.is_recurring.label }}</label>
+                            <div class="help-text">{{ event_form.is_recurring.help_text }}</div>
                             <div id="recurrence-rule"{% if not event_form.is_recurring.value %} class="hidden"{% endif %}>
-                                <label for="{{ recurrence_rule_form.frequency.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.frequency.label }}</label>
-                                <div class="relative my-2">
-                                    {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                                    </div>
-                                </div>
+                                <label for="{{ recurrence_rule_form.frequency.id_for_label }}" class="secondary">{{ recurrence_rule_form.frequency.label }}</label>
+                                {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" %}
                                 <div id="recurrence-weekly"{% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %} class="hidden"{% endif %}>
-                                    <label for="{{ recurrence_rule_form.weekdays_for_weekly.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.weekdays_for_weekly.label }}</label>
-                                    <select name="weekdays_for_weekly" id="id_weekdays_for_weekly" multiple="multiple" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}">
+                                    <label for="{{ recurrence_rule_form.weekdays_for_weekly.id_for_label }}" class="secondary">{{ recurrence_rule_form.weekdays_for_weekly.label }}</label>
+                                    <select name="weekdays_for_weekly" id="id_weekdays_for_weekly" multiple="multiple" class="{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}">
                                         {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
                                         <option value="{{ choice_value }}"{% if not recurrence_rule_form.data|is_empty %}
                                             {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %} selected="selected"{% endif %}
@@ -221,100 +209,99 @@
                                     </select>
                                 </div>
                                 <div id="recurrence-monthly"{% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %} class="hidden"{% endif %}>
-                                    <label for="{{ recurrence_rule_form.week_for_monthly.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.week_for_monthly.label }}</label>
-                                    {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                                    <label for="{{ recurrence_rule_form.weekday_for_monthly.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.weekday_for_monthly.label }}</label>
-                                    {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                    <label for="{{ recurrence_rule_form.week_for_monthly.id_for_label }}" class="secondary">{{ recurrence_rule_form.week_for_monthly.label }}</label>
+                                    {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" %}
+                                    <label for="{{ recurrence_rule_form.weekday_for_monthly.id_for_label }}" class="secondary">{{ recurrence_rule_form.weekday_for_monthly.label }}</label>
+                                    {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" %}
                                 </div>
-                                <label for="{{ recurrence_rule_form.interval.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.interval.label }}</label>
-                                {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                                <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
-                                    {% render_field recurrence_rule_form.has_recurrence_end_date %} {{ recurrence_rule_form.has_recurrence_end_date.label }}
-                                </div>
+                                <label for="{{ recurrence_rule_form.interval.id_for_label }}" class="secondary">{{ recurrence_rule_form.interval.label }}</label>
+                                {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" %}
+                                {% render_field recurrence_rule_form.has_recurrence_end_date %}
+                                <label for="{{ recurrence_rule_form.has_recurrence_end_date.id_for_label }}" class="secondary">{{ recurrence_rule_form.has_recurrence_end_date.label }}</label>
                                 <div id="recurrence-end"{% if not recurrence_rule_form.data|is_empty %}
                                     {% if not recurrence_rule_form.data.has_recurrence_end_date %} class="hidden"{% endif %}
                                 {% else %}
                                     {% if not recurrence_rule_form.instance.recurrence_end_date %} class="hidden"{% endif %}
                                 {% endif %}>
-                                    <label for="{{ recurrence_rule_form.recurrence_end_date.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.recurrence_end_date.label }}</label>
-                                    {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                    <label for="{{ recurrence_rule_form.recurrence_end_date.id_for_label }}" class="secondary">{{ recurrence_rule_form.recurrence_end_date.label }}</label>
+                                    {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" %}
                                 </div>
                             </div>
                         </div>
-                        <h3 class="font-bold my-3">{% trans 'Where' %}</h3>
-
-                        <label for="{{ event_form.location.id_for_label }}" class="mt-4 mb-2 block font-bold uppercase text-sm">{{ event_form.location.label }}</label>
-                        {% trans 'Name of event location' as poi_title_placeholder %}
-                        <div class="relative my-2">
-                            <input id="poi-query-input" type="search" autocomplete="off" class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"{% if event_form.disabled %} disabled{% endif %} placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' %}" data-region-slug="{{ region.slug }}" data-default-placeholder="{{ poi_title_placeholder }}">
-                            <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <button id="poi-remove" title="{% trans 'Remove location from event' %}"{% if event_form.disabled %} disabled{% endif %}>
-                                    <i data-feather="trash-2" class="h-5 w-5"></i>
-                                </button>
+                        <div>
+                            <label for="{{ event_form.location.id_for_label }}">{{ event_form.location.label }}</label>
+                            {% trans 'Name of event location' as poi_title_placeholder %}
+                            <div class="relative my-2">
+                                <input id="poi-query-input" type="search" autocomplete="off" class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"{% if event_form.disabled %} disabled{% endif %} placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' %}" data-region-slug="{{ region.slug }}" data-default-placeholder="{{ poi_title_placeholder }}">
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                    <button id="poi-remove" title="{% trans 'Remove location from event' %}"{% if event_form.disabled %} disabled{% endif %}>
+                                        <i data-feather="trash-2" class="h-5 w-5"></i>
+                                    </button>
+                                </div>
                             </div>
+                            <div class="relative" id="poi-query-result">
+                                {% include 'events/_poi_query_result.html' %}
+                            </div>
+                            <p class="text-sm italic block mt-2 mb-2">
+                                {% trans 'Create an event location or start typing the name of an existing location' %}.
+                            </p>
+                            <label class="secondary">{% trans 'Address' %}</label>
+                            <input name="poi_id" id="poi-id" class="hidden" value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}" readonly>
+                            {% trans 'Street' as street_placeholder %}
+                            <input id="poi-address" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ street_placeholder }}" value="{% if poi %}{{ poi.address }}{% endif %}" />
+                            {% trans 'City' as city_placeholder %}
+                            <input id="poi-city" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ city_placeholder }}" value="{% if poi %}{{ poi.city }}{% endif %}" />
+                            {% trans 'Country' as country_placeholder %}
+                            <input id="poi-country" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ country_placeholder }}" value="{% if poi %}{{ poi.country }}{% endif %}" />
+                            <label class="secondary">{% trans 'Map' %}</label>
+                            <i class="text-teal-500">Google Map vs. OSM</i>
                         </div>
-                        <div class="relative" id="poi-query-result">
-                            {% include 'events/_poi_query_result.html' %}
-                        </div>
-                        <small class="text-sm italic block mt-2 mb-2">
-                            {% trans 'Create an event location or start typing the name of an existing location' %}.
-                        </small>
-                        <input name="poi_id" id="poi-id" class="hidden" value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}" readonly>
-                        {% trans 'Street' as street_placeholder %}
-                        <input id="poi-address" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ street_placeholder }}" value="{% if poi %}{{ poi.address }}{% endif %}" />
-                        {% trans 'City' as city_placeholder %}
-                        <input id="poi-city" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ city_placeholder }}" value="{% if poi %}{{ poi.city }}{% endif %}" />
-                        {% trans 'Country' as country_placeholder %}
-                        <input id="poi-country" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ country_placeholder }}" value="{% if poi %}{{ poi.country }}{% endif %}" />
-
-                        <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Map' %}</label>
-                        <i class="text-teal-500">Google Map vs. OSM</i>
-                        <div class="pt-4 pb-4">
-                            <span class="block font-bold mb-4">{{ event_form.icon.label }}</span>
+                        <div>
+                            <label for="{{ event_form.icon.id_for_label }}">{{ event_form.icon.label }}</label>
                             {% render_field event_form.icon label=event_form.icon.label %}
                         </div>
-                    {% if event_form.instance.id and can_edit_event %}
-                        <div class="pt-2 pb-4">
-                            {% if event_form.instance.archived %}
-                                <span class="block font-bold mb-4">{% trans 'Restore event' %}</span>
-                                <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                    data-confirmation-title="{{ restore_dialog_title }}"
-                                    data-confirmation-text="{{ restore_dialog_text}}"
-                                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="refresh-ccw" class="mr-2"></i>
-                                    {% trans 'Restore this event' %}
-                                </button>
-                            {% else %}
-                                <span class="block font-bold mb-4">{% trans 'Archive event' %}</span>
-                                <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                    data-confirmation-title="{{ archive_dialog_title }}"
-                                    data-confirmation-text="{{ archive_dialog_text }}"
-                                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="archive" class="mr-2"></i>
-                                    {% trans 'Archive this event' %}
-                                </button>
+                        {% if event_form.instance.id and can_edit_event %}
+                            <div>
+                                {% if event_form.instance.archived %}
+                                    <label>{% trans 'Restore event' %}</label>
+                                    <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                        data-confirmation-title="{{ restore_dialog_title }}"
+                                        data-confirmation-text="{{ restore_dialog_text}}"
+                                        data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                                        data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                        <i data-feather="refresh-ccw" class="mr-2"></i>
+                                        {% trans 'Restore this event' %}
+                                    </button>
+                                {% else %}
+                                    <label>{% trans 'Archive event' %}</label>
+                                    <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                        data-confirmation-title="{{ archive_dialog_title }}"
+                                        data-confirmation-text="{{ archive_dialog_text }}"
+                                        data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                                        data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                        <i data-feather="archive" class="mr-2"></i>
+                                        {% trans 'Archive this event' %}
+                                    </button>
+                                {% endif %}
+                            </div>
+                            {% if user.is_superuser or user.is_staff %}
+                                <div>
+                                    <label>{% trans 'Delete event' %}</label>
+                                    <button class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                                        data-confirmation-title="{{ delete_dialog_title }}"
+                                        data-confirmation-text="{{ delete_dialog_text }}"
+                                        data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                                        data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                        <i data-feather="trash-2" class="mr-2"></i>
+                                        {% trans 'Delete this event' %}
+                                    </button>
+                                </div>
                             {% endif %}
-                        </div>
-                        {% if user.is_superuser or user.is_staff %}
-                            <div class="pt-2 pb-4">
-                                <span class="block font-bold mb-4">{% trans 'Delete event' %}</span>
-                                <button class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" 
-                                    data-confirmation-title="{{ delete_dialog_title }}"
-                                    data-confirmation-text="{{ delete_dialog_text }}"
-                                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="trash-2" class="mr-2"></i>
-                                    {% trans 'Delete this event' %}
-                                </button>
-                            </div>
                         {% endif %}
-                    {% endif %}
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>

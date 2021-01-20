@@ -29,7 +29,6 @@ class POITranslationForm(CustomContentModelForm):
             "status",
             "description",
             "slug",
-            "minor_edit",
         ]
 
     # pylint: disable=too-many-arguments

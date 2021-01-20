@@ -27,7 +27,6 @@ class EventTranslationForm(CustomContentModelForm):
             "slug",
             "description",
             "status",
-            "minor_edit",
         ]
 
     # pylint: disable=too-many-arguments

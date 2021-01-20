@@ -117,19 +117,14 @@
     </table>
     <div class="flex justify-between mt-5">
         <div class="flex">
-            <div class="relative">
-                <select id="bulk-action" class="block appearance-none bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                    <option>{% trans 'Select bulk action' %}</option>
-                    <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=region.slug %}">{% trans 'Mark as read' %}</option>
-                    <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=region.slug %}">{% trans 'Mark as unread' %}</option>
-                    {% if request.user.is_superuser or request.user.is_staff %}
-                        <option data-bulk-action="{% url 'delete_region_feedback' region_slug=region.slug %}">{% trans 'Delete' %}</option>
-                    {% endif %}
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                    <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                </div>
-            </div>
+            <select id="bulk-action">
+                <option>{% trans 'Select bulk action' %}</option>
+                <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=region.slug %}">{% trans 'Mark as read' %}</option>
+                <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=region.slug %}">{% trans 'Mark as unread' %}</option>
+                {% if request.user.is_superuser or request.user.is_staff %}
+                    <option data-bulk-action="{% url 'delete_region_feedback' region_slug=region.slug %}">{% trans 'Delete' %}</option>
+                {% endif %}
+            </select>
             <input id="bulk-action-execute" type="submit" class="inline-block bg-gray-500 cursor-not-allowed text-white h-full font-bold py-2 px-4 ml-2 rounded" value="{% trans 'Execute' %}" />
         </div>
         <div>

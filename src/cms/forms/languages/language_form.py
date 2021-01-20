@@ -49,7 +49,11 @@ class LanguageForm(CustomModelForm):
         self.fields["secondary_country_code"].choices = sorted_language_choices
 
         # Make left border rounded if no flag is selected yet
-        if not self.fields["primary_country_code"].initial:
-            self.fields["primary_country_code"].widget.attrs["class"] = "rounded-l"
-        if not self.fields["secondary_country_code"].initial:
-            self.fields["secondary_country_code"].widget.attrs["class"] = "rounded-l"
+        if not self.instance.primary_country_code:
+            self.fields["primary_country_code"].widget.attrs[
+                "class"
+            ] = "rounded-l border-l"
+        if not self.instance.secondary_country_code:
+            self.fields["secondary_country_code"].widget.attrs[
+                "class"
+            ] = "rounded-l border-l"

@@ -78,6 +78,6 @@ async function updatePagePermission(
     // set new event listeners
     setPagePermissionEventListeners();
     // trigger icon replacement
-    feather.replace();
+    feather.replace({ class: 'inline-block' });
   }
 }
