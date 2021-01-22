@@ -26,7 +26,7 @@ class APIViewTest(ViewTest):
     This test checks whether all api views return status code 200.
     """
 
-    fixtures = ["src/cms/fixtures/test_data.json"]
+    fixtures = ["src/cms/fixtures/roles.json", "src/cms/fixtures/test_data.json"]
 
     @classmethod
     def setUpClass(cls):

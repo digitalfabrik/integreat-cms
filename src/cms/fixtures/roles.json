@@ -3,7 +3,7 @@
     "model": "auth.group",
     "pk": 1,
     "fields": {
-      "name": "Verwaltung",
+      "name": "MANAGEMENT",
       "permissions": [
         1,
         2,
@@ -27,10 +27,19 @@
     }
   },
   {
+    "model": "cms.role",
+    "pk": 1,
+    "fields": {
+      "group": 1,
+      "name": "MANAGEMENT",
+      "staff_role": false
+    }
+  },
+  {
     "model": "auth.group",
     "pk": 2,
     "fields": {
-      "name": "Redakteur",
+      "name": "EDITOR",
       "permissions": [
         9,
         10,
@@ -39,16 +48,121 @@
     }
   },
   {
+    "model": "cms.role",
+    "pk": 2,
+    "fields": {
+      "group": 2,
+      "name": "EDITOR",
+      "staff_role": false
+    }
+  },
+  {
     "model": "auth.group",
     "pk": 3,
     "fields": {
-      "name": "Terminplaner",
+      "name": "EVENT_MANAGER",
       "permissions": [
         1,
         2,
         3,
         12
       ]
+    }
+  },
+  {
+    "model": "cms.role",
+    "pk": 3,
+    "fields": {
+      "group": 3,
+      "name": "EVENT_MANAGER",
+      "staff_role": false
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+      "name": "MUNICIPALITY_TEAM",
+      "permissions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        11,
+        12,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    }
+  },
+  {
+    "model": "cms.role",
+    "pk": 4,
+    "fields": {
+      "group": 4,
+      "name": "MUNICIPALITY_TEAM",
+      "staff_role": true
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 5,
+    "fields": {
+      "name": "APP_TEAM",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "cms.role",
+    "pk": 5,
+    "fields": {
+      "group": 5,
+      "name": "APP_TEAM",
+      "staff_role": true
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 6,
+    "fields": {
+      "name": "CMS_TEAM",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "cms.role",
+    "pk": 6,
+    "fields": {
+      "group": 6,
+      "name": "CMS_TEAM",
+      "staff_role": true
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 7,
+    "fields": {
+      "name": "PROMO_TEAM",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "cms.role",
+    "pk": 7,
+    "fields": {
+      "group": 7,
+      "name": "PROMO_TEAM",
+      "staff_role": true
     }
   }
 ]

@@ -111,6 +111,7 @@ nitpicky = True
 nitpick_ignore = [
     ("py:class", "builtins.AssertionError"),
     ("py:class", "builtins.int"),
+    ("py:attr", "django.contrib.auth.models.Group.role"),
     ("py:attr", "django.contrib.auth.models.User.chat_messages"),
     ("py:attr", "django.contrib.auth.models.User.editable_pages"),
     ("py:attr", "django.contrib.auth.models.User.event_translations"),

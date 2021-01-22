@@ -43,6 +43,15 @@ class UserProfileForm(CustomModelForm):
         #: The fields of the model which should be handled by this form
         fields = ["regions", "organization", "expert_mode"]
 
+    def __init__(self, data=None, instance=None):
+
+        # instantiate ModelForm
+        super().__init__(data=data, instance=instance)
+
+        # Remove activation link field if user already exists
+        if self.instance.id:
+            del self.fields["send_activation_link"]
+
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
         """

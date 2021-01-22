@@ -10,7 +10,7 @@ window.addEventListener("load", () => {
         passwordWrapper.hidden = true;
         activeWrapper.hidden = true;
     }
-    if (activeInput?.checked){
+    if (activeInput?.checked && activationLinkWrapper){
         activationLinkWrapper.hidden = true;
     }
     activationLinkInput?.addEventListener("change", ({ target }) => {
@@ -28,7 +28,9 @@ window.addEventListener("load", () => {
             passwordInput.value = '';
         }
         activationLinkInput.checked = false;
-        // Disable manual setting of active and password when sending activation link is chosen
-        activationLinkWrapper.hidden = activeInput.checked;
+        if (activationLinkWrapper){
+            // Disable manual setting of active and password when sending activation link is chosen
+            activationLinkWrapper.hidden = activeInput.checked;
+        }
     });
 });

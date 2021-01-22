@@ -105,14 +105,14 @@ class UserView(PermissionRequiredMixin, TemplateView):
             ):
                 # check if either activation link is set or password is set or user already exists
                 if (
-                    user_profile_form.cleaned_data["send_activation_link"]
+                    user_instance
+                    or user_profile_form.cleaned_data["send_activation_link"]
                     or user_form.cleaned_data["password"]
-                    or user_instance
                 ):
                     user = user_form.save()
                     user_profile_form.save(user=user)
 
-                    if user_profile_form.cleaned_data["send_activation_link"]:
+                    if user_profile_form.cleaned_data.get("send_activation_link"):
                         send_activation_link(request, user)
 
                     if user_form.has_changed() or user_profile_form.has_changed():

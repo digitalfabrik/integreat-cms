@@ -85,12 +85,14 @@
                     <div class="help-text">{{ user_profile_form.expert_mode.help_text }}</div>
                 </div>
                 <div>
-                    <label for="{{ user_form.roles.id_for_label }}">{{ user_form.roles.label }}</label>
-                    {% render_field user_form.roles class+="w-full" %}
+                    <label for="{{ user_form.role.id_for_label }}">{{ user_form.role.label }}</label>
+                    {% render_field user_form.role required="required" %}
+                    <div class="help-text">{{ user_form.role.help_text }}</div>
                 </div>
                 <div>
                     <label for="{{ user_profile_form.organization.id_for_label }}">{{ user_profile_form.organization.label }}</label>
                         {% render_field user_profile_form.organization %}
+                    <div class="help-text">{{ user_profile_form.organization.help_text }}</div>
                 </div>
             </div>
         </div>

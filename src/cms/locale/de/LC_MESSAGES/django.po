@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-29 14:08+0000\n"
+"POT-Creation-Date: 2021-06-29 14:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1239,8 +1239,8 @@ msgid "Non-recurring events"
 msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: constants/region_status.py:16 templates/language_tree/language_tree.html:30
-#: templates/users/admin/list.html:28 templates/users/admin/list_row.html:44
-#: templates/users/region/list.html:28 templates/users/region/list_row.html:44
+#: templates/users/admin/list.html:29 templates/users/admin/list_row.html:49
+#: templates/users/region/list.html:29 templates/users/region/list_row.html:49
 msgid "Active"
 msgstr "Aktiv"
 
@@ -1254,6 +1254,37 @@ msgstr "Versteckt"
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
 msgstr "Archiviert"
+
+#: constants/role_names.py:16
+msgid "Management"
+msgstr "Verwaltung"
+
+#: constants/role_names.py:17 templates/imprint/imprint_revisions.html:21
+#: templates/imprint/imprint_revisions.html:53
+#: templates/pages/page_revisions.html:25
+#: templates/pages/page_revisions.html:57
+msgid "Editor"
+msgstr "Bearbeiter"
+
+#: constants/role_names.py:18
+msgid "Event manager"
+msgstr "Terminplaner"
+
+#: constants/role_names.py:32
+msgid "Municipality team"
+msgstr "Kommunen-Team"
+
+#: constants/role_names.py:33
+msgid "CMS team"
+msgstr "CMS-Team"
+
+#: constants/role_names.py:34
+msgid "App team"
+msgstr "App-Team"
+
+#: constants/role_names.py:35
+msgid "Promo team"
+msgstr "Promo-Team"
 
 #: constants/status.py:16
 msgid "Draft"
@@ -1584,14 +1615,55 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
-#: forms/users/authentication_form.py:11 forms/users/user_form.py:68
+#: forms/users/authentication_form.py:11 forms/users/user_form.py:82
 #: templates/authentication/password_reset_confirm.html:25
 msgid "Password"
 msgstr "Passwort"
 
-#: forms/users/user_form.py:63
+#: forms/users/user_form.py:25 templates/users/admin/list.html:27
+#: templates/users/region/list.html:27
+msgid "Role"
+msgstr "Rolle"
+
+#: forms/users/user_form.py:26
+msgid "This grants the user all permissions of the selected role"
+msgstr "Dies gewährt dem Benutzer alle Berechtigungen der ausgewählten Rolle"
+
+#: forms/users/user_form.py:31
+msgid "Team"
+msgstr "Team"
+
+#: forms/users/user_form.py:32
+msgid "This grants the user all permissions of the selected team"
+msgstr "Dies gewährt dem Benutzer alle Berechtigungen des ausgewählten Teams"
+
+#: forms/users/user_form.py:76
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
+
+#: forms/users/user_form.py:84
+msgid "Integreat team member"
+msgstr "Integreat-Teammitglied"
+
+#: forms/users/user_form.py:147
+msgid "Only staff members can be superusers"
+msgstr "Nur Mitarbeiter können Administratoren sein"
+
+#: forms/users/user_form.py:160
+msgid "Staff members can only have staff roles"
+msgstr "Mitarbeiter können nur Mitarbeiterrollen haben"
+
+#: forms/users/user_form.py:169
+msgid "Staff members have to be member of a team"
+msgstr "Mitarbeiter müssen Mitglied eines Teams sein"
+
+#: forms/users/user_form.py:181
+msgid "Only staff members can be member of a team"
+msgstr "Nur Mitarbeiter können Mitglied eines Teams sein"
+
+#: forms/users/user_form.py:190
+msgid "Please select a role"
+msgstr "Bitte wählen Sie eine Rolle aus"
 
 #: forms/users/user_password_form.py:24
 msgid "My old password"
@@ -2129,7 +2201,7 @@ msgstr "Sprach-Knoten"
 
 #: models/media/directory.py:15 models/media/media_file.py:33
 #: models/offers/offer_template.py:16 models/regions/region.py:26
-#: models/users/organization.py:11
+#: models/users/organization.py:11 models/users/role.py:18
 msgid "name"
 msgstr "Name"
 
@@ -2651,13 +2723,33 @@ msgstr "Kreuzen Sie an, wenn Sie Kurz-URLs benutzen wollen."
 msgid "regions"
 msgstr "Regionen"
 
-#: models/users/organization.py:57 models/users/user_profile.py:38
+#: models/users/organization.py:57 models/users/user_profile.py:39
 msgid "organization"
 msgstr "Organisation"
 
 #: models/users/organization.py:59
 msgid "organizations"
 msgstr "Organisationen"
+
+#: models/users/role.py:25
+msgid "Django auth group"
+msgstr "Django auth Gruppe"
+
+#: models/users/role.py:29
+msgid "staff role"
+msgstr "Mitarbeiterrolle"
+
+#: models/users/role.py:30
+msgid "Whether or not this role is designed for staff members"
+msgstr "Ob diese Rolle für Mitarbeitende gedacht ist oder nicht"
+
+#: models/users/role.py:66
+msgid "role"
+msgstr "Rolle"
+
+#: models/users/role.py:68
+msgid "roles"
+msgstr "Rollen"
 
 #: models/users/user_mfa_key.py:15 models/users/user_profile.py:24
 msgid "user"
@@ -2695,36 +2787,48 @@ msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 msgid "multi-factor authentication keys"
 msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 
-#: models/users/user_profile.py:42
+#: models/users/user_profile.py:31
+msgid "The regions to which the user has access"
+msgstr "Die Regionen, auf die der Benutzer Zugriff hat"
+
+#: models/users/user_profile.py:41
+msgid ""
+"This allows the user to edit and publish all pages for which the "
+"organisation is registered as the responsible organisation"
+msgstr ""
+"Dies erlaubt dem Benutzer, alle Seiten zu bearbeiten und zu veröffentlichen, "
+"für die die Organisation als zuständige Organisation eingetragen ist"
+
+#: models/users/user_profile.py:46
 msgid "last chat visit date"
 msgstr "Datum des letzten Chat-Besuchs"
 
-#: models/users/user_profile.py:43
+#: models/users/user_profile.py:47
 msgid "The date and time when the user did read the chat the last time"
 msgstr ""
 "Das Datum und die Uhrzeit, wann der Benutzer den Chat das letzte Mal gelesen "
 "hat"
 
-#: models/users/user_profile.py:47
-msgid "expert mode"
-msgstr "Expertenmodus"
+#: models/users/user_profile.py:51
+msgid "experienced user"
+msgstr "Erfahrener Anwender"
 
-#: models/users/user_profile.py:49
+#: models/users/user_profile.py:53
 msgid ""
 "Enable this option to show up additional features like XLIFF import/export, "
 "page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag "
 "and recurring events"
 msgstr ""
 "Aktiviert den Expertenmodus und ermöglicht zusätzliche Features wie XLIFF-"
-"Dateien zu importieren/exportieren, Seitenfilterung, Live Content, "
+"Dateien zu importieren/exportieren, Seitenfilterung, Live-Inhalte, "
 "seitenbasierte Berechtigungen, Nicht-Übersetzen-Tag und wiederkehrende "
 "Veranstaltungen"
 
-#: models/users/user_profile.py:124
+#: models/users/user_profile.py:141
 msgid "user profile"
 msgstr "Benutzerprofil"
 
-#: models/users/user_profile.py:126
+#: models/users/user_profile.py:143
 msgid "user profiles"
 msgstr "Benutzerprofile"
 
@@ -3450,7 +3554,7 @@ msgstr "Ende"
 #: templates/organizations/organization_list.html:25
 #: templates/pages/page_tree.html:85 templates/pages/page_tree_archived.html:46
 #: templates/pois/poi_list.html:58 templates/pois/poi_list_archived.html:40
-#: templates/roles/list.html:23
+#: templates/roles/list.html:24
 msgid "Options"
 msgstr "Optionen"
 
@@ -3756,13 +3860,6 @@ msgstr "Versionen des Impressums"
 msgid "Go back to imprint editor"
 msgstr "Zurück zum Impressums-Editor"
 
-#: templates/imprint/imprint_revisions.html:21
-#: templates/imprint/imprint_revisions.html:53
-#: templates/pages/page_revisions.html:25
-#: templates/pages/page_revisions.html:57
-msgid "Editor"
-msgstr "Bearbeiter"
-
 #: templates/imprint/imprint_revisions.html:48
 #: templates/pages/page_revisions.html:52
 msgid "This is the version shown in the apps."
@@ -3895,7 +3992,7 @@ msgstr "Sprache hinzufügen"
 #: templates/offer_templates/offer_template_form.html:19
 #: templates/organizations/organization_form.html:18
 #: templates/push_notifications/push_notification_form.html:30
-#: templates/regions/region_form.html:23 templates/roles/role.html:21
+#: templates/regions/region_form.html:23 templates/roles/role.html:19
 #: templates/users/admin/user.html:18 templates/users/region/user.html:21
 msgid "Save"
 msgstr "Speichern"
@@ -4556,20 +4653,28 @@ msgstr "Rollen"
 msgid "Create role"
 msgstr "Rolle erstellen"
 
-#: templates/roles/list.html:32
+#: templates/roles/list.html:23
+msgid "Staff role"
+msgstr "Mitarbeiterrolle"
+
+#: templates/roles/list.html:33
 msgid "No roles available yet."
 msgstr "Noch keine Rollen vorhanden."
 
-#: templates/roles/role.html:13
+#: templates/roles/list_row.html:19
+msgid "Delete role"
+msgstr "Rolle löschen"
+
+#: templates/roles/role.html:12
 #, python-format
 msgid "Edit role \"%(role_name)s\""
 msgstr "Rolle \"%(role_name)s\" bearbeiten"
 
-#: templates/roles/role.html:16
+#: templates/roles/role.html:14
 msgid "Create new role"
 msgstr "Neue Rolle erstellen"
 
-#: templates/roles/role.html:30
+#: templates/roles/role.html:28
 msgid "Role settings"
 msgstr "Rollen-Einstellungen"
 
@@ -4779,46 +4884,46 @@ msgstr "E-Mail Adresse"
 msgid "Organization"
 msgstr "Organisation"
 
-#: templates/users/admin/list.html:27 templates/users/region/list.html:27
+#: templates/users/admin/list.html:28 templates/users/region/list.html:28
 msgid "Last Login"
 msgstr "Letzter Login"
 
-#: templates/users/admin/list.html:29
-msgid "Staff"
-msgstr "Mitarbeiter"
+#: templates/users/admin/list.html:31
+msgid "Team member"
+msgstr "Teammitglied"
 
-#: templates/users/admin/list.html:30 templates/users/admin/list_row.html:71
+#: templates/users/admin/list.html:34 templates/users/admin/list_row.html:76
 msgid "Administrator"
 msgstr "Administrator"
 
-#: templates/users/admin/list.html:39 templates/users/region/list.html:37
+#: templates/users/admin/list.html:43 templates/users/region/list.html:38
 msgid "No users available yet."
 msgstr "Noch keine Benutzer vorhanden."
 
-#: templates/users/admin/list_row.html:36
-#: templates/users/region/list_row.html:36
+#: templates/users/admin/list_row.html:41
+#: templates/users/region/list_row.html:41
 msgid "No login yet"
 msgstr "Bisher keine Anmeldung"
 
-#: templates/users/admin/list_row.html:48
-#: templates/users/region/list_row.html:48
+#: templates/users/admin/list_row.html:53
+#: templates/users/region/list_row.html:53
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: templates/users/admin/list_row.html:53
-#: templates/users/region/list_row.html:53
+#: templates/users/admin/list_row.html:58
+#: templates/users/region/list_row.html:58
 msgid "Resend activation link"
 msgstr "Aktivierungslink erneut versenden"
 
-#: templates/users/admin/list_row.html:60
+#: templates/users/admin/list_row.html:65
 msgid "Staff member"
 msgstr "Mitarbeiter"
 
-#: templates/users/admin/list_row.html:64
+#: templates/users/admin/list_row.html:69
 msgid "No staff member"
 msgstr "Kein Mitarbeiter"
 
-#: templates/users/admin/list_row.html:75
+#: templates/users/admin/list_row.html:80
 msgid "No administrator"
 msgstr "Kein Administrator"
 
@@ -4831,36 +4936,44 @@ msgstr "Benutzer \"%(user_name)s\" bearbeiten"
 msgid "Create new user"
 msgstr "Neuen Benutzer erstellen"
 
-#: templates/users/admin/user.html:76 templates/users/region/user.html:79
+#: templates/users/admin/user.html:77 templates/users/region/user.html:79
 msgid "Permissions"
 msgstr "Berechtigungen"
 
-#: templates/users/admin/user.html:88
+#: templates/users/admin/user.html:92
 msgid "Designates whether the user has access to the network management."
-msgstr "Legt fest, ob der Benutzer Zugriff auf das Netzwerkmanagement hat."
+msgstr "Legt fest, ob der Benutzer Zugriff auf die Netzwerkverwaltung hat."
 
-#: templates/users/admin/user.html:113 templates/users/region/user.html:107
+#: templates/users/admin/user.html:112
+msgid "Preferred regions"
+msgstr "Bevorzugte Regionen"
+
+#: templates/users/admin/user.html:115
+msgid "The regions to which the user has quick access"
+msgstr "Die Regionen, zu denen der Benutzer Schnellzugriff hat"
+
+#: templates/users/admin/user.html:127 templates/users/region/user.html:109
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: templates/users/admin/user.html:114 templates/users/region/user.html:102
+#: templates/users/admin/user.html:128 templates/users/region/user.html:104
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
-#: templates/users/admin/user.html:115 templates/users/region/user.html:103
+#: templates/users/admin/user.html:129 templates/users/region/user.html:105
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/users/admin/user.html:119 templates/users/region/user.html:101
+#: templates/users/admin/user.html:133 templates/users/region/user.html:103
 msgid "Delete this user"
 msgstr "Diesen Benutzer löschen"
 
-#: templates/users/region/user.html:112
+#: templates/users/region/user.html:114
 #, python-format
 msgid "Remove this user from region %(region)s"
 msgstr "Diesen Benutzer von Region %(region)s entfernen"
 
-#: templates/users/region/user.html:113
+#: templates/users/region/user.html:115
 #, python-format
 msgid ""
 "Please confirm that you really want to remove this user from region "
@@ -4869,11 +4982,11 @@ msgstr ""
 "Bitte bestätigen Sie, dass dieser Benutzer von der Region %(region)s "
 "entfernt werden soll."
 
-#: templates/users/region/user.html:114
+#: templates/users/region/user.html:116
 msgid "The user will keep access to the following regions:"
 msgstr "Der Benutzer wird den Zugang zu folgenden Regionen behalten:"
 
-#: templates/users/region/user.html:118
+#: templates/users/region/user.html:120
 msgid "Remove user from region"
 msgstr "Benutzer von Region entfernen"
 
@@ -5770,15 +5883,15 @@ msgstr "Region wurde erfolgreich gespeichert"
 msgid "Region was created successfully"
 msgstr "Region wurde erfolgreich erstellt"
 
-#: views/roles/role_view.py:72
-msgid "Role was successfully saved"
-msgstr "Rolle wurde erfolgreich gespeichert"
+#: views/roles/role_view.py:87
+msgid "Role \"{}\" was successfully saved"
+msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
-#: views/roles/role_view.py:75
-msgid "Role was successfully created"
-msgstr "Rolle wurde erfolgreich erstellt"
+#: views/roles/role_view.py:91
+msgid "Role \"{}\" was successfully created"
+msgstr "Rolle \"{}\" wurde erfolgreich erstellt"
 
-#: views/roles/role_view.py:81
+#: views/roles/role_view.py:95
 msgid "Errors have occurred"
 msgstr "Es sind Fehler aufgetreten"
 
@@ -5880,6 +5993,24 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
+#~ msgid "enable expert mode"
+#~ msgstr "Expertenmodus aktivieren"
+
+#~ msgid "expert mode"
+#~ msgstr "Expertenmodus"
+
+#~ msgid "Only staff members can have staff roles"
+#~ msgstr "Nur Mitarbeiter können Mitarbeiterrollen haben"
+
+#~ msgid "Staff"
+#~ msgstr "Mitarbeiter"
+
+#~ msgid "Staff roles"
+#~ msgstr "Mitarbeiterrollen"
+
+#~ msgid "Push notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
 #~ msgid "Use of Heading 1 style not allowed."
 #~ msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
 
@@ -5891,9 +6022,6 @@ msgstr ""
 
 #~ msgid "Location on map"
 #~ msgstr "Ort auf Karte"
-
-#~ msgid "Push notifications"
-#~ msgstr "Push-Benachrichtigungen"
 
 #~ msgid "Page permissions"
 #~ msgstr "Seiten-Berechtigungen"
@@ -6201,6 +6329,15 @@ msgstr ""
 #~ msgid "Region name option"
 #~ msgstr "Option zum Namen der Region"
 
+#~ msgid "Name of the Role"
+#~ msgstr "Name der Rolle"
+
+#~ msgid "Permissions of the role"
+#~ msgstr "Berechtigungen der Rolle"
+
+#~ msgid "Recurrence rule"
+#~ msgstr "Wiederholungs-Regel"
+
 #~ msgid "Offer \"%(offer_name)s\" was successfully activated"
 #~ msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich aktiviert"
 
@@ -6210,8 +6347,11 @@ msgstr ""
 #~ msgid "Could not update page translation state"
 #~ msgstr "Zustand der Übersetzung konnte nicht aktualisiert werden"
 
-#~ msgid "Recurrence rule"
-#~ msgstr "Wiederholungs-Regel"
+#~ msgid "group"
+#~ msgstr "Gruppe"
+
+#~ msgid "Enter the role's name here"
+#~ msgstr "Name der Rolle hier eingeben"
 
 #~ msgid "Code"
 #~ msgstr "Code"
@@ -6235,15 +6375,6 @@ msgstr ""
 
 #~ msgid "What do you want to do?"
 #~ msgstr "Was möchten Sie tun?"
-
-#~ msgid "Name of the Role"
-#~ msgstr "Name der Rolle"
-
-#~ msgid "Enter the role's name here"
-#~ msgstr "Name der Rolle hier eingeben"
-
-#~ msgid "Permissions of the role"
-#~ msgstr "Berechtigungen der Rolle"
 
 #~ msgid "Your E-mail-address"
 #~ msgstr "Ihre E-Mail Adresse"
@@ -6289,9 +6420,6 @@ msgstr ""
 
 #~ msgid "Bulk actions"
 #~ msgstr "Mehrfachaktionen"
-
-#~ msgid "Please select"
-#~ msgstr "bitte auswählen"
 
 #~ msgid "Type"
 #~ msgstr "Typ"
@@ -6618,9 +6746,6 @@ msgstr ""
 
 #~ msgid "Activate permissions for specific pages"
 #~ msgstr "Zusätzliche Berechtigungen für bestimmte Seiten aktivieren"
-
-#~ msgid "Toggle expert mode"
-#~ msgstr "Expertenmodus umschalten"
 
 #~ msgid "Other settings"
 #~ msgstr "Andere Einstellungen"
