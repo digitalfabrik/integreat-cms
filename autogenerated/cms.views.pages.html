@@ -701,7 +701,7 @@
 
 <dl class="py function">
 <dt id="cms.views.pages.page_actions.confirm_xliff_import">
-<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">confirm_xliff_import</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L385"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.confirm_xliff_import" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">confirm_xliff_import</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L414"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.confirm_xliff_import" title="Permalink to this definition">¶</a></dt>
 <dd><p>Confirm a started XLIFF import</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -750,7 +750,7 @@ The target languages and pages are selected and the source languages automatical
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 <li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the current language</p></li>
 </ul>
@@ -771,7 +771,7 @@ The target languages and pages are selected and the source languages automatical
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current request</p></li>
 <li><p><strong>short_url_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the reqested page</p></li>
 </ul>
 </dd>
@@ -811,7 +811,7 @@ The pages get extracted from request.GET attribute and the request is forwarded 
 
 <dl class="py function">
 <dt id="cms.views.pages.page_actions.get_new_page_order_table_ajax">
-<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">get_new_page_order_table_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">parent_id</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L764"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.get_new_page_order_table_ajax" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">get_new_page_order_table_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">parent_id</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L793"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.get_new_page_order_table_ajax" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the order table for a new page and a given parent page.
 This is used in the page form to set the position of a new page relative to its siblings.</p>
 <dl class="field-list simple">
@@ -833,7 +833,7 @@ This is used in the page form to set the position of a new page relative to its 
 
 <dl class="py function">
 <dt id="cms.views.pages.page_actions.get_page_order_table_ajax">
-<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">get_page_order_table_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">parent_id</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L715"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.get_page_order_table_ajax" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">get_page_order_table_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">parent_id</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L744"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.get_page_order_table_ajax" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the order table for a given page and a given parent page.
 This is used in the page form to change the order of a page relative to its siblings.</p>
 <dl class="field-list simple">
@@ -856,7 +856,7 @@ This is used in the page form to change the order of a page relative to its sibl
 
 <dl class="py function">
 <dt id="cms.views.pages.page_actions.grant_page_permission_ajax">
-<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">grant_page_permission_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L479"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.grant_page_permission_ajax" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">grant_page_permission_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L508"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.grant_page_permission_ajax" title="Permalink to this definition">¶</a></dt>
 <dd><p>Grant a user editing or publishing permissions on a specific page object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -877,7 +877,7 @@ not have the permission to grant page permissions</p>
 
 <dl class="py function">
 <dt id="cms.views.pages.page_actions.move_page">
-<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">move_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em>, <em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">target_id</span></em>, <em class="sig-param"><span class="n">position</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L424"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.move_page" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">move_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em>, <em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">target_id</span></em>, <em class="sig-param"><span class="n">position</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L453"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.move_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move a page object in the page tree</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -900,8 +900,28 @@ not have the permission to grant page permissions</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="cms.views.pages.page_actions.post_translation_state_ajax">
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">post_translation_state_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L330"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.post_translation_state_ajax" title="Permalink to this definition">¶</a></dt>
+<dd><p>This view is called for manually unseting the translation process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – ajax request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>on success returns language of updated translation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.JsonResponse" title="(in Django v2.2)">JsonResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="cms.views.pages.page_actions.render_mirrored_page_field">
-<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">render_mirrored_page_field</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L807"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.render_mirrored_page_field" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">render_mirrored_page_field</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L836"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.render_mirrored_page_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the rendered mirrored page field template</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -943,7 +963,7 @@ not have the permission to grant page permissions</p>
 
 <dl class="py function">
 <dt id="cms.views.pages.page_actions.revoke_page_permission_ajax">
-<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">revoke_page_permission_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L600"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.revoke_page_permission_ajax" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">revoke_page_permission_ajax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L629"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.revoke_page_permission_ajax" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a page permission for a given user and page</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -964,7 +984,7 @@ not have the permission to revoke page permissions</p>
 
 <dl class="py function">
 <dt id="cms.views.pages.page_actions.upload_xliff">
-<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">upload_xliff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L329"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.upload_xliff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.views.pages.page_actions.</code><code class="sig-name descname">upload_xliff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_actions.py#L358"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.pages.page_actions.upload_xliff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upload and import an XLIFF file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1388,7 +1408,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/to
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jan 21, 2021.
+        Last updated on Jan 19, 2021.
       </span>
 
     </p>
