@@ -479,10 +479,10 @@ class PageXliffHelper:
         :param xliff_paths: list of paths to XLIFF files
         :type xliff_paths: [ str ]
 
-        :return: dictionaries containing diffs between XLIFF and current translation versions
+        :return: dictionaries containing diffs between XLIFF and current translation versions or an error message
         :rtype: list [ dict ]
         """
-        diffs = []
+        results = []
         for xliff_path in xliff_paths:
             if xliff_path.endswith((".xlf", ".xliff")) and os.path.isfile(xliff_path):
                 with open(xliff_path, "r", encoding="utf-8") as f:
@@ -491,12 +491,21 @@ class PageXliffHelper:
                     trans_fields = converter.xliff_to_translation_data()
                     if trans_fields is None:
                         continue
-                    diffs.append(
-                        self.generate_translation_diff(
-                            trans_fields, os.path.basename(xliff_path)
-                        )
+                    diff = self.generate_translation_diff(
+                        trans_fields, os.path.basename(xliff_path)
                     )
-        return diffs
+                    if diff is None:
+                        results.append(
+                            {
+                                "error": True,
+                                "page_id": trans_fields["page_id"],
+                                "title": trans_fields["title"],
+                                "tgt_lang_code": trans_fields["tgt_lang_code"],
+                            }
+                        )
+                    else:
+                        results.append(diff)
+        return results
 
     @staticmethod
     def generate_translation_diff(trans_fields, xliff_name):
@@ -515,7 +524,7 @@ class PageXliffHelper:
         page = Page.objects.filter(id=int(trans_fields["page_id"])).first()
         tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_code"]).first()
         if tgt_lang is None or page is None:
-            return False
+            return None
         tgt_trans = PageTranslation.objects.filter(page=page, language=tgt_lang).first()
         if tgt_trans is None:
             tgt_trans = PageTranslation()
