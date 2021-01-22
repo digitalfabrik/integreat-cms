@@ -314,6 +314,11 @@ urlpatterns = [
                     name="revoke_page_permission_ajax",
                 ),
                 url(
+                    r"^(?P<region_slug>[-\w]+)/post_translation_state$",
+                    pages.post_translation_state_ajax,
+                    name="post_translation_state_ajax",
+                ),
+                url(
                     r"^(?P<region_slug>[-\w]+)/(?P<parent_id>[0-9]+)/new_order_table$",
                     pages.get_new_page_order_table_ajax,
                     name="get_new_page_order_table_ajax",

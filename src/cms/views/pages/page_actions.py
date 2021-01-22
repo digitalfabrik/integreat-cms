@@ -15,7 +15,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import ugettext as _
 from django.views.static import serve
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, JsonResponse
 
 from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, staff_required
@@ -253,7 +253,7 @@ def expand_page_translation_id(request, short_url_id):
     Searches for a page translation with corresponding ID and redirects browser to web app
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param short_url_id: The id of the reqested page
     :type short_url_id: int
@@ -280,7 +280,7 @@ def download_xliff(request, region_slug, language_code):
     The target languages and pages are selected and the source languages automatically determined.
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -316,6 +316,7 @@ def download_xliff(request, region_slug, language_code):
             response["Content-Disposition"] = 'attachment; filename="{}"'.format(
                 zip_path.split(os.sep)[-1]
             )
+            PageXliffHelper.post_translation_state(pages, target_language.code, True)
             return response
     return redirect(
         "pages",
@@ -323,6 +324,34 @@ def download_xliff(request, region_slug, language_code):
             "region_slug": region_slug,
             "language_code": language_code,
         },
+    )
+
+
+@login_required
+# pylint: disable=unused-argument
+def post_translation_state_ajax(request, region_slug):
+    """This view is called for manually unseting the translation process
+
+    :param request: ajax request
+    :type request: ~django.http.HttpRequest
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+    :return: on success returns language of updated translation
+    :rtype: ~django.http.JsonResponse
+    """
+    if request.method == "POST":
+        decoded_json = json.loads(request.body.decode("utf-8"))
+        target_language = decoded_json["language"]
+        page_id = decoded_json["pageId"]
+        translation_state = decoded_json["translationState"]
+        region = Region.get_current_region(request)
+        page = get_list_or_404(region.pages, id=page_id)
+        PageXliffHelper.post_translation_state(
+            list(page), target_language, translation_state
+        )
+        return JsonResponse({"language": target_language}, status=200)
+    return JsonResponse(
+        {"error": _("Could not update page translation state")}, status=400
     )
 
 

@@ -251,6 +251,10 @@ class AbstractBasePageTranslation(models.Model):
         # If the page translation is currently in translation, it is defined as not outdated
         if self.currently_in_translation:
             return False
+        return self.is_outdated_helper
+
+    @property
+    def is_outdated_helper(self):
         source_translation = self.source_translation
         # If self.language is the root language, this translation can never be outdated
         if not source_translation:
