@@ -239,6 +239,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
 </ul>
@@ -281,6 +282,7 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.pages.page_form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
 </ul>
@@ -671,6 +673,19 @@
   <div class="section" id="module-cms.forms.pages">
 <span id="pages"></span><h1>Pages<a class="headerlink" href="#module-cms.forms.pages" title="Permalink to this headline">¶</a></h1>
 <p>Forms for creating and modifying page and page translation objects</p>
+<div class="section" id="module-cms.forms.pages.page_filter_form">
+<span id="page-filter-form"></span><h2>Page Filter Form<a class="headerlink" href="#module-cms.forms.pages.page_filter_form" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.forms.pages.page_filter_form.PageFilterForm">
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.pages.page_filter_form.</code><code class="sig-name descname">PageFilterForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">field_order=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_filter_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.forms.Form</span></code></p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">translation_status</span></code>: Translation Status (<code class="xref py py-class docutils literal notranslate"><span class="pre">TypedMultipleChoiceField</span></code>)</p></li>
+</ul>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.forms.pages.page_form">
 <span id="page-form"></span><h2>Page Form<a class="headerlink" href="#module-cms.forms.pages.page_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
