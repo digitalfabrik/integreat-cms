@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% load content_filters %}
+<form method="post">
+    {% csrf_token %}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% get_language LANGUAGE_CODE as current_language %}
+    <div class="flex flex-wrap p-4 items-start">
+        <div class="flex flex-wrap">
+                {% render_field filter_form.translation_status|add_error_class:"border-red-500" class+="leading-normal rounded" %}
+            </div>
+    </div>
+    <div class="w-full flex p-4 justify-end">
+        <button type="button" id="filter-reset"
+                class="bg-gray-500 hover:bg-gray-600 text-gray-800 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+            {% trans 'Reset filter' %}
+        </button>
+        <input type="submit" name="filter" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded"
+               value="{% trans 'Apply filter' %}"/>
+    </div>
+</form>
+
+{% block javascript %}
+    <script src={% static 'js/reset_filter.js' %}></script>
+    <script>
+        // event handler to reset filter form
+        u('#filter-reset').on('click', reset_filter);
+    </script>
+{% endblock %}

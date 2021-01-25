@@ -4,10 +4,11 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
-
 from django.views.generic import TemplateView
 
+from ...constants import translation_status
 from ...decorators import region_permission_required
+from ...forms.pages.page_filter_form import PageFilterForm
 from ...models import Region, Language
 from .page_mixin import PageMixin
 
@@ -43,6 +44,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView, PageMixin):
 
         return self.template_archived if self.archived else self.template
 
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         """
         Render page tree
@@ -93,15 +95,64 @@ class PageTreeView(PermissionRequiredMixin, TemplateView, PageMixin):
                 request, _("You don't have the permission to edit or create pages.")
             )
         context = self.get_context_data(**kwargs)
+
+        pages = region.get_pages(archived=self.archived)
+        enable_drag_and_drop = True
+        # Filter pages according to given filters, if any
+        filter_data = kwargs.get("filter_data")
+        if filter_data:
+            # Set data for filter form rendering
+            filter_form = PageFilterForm(data=filter_data)
+            if filter_form.is_valid():
+                # only filter if at least one checkbox but not all are checked
+                if (
+                    0
+                    < len(filter_form.cleaned_data["translation_status"])
+                    < len(translation_status.CHOICES)
+                ):
+                    enable_drag_and_drop = False
+                    up_to_date_filter = (
+                        translation_status.UP_TO_DATE
+                        in filter_form.cleaned_data["translation_status"]
+                    )
+                    missing_filter = (
+                        translation_status.MISSING
+                        in filter_form.cleaned_data["translation_status"]
+                    )
+                    outdated_filter = (
+                        translation_status.OUTDATED
+                        in filter_form.cleaned_data["translation_status"]
+                    )
+
+                    def page_filter(page):
+                        translation = page.get_translation(language_code)
+                        if not translation:
+                            return missing_filter
+                        return (
+                            outdated_filter
+                            if translation.is_outdated
+                            else up_to_date_filter
+                        )
+
+                    pages = list(filter(page_filter, pages))
+        else:
+            filter_form = PageFilterForm()
+            filter_form.changed_data.clear()
+
         return render(
             request,
             self.template_name,
             {
                 **context,
                 "current_menu_item": "pages",
-                "pages": region.get_pages(archived=self.archived),
+                "pages": pages,
                 "archived_count": region.archived_pages.count(),
                 "language": language,
                 "languages": region.languages,
+                "filter_form": filter_form,
+                "enable_drag_and_drop": enable_drag_and_drop,
             },
         )
+
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs, filter_data=request.POST)
