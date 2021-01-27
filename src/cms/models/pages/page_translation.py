@@ -119,6 +119,20 @@ class PageTranslation(AbstractBasePageTranslation):
             return attached_text + self.text
         return self.text + attached_text
 
+    @property
+    def combined_last_updated(self):
+        """
+        This function combines the last_updated date from this PageTranslation and from a mirrored page.
+        If this translation has no content, then the date from the mirrored translation will be used. In
+        other cases, the date from this translation will be used.
+
+        :return: The last_upated date of this or the mirrored page translation
+        :rtype: ~datetime.datetime
+        """
+        if self.page.get_mirrored_page and not self.text:
+            return self.page.get_mirrored_page(self.language.code).last_updated
+        return self.last_updated
+
     @classmethod
     def get_translations(cls, region, language):
         """

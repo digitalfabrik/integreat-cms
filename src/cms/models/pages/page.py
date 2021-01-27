@@ -137,7 +137,7 @@ class Page(MPTTModel, AbstractBasePage):
         :rtype: str
         """
         if self.mirrored_page:
-            return self.mirrored_page.get_translation(language_code)
+            return self.mirrored_page.get_public_translation(language_code)
         return None
 
     class Meta:

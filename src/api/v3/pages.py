@@ -40,7 +40,7 @@ def transform_page(page_translation):
         "url": page_translation.permalink,
         "path": page_translation.slug,
         "title": page_translation.title,
-        "modified_gmt": page_translation.last_updated,
+        "modified_gmt": page_translation.combined_last_updated,
         "excerpt": page_translation.text,
         "content": page_translation.combined_text,
         "parent": parent,
