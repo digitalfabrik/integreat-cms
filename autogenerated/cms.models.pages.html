@@ -1483,6 +1483,22 @@ languages</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.pages.page_translation.PageTranslation.combined_last_updated">
+<em class="property">property </em><code class="sig-name descname">combined_last_updated</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.combined_last_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function combines the last_updated date from this PageTranslation and from a mirrored page.
+If this translation has no content, then the date from the mirrored translation will be used. In
+other cases, the date from this translation will be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The last_upated date of this or the mirrored page translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.combined_text">
 <em class="property">property </em><code class="sig-name descname">combined_text</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.combined_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function combines the text from this PageTranslation with the text from the mirrored page.
@@ -1500,7 +1516,7 @@ delivering content to end users.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.get_current_translations">
-<em class="property">classmethod </em><code class="sig-name descname">get_current_translations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L164"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_current_translations" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">get_current_translations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L178"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_current_translations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
 returns only page translations which are currently being translated by an external translator</p>
 <dl class="field-list simple">
@@ -1521,7 +1537,7 @@ returns only page translations which are currently being translated by an extern
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.get_outdated_translations">
-<em class="property">classmethod </em><code class="sig-name descname">get_outdated_translations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L187"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_outdated_translations" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">get_outdated_translations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L201"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_outdated_translations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
 returns only page translations which are outdated</p>
 <dl class="field-list simple">
@@ -1542,7 +1558,7 @@ returns only page translations which are outdated</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.get_translations">
-<em class="property">classmethod </em><code class="sig-name descname">get_translations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L122"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">get_translations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L136"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function retrieves the most recent versions of a all <code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code> objects of
 a <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> in a specific <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
 <dl class="field-list simple">
@@ -1563,7 +1579,7 @@ a <a class="reference internal" href="cms.models.regions.html#cms.models.regions
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.get_up_to_date_translations">
-<em class="property">classmethod </em><code class="sig-name descname">get_up_to_date_translations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L141"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_up_to_date_translations" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">get_up_to_date_translations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">language</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L155"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_up_to_date_translations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
 returns only page translations which are up to date</p>
 <dl class="field-list simple">
@@ -1641,7 +1657,7 @@ returns only page translations which are up to date</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jan 19, 2021.
+        Last updated on Jan 23, 2021.
       </span>
 
     </p>
