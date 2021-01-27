@@ -41,7 +41,9 @@ def transform_imprint(imprint_translation):
 # pylint: disable=unused-argument
 def imprint(request, region_slug, language_code):
     """
-    Get imprint for language and return JSON object to client
+    Get imprint for language and return JSON object to client. If no imprint translation
+    is available in the selected language, try to return the translation in the region
+    default language.
 
     :param request: Django request
     :type request: ~django.http.HttpRequest
@@ -58,5 +60,11 @@ def imprint(request, region_slug, language_code):
         imprint_translation = region.imprint.get_public_translation(language_code)
         if imprint_translation:
             return JsonResponse(transform_imprint(imprint_translation))
+        if region.default_language:
+            imprint_default_translation = region.imprint.get_public_translation(
+                region.default_language.code
+            )
+            if imprint_default_translation:
+                return JsonResponse(transform_imprint(imprint_default_translation))
     # If imprint does not exist, return an empty response. Turn off Safe-Mode to allow serializing arrays
     return JsonResponse([], safe=False)
