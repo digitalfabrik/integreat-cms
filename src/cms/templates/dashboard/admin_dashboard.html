@@ -1,5 +1,25 @@
 {% extends "_base.html" %}
 {% load i18n %}
+
 {% block content %}
-    Admin Dashboard
+<h2>{% trans 'Technical Feedback' %}</h2>
+
+<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    <tr class="border-b border-solid border-gray-200">
+        <th class="text-sm text-left uppercase py-3 pl-2">{% trans 'Language' %}</th>
+        <th class="text-sm text-left uppercase py-3">{% trans 'Comment' %}</th>
+        <th class="text-sm text-left uppercase py-3">{% trans 'Rating' %}</th>
+        <th class="text-sm text-right uppercase py-3 pr-2">{% trans 'Date' %}</th>
+    </tr>
+    {% for feedback in all_feedback %}
+    <tr>
+        <td class="pl-2 py-3">{{ feedback.language.translated_name }}</td>
+        <td>{{ feedback.comment }}</td>
+        <td>{{ feedback.get_emotion_display }}</td>
+        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6" class="px-2 py-3">{% trans 'No Feedback available yet.' %} </td></tr>
+    {% endfor %}
+</table>
 {% endblock %}
