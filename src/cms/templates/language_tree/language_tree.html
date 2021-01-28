@@ -3,10 +3,6 @@
 {% load static %}
 {% load mptt_tags %}
 
-{% block javascript_head %}
-    <script src="{% static 'js/confirmation-popups.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 <div class="table-header">
     <div class="flex flex-wrap">
@@ -60,5 +56,6 @@
 {% endblock %}
 
 {% block javascript %}
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'js/tree_drag_and_drop.js' %}"></script>
 {% endblock %}

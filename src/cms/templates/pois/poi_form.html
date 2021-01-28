@@ -17,7 +17,6 @@
 {% block javascript_head %}
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/autosave.js' %}"></script>
-    <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
     <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
     <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
@@ -251,6 +250,10 @@
 {% if poi_form.instance.id %}
     {% include '../generic_confirmation_dialog.html' %}
 {% endif %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
 {% endblock %}
 
 {% block javascript_nocompress %}

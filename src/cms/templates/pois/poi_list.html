@@ -4,10 +4,6 @@
 {% load static %}
 {% load content_filters %}
 
-{% block javascript_head %}
-    <script src="{% static 'js/confirmation-popups.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 <div class="table-header">
     <div class="flex flex-wrap">
@@ -88,3 +84,8 @@
 </div>
 {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
+{% endblock %}
+

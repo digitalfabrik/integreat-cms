@@ -6,10 +6,6 @@
 {% load page_filters %}
 {% load rules %}
 
-{% block javascript_head %}
-    <script src="{% static 'js/confirmation-popups.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 <style>
 .diff {
@@ -57,4 +53,8 @@ pre {
     </div>
     {% endfor %}
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
 {% endblock %}
