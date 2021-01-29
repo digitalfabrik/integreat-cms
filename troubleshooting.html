@@ -114,6 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#pipenv-not-found">Pipenv not found</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#not-a-git-repository">Not a git repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#macos-on-m1">MacOS on M1</a></li>
 </ul>
 </li>
 </ul>
@@ -748,6 +749,44 @@ sudo apt-get update
 </div>
 </div>
 </div>
+<div class="section" id="macos-on-m1">
+<h2>MacOS on M1<a class="headerlink" href="#macos-on-m1" title="Permalink to this headline">¶</a></h2>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<div class="line-block">
+<div class="line">There is no arm64 version of Python 3.7</div>
+</div>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Solution</p>
+<p>Until a compatible version of Python 3.7 was released (the patch has already been merged: <a class="reference external" href="https://github.com/python/cpython/pull/22855">python/cpython#22855</a>). Until then you can use Python 3.8 instead. Just use homebrew and install it by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install python@3.8
+</pre></div>
+</div>
+<p>Also change <cite>python_version</cite> in <cite>Pipfile</cite> to <cite>3.8</cite>.</p>
+</div>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<div class="line-block">
+<div class="line">Error: pg_config executable not found.</div>
+<div class="line">or</div>
+<div class="line">ImportError: dlopen(/Users/xyz/Documents/Dev/integreat-cms/.venv/lib/python3.8/site-packages/psycopg2/_psycopg.cpython-38-darwin.so, 2): Symbol not found: _PQbackendPID</div>
+</div>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Solution</p>
+<p>There are some issues with the psycopg2 binary package right now. It needs to be compiled locally which requires postgres and libpq:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install libpq postgres --build-from-source
+</pre></div>
+</div>
+<p>The packages need to be built from source as the binary version of postgres is still x86. Building it from source works absolutely fine.
+Afterwards psycopg2 needs to be reinstalled without using your local cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv run pip uninstall psycopg2-binary
+pipenv run pip install psycopg2-binary --no-cache-dir
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -776,7 +815,7 @@ sudo apt-get update
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 12, 2020.
+        Last updated on Jan 28, 2021.
       </span>
 
     </p>
