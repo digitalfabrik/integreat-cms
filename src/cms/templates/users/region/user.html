@@ -74,6 +74,14 @@
                     </div>
 
                     <div class="py-4 border-b solid border-gray-200">
+                        <label for="id_expert_mode" class="font-bold mr-2 cursor-pointer">{% trans 'Expert mode' %}</label>
+                        {% render_field user_profile_form.expert_mode %}
+                        <p class="pt-2">
+                            {% trans 'Enable this option to show up additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag and recurring events' %}
+                        </p>
+                    </div>
+
+                    <div class="py-4 border-b solid border-gray-200">
                         <label for="id_roles" class="font-bold block mb-2 cursor-pointer">{% trans 'Roles' %}</label>
                         {% render_field user_form.roles class+="w-full" %}
                     </div>

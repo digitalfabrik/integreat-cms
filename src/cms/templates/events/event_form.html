@@ -210,49 +210,51 @@
                                 {% render_field event_form.end_time|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
                         </div>
-                        <h3 class="font-bold mb-3 pt-4">{% trans 'Recurrence' %}</h3>
-                        <div class="checkbox-wrap relative my-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left: 0">
-                            {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
-                            <label for="is_recurring">{% trans 'Recurring' %}</label>
-                        </div>
-                        <div id="recurrence-rule"{% if not event_form.is_recurring.value %} class="hidden"{% endif %}>
-                            <label for="frequency" class="mt-4 mb-2 block font-bold text-sm">{% trans 'Frequency' %}</label>
-                            <div class="relative my-2">
-                                {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" id="recurrence-frequency-select" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                    <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                        <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
+                            <h3 class="font-bold mb-3 pt-4">{% trans 'Recurrence' %}</h3>
+                            <div class="checkbox-wrap relative my-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left: 0">
+                                {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
+                                <label for="is_recurring">{% trans 'Recurring' %}</label>
+                            </div>
+                            <div id="recurrence-rule"{% if not event_form.is_recurring.value %} class="hidden"{% endif %}>
+                                <label for="frequency" class="mt-4 mb-2 block font-bold text-sm">{% trans 'Frequency' %}</label>
+                                <div class="relative my-2">
+                                    {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" id="recurrence-frequency-select" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="recurrence-weekly"{% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %} class="hidden"{% endif %}>
-                                <label for="weekdays_for_weekly" class="mt-4 mb-2 block font-bold text-sm">{% trans 'Weekday' %}</label>
-                                <select name="weekdays_for_weekly" id="id_weekdays_for_weekly" multiple="multiple" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}">
-                                    {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
-                                    <option value="{{ choice_value }}"{% if not recurrence_rule_form.data|is_empty %}
-                                        {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %} selected="selected"{% endif %}
-                                    {% else %}
-                                        {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %} selected="selected"{% endif %}
-                                    {% endif %}>{{ choice_label }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div id="recurrence-monthly"{% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %} class="hidden"{% endif %}>
-                                <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Week' %}</label>
-                                {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                                <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Weekday' %}</label>
-                                {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                            </div>
-                            <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Repeat every ... time(s)' %}</label>
-                            {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                            <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
-                                {% render_field recurrence_rule_form.has_recurrence_end_date id="recurrence-end-checkbox" %} {% trans 'Recurrence ends' %}
-                            </div>
-                            <div id="recurrence-end"{% if not recurrence_rule_form.data|is_empty %}
-                                {% if not recurrence_rule_form.data.has_recurrence_end_date %} class="hidden"{% endif %}
-                            {% else %}
-                                {% if not recurrence_rule_form.instance.recurrence_end_date %} class="hidden"{% endif %}
-                            {% endif %}>
-                                <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Recurrence end date' %}</label>
-                                {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                <div id="recurrence-weekly"{% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %} class="hidden"{% endif %}>
+                                    <label for="weekdays_for_weekly" class="mt-4 mb-2 block font-bold text-sm">{% trans 'Weekday' %}</label>
+                                    <select name="weekdays_for_weekly" id="id_weekdays_for_weekly" multiple="multiple" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}">
+                                        {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
+                                        <option value="{{ choice_value }}"{% if not recurrence_rule_form.data|is_empty %}
+                                            {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %} selected="selected"{% endif %}
+                                        {% else %}
+                                            {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %} selected="selected"{% endif %}
+                                        {% endif %}>{{ choice_label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div id="recurrence-monthly"{% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %} class="hidden"{% endif %}>
+                                    <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Week' %}</label>
+                                    {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                    <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Weekday' %}</label>
+                                    {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                </div>
+                                <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Repeat every ... time(s)' %}</label>
+                                {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
+                                    {% render_field recurrence_rule_form.has_recurrence_end_date id="recurrence-end-checkbox" %} {% trans 'Recurrence ends' %}
+                                </div>
+                                <div id="recurrence-end"{% if not recurrence_rule_form.data|is_empty %}
+                                    {% if not recurrence_rule_form.data.has_recurrence_end_date %} class="hidden"{% endif %}
+                                {% else %}
+                                    {% if not recurrence_rule_form.instance.recurrence_end_date %} class="hidden"{% endif %}
+                                {% endif %}>
+                                    <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Recurrence end date' %}</label>
+                                    {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                </div>
                             </div>
                         </div>
                         <h3 class="font-bold my-3">{% trans 'Where' %}</h3>

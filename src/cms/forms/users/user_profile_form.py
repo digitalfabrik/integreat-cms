@@ -18,7 +18,7 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ["regions", "organization"]
+        fields = ["regions", "organization", "expert_mode"]
 
     def __init__(self, data=None, instance=None):
 
