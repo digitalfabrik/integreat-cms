@@ -117,6 +117,11 @@
                     {% trans 'Enter push notification channels here' as push_notification_channels_placeholder%}
                     {% render_field form.push_notification_channels placeholder=push_notification_channels_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                 </div>
+                <!-- Options related to Author chat -->
+                <div class="py-2 pb-5 border-b solid border-gray-200">
+                    <label for="events_enabled" class="font-bold cursor-pointer mr-2">{% trans 'Activate author chat' %}</label>
+                    {% render_field form.chat_enabled id="chat_enabled" class="" %}
+                </div>
 
                 <!-- Options related to Tracking -->
                 <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Statistics' %}</span>

@@ -71,11 +71,7 @@
     </div>
     <div id="user-info" class="relative pl-2 pr-6 text-gray-800 flex flex-wrap flex-col justify-center cursor-pointer">
         <span class="relative block pr-6 font-bold mt-1">
-	        {% if request.user.first_name or request.user.last_name %}
-                {{ request.user.first_name }} {{ request.user.last_name }}
-	        {% else %}
-		        {{ request.user.username }}
-	        {% endif %}
+	        {{ request.user.profile.full_user_name }}
             <i data-feather="chevron-down" class="absolute top-0 right-0"></i>
         </span>
         <div id="user-menu" class="absolute shadow rounded-b" style="left: -120px;">

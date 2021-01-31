@@ -10,11 +10,12 @@ from django.views.generic import TemplateView
 
 from backend.settings import RSS_FEED_URLS
 from ...decorators import region_permission_required
+from ..chat.chat_context_mixin import ChatContextMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class DashboardView(TemplateView):
+class DashboardView(TemplateView, ChatContextMixin):
     """
     View for the region dashboard
     """
@@ -22,7 +23,7 @@ class DashboardView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "dashboard/dashboard.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "region_dashboard"}
+    extra_context = {"current_menu_item": "region_dashboard"}
 
     def get(self, request, *args, **kwargs):
         """
@@ -41,6 +42,7 @@ class DashboardView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
+        # RSS FEED
         language_code = translation.get_language()
         feed = feedparser.parse(RSS_FEED_URLS[language_code])
         # select five most recent feeds
@@ -53,7 +55,7 @@ class DashboardView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "feed": feed,
                 "home_page": RSS_FEED_URLS["home-page"],
                 "domain": domain,

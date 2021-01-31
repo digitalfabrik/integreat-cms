@@ -5,6 +5,7 @@ File routing to the admin region
 
 from django.contrib import admin
 
+from .models import ChatMessage
 from .models import Configuration
 from .models import Event
 from .models import EventTranslation
@@ -27,6 +28,7 @@ from .models import PageFeedback
 from .models import ImprintPage
 from .models import ImprintPageTranslation
 
+admin.site.register(ChatMessage)
 admin.site.register(Configuration)
 admin.site.register(Event)
 admin.site.register(EventTranslation)
