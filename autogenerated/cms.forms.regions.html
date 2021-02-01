@@ -250,6 +250,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html">Events</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_filter_form">Event Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_form">Event Form</a></li>
@@ -317,6 +321,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.chat.html#module-cms.models.chat.chat_message">Chat Message</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.config.html">Config</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.config.html#module-cms.models.config.configuration">Configuration</a></li>
 </ul>
@@ -424,6 +432,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#module-cms.views.chat.chat_actions">Chat Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#module-cms.views.chat.chat_context_mixin">Chat Context Mixin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
@@ -689,7 +702,7 @@
 <p>Form for creating and modifying region objects</p>
 <dl class="py method">
 <dt id="cms.forms.regions.region_form.RegionForm.clean">
-<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L88"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L89"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -698,7 +711,7 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt id="cms.forms.regions.region_form.RegionForm.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L57"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L58"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
 a save_m2m() method to the form which can be called after the instance
 is saved manually at a later time. Return the model instance.</p>
@@ -708,7 +721,7 @@ is saved manually at a later time. Return the model instance.</p>
 
 <dl class="py function">
 <dt id="cms.forms.regions.region_form.duplicate_language_tree">
-<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_language_tree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L108"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_language_tree" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_language_tree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L109"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_language_tree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to duplicate the language tree of one region to another.</p>
 <p>Usage: duplicate_language_tree(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole language tree. It starts at root level with the default parent None.
@@ -727,13 +740,13 @@ The recursion is necessary because the new nodes need their correct (also duplic
 
 <dl class="py function">
 <dt id="cms.forms.regions.region_form.duplicate_media">
-<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_media</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L238"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_media" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_media</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L239"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_media" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to duplicate all media of one region to another.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="cms.forms.regions.region_form.duplicate_pages">
-<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L151"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_pages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">cms.forms.regions.region_form.</code><code class="sig-name descname">duplicate_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_region</span></em>, <em class="sig-param"><span class="n">target_region</span></em>, <em class="sig-param"><span class="n">source_parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L152"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to duplicate all pages of one region to another.</p>
 <p>Usage: duplicate_pages(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole page tree. It starts at root level with the default parent None.
@@ -780,7 +793,7 @@ The recursion is necessary because the new pages need their correct (also duplic
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jan 23, 2021.
+        Last updated on Jan 31, 2021.
       </span>
 
     </p>

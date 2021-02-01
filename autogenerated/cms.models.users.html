@@ -250,6 +250,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html">Events</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_filter_form">Event Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_form">Event Form</a></li>
@@ -317,6 +321,10 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="cms.models.html">Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cms.models.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.chat.html#module-cms.models.chat.chat_message">Chat Message</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.config.html">Config</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.config.html#module-cms.models.config.configuration">Configuration</a></li>
 </ul>
@@ -424,6 +432,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#module-cms.views.chat.chat_actions">Chat Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#module-cms.views.chat.chat_context_mixin">Chat Context Mixin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
@@ -763,7 +776,7 @@
 <span id="user-profile"></span><h2>User Profile<a class="headerlink" href="#module-cms.models.users.user_profile" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.users.user_profile.UserProfile">
-<em class="property">class </em><code class="sig-prename descclassname">cms.models.users.user_profile.</code><code class="sig-name descname">UserProfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.models.users.user_profile.</code><code class="sig-name descname">UserProfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
 <p>Data model representing a user profile</p>
 <dl class="field-list simple">
@@ -778,19 +791,63 @@
 <li><p><strong>user</strong> (OneToOneField to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – The user this profile belongs to (related name: <code class="docutils literal notranslate"><span class="pre">profile</span></code>)</p></li>
 <li><p><strong>regions</strong> (ManyToManyField to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The regions of this user (related name: <code class="docutils literal notranslate"><span class="pre">users</span></code>)</p></li>
 <li><p><strong>organization</strong> (ForeignKey to <a class="reference internal" href="#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a>) – The organization of the user (related name: <code class="docutils literal notranslate"><span class="pre">members</span></code>)</p></li>
+<li><p><strong>chat_last_visited</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – Date and time of last chat visit. The date and time when the user did read the chat the last time</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py exception">
 <dt id="cms.models.users.user_profile.UserProfile.DoesNotExist">
-<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="cms.models.users.user_profile.UserProfile.MultipleObjectsReturned">
-<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.users.user_profile.UserProfile.full_user_name">
+<em class="property">property </em><code class="sig-name descname">full_user_name</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.full_user_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the full name of the user. If either the first or the last name are present, return them, otherwise
+return the username.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The full name of the user</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.users.user_profile.UserProfile.unread_chat_messages">
+<em class="property">property </em><code class="sig-name descname">unread_chat_messages</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.unread_chat_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all unread messages of this user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The unread messages of this user</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v2.2)">QuerySet</a> [ <a class="reference internal" href="cms.models.chat.html#cms.models.chat.chat_message.ChatMessage" title="cms.models.chat.chat_message.ChatMessage">ChatMessage</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.users.user_profile.UserProfile.update_chat_last_visited">
+<code class="sig-name descname">update_chat_last_visited</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L69"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.update_chat_last_visited" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the <code class="xref py py-attr docutils literal notranslate"><span class="pre">cms.models.users.user_profile.chat_last_visited</span></code> to the current time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Return the previous <code class="xref py py-attr docutils literal notranslate"><span class="pre">cms.models.users.user_profile.chat_last_visited</span></code> value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -824,7 +881,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 20, 2020.
+        Last updated on Jan 31, 2021.
       </span>
 
     </p>

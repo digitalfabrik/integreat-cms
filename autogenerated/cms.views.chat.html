@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Chat &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -38,8 +38,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CMS" href="cms.html" />
-    <link rel="prev" title="Code of Conduct" href="../code-of-conduct.html" /> 
+    <link rel="next" title="Dashboard" href="cms.views.dashboard.html" />
+    <link rel="prev" title="Authentication" href="cms.views.authentication.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -208,24 +208,24 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-backend.circleci_settings">Circleci Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-backend.context_processors">Context Processors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-backend.docker_settings">Docker Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-backend.settings">Settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#our-custom-settings">Our custom settings</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#webapp-url"><code class="docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gvz-api-url"><code class="docutils literal notranslate"><span class="pre">GVZ_API_URL</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gvz-api-enabled"><code class="docutils literal notranslate"><span class="pre">GVZ_API_ENABLED</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="backend.html">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.circleci_settings">Circleci Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.context_processors">Context Processors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.docker_settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="backend.html#our-custom-settings">Our custom settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="backend.html#webapp-url"><code class="docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="backend.html#gvz-api-url"><code class="docutils literal notranslate"><span class="pre">GVZ_API_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="backend.html#gvz-api-enabled"><code class="docutils literal notranslate"><span class="pre">GVZ_API_ENABLED</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-backend.urls">Urls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-backend.wsgi">Wsgi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.wsgi">Wsgi</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cms.html">CMS</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="cms.html">CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
@@ -425,7 +425,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.html">Views</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="cms.views.html">Views</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
 </ul>
@@ -434,9 +434,9 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#module-cms.views.chat.chat_actions">Chat Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#module-cms.views.chat.chat_context_mixin">Chat Context Mixin</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.chat.chat_actions">Chat Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.chat.chat_context_mixin">Chat Context Mixin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
@@ -663,7 +663,11 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Backend</li>
+          <li><a href="cms.html">CMS</a> &raquo;</li>
+        
+          <li><a href="cms.views.html">Views</a> &raquo;</li>
+        
+      <li>Chat</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -680,110 +684,88 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-backend">
-<span id="backend"></span><h1>Backend<a class="headerlink" href="#module-backend" title="Permalink to this headline">¶</a></h1>
-<p>This package is the main entry point for the application and contains all configuration for the other packages.</p>
-<div class="section" id="module-backend.circleci_settings">
-<span id="circleci-settings"></span><h2>Circleci Settings<a class="headerlink" href="#module-backend.circleci_settings" title="Permalink to this headline">¶</a></h2>
-<p>Django settings for our CircleCI workflow.
-All configuration is imported from <a class="reference internal" href="#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a> except it sets <code class="docutils literal notranslate"><span class="pre">COMPRESS_ENABLED</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> to make sure
-the compressing is tested in CI.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" title="(in Django v2.2)"><span>Django settings</span></a>.
-For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" title="(in Django v2.2)"><span>Settings</span></a>.</p>
-</div>
-<div class="section" id="module-backend.context_processors">
-<span id="context-processors"></span><h2>Context Processors<a class="headerlink" href="#module-backend.context_processors" title="Permalink to this headline">¶</a></h2>
-<p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/templates/api/#context-processors" title="(in Django v2.2)"><span>Built-in template context processors</span></a>).</p>
+  <div class="section" id="module-cms.views.chat">
+<span id="chat"></span><h1>Chat<a class="headerlink" href="#module-cms.views.chat" title="Permalink to this headline">¶</a></h1>
+<p>This package contains all dashboard views</p>
+<div class="section" id="module-cms.views.chat.chat_actions">
+<span id="chat-actions"></span><h2>Chat Actions<a class="headerlink" href="#module-cms.views.chat.chat_actions" title="Permalink to this headline">¶</a></h2>
+<p>This module contains action methods for the author chat</p>
 <dl class="py function">
-<dt id="backend.context_processors.region_slug_processor">
-<code class="sig-prename descclassname">backend.context_processors.</code><code class="sig-name descname">region_slug_processor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/context_processors.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.context_processors.region_slug_processor" title="Permalink to this definition">¶</a></dt>
-<dd><p>This context processor retrieves the current <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter and passes it to the templates.
-Additionally, the <code class="docutils literal notranslate"><span class="pre">other_regions</span></code>-variable contains all other regions which are available via quick access.
-Usually, these are the regions configured in each user’s user profile, but if there are none set, we just list all
-available regions, ordered by the <code class="docutils literal notranslate"><span class="pre">last_updated</span></code> attribute.</p>
+<dt id="cms.views.chat.chat_actions.delete_chat_message">
+<code class="sig-prename descclassname">cms.views.chat.chat_actions.</code><code class="sig-name descname">delete_chat_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">message_id</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/chat/chat_actions.py#L50"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.chat.chat_actions.delete_chat_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete chat message</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current http request</p>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v2.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to delete the specific message</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The current region and other quick access regions</p>
+<dd class="field-even"><p>A redirection to the <a class="reference internal" href="cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView" title="cms.views.pages.page_tree_view.PageTreeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTreeView</span></code></a></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.views.chat.chat_actions.send_chat_message">
+<code class="sig-prename descclassname">cms.views.chat.chat_actions.</code><code class="sig-name descname">send_chat_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/chat/chat_actions.py#L17"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.chat.chat_actions.send_chat_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send chat message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A redirection to the <a class="reference internal" href="cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView" title="cms.views.pages.page_tree_view.PageTreeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTreeView</span></code></a></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v2.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 </div>
-<div class="section" id="module-backend.docker_settings">
-<span id="docker-settings"></span><h2>Docker Settings<a class="headerlink" href="#module-backend.docker_settings" title="Permalink to this headline">¶</a></h2>
-<p>Django settings for different database configuration.
-The docker container started in <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/run.sh">dev-tools/run.sh</a> exposes the alternative port <code class="docutils literal notranslate"><span class="pre">5433</span></code>.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" title="(in Django v2.2)"><span>Django settings</span></a>.
-For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" title="(in Django v2.2)"><span>Settings</span></a>.</p>
-</div>
-<div class="section" id="module-backend.settings">
-<span id="settings"></span><h2>Settings<a class="headerlink" href="#module-backend.settings" title="Permalink to this headline">¶</a></h2>
-<p>Django settings for backend project.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" title="(in Django v2.2)"><span>Django settings</span></a>.
-For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" title="(in Django v2.2)"><span>Settings</span></a>.</p>
-<p>For production use, the following settings can be set with environment variables:
-* SECRET_KEY
-* DEBUG
-* ALLOWED_HOSTS via BASE_URL
-* WEBAPP_URL
-* BASE_URL
-* WEBAPP_URL
-* STATIC_ROOT
-* MEDIA_ROOT
-* Database settings</p>
-<div class="section" id="our-custom-settings">
-<h3>Our custom settings<a class="headerlink" href="#our-custom-settings" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="webapp-url">
-<span id="std-setting-WEBAPP_URL"></span><span id="std:setting-WEBAPP_URL"></span><h4><code class="docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code><a class="headerlink" href="#webapp-url" title="Permalink to this headline">¶</a></h4>
-<p>Default: <code class="docutils literal notranslate"><span class="pre">https://integreat.app</span></code></p>
-<p>The URL to our webapp. This is used for urls in the <code class="docutils literal notranslate"><span class="pre">sitemap.xml</span></code> (see <a class="reference internal" href="sitemap.html#module-sitemap" title="sitemap"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sitemap</span></code></a> for more information).</p>
-</div>
-<div class="section" id="gvz-api-url">
-<span id="std-setting-GVZ_API_URL"></span><span id="std:setting-GVZ_API_URL"></span><h4><code class="docutils literal notranslate"><span class="pre">GVZ_API_URL</span></code><a class="headerlink" href="#gvz-api-url" title="Permalink to this headline">¶</a></h4>
-<p>Default: <code class="docutils literal notranslate"><span class="pre">https://gvz.integreat-app.de/api/</span></code></p>
-<p>The URL to our GVZ (Gemeindeverzeichnis) API. This is used to automatically import coordinates and region aliases (see
-<a class="reference internal" href="gvz_api.html#module-gvz_api" title="gvz_api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gvz_api</span></code></a> for more information).</p>
-</div>
-<div class="section" id="gvz-api-enabled">
-<span id="std-setting-GVZ_API_ENABLED"></span><span id="std:setting-GVZ_API_ENABLED"></span><h4><code class="docutils literal notranslate"><span class="pre">GVZ_API_ENABLED</span></code><a class="headerlink" href="#gvz-api-enabled" title="Permalink to this headline">¶</a></h4>
-<p>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
-<p>Whether or not the GVZ (Gemeindeverzeichnis) API is enabled (see <a class="reference internal" href="gvz_api.html#module-gvz_api" title="gvz_api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gvz_api</span></code></a> for more information).</p>
-<dl class="py data">
-<dt id="backend.settings.AUTHOR_CHAT_HISTORY_DAYS">
-<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">AUTHOR_CHAT_HISTORY_DAYS</code><em class="property"> = 30</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.AUTHOR_CHAT_HISTORY_DAYS" title="Permalink to this definition">¶</a></dt>
-<dd><p>How many days of chat history should be shown</p>
+<div class="section" id="module-cms.views.chat.chat_context_mixin">
+<span id="chat-context-mixin"></span><h2>Chat Context Mixin<a class="headerlink" href="#module-cms.views.chat.chat_context_mixin" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.views.chat.chat_context_mixin.ChatContextMixin">
+<em class="property">class </em><code class="sig-prename descclassname">cms.views.chat.chat_context_mixin.</code><code class="sig-name descname">ChatContextMixin</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/chat/chat_context_mixin.py#L11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.chat.chat_context_mixin.ChatContextMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.ContextMixin</span></code></a></p>
+<p>This mixin provides the chat context for dashboard views (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+<dl class="py method">
+<dt id="cms.views.chat.chat_context_mixin.ChatContextMixin.get_chat_context_data">
+<code class="sig-name descname">get_chat_context_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/chat/chat_context_mixin.py#L31"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.chat.chat_context_mixin.ChatContextMixin.get_chat_context_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the chat context variables <code class="docutils literal notranslate"><span class="pre">chat_form</span></code>, <code class="docutils literal notranslate"><span class="pre">chat_messages</span></code> and <code class="docutils literal notranslate"><span class="pre">chat_last_visited</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The chat context</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
 </dd></dl>
 
-</div>
-</div>
-</div>
-<div class="section" id="module-backend.urls">
-<span id="urls"></span><h2>Urls<a class="headerlink" href="#module-backend.urls" title="Permalink to this headline">¶</a></h2>
-<p>Django URL dispatcher.
-Delegates the following namespaces:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/api/</span></code> to <a class="reference internal" href="api.html#module-api.urls" title="api.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">api.urls</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/admin/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_urls" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.contrib.admin.ModelAdmin.get_urls()</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/i18n/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/translation/#module-django.conf.urls.i18n" title="(in Django v2.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.conf.urls.i18n</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/sitemap.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">/&lt;region_slug&gt;/&lt;language_code&gt;/sitemap.xml</span></code> to <a class="reference internal" href="sitemap.html#module-sitemap.urls" title="sitemap.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sitemap.urls</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/</span></code> to <a class="reference internal" href="cms.html#module-cms.urls" title="cms.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.urls</span></code></a></p></li>
-</ul>
-<p>Additionally, the error handlers in <a class="reference internal" href="cms.views.error_handler.html#module-cms.views.error_handler" title="cms.views.error_handler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.views.error_handler</span></code></a> are referenced here (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/urls/" title="(in Django v2.2)"><span>django.urls functions for use in URLconfs</span></a>).</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/urls/" title="(in Django v2.2)"><span>URL dispatcher</span></a>.</p>
-</div>
-<div class="section" id="module-backend.wsgi">
-<span id="wsgi"></span><h2>Wsgi<a class="headerlink" href="#module-backend.wsgi" title="Permalink to this headline">¶</a></h2>
-<p>WSGI config for backend project.
-It exposes the WSGI callable as a module-level variable named <code class="docutils literal notranslate"><span class="pre">application</span></code>.</p>
-<p><a class="reference external" href="https://wsgi.readthedocs.io/en/latest/index.html" title="(in www.wsgi.org v0.9)"><span>WSGI</span></a> (Web Server Gateway Interface) is a simple calling convention for web servers to forward requests to
-python frameworks (in our case Django).</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/" title="(in Django v2.2)"><span>How to deploy with WSGI</span></a>.</p>
+<dl class="py method">
+<dt id="cms.views.chat.chat_context_mixin.ChatContextMixin.get_context_data">
+<code class="sig-name descname">get_context_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/chat/chat_context_mixin.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.chat.chat_context_mixin.ChatContextMixin.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representing the template context
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The given keyword arguments</p>
+</dd>
+<dt class="field-even">Type kwargs</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The template context</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -795,10 +777,10 @@ python frameworks (in our case Django).</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cms.html" class="btn btn-neutral float-right" title="CMS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cms.views.dashboard.html" class="btn btn-neutral float-right" title="Dashboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../code-of-conduct.html" class="btn btn-neutral float-left" title="Code of Conduct" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cms.views.authentication.html" class="btn btn-neutral float-left" title="Authentication" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
