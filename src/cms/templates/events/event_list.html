@@ -16,10 +16,6 @@
     </style>
 {% endblock %}
 
-{% block javascript_head %}
-    <script src="{% static 'js/confirmation-popups.js' %}"></script>
-{% endblock %}
-
 {% block content %}
     <div class="table-header">
         <div class="flex flex-wrap">
@@ -114,11 +110,14 @@
     </div>
     {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}
+
 {% block javascript %}
+    <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'tablesort/dist/tablesort.min.js' %}"></script>
     <script src="{% static 'tablesort/dist/sorts/tablesort.date.min.js' %}"></script>
     <script src="{% static 'tablesort/dist/sorts/tablesort.number.min.js' %}"></script>
 {% endblock %}
+
 {% block javascript_nocompress %}
     <script>
         // Add sorting functionality to event table

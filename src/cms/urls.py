@@ -13,6 +13,7 @@ from .forms.authentication import PasswordResetConfirmForm
 from .views import (
     authentication,
     analytics,
+    chat,
     dashboard,
     events,
     offers,
@@ -299,6 +300,23 @@ urlpatterns = [
                                 r"^mirrored_page_field/",
                                 pages.render_mirrored_page_field,
                                 name="render_mirrored_page_field",
+                            ),
+                        ]
+                    ),
+                ),
+                url(
+                    r"^chat/",
+                    include(
+                        [
+                            url(
+                                r"send-message/?$",
+                                chat.send_chat_message,
+                                name="send_chat_message",
+                            ),
+                            url(
+                                r"delete-message/(?P<message_id>[0-9]+)?$",
+                                chat.delete_chat_message,
+                                name="delete_chat_message",
                             ),
                         ]
                     ),

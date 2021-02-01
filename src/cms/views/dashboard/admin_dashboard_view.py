@@ -5,11 +5,12 @@ from django.views.generic import TemplateView
 
 from ...decorators import staff_required
 from ...models import Feedback
+from ..chat.chat_context_mixin import ChatContextMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class AdminDashboardView(TemplateView):
+class AdminDashboardView(TemplateView, ChatContextMixin):
     """
     View for the admin dashboard
     """
@@ -17,7 +18,7 @@ class AdminDashboardView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "dashboard/admin_dashboard.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "admin_dashboard"}
+    extra_context = {"current_menu_item": "admin_dashboard"}
 
     def get(self, request, *args, **kwargs):
         """
@@ -41,8 +42,7 @@ class AdminDashboardView(TemplateView):
             request,
             self.template_name,
             {
-                "current_menu_item": "admin_feedback",
+                **self.get_context_data(**kwargs),
                 "all_feedback": all_feedback,
-                **self.base_context,
             },
         )

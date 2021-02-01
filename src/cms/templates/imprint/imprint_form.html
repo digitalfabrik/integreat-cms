@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block javascript_head %}
-    <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/autosave.js' %}"></script>
     <script src="{% static 'js/pages/page_side_by_side.js' %}"></script>
@@ -252,6 +251,10 @@
 </form>
 
 {% include "../generic_confirmation_dialog.html" %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
 {% endblock %}
 
 {% block javascript_nocompress %}

@@ -94,6 +94,12 @@ class Region(models.Model):
 
     icon = models.ImageField(blank=True, null=True, upload_to="regions/%Y/%m/%d")
 
+    chat_enabled = models.BooleanField(
+        default=True,
+        verbose_name="Author chat enabled",
+        help_text="Whether or not the author chat is enabled in this region",
+    )
+
     @property
     def languages(self):
         """

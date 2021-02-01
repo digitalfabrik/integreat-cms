@@ -33,6 +33,7 @@ class RegionForm(forms.ModelForm):
             "common_id",
             "slug",
             "events_enabled",
+            "chat_enabled",
             "push_notifications_enabled",
             "push_notification_channels",
             "latitude",
