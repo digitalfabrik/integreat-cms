@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
@@ -122,6 +123,21 @@ class Region(models.Model):
         """
         tree_root = self.language_tree_nodes.filter(level=0).first()
         return tree_root.language if tree_root else None
+
+    @property
+    def users(self):
+        """
+        This property returns a QuerySet of all :class:`~django.contrib.auth.models.User` objects which belong to this
+        region and are neither superusers nor staff.
+
+        :return: A QuerySet of all :class:`~django.contrib.auth.models.User` object instances of a region
+        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
+        """
+        return get_user_model().objects.filter(
+            profile__regions=self,
+            is_superuser=False,
+            is_staff=False,
+        )
 
     @classmethod
     def get_current_region(cls, request):

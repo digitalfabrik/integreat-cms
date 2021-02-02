@@ -1,13 +1,16 @@
 """
 This module contains view actions for user objects.
 """
+import logging
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 
 from ...decorators import staff_required
+
+logger = logging.getLogger(__name__)
 
 
 @staff_required
@@ -27,9 +30,9 @@ def delete_user(request, user_id):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    # TODO: Check permissions
-
-    get_user_model().objects.get(id=user_id).delete()
+    user = get_object_or_404(get_user_model(), id=user_id)
+    user.delete()
+    logger.info('User "%s" deleted user "%s"', request.user, user)
 
     messages.success(request, _("User was successfully deleted"))
 

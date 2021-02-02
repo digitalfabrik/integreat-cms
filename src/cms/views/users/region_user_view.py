@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
@@ -9,7 +8,7 @@ from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
 from ...forms.users import RegionUserForm, RegionUserProfileForm
-from ...models import Region, UserProfile
+from ...models import Region
 
 
 @method_decorator(login_required, name="dispatch")
@@ -47,16 +46,9 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
 
         region = Region.get_current_region(request)
 
-        # filter by region to make sure no users from other regions can be changed through this view
-        user = (
-            get_user_model()
-            .objects.filter(
-                id=kwargs.get("user_id"),
-                profile__regions=region,
-            )
-            .first()
-        )
-        user_profile = UserProfile.objects.filter(user=user).first()
+        # filter region users to make sure no users from other regions can be changed through this view
+        user = region.users.filter(id=kwargs.get("user_id")).first()
+        user_profile = user.profile if user else None
 
         region_user_form = RegionUserForm(instance=user)
         user_profile_form = RegionUserProfileForm(instance=user_profile)
@@ -93,16 +85,9 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
 
         region = Region.get_current_region(request)
 
-        # filter by region to make sure no users from other regions can be changed through this view
-        user_instance = (
-            get_user_model()
-            .objects.filter(
-                id=kwargs.get("user_id"),
-                profile__regions=region,
-            )
-            .first()
-        )
-        user_profile_instance = UserProfile.objects.filter(user=user_instance).first()
+        # filter region users to make sure no users from other regions can be changed through this view
+        user_instance = region.users.filter(id=kwargs.get("user_id")).first()
+        user_profile_instance = user_instance.profile if user_instance else None
 
         region_user_form = RegionUserForm(request.POST, instance=user_instance)
         user_profile_form = RegionUserProfileForm(

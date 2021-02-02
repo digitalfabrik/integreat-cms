@@ -1,14 +1,17 @@
 """
 This module contains view actions for region user objects.
 """
+import logging
+
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 
 from ...decorators import region_permission_required
 from ...models import Region
+
+logger = logging.getLogger(__name__)
 
 
 @login_required
@@ -32,18 +35,21 @@ def delete_region_user(request, region_slug, user_id):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    # TODO: Check permissions
-
     region = Region.get_current_region(request)
-    user = get_user_model().objects.get(id=user_id, profile__regions=region)
-    if user.regions.count == 1:
+    user = get_object_or_404(region.users, id=user_id)
+    if user.profile.regions.count() == 1:
         user.delete()
-        messages.success(request, _(f"User {user} was successfully deleted."))
+        logger.info('User "%s" deleted user "%s"', request.user, user)
+        messages.success(request, _("User {} was successfully deleted.").format(user))
     else:
         user.profile.regions.remove(region)
         user.profile.save()
+        logger.info(
+            'User "%s" removed user "%s" from region "%s"', request.user, user, region
+        )
         messages.success(
-            request, _(f"User {user} was successfully removed from this region.")
+            request,
+            _("User {} was successfully removed from this region.").format(user),
         )
 
     return redirect("region_users", region_slug=region.slug)

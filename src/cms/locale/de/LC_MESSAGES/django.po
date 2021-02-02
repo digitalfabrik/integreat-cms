@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 17:31+0000\n"
+"POT-Creation-Date: 2021-02-03 20:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -35,7 +35,6 @@ msgstr "Landkreis"
 #: constants/administrative_division.py:55
 #: templates/feedback/admin_feedback_list.html:113
 #: templates/feedback/region_feedback_list.html:110
-#: templates/regions/region_form.html:197
 msgid "Region"
 msgstr "Region"
 
@@ -217,7 +216,7 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: constants/region_status.py:18 templates/language_tree/language_tree.html:32
 #: templates/users/admin/list.html:33 templates/users/admin/user.html:82
-#: templates/users/region/list.html:28 templates/users/region/user.html:72
+#: templates/users/region/list.html:28 templates/users/region/user.html:75
 msgid "Active"
 msgstr "Aktiv"
 
@@ -489,7 +488,7 @@ msgstr "Neue Mediendatei hochladen"
 
 #: templates/_base.html:138 templates/feedback/region_feedback_list.html:24
 #: templates/feedback/region_feedback_list.html:136
-#: templates/pages/page_tree.html:17 templates/regions/region_form.html:201
+#: templates/pages/page_tree.html:17
 msgid "Pages"
 msgstr "Seiten"
 
@@ -504,7 +503,6 @@ msgstr "Seite erstellen"
 
 #: templates/_base.html:154 templates/events/event_list.html:23
 #: templates/feedback/region_feedback_list.html:143
-#: templates/regions/region_form.html:202
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -529,7 +527,6 @@ msgid "Create location"
 msgstr "Ort erstellen"
 
 #: templates/_base.html:186 templates/_base.html:262
-#: templates/regions/region_form.html:199
 msgid "Users"
 msgstr "Benutzer"
 
@@ -597,12 +594,12 @@ msgstr "Admin Dashboard"
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:258 templates/regions/region_form.html:200
+#: templates/_base.html:258
 msgid "Languages"
 msgstr "Sprachen"
 
 #: templates/_base.html:266 templates/users/admin/user.html:95
-#: templates/users/region/user.html:85
+#: templates/users/region/user.html:88
 msgid "Roles"
 msgstr "Rollen"
 
@@ -672,7 +669,7 @@ msgstr ""
 #: templates/pages/_page_permission_table.html:46
 #: templates/pages/_page_permission_table.html:77
 #: templates/users/admin/list.html:28 templates/users/admin/user.html:36
-#: templates/users/region/list.html:23 templates/users/region/user.html:36
+#: templates/users/region/list.html:23 templates/users/region/user.html:39
 msgid "Username"
 msgstr "Benutzername"
 
@@ -1366,9 +1363,6 @@ msgid "Confirm"
 msgstr "Bestätigen"
 
 #: templates/generic_confirmation_dialog.html:22
-#: templates/regions/region_form.html:211
-#: templates/users/confirmation_popups/delete_region_user.html:12
-#: templates/users/confirmation_popups/delete_user.html:12
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1577,7 +1571,7 @@ msgstr "Sprache hinzufügen"
 #: templates/organizations/organization_form.html:21
 #: templates/push_notifications/push_notification_form.html:38
 #: templates/regions/region_form.html:21 templates/roles/role.html:21
-#: templates/users/admin/user.html:21 templates/users/region/user.html:21
+#: templates/users/admin/user.html:21 templates/users/region/user.html:24
 msgid "Save"
 msgstr "Speichern"
 
@@ -1709,7 +1703,7 @@ msgstr "Erstellen"
 #: templates/offer_templates/offer_template_form.html:34
 #: templates/organizations/organization_form.html:30
 #: templates/regions/region_form.html:30 templates/users/admin/user.html:31
-#: templates/users/region/user.html:31
+#: templates/users/region/user.html:34
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -1750,7 +1744,7 @@ msgstr "URL des Angebots-Thumbnails hier eingeben"
 #: templates/offer_templates/offer_template_form.html:60
 #: templates/organizations/organization_form.html:53
 #: templates/regions/region_form.html:100 templates/users/admin/user.html:67
-#: templates/users/region/user.html:67
+#: templates/users/region/user.html:70
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
@@ -2437,34 +2431,32 @@ msgstr "Inhalte aus einer anderen Region duplizieren"
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: templates/regions/region_form.html:176
-#, python-format
-msgid "Delete region \"%(region_name)s\""
-msgstr "Region \"%(region_name)s\" löschen"
+#: templates/regions/region_form.html:174
+msgid "Delete region"
+msgstr "Region löschen"
 
-#: templates/regions/region_form.html:187
+#: templates/regions/region_form.html:175
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: templates/regions/region_form.html:189
-msgid ""
-"This can not be reversed. All pages, events, locations and users of this "
-"region will also be deleted."
+#: templates/regions/region_form.html:176
+msgid "This can not be reversed."
+msgstr "Dies kann nicht rückgängig gemacht werden."
+
+#: templates/regions/region_form.html:176
+msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
-"Dies kann nicht rückgängig gemacht werden. Alle Seiten, Veranstaltungen, "
-"Orte und Benutzer dieser Region werden ebenfalls gelöscht."
+"Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
+"gelöscht."
 
-#: templates/regions/region_form.html:193
-msgid "Summary of deleted objects"
-msgstr "Zusammenfassung der zu löschenden Objekte"
+#: templates/regions/region_form.html:176
+msgid "Users, who only have access to this region, will be removed as well."
+msgstr ""
+"Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: templates/regions/region_form.html:203
-msgid "Locations"
-msgstr "Orte"
-
-#: templates/regions/region_form.html:209
-msgid "Yes, delete this region now"
-msgstr "Ja, diese Region jetzt löschen"
+#: templates/regions/region_form.html:180
+msgid "Delete this region"
+msgstr "Diese Region löschen"
 
 #: templates/regions/region_icon_widget.html:18
 msgid "No icon selected"
@@ -2752,7 +2744,7 @@ msgid "Last Name"
 msgstr "Nachname"
 
 #: templates/users/admin/list.html:32 templates/users/admin/user.html:105
-#: templates/users/region/list.html:27 templates/users/region/user.html:90
+#: templates/users/region/list.html:27 templates/users/region/user.html:93
 msgid "Organization"
 msgstr "Organisation"
 
@@ -2768,60 +2760,60 @@ msgstr "Super-Administrator"
 msgid "No users available yet."
 msgstr "Noch keine Benutzer vorhanden."
 
-#: templates/users/admin/user.html:13 templates/users/region/user.html:13
+#: templates/users/admin/user.html:13 templates/users/region/user.html:16
 #, python-format
 msgid "Edit user \"%(user_name)s\""
 msgstr "Benutzer \"%(user_name)s\" bearbeiten"
 
-#: templates/users/admin/user.html:16 templates/users/region/user.html:16
+#: templates/users/admin/user.html:16 templates/users/region/user.html:19
 msgid "Create new user"
 msgstr "Neuen Benutzer erstellen"
 
-#: templates/users/admin/user.html:37 templates/users/region/user.html:37
+#: templates/users/admin/user.html:37 templates/users/region/user.html:40
 msgid "Enter the username here"
 msgstr "Name des Benutzers hier eingeben"
 
-#: templates/users/admin/user.html:40 templates/users/region/user.html:40
+#: templates/users/admin/user.html:40 templates/users/region/user.html:43
 msgid "First name of the user"
 msgstr "Vorname des Benutzers"
 
-#: templates/users/admin/user.html:41 templates/users/region/user.html:41
+#: templates/users/admin/user.html:41 templates/users/region/user.html:44
 msgid "Enter the user's first name here"
 msgstr "Vorname des Benutzers hier eingeben"
 
-#: templates/users/admin/user.html:44 templates/users/region/user.html:44
+#: templates/users/admin/user.html:44 templates/users/region/user.html:47
 msgid "Last name of the user"
 msgstr "Nachname des Benutzers"
 
-#: templates/users/admin/user.html:45 templates/users/region/user.html:45
+#: templates/users/admin/user.html:45 templates/users/region/user.html:48
 msgid "Enter the user's last name here"
 msgstr "Nachname des Benutzers hier eingeben"
 
-#: templates/users/admin/user.html:48 templates/users/region/user.html:48
+#: templates/users/admin/user.html:48 templates/users/region/user.html:51
 msgid "E-mail-address of the user"
 msgstr "E-Mail-Adresse des Benutzers"
 
-#: templates/users/admin/user.html:49 templates/users/region/user.html:49
+#: templates/users/admin/user.html:49 templates/users/region/user.html:52
 msgid "Enter the user's e-mail-address here"
 msgstr "E-Mail-Adresse des Benutzers hier eingeben"
 
-#: templates/users/admin/user.html:52 templates/users/region/user.html:52
+#: templates/users/admin/user.html:52 templates/users/region/user.html:55
 msgid "Password of the user"
 msgstr "Passwort des Benutzers"
 
-#: templates/users/admin/user.html:58 templates/users/region/user.html:58
+#: templates/users/admin/user.html:58 templates/users/region/user.html:61
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
 
-#: templates/users/admin/user.html:58 templates/users/region/user.html:58
+#: templates/users/admin/user.html:58 templates/users/region/user.html:61
 msgid "Enter the user's password here"
 msgstr "Passwort des Benutzers hier eingeben"
 
-#: templates/users/admin/user.html:87 templates/users/region/user.html:77
+#: templates/users/admin/user.html:87 templates/users/region/user.html:80
 msgid "Expert mode"
 msgstr "Expertenmodus"
 
-#: templates/users/admin/user.html:90 templates/users/region/user.html:80
+#: templates/users/admin/user.html:90 templates/users/region/user.html:83
 msgid ""
 "Enable this option to show up additional features like XLIFF import/export, "
 "page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag "
@@ -2832,24 +2824,43 @@ msgstr ""
 "seitenbasierte Berechtigungen, Nicht-Übersetzen-Tag und wiederkehrende "
 "Veranstaltungen"
 
-#: templates/users/admin/user.html:116 templates/users/region/user.html:100
-msgid "Delete this user"
-msgstr "Diesen Benutzer löschen"
+#: templates/users/admin/user.html:115 templates/users/region/user.html:109
+msgid "Delete user"
+msgstr "Benutzer löschen"
 
-#: templates/users/confirmation_popups/delete_region_user.html:4
-#: templates/users/confirmation_popups/delete_user.html:4
+#: templates/users/admin/user.html:116 templates/users/region/user.html:104
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
-#: templates/users/confirmation_popups/delete_region_user.html:6
-#: templates/users/confirmation_popups/delete_user.html:6
+#: templates/users/admin/user.html:117 templates/users/region/user.html:105
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/users/confirmation_popups/delete_region_user.html:9
-#: templates/users/confirmation_popups/delete_user.html:9
-msgid "Yes, delete this user now"
-msgstr "Ja, diesen Benutzer jetzt löschen"
+#: templates/users/admin/user.html:121 templates/users/region/user.html:103
+msgid "Delete this user"
+msgstr "Diesen Benutzer löschen"
+
+#: templates/users/region/user.html:114
+#, python-format
+msgid "Remove this user from region %(region)s"
+msgstr "Diesen Benutzer von Region %(region)s entfernen"
+
+#: templates/users/region/user.html:115
+#, python-format
+msgid ""
+"Please confirm that you really want to remove this user from region "
+"%(region)s."
+msgstr ""
+"Bitte bestätigen Sie, dass dieser Benutzer von der Region %(region)s "
+"entfernt werden soll."
+
+#: templates/users/region/user.html:116
+msgid "The user will keep access to the following regions:"
+msgstr "Der Benutzer wird den Zugang zu folgenden Regionen behalten:"
+
+#: templates/users/region/user.html:120
+msgid "Remove user from region"
+msgstr "Benutzer von Region entfernen"
 
 #: utils/pdf_utils.py:66
 msgid "No valid pages selected for PDF generation."
@@ -2990,7 +3001,7 @@ msgstr ""
 #: views/imprint/imprint_view.py:193 views/pages/page_sbs_view.py:193
 #: views/pages/page_view.py:241 views/regions/region_view.py:85
 #: views/settings/user_settings_view.py:89
-#: views/settings/user_settings_view.py:106 views/users/region_user_view.py:131
+#: views/settings/user_settings_view.py:106 views/users/region_user_view.py:116
 #: views/users/user_view.py:119
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
@@ -3079,7 +3090,7 @@ msgstr ""
 #: views/offer_templates/offer_template_view.py:84
 #: views/organizations/organization_view.py:82 views/pages/page_sbs_view.py:191
 #: views/pages/page_view.py:223 views/regions/region_view.py:79
-#: views/users/region_user_view.py:134 views/users/user_view.py:129
+#: views/users/region_user_view.py:119 views/users/user_view.py:129
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
 
@@ -3473,7 +3484,7 @@ msgstr "Fehler während des Sendens der Push-Benachrichtigung"
 msgid "Required Push Notification texts are missing"
 msgstr "Benötigte Texte für die Push-Benachrichtigung fehlen"
 
-#: views/regions/region_actions.py:42
+#: views/regions/region_actions.py:67
 msgid "Region was successfully deleted"
 msgstr "Region wurde erfolgreich gelöscht"
 
@@ -3540,25 +3551,23 @@ msgstr ""
 "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen Sie "
 "Ihre Einstellungen."
 
-#: views/users/region_user_actions.py:41
-#, python-brace-format
-msgid "User {user} was successfully deleted."
-msgstr "Benutzer {user} wurde erfolgreich gelöscht."
+#: views/users/region_user_actions.py:43
+msgid "User {} was successfully deleted."
+msgstr "Benutzer {} wurde erfolgreich gelöscht."
 
-#: views/users/region_user_actions.py:46
-#, python-brace-format
-msgid "User {user} was successfully removed from this region."
-msgstr "Benutzer {user} wurde erfolgreich gelöscht."
+#: views/users/region_user_actions.py:52
+msgid "User {} was successfully removed from this region."
+msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
-#: views/users/region_user_view.py:120 views/users/user_view.py:109
+#: views/users/region_user_view.py:105 views/users/user_view.py:109
 msgid "User was successfully saved"
 msgstr "Benutzer wurde erfolgreich gespeichert"
 
-#: views/users/region_user_view.py:122 views/users/user_view.py:111
+#: views/users/region_user_view.py:107 views/users/user_view.py:111
 msgid "User was successfully created"
 msgstr "Benutzer wurde erfolgreich erstellt"
 
-#: views/users/user_actions.py:34
+#: views/users/user_actions.py:37
 msgid "User was successfully deleted"
 msgstr "Benutzer wurde erfolgreich gelöscht"
 
@@ -3924,13 +3933,6 @@ msgstr ""
 
 #~ msgid "English name"
 #~ msgstr "Englischer Name"
-
-#~ msgid ""
-#~ "Please confirm that you really want to delete the region \"%(region_name)s"
-#~ "\""
-#~ msgstr ""
-#~ "Bitte bestätigen Sie, dass die Region \"%(region_name)s\" gelöscht werden "
-#~ "soll"
 
 #~ msgid "User"
 #~ msgstr "Benutzer"
