@@ -40,6 +40,7 @@ class UserProfile(models.Model):
         verbose_name="Date and time of last chat visit",
         help_text="The date and time when the user did read the chat the last time",
     )
+    expert_mode = models.BooleanField(default=False)
 
     @property
     def roles(self):
