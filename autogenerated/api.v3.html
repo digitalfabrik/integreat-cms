@@ -706,7 +706,9 @@
 <dl class="py function">
 <dt id="api.v3.imprint.imprint">
 <code class="sig-prename descclassname">api.v3.imprint.</code><code class="sig-name descname">imprint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">region_slug</span></em>, <em class="sig-param"><span class="n">language_code</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L40"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.v3.imprint.imprint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get imprint for language and return JSON object to client</p>
+<dd><p>Get imprint for language and return JSON object to client. If no imprint translation
+is available in the selected language, try to return the translation in the region
+default language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
