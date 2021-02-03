@@ -792,6 +792,7 @@
 <li><p><strong>regions</strong> (ManyToManyField to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – The regions of this user (related name: <code class="docutils literal notranslate"><span class="pre">users</span></code>)</p></li>
 <li><p><strong>organization</strong> (ForeignKey to <a class="reference internal" href="#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a>) – The organization of the user (related name: <code class="docutils literal notranslate"><span class="pre">members</span></code>)</p></li>
 <li><p><strong>chat_last_visited</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v2.2)"><em>DateTimeField</em></a>) – Date and time of last chat visit. The date and time when the user did read the chat the last time</p></li>
+<li><p><strong>expert_mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v2.2)"><em>BooleanField</em></a>) – Expert mode</p></li>
 </ul>
 </dd>
 </dl>
@@ -838,7 +839,7 @@ return the username.</p>
 
 <dl class="py method">
 <dt id="cms.models.users.user_profile.UserProfile.update_chat_last_visited">
-<code class="sig-name descname">update_chat_last_visited</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L69"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.update_chat_last_visited" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update_chat_last_visited</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L70"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.models.users.user_profile.UserProfile.update_chat_last_visited" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the <code class="xref py py-attr docutils literal notranslate"><span class="pre">cms.models.users.user_profile.chat_last_visited</span></code> to the current time</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
