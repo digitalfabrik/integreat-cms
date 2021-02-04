@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
@@ -44,12 +43,6 @@ class RegionUserListView(PermissionRequiredMixin, TemplateView):
 
         region = Region.get_current_region(request)
 
-        region_users = get_user_model().objects.filter(
-            profile__regions=region,
-            is_superuser=False,
-            is_staff=False,
-        )
-
         return render(
-            request, self.template_name, {**self.base_context, "users": region_users}
+            request, self.template_name, {**self.base_context, "users": region.users}
         )

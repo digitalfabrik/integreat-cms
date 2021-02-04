@@ -1,8 +1,11 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load widget_tweaks %}
+{% load user_filters %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
     <div class="flex flex-wrap mb-4">
@@ -94,15 +97,37 @@
 
             </div>
         </div>
-	    {% if user_form.instance.id %}
-	    <div class="pt-2 pb-4">
-		    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_user')">
-			    {% trans 'Delete this user' %}
-		    </button>
-
-		    {% include "../confirmation_popups/delete_region_user.html" %}
-	    </div>
+        {% if user_form.instance.id %}
+            {% if user_form.instance.profile.regions.count == 1 %}
+                <div class="pt-2 pb-4">
+                    <button title="{% trans 'Delete this user' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                            data-confirmation-title="{% trans 'Please confirm that you really want to delete this user' %}"
+                            data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+                            data-confirmation-subject="{{ user_form.username.value }}"
+                            data-action="{% url 'delete_region_user' region_slug=region.slug user_id=user_form.instance.id %}">
+                        <i data-feather="trash-2" class="inline-block mr-2"></i>
+                        {% trans 'Delete user' %}
+                    </button>
+                </div>
+            {% else %}
+                <div class="pt-2 pb-4">
+                    <button title="{% blocktrans %}Remove this user from region {{ region }}{% endblocktrans %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                            data-confirmation-title="{% blocktrans %}Please confirm that you really want to remove this user from region {{ region }}.{% endblocktrans %}"
+                            data-confirmation-text="{% trans 'The user will keep access to the following regions:' %} {{ user_form.instance|remaining_regions:region|join:', ' }}"
+                            data-confirmation-subject="{{ user_form.username.value }}"
+                            data-action="{% url 'delete_region_user' region_slug=region.slug user_id=user_form.instance.id %}">
+                        <i data-feather="trash-2" class="inline-block mr-2"></i>
+                        {% trans 'Remove user from region' %}
+                    </button>
+                </div>
+            {% endif %}
 	    {% endif %}
     </div>
 </form>
+
+{% include "../../generic_confirmation_dialog.html" %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
 {% endblock %}

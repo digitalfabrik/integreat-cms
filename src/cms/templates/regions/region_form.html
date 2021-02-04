@@ -171,48 +171,22 @@
     </div>
 {% if form.instance.id %}
     <div class="pt-2 pb-4">
-        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_region')">
-            {% with form.instance.name as region_name %}
-                {% blocktrans %}Delete region "{{ region_name }}"{% endblocktrans %}
-            {% endwith %}
+        <button title="{% trans 'Delete region' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                data-confirmation-title="{% trans 'Please confirm that you really want to delete this region.' %}"
+                data-confirmation-text="{% trans 'This can not be reversed.' %} {% trans 'All pages, events and locations of this region will also be deleted.' %} {% trans 'Users, who only have access to this region, will be removed as well.' %}"
+                data-confirmation-subject="{{ form.name.value }}"
+                data-action="{% url 'delete_region' region_slug=form.instance.slug %}">
+            <i data-feather="trash-2" class="inline-block mr-2"></i>
+            {% trans 'Delete this region' %}
         </button>
     </div>
 {% endif %}
 </div>
 </form>
-{% if form.instance.id %}
-<!-- confirmation popup -->
-<div id="confirm_delete_region" class="confirmation-popup flex-col justify-center max-w-sm fixed inset-0 hidden">
-    <div class="content bg-gray-200 w-full p-4 shadow-md rounded">
-            <h2>{% trans 'Please confirm that you really want to delete this region.' %}</h2>
-        <p class="mt-4 mb-6">
-            {% trans 'This can not be reversed. All pages, events, locations and users of this region will also be deleted.' %}
-        </p>
-        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-            <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="heading font-bold text-white">{% trans 'Summary of deleted objects' %}:</h3>
-            </div>
-            <ul class="mt-2 mb-2 font-bold">
-                {% with form.name.value as region_name %}
-                <li>{% trans 'Region' %} "{{ region_name }}"</li>
-                {% endwith %}
-                <li>{{ form.instance.users.count }} {% trans 'Users' %}</li>
-                <li>{{ form.instance.language_tree_nodes.count }} {% trans 'Languages' %}</li>
-                <li>{{ form.instance.pages.count }} {% trans 'Pages' %}</li>
-                <li>{{ form.instance.events.count }} {% trans 'Events' %}</li>
-                <li>{{ form.instance.pois.count }} {% trans 'Locations' %}</li>
-            </ul>
-        </div>
 
-        <form method="post" action="{% url 'delete_region' region_slug=form.instance.slug %}">
-            {% csrf_token %}
-            <input type="submit" class="inline-block cursor-pointer bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Yes, delete this region now' %}" />
-            <button class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" onclick="close_confirmation_popup(event)">
-                {% trans 'Cancel' %}
-            </button>
-        </form>
-    </div>
-</div>
-<!------------------------>
-{% endif %}
+{% include "../generic_confirmation_dialog.html" %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
 {% endblock %}

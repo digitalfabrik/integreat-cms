@@ -186,7 +186,7 @@
 					{% trans 'Users' %}
 				</a>
 				<div class="dropdown-container flex-col">
-					<a href="{% url 'pois' region_slug=region.slug %}" class="{% if current_menu_item == 'region_users' %}active{% endif %}">
+					<a href="{% url 'region_users' region_slug=region.slug %}" class="{% if current_menu_item == 'region_users' %}active{% endif %}">
 						{% trans 'All users' %}
 					</a>
 					<a href="{% url 'new_region_user' region_slug=region.slug %}" class="{% if current_menu_item == 'region_users_form' and not user_form.instance.id %}active{% endif %}">
