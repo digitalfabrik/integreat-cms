@@ -402,6 +402,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.user_filters">User Filters</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.tests.html">Tests</a><ul>
@@ -692,8 +693,9 @@
 <p>This module contains view actions for region objects.</p>
 <dl class="py function">
 <dt id="cms.views.regions.region_actions.delete_region">
-<code class="sig-prename descclassname">cms.views.regions.region_actions.</code><code class="sig-name descname">delete_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_actions.py#L14"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_actions.delete_region" title="Permalink to this definition">¶</a></dt>
-<dd><p>This view deletes a region</p>
+<code class="sig-prename descclassname">cms.views.regions.region_actions.</code><code class="sig-name descname">delete_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/regions/region_actions.py#L18"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.views.regions.region_actions.delete_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>This view deletes a region. All content is cascade deleted. Region users, who are not assigned to any other region,
+are manually removed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -875,7 +877,7 @@ object</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jan 31, 2021.
+        Last updated on Feb 02, 2021.
       </span>
 
     </p>
