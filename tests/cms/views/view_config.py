@@ -131,6 +131,17 @@ VIEWS = [
                 },
             ),
             ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            (
+                "new_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {
+                    "title": "new page",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 1,
+                    "_position": "first-child",
+                    "submit_draft": True,
+                },
+            ),
             ("new_poi", ROLES),
             (
                 "new_poi",
