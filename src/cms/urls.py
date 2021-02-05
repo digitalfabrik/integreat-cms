@@ -7,12 +7,8 @@ For more information on this file, see :doc:`topics/http/urls`.
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings as django_settings
-from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
 
-from django.urls import reverse_lazy
-
-from .forms import PasswordResetConfirmForm, ActivationForm
 from .views import (
     authentication,
     analytics,
@@ -284,58 +280,58 @@ urlpatterns = [
         settings.mfa.AuthenticateModifyMfaView.as_view(),
         name="user_settings_auth_modify_mfa",
     ),
-    url(r"^login/$", authentication.login, name="login"),
-    url(r"^login/mfa/$", authentication.mfa, name="login_mfa"),
-    url(r"^login/mfa/assert$", authentication.mfaAssert, name="login_mfa_assert"),
-    url(r"^login/mfa/verify$", authentication.mfaVerify, name="login_mfa_verify"),
-    url(r"^logout/$", authentication.logout, name="logout"),
     url(
-        r"^password_reset/",
+        r"^login/",
+        include(
+            [
+                url(r"^$", authentication.LoginView.as_view(), name="login"),
+                url(
+                    r"^mfa/",
+                    include(
+                        [
+                            url(
+                                r"^$",
+                                authentication.MfaLoginView.as_view(),
+                                name="login_mfa",
+                            ),
+                            url(
+                                r"^assert$",
+                                authentication.MfaAssertView.as_view(),
+                                name="login_mfa_assert",
+                            ),
+                            url(
+                                r"^verify$",
+                                authentication.MfaVerifyView.as_view(),
+                                name="login_mfa_verify",
+                            ),
+                        ]
+                    ),
+                ),
+            ]
+        ),
+    ),
+    url(r"^logout/$", authentication.LogoutView.as_view(), name="logout"),
+    url(
+        r"^reset-password/",
         include(
             [
                 url(
-                    r"$", auth_views.PasswordResetView.as_view(), name="password_reset"
-                ),
-                url(
-                    r"^done/$",
-                    authentication.password_reset_done,
-                    name="password_reset_done",
+                    r"^$",
+                    authentication.PasswordResetView.as_view(),
+                    name="password_reset",
                 ),
                 url(
                     r"^(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$",
-                    auth_views.PasswordResetConfirmView.as_view(
-                        form_class=PasswordResetConfirmForm
-                    ),
+                    authentication.PasswordResetConfirmView.as_view(),
                     name="password_reset_confirm",
-                ),
-                url(
-                    r"^complete/$",
-                    authentication.password_reset_complete,
-                    name="password_reset_complete",
                 ),
             ]
         ),
     ),
     url(
-        r"^activation/",
-        include(
-            [
-                url(
-                    r"^(?P<uidb64>[0-9A-Za-z]+)/(?P<token>.+)/$",
-                    auth_views.PasswordResetConfirmView.as_view(
-                        template_name="authentication/account_activation_form.html",
-                        success_url=reverse_lazy("activation_complete"),
-                        form_class=ActivationForm,
-                    ),
-                    name="activate_account",
-                ),
-                url(
-                    r"^complete/$",
-                    authentication.account_activation_complete,
-                    name="activation_complete",
-                ),
-            ]
-        ),
+        r"^activate-account/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$",
+        authentication.AccountActivationView.as_view(),
+        name="activate_account",
     ),
     url(
         r"^ajax/",

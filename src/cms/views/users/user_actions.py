@@ -42,6 +42,10 @@ def delete_user(request, user_id):
     return redirect("users")
 
 
+@require_POST
+@staff_required
+@login_required
+@permission_required("cms.manage_admin_users", raise_exception=True)
 def resend_activation_link(request, user_id):
     """Resends an activation link to an user
 
