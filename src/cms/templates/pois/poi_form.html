@@ -131,32 +131,31 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
                     {% if poi_translation_form.instance.id %}
-                        <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                        <span class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</span>
                         {{ poi_translation_form.instance.version }}<br>
-                        <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                        <span class="inline-block mb-2 font-bold">{% trans 'Status' %}:</span>
                         {{ poi_translation_form.instance.get_status_display }}
                     {% endif %}
-                    <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
+                    <label for="{{ poi_translation_form.title.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ poi_translation_form.title.label }}</label>
+                    {% render_field poi_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ poi_translation_form.slug.id_for_label }}" class="block my-2 font-bold">{{ poi_translation_form.slug.label }}</label>
+                    <div class="my-2 text-s text-gray-600">{{ poi_translation_form.slug.help_text }}</div>
                     <div id="slug-div" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                        {% trans ' Leave blank to derive from title' as slug_placeholder%}
                         {% spaceless %}
                             <div style="display: table; white-space: nowrap;">
                                 <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.code }}/</span>
-                                <span style="display: table-cell; width: 100%;">{% render_field poi_translation_form.slug|add_error_class:"slug-error" placeholder=slug_placeholder class="w-full rounded" %}</span>
+                                <span style="display: table-cell; width: 100%;">{% render_field poi_translation_form.slug|add_error_class:"slug-error" class="w-full rounded" %}</span>
                             </div>
                         {% endspaceless %}
                     </div>
-                    <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
-                    {% trans 'Insert title here' as title_placeholder%}
-                    {% render_field poi_translation_form.title|add_error_class:"border-red-500" placeholder=title_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label class="block mb-2 mt-4 font-bold">{% trans 'Short description' %}</label>
-                    {% trans 'Insert short description here' as short_description_placeholder%}
-                    {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" placeholder=short_description_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label class="block mb-2 mt-4 font-bold">{% trans 'Description' %}</label>
+                    <label for="{{ poi_translation_form.short_description.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ poi_translation_form.short_description.label }}</label>
+                    {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ poi_translation_form.description.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ poi_translation_form.description.label }}</label>
                     {% render_field poi_translation_form.description class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
                     <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
                     {% render_field poi_translation_form.minor_edit id="minor_edit" %}
-                    <label for="minor_edit" class="text-s">{% trans 'This change does not require an update of the translations' %}</label>
+                    <label for="{{ poi_translation_form.minor_edit.id_for_label }}" class="text-s p-2">{{ poi_translation_form.minor_edit.label }}</label>
+                    <div class="my-2 text-s text-gray-600">{{ poi_translation_form.minor_edit.help_text }}</div>
                 </div>
             </div>
         </div>
@@ -175,32 +174,28 @@
                 <div class="w-full p-4">
                     <div class="pt-2 pb-4">
                         <span class="block mb-2 font-bold">{% trans 'Address' %}</span>
-                        <label for="id_address" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Street' %}</label>
-                        {% trans 'Insert street here' as street_placeholder%}
-                        {% render_field poi_form.address|add_error_class:"border-red-500" placeholder=street_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <label for="id_postcode" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Postal Code' %}</label>
-                        {% trans 'Insert postal code here' as postal_code_placeholder%}
-                        {% render_field poi_form.postcode|add_error_class:"border-red-500" placeholder=postal_code_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <label for="id_city" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'City' %}</label>
-                        {% trans 'Insert city here' as city_placeholder%}
-                        {% render_field poi_form.city|add_error_class:"border-red-500" placeholder=city_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <label for="id_country" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Country' %}</label>
-                        {% trans 'Insert country here' as country_placeholder%}
-                        {% render_field poi_form.country|add_error_class:"border-red-500" placeholder=country_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <label for="{{ poi_form.address.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.address.label }}</label>
+                        {% render_field poi_form.address|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <label for="{{ poi_form.postcode.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.postcode.label }}</label>
+                        {% render_field poi_form.postcode|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <label for="{{ poi_form.city.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.city.label }}</label>
+                        {% render_field poi_form.city|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <label for="{{ poi_form.country.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.country.label }}</label>
+                        {% render_field poi_form.country|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     </div>
                     <div class="pt-2 pb-4">
                         <span class="block mb-2 font-bold">{% trans 'Position' %}</span>
-                        <label for="id_longitude" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Longitude' %}</label>
-                        {% trans 'Insert longitude here' as longitude_placeholder%}
-                        {% render_field poi_form.longitude|add_error_class:"border-red-500" placeholder=longitude_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <label for="id_latitude" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{% trans 'Latitude' %}</label>
-                        {% trans 'Insert latitude here' as latitude_placeholder%}
-                        {% render_field poi_form.latitude|add_error_class:"border-red-500" placeholder=latitude_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <label for="{{ poi_form.longitude.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.longitude.label }}</label>
+                        <div class="my-2 text-s text-gray-600">{{ poi_form.longitude.help_text }}</div>
+                        {% render_field poi_form.longitude|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        <label for="{{ poi_form.latitude.id_for_label }}" class="text-xs uppercase block cursor-pointer mt-4 mb-1">{{ poi_form.latitude.label }}</label>
+                        <div class="my-2 text-s text-gray-600">{{ poi_form.latitude.help_text }}</div>
+                        {% render_field poi_form.latitude|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     </div>
                     <div class="pt-2 pb-4">
-                        <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
-                        {% render_field poi_form.icon|add_error_class:"border-red-500" id="icon" class="image-field" %}
-                        <label for="icon" class="w-full block text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-3 px-4 rounded cursor-pointer relative">
+                        <span class="block font-bold mb-4">{{ poi_form.thumbnail.label }}</span>
+                        {% render_field poi_form.thumbnail|add_error_class:"border-red-500" class="image-field" %}
+                        <label for="{{ poi_form.thumbnail.id_for_label }}" class="w-full block text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-3 px-4 rounded cursor-pointer relative">
                             <i data-feather="upload" class="inline-block mr-2"></i>
                             <span class="standard_text">{% trans 'Set icon' %}</span>
                             <span class="filename"></span>

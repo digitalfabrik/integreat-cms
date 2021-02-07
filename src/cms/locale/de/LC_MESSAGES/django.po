@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 11:19+0000\n"
+"POT-Creation-Date: 2021-02-08 13:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -18,9 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: constants/administrative_division.py:38 templates/events/event_form.html:281
-#: templates/pois/poi_form.html:184 templates/pois/poi_list.html:66
-#: templates/pois/poi_list_archived.html:40
+#: constants/administrative_division.py:38 templates/events/event_form.html:279
+#: templates/pois/poi_list.html:66 templates/pois/poi_list_archived.html:40
 msgid "City"
 msgstr "Stadt"
 
@@ -215,8 +214,7 @@ msgid "Non-recurring events"
 msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: constants/region_status.py:16 templates/language_tree/language_tree.html:32
-#: templates/users/admin/list.html:33 templates/users/admin/user.html:82
-#: templates/users/region/list.html:28 templates/users/region/user.html:75
+#: templates/users/admin/list.html:33 templates/users/region/list.html:28
 msgid "Active"
 msgstr "Aktiv"
 
@@ -343,6 +341,14 @@ msgstr "Vierte Woche"
 msgid "The passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
+#: forms/events/event_form.py:19
+msgid "All-day"
+msgstr "Ganztägig"
+
+#: forms/events/event_form.py:21
+msgid "Recurring"
+msgstr "Wiederholend"
+
 #: forms/events/event_form.py:138
 msgid "If the event is not all-day, the start time is required"
 msgstr ""
@@ -366,29 +372,33 @@ msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
 msgid "Use of Heading 1 style not allowed."
 msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
 
-#: forms/events/recurrence_rule_form.py:81
+#: forms/events/recurrence_rule_form.py:18
+msgid "Recurrence ends"
+msgstr "Wiederholung endet"
+
+#: forms/events/recurrence_rule_form.py:83
 msgid "No recurrence frequency selected"
 msgstr "Keine Häufigkeit der Wiederholung angegeben"
 
-#: forms/events/recurrence_rule_form.py:90
+#: forms/events/recurrence_rule_form.py:92
 msgid "No weekdays for weekly recurrence selected"
 msgstr "Keine Wochentage für die wöchentliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:98
+#: forms/events/recurrence_rule_form.py:100
 msgid "No weekday for monthly recurrence selected"
 msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:105
+#: forms/events/recurrence_rule_form.py:107
 msgid "No week for monthly recurrence selected"
 msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:115
+#: forms/events/recurrence_rule_form.py:117
 msgid "If the recurrence ends, the recurrence end date is required"
 msgstr ""
 "Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
 "erforderlich"
 
-#: forms/events/recurrence_rule_form.py:128
+#: forms/events/recurrence_rule_form.py:130
 msgid "The recurrence end date has to be after the event's start date"
 msgstr "Das Ende der Wiederholung muss nach dem Veranstaltungsbeginn sein"
 
@@ -400,9 +410,25 @@ msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
 
-#: forms/regions/region_form.py:30
+#: forms/placeholder_model_form.py:54
+msgid "Enter {} here"
+msgstr "{} hier eingeben"
+
+#: forms/regions/region_form.py:31
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
+
+#: forms/users/user_form.py:66
+msgid "Leave empty to keep unchanged"
+msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
+
+#: forms/users/user_form.py:69
+#: templates/authentication/password_reset_confirm.html:22
+#: templates/authentication/password_reset_confirm.html:24
+#: templates/settings/mfa/authenticate.html:26
+#: templates/settings/mfa/authenticate.html:28 templates/settings/user.html:28
+msgid "Password"
+msgstr "Passwort"
 
 #: forms/users/user_password_form.py:84
 msgid "Your old password is not correct."
@@ -637,7 +663,7 @@ msgstr "Häufigkeit"
 msgid "How often the event recurs"
 msgstr "Wie oft sich die Veranstaltung wiederholt"
 
-#: models/events/recurrence_rule.py:25 templates/events/event_form.html:245
+#: models/events/recurrence_rule.py:25
 msgid "Repeat every ... time(s)"
 msgstr "Jedes ...-te Mal wiederholen"
 
@@ -1188,7 +1214,7 @@ msgstr "Push-Benachrichtigungen aktivieren"
 msgid "Whether or not push notifications are enabled in the region"
 msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
 
-#: models/regions/region.py:80 templates/regions/region_form.html:116
+#: models/regions/region.py:80
 msgid "Enter multiple channels separated by commas."
 msgstr "Mehrere Kanäle mit Kommata getrennt eingeben."
 
@@ -1323,8 +1349,7 @@ msgstr ""
 msgid "expert mode"
 msgstr "Expertenmodus"
 
-#: models/users/user_profile.py:49 templates/users/admin/user.html:90
-#: templates/users/region/user.html:83
+#: models/users/user_profile.py:49
 msgid ""
 "Enable this option to show up additional features like XLIFF import/export, "
 "page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag "
@@ -1380,7 +1405,7 @@ msgstr "Django Administration"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: templates/_base.html:103 templates/authentication/login.html:10
+#: templates/_base.html:103 templates/authentication/login.html:12
 #: templates/authentication/login_mfa.html:10
 #: templates/settings/mfa/add_key.html:10
 #: templates/settings/mfa/authenticate.html:10
@@ -1396,7 +1421,7 @@ msgstr "Mein Dashboard"
 msgid "Translation Report"
 msgstr "Übersetzungs-Bericht"
 
-#: templates/_base.html:118 templates/regions/region_form.html:127
+#: templates/_base.html:118 templates/regions/region_form.html:134
 #: templates/statistics/statistics_dashboard.html:8
 msgid "Statistics"
 msgstr "Statistiken"
@@ -1430,6 +1455,7 @@ msgstr "Seite erstellen"
 
 #: templates/_base.html:154 templates/events/event_list.html:23
 #: templates/feedback/region_feedback_list.html:143
+#: templates/regions/region_form.html:106
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -1509,6 +1535,7 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: templates/_base.html:245 templates/_base.html:282
+#: templates/push_notifications/push_notification_form.html:84
 #: templates/statistics/statistics_dashboard.html:62
 msgid "Settings"
 msgstr "Einstellungen"
@@ -1517,7 +1544,7 @@ msgstr "Einstellungen"
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: templates/_base.html:254 templates/users/admin/user.html:100
+#: templates/_base.html:254
 msgid "Regions"
 msgstr "Regionen"
 
@@ -1525,8 +1552,7 @@ msgstr "Regionen"
 msgid "Languages"
 msgstr "Sprachen"
 
-#: templates/_base.html:266 templates/users/admin/user.html:95
-#: templates/users/region/user.html:88
+#: templates/_base.html:266
 msgid "Roles"
 msgstr "Rollen"
 
@@ -1576,38 +1602,20 @@ msgstr "Veraltete Übersetzungen"
 msgid "Translations missing"
 msgstr "Fehlende Übersetzungen"
 
-#: templates/authentication/login.html:18
+#: templates/authentication/login.html:20
 msgid "The username or the password is incorrect."
 msgstr "Der Benutzername oder das Passwort ist falsch."
 
-#: templates/authentication/login.html:18
+#: templates/authentication/login.html:20
 #: templates/authentication/password_reset_form.html:16
 #: templates/settings/mfa/authenticate.html:18
 msgid "Please try again."
 msgstr "Bitte versuchen Sie es erneut."
 
-#: templates/authentication/login.html:25
+#: templates/authentication/login.html:27
 msgid "The default username is \"root\" with password \"root1234\"."
 msgstr ""
 "Der Standard-Benutzername ist \"root\" und hat das Passwort \"root1234\"."
-
-#: templates/authentication/login.html:29
-#: templates/authentication/login.html:31
-#: templates/pages/_page_permission_table.html:46
-#: templates/pages/_page_permission_table.html:77
-#: templates/users/admin/list.html:28 templates/users/admin/user.html:36
-#: templates/users/region/list.html:23 templates/users/region/user.html:39
-msgid "Username"
-msgstr "Benutzername"
-
-#: templates/authentication/login.html:36
-#: templates/authentication/login.html:38
-#: templates/authentication/password_reset_confirm.html:22
-#: templates/authentication/password_reset_confirm.html:24
-#: templates/settings/mfa/authenticate.html:26
-#: templates/settings/mfa/authenticate.html:28 templates/settings/user.html:28
-msgid "Password"
-msgstr "Passwort"
 
 #: templates/authentication/login.html:43
 #: templates/settings/mfa/authenticate.html:33
@@ -1757,7 +1765,6 @@ msgstr "Technisches Feedback"
 #: templates/feedback/admin_feedback_list.html:12
 #: templates/feedback/region_feedback_list.html:12
 #: templates/language_tree/language_tree.html:31
-#: templates/language_tree/language_tree_node_form.html:27
 msgid "Language"
 msgstr "Sprache"
 
@@ -1775,7 +1782,6 @@ msgid "Rating"
 msgstr "Bewertung"
 
 #: templates/dashboard/admin_dashboard.html:29
-#: templates/events/event_form.html:188
 #: templates/feedback/admin_feedback_list.html:15
 #: templates/feedback/region_feedback_list.html:15
 #: templates/media/media_list.html:23
@@ -1819,9 +1825,9 @@ msgid "Not after"
 msgstr "Nicht nach"
 
 #: templates/events/_event_filter_form.html:34
-#: templates/events/event_form.html:482 templates/imprint/imprint_form.html:330
-#: templates/imprint/imprint_sbs.html:257 templates/pages/page_form.html:486
-#: templates/pages/page_sbs.html:267 templates/pois/poi_form.html:329
+#: templates/events/event_form.html:480 templates/imprint/imprint_form.html:329
+#: templates/imprint/imprint_sbs.html:256 templates/pages/page_form.html:485
+#: templates/pages/page_sbs.html:266 templates/pois/poi_form.html:324
 msgid "Location"
 msgstr "Ort"
 
@@ -1924,232 +1930,131 @@ msgstr "Version"
 #: templates/pages/page_tree.html:69 templates/pages/page_tree_archived.html:28
 #: templates/pois/poi_form.html:136 templates/pois/poi_list.html:45
 #: templates/pois/poi_list_archived.html:28
-#: templates/regions/region_form.html:87 templates/regions/region_list.html:32
+#: templates/regions/region_list.html:32
 msgid "Status"
 msgstr "Status"
 
-#: templates/events/event_form.html:150 templates/imprint/imprint_form.html:134
-#: templates/imprint/imprint_revisions.html:60
-#: templates/imprint/imprint_revisions.html:74
-#: templates/imprint/imprint_sbs.html:77 templates/imprint/imprint_sbs.html:140
-#: templates/imprint/imprint_sbs.html:155 templates/pages/page_form.html:190
-#: templates/pages/page_revisions.html:62
-#: templates/pages/page_revisions.html:76 templates/pages/page_sbs.html:84
-#: templates/pages/page_sbs.html:157 templates/pois/poi_form.html:139
-#: templates/regions/region_form.html:53
-msgid "Permalink"
-msgstr "Permalink"
-
-#: templates/events/event_form.html:152 templates/pages/page_form.html:192
-#: templates/pages/page_sbs.html:159 templates/regions/region_form.html:55
-msgid " Leave blank to generate unique permalink from title"
-msgstr ""
-" Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
-"generieren"
-
-#: templates/events/event_form.html:163 templates/imprint/imprint_form.html:145
-#: templates/imprint/imprint_revisions.html:62
-#: templates/imprint/imprint_revisions.html:75
-#: templates/imprint/imprint_sbs.html:87 templates/imprint/imprint_sbs.html:160
-#: templates/pages/page_form.html:203 templates/pages/page_revisions.html:64
-#: templates/pages/page_revisions.html:77 templates/pages/page_sbs.html:98
-#: templates/pages/page_sbs.html:170 templates/pages/page_xliff_confirm.html:41
-#: templates/pages/page_xliff_confirm.html:48 templates/pois/poi_form.html:149
-#: templates/push_notifications/push_notification_form.html:62
-#: templates/push_notifications/push_notification_list.html:24
-msgid "Title"
-msgstr "Titel"
-
-#: templates/events/event_form.html:164 templates/imprint/imprint_form.html:146
-#: templates/imprint/imprint_sbs.html:161 templates/pages/page_form.html:204
-#: templates/pages/page_sbs.html:171 templates/pois/poi_form.html:150
-msgid "Insert title here"
-msgstr "Titel hier eingeben"
-
-#: templates/events/event_form.html:166 templates/pois/poi_form.html:155
-msgid "Description"
-msgstr "Beschreibung"
-
-#: templates/events/event_form.html:167
-msgid "Insert description here"
-msgstr "Beschreibung hier eingeben"
-
-#: templates/events/event_form.html:169 templates/imprint/imprint_form.html:151
-#: templates/imprint/imprint_sbs.html:166 templates/pages/page_form.html:209
-#: templates/pages/page_sbs.html:176 templates/pois/poi_form.html:157
+#: templates/events/event_form.html:167 templates/imprint/imprint_form.html:149
+#: templates/imprint/imprint_sbs.html:164 templates/pages/page_form.html:207
+#: templates/pages/page_sbs.html:174 templates/pois/poi_form.html:155
 msgid "Implications on other translations"
 msgstr "Auswirkungen auf andere Übersetzungen"
 
-#: templates/events/event_form.html:171 templates/imprint/imprint_form.html:153
-#: templates/imprint/imprint_sbs.html:168 templates/pages/page_form.html:211
-#: templates/pages/page_sbs.html:178 templates/pois/poi_form.html:159
-msgid "This change does not require an update of the translations"
-msgstr "Diese Änderung erfordert keine angepasste Übersetzung"
-
-#: templates/events/event_form.html:181 templates/imprint/imprint_form.html:195
-#: templates/pages/page_form.html:253 templates/pois/poi_form.html:169
+#: templates/events/event_form.html:180 templates/imprint/imprint_form.html:194
+#: templates/pages/page_form.html:252 templates/pois/poi_form.html:168
 msgid "Settings for all translations"
 msgstr "Einstellungen für alle Übersetzungen"
 
-#: templates/events/event_form.html:191 templates/events/event_form.html:205
-#: templates/events/event_list.html:85
-#: templates/events/event_list_archived.html:68
-msgid "Start"
-msgstr "Beginn"
-
-#: templates/events/event_form.html:195 templates/events/event_form.html:209
-#: templates/events/event_list.html:86
-#: templates/events/event_list_archived.html:69
-msgid "End"
-msgstr "Ende"
-
-#: templates/events/event_form.html:199
-msgid "Time"
-msgstr "Uhrzeit"
-
-#: templates/events/event_form.html:201
-msgid "All-day"
-msgstr "Ganztägig"
-
-#: templates/events/event_form.html:214
+#: templates/events/event_form.html:212
 msgid "Recurrence"
 msgstr "Wiederholung"
 
-#: templates/events/event_form.html:217
-msgid "Recurring"
-msgstr "Wiederholend"
-
-#: templates/events/event_form.html:220
-msgid "Frequency"
-msgstr "Häufigkeit"
-
-#: templates/events/event_form.html:228 templates/events/event_form.html:242
-msgid "Weekday"
-msgstr "Wochentag"
-
-#: templates/events/event_form.html:240
-msgid "Week"
-msgstr "Woche"
-
-#: templates/events/event_form.html:248
-msgid "Recurrence ends"
-msgstr "Wiederholung endet"
-
-#: templates/events/event_form.html:255
-msgid "Recurrence end date"
-msgstr "Wiederholung Enddatum"
-
-#: templates/events/event_form.html:260
+#: templates/events/event_form.html:258
 msgid "Where"
 msgstr "Wo"
 
-#: templates/events/event_form.html:262 templates/pois/poi_form.html:177
-msgid "Address"
-msgstr "Adresse"
-
-#: templates/events/event_form.html:263
+#: templates/events/event_form.html:261
 msgid "Name of event location"
 msgstr "Name des Veranstaltungsortes"
 
-#: templates/events/event_form.html:267
+#: templates/events/event_form.html:265
 msgid "Remove location from event"
 msgstr "Veranstaltungsort von Veranstaltung entfernen"
 
-#: templates/events/event_form.html:276
+#: templates/events/event_form.html:274
 msgid ""
 "Create an event location or start typing the name of an existing location"
 msgstr ""
 "Erstelle einen Veranstaltungsort oder beginne den Namen eines bestehenden "
 "Veranstaltungsortes einzutippen"
 
-#: templates/events/event_form.html:279 templates/pois/poi_form.html:178
-#: templates/pois/poi_list.html:64 templates/pois/poi_list_archived.html:38
+#: templates/events/event_form.html:277 templates/pois/poi_list.html:64
+#: templates/pois/poi_list_archived.html:38
 msgid "Street"
 msgstr "Straße"
 
-#: templates/events/event_form.html:283 templates/pois/poi_form.html:187
-#: templates/pois/poi_list.html:67 templates/pois/poi_list_archived.html:41
+#: templates/events/event_form.html:281 templates/pois/poi_list.html:67
+#: templates/pois/poi_list_archived.html:41
 msgid "Country"
 msgstr "Land"
 
-#: templates/events/event_form.html:286
+#: templates/events/event_form.html:284
 msgid "Map"
 msgstr "Karte"
 
-#: templates/events/event_form.html:289 templates/imprint/imprint_form.html:203
-#: templates/pages/page_form.html:302 templates/pois/poi_form.html:201
-#: templates/regions/region_icon_widget.html:4
+#: templates/events/event_form.html:287 templates/imprint/imprint_form.html:202
+#: templates/regions/region_icon_widget.html:5
 msgid "Icon"
 msgstr "Icon"
 
-#: templates/events/event_form.html:293 templates/imprint/imprint_form.html:207
-#: templates/organizations/organization_form.html:65
-#: templates/pages/page_form.html:306 templates/pois/poi_form.html:205
-#: templates/regions/region_icon_widget.html:15
+#: templates/events/event_form.html:291 templates/imprint/imprint_form.html:206
+#: templates/organizations/organization_form.html:63
+#: templates/pages/page_form.html:305 templates/pois/poi_form.html:200
+#: templates/regions/region_icon_widget.html:16
 msgid "Set icon"
 msgstr "Icon festlegen"
 
-#: templates/events/event_form.html:300
+#: templates/events/event_form.html:298
 #: templates/events/event_list_archived_row.html:97
 msgid "Restore event"
 msgstr "Veranstaltung wiederherstellen"
 
-#: templates/events/event_form.html:307
+#: templates/events/event_form.html:305
 msgid "Restore this event"
 msgstr "Diese Veranstaltung wiederherstellen"
 
-#: templates/events/event_form.html:310
+#: templates/events/event_form.html:308
 #: templates/events/event_list_row.html:100
 msgid "Archive event"
 msgstr "Veranstaltung archivieren"
 
-#: templates/events/event_form.html:317
+#: templates/events/event_form.html:315
 msgid "Archive this event"
 msgstr "Diese Veranstaltung archivieren"
 
-#: templates/events/event_form.html:323
+#: templates/events/event_form.html:321
 #: templates/events/event_list_archived_row.html:106
 #: templates/events/event_list_row.html:109
 msgid "Delete event"
 msgstr "Veranstaltung löschen"
 
-#: templates/events/event_form.html:330
+#: templates/events/event_form.html:328
 msgid "Delete this event"
 msgstr "Diese Veranstaltung löschen"
 
-#: templates/events/event_form.html:463 templates/imprint/imprint_form.html:311
-#: templates/imprint/imprint_sbs.html:238 templates/pages/page_form.html:450
-#: templates/pages/page_sbs.html:248 templates/pois/poi_form.html:310
+#: templates/events/event_form.html:461 templates/imprint/imprint_form.html:310
+#: templates/imprint/imprint_sbs.html:237 templates/pages/page_form.html:449
+#: templates/pages/page_sbs.html:247 templates/pois/poi_form.html:305
 msgid "Do not translate the selected text."
 msgstr "Der markierte Text wird nicht übersetzt."
 
-#: templates/events/event_form.html:489 templates/imprint/imprint_form.html:337
-#: templates/imprint/imprint_sbs.html:264 templates/pages/page_form.html:493
-#: templates/pages/page_sbs.html:274 templates/pois/poi_form.html:336
+#: templates/events/event_form.html:487 templates/imprint/imprint_form.html:336
+#: templates/imprint/imprint_sbs.html:263 templates/pages/page_form.html:492
+#: templates/pages/page_sbs.html:273 templates/pois/poi_form.html:331
 msgid "Link"
 msgstr "Link"
 
-#: templates/events/event_form.html:496 templates/imprint/imprint_form.html:344
-#: templates/imprint/imprint_sbs.html:271 templates/pages/page_form.html:500
-#: templates/pages/page_sbs.html:281 templates/pois/poi_form.html:343
+#: templates/events/event_form.html:494 templates/imprint/imprint_form.html:343
+#: templates/imprint/imprint_sbs.html:270 templates/pages/page_form.html:499
+#: templates/pages/page_sbs.html:280 templates/pois/poi_form.html:338
 msgid "Phone"
 msgstr "Telefon"
 
-#: templates/events/event_form.html:503 templates/imprint/imprint_form.html:351
-#: templates/imprint/imprint_sbs.html:278 templates/pages/page_form.html:507
-#: templates/pages/page_sbs.html:288 templates/pois/poi_form.html:350
+#: templates/events/event_form.html:501 templates/imprint/imprint_form.html:350
+#: templates/imprint/imprint_sbs.html:277 templates/pages/page_form.html:506
+#: templates/pages/page_sbs.html:287 templates/pois/poi_form.html:345
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
-#: templates/events/event_form.html:510 templates/imprint/imprint_form.html:358
-#: templates/imprint/imprint_sbs.html:285 templates/pages/page_form.html:514
-#: templates/pages/page_sbs.html:295 templates/pois/poi_form.html:357
+#: templates/events/event_form.html:508 templates/imprint/imprint_form.html:357
+#: templates/imprint/imprint_sbs.html:284 templates/pages/page_form.html:513
+#: templates/pages/page_sbs.html:294 templates/pois/poi_form.html:352
 msgid "Email"
 msgstr "Email"
 
-#: templates/events/event_form.html:517 templates/imprint/imprint_form.html:365
-#: templates/imprint/imprint_sbs.html:292 templates/pages/page_form.html:521
-#: templates/pages/page_sbs.html:302 templates/pois/poi_form.html:364
+#: templates/events/event_form.html:515 templates/imprint/imprint_form.html:364
+#: templates/imprint/imprint_sbs.html:291 templates/pages/page_form.html:520
+#: templates/pages/page_sbs.html:301 templates/pois/poi_form.html:359
 msgid "Hint"
 msgstr "Tipp"
 
@@ -2169,6 +2074,16 @@ msgstr "Veranstaltungen filtern"
 #: templates/pois/poi_list_archived.html:26
 msgid "ID"
 msgstr "ID"
+
+#: templates/events/event_list.html:85
+#: templates/events/event_list_archived.html:68
+msgid "Start"
+msgstr "Beginn"
+
+#: templates/events/event_list.html:86
+#: templates/events/event_list_archived.html:69
+msgid "End"
+msgstr "Ende"
 
 #: templates/events/event_list.html:87
 #: templates/events/event_list_archived.html:70
@@ -2309,6 +2224,17 @@ msgstr "Revision"
 msgid "Show revisions"
 msgstr "Revisionen anzeigen"
 
+#: templates/imprint/imprint_form.html:134
+#: templates/imprint/imprint_revisions.html:60
+#: templates/imprint/imprint_revisions.html:74
+#: templates/imprint/imprint_sbs.html:77 templates/imprint/imprint_sbs.html:140
+#: templates/imprint/imprint_sbs.html:155
+#: templates/pages/page_revisions.html:62
+#: templates/pages/page_revisions.html:76 templates/pages/page_sbs.html:84
+#: templates/pages/page_sbs.html:157
+msgid "Permalink"
+msgstr "Permalink"
+
 #: templates/imprint/imprint_form.html:136
 #: templates/imprint/imprint_form.html:141
 #: templates/imprint/imprint_sbs.html:79 templates/imprint/imprint_sbs.html:84
@@ -2323,83 +2249,66 @@ msgstr "In die Zwischenablage kopieren"
 msgid "Short URL"
 msgstr "Kurz-URL"
 
-#: templates/imprint/imprint_form.html:148
-#: templates/imprint/imprint_revisions.html:64
-#: templates/imprint/imprint_revisions.html:76
-#: templates/imprint/imprint_sbs.html:90 templates/imprint/imprint_sbs.html:163
-#: templates/pages/page_form.html:206 templates/pages/page_revisions.html:66
-#: templates/pages/page_revisions.html:78 templates/pages/page_sbs.html:101
-#: templates/pages/page_sbs.html:173 templates/pages/page_xliff_confirm.html:50
-#: templates/push_notifications/push_notification_form.html:67
-msgid "Content"
-msgstr "Inhalt"
-
-#: templates/imprint/imprint_form.html:149
-#: templates/imprint/imprint_sbs.html:164 templates/pages/page_form.html:207
-#: templates/pages/page_sbs.html:174
-msgid "Insert content here"
-msgstr "Inhalt hier eingeben"
-
-#: templates/imprint/imprint_form.html:164 templates/pages/page_form.html:222
+#: templates/imprint/imprint_form.html:163 templates/pages/page_form.html:221
 msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
-#: templates/imprint/imprint_form.html:171 templates/pages/page_form.html:229
+#: templates/imprint/imprint_form.html:170 templates/pages/page_form.html:228
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
-#: templates/imprint/imprint_form.html:185 templates/pages/page_form.html:243
+#: templates/imprint/imprint_form.html:184 templates/pages/page_form.html:242
 msgid "Show translations side by side"
 msgstr "Übersetzungen nebeneinander anzeigen"
 
+#: templates/imprint/imprint_form.html:212
 #: templates/imprint/imprint_form.html:213
-#: templates/imprint/imprint_form.html:214
 msgid "Restore imprint"
 msgstr "Impressum wiederherstellen"
 
-#: templates/imprint/imprint_form.html:215
+#: templates/imprint/imprint_form.html:214
 msgid "Please confirm that you really want to restore the imprint"
 msgstr "Bitte bestätigen Sie, dass das Impressum wiederhergestellt werden soll"
 
-#: templates/imprint/imprint_form.html:216
+#: templates/imprint/imprint_form.html:215
 msgid "All translations of the imprint will also be restored."
 msgstr "Alle Übersetzungen des Impressums werden wiederhergestellt."
 
-#: templates/imprint/imprint_form.html:220
+#: templates/imprint/imprint_form.html:219
 msgid "Restore the imprint"
 msgstr "Das Impressum wiederherstellen"
 
+#: templates/imprint/imprint_form.html:222
 #: templates/imprint/imprint_form.html:223
-#: templates/imprint/imprint_form.html:224
 msgid "Archive imprint"
 msgstr "Impressum archivieren"
 
-#: templates/imprint/imprint_form.html:225
+#: templates/imprint/imprint_form.html:224
 msgid "Please confirm that you really want to archive the imprint"
 msgstr "Bitte bestätigen Sie, dass das Impressum archiviert werden soll."
 
-#: templates/imprint/imprint_form.html:226
+#: templates/imprint/imprint_form.html:225
 msgid "All translations of the imprint will also be archived."
 msgstr "Es werden auch alle Übersetzungen des Impressums archiviert."
 
-#: templates/imprint/imprint_form.html:230
+#: templates/imprint/imprint_form.html:229
 msgid "Archive the imprint"
 msgstr "Das Impressum archivieren"
 
+#: templates/imprint/imprint_form.html:235
 #: templates/imprint/imprint_form.html:236
-#: templates/imprint/imprint_form.html:237
 msgid "Delete imprint"
 msgstr "Impressum löschen"
 
-#: templates/imprint/imprint_form.html:238
+#: templates/imprint/imprint_form.html:237
 msgid "Please confirm that you really want to delete the imprint"
 msgstr "Bitte bestätigen Sie, dass das Impressum gelöscht werden soll"
 
-#: templates/imprint/imprint_form.html:239
+#: templates/imprint/imprint_form.html:238
 msgid "All translations of the imprint will also be deleted."
 msgstr "Alle Übersetzungen des Impressums werden gelöscht."
 
-#: templates/imprint/imprint_form.html:243
+#: templates/imprint/imprint_form.html:242
 msgid "Delete the imprint"
 msgstr "Das Impressum löschen"
 
@@ -2421,6 +2330,24 @@ msgstr "Diese Revision wird <b>nicht</b> in den Apps angezeigt."
 #: templates/pages/page_revisions.html:52
 msgid "Editor"
 msgstr "Bearbeiter"
+
+#: templates/imprint/imprint_revisions.html:62
+#: templates/imprint/imprint_revisions.html:75
+#: templates/imprint/imprint_sbs.html:87 templates/pages/page_revisions.html:64
+#: templates/pages/page_revisions.html:77 templates/pages/page_sbs.html:98
+#: templates/pages/page_xliff_confirm.html:41
+#: templates/pages/page_xliff_confirm.html:48
+#: templates/push_notifications/push_notification_list.html:24
+msgid "Title"
+msgstr "Titel"
+
+#: templates/imprint/imprint_revisions.html:64
+#: templates/imprint/imprint_revisions.html:76
+#: templates/imprint/imprint_sbs.html:90 templates/pages/page_revisions.html:66
+#: templates/pages/page_revisions.html:78 templates/pages/page_sbs.html:101
+#: templates/pages/page_xliff_confirm.html:50
+msgid "Content"
+msgstr "Inhalt"
 
 #: templates/imprint/imprint_revisions.html:81
 #: templates/pages/page_revisions.html:85
@@ -2493,18 +2420,10 @@ msgstr "Sprache hinzufügen"
 #: templates/offer_templates/offer_template_form.html:22
 #: templates/organizations/organization_form.html:21
 #: templates/push_notifications/push_notification_form.html:38
-#: templates/regions/region_form.html:21 templates/roles/role.html:21
+#: templates/regions/region_form.html:23 templates/roles/role.html:21
 #: templates/users/admin/user.html:21 templates/users/region/user.html:24
 msgid "Save"
 msgstr "Speichern"
-
-#: templates/language_tree/language_tree_node_form.html:36
-msgid "Source Language"
-msgstr "Quell-Sprache"
-
-#: templates/language_tree/language_tree_node_form.html:46
-msgid "Activate language"
-msgstr "Sprache aktivieren"
 
 #: templates/languages/language_form.html:13
 #, python-format
@@ -2514,49 +2433,6 @@ msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
 #: templates/languages/language_form.html:16
 msgid "Create new language"
 msgstr "Neue Sprache erstellen"
-
-#: templates/languages/language_form.html:29
-msgid "Name in English"
-msgstr "Name auf Englisch"
-
-#: templates/languages/language_form.html:30
-msgid "Enter the language's name in english here"
-msgstr "Name der Sprache auf Englisch hier eingeben"
-
-#: templates/languages/language_form.html:34
-#: templates/languages/language_list.html:26
-msgid "Native name"
-msgstr "Nativer Name"
-
-#: templates/languages/language_form.html:35
-msgid "Enter the language's native name here"
-msgstr "Nativen Name der Sprache hier eingeben"
-
-#: templates/languages/language_form.html:39
-#: templates/languages/language_list.html:27
-msgid "Code"
-msgstr "Code"
-
-#: templates/languages/language_form.html:40
-msgid "Enter the language's code here"
-msgstr "Sprach-Code hier eingeben"
-
-#: templates/languages/language_form.html:44
-#: templates/languages/language_list.html:28
-msgid "Text direction"
-msgstr "Schreibrichtung"
-
-#: templates/languages/language_form.html:45
-msgid "Select text direction here"
-msgstr "Schreibrichtung auswählen"
-
-#: templates/languages/language_form.html:49
-msgid "PDF title"
-msgstr "PDF Titelüberschrift"
-
-#: templates/languages/language_form.html:50
-msgid "Select the native name for the PDF title here"
-msgstr "Native Bezeichnung für PDF Titelüberschrift hier eingeben"
 
 #: templates/languages/language_list.html:9
 msgid "Manage Languages"
@@ -2569,6 +2445,18 @@ msgstr "Sprache hinzufügen"
 #: templates/languages/language_list.html:25
 msgid "Name in"
 msgstr "Name auf"
+
+#: templates/languages/language_list.html:26
+msgid "Native name"
+msgstr "Nativer Name"
+
+#: templates/languages/language_list.html:27
+msgid "Code"
+msgstr "Code"
+
+#: templates/languages/language_list.html:28
+msgid "Text direction"
+msgstr "Schreibrichtung"
 
 #: templates/languages/language_list.html:29
 #: templates/offer_templates/offer_template_list.html:28
@@ -2625,63 +2513,17 @@ msgstr "Erstellen"
 
 #: templates/offer_templates/offer_template_form.html:34
 #: templates/organizations/organization_form.html:30
-#: templates/regions/region_form.html:30 templates/users/admin/user.html:31
+#: templates/regions/region_form.html:32 templates/users/admin/user.html:31
 #: templates/users/region/user.html:34
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: templates/offer_templates/offer_template_form.html:39
-msgid "Offer name"
-msgstr "Name des Angebots"
-
-#: templates/offer_templates/offer_template_form.html:40
-msgid "Enter the offer's name here"
-msgstr "Name des Angebots hier eingeben"
-
-#: templates/offer_templates/offer_template_form.html:43
-msgid "Slug of the offer"
-msgstr "Alias des Angebots"
-
-#: templates/offer_templates/offer_template_form.html:44
-msgid "Leave blank to generate unique slug from name"
-msgstr ""
-"Dieses Feld freilassen, um einen eindeutigen Alias aus dem Namen zu "
-"generieren"
-
-#: templates/offer_templates/offer_template_form.html:47
-msgid "URL of the offer"
-msgstr "URL des Angebots"
-
-#: templates/offer_templates/offer_template_form.html:48
-msgid "Enter the offer's url here"
-msgstr "URL des Angebots hier eingeben"
-
-#: templates/offer_templates/offer_template_form.html:51
-msgid "Thumbnail of the offer"
-msgstr "Thumbnail des Angebots"
-
-#: templates/offer_templates/offer_template_form.html:52
-msgid "Enter the offer's thumbnail here"
-msgstr "URL des Angebots-Thumbnails hier eingeben"
-
-#: templates/offer_templates/offer_template_form.html:60
-#: templates/organizations/organization_form.html:53
-#: templates/regions/region_form.html:100 templates/users/admin/user.html:67
-#: templates/users/region/user.html:70
+#: templates/offer_templates/offer_template_form.html:59
+#: templates/organizations/organization_form.html:51
+#: templates/regions/region_form.html:102 templates/users/admin/user.html:62
+#: templates/users/region/user.html:65
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
-
-#: templates/offer_templates/offer_template_form.html:63
-msgid "Post data of the offer in JSON (optional)"
-msgstr "Post-Parameter des Angebots im JSON-Formt (optional)"
-
-#: templates/offer_templates/offer_template_form.html:64
-msgid "Enter the offer's post data in JSON here"
-msgstr "Post-Parameter des Angebots hier im JSON-Formt eingeben"
-
-#: templates/offer_templates/offer_template_form.html:71
-msgid "Does the offer make use of its region's postal code?"
-msgstr "Verwendet das Angebot die PLZ seiner Region?"
 
 #: templates/offer_templates/offer_template_list.html:9
 msgid "Offer Templates"
@@ -2734,30 +2576,6 @@ msgstr "Organisation \"%(organization_name)s\" bearbeiten"
 msgid "Create new organization"
 msgstr "Neue Organisation erstellen"
 
-#: templates/organizations/organization_form.html:35
-msgid "Organizationname"
-msgstr "Organisationsname"
-
-#: templates/organizations/organization_form.html:36
-msgid "Enter the organization's name here"
-msgstr "Name der Organisation hier eingeben"
-
-#: templates/organizations/organization_form.html:39
-msgid "Slug of the organization"
-msgstr "Slug der Organisation"
-
-#: templates/organizations/organization_form.html:40
-msgid "Enter the organization's slug here"
-msgstr "URL-Parameter der Organisation hier eingeben"
-
-#: templates/organizations/organization_form.html:43
-msgid "Thumbnail of the organization"
-msgstr "Thumbnail der Organisation"
-
-#: templates/organizations/organization_form.html:44
-msgid "Enter the organization's thumbnail here"
-msgstr "Name der Organisations-Thumbnail hier eingeben"
-
 #: templates/organizations/organization_list.html:9
 msgid "Manage Organizations"
 msgstr "Organisationen"
@@ -2786,6 +2604,12 @@ msgstr "Bearbeiter"
 msgid "These users can edit this page, but are not allowed to publish it."
 msgstr ""
 "Diese Benutzer können die Seite bearbeiten, aber nicht veröffentlichen."
+
+#: templates/pages/_page_permission_table.html:46
+#: templates/pages/_page_permission_table.html:77
+#: templates/users/admin/list.html:28 templates/users/region/list.html:23
+msgid "Username"
+msgstr "Benutzername"
 
 #: templates/pages/_page_permission_table.html:55
 msgid "Add to editors"
@@ -2829,27 +2653,23 @@ msgstr "Übersetzung wird durchgeführt"
 msgid "Abort translation process"
 msgstr "Übersetzungsprozess abbrechen"
 
-#: templates/pages/page_form.html:260
+#: templates/pages/page_form.html:259
 msgid "Positioning"
 msgstr "Anordnung"
 
-#: templates/pages/page_form.html:261
-msgid "Parent Page"
-msgstr "Übergeordnete Seite"
-
-#: templates/pages/page_form.html:270
+#: templates/pages/page_form.html:269
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: templates/pages/page_form.html:276
+#: templates/pages/page_form.html:275
 msgid "Embed live content"
 msgstr "Live-Inhalte einbinden"
 
-#: templates/pages/page_form.html:295
+#: templates/pages/page_form.html:294
 msgid "Additional permissions for this page"
 msgstr "Zusätzliche Berechtigungen für diese Seite"
 
-#: templates/pages/page_form.html:296
+#: templates/pages/page_form.html:295
 msgid ""
 "This affects only users, who don't have the permission to change arbitrary "
 "pages anyway."
@@ -2857,17 +2677,17 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: templates/pages/page_form.html:313 templates/pages/page_form.html:314
-#: templates/pages/page_form.html:322
+#: templates/pages/page_form.html:312 templates/pages/page_form.html:313
+#: templates/pages/page_form.html:321
 #: templates/pages/page_tree_archived_node.html:94
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: templates/pages/page_form.html:319
+#: templates/pages/page_form.html:318
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: templates/pages/page_form.html:325
+#: templates/pages/page_form.html:324
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -2878,28 +2698,28 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: templates/pages/page_form.html:338 templates/pages/page_form.html:339
+#: templates/pages/page_form.html:337 templates/pages/page_form.html:338
 #: templates/pages/page_tree_node.html:115
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: templates/pages/page_form.html:345
+#: templates/pages/page_form.html:344
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: templates/pages/page_form.html:351 templates/pages/page_form.html:369
+#: templates/pages/page_form.html:350 templates/pages/page_form.html:368
 #: templates/pages/page_tree_archived_node.html:112
 #: templates/pages/page_tree_node.html:128
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: templates/pages/page_form.html:355
+#: templates/pages/page_form.html:354
 #: templates/pages/page_tree_archived_node.html:108
 #: templates/pages/page_tree_node.html:124 views/pages/page_actions.py:203
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: templates/pages/page_form.html:356
+#: templates/pages/page_form.html:355
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -2910,7 +2730,7 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: templates/pages/page_form.html:375
+#: templates/pages/page_form.html:374
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
@@ -2935,6 +2755,12 @@ msgid ""
 msgstr ""
 "Übersetze \"%(page_title)s\" von %(source_language)s nach "
 "%(target_language_name)s"
+
+#: templates/pages/page_sbs.html:159
+msgid " Leave blank to generate unique permalink from title"
+msgstr ""
+" Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
+"generieren"
 
 #: templates/pages/page_tree.html:22
 msgid "Archived pages"
@@ -3098,90 +2924,49 @@ msgstr "Neue Übersetzung des Ortes erstellen"
 msgid "Create new location"
 msgstr "Neuen Ort erstellen"
 
-#: templates/pois/poi_form.html:141
-msgid " Leave blank to derive from title"
-msgstr " Freilassen, um vom Titel abzuleiten"
+#: templates/pois/poi_form.html:176
+msgid "Address"
+msgstr "Adresse"
 
-#: templates/pois/poi_form.html:152
-msgid "Short description"
-msgstr "Kurzbeschreibung"
-
-#: templates/pois/poi_form.html:153
-msgid "Insert short description here"
-msgstr "Kurzbeschreibung hier eingeben"
-
-#: templates/pois/poi_form.html:179
-msgid "Insert street here"
-msgstr "Straße hier eingeben"
-
-#: templates/pois/poi_form.html:181 templates/pois/poi_list.html:65
-#: templates/pois/poi_list_archived.html:39
-msgid "Postal Code"
-msgstr "Postleitzahl"
-
-#: templates/pois/poi_form.html:182
-msgid "Insert postal code here"
-msgstr "Postleitzahl hier eingeben"
-
-#: templates/pois/poi_form.html:185
-msgid "Insert city here"
-msgstr "Stadt hier eingeben"
-
-#: templates/pois/poi_form.html:188
-msgid "Insert country here"
-msgstr "Land hier eingeben"
-
-#: templates/pois/poi_form.html:192
+#: templates/pois/poi_form.html:187
 msgid "Position"
 msgstr "Position"
 
-#: templates/pois/poi_form.html:193 templates/regions/region_form.html:75
-msgid "Longitude"
-msgstr "Geographische Länge"
-
-#: templates/pois/poi_form.html:194
-msgid "Insert longitude here"
-msgstr "Geographische Länge hier eingeben"
-
-#: templates/pois/poi_form.html:196 templates/regions/region_form.html:72
-msgid "Latitude"
-msgstr "Geographische Breite"
-
-#: templates/pois/poi_form.html:197
-msgid "Insert latitude here"
-msgstr "Geographische Breite hier eingeben"
-
-#: templates/pois/poi_form.html:212 templates/pois/poi_form.html:213
+#: templates/pois/poi_form.html:207 templates/pois/poi_form.html:208
 #: templates/pois/poi_list_archived_row.html:58
 msgid "Restore location"
 msgstr "Ort wiederherstellen"
 
-#: templates/pois/poi_form.html:218
+#: templates/pois/poi_form.html:213
 msgid "Restore this location"
 msgstr "Diesen Ort wiederherstellen"
 
-#: templates/pois/poi_form.html:221 templates/pois/poi_form.html:222
+#: templates/pois/poi_form.html:216 templates/pois/poi_form.html:217
 #: templates/pois/poi_list_row.html:92
 msgid "Archive location"
 msgstr "Ort archivieren"
 
-#: templates/pois/poi_form.html:227
+#: templates/pois/poi_form.html:222
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
-#: templates/pois/poi_form.html:233 templates/pois/poi_form.html:234
+#: templates/pois/poi_form.html:228 templates/pois/poi_form.html:229
 #: templates/pois/poi_list_archived_row.html:66
 #: templates/pois/poi_list_row.html:100
 msgid "Delete location"
 msgstr "Ort löschen"
 
-#: templates/pois/poi_form.html:239
+#: templates/pois/poi_form.html:234
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
 #: templates/pois/poi_list.html:16 templates/pois/poi_list_archived.html:11
 msgid "Archived locations"
 msgstr "Archivierte Orte"
+
+#: templates/pois/poi_list.html:65 templates/pois/poi_list_archived.html:39
+msgid "Postal Code"
+msgstr "Postleitzahl"
 
 #: templates/pois/poi_list.html:78
 msgid "No locations available yet."
@@ -3208,18 +2993,6 @@ msgstr "Neue Push-Benachrichtigung verfassen"
 msgid "Save & Send"
 msgstr "Speichern & Senden"
 
-#: templates/push_notifications/push_notification_form.html:63
-msgid "Insert title"
-msgstr "Titel eingeben"
-
-#: templates/push_notifications/push_notification_form.html:68
-msgid "Insert content"
-msgstr "Inhalt eingeben"
-
-#: templates/push_notifications/push_notification_form.html:97
-msgid "Mode"
-msgstr "Modus"
-
 #: templates/push_notifications/push_notification_list.html:27
 msgid "Channel"
 msgstr "Kanal"
@@ -3232,152 +3005,67 @@ msgstr "Gesendet"
 msgid "No push notifications available yet."
 msgstr "Noch keine Push-Benachrichtigungen vorhanden."
 
-#: templates/regions/region_form.html:13
+#: templates/regions/region_form.html:15
 #, python-format
 msgid "Edit region \"%(region_name)s\""
 msgstr "Region \"%(region_name)s\" bearbeiten"
 
-#: templates/regions/region_form.html:16
+#: templates/regions/region_form.html:18
 msgid "Create new region"
 msgstr "Neue Region erstellen"
 
-#: templates/regions/region_form.html:35 templates/regions/region_list.html:28
-msgid "Administrative division"
-msgstr "Verwaltungseinheit"
+#: templates/regions/region_form.html:113
+msgid "Author chat"
+msgstr "Autoren-Chat"
 
-#: templates/regions/region_form.html:43
-msgid "Name of the region"
-msgstr "Name der Region"
+#: templates/regions/region_form.html:121
+msgid "Push notifications"
+msgstr "Push-Benachrichtigungen"
 
-#: templates/regions/region_form.html:44
-msgid "Enter the region's name here"
-msgstr "Name der Region hier eingeben"
-
-#: templates/regions/region_form.html:46
-msgid "Common Region Identifier"
-msgstr "Gemeindeschlüssel"
-
-#: templates/regions/region_form.html:48
-msgid "Region aliases"
-msgstr "Alternativnamen der Region"
-
-#: templates/regions/region_form.html:49
-msgid ""
-"Aliases JSON object. If empty, the CMS will try to fill this automatically."
-msgstr "Aliases JSON. Wird, wenn leer, automatisch vom CMS befüllt."
-
-#: templates/regions/region_form.html:50
-msgid "Enter region aliases here"
-msgstr "Alternativnamen der Region"
-
-#: templates/regions/region_form.html:64
-msgid "E-mail-address of the administrator"
-msgstr "E-Mail-Adresse des Administrators"
-
-#: templates/regions/region_form.html:65
-msgid "Enter the administrator's e-mail-address here"
-msgstr "E-Mail-Adresse des Benutzers hier eingeben"
-
-#: templates/regions/region_form.html:69
-msgid "Postal code"
-msgstr "Postleitzahl"
-
-#: templates/regions/region_form.html:70
-msgid "Enter postal code here"
-msgstr "Postleitzahl hier eingeben"
-
-#: templates/regions/region_form.html:73
-msgid "Enter latitude here"
-msgstr "Geographische Breite hier eingeben"
-
-#: templates/regions/region_form.html:76
-msgid "Enter longitude here"
-msgstr "Geographische Länge hier eingeben"
-
-#: templates/regions/region_form.html:105
-msgid "Activate events"
-msgstr "Veranstaltungen aktivieren"
-
-#: templates/regions/region_form.html:111
-msgid "Activate push notifications"
-msgstr "Push-Benachrichtigungen aktivieren"
-
-#: templates/regions/region_form.html:115
-msgid "Push notification channels"
-msgstr "Push-Benachrichtigungskanäle"
-
-#: templates/regions/region_form.html:117
-msgid "Enter push notification channels here"
-msgstr "Push-Benachrichtigungskanäle hier eingeben"
-
-#: templates/regions/region_form.html:122
-msgid "Activate author chat"
-msgstr "Author-Chat aktivieren"
-
-#: templates/regions/region_form.html:129
-msgid "Activate statistics"
-msgstr "Statistiken aktivieren"
-
-#: templates/regions/region_form.html:133
-msgid "Activate SSL verification for Matomo"
-msgstr "SSL-Verifikation für Matomo aktivieren"
-
-#: templates/regions/region_form.html:137
-msgid "Enter URL for Matomo here"
-msgstr "Matomo-URL hier eingeben"
-
-#: templates/regions/region_form.html:141
-msgid "Enter token for Matomo here"
-msgstr "Matomo-Token hier eingeben"
-
-#: templates/regions/region_form.html:146
+#: templates/regions/region_form.html:158
 msgid "Page permissions"
 msgstr "Seiten-Berechtigungen"
 
-#: templates/regions/region_form.html:148
-msgid "Activate permissions for specific pages"
-msgstr "Zusätzliche Berechtigungen für bestimmte Seiten aktivieren"
-
-#: templates/regions/region_form.html:158
+#: templates/regions/region_form.html:171
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: templates/regions/region_form.html:161
+#: templates/regions/region_form.html:174
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: templates/regions/region_form.html:174
+#: templates/regions/region_form.html:187
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: templates/regions/region_form.html:175
+#: templates/regions/region_form.html:188
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: templates/regions/region_form.html:176
+#: templates/regions/region_form.html:189
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/regions/region_form.html:176
+#: templates/regions/region_form.html:189
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: templates/regions/region_form.html:176
+#: templates/regions/region_form.html:189
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: templates/regions/region_form.html:180
+#: templates/regions/region_form.html:193
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
-#: templates/regions/region_icon_widget.html:18
+#: templates/regions/region_icon_widget.html:19
 msgid "No icon selected"
 msgstr "Kein Icon ausgewählt"
 
-#: templates/regions/region_icon_widget.html:21
+#: templates/regions/region_icon_widget.html:22
 msgid "Clear"
 msgstr "Löschen"
 
@@ -3388,6 +3076,10 @@ msgstr "Regionen"
 #: templates/regions/region_list.html:18
 msgid "Create region"
 msgstr "Region erstellen"
+
+#: templates/regions/region_list.html:28
+msgid "Administrative division"
+msgstr "Verwaltungseinheit"
 
 #: templates/regions/region_list.html:42
 msgid "No regions available yet."
@@ -3658,16 +3350,15 @@ msgstr "Vorname"
 msgid "Last Name"
 msgstr "Nachname"
 
-#: templates/users/admin/list.html:32 templates/users/admin/user.html:105
-#: templates/users/region/list.html:27 templates/users/region/user.html:93
+#: templates/users/admin/list.html:32 templates/users/region/list.html:27
 msgid "Organization"
 msgstr "Organisation"
 
-#: templates/users/admin/list.html:34 templates/users/admin/user.html:77
+#: templates/users/admin/list.html:34
 msgid "Staff"
 msgstr "Mitarbeiter"
 
-#: templates/users/admin/list.html:35 templates/users/admin/user.html:72
+#: templates/users/admin/list.html:35
 msgid "Superuser"
 msgstr "Super-Administrator"
 
@@ -3684,72 +3375,28 @@ msgstr "Benutzer \"%(user_name)s\" bearbeiten"
 msgid "Create new user"
 msgstr "Neuen Benutzer erstellen"
 
-#: templates/users/admin/user.html:37 templates/users/region/user.html:40
-msgid "Enter the username here"
-msgstr "Name des Benutzers hier eingeben"
-
-#: templates/users/admin/user.html:40 templates/users/region/user.html:43
-msgid "First name of the user"
-msgstr "Vorname des Benutzers"
-
-#: templates/users/admin/user.html:41 templates/users/region/user.html:44
-msgid "Enter the user's first name here"
-msgstr "Vorname des Benutzers hier eingeben"
-
-#: templates/users/admin/user.html:44 templates/users/region/user.html:47
-msgid "Last name of the user"
-msgstr "Nachname des Benutzers"
-
-#: templates/users/admin/user.html:45 templates/users/region/user.html:48
-msgid "Enter the user's last name here"
-msgstr "Nachname des Benutzers hier eingeben"
-
-#: templates/users/admin/user.html:48 templates/users/region/user.html:51
-msgid "E-mail-address of the user"
-msgstr "E-Mail-Adresse des Benutzers"
-
-#: templates/users/admin/user.html:49 templates/users/region/user.html:52
-msgid "Enter the user's e-mail-address here"
-msgstr "E-Mail-Adresse des Benutzers hier eingeben"
-
-#: templates/users/admin/user.html:52 templates/users/region/user.html:55
-msgid "Password of the user"
-msgstr "Passwort des Benutzers"
-
-#: templates/users/admin/user.html:58 templates/users/region/user.html:61
-msgid "Leave empty to keep unchanged"
-msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
-
-#: templates/users/admin/user.html:58 templates/users/region/user.html:61
-msgid "Enter the user's password here"
-msgstr "Passwort des Benutzers hier eingeben"
-
-#: templates/users/admin/user.html:87 templates/users/region/user.html:80
-msgid "Expert mode"
-msgstr "Expertenmodus"
-
-#: templates/users/admin/user.html:115 templates/users/region/user.html:109
+#: templates/users/admin/user.html:108 templates/users/region/user.html:102
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: templates/users/admin/user.html:116 templates/users/region/user.html:104
+#: templates/users/admin/user.html:109 templates/users/region/user.html:97
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
-#: templates/users/admin/user.html:117 templates/users/region/user.html:105
+#: templates/users/admin/user.html:110 templates/users/region/user.html:98
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/users/admin/user.html:121 templates/users/region/user.html:103
+#: templates/users/admin/user.html:114 templates/users/region/user.html:96
 msgid "Delete this user"
 msgstr "Diesen Benutzer löschen"
 
-#: templates/users/region/user.html:114
+#: templates/users/region/user.html:107
 #, python-format
 msgid "Remove this user from region %(region)s"
 msgstr "Diesen Benutzer von Region %(region)s entfernen"
 
-#: templates/users/region/user.html:115
+#: templates/users/region/user.html:108
 #, python-format
 msgid ""
 "Please confirm that you really want to remove this user from region "
@@ -3758,11 +3405,11 @@ msgstr ""
 "Bitte bestätigen Sie, dass dieser Benutzer von der Region %(region)s "
 "entfernt werden soll."
 
-#: templates/users/region/user.html:116
+#: templates/users/region/user.html:109
 msgid "The user will keep access to the following regions:"
 msgstr "Der Benutzer wird den Zugang zu folgenden Regionen behalten:"
 
-#: templates/users/region/user.html:120
+#: templates/users/region/user.html:113
 msgid "Remove user from region"
 msgstr "Benutzer von Region entfernen"
 
@@ -4483,8 +4130,285 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
+#~ msgid "Insert title here"
+#~ msgstr "Titel hier eingeben"
+
+#~ msgid "Insert content here"
+#~ msgstr "Inhalt hier eingeben"
+
+#~ msgid "This change does not require an update of the translations"
+#~ msgstr "Diese Änderung erfordert keine angepasste Übersetzung"
+
+#~ msgid "Frequency"
+#~ msgstr "Häufigkeit"
+
+#~ msgid "Weekday"
+#~ msgstr "Wochentag"
+
+#~ msgid "Week"
+#~ msgstr "Woche"
+
+#~ msgid "Recurrence end date"
+#~ msgstr "Wiederholung Enddatum"
+
+#~ msgid "Common Region Identifier"
+#~ msgstr "Gemeindeschlüssel"
+
+#~ msgid "Region aliases"
+#~ msgstr "Alternativnamen der Region"
+
+#~ msgid ""
+#~ "Aliases JSON object. If empty, the CMS will try to fill this "
+#~ "automatically."
+#~ msgstr "Aliases JSON. Wird, wenn leer, automatisch vom CMS befüllt."
+
+#~ msgid "Enter region aliases here"
+#~ msgstr "Alternativnamen der Region"
+
+#~ msgid "E-mail-address of the administrator"
+#~ msgstr "E-Mail-Adresse des Administrators"
+
+#~ msgid "Enter the administrator's e-mail-address here"
+#~ msgstr "E-Mail-Adresse des Benutzers hier eingeben"
+
+#~ msgid "Postal code"
+#~ msgstr "Postleitzahl"
+
+#~ msgid "Enter postal code here"
+#~ msgstr "Postleitzahl hier eingeben"
+
+#~ msgid "Enter latitude here"
+#~ msgstr "Geographische Breite hier eingeben"
+
+#~ msgid "Enter longitude here"
+#~ msgstr "Geographische Länge hier eingeben"
+
+#~ msgid "Activate events"
+#~ msgstr "Veranstaltungen aktivieren"
+
+#~ msgid "Activate push notifications"
+#~ msgstr "Push-Benachrichtigungen aktivieren"
+
+#~ msgid "Push notification channels"
+#~ msgstr "Push-Benachrichtigungskanäle"
+
+#~ msgid "Enter push notification channels here"
+#~ msgstr "Push-Benachrichtigungskanäle hier eingeben"
+
+#~ msgid "Activate author chat"
+#~ msgstr "Author-Chat aktivieren"
+
+#~ msgid "Activate statistics"
+#~ msgstr "Statistiken aktivieren"
+
+#~ msgid "Activate SSL verification for Matomo"
+#~ msgstr "SSL-Verifikation für Matomo aktivieren"
+
+#~ msgid "Enter URL for Matomo here"
+#~ msgstr "Matomo-URL hier eingeben"
+
+#~ msgid "Enter token for Matomo here"
+#~ msgstr "Matomo-Token hier eingeben"
+
+#~ msgid "Enter the username here"
+#~ msgstr "Name des Benutzers hier eingeben"
+
+#~ msgid "First name of the user"
+#~ msgstr "Vorname des Benutzers"
+
+#~ msgid "Enter the user's first name here"
+#~ msgstr "Vorname des Benutzers hier eingeben"
+
+#~ msgid "Last name of the user"
+#~ msgstr "Nachname des Benutzers"
+
+#~ msgid "Enter the user's last name here"
+#~ msgstr "Nachname des Benutzers hier eingeben"
+
+#~ msgid "E-mail-address of the user"
+#~ msgstr "E-Mail-Adresse des Benutzers"
+
+#~ msgid "Enter the user's e-mail-address here"
+#~ msgstr "E-Mail-Adresse des Benutzers hier eingeben"
+
+#~ msgid "Password of the user"
+#~ msgstr "Passwort des Benutzers"
+
+#~ msgid "Enter the user's password here"
+#~ msgstr "Passwort des Benutzers hier eingeben"
+
+#~ msgid "Expert mode"
+#~ msgstr "Expertenmodus"
+
 #~ msgid "No"
 #~ msgstr "Nein"
+
+#~ msgid "Leave blank to generate unique parameter from title"
+#~ msgstr ""
+#~ "Dieses Feld freilassen, um einen eindeutigen Alias aus dem Titel zu "
+#~ "generieren"
+
+#~ msgid "Unique per region and language"
+#~ msgstr "Eindeutig pro Region und Sprache"
+
+#~ msgid "Time"
+#~ msgstr "Uhrzeit"
+
+#~ msgid "Parent Page"
+#~ msgstr "Übergeordnete Seite"
+
+#~ msgid "interval"
+#~ msgstr "Intervall"
+
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#~ msgid " Leave blank to derive from title"
+#~ msgstr " Freilassen, um vom Titel abzuleiten"
+
+#~ msgid "Short description"
+#~ msgstr "Kurzbeschreibung"
+
+#~ msgid "Insert short description here"
+#~ msgstr "Kurzbeschreibung hier eingeben"
+
+#~ msgid "Insert street here"
+#~ msgstr "Straße hier eingeben"
+
+#~ msgid "Insert postal code here"
+#~ msgstr "Postleitzahl hier eingeben"
+
+#~ msgid "Insert city here"
+#~ msgstr "Stadt hier eingeben"
+
+#~ msgid "Insert country here"
+#~ msgstr "Land hier eingeben"
+
+#~ msgid "Longitude"
+#~ msgstr "Geographische Länge"
+
+#~ msgid "Insert longitude here"
+#~ msgstr "Geographische Länge hier eingeben"
+
+#~ msgid "Latitude"
+#~ msgstr "Geographische Breite"
+
+#~ msgid "Insert latitude here"
+#~ msgstr "Geographische Breite hier eingeben"
+
+#~ msgid "Insert title"
+#~ msgstr "Titel eingeben"
+
+#~ msgid "Insert content"
+#~ msgstr "Inhalt eingeben"
+
+#~ msgid "Mode"
+#~ msgstr "Modus"
+
+#~ msgid "parent language node"
+#~ msgstr "übergeordneter Sprach-Knoten"
+
+#~ msgid "Activate language"
+#~ msgstr "Sprache aktivieren"
+
+#~ msgid "The IETF BCP 47 language tag"
+#~ msgstr "Das IETF BCP 47 Sprach-Tag"
+
+#~ msgid "See https://tools.ietf.org/html/bcp47 for more information"
+#~ msgstr "Siehe https://tools.ietf.org/html/bcp47 für weitere Informationen"
+
+#~ msgid "table of contents caption"
+#~ msgstr "Überschrift des Inhaltsverzeichnis"
+
+#~ msgid "Name in English"
+#~ msgstr "Name auf Englisch"
+
+#~ msgid "Enter the language's name in english here"
+#~ msgstr "Name der Sprache auf Englisch hier eingeben"
+
+#~ msgid "Enter the language's native name here"
+#~ msgstr "Nativen Name der Sprache hier eingeben"
+
+#~ msgid "Enter the language's code here"
+#~ msgstr "Sprach-Code hier eingeben"
+
+#~ msgid "Select text direction here"
+#~ msgstr "Schreibrichtung auswählen"
+
+#~ msgid "PDF title"
+#~ msgstr "PDF Titelüberschrift"
+
+#~ msgid "Select the native name for the PDF title here"
+#~ msgstr "Native Bezeichnung für PDF Titelüberschrift hier eingeben"
+
+#~ msgid "Does the offer make use of its region's postal code?"
+#~ msgstr "Verwendet das Angebot die PLZ seiner Region?"
+
+#~ msgid ""
+#~ "String identifier without spaces and special characters. Unique per "
+#~ "region and language"
+#~ msgstr ""
+#~ "Bezeichner ohne Leerzeichen und Sonderzeichen. Eindeutig pro Region und "
+#~ "Sprache"
+
+#~ msgid "url"
+#~ msgstr "URL"
+
+#~ msgid "Enter the offer's name here"
+#~ msgstr "Name des Angebots hier eingeben"
+
+#~ msgid "Leave blank to generate unique slug from name"
+#~ msgstr ""
+#~ "Dieses Feld freilassen, um einen eindeutigen Alias aus dem Namen zu "
+#~ "generieren"
+
+#~ msgid "Enter the offer's url here"
+#~ msgstr "URL des Angebots hier eingeben"
+
+#~ msgid "Enter the offer's thumbnail here"
+#~ msgstr "URL des Angebots-Thumbnails hier eingeben"
+
+#~ msgid "Post data of the offer in JSON (optional)"
+#~ msgstr "Post-Parameter des Angebots im JSON-Formt (optional)"
+
+#~ msgid "Insert description here"
+#~ msgstr "Beschreibung hier eingeben"
+
+#~ msgid "Offer name"
+#~ msgstr "Name des Angebots"
+
+#~ msgid "Slug of the offer"
+#~ msgstr "Alias des Angebots"
+
+#~ msgid "URL of the offer"
+#~ msgstr "URL des Angebots"
+
+#~ msgid "Thumbnail of the offer"
+#~ msgstr "Thumbnail des Angebots"
+
+#~ msgid "Enter the offer's post data in JSON here"
+#~ msgstr "Post-Parameter des Angebots hier im JSON-Formt eingeben"
+
+#~ msgid "Organizationname"
+#~ msgstr "Organisationsname"
+
+#~ msgid "Enter the organization's name here"
+#~ msgstr "Name der Organisation hier eingeben"
+
+#~ msgid "Slug of the organization"
+#~ msgstr "Slug der Organisation"
+
+#~ msgid "Enter the organization's slug here"
+#~ msgstr "URL-Parameter der Organisation hier eingeben"
+
+#~ msgid "Thumbnail of the organization"
+#~ msgstr "Thumbnail der Organisation"
+
+#~ msgid "Enter the organization's thumbnail here"
+#~ msgstr "Name der Organisations-Thumbnail hier eingeben"
+
+#~ msgid "Activate permissions for specific pages"
+#~ msgstr "Zusätzliche Berechtigungen für bestimmte Seiten aktivieren"
 
 #~ msgid "Toggle expert mode"
 #~ msgstr "Expertenmodus umschalten"

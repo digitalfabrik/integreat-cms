@@ -157,15 +157,14 @@
                 <label class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</label>
                 {% trans 'Not saved yet' %}<br>
                 {% endif %}
-                <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
-                {% trans 'Insert title here' as title_placeholder%}
-                {% render_field imprint_translation_form.title placeholder=title_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
-                {% trans 'Insert content here' as text_placeholder%}
-                {% render_field imprint_translation_form.text id="target_translation_tinymce" placeholder=text_placeholder class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
+                <label for="{{ imprint_translation_form.title.id_for_label }}" class="block mb-2 font-bold">{{ imprint_translation_form.title.label }}</label>
+                {% render_field imprint_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <label for="{{ imprint_translation_form.text.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ imprint_translation_form.text.label }}</label>
+                {% render_field imprint_translation_form.text|add_error_class:"border-red-500" class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
                 <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
-                {% render_field imprint_translation_form.minor_edit id="minor_edit" %}
-                <label for="minor_edit" class="text-s">{% trans 'This change does not require an update of the translations' %}</label>
+                {% render_field imprint_translation_form.minor_edit %}
+                <label for="{{ imprint_translation_form.minor_edit.id_for_label }}" class="text-s">{{ imprint_translation_form.minor_edit.label }}</label>
+                <div class="my-2 text-s text-gray-600">{{ imprint_translation_form.minor_edit.help_text }}</div>
             </div>
         </div>
     </div>

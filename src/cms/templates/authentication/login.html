@@ -1,8 +1,10 @@
 {% extends "_raw.html" %}
+
 {% load i18n %}
-{% block raw_content %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block raw_content %}
 <div id="no-session" class="flex flex-wrap flex-col justify-center px-3 py-10">
     <div class="mx-auto w-full max-w-xs">
         <div class="mb-3" style="padding: 0 50px;">
@@ -25,18 +27,16 @@
                     <p>{% trans 'The default username is "root" with password "root1234".' %}</p>
                 </div>
                 <div class="-mt-3 mb-4">
-                    <label class="block text-gray-600 text-sm font-bold mb-2" for="username">
-	                    {% trans 'Username' %}
+                    <label class="block text-gray-600 text-sm font-bold mb-2 cursor-pointer" for="{{ form.username.id_for_label }}">
+	                    {{ form.username.label }}
                     </label>
-	                {% trans 'Username' as username_placeholder%}
-                    {% render_field form.username id="username" placeholder=username_placeholder class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline" %}
+                    {% render_field form.username placeholder=form.username.label class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline" %}
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-600 text-sm font-bold mb-2" for="password">
-	                    {% trans 'Password' %}
+                    <label class="block text-gray-600 text-sm font-bold mb-2 cursor-pointer" for="{{ form.password.id_for_label }}">
+                        {{ form.password.label }}
                     </label>
-	                {% trans 'Password' as password_placeholder%}
-                    {% render_field form.password id="password" placeholder=password_placeholder class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline" %}
+                    {% render_field form.password placeholder=form.password.label class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline" %}
                 </div>
                 <div class="flex items-center justify-between">
                     <button type="submit" class="bg-integreat hover:bg-gray-500 hover:text-white text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -50,7 +50,7 @@
 
         </div>
         <p class="text-center text-gray-400 text-xs">
-	        &copy;2018 Tür an Tür - Digital Factory gGmbH
+	        &copy;2018 - {% now "Y" %} Tür an Tür - Digital Factory gGmbH
         </p>
     </div>
 </div>

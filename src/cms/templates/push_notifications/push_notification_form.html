@@ -43,7 +43,7 @@
             {{page_translation_form.errors}}
             <ul class="flex flex-wrap pl-4">
                 {% for other_language in languages %}
-                <li id="li-{{ other_language.id }}" class="mr-1 {% if other_language.id == language.id %}z-10{% endif %}" style="margin-bottom: -2px" onclick="switch_language('{{ other_language.id }}')">
+                <li id="li-{{ other_language.id }}" class="cursor-pointer mr-1 {% if other_language.id == language.id %}z-10{% endif %}" style="margin-bottom: -2px" onclick="switch_language('{{ other_language.id }}')">
                         <div class="bg-white text-blue-500 hover:bg-blue-500 hover:text-white border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                             <div class="border-b-2 border-white">
                                 <div class="p-4">{{ other_language.translated_name }}</div>
@@ -59,14 +59,12 @@
                     <div class="w-full p-4">
                         {{push_notification_translation_form.errors}}
                         <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-                            <label for="id_title" class="block mb-2 font-bold cursor-pointer">{% trans 'Title' %}</label>
-                            {% blocktrans asvar title_placeholder %}Insert title{% endblocktrans %}
-                            {% render_field form.title placeholder=title_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <label for="{{ form.title.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ form.title.label }}</label>
+                            {% render_field form.title class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         </div>
                         <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-                            <label for="id_text" class="block mb-2 font-bold cursor-pointer">{% trans 'Content' %}</label>
-                            {% blocktrans asvar text_placeholder %}Insert content{% endblocktrans %}
-                            {% render_field form.text placeholder=text_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <label for="{{ form.text.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ form.text.label }}</label>
+                            {% render_field form.text class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         </div>
                         <div class="hidden">
                             {% render_field form.id %}
@@ -82,19 +80,19 @@
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
                         <div class="border-b-4 border-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-columns inline-block"><path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18"></path></svg>
-                            Side-by-Side view
+                            <i data-feather="settings" class="inline-block"></i>
+                            {% trans "Settings" %}
                         </div>
                     </div>
                 </li>
             </ul>
             <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                 <div class="w-full p-4">
-                    <span class="font-bold mb-2 mt-4 block">Channel</span>
+                    <label for="{{ push_notification_form.channel.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ push_notification_form.channel.label }}</label>
                     {% render_field push_notification_form.channel class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                 </div>
                 <div class="w-full p-4">
-                    <span class="font-bold mb-2 mt-4 block">{% trans 'Mode' %}</span>
+                    <label for="{{ push_notification_form.mode.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ push_notification_form.mode.label }}</label>
                     {% render_field push_notification_form.mode class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                 </div>
             </div>

@@ -142,33 +142,32 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
                     {% if event_translation_form.instance.id %}
-                        <label for="events_enabled" class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                        <span class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</span>
                         {{ event_translation_form.instance.version }}<br>
-                        <label for="events_enabled" class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                        <span class="inline-block mb-2 font-bold">{% trans 'Status' %}:</span>
                         {{ event_translation_form.instance.get_status_display }}
                     {% endif %}
-                    <label class="block mb-2 font-bold">{% trans 'Permalink' %}</label>
+                    <label for="{{ event_translation_form.title.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ event_translation_form.title.label }}</label>
+                    {% render_field event_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ event_translation_form.slug.id_for_label }}" class="block my-2 font-bold">{{ event_translation_form.slug.label }}</label>
+                    <div class="mb-2 text-s text-gray-600">{{ event_translation_form.slug.help_text }}</div>
                     <div class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                        {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
                         {% spaceless %}
                             <div style="display: table; white-space: nowrap;">
                                 <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.code }}/events/</span>
                                 {% if event_translation_form.instance.ancestor_path %}
                                     <span style="display: table-cell;">{{ event_translation_form.instance.ancestor_path }}/</span>
                                 {% endif %}
-                                <span style="display: table-cell; width: 100%;">{% render_field event_translation_form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
+                                <span style="display: table-cell; width: 100%;">{% render_field event_translation_form.slug class="w-full rounded" %}</span>
                             </div>
                         {% endspaceless %}
                     </div>
-                    <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
-                    {% trans 'Insert title here' as title_placeholder %}
-                    {% render_field event_translation_form.title|add_error_class:"border-red-500" placeholder=title_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label class="block mb-2 mt-4 font-bold">{% trans 'Description' %}</label>
-                    {% trans 'Insert description here' as description_placeholder %}
-                    {% render_field event_translation_form.description|add_error_class:"border-red-500" placeholder=description_placeholder class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
+                    <label for="{{ event_translation_form.description.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ event_translation_form.description.label }}</label>
+                    {% render_field event_translation_form.description|add_error_class:"border-red-500" class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
                     <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
                     {% render_field event_translation_form.minor_edit id="minor_edit" %}
-                    <label for="minor_edit" class="text-s">{% trans 'This change does not require an update of the translations' %}</label>
+                    <label for="{{ event_translation_form.minor_edit.id_for_label }}" class="text-s">{{ event_translation_form.minor_edit.label }}</label>
+                    <div class="my-2 text-s text-gray-600">{{ event_translation_form.minor_edit.help_text }}</div>
                 </div>
             </div>
         </div>
@@ -185,47 +184,46 @@
             </ul>
             <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                 <div class="w-full p-4">
-                        <h3 class="font-bold mb-3">{% trans 'Date' %}</h3>
                         <div class="flex flex-wrap">
                             <div class="w-1/2 pr-2">
-                                <label for="start_date" class="mb-2 block font-bold text-sm">{% trans 'Start' %}</label>
+                                <label for="{{ event_form.start_date.id_for_label }}" class="mb-2 block font-bold text-sm">{{ event_form.start_date.label }}</label>
                                 {% render_field event_form.start_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
                             <div class="w-1/2">
-                                <label for="end_date" class="mb-2 block font-bold text-sm">{% trans 'End' %}</label>
+                                <label for="{{ event_form.end_date.id_for_label }}" class="mb-2 block font-bold text-sm">{{ event_form.end_date.label }}</label>
                                 {% render_field event_form.end_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
                         </div>
-                        <h3 class="font-bold mb-3 pt-4">{% trans 'Time' %}</h3>
-                        <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
-                            {% render_field event_form.is_all_day id="is_all_day-checkbox" %} {% trans 'All-day' %}
-                        </div>
-                        <div class="flex flex-wrap mb-3">
+                        <div class="flex flex-wrap my-3">
                             <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                                <label for="start_time" class="mb-2 block font-bold text-sm">{% trans 'Start' %}</label>
+                                <label for="{{ event_form.start_time.id_for_label }}" class="mb-2 block font-bold text-sm">{{ event_form.start_time.label }}</label>
                                 {% render_field event_form.start_time|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
                             <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                                <label for="end_time" class="mb-2 block font-bold text-sm">{% trans 'End' %}</label>
+                                <label for="{{ event_form.end_time.id_for_label }}" class="mb-2 block font-bold text-sm">{{ event_form.end_time.label }}</label>
                                 {% render_field event_form.end_time|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             </div>
+                        </div>
+                        <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
+                            {% render_field event_form.is_all_day %}
+                            <label for="{{ event_form.is_all_day.id_for_label }}" class="mb-2 p-2 font-bold text-sm">{{ event_form.is_all_day.label }}</label>
                         </div>
                         <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
                             <h3 class="font-bold mb-3 pt-4">{% trans 'Recurrence' %}</h3>
                             <div class="checkbox-wrap relative my-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left: 0">
                                 {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
-                                <label for="is_recurring">{% trans 'Recurring' %}</label>
+                                <label for="{{ event_form.is_recurring.id_for_label }}">{{ event_form.is_recurring.label }}</label>
                             </div>
                             <div id="recurrence-rule"{% if not event_form.is_recurring.value %} class="hidden"{% endif %}>
-                                <label for="frequency" class="mt-4 mb-2 block font-bold text-sm">{% trans 'Frequency' %}</label>
+                                <label for="{{ recurrence_rule_form.frequency.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.frequency.label }}</label>
                                 <div class="relative my-2">
-                                    {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" id="recurrence-frequency-select" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                                    {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                                         <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                                     </div>
                                 </div>
                                 <div id="recurrence-weekly"{% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %} class="hidden"{% endif %}>
-                                    <label for="weekdays_for_weekly" class="mt-4 mb-2 block font-bold text-sm">{% trans 'Weekday' %}</label>
+                                    <label for="{{ recurrence_rule_form.weekdays_for_weekly.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.weekdays_for_weekly.label }}</label>
                                     <select name="weekdays_for_weekly" id="id_weekdays_for_weekly" multiple="multiple" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}">
                                         {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
                                         <option value="{{ choice_value }}"{% if not recurrence_rule_form.data|is_empty %}
@@ -237,29 +235,29 @@
                                     </select>
                                 </div>
                                 <div id="recurrence-monthly"{% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %} class="hidden"{% endif %}>
-                                    <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Week' %}</label>
+                                    <label for="{{ recurrence_rule_form.week_for_monthly.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.week_for_monthly.label }}</label>
                                     {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                                    <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Weekday' %}</label>
+                                    <label for="{{ recurrence_rule_form.weekday_for_monthly.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.weekday_for_monthly.label }}</label>
                                     {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                                 </div>
-                                <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Repeat every ... time(s)' %}</label>
+                                <label for="{{ recurrence_rule_form.interval.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.interval.label }}</label>
                                 {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                                 <div class="checkbox-wrap relative mt-2 pl-5" style="padding-top:2px;padding-bottom:2px;padding-left:0;">
-                                    {% render_field recurrence_rule_form.has_recurrence_end_date id="recurrence-end-checkbox" %} {% trans 'Recurrence ends' %}
+                                    {% render_field recurrence_rule_form.has_recurrence_end_date %} {{ recurrence_rule_form.has_recurrence_end_date.label }}
                                 </div>
                                 <div id="recurrence-end"{% if not recurrence_rule_form.data|is_empty %}
                                     {% if not recurrence_rule_form.data.has_recurrence_end_date %} class="hidden"{% endif %}
                                 {% else %}
                                     {% if not recurrence_rule_form.instance.recurrence_end_date %} class="hidden"{% endif %}
                                 {% endif %}>
-                                    <label class="mt-4 mb-2 block font-bold text-sm">{% trans 'Recurrence end date' %}</label>
+                                    <label for="{{ recurrence_rule_form.recurrence_end_date.id_for_label }}" class="mt-4 mb-2 block font-bold text-sm">{{ recurrence_rule_form.recurrence_end_date.label }}</label>
                                     {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                                 </div>
                             </div>
                         </div>
                         <h3 class="font-bold my-3">{% trans 'Where' %}</h3>
 
-                        <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Address' %}</label>
+                        <label for="{{ event_form.location.id_for_label }}" class="mt-4 mb-2 block font-bold uppercase text-sm">{{ event_form.location.label }}</label>
                         {% trans 'Name of event location' as poi_title_placeholder %}
                         <div class="relative my-2">
                             <input id="poi-query-input" type="search" autocomplete="off" class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"{% if event_form.disabled %} disabled{% endif %} placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' %}" data-region-slug="{{ region.slug }}" data-default-placeholder="{{ poi_title_placeholder }}">
@@ -287,8 +285,8 @@
                         <i class="text-teal-500">Google Map vs. OSM</i>
                     <div class="pt-2 pb-4">
                         <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
-                        {% render_field page_form.icon id="icon" class="image-field" %}
-                        <label for="icon" class="block w-full text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer relative">
+                        {% render_field event_form.picture class="image-field" %}
+                        <label for="{{ event_form.picture.id_for_label }}" class="block w-full text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer relative">
                             <i data-feather="upload" class="inline-block mr-2"></i>
                             <span class="standard_text">{% trans 'Set icon' %}</span>
                             <span class="filename"></span>
@@ -349,7 +347,7 @@
     <script src="{% static 'js/confirmation-popups.js' %}"></script>
     <script>
         // event handler to show time fields
-        u("#is_all_day-checkbox").on('click', function(event) {
+        u("#id_is_all_day").on('click', function(event) {
             if (event.target.checked) {
                 u(".time-field").each(function(node) {
                     // get plain javascript object of time input field
@@ -384,7 +382,7 @@
             }
         });
         // event handler to show fields for recurrence frequency
-        u("#recurrence-frequency-select").on('click', function(event){
+        u("#id_frequency").on('click', function(event){
             if (event.target.value == 'WEEKLY') {
                 u("#recurrence-weekly").removeClass('hidden');
                 u("#recurrence-monthly").addClass('hidden');
@@ -397,7 +395,7 @@
             }
         });
         // event handler to show recurrence end date
-        u("#recurrence-end-checkbox").on('click', function(event){
+        u("#id_has_recurrence_end_date").on('click', function(event){
             if (event.target.checked) {
                 u("#recurrence-end").removeClass('hidden');
             } else {
