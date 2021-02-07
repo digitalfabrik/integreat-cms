@@ -16,9 +16,9 @@ class EventForm(forms.ModelForm):
     """
 
     # Whether or not the event is all day
-    is_all_day = forms.BooleanField(required=False)
+    is_all_day = forms.BooleanField(required=False, label=_("All-day"))
     # Whether or not the event is recurring
-    is_recurring = forms.BooleanField(required=False)
+    is_recurring = forms.BooleanField(required=False, label=_("Recurring"))
 
     class Meta:
         """
@@ -78,7 +78,7 @@ class EventForm(forms.ModelForm):
         :param region: The region of this form's event instance
         :type region: ~cms.models.regions.region.Region
 
-        :param recurrence_rule: The recurrence rule of this form's event istance
+        :param recurrence_rule: The recurrence rule of this form's event instance
         :type recurrence_rule: ~cms.models.events.recurrence_rule.RecurrenceRule
 
         :param location: The location of this form's event instance

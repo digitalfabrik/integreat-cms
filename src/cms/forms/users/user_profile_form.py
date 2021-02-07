@@ -3,15 +3,14 @@ Form for creating a user object
 """
 import logging
 
-from django import forms
 
 from ...models import UserProfile
-
+from ..placeholder_model_form import PlaceholderModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class UserProfileForm(forms.ModelForm):
+class UserProfileForm(PlaceholderModelForm):
     """
     Form for creating and modifying user profile objects
     """

@@ -1,9 +1,8 @@
-from django import forms
-
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import Document
 
 
-class DocumentForm(forms.ModelForm):
+class DocumentForm(PlaceholderModelForm):
     """
     Form for creating and modifying document objects
     """

@@ -14,7 +14,9 @@ class RecurrenceRuleForm(forms.ModelForm):
     Form for creating and modifying event recurrence rule objects
     """
 
-    has_recurrence_end_date = forms.BooleanField(required=False)
+    has_recurrence_end_date = forms.BooleanField(
+        required=False, label=_("Recurrence ends")
+    )
 
     class Meta:
         """

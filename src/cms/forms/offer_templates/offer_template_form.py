@@ -1,10 +1,9 @@
-from django import forms
-
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import OfferTemplate
 from ...utils.slug_utils import generate_unique_slug
 
 
-class OfferTemplateForm(forms.ModelForm):
+class OfferTemplateForm(PlaceholderModelForm):
     """
     Form for creating and modifying offer template objects
     """
@@ -19,9 +18,6 @@ class OfferTemplateForm(forms.ModelForm):
         model = OfferTemplate
         #: The fields of the model which should be handled by this form
         fields = ["name", "slug", "thumbnail", "url", "post_data", "use_postal_code"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
     def clean_slug(self):
         """
