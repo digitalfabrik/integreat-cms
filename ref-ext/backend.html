@@ -1,0 +1,1924 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+    <meta property="article:modified_time" content="2020-12-22T21:30:08+00:00" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref-ext/backend.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CMS" href="cms.html" />
+    <link rel="prev" title="Sitemap" href="../ref/sitemap.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+    
+        <a href="../index.html"><img src="../_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+    
+    
+        <a href="../index.html" class="icon icon-home"> integreat-cms</a>
+    
+    
+        
+        
+    
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First Steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#download-sources">Download sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-dependencies-and-local-package">Install dependencies and local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#create-debian-package">Create debian package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-server.html">Development Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#webserver">Webserver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#github-local-development-environment-german">GitHub, local development environment [German]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#first-issue-project-structure-django-german">First issue, project structure, Django [German]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-tools.html">Developer Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#development-server">Development Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#translations">Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#pipenv-not-found">Pipenv not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#not-a-git-repository">Not a git repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#macos-on-m1">MacOS on M1</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Basic Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../virtualenv.html">Virtual Environment (Pipenv)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#install-dependencies">Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#add-dependencies">Add dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#update-dependencies">Update dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#remove-virtual-environment">Remove virtual environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../internationalization.html">Internationalization (i18n)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#views">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#templates">Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#translation-file">Translation File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#compilation">Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#developer-tools">Developer Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pipenv-install">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#npm-install">npm-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pylint">pylint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#black">black</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#tests">tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#check-translations">check-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bundle-static-files">bundle-static-files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#packaging">packaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#custom-docker-images">Custom Docker Images</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../issue-reporting.html">Issue Reporting Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#issue-templates">Issue Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#bug-report">Bug Report</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#describe-the-bug">Describe the Bug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#steps-to-reproduce">Steps to Reproduce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#expected-behavior">Expected Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#actual-behavior">Actual Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-information">Additional Information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#feature-request">Feature Request</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#motivation">Motivation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#proposed-solution">Proposed Solution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#alternatives">Alternatives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-context">Additional Context</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#git">Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#github-flow">GitHub Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-pledge">Our Pledge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-standards">Our Standards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-responsibilities">Enforcement Responsibilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement">Enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-guidelines">Enforcement Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#correction">1. Correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#warning">2. Warning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#temporary-ban">3. Temporary Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#permanent-ban">4. Permanent Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#attribution">Attribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ref/backend.html">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#circleci-settings">Circleci Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#context-processors">Context Processors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#docker-settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#sphinx-settings">Sphinx Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/cms.html">CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.constants.html">Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-emotions">Feedback Emotions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#months">Months</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#position">Position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#postal-code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#recurrence">Recurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#text-directions">Text Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#translation-status">Translation Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#weekdays">Weekdays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.forms.html">Forms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.events.html#event-filter-form">Event Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.events.html#event-form">Event Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.events.html#event-translation-form">Event Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.events.html#recurrence-rule-form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.imprint.html">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.imprint.html#imprint-form">Imprint Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.imprint.html#imprint-translation-form">Imprint Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.language_tree.html#language-tree-node-form">Language Tree Node Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.languages.html#language-form">Language Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#document-form">Document Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.offer_templates.html#offer-template-form">Offer Template Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.organizations.html#organization-form">Organization Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-form">Page Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pois.html#poi-form">POI Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pois.html#poi-translation-form">POI Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.regions.html#region-form">Region Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.roles.html#role-form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-form">Region User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-email-form">User Email Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-form">User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-password-form">User Password Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.chat.html#chat-message">Chat Message</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.config.html">Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.config.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.events.html#event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.events.html#event-translation">Event Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.events.html#recurrence-rule">Recurrence Rule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#event-feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#event-list-feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#offer-feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#region-feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.feedback.html#search-result-feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.languages.html#language">Language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.languages.html#language-tree-node">Language Tree Node</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#document">Document</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.offers.html#offer">Offer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.offers.html#offer-template">Offer Template</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.pages.html#abstract-base-page">Abstract Base Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.pages.html#abstract-base-page-translation">Abstract Base Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.pages.html#imprint-page">Imprint Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.pages.html#imprint-page-translation">Imprint Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.pages.html#page">Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.pages.html#page-translation">Page Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.pois.html#poi">POI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.pois.html#poi-translation">POI Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.push_notifications.html#push-notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.push_notifications.html#push-notification-channel">Push Notification Channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.push_notifications.html#push-notification-translation">Push Notification Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.regions.html#region">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-profile">User Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#content-filters">Content Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#offer-filters">Offer Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#page-filters">Page Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#poi-filters">POI Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#user-filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.tests.html">Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.tests.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.pages.html#models">Models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.tests.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#admin-view-test">Admin View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#region-view-test">Region View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#view-test">View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#view-test-utils">View Test Utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#translation-utils">Translation Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.views.html">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.analytics.html#translation-coverage-view">Translation Coverage View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#authentication-actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.chat.html#chat-actions">Chat Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.chat.html#chat-context-mixin">Chat Context Mixin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.dashboard.html#admin-dashboard-view">Admin Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.dashboard.html#dashboard-view">Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.dashboard.html#redirect-view">Redirect View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.error_handler.html#id1">Error Handler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.events.html#event-actions">Event Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.events.html#event-context-mixin">Event Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.events.html#event-list-view">Event List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.events.html#event-view">Event View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.feedback.html#admin-feedback-list-view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.feedback.html#region-feedback-list-view">Region Feedback List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.imprint.html">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.imprint.html#imprint-actions">Imprint Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.imprint.html#imprint-revision-view">Imprint Revision View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.imprint.html#imprint-sbs-view">Imprint Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.imprint.html#imprint-view">Imprint View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.language_tree.html#language-tree-actions">Language Tree Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.language_tree.html#language-tree-context-mixin">Language Tree Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.language_tree.html#language-tree-node-view">Language Tree Node View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.language_tree.html#language-tree-view">Language Tree View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.languages.html#language-list-view">Language List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.languages.html#language-view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-edit-view">Media Edit View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.offer_templates.html#offer-template-list-view">Offer Template List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.offer_templates.html#offer-template-view">Offer Template View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.offers.html#offer-actions">Offer Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.offers.html#offer-list-view">Offer List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-list-view">Organization List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-view">Organization View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-actions">Page Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-context-mixin">Page Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-revision-view">Page Revision View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-sbs-view">Page Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-tree-view">Page Tree View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-view">Page View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pois.html#poi-actions">POI Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pois.html#poi-context-mixin">POI Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pois.html#poi-list-view">POI List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pois.html#poi-view">POI View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.push_notifications.html#push-notification-list-view">Push Notification List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.push_notifications.html#push-notification-sender">Push Notification Sender</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.push_notifications.html#push-notification-view">Push Notification View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.regions.html#region-actions">Region Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.regions.html#region-list-view">Region List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.regions.html#region-view">Region View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.roles.html#role-list-view">Role List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.roles.html#role-view">Role View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.settings.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.settings.html#admin-settings-view">Admin Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.settings.html#settings-view">Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.settings.html#user-settings-view">User Settings View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.statistics.html#analytics-view">Analytics View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.statistics.html#matomo-api-manager">Matomo API Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.users.html#region-user-actions">Region User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.users.html#region-user-list-view">Region User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.users.html#region-user-view">Region User View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.users.html#user-actions">User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.users.html#user-list-view">User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.users.html#user-view">User View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#page-xliff-converter">Page Xliff Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#rules">Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref/api.v3.html">V3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#event-feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#event-list-feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#legacy-feedback-endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#offer-feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#region-feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#search-result-feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#imprint">Imprint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#languages">Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#offers">Offers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#pages">Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#pdf-export">PDF Export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#regions">Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#single-page">Single Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/api.html#admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/api.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/api.html#decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/api.html#tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/api.html#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref/gvz_api.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/gvz_api.html#utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/sitemap.html">Sitemap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#sitemaps">Sitemaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#views">Views</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extended Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.circleci_settings">Circleci Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.context_processors">Context Processors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.docker_settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.sphinx_settings">Sphinx Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.html">CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.mirrored_page_first">Mirrored Page First</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.months">Months</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.position">Position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_filter_form">Event Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_form">Event Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.event_translation_form">Event Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#module-cms.forms.events.recurrence_rule_form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.language_tree.html#module-cms.forms.language_tree.language_tree_node_form">Language Tree Node Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.languages.html#module-cms.forms.languages.language_form">Language Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.offer_templates.html#module-cms.forms.offer_templates.offer_template_form">Offer Template Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.organizations.html#module-cms.forms.organizations.organization_form">Organization Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois.poi_form">POI Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pois.html#module-cms.forms.pois.poi_translation_form">POI Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.regions.html#module-cms.forms.regions.region_form">Region Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.chat.html#module-cms.models.chat.chat_message">Chat Message</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.config.html">Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.config.html#module-cms.models.config.configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.event_translation">Event Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#module-cms.models.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.languages.html#module-cms.models.languages.language">Language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.languages.html#module-cms.models.languages.language_tree_node">Language Tree Node</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.document">Document</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.offers.html#module-cms.models.offers.offer">Offer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.offers.html#module-cms.models.offers.offer_template">Offer Template</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.abstract_base_page">Abstract Base Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.abstract_base_page_translation">Abstract Base Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.imprint_page">Imprint Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.imprint_page_translation">Imprint Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.page">Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#module-cms.models.pages.page_translation">Page Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pois.html#module-cms.models.pois.poi">POI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pois.html#module-cms.models.pois.poi_translation">POI Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_channel">Push Notification Channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.regions.html#module-cms.models.regions.region">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.content_filters">Content Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.offer_filters">Offer Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.page_filters">Page Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.user_filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.tests.html">Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.pages.html#module-cms.tests.pages.models">Models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.admin_view_test">Admin View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.region_view_test">Region View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.view_test">View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.view_test_utils">View Test Utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.html">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#module-cms.views.chat.chat_actions">Chat Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#module-cms.views.chat.chat_context_mixin">Chat Context Mixin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.admin_dashboard_view">Admin Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.dashboard_view">Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#module-cms.views.dashboard.redirect_view">Redirect View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.error_handler.html#id1">Error Handler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_actions">Event Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_context_mixin">Event Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_list_view">Event List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#module-cms.views.feedback.admin_feedback_list_view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#module-cms.views.feedback.region_feedback_list_view">Region Feedback List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.imprint.html">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.imprint.html#module-cms.views.imprint.imprint_actions">Imprint Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.imprint.html#module-cms.views.imprint.imprint_revision_view">Imprint Revision View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.imprint.html#module-cms.views.imprint.imprint_sbs_view">Imprint Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.imprint.html#module-cms.views.imprint.imprint_view">Imprint View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_actions">Language Tree Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_context_mixin">Language Tree Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_list_view">Language List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_list_view">Offer Template List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_view">Offer Template View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_actions">Offer Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_list_view">Offer List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_actions">Page Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_context_mixin">Page Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_revision_view">Page Revision View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_actions">POI Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_context_mixin">POI Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_list_view">POI List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#module-cms.views.pois.poi_view">POI View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_list_view">Push Notification List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_sender">Push Notification Sender</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_view">Push Notification View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_actions">Region Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_list_view">Region List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#module-cms.views.regions.region_view">Region View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_list_view">Role List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.roles.html#module-cms.views.roles.role_view">Role View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.admin_settings_view">Admin Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.settings_view">Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#module-cms.views.settings.user_settings_view">User Settings View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.analytics_view">Analytics View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.matomo_api_manager">Matomo API Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_actions">Region User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_list_view">Region User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.region_user_view">Region User View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_actions">User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_list_view">User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_view">User View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.imprint">Imprint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.languages">Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.offers">Offers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.pages">Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.pdf_export">PDF Export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.push_notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.regions">Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#module-api.v3.single_page">Single Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-api.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gvz_api.html#module-gvz_api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gvz_api.html#module-gvz_api.utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sitemap.html">Sitemap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.sitemaps">Sitemaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.views">Views</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Indices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.tuerantuer.org/glossary">Glossary</a></li>
+</ul>
+
+            
+          
+    <a href="../genindex.html">Full Index</a>
+    <a href="../py-modindex.html">Module Index</a>
+    <a href="../search.html">Search Page</a>
+
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">integreat-cms</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Backend</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../ref/backend.html" class="fa fa-search-minus"> Open simplified view</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-backend">
+<span id="backend"></span><h1>Backend<a class="headerlink" href="#module-backend" title="Permalink to this headline">¶</a></h1>
+<p>This package is the main entry point for the application and contains all configuration for the other packages.</p>
+<div class="section" id="module-backend.circleci_settings">
+<span id="circleci-settings"></span><h2>Circleci Settings<a class="headerlink" href="#module-backend.circleci_settings" title="Permalink to this headline">¶</a></h2>
+<p>Django settings for our CircleCI workflow.
+All configuration is imported from <a class="reference internal" href="#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a> except it sets <a class="reference internal" href="#backend.circleci_settings.COMPRESS_ENABLED" title="backend.circleci_settings.COMPRESS_ENABLED"><code class="xref py py-attr docutils literal notranslate"><span class="pre">COMPRESS_ENABLED</span></code></a> to <code class="docutils literal notranslate"><span class="pre">True</span></code> to make sure
+the compressing is tested in CI.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" title="(in Django v2.2)"><span>Django settings</span></a>.
+For the full list of settings and their values, see <a class="reference external" href="https://easy-thumbnails.readthedocs.io/en/latest/ref/settings/" title="(in easy-thumbnails v2.7)"><span>Settings</span></a>.</p>
+<dl class="py data">
+<dt id="backend.circleci_settings.COMPRESS_ENABLED">
+<code class="sig-prename descclassname">backend.circleci_settings.</code><code class="sig-name descname">COMPRESS_ENABLED</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/circleci_settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.circleci_settings.COMPRESS_ENABLED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean that decides if compression will happen (see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_ENABLED" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_ENABLED</span></code></a>)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-backend.context_processors">
+<span id="context-processors"></span><h2>Context Processors<a class="headerlink" href="#module-backend.context_processors" title="Permalink to this headline">¶</a></h2>
+<p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/templates/api/#context-processors" title="(in Django v2.2)"><span>Built-in template context processors</span></a>).</p>
+<dl class="py function">
+<dt id="backend.context_processors.region_slug_processor">
+<code class="sig-prename descclassname">backend.context_processors.</code><code class="sig-name descname">region_slug_processor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/context_processors.py#L7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.context_processors.region_slug_processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>This context processor retrieves the current <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter and passes it to the templates.
+Additionally, the <code class="docutils literal notranslate"><span class="pre">other_regions</span></code>-variable contains all other regions which are available via quick access.
+Usually, these are the regions configured in each user’s user profile, but if there are none set, we just list all
+available regions, ordered by the <code class="docutils literal notranslate"><span class="pre">last_updated</span></code> attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current http request</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current region and other quick access regions</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-backend.docker_settings">
+<span id="docker-settings"></span><h2>Docker Settings<a class="headerlink" href="#module-backend.docker_settings" title="Permalink to this headline">¶</a></h2>
+<p>Django settings for different database configuration.
+The docker container started in <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/run.sh">dev-tools/run.sh</a> exposes the alternative port <code class="docutils literal notranslate"><span class="pre">5433</span></code>.</p>
+<p>All other settings are imported from <a class="reference internal" href="#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a>.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" title="(in Django v2.2)"><span>Django settings</span></a>.
+For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" title="(in Django v2.2)"><span>Settings</span></a>.</p>
+<dl class="py data">
+<dt id="backend.docker_settings.DATABASES">
+<code class="sig-prename descclassname">backend.docker_settings.</code><code class="sig-name descname">DATABASES</code><em class="property"> = {'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2', 'HOST': 'localhost', 'NAME': 'integreat', 'PASSWORD': 'password', 'PORT': '5433', 'USER': 'integreat'}}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/docker_settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.docker_settings.DATABASES" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary containing the settings for all databases to be used with this Django installation
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-DATABASES" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="o">:</span> <span class="s1">&#39;django.db.backends.postgresql_psycopg2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;HOST&#39;</span><span class="o">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="o">:</span> <span class="s1">&#39;integreat&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PASSWORD&#39;</span><span class="o">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PORT&#39;</span><span class="o">:</span> <span class="s1">&#39;5433&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;USER&#39;</span><span class="o">:</span> <span class="s1">&#39;integreat&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-backend.settings">
+<span id="settings"></span><h2>Settings<a class="headerlink" href="#module-backend.settings" title="Permalink to this headline">¶</a></h2>
+<p>Django settings for <code class="docutils literal notranslate"><span class="pre">integreat-cms</span></code>.</p>
+<p>This file only contains the options which deviate from the default values.
+For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/" title="(in Django v2.2)"><span>Settings</span></a>.</p>
+<p>For production use, the following settings can be set with environment variables (use the prefix <code class="docutils literal notranslate"><span class="pre">DJANGO_</span></code>):</p>
+<ul>
+<li><p><a class="reference internal" href="#backend.settings.SECRET_KEY" title="backend.settings.SECRET_KEY"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></p></li>
+<li><p><a class="reference internal" href="#backend.settings.DEBUG" title="backend.settings.DEBUG"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DEBUG</span></code></a></p></li>
+<li><p><a class="reference internal" href="#backend.settings.ALLOWED_HOSTS" title="backend.settings.ALLOWED_HOSTS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a> via <a class="reference internal" href="#backend.settings.BASE_URL" title="backend.settings.BASE_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">BASE_URL</span></code></a></p></li>
+<li><p><a class="reference internal" href="#backend.settings.WEBAPP_URL" title="backend.settings.WEBAPP_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a></p></li>
+<li><p><a class="reference internal" href="#backend.settings.BASE_URL" title="backend.settings.BASE_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">BASE_URL</span></code></a></p></li>
+<li><p><a class="reference internal" href="#backend.settings.WEBAPP_URL" title="backend.settings.WEBAPP_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a></p></li>
+<li><p><a class="reference internal" href="#backend.settings.STATIC_ROOT" title="backend.settings.STATIC_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a></p></li>
+<li><p><a class="reference internal" href="#backend.settings.MEDIA_ROOT" title="backend.settings.MEDIA_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a></p></li>
+<li><p><a class="reference internal" href="#backend.settings.DATABASES" title="backend.settings.DATABASES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DATABASES</span></code></a> settings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_HOST</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_NAME</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_PASSWORD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_USER</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_PORT</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<dl class="py data">
+<dt id="backend.settings.ALLOWED_HOSTS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">ALLOWED_HOSTS</code><em class="property"> = ['localhost', '127.0.0.1', '0.0.0.0']</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.ALLOWED_HOSTS" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe web
+server configurations (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-ALLOWED_HOSTS" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/security/#host-headers-virtual-hosting" title="(in Django v2.2)"><span>Host header validation</span></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.AUTHENTICATION_BACKENDS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">AUTHENTICATION_BACKENDS</code><em class="property"> = ('rules.permissions.ObjectPermissionBackend', 'django.contrib.auth.backends.ModelBackend')</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.AUTHENTICATION_BACKENDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of authentication backend classes (as strings) to use when attempting to authenticate a user
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-AUTHENTICATION_BACKENDS" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/customizing/#authentication-backends" title="(in Django v2.2)"><span>Other authentication sources</span></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="s1">&#39;rules.permissions.ObjectPermissionBackend&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth.backends.ModelBackend&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.AUTHOR_CHAT_HISTORY_DAYS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">AUTHOR_CHAT_HISTORY_DAYS</code><em class="property"> = 30</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.AUTHOR_CHAT_HISTORY_DAYS" title="Permalink to this definition">¶</a></dt>
+<dd><p>How many days of chat history should be shown</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.AUTH_PASSWORD_VALIDATORS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">AUTH_PASSWORD_VALIDATORS</code><em class="property"> = [{'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'}, {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'}, {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'}, {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'}]</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.AUTH_PASSWORD_VALIDATORS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of validators that are used to check the strength of user’s passwords
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-AUTH_PASSWORD_VALIDATORS" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/passwords/#password-validation" title="(in Django v2.2)"><span>Password validation</span></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="o">:</span> <span class="s1">&#39;django.contrib.auth.password_validation.UserAttributeSimilarityValidator&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;NAME&#39;</span><span class="o">:</span> <span class="s1">&#39;django.contrib.auth.password_validation.MinimumLengthValidator&#39;</span><span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="o">:</span> <span class="s1">&#39;django.contrib.auth.password_validation.CommonPasswordValidator&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="o">:</span> <span class="s1">&#39;django.contrib.auth.password_validation.NumericPasswordValidator&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.BASE_DIR">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">BASE_DIR</code><em class="property"> = '/home/circleci/project/src'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.BASE_DIR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build paths inside the project like this: <code class="docutils literal notranslate"><span class="pre">os.path.join(BASE_DIR,</span> <span class="pre">...)</span></code></p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.BASE_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">BASE_URL</code><em class="property"> = 'http://localhost:8000'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.BASE_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Needed for <a class="reference external" href="https://pypi.org/project/webauthn/">webauthn</a> (this is a setting in case the application runs behind a proxy).
+Used in the following views:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.register_mfa_key" title="cms.views.settings.mfa.mfa.register_mfa_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_mfa_key()</span></code></a></p></li>
+<li><p><a class="reference internal" href="cms.views.authentication.html#cms.views.authentication.authentication_actions.mfaVerify" title="cms.views.authentication.authentication_actions.mfaVerify"><code class="xref py py-func docutils literal notranslate"><span class="pre">mfaVerify()</span></code></a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.CACHES">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">CACHES</code><em class="property"> = {'default': {'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache', 'LOCATION': '/home/circleci/project/src/cms/static/CACHE/django_cache'}}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.CACHES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration for PDF cache (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-CACHES" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;BACKEND&#39;</span><span class="o">:</span> <span class="s1">&#39;django.core.cache.backends.filebased.FileBasedCache&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;LOCATION&#39;</span><span class="o">:</span> <span class="s1">&#39;/home/circleci/project/src/cms/static/CACHE/django_cache&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.COMPRESS_CSS_FILTERS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">COMPRESS_CSS_FILTERS</code><em class="property"> = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter', 'compressor.filters.template.TemplateFilter']</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.COMPRESS_CSS_FILTERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of filters that will be applied to CSS (see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_CSS_FILTERS" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_CSS_FILTERS</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s1">&#39;compressor.filters.css_default.CssAbsoluteFilter&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;compressor.filters.cssmin.CSSMinFilter&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;compressor.filters.template.TemplateFilter&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.COMPRESS_ENABLED">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">COMPRESS_ENABLED</code><em class="property"> = False</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.COMPRESS_ENABLED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean that decides if compression will happen (see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_ENABLED" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_ENABLED</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.COMPRESS_ES6_COMPILER_CMD">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">COMPRESS_ES6_COMPILER_CMD</code><em class="property"> = 'export NODE_PATH=&quot;{paths}&quot; &amp;&amp; {browserify_bin} &quot;{infile}&quot; -o &quot;{outfile}&quot; -t [ &quot;{node_modules}/babelify&quot; --presets [ &#64;babel/preset-env ] --plugins [ &#64;babel/plugin-transform-runtime ] ]'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.COMPRESS_ES6_COMPILER_CMD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command that will be executed to transform ES6 into ES5 code (see
+<a class="reference external" href="https://github.com/kottenator/django-compressor-toolkit">django-compressor-toolkit</a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.COMPRESS_JS_FILTERS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">COMPRESS_JS_FILTERS</code><em class="property"> = ['compressor.filters.jsmin.JSMinFilter']</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.COMPRESS_JS_FILTERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of filters that will be applied to javascript
+(see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_JS_FILTERS" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_JS_FILTERS</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;compressor.filters.jsmin.JSMinFilter&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.COMPRESS_OFFLINE">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">COMPRESS_OFFLINE</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.COMPRESS_OFFLINE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean that decides if compression should be done outside of the request/response loop
+(see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_OFFLINE" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_OFFLINE</span></code></a> and <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/usage/#offline-compression" title="(in Django Compressor v2.4)"><span>Offline Compression</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.COMPRESS_PRECOMPILERS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">COMPRESS_PRECOMPILERS</code><em class="property"> = (('module', 'compressor_toolkit.precompilers.ES6Compiler'), ('css', 'compressor_toolkit.precompilers.SCSSCompiler'))</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.COMPRESS_PRECOMPILERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>An iterable of two-tuples whose first item is the mimetype of the files or hunks you want to compile with the command
+or filter specified as the second item (see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_PRECOMPILERS" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_PRECOMPILERS</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="p">(</span><span class="s1">&#39;module&#39;</span><span class="p">,</span> <span class="s1">&#39;compressor_toolkit.precompilers.ES6Compiler&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;css&#39;</span><span class="p">,</span> <span class="s1">&#39;compressor_toolkit.precompilers.SCSSCompiler&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.CORS_ALLOW_HEADERS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">CORS_ALLOW_HEADERS</code><em class="property"> = ['accept', 'accept-encoding', 'authorization', 'content-type', 'dnt', 'origin', 'user-agent', 'x-csrftoken', 'x-requested-with', 'x-integreat-development']</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.CORS_ALLOW_HEADERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend default headers with development header to differenciate dev traffic in statistics
+(see <a class="reference external" href="https://pypi.org/project/django-cors-headers/">django-cors-headers/</a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s1">&#39;accept&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;accept-encoding&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;authorization&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;content-type&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;dnt&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;origin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;user-agent&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;x-csrftoken&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;x-requested-with&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;x-integreat-development&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.CORS_ORIGIN_ALLOW_ALL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">CORS_ORIGIN_ALLOW_ALL</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.CORS_ORIGIN_ALLOW_ALL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow access to all domains by setting the following variable to <code class="docutils literal notranslate"><span class="pre">True</span></code>
+(see <a class="reference external" href="https://pypi.org/project/django-cors-headers/">django-cors-headers/</a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.CSRF_FAILURE_VIEW">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">CSRF_FAILURE_VIEW</code><em class="property"> = 'cms.views.error_handler.csrf_failure'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.CSRF_FAILURE_VIEW" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dotted path to the view function to be used when an incoming request is rejected by the CSRF protection
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-CSRF_FAILURE_VIEW" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">CSRF_FAILURE_VIEW</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.DATABASES">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">DATABASES</code><em class="property"> = {'default': {'ATOMIC_REQUESTS': False, 'AUTOCOMMIT': True, 'CONN_MAX_AGE': 0, 'ENGINE': 'django.db.backends.postgresql_psycopg2', 'HOST': 'localhost', 'NAME': 'integreat', 'OPTIONS': {}, 'PASSWORD': 'password', 'PORT': '5432', 'TEST': {'CHARSET': None, 'COLLATION': None, 'MIRROR': None, 'NAME': None}, 'TIME_ZONE': None, 'USER': 'integreat'}}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.DATABASES" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary containing the settings for all databases to be used with this Django installation
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-DATABASES" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ATOMIC_REQUESTS&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
+        <span class="s1">&#39;AUTOCOMMIT&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">,</span>
+        <span class="s1">&#39;CONN_MAX_AGE&#39;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="o">:</span> <span class="s1">&#39;django.db.backends.postgresql_psycopg2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;HOST&#39;</span><span class="o">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="o">:</span> <span class="s1">&#39;integreat&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;OPTIONS&#39;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s1">&#39;PASSWORD&#39;</span><span class="o">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PORT&#39;</span><span class="o">:</span> <span class="s1">&#39;5432&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;TEST&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;CHARSET&#39;</span><span class="o">:</span> <span class="nx">None</span><span class="p">,</span>
+            <span class="s1">&#39;COLLATION&#39;</span><span class="o">:</span> <span class="nx">None</span><span class="p">,</span>
+            <span class="s1">&#39;MIRROR&#39;</span><span class="o">:</span> <span class="nx">None</span><span class="p">,</span>
+            <span class="s1">&#39;NAME&#39;</span><span class="o">:</span> <span class="nx">None</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;TIME_ZONE&#39;</span><span class="o">:</span> <span class="nx">None</span><span class="p">,</span>
+        <span class="s1">&#39;USER&#39;</span><span class="o">:</span> <span class="s1">&#39;integreat&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.DEBUG">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">DEBUG</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.DEBUG" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean that turns on/off debug mode (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-DEBUG" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a>)</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Never deploy a site into production with <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-DEBUG" title="(in Django v2.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">DEBUG</span></code></a> turned on!</p>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.EMAIL_BACKEND">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">EMAIL_BACKEND</code><em class="property"> = 'django.core.mail.backends.console.EmailBackend'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.EMAIL_BACKEND" title="Permalink to this definition">¶</a></dt>
+<dd><p>The backend to use for sending emails (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-EMAIL_BACKEND" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">EMAIL_BACKEND</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/email/" title="(in Django v2.2)"><span>Sending email</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.FILER_CANONICAL_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">FILER_CANONICAL_URL</code><em class="property"> = 'media/'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.FILER_CANONICAL_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the path element common to all canonical file URLs. (see <a class="reference external" href="https://django-filer.readthedocs.io/en/latest/settings.html" title="(in django-filer v1.4)"><span class="xref std std-doc">Django Filer Settings</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.FIXTURE_DIRS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">FIXTURE_DIRS</code><em class="property"> = ('/home/circleci/project/src/cms/fixtures/',)</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.FIXTURE_DIRS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory for initial database contents (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-FIXTURE_DIRS" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">FIXTURE_DIRS</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;/home/circleci/project/src/cms/fixtures/&#39;</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.GVZ_API_ENABLED">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">GVZ_API_ENABLED</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.GVZ_API_ENABLED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not the GVZ (Gemeindeverzeichnis) API is enabled. This is used to automatically import coordinates and
+region aliases (see <a class="reference internal" href="gvz_api.html#module-gvz_api" title="gvz_api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gvz_api</span></code></a> for more information).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.GVZ_API_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">GVZ_API_URL</code><em class="property"> = 'https://gvz.integreat-app.de/api'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.GVZ_API_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL to our GVZ (Gemeindeverzeichnis) API. This is used to automatically import coordinates and region aliases
+(see <a class="reference internal" href="gvz_api.html#module-gvz_api" title="gvz_api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gvz_api</span></code></a> for more information).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.HOSTNAME">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">HOSTNAME</code><em class="property"> = 'localhost'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.HOSTNAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Needed for <a class="reference external" href="https://pypi.org/project/webauthn/">webauthn</a> (this is a setting in case the application runs behind a proxy).
+Used in the following views:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.GetChallengeView" title="cms.views.settings.mfa.mfa.GetChallengeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">GetChallengeView</span></code></a></p></li>
+<li><p><a class="reference internal" href="cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.register_mfa_key" title="cms.views.settings.mfa.mfa.register_mfa_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_mfa_key()</span></code></a></p></li>
+<li><p><a class="reference internal" href="cms.views.authentication.html#cms.views.authentication.authentication_actions.makeWebauthnUsers" title="cms.views.authentication.authentication_actions.makeWebauthnUsers"><code class="xref py py-func docutils literal notranslate"><span class="pre">makeWebauthnUsers()</span></code></a></p></li>
+<li><p><a class="reference internal" href="cms.views.authentication.html#cms.views.authentication.authentication_actions.mfaVerify" title="cms.views.authentication.authentication_actions.mfaVerify"><code class="xref py py-func docutils literal notranslate"><span class="pre">mfaVerify()</span></code></a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.IMPRINT_SLUG">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">IMPRINT_SLUG</code><em class="property"> = 'imprint'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.IMPRINT_SLUG" title="Permalink to this definition">¶</a></dt>
+<dd><p>The slug for the legal notice (see e.g. <a class="reference internal" href="cms.models.pages.html#cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.INSTALLED_APPS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">INSTALLED_APPS</code><em class="property"> = ['cms.apps.CmsConfig', 'gvz_api.apps.GvzApiConfig', 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.messages', 'django.contrib.sessions', 'django.contrib.sitemaps', 'django.contrib.staticfiles', 'compressor', 'compressor_toolkit', 'corsheaders', 'widget_tweaks', 'easy_thumbnails', 'filer', 'mptt', 'rules.apps.AutodiscoverRulesConfig']</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.INSTALLED_APPS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s1">&#39;cms.apps.CmsConfig&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gvz_api.apps.GvzApiConfig&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sitemaps&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;compressor&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;compressor_toolkit&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;corsheaders&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;widget_tweaks&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;easy_thumbnails&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;filer&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mptt&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rules.apps.AutodiscoverRulesConfig&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.LANGUAGES">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">LANGUAGES</code><em class="property"> = (('en-us', 'English'), ('de-de', 'Deutsch'))</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.LANGUAGES" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all available languages (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LANGUAGES" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="s1">&#39;en-us&#39;</span><span class="p">,</span> <span class="s1">&#39;English&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;de-de&#39;</span><span class="p">,</span> <span class="s1">&#39;Deutsch&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.LANGUAGE_CODE">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">LANGUAGE_CODE</code><em class="property"> = 'de-de'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.LANGUAGE_CODE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string representing the language code for this installation
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LANGUAGE_CODE" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">LANGUAGE_CODE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.LOCALE_PATHS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">LOCALE_PATHS</code><em class="property"> = ('/home/circleci/project/src/locale',)</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.LOCALE_PATHS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of directories where Django looks for translation files
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOCALE_PATHS" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">LOCALE_PATHS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;/home/circleci/project/src/locale&#39;</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.LOGGING">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">LOGGING</code><em class="property"> = {'disable_existing_loggers': False, 'formatters': {'console': {'datefmt': '%b %d %H:%M:%S', 'format': '%(asctime)s INTEGREAT CMS - %(levelname)s: %(message)s'}, 'default': {'format': 'INTEGREAT CMS - %(levelname)s: %(message)s'}}, 'handlers': {'authlog': {'address': '/dev/log', 'class': 'logging.handlers.SysLogHandler', 'facility': 'auth', 'formatter': 'default', 'level': 'INFO'}, 'console': {'class': 'logging.StreamHandler', 'formatter': 'console'}, 'syslog': {'address': '/dev/log', 'class': 'logging.handlers.SysLogHandler', 'facility': 'syslog', 'formatter': 'default', 'level': 'INFO'}}, 'loggers': {'api': {'handlers': ['console'], 'level': 'INFO', 'propagate': True}, 'auth': {'handlers': ['console', 'authlog', 'syslog'], 'level': 'INFO'}, 'backend': {'handlers': ['console'], 'level': 'INFO', 'propagate': True}, 'cms': {'handlers': ['console'], 'level': 'INFO', 'propagate': True}, 'django': {'handlers': ['console'], 'level': 'WARN', 'propagate': True}, 'gvz_api': {'handlers': ['console'], 'level': 'INFO', 'propagate': True}, 'rules': {'handlers': ['console'], 'level': 'DEBUG', 'propagate': True}, 'sitemap': {'handlers': ['console'], 'level': 'INFO', 'propagate': True}}, 'version': 1}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.LOGGING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logging configuration dictionary (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOGGING" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
+    <span class="s1">&#39;formatters&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;console&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;datefmt&#39;</span><span class="o">:</span> <span class="s1">&#39;%b %d %H:%M:%S&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;format&#39;</span><span class="o">:</span> <span class="s1">&#39;%(asctime)s INTEGREAT CMS - %(levelname)s: %(message)s&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;format&#39;</span><span class="o">:</span> <span class="s1">&#39;INTEGREAT CMS - %(levelname)s: %(message)s&#39;</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;authlog&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;address&#39;</span><span class="o">:</span> <span class="s1">&#39;/dev/log&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;logging.handlers.SysLogHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;facility&#39;</span><span class="o">:</span> <span class="s1">&#39;auth&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;console&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;logging.StreamHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;console&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;syslog&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;address&#39;</span><span class="o">:</span> <span class="s1">&#39;/dev/log&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;logging.handlers.SysLogHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;facility&#39;</span><span class="o">:</span> <span class="s1">&#39;syslog&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;loggers&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;api&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
+        <span class="s1">&#39;auth&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;authlog&#39;</span><span class="p">,</span> <span class="s1">&#39;syslog&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;backend&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
+        <span class="s1">&#39;cms&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
+        <span class="s1">&#39;django&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;WARN&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
+        <span class="s1">&#39;gvz_api&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
+        <span class="s1">&#39;rules&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
+        <span class="s1">&#39;sitemap&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;version&#39;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.LOGIN_REDIRECT_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">LOGIN_REDIRECT_URL</code><em class="property"> = '/'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.LOGIN_REDIRECT_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL where requests are redirected after login (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOGIN_REDIRECT_URL" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.LOGIN_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">LOGIN_URL</code><em class="property"> = '/login'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.LOGIN_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL where requests are redirected for login (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOGIN_URL" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">LOGIN_URL</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.LOGOUT_REDIRECT_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">LOGOUT_REDIRECT_URL</code><em class="property"> = '/login'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.LOGOUT_REDIRECT_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL where requests are redirected after logout (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOGOUT_REDIRECT_URL" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">LOGOUT_REDIRECT_URL</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.MEDIA_ROOT">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">MEDIA_ROOT</code><em class="property"> = '/home/circleci/project/src/media'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.MEDIA_ROOT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Absolute filesystem path to the directory that will hold user-uploaded files (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.MEDIA_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">MEDIA_URL</code><em class="property"> = '/media/'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.MEDIA_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL that handles the media served from <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v2.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a> (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-MEDIA_URL" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.MIDDLEWARE">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">MIDDLEWARE</code><em class="property"> = ['corsheaders.middleware.CorsMiddleware', 'django.middleware.security.SecurityMiddleware', 'django.contrib.sessions.middleware.SessionMiddleware', 'django.middleware.locale.LocaleMiddleware', 'django.middleware.common.CommonMiddleware', 'django.middleware.csrf.CsrfViewMiddleware', 'django.contrib.auth.middleware.AuthenticationMiddleware', 'django.contrib.messages.middleware.MessageMiddleware', 'django.middleware.clickjacking.XFrameOptionsMiddleware']</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.MIDDLEWARE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activated middlewares (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-MIDDLEWARE" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s1">&#39;corsheaders.middleware.CorsMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.security.SecurityMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sessions.middleware.SessionMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.locale.LocaleMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.common.CommonMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.csrf.CsrfViewMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth.middleware.AuthenticationMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages.middleware.MessageMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.clickjacking.XFrameOptionsMiddleware&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.ROOT_URLCONF">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">ROOT_URLCONF</code><em class="property"> = 'backend.urls'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.ROOT_URLCONF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default URL dispatcher (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-ROOT_URLCONF" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.RSS_FEED_URLS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">RSS_FEED_URLS</code><em class="property"> = {'de-de': 'https://integreat-app.de/feed/', 'en-us': 'https://integreat-app.de/en/feed/', 'home-page': 'https://integreat-app.de/'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.RSS_FEED_URLS" title="Permalink to this definition">¶</a></dt>
+<dd><p>RSS feed URLs to the Integreat blog</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;de-de&#39;</span><span class="o">:</span> <span class="s1">&#39;https://integreat-app.de/feed/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;en-us&#39;</span><span class="o">:</span> <span class="s1">&#39;https://integreat-app.de/en/feed/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;home-page&#39;</span><span class="o">:</span> <span class="s1">&#39;https://integreat-app.de/&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.SECRET_KEY">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">SECRET_KEY</code><em class="property"> = '-!v282$zj815_q&#64;htaxcubylo)(l%a+k*-xi78hw*#s2&#64;i86&#64;_'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.SECRET_KEY" title="Permalink to this definition">¶</a></dt>
+<dd><p>The secret key for this particular Django installation (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECRET_KEY" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a>)</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Change the key in production and keep it secret!</p>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.STATICFILES_DIRS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">STATICFILES_DIRS</code><em class="property"> = ['/home/circleci/project/src/../node_modules']</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.STATICFILES_DIRS" title="Permalink to this definition">¶</a></dt>
+<dd><p>This setting defines the additional locations the staticfiles app will traverse
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-STATICFILES_DIRS" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_DIRS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/static-files/" title="(in Django v2.2)"><span class="xref std std-doc">Managing static files</span></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;/home/circleci/project/src/../node_modules&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.STATICFILES_FINDERS">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">STATICFILES_FINDERS</code><em class="property"> = ('django.contrib.staticfiles.finders.FileSystemFinder', 'django.contrib.staticfiles.finders.AppDirectoriesFinder', 'compressor.finders.CompressorFinder')</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.STATICFILES_FINDERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of finder backends that know how to find static files in various locations
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-STATICFILES_FINDERS" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_FINDERS</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="s1">&#39;django.contrib.staticfiles.finders.FileSystemFinder&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.staticfiles.finders.AppDirectoriesFinder&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;compressor.finders.CompressorFinder&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.STATIC_ROOT">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">STATIC_ROOT</code><em class="property"> = '/home/circleci/project/src/cms/static/'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.STATIC_ROOT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The absolute path to the directory where <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/staticfiles/#module-django.contrib.staticfiles" title="(in Django v2.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.staticfiles</span></code></a> will collect static files for deployment
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/static-files/" title="(in Django v2.2)"><span class="xref std std-doc">Managing static files</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.STATIC_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">STATIC_URL</code><em class="property"> = '/static/'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.STATIC_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL to use when referring to static files located in <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v2.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-STATIC_URL" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">STATIC_URL</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/static-files/" title="(in Django v2.2)"><span class="xref std std-doc">Managing static files</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.TEMPLATES">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">TEMPLATES</code><em class="property"> = [{'BACKEND': 'django.template.backends.django.DjangoTemplates', 'DIRS': [], 'APP_DIRS': True, 'OPTIONS': {'context_processors': ['django.template.context_processors.debug', 'django.template.context_processors.request', 'django.contrib.auth.context_processors.auth', 'django.contrib.messages.context_processors.messages', 'backend.context_processors.region_slug_processor'], 'debug': True}}]</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.TEMPLATES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Config for HTML templates (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-TEMPLATES" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;APP_DIRS&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">,</span>
+        <span class="s1">&#39;BACKEND&#39;</span><span class="o">:</span> <span class="s1">&#39;django.template.backends.django.DjangoTemplates&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;DIRS&#39;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;OPTIONS&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;context_processors&#39;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="s1">&#39;django.template.context_processors.debug&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;django.template.context_processors.request&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;django.contrib.auth.context_processors.auth&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;django.contrib.messages.context_processors.messages&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;backend.context_processors.region_slug_processor&#39;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s1">&#39;debug&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.TEST_BLOG_ID">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">TEST_BLOG_ID</code><em class="property"> = 154</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.TEST_BLOG_ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ID of the region “Testumgebung” - prevent sending PNs to actual users in development in
+<a class="reference internal" href="cms.views.push_notifications.html#cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn" title="cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn"><code class="xref py py-func docutils literal notranslate"><span class="pre">send_pn()</span></code></a></p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.THUMBNAIL_HIGH_RESOLUTION">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">THUMBNAIL_HIGH_RESOLUTION</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.THUMBNAIL_HIGH_RESOLUTION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether thumbnails should be stored in high resolution (used by <a class="reference external" href="https://easy-thumbnails.readthedocs.io/en/latest/" title="(in easy-thumbnails v2.7)"><span>Easy Thumbnails</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.TIME_ZONE">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">TIME_ZONE</code><em class="property"> = 'UTC'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.TIME_ZONE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string representing the time zone for this installation
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-TIME_ZONE" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.USE_I18N">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">USE_I18N</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.USE_I18N" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean that specifies whether Django’s translation system should be enabled
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-USE_I18N" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.USE_L10N">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">USE_L10N</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.USE_L10N" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean that specifies if localized formatting of data will be enabled by default or not
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-USE_L10N" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.USE_TZ">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">USE_TZ</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.USE_TZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean that specifies if datetimes will be timezone-aware by default or not
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-USE_TZ" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.VERSION">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">VERSION</code><em class="property"> = '0.0.14'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.VERSION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Version number</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.WEBAPP_URL">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">WEBAPP_URL</code><em class="property"> = 'https://integreat.app'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.WEBAPP_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL to our webapp. This is used for urls in the <code class="docutils literal notranslate"><span class="pre">sitemap.xml</span></code> (see <a class="reference internal" href="sitemap.html#module-sitemap" title="sitemap"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sitemap</span></code></a> for more information).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.WSGI_APPLICATION">
+<code class="sig-prename descclassname">backend.settings.</code><code class="sig-name descname">WSGI_APPLICATION</code><em class="property"> = 'backend.wsgi.application'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.settings.WSGI_APPLICATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>WSGI (Web Server Gateway Interface) config (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-WSGI_APPLICATION" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">WSGI_APPLICATION</span></code></a>)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-backend.sphinx_settings">
+<span id="sphinx-settings"></span><h2>Sphinx Settings<a class="headerlink" href="#module-backend.sphinx_settings" title="Permalink to this headline">¶</a></h2>
+<p>Django settings for the Sphinx documentation builder.
+All configuration is imported from <a class="reference internal" href="#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a> except it sets <a class="reference internal" href="#backend.sphinx_settings.USE_I18N" title="backend.sphinx_settings.USE_I18N"><code class="xref py py-attr docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> to <code class="docutils literal notranslate"><span class="pre">False</span></code> to make sure
+the documentation is not partially translated.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/settings/" title="(in Django v2.2)"><span>Django settings</span></a>.
+For the full list of settings and their values, see <a class="reference external" href="https://easy-thumbnails.readthedocs.io/en/latest/ref/settings/" title="(in easy-thumbnails v2.7)"><span>Settings</span></a>.</p>
+<dl class="py data">
+<dt id="backend.sphinx_settings.USE_I18N">
+<code class="sig-prename descclassname">backend.sphinx_settings.</code><code class="sig-name descname">USE_I18N</code><em class="property"> = False</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/sphinx_settings.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.sphinx_settings.USE_I18N" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean that specifies whether Django’s translation system should be enabled
+(see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-USE_I18N" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/" title="(in Django v2.2)"><span>Internationalization and localization</span></a>)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-backend.urls">
+<span id="urls"></span><h2>Urls<a class="headerlink" href="#module-backend.urls" title="Permalink to this headline">¶</a></h2>
+<p>Django URL dispatcher.
+Delegates the following namespaces:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/api/</span></code> to <a class="reference internal" href="api.html#module-api.urls" title="api.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">api.urls</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/admin/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_urls" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.contrib.admin.ModelAdmin.get_urls()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/i18n/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/i18n/translation/#module-django.conf.urls.i18n" title="(in Django v2.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.conf.urls.i18n</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/sitemap.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">/&lt;region_slug&gt;/&lt;language_code&gt;/sitemap.xml</span></code> to <a class="reference internal" href="sitemap.html#module-sitemap.urls" title="sitemap.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sitemap.urls</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/</span></code> to <a class="reference internal" href="cms.html#module-cms.urls" title="cms.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.urls</span></code></a></p></li>
+</ul>
+<p>Additionally, the error handlers in <a class="reference internal" href="cms.views.error_handler.html#module-cms.views.error_handler" title="cms.views.error_handler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.views.error_handler</span></code></a> are referenced here (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/urls/" title="(in Django v2.2)"><span>django.urls functions for use in URLconfs</span></a>).</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/urls/" title="(in Django v2.2)"><span>URL dispatcher</span></a>.</p>
+</div>
+<div class="section" id="module-backend.wsgi">
+<span id="wsgi"></span><h2>Wsgi<a class="headerlink" href="#module-backend.wsgi" title="Permalink to this headline">¶</a></h2>
+<p>WSGI config for backend project.
+It exposes the WSGI callable as a module-level variable named <code class="docutils literal notranslate"><span class="pre">application</span></code>.</p>
+<p><a class="reference external" href="https://wsgi.readthedocs.io/en/latest/index.html" title="(in www.wsgi.org v0.9)"><span>WSGI</span></a> (Web Server Gateway Interface) is a simple calling convention for web servers to forward requests to
+python frameworks (in our case Django).</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/" title="(in Django v2.2)"><span>How to deploy with WSGI</span></a>.</p>
+<dl class="py function">
+<dt id="backend.wsgi.application">
+<code class="sig-prename descclassname">backend.wsgi.</code><code class="sig-name descname">application</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environ</span></em>, <em class="sig-param"><span class="n">start_response</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/wsgi.py#L15"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#backend.wsgi.application" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the WSGI callable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>environ</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The environment variables</p></li>
+<li><p><strong>start_response</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – A function which starts the response</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The WSGI callable</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>WSGIHandler</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="cms.html" class="btn btn-neutral float-right" title="CMS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../ref/sitemap.html" class="btn btn-neutral float-left" title="Sitemap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Integreat.
+        | <a href="https://integreat-app.de/" target="_blank">Website</a>
+        | <a href="https://integreat.app/" target="_blank">Web-App</a>
+        | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
+      <span class="lastupdated">
+        Last updated on Dec 22, 2020.
+      </span>
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+     
+    <style>
+        div.wy-nav-content {
+            max-width: 1200px;
+        }
+        span.lastupdated {
+            float: right;
+        }
+        div.two-columns div.admonition {
+            clear: none;
+        }
+        div.left-side {
+            width: 48%;
+            float: left;
+        }
+        div.right-side {
+            margin-left: 52%;
+        }
+        div.iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56%;
+            margin-bottom: 20px;
+        }
+        div.iframe-container iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0; top: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+        <!-- Hide the extended reference unless it's currently open -->
+        $(document).ready(function () {
+            if (window.location.pathname.includes("/ref-ext/")) {
+                let ref = $('p.caption:contains("Reference"):not(:contains("Extended Reference"))');
+                ref.hide();
+                ref.next().hide();
+            } else {
+                let simple_ref = $('p.caption:contains("Extended Reference")');
+                simple_ref.hide();
+                simple_ref.next().hide();
+            }
+        });
+    </script>
+
+
+</body>
+</html>

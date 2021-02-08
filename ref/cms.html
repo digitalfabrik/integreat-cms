@@ -1,0 +1,2132 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+    <meta property="article:modified_time" content="2021-01-31T13:58:53+00:00" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>CMS &mdash; integreat-cms 0.0.14 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref/cms.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Constants" href="cms.constants.html" />
+    <link rel="prev" title="Backend" href="backend.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+    
+        <a href="../index.html"><img src="../_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+    
+    
+        <a href="../index.html" class="icon icon-home"> integreat-cms</a>
+    
+    
+        
+        
+    
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First Steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#download-sources">Download sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-dependencies-and-local-package">Install dependencies and local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#create-debian-package">Create debian package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-server.html">Development Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#webserver">Webserver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#github-local-development-environment-german">GitHub, local development environment [German]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#first-issue-project-structure-django-german">First issue, project structure, Django [German]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-tools.html">Developer Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#development-server">Development Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#translations">Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#pipenv-not-found">Pipenv not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#not-a-git-repository">Not a git repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#macos-on-m1">MacOS on M1</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Basic Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../virtualenv.html">Virtual Environment (Pipenv)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#install-dependencies">Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#add-dependencies">Add dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#update-dependencies">Update dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#remove-virtual-environment">Remove virtual environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../internationalization.html">Internationalization (i18n)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#views">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#templates">Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#translation-file">Translation File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#compilation">Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#developer-tools">Developer Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pipenv-install">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#npm-install">npm-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pylint">pylint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#black">black</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#tests">tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#check-translations">check-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bundle-static-files">bundle-static-files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#packaging">packaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#custom-docker-images">Custom Docker Images</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../issue-reporting.html">Issue Reporting Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#issue-templates">Issue Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#bug-report">Bug Report</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#describe-the-bug">Describe the Bug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#steps-to-reproduce">Steps to Reproduce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#expected-behavior">Expected Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#actual-behavior">Actual Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-information">Additional Information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#feature-request">Feature Request</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#motivation">Motivation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#proposed-solution">Proposed Solution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#alternatives">Alternatives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-context">Additional Context</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#git">Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#github-flow">GitHub Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-pledge">Our Pledge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-standards">Our Standards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-responsibilities">Enforcement Responsibilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement">Enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-guidelines">Enforcement Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#correction">1. Correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#warning">2. Warning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#temporary-ban">3. Temporary Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#permanent-ban">4. Permanent Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#attribution">Attribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="backend.html">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#circleci-settings">Circleci Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#context-processors">Context Processors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#docker-settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#sphinx-settings">Sphinx Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backend.html#wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#administrative-division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#feedback-emotions">Feedback Emotions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#months">Months</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#position">Position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#postal-code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#recurrence">Recurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#text-directions">Text Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#translation-status">Translation Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#weekdays">Weekdays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#event-filter-form">Event Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#event-form">Event Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#event-translation-form">Event Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#recurrence-rule-form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#imprint-form">Imprint Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#imprint-translation-form">Imprint Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.language_tree.html#language-tree-node-form">Language Tree Node Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.languages.html#language-form">Language Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#document-form">Document Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.offer_templates.html#offer-template-form">Offer Template Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.organizations.html#organization-form">Organization Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-form">Page Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pois.html#poi-form">POI Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pois.html#poi-translation-form">POI Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.regions.html#region-form">Region Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#role-form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-form">Region User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-email-form">User Email Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-form">User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-password-form">User Password Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.chat.html#chat-message">Chat Message</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.config.html">Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.config.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#event-translation">Event Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.events.html#recurrence-rule">Recurrence Rule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#event-feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#event-list-feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#offer-feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#region-feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#search-result-feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.languages.html#language">Language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.languages.html#language-tree-node">Language Tree Node</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#document">Document</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.offers.html#offer">Offer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.offers.html#offer-template">Offer Template</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#abstract-base-page">Abstract Base Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#abstract-base-page-translation">Abstract Base Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#imprint-page">Imprint Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#imprint-page-translation">Imprint Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#page">Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pages.html#page-translation">Page Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pois.html#poi">POI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.pois.html#poi-translation">POI Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#push-notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#push-notification-channel">Push Notification Channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#push-notification-translation">Push Notification Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.regions.html#region">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#content-filters">Content Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#offer-filters">Offer Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#page-filters">Page Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#poi-filters">POI Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#user-filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.tests.html">Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.pages.html#models">Models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#admin-view-test">Admin View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#region-view-test">Region View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#view-test">View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#view-test-utils">View Test Utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#translation-utils">Translation Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.html">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#translation-coverage-view">Translation Coverage View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#authentication-actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#chat-actions">Chat Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.chat.html#chat-context-mixin">Chat Context Mixin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#admin-dashboard-view">Admin Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#dashboard-view">Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.dashboard.html#redirect-view">Redirect View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.error_handler.html#id1">Error Handler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#event-actions">Event Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#event-context-mixin">Event Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#event-list-view">Event List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#event-view">Event View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#admin-feedback-list-view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#region-feedback-list-view">Region Feedback List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.imprint.html">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.imprint.html#imprint-actions">Imprint Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.imprint.html#imprint-revision-view">Imprint Revision View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.imprint.html#imprint-sbs-view">Imprint Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.imprint.html#imprint-view">Imprint View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#language-tree-actions">Language Tree Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#language-tree-context-mixin">Language Tree Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#language-tree-node-view">Language Tree Node View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.language_tree.html#language-tree-view">Language Tree View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#language-list-view">Language List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#language-view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-edit-view">Media Edit View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#offer-template-list-view">Offer Template List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#offer-template-view">Offer Template View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#offer-actions">Offer Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#offer-list-view">Offer List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-list-view">Organization List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-view">Organization View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-actions">Page Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-context-mixin">Page Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-revision-view">Page Revision View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-sbs-view">Page Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-tree-view">Page Tree View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-view">Page View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#poi-actions">POI Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#poi-context-mixin">POI Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#poi-list-view">POI List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pois.html#poi-view">POI View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#push-notification-list-view">Push Notification List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#push-notification-sender">Push Notification Sender</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.push_notifications.html#push-notification-view">Push Notification View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#region-actions">Region Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#region-list-view">Region List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.regions.html#region-view">Region View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.roles.html#role-list-view">Role List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.roles.html#role-view">Role View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#admin-settings-view">Admin Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#settings-view">Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.html#user-settings-view">User Settings View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#analytics-view">Analytics View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#matomo-api-manager">Matomo API Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#region-user-actions">Region User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#region-user-list-view">Region User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#region-user-view">Region User View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#user-actions">User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#user-list-view">User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#user-view">User View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#page-xliff-converter">Page Xliff Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rules">Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.v3.html">V3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#event-feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#event-list-feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#legacy-feedback-endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#offer-feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#region-feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#search-result-feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#imprint">Imprint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#languages">Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#offers">Offers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#pages">Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#pdf-export">PDF Export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#regions">Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.v3.html#single-page">Single Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gvz_api.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gvz_api.html#utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sitemap.html">Sitemap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#sitemaps">Sitemaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sitemap.html#views">Views</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extended Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/backend.html">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/backend.html#module-backend.circleci_settings">Circleci Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/backend.html#module-backend.context_processors">Context Processors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/backend.html#module-backend.docker_settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/backend.html#module-backend.settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/backend.html#module-backend.sphinx_settings">Sphinx Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/backend.html#module-backend.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/backend.html#module-backend.wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/cms.html">CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.constants.html">Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.mirrored_page_first">Mirrored Page First</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.months">Months</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.position">Position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.weekdays">Weekdays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.forms.html">Forms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.events.html#module-cms.forms.events.event_filter_form">Event Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.events.html#module-cms.forms.events.event_form">Event Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.events.html#module-cms.forms.events.event_translation_form">Event Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.events.html#module-cms.forms.events.recurrence_rule_form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.language_tree.html#module-cms.forms.language_tree.language_tree_node_form">Language Tree Node Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.languages.html#module-cms.forms.languages.language_form">Language Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.offer_templates.html#module-cms.forms.offer_templates.offer_template_form">Offer Template Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.organizations.html#module-cms.forms.organizations.organization_form">Organization Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pois.html#module-cms.forms.pois.poi_form">POI Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pois.html#module-cms.forms.pois.poi_translation_form">POI Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.regions.html#module-cms.forms.regions.region_form">Region Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.chat.html#module-cms.models.chat.chat_message">Chat Message</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.config.html">Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.config.html#module-cms.models.config.configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.events.html#module-cms.models.events.event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.events.html#module-cms.models.events.event_translation">Event Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.events.html#module-cms.models.events.recurrence_rule">Recurrence Rule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.event_feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.languages.html#module-cms.models.languages.language">Language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.languages.html#module-cms.models.languages.language_tree_node">Language Tree Node</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.document">Document</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.offers.html#module-cms.models.offers.offer">Offer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.offers.html#module-cms.models.offers.offer_template">Offer Template</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.pages.html#module-cms.models.pages.abstract_base_page">Abstract Base Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.pages.html#module-cms.models.pages.abstract_base_page_translation">Abstract Base Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.pages.html#module-cms.models.pages.imprint_page">Imprint Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.pages.html#module-cms.models.pages.imprint_page_translation">Imprint Page Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.pages.html#module-cms.models.pages.page">Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.pages.html#module-cms.models.pages.page_translation">Page Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.pois.html#module-cms.models.pois.poi">POI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.pois.html#module-cms.models.pois.poi_translation">POI Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_channel">Push Notification Channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.regions.html#module-cms.models.regions.region">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.content_filters">Content Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.offer_filters">Offer Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.page_filters">Page Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.user_filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.tests.html">Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.tests.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.pages.html#module-cms.tests.pages.models">Models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.tests.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.admin_view_test">Admin View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.region_view_test">Region View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.view_test">View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.view_test_utils">View Test Utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.views.html">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.chat.html">Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.chat.html#module-cms.views.chat.chat_actions">Chat Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.chat.html#module-cms.views.chat.chat_context_mixin">Chat Context Mixin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.dashboard.html#module-cms.views.dashboard.admin_dashboard_view">Admin Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.dashboard.html#module-cms.views.dashboard.dashboard_view">Dashboard View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.dashboard.html#module-cms.views.dashboard.redirect_view">Redirect View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.error_handler.html#id1">Error Handler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.events.html">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.events.html#module-cms.views.events.event_actions">Event Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.events.html#module-cms.views.events.event_context_mixin">Event Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.events.html#module-cms.views.events.event_list_view">Event List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.feedback.html#module-cms.views.feedback.admin_feedback_list_view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.feedback.html#module-cms.views.feedback.region_feedback_list_view">Region Feedback List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.imprint.html">Imprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.imprint.html#module-cms.views.imprint.imprint_actions">Imprint Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.imprint.html#module-cms.views.imprint.imprint_revision_view">Imprint Revision View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.imprint.html#module-cms.views.imprint.imprint_sbs_view">Imprint Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.imprint.html#module-cms.views.imprint.imprint_view">Imprint View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.language_tree.html#module-cms.views.language_tree.language_tree_actions">Language Tree Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.language_tree.html#module-cms.views.language_tree.language_tree_context_mixin">Language Tree Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.language_tree.html#module-cms.views.language_tree.language_tree_node_view">Language Tree Node View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.language_tree.html#module-cms.views.language_tree.language_tree_view">Language Tree View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.languages.html#module-cms.views.languages.language_list_view">Language List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.languages.html#module-cms.views.languages.language_view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_list_view">Offer Template List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_view">Offer Template View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.offers.html">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.offers.html#module-cms.views.offers.offer_actions">Offer Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.offers.html#module-cms.views.offers.offer_list_view">Offer List View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_actions">Page Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_context_mixin">Page Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_revision_view">Page Revision View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pois.html#module-cms.views.pois.poi_actions">POI Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pois.html#module-cms.views.pois.poi_context_mixin">POI Context Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pois.html#module-cms.views.pois.poi_list_view">POI List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pois.html#module-cms.views.pois.poi_view">POI View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_list_view">Push Notification List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_sender">Push Notification Sender</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.push_notifications.html#module-cms.views.push_notifications.push_notification_view">Push Notification View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.regions.html#module-cms.views.regions.region_actions">Region Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.regions.html#module-cms.views.regions.region_list_view">Region List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.regions.html#module-cms.views.regions.region_view">Region View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.roles.html#module-cms.views.roles.role_list_view">Role List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.roles.html#module-cms.views.roles.role_view">Role View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.settings.html#module-cms.views.settings.admin_settings_view">Admin Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.settings.html#module-cms.views.settings.settings_view">Settings View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.settings.html#module-cms.views.settings.user_settings_view">User Settings View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.statistics.html#module-cms.views.statistics.analytics_view">Analytics View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.statistics.html#module-cms.views.statistics.matomo_api_manager">Matomo API Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.users.html#module-cms.views.users.region_user_actions">Region User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.users.html#module-cms.views.users.region_user_list_view">Region User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.users.html#module-cms.views.users.region_user_view">Region User View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.users.html#module-cms.views.users.user_actions">User Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.users.html#module-cms.views.users.user_list_view">User List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.users.html#module-cms.views.users.user_view">User View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.rules">Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/api.v3.html">V3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.event_feedback">Event Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.imprint">Imprint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.languages">Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.offers">Offers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.pages">Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.pdf_export">PDF Export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.push_notifications">Push Notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.regions">Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.single_page">Single Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/api.html#module-api.admin">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/api.html#module-api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/api.html#module-api.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/api.html#module-api.tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/api.html#module-api.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/gvz_api.html#module-gvz_api.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/gvz_api.html#module-gvz_api.utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/sitemap.html">Sitemap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.sitemaps">Sitemaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.urls">Urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.views">Views</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Indices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.tuerantuer.org/glossary">Glossary</a></li>
+</ul>
+
+            
+          
+    <a href="../genindex.html">Full Index</a>
+    <a href="../py-modindex.html">Module Index</a>
+    <a href="../search.html">Search Page</a>
+
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">integreat-cms</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>CMS</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../ref-ext/cms.html" class="fa fa-search-plus"> Open extended view</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cms">
+<h1>CMS<a class="headerlink" href="#cms" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#administrative-division">Administrative Division</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#feedback-emotions">Feedback Emotions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#months">Months</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#position">Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#postal-code">Postal Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#recurrence">Recurrence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#status">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#text-directions">Text Directions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#translation-status">Translation Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#weekdays">Weekdays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.events.html">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html#event-filter-form">Event Filter Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html#event-form">Event Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html#event-translation-form">Event Translation Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.events.html#recurrence-rule-form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html#imprint-form">Imprint Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html#imprint-translation-form">Imprint Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.language_tree.html#language-tree-node-form">Language Tree Node Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.languages.html">Languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.languages.html#language-form">Language Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html#document-form">Document Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html#offer-template-form">Offer Template Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.organizations.html">Organizations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.organizations.html#organization-form">Organization Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pages.html#page-form">Page Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html#poi-form">POI Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html#poi-translation-form">POI Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html#region-form">Region Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html#role-form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#region-user-form">Region User Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#user-email-form">User Email Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#user-form">User Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#user-password-form">User Password Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.models.html">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.chat.html">Chat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.chat.html#chat-message">Chat Message</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.config.html">Config</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.config.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.events.html">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.events.html#event">Event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.events.html#event-translation">Event Translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.events.html#recurrence-rule">Recurrence Rule</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.feedback.html">Feedback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#event-feedback">Event Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#event-list-feedback">Event List Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#offer-feedback">Offer Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#region-feedback">Region Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.feedback.html#search-result-feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.languages.html">Languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.languages.html#language">Language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.languages.html#language-tree-node">Language Tree Node</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.media.html#document">Document</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html#offer">Offer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html#offer-template">Offer Template</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html#abstract-base-page">Abstract Base Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html#abstract-base-page-translation">Abstract Base Page Translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html#imprint-page">Imprint Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html#imprint-page-translation">Imprint Page Translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html#page">Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pages.html#page-translation">Page Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.pois.html">POIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pois.html#poi">POI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.pois.html#poi-translation">POI Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html#push-notification">Push Notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html#push-notification-channel">Push Notification Channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html#push-notification-translation">Push Notification Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.regions.html">Regions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.regions.html#region">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html#user-mfa">User MFA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#content-filters">Content Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#offer-filters">Offer Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#page-filters">Page Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#poi-filters">POI Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.templatetags.html#user-filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.tests.html">Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.tests.pages.html">Pages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.pages.html#models">Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.tests.views.html">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html#admin-view-test">Admin View Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html#region-view-test">Region View Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html#view-test">View Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html#view-test-utils">View Test Utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html#translation-utils">Translation Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.html">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html#translation-coverage-view">Translation Coverage View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html#authentication-actions">Authentication Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html#chat-actions">Chat Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html#chat-context-mixin">Chat Context Mixin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html#admin-dashboard-view">Admin Dashboard View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html#dashboard-view">Dashboard View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.dashboard.html#redirect-view">Redirect View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.error_handler.html#id1">Error Handler</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.events.html">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html#event-actions">Event Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html#event-context-mixin">Event Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html#event-list-view">Event List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.events.html#event-view">Event View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.feedback.html#admin-feedback-list-view">Admin Feedback List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.feedback.html#region-feedback-list-view">Region Feedback List View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.imprint.html">Imprint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.imprint.html#imprint-actions">Imprint Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.imprint.html#imprint-revision-view">Imprint Revision View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.imprint.html#imprint-sbs-view">Imprint Sbs View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.imprint.html#imprint-view">Imprint View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html#language-tree-actions">Language Tree Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html#language-tree-context-mixin">Language Tree Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html#language-tree-node-view">Language Tree Node View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.language_tree.html#language-tree-view">Language Tree View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.languages.html#language-list-view">Language List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.languages.html#language-view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html#media-edit-view">Media Edit View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offer_templates.html#offer-template-list-view">Offer Template List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offer_templates.html#offer-template-view">Offer Template View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.offers.html">Offers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offers.html#offer-actions">Offer Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.offers.html#offer-list-view">Offer List View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html#organization-list-view">Organization List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html#organization-view">Organization View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html#page-actions">Page Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html#page-context-mixin">Page Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html#page-revision-view">Page Revision View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html#page-sbs-view">Page Sbs View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html#page-tree-view">Page Tree View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pages.html#page-view">Page View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html#poi-actions">POI Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html#poi-context-mixin">POI Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html#poi-list-view">POI List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html#poi-view">POI View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html#push-notification-list-view">Push Notification List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html#push-notification-sender">Push Notification Sender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.push_notifications.html#push-notification-view">Push Notification View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html#region-actions">Region Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html#region-list-view">Region List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.regions.html#region-view">Region View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.roles.html#role-list-view">Role List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.roles.html#role-view">Role View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.mfa.html">MFA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.settings.mfa.html#id1">MFA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.html#admin-settings-view">Admin Settings View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.html#settings-view">Settings View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.settings.html#user-settings-view">User Settings View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.statistics.html#analytics-view">Analytics View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.statistics.html#matomo-api-manager">Matomo API Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.users.html">Users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html#region-user-actions">Region User Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html#region-user-list-view">Region User List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html#region-user-view">Region User View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html#user-actions">User Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html#user-list-view">User List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.users.html#user-view">User View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="admin">
+<h2>Admin<a class="headerlink" href="#admin" title="Permalink to this headline">¶</a></h2>
+<p>File routing to the admin region</p>
+</div>
+<div class="section" id="apps">
+<h2>Apps<a class="headerlink" href="#apps" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.apps.</code><code class="sig-name descname">CmsConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app_name</span></em>, <em class="sig-param"><span class="n">app_module</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L16"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<p>This class represents the Django-configuration of the backend.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the app</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L28"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This function gets executed exactly once each time the cms starts. We use it to check wether the secret key was
+not changed in production mode and show an error message if this is the case.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig.ready" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.apps.AppConfig.ready()</span></code></a> for more information.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.apps.</code><code class="sig-name descname">user_logged_in_callback</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L49"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Log a successful login event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#type" title="(in Python v3.7)"><em>type</em></a>) – The class of the user that just logged in.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user instance that just logged in.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.apps.</code><code class="sig-name descname">user_logged_out_callback</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L71"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Log a logout event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#type" title="(in Python v3.7)"><em>type</em></a>) – The class of the user that just logged out or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the user was not authenticated.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user instance that just logged out or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the user was not authenticated.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.apps.</code><code class="sig-name descname">user_login_failed_callback</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">credentials</span></em>, <em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L93"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Log a failed login event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the module used for authentication.</p></li>
+<li><p><strong>credentials</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – A dictionary of keyword arguments containing the user credentials that were passed to
+<a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.authenticate" title="(in Django v2.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">authenticate()</span></code></a>. Credentials matching a set of ‘sensitive’ patterns,
+(including password) will not be sent in the clear as part of the signal.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="decorators">
+<h2>Decorators<a class="headerlink" href="#decorators" title="Permalink to this headline">¶</a></h2>
+<p>Django view decorators can be used to restrict the execution of a view function on certain conditions.</p>
+<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/decorators/" title="(in Django v2.2)"><span>View decorators</span></a>.</p>
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">modify_mfa_authenticated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L62"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This decorator can be used to make sure a user can only modify his 2FA settings when he has a valid 2FA session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">region_permission_required</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L37"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This decorator can be used to make sure a view can only be retrieved by users of the requested region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.decorators.</code><code class="sig-name descname">staff_required</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L15"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This decorator can be used to make sure a view can only be retrieved by users who are either staff or superusers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="page-xliff-converter">
+<h2>Page Xliff Converter<a class="headerlink" href="#page-xliff-converter" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.page_xliff_converter.</code><code class="sig-name descname">PageXliffHelper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L243"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Wrapper and helper methods for reading/writing XLIFF files and saving PageTranslation</p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L248"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src_lang</strong> (<a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – source language of translation</p></li>
+<li><p><strong>tgt_lang</strong> (<a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – target language of translation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">export_page_translation_xliff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L276"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create XLIFF file for source page translation and target language</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – page of translation that should be exported</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>file path to XLIFF file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property">static </em><code class="sig-name descname">extract_zip_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">zip_file_path</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L459"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Extract zip file and return file paths of content</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>zip_file_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – path to zip file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of filenames</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property">static </em><code class="sig-name descname">generate_translation_diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trans_fields</span></em>, <em class="sig-param"><span class="n">xliff_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L514"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Generate diff to current translation from translation fields dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trans_fields</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – content extracted from XLIFF</p></li>
+<li><p><strong>xliff_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – file name of XLIFF</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary containing diff between XLIFF and current translation version</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">generate_xliff_import_diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xliff_paths</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L479"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Generate diff between XLIFF content and current translation content</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>xliff_paths</strong> (<em>[ </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> ]</em>) – list of paths to XLIFF files</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionaries containing diffs between XLIFF and current translation versions or an error message</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">import_xliff_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xliff_paths</span></em>, <em class="sig-param"><span class="n">user</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L426"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Import single (usually translated) XLIFF file and
+save to page translation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xliff_paths</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> [ </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> ]</em>) – paths to XLIFF files</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – author of page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>failure/success</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">pages_to_zipped_xliffs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region</span></em>, <em class="sig-param"><span class="n">pages</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L342"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Export a list of page IDs to a zip file containing XLIFFs for a specified target language</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – region from which the XLIFFs should be exported</p></li>
+<li><p><strong>pages</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> [ </em><a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a><em> ]</em>) – list of pages which should be translated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The path of the generated zip file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property">static </em><code class="sig-name descname">post_translation_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pages</span></em>, <em class="sig-param"><span class="n">language_code</span></em>, <em class="sig-param"><span class="n">translation_state</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L562"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Update translation state according to parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pages</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of pages</p></li>
+<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language code of translation</p></li>
+<li><p><strong>translation_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – value to set for currently_in_translation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property">static </em><code class="sig-name descname">save_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">content</span></em>, <em class="sig-param"><span class="n">file_path</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L261"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Write text to file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – content of file</p></li>
+<li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – path to newly created file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property">static </em><code class="sig-name descname">save_page_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trans_fields</span></em>, <em class="sig-param"><span class="n">user</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L390"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Save XLIFF input to page translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trans_fields</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – translated fields extracted from XLIFF file</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – author of translations</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>failure/success for each page or overall failed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> or <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">cms.page_xliff_converter.</code><code class="sig-name descname">TranslationXliffConverter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">xliff_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L17"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class to handle transition between XLIFF 2.0 XML files and PageTranslation model</p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_lang</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">xliff_code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L27"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Builds an LXML ETree from either the template or xliff_code parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src_lang</strong> (<a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – source language of translation</p></li>
+<li><p><strong>tgt_lang</strong> (<a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – target language of translation</p></li>
+<li><p><strong>xliff_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – XML Code of XLIFF file to import</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">add_language_attributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L132"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>If possible, add the srcLang and trgLang attributes to the xliff element</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>language attributes were added</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">add_notes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">notes</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L179"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Add notes section with additional information to XLIFF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>notes</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – key-value-pairs of notes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">add_translation_unit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">unit_id</span></em>, <em class="sig-param"><span class="n">source_text</span></em>, <em class="sig-param"><span class="n">target_text</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L193"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Add a translation unit to the file element</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unit_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – value for the unit id attribute</p></li>
+<li><p><strong>source_text</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – source text to be translated</p></li>
+<li><p><strong>target_text</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – already available translation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_xml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L233"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Turn LXML Element Tree to readable XML code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pretty printed XML source code</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">parse_xliff_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L95"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Extract content elements from xliff</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">parse_xliff_meta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L56"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Get meta information from XLIFF file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">translation_to_xliff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">src_trans</span></em>, <em class="sig-param"><span class="n">tgt_trans</span></em>, <em class="sig-param"><span class="n">xliff_id</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L145"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create a XLIFF that contains a page translation
+Add origin attribute with page id as value to file element. as this id is unique
+across all regions, it can be used to import a XLIFF file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – the id of the page to which the translation is related</p></li>
+<li><p><strong>src_trans</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>) – source language page translation</p></li>
+<li><p><strong>tgt_trans</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>) – target language page translation</p></li>
+<li><p><strong>xliff_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – XLIFF ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>UTF-8 encoded XML</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">validate_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L117"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Validate if content data is present</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>content and title elements are available</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">validate_meta_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L79"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Validate if XLIFF meta information is present</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>all required meta data (languages, page id, file element) available</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">xliff_to_translation_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L214"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Read a XLIFF file that contains a page translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if successful, the content for the translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="rules">
+<h2>Rules<a class="headerlink" href="#rules" title="Permalink to this headline">¶</a></h2>
+<p>We use <a class="reference external" href="https://pypi.org/project/rules/">django-rules</a> to add custom permissions for specific pages.</p>
+<p>For a given user and page, the following permissions are added:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">cms.edit_page</span></code> if one of the following predicates return true:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../ref-ext/cms.html#cms.rules.can_edit_all_pages" title="cms.rules.can_edit_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_edit_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.html#cms.rules.is_page_editor" title="cms.rules.is_page_editor"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.html#cms.rules.can_publish_all_pages" title="cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.html#cms.rules.is_page_publisher" title="cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cms.publish_page</span></code> if one of the following predicates return true:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../ref-ext/cms.html#cms.rules.can_publish_all_pages" title="cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.html#cms.rules.is_page_publisher" title="cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>See the project’s <a class="reference external" href="https://github.com/dfunckt/django-rules/blob/master/README.rst">README</a> to learn more.</p>
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_page_editor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L26"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This predicate checks whether the given user is one of the editors of the given page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is an editor of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_page_publisher</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L45"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This predicate checks whether the given user is one of the publishers of the given page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is a publisher of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_edit_all_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L64"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This predicate checks whether the given user can edit all pages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The page parameter is used for the region check</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can edit all pages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_publish_all_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L84"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This predicate checks whether the given user can publish all pages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The page parameter is used for the region check</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can publish all pages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="urls">
+<h2>Urls<a class="headerlink" href="#urls" title="Permalink to this headline">¶</a></h2>
+<p>Django URL dispatcher for the cms package.
+See <a class="reference internal" href="../ref-ext/backend.html#module-backend.urls" title="backend.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.urls</span></code></a> for the other namespaces of this application.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/urls/" title="(in Django v2.2)"><span>URL dispatcher</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="cms.constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="backend.html" class="btn btn-neutral float-left" title="Backend" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Integreat.
+        | <a href="https://integreat-app.de/" target="_blank">Website</a>
+        | <a href="https://integreat.app/" target="_blank">Web-App</a>
+        | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
+      <span class="lastupdated">
+        Last updated on Jan 31, 2021.
+      </span>
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+     
+    <style>
+        div.wy-nav-content {
+            max-width: 1200px;
+        }
+        span.lastupdated {
+            float: right;
+        }
+        div.two-columns div.admonition {
+            clear: none;
+        }
+        div.left-side {
+            width: 48%;
+            float: left;
+        }
+        div.right-side {
+            margin-left: 52%;
+        }
+        div.iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56%;
+            margin-bottom: 20px;
+        }
+        div.iframe-container iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0; top: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+        <!-- Hide the extended reference unless it's currently open -->
+        $(document).ready(function () {
+            if (window.location.pathname.includes("/ref-ext/")) {
+                let ref = $('p.caption:contains("Reference"):not(:contains("Extended Reference"))');
+                ref.hide();
+                ref.next().hide();
+            } else {
+                let simple_ref = $('p.caption:contains("Extended Reference")');
+                simple_ref.hide();
+                simple_ref.next().hide();
+            }
+        });
+    </script>
+
+
+</body>
+</html>
