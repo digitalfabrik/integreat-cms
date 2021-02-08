@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 from backend.settings import AUTHOR_CHAT_HISTORY_DAYS
 
@@ -38,13 +39,12 @@ class ChatMessage(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="chat_messages",
-        verbose_name="Sender of the message",
+        verbose_name=_("sender"),
     )
-    text = models.TextField(verbose_name="The chat message content")
+    text = models.TextField(verbose_name=_("content"))
     sent_datetime = models.DateTimeField(
         auto_now_add=True,
-        verbose_name="Sent date and time",
-        help_text="The date and time when the chat message was sent",
+        verbose_name=_("sent date"),
     )
 
     #: The default manager
@@ -65,16 +65,11 @@ class ChatMessage(models.Model):
         )
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param ordering: The fields which are used to sort the returned objects of a QuerySet
-        :type ordering: list [ str ]
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("chat message")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("chat messages")
+        #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["-sent_datetime"]
+        #: The default permissions for this model
         default_permissions = ()

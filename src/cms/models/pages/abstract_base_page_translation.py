@@ -1,42 +1,54 @@
 from django.db import models
 from django.utils import timezone
-from backend.settings import WEBAPP_URL
+from django.utils.translation import ugettext_lazy as _
 
+from backend.settings import WEBAPP_URL
 from ...constants import status
 
 
 class AbstractBasePageTranslation(models.Model):
     """
     Data model representing a page or imprint page translation
-
-    :param status: The status of the page translation (choices: :mod:`cms.constants.status`)
-    :param title: The title of the page translation
-    :param text: The content of the page translation
-    :param currently_in_translation: Flag to indicate a translation is being updated by an external translator
-    :param version: The revision number of the page translation
-    :param minor_edit: Flag to indicate whether the difference to the previous revision requires an update in other
-                       languages
-    :param created_date: The date and time when the page translation was created
-    :param last_updated: The date and time when the page translation was last updated
-
-    Fields to be implemented in the inheriting model:
-
-    :param permalink: The permalink to the page the translation
-    :param page: The page the translation belongs to
-    :param language: The :class:`~cms.models.languages.language.Language` of the page translation
-    :param creator: The :class:`~django.contrib.auth.models.User` who created the page translation
     """
 
-    title = models.CharField(max_length=250)
-    text = models.TextField(blank=True)
-    status = models.CharField(
-        max_length=6, choices=status.CHOICES, default=status.DRAFT
+    title = models.CharField(
+        max_length=250,
+        verbose_name=_("title"),
     )
-    currently_in_translation = models.BooleanField(default=False)
-    version = models.PositiveIntegerField(default=0)
-    minor_edit = models.BooleanField(default=False)
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    text = models.TextField(
+        blank=True,
+        verbose_name=_("content"),
+    )
+    #: Manage choices in :mod:`cms.constants.status`
+    status = models.CharField(
+        max_length=6,
+        choices=status.CHOICES,
+        default=status.DRAFT,
+        verbose_name=_("status"),
+    )
+    currently_in_translation = models.BooleanField(
+        default=False,
+        verbose_name=_("currently in translation"),
+        help_text=_(
+            "Flag to indicate a translation is being updated by an external translator"
+        ),
+    )
+    version = models.PositiveIntegerField(default=0, verbose_name=_("revision"))
+    minor_edit = models.BooleanField(
+        default=False,
+        verbose_name=_("minor edit"),
+        help_text=_(
+            "Tick if this change does not require an update of translations in other languages"
+        ),
+    )
+    created_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("modification date"),
+    )
 
     @property
     def page(self):
@@ -132,9 +144,9 @@ class AbstractBasePageTranslation(models.Model):
     @property
     def sitemap_alternates(self):
         """
-        This property returns the langauge alternatives of a page translation for the use in sitemaps.
-        Similar to :func:`cms.models.pages.page_translation.PageTranslation.available_languages`, but in a slightly
-        different format.
+        This property returns the language alternatives of a page translation for the use in sitemaps.
+        Similar to :func:`cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.available_languages`,
+        but in a slightly different format.
 
         :return: A list of dictionaries containing the alternative translations of a page translation
         :rtype: list [ dict ]
@@ -255,6 +267,13 @@ class AbstractBasePageTranslation(models.Model):
 
     @property
     def is_outdated_helper(self):
+        """
+        See :meth:`~cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.is_outdated` with the
+        difference that it does not return ``False`` when ``currently_in_translation`` is ``True``.
+
+        :return: Flag to indicate whether the translation is outdated
+        :rtype: bool
+        """
         source_translation = self.source_translation
         # If self.language is the root language, this translation can never be outdated
         if not source_translation:
@@ -281,4 +300,9 @@ class AbstractBasePageTranslation(models.Model):
         return not self.currently_in_translation and not self.is_outdated
 
     class Meta:
+        #: The verbose name of the model
+        verbose_name = _("page translation")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("page translations")
+        #: This model is an abstract base class
         abstract = True

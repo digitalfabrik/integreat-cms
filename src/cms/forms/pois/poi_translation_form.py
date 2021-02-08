@@ -17,13 +17,15 @@ class POITranslationForm(forms.ModelForm):
     Form for creating and modifying POI translation objects
     """
 
-    PUBLIC_CHOICES = (
-        (True, _("Public")),
-        (False, _("Private")),
-    )
-
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = POITranslation
+        #: The fields of the model which should be handled by this form
         fields = [
             "title",
             "short_description",
@@ -35,6 +37,22 @@ class POITranslationForm(forms.ModelForm):
 
     # pylint: disable=too-many-arguments
     def __init__(self, data=None, instance=None, region=None, language=None):
+        """
+        Initialize POI translation form
+
+        :param data: submitted POST data
+        :type data: dict
+
+        :param instance: This form's instance
+        :type instance: ~cms.models.pois.poi_translation.POITranslation
+
+        :param region: The region of this form's instance
+        :type region: ~cms.models.regions.region.Region
+
+        :param language: The language of this form's instance
+        :type language: ~cms.models.languages.language.Language
+        """
+
         logger.info(
             "POITranslationForm instantiated with data %s and instance %s",
             data,
@@ -65,6 +83,20 @@ class POITranslationForm(forms.ModelForm):
 
     # pylint: disable=arguments-differ
     def save(self, poi=None, user=None):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param poi: The POI translation instance of this form
+        :type poi: ~cms.models.pois.poi_translation.POITranslation
+
+        :param user: The author of the POI translation instance
+        :type user: ~django.contrib.auth.models.User
+
+        :return: The saved POI translation object
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
+        """
+
         logger.info(
             "POITranslationForm saved with cleaned data %s and changed data %s",
             self.cleaned_data,
@@ -90,12 +122,26 @@ class POITranslationForm(forms.ModelForm):
         return poi_translation
 
     def clean_slug(self):
+        """
+        Validate the slug field (see :ref:`overriding-modelform-clean-method`)
+
+        :return: A unique slug based on the input value
+        :rtype: str
+        """
         unique_slug = generate_unique_slug(self, "poi")
         self.data = self.data.copy()
         self.data["slug"] = unique_slug
         return unique_slug
 
     def clean_description(self):
+        """
+        Validate the description field (see :ref:`overriding-modelform-clean-method`)
+
+        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the description
+
+        :return: The valid description
+        :rtype: str
+        """
         description = self.data["description"]
 
         if "<h1>" in description:

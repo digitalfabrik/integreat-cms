@@ -2,7 +2,12 @@ from django.utils.translation import ugettext_lazy
 from django.views.generic.base import ContextMixin
 
 # pylint: disable=too-few-public-methods
-class EventMixin(ContextMixin):
+class EventContextMixin(ContextMixin):
+    """
+    This mixin provides extra context for event views
+    """
+
+    #: A dictionary of additional context
     extra_context = {
         "archive_dialog_title": ugettext_lazy(
             "Please confirm that you really want to archive this event"

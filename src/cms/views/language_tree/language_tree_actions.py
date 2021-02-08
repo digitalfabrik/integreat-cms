@@ -32,7 +32,7 @@ def move_language_tree_node(
     :param region_slug: The slug of the region which language tree should be modified
     :type region_slug: str
 
-    :param language_tree_node_id: The id of the language tree node wich should be moved
+    :param language_tree_node_id: The id of the language tree node which should be moved
     :type language_tree_node_id: int
 
     :param target_id: The id of the target language tree node
@@ -83,7 +83,7 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
     :param region_slug: The slug of the region which language node should be deleted
     :type region_slug: str
 
-    :param language_tree_node_id: The id of the language tree node wich should be deleted
+    :param language_tree_node_id: The id of the language tree node which should be deleted
     :type language_tree_node_id: int
 
     :return: A redirection to the language tree

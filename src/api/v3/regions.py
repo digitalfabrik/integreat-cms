@@ -12,10 +12,10 @@ from ..decorators import json_response
 
 def transform_region(region):
     """
-    Function to create a JSON from a single region object, including information if region is live/ative.
+    Function to create a JSON from a single region object, including information if region is live/active.
 
-    :param page_translation: single region object
-    :type page_translation: ~cms.models.regions.region.Region
+    :param region: The region object which should be converted
+    :type region: ~cms.models.regions.region.Region
 
     :return: return data necessary for API
     :rtype: dict
@@ -41,8 +41,8 @@ def transform_region_by_status(region):
     """
     Function to create a JSON from a single "active" region object.
 
-    :param page_translation: single region object
-    :type page_translation: ~cms.models.regions.region.Region
+    :param region: The region object which should be converted
+    :type region: ~cms.models.regions.region.Region
 
     :return: return data necessary for API
     :rtype: dict

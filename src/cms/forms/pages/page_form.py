@@ -22,12 +22,40 @@ class ParentFieldWidget(forms.widgets.Select):
     This Widget class is used to append the url for retrieving the page order tables to the data attributes of the options
     """
 
+    #: The form this field is bound to
     form = None
 
     # pylint: disable=too-many-arguments
     def create_option(
         self, name, value, label, selected, index, subindex=None, attrs=None
     ):
+        """
+        This function creates an option which can be selected in the parent field
+
+        :param name: The name of the option
+        :type name: str
+
+        :param value: the value of the option (the page id)
+        :type value: int
+
+        :param label: The label of the option
+        :type label: str
+
+        :param selected: Whether or not the option is selected
+        :type selected: bool
+
+        :param index: The index of the option
+        :type index: int
+
+        :param subindex: The subindex of the option
+        :type subindex: int
+
+        :param attrs: The attributes of the option
+        :type attrs: dict
+
+        :return: The option dict
+        :rtype: dict
+        """
         option_dict = super().create_option(
             name, value, label, selected, index, subindex=subindex, attrs=attrs
         )
@@ -58,10 +86,20 @@ class ParentField(forms.ModelChoiceField):
     Form field helper class to overwrite the label function (which would otherwise call __str__)
     """
 
+    #: The language of this field
     language = None
 
     # pylint: disable=arguments-differ
     def label_from_instance(self, page):
+        """
+        Generate a label for the given page in the parent page select options
+
+        :param page: The page which should be used as parent
+        :type page: ~cms.models.pages.page.Page
+
+        :return: The label for the given page
+        :rtype: str
+        """
         label = " &rarr; ".join(
             [
                 # escape page title because string is marked as safe afterwards
@@ -85,6 +123,15 @@ class MirrorPageField(forms.ModelChoiceField):
 
     # pylint: disable=arguments-differ
     def label_from_instance(self, page):
+        """
+        Generate a label for the given page in the mirror page select options
+
+        :param page: The page which should be mirrored
+        :type page: ~cms.models.pages.page.Page
+
+        :return: The label for the given page
+        :rtype: str
+        """
         label = " &rarr; ".join(
             [
                 # escape page title because string is marked as safe afterwards
@@ -106,6 +153,15 @@ class MirroredPageRegionField(forms.ModelChoiceField):
 
     # pylint: disable=arguments-differ
     def label_from_instance(self, region):
+        """
+        Generate a label for the selected region in the mirror page select options
+
+        :param region: The region from which a page should be mirrored
+        :type region: ~cms.models.pages.page.Page
+
+        :return: The label for the given region
+        :rtype: str
+        """
         label = escape(super().label_from_instance(region))
         if region.status == region_status.HIDDEN:
             # Add warning if region is hidden
@@ -144,14 +200,32 @@ class PageForm(forms.ModelForm):
     )
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = Page
+        #: The fields of the model which should be handled by this form
         fields = ["icon", "mirrored_page", "mirrored_page_first"]
+        #: The classes for the fields if they differ from the standard field class
         field_classes = {"mirrored_page": MirrorPageField}
+        #: The widgets for the fields if they differ from the standard widgets
         widgets = {
             "mirrored_page_first": forms.Select(choices=mirrored_page_first.CHOICES),
         }
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize page form
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
 
         logger.info(
             "New PageForm instantiated with args %s and kwargs %s", args, kwargs
@@ -239,6 +313,19 @@ class PageForm(forms.ModelForm):
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved page object
+        :rtype: ~cms.models.pages.page.Page
+        """
 
         logger.debug(
             "PageForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
@@ -261,6 +348,14 @@ class PageForm(forms.ModelForm):
         return page
 
     def get_editor_queryset(self):
+        """
+        This method retrieves all users, who are eligible to be defined as page editors because they don't yet have the
+        permission to edit this page.
+
+        :return: All potential page editors
+        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
+        """
+
         permission_edit_page = Permission.objects.get(codename="edit_pages")
         users_without_permissions = get_user_model().objects.exclude(
             Q(groups__permissions=permission_edit_page)
@@ -274,6 +369,14 @@ class PageForm(forms.ModelForm):
         return users_without_permissions
 
     def get_publisher_queryset(self):
+        """
+        This method retrieves all users, who are eligible to be defined as page publishers because they don't yet have
+        the permission to publish this page.
+
+        :return: All potential page publishers
+        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
+        """
+
         permission_publish_page = Permission.objects.get(codename="publish_pages")
         users_without_permissions = get_user_model().objects.exclude(
             Q(groups__permissions=permission_publish_page)

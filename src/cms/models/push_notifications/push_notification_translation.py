@@ -1,36 +1,43 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 
 class PushNotificationTranslation(models.Model):
     """
     Data model representing a push notification translation
-
-    :param id: The database id of the push notification translation
-    :param title: The title of the push notification translation
-    :param text: The content of the push notification translation
-    :param created_date: The date and time when the push notification translation was created
-    :param last_updated: The date and time when the push notification translation was last updated
-
-    Relationship fields:
-
-    :param push_notification: The push notification the translation belongs to (related name: ``translations``)
-    :param language: The language of the push notification translation (related name:
-                     ``push_notification_translations``)
     """
 
-    title = models.CharField(max_length=250, blank=True)
-    text = models.CharField(max_length=250, blank=True)
+    title = models.CharField(
+        max_length=250,
+        blank=True,
+        verbose_name=_("title"),
+    )
+    text = models.CharField(
+        max_length=250,
+        blank=True,
+        verbose_name=_("content"),
+    )
     language = models.ForeignKey(
         "Language",
-        related_name="push_notification_translations",
         on_delete=models.CASCADE,
+        related_name="push_notification_translations",
+        verbose_name=_("language"),
     )
     push_notification = models.ForeignKey(
-        "PushNotification", related_name="translations", on_delete=models.CASCADE
+        "PushNotification",
+        on_delete=models.CASCADE,
+        related_name="translations",
+        verbose_name=_("push notification"),
     )
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("modification date"),
+    )
 
     def __str__(self):
         """
@@ -42,13 +49,11 @@ class PushNotificationTranslation(models.Model):
         return self.title
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("push notification translation")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("push notification translations")
+        #: The default permissions for this model
         default_permissions = ()
+        #: Sets of field names that, taken together, must be unique
         unique_together = ["push_notification", "language"]

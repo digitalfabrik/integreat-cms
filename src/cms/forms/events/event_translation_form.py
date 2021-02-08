@@ -17,7 +17,14 @@ class EventTranslationForm(forms.ModelForm):
     """
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = EventTranslation
+        #: The fields of the model which should be handled by this form
         fields = [
             "title",
             "slug",
@@ -63,6 +70,20 @@ class EventTranslationForm(forms.ModelForm):
 
     # pylint: disable=arguments-differ
     def save(self, event=None, user=None):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param event: The event of this form's event translation instance
+        :type event: ~cms.models.events.event.Event
+
+        :param user: The author of this form's event istance
+        :type user: ~django.contrib.auth.models.User
+
+        :return: The saved event object
+        :rtype: ~cms.models.events.event_translation.EventTranslation
+        """
+
         logger.info(
             "EventTranslationForm saved with cleaned data %s and changed data %s",
             self.cleaned_data,
@@ -87,12 +108,26 @@ class EventTranslationForm(forms.ModelForm):
         return event_translation
 
     def clean_slug(self):
+        """
+        Validate the slug field (see :ref:`overriding-modelform-clean-method`)
+
+        :return: A unique slug based on the input value
+        :rtype: str
+        """
         unique_slug = generate_unique_slug(self, "event")
         self.data = self.data.copy()
         self.data["slug"] = unique_slug
         return unique_slug
 
     def clean_description(self):
+        """
+        Validate the description field (see :ref:`overriding-modelform-clean-method`)
+
+        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the description
+
+        :return: The valid description
+        :rtype: str
+        """
         description = self.data["description"]
 
         if "<h1>" in description:

@@ -255,7 +255,7 @@ def expand_page_translation_id(request, short_url_id):
     :param request: The current request
     :type request: ~django.http.HttpRequest
 
-    :param short_url_id: The id of the reqested page
+    :param short_url_id: The id of the requested page
     :type short_url_id: int
 
     :return: A redirection to :class:`~backend.settings.WEBAPP_URL`
@@ -620,7 +620,7 @@ def grant_page_permission_ajax(request):
         "pages/_page_permission_table.html",
         {
             "page": page,
-            "page_form": PageForm(instance=page),
+            "page_form": PageForm(instance=page, region=page.region),
             "permission_message": {"message": message, "level_tag": level_tag},
         },
     )
@@ -735,7 +735,7 @@ def revoke_page_permission_ajax(request):
         "pages/_page_permission_table.html",
         {
             "page": page,
-            "page_form": PageForm(instance=page),
+            "page_form": PageForm(instance=page, region=page.region),
             "permission_message": {"message": message, "level_tag": level_tag},
         },
     )
@@ -844,7 +844,7 @@ def render_mirrored_page_field(request):
     :return: The rendered mirrored page field
     :rtype: ~django.template.response.TemplateResponse
     """
-    # Get the region from wich the content should be embedded
+    # Get the region from which the content should be embedded
     region = get_object_or_404(Region, id=request.GET.get("region_id"))
     # Get the page in which the content should be embedded (to exclude it from the possible selections)
     page = Page.objects.filter(id=request.GET.get("page_id")).first()

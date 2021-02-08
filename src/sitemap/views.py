@@ -1,7 +1,7 @@
 """
 This module contains views for generating the sitemap dynamically.
 The views are class-based patches of the inbuilt views :func:`~django.contrib.sitemaps.views.index` and
-:func:`~django.contrib.sitemaps.views.sitemap`of the :mod:`django.contrib.sitemaps` :doc:`django:ref/contrib/sitemaps`.
+:func:`~django.contrib.sitemaps.views.sitemap` of the :mod:`django.contrib.sitemaps` :doc:`django:ref/contrib/sitemaps`.
 """
 import logging
 
@@ -28,7 +28,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
     It is a patched version of :func:`django.contrib.sitemaps.views.index` with the following changes:
 
     * Sitemaps dynamically queried on each request, not on the application startup
-    * :setting:`WEBAPP_URL` is used for the domain instead of the host of the sitemap
+    * :attr:`~backend.settings.WEBAPP_URL` is used for the domain instead of the host of the sitemap
     * Empty sitemaps are not included in the index
     """
 
@@ -107,7 +107,7 @@ class SitemapView(TemplateResponseMixin, View):
         :param kwargs: The supplied keyword args (should contain ``region_slug`` and ``language_code``)
         :type kwargs: dict
 
-        :raises ~django.http.Http404: Raises a HTTP 404 if the either the region or langauge does not exist or is invalid
+        :raises ~django.http.Http404: Raises a HTTP 404 if the either the region or language does not exist or is invalid
                                       or if the sitemap is empty.
 
         :return: The rendered template response

@@ -13,6 +13,18 @@ from django.core.wsgi import get_wsgi_application
 
 
 def application(environ, start_response):
+    """
+    This returns the WSGI callable
+
+    :param environ: The environment variables
+    :type environ: dict
+
+    :param start_response: A function which starts the response
+    :type start_response: ~collections.abc.Callable
+
+    :return: The WSGI callable
+    :rtype: ~django.core.handlers.WSGIHandler
+    """
     for key in environ:
         if key.startswith("DJANGO_"):
             os.environ[key] = environ[key]

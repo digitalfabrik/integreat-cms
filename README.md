@@ -42,7 +42,7 @@ cd integreat-cms
 
 ### Run production server
 1. Set up an [Apache2 server with mod_wsgi](https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/modwsgi/). You can use the `example-configs/apache2-integreat-vhost.conf`.
-2. Set the follwing environment variables in the Apache2 config to ensure a safe service:
+2. Set the following environment variables in the Apache2 config to ensure a safe service:
   * DJANGO_SECRET_KEY
   * DJANGO_DEBUG
   * DJANGO_WEBAPP_URL

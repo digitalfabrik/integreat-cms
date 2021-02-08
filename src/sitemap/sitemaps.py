@@ -17,17 +17,12 @@ logger = logging.getLogger(__name__)
 class WebappSitemap(ABC, Sitemap):
     """
     This is an abstract base class for all webapp sitemaps.
-
-    :param changefreq: The default change frequency for all sitemap's urls (``monthly``)
-    :type changefreq: str
-
-    :param priority: The default priority for all sitemap's urls (``0.5``)
-    :type priority: float
-
-    .. automethod:: _urls
     """
 
+    #: The default change frequency for all sitemap's urls
     changefreq = "monthly"
+
+    #: The default priority for all sitemap's urls
     priority = 0.5
 
     @property
@@ -55,7 +50,7 @@ class WebappSitemap(ABC, Sitemap):
         This functions returns the public translations contained in this sitemap.
 
         :return: The queryset of translation objects
-        :rtype: :class:`~django.db.models.query.QuerySet`
+        :rtype: ~django.db.models.query.QuerySet
         """
         return self.queryset
 
@@ -65,9 +60,9 @@ class WebappSitemap(ABC, Sitemap):
         This functions returns the date when a translation was last modified.
 
         :param translation: The given translation
-        :type translation: :class:`~cms.models.pages.page_translation.PageTranslation`,
-                           :class:`~cms.models.events.event_translation.EventTranslation` or
-                           :class:`~cms.models.pois.poi_translation.POITranslation`
+        :type translation: ~cms.models.pages.page_translation.PageTranslation,
+                           ~cms.models.events.event_translation.EventTranslation, or
+                           ~cms.models.pois.poi_translation.POITranslation
 
         :return: The list of urls
         :rtype: ~datetime.datetime
@@ -80,8 +75,8 @@ class WebappSitemap(ABC, Sitemap):
         to the list of urls.
         This patch is required because the inbuilt function can only deal with the i18n backend languages and not with
         our custom language model.
-        Additionally, it overwrites the protocol and domain of the urls with :setting:`WEBAPP_URL` because out of the
-        box, :doc:`ref/contrib/sitemaps` does only support this functionality when used together with
+        Additionally, it overwrites the protocol and domain of the urls with :attr:`~backend.settings.WEBAPP_URL` because
+        out of the box, :doc:`ref/contrib/sitemaps` does only support this functionality when used together with
         :doc:`ref/contrib/sites`.
 
         :param page: The page for the paginator (will always be ``1`` in our case)
@@ -97,7 +92,7 @@ class WebappSitemap(ABC, Sitemap):
         :rtype: list [ dict ]
         """
         splitted_url = urlsplit(WEBAPP_URL)
-        # Gemerate list of urls without alternative languages
+        # Generate list of urls without alternative languages
         urls = super()._urls(page, splitted_url.scheme, splitted_url.hostname)
         for url in urls:
             # Add information about alternative languages
@@ -106,6 +101,15 @@ class WebappSitemap(ABC, Sitemap):
 
     # pylint: disable=no-self-use
     def sitemap_alternates(self, obj):
+        """
+        This function returns the sitemap alternatives for a given object
+
+        :param obj: The object
+        :type obj: ~cms.models.pages.page.Page, ~cms.models.events.event.Event or ~cms.models.pois.poi.POI
+
+        :return: The sitemap alternates of the given object
+        :rtype: dict
+        """
         return obj.sitemap_alternates
 
 
@@ -113,19 +117,14 @@ class PageSitemap(WebappSitemap):
     """
     This sitemap contains all urls to page translations for a specific region and language.
 
-    :param priority: The priority of this sitemap's urls (``1.0``)
-    :type priority: float
+    Attributes inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
 
-    :param queryset: The queryset of this sitemap
-    :type queryset: :class:`~django.db.models.query.QuerySet` [ :class:`~cms.models.pages.page_translation.PageTranslation` ]
-
-    Parameters inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
-
-    :param changefreq: The usual change frequency of this sitemap's urls (``monthly``)
-    :type changefreq: str
+    :attribute changefreq: The usual change frequency of this sitemap's urls (see :attr:`WebappSitemap.changefreq`)
     """
 
+    #: The priority of this sitemap's urls
     priority = 1.0
+    #: The :class:`~cms.models.pages.page_translation.PageTranslation` :class:`~django.db.models.query.QuerySet` of this sitemap
     queryset = PageTranslation.objects.filter(status=status.PUBLIC)
 
     def __init__(self, region, language):
@@ -140,7 +139,7 @@ class PageSitemap(WebappSitemap):
         """
         # Instantiate WebappSitemap
         super().__init__(region, language)
-        # Filter queryset based on region and langauge
+        # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
             page__in=self.region.non_archived_pages, language=self.language
         )
@@ -150,19 +149,15 @@ class EventSitemap(WebappSitemap):
     """
     This sitemap contains all urls to event translations for a specific region and language.
 
-    :param changefreq: The usual change frequency of this sitemap's urls (``daily``)
-    :type changefreq: str
+    Attributes inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
 
-    :param queryset: The queryset of this sitemap
-    :type queryset: :class:`~django.db.models.query.QuerySet` [ :class:`~cms.models.events.event_translation.EventTranslation` ]
-
-    Parameters inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
-
-    :param priority: The priority of this sitemap's urls (``0.5``)
-    :type priority: float
+    :attribute priority: The priority of this sitemap's urls (see :attr:`WebappSitemap.priority`)
     """
 
+    #: The usual change frequency of this sitemap's urls
     changefreq = "daily"
+
+    #: The :class:`~cms.models.events.event_translation.EventTranslation` :class:`~django.db.models.query.QuerySet` of this sitemap
     queryset = EventTranslation.objects.filter(
         event__archived=False, status=status.PUBLIC
     )
@@ -179,7 +174,7 @@ class EventSitemap(WebappSitemap):
         """
         # Instantiate WebappSitemap
         super().__init__(region, language)
-        # Filter queryset based on region and langauge
+        # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
             event__in=self.region.events.all(), language=self.language
         )
@@ -189,18 +184,13 @@ class POISitemap(WebappSitemap):
     """
     This sitemap contains all urls to POI translations for a specific region and language.
 
-    :param queryset: The queryset of this sitemap
-    :type queryset: :class:`~django.db.models.query.QuerySet` [ :class:`~cms.models.pois.poi_translation.POITranslation` ]
+    Attributes inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
 
-    Parameters inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
-
-    :param changefreq: The usual change frequency of this sitemap's urls (``monthly``)
-    :type changefreq: str
-
-    :param priority: The priority of this sitemap's urls (``0.5``)
-    :type priority: float
+    :attribute changefreq: The usual change frequency of this sitemap's urls (see :attr:`WebappSitemap.changefreq`)
+    :attribute priority: The priority of this sitemap's urls (see :attr:`WebappSitemap.priority`)
     """
 
+    #: The :class:`~cms.models.pois.poi_translation.POITranslation` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
     queryset = POITranslation.objects.filter(poi__archived=False, status=status.PUBLIC)
 
     def __init__(self, region, language):
@@ -215,7 +205,7 @@ class POISitemap(WebappSitemap):
         """
         # Instantiate WebappSitemap
         super().__init__(region, language)
-        # Filter queryset based on region and langauge
+        # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
             poi__in=self.region.pois.all(), language=self.language
         )
@@ -225,19 +215,14 @@ class OfferSitemap(WebappSitemap):
     """
     This sitemap contains all urls to offers for a specific region.
 
-    :param priority: The priority of this sitemap's urls (``1.0``)
-    :type priority: float
+    Attributes inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
 
-    :param queryset: The queryset of this sitemap
-    :type queryset: :class:`~django.db.models.query.QuerySet` [ :class:`~cms.models.offers.offer.Offer` ]
-
-    Parameters inherited from :class:`~sitemap.sitemaps.WebappSitemap`:
-
-    :param changefreq: The usual change frequency of this sitemap's urls (``monthly``)
-    :type changefreq: str
+    :attribute changefreq: The usual change frequency of this sitemap's urls (see :attr:`WebappSitemap.changefreq`)
     """
 
+    #: The priority of this sitemap's urls (``1.0``)
     priority = 1.0
+    #: The :class:`~cms.models.offers.offer.Offer` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
     queryset = Offer.objects.all()
 
     def __init__(self, region, language):
@@ -261,12 +246,18 @@ class OfferSitemap(WebappSitemap):
 
         :param obj: Objects passed from items() method
         :type obj: ~cms.models.offers.offer.Offer
+
+        :return: The absolute path of the given offer object
+        :rtype: str
         """
         return "/" + "/".join([obj.region.slug, self.language.code, "offers", obj.slug])
 
     def sitemap_alternates(self, obj):
         """
         This sitemap_alternates function returns the language alternatives of offers for the use in sitemaps.
+
+        :param obj: Objects passed from items() method
+        :type obj: ~cms.models.offers.offer.Offer
 
         :return: A list of dictionaries containing the alternative translations of offers
         :rtype: list [ dict ]

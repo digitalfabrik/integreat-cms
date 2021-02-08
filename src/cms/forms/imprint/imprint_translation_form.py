@@ -21,6 +21,15 @@ class ImprintTranslationForm(forms.ModelForm):
         fields = ["title", "status", "text", "minor_edit"]
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize Imprint page translation form
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
 
         logger.info(
             "New ImprintPageTranslationForm with args %s and kwargs %s", args, kwargs
@@ -55,6 +64,19 @@ class ImprintTranslationForm(forms.ModelForm):
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved imprint page translation object
+        :rtype: ~cms.models.pages.imprint_page_translation.ImprintPageTranslation
+        """
         logger.info(
             "ImprintTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
             args,
@@ -85,6 +107,14 @@ class ImprintTranslationForm(forms.ModelForm):
         return imprint_translation
 
     def clean_text(self):
+        """
+        Validate the text field (see :ref:`overriding-modelform-clean-method`)
+
+        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
+
+        :return: The valid text
+        :rtype: str
+        """
         text = self.data["text"]
 
         if "<h1>" in text:

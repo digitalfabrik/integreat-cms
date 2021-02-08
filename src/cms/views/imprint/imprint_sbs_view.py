@@ -47,6 +47,8 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
 
+        :raises ~django.http.Http404: If no imprint exists for the region
+
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
@@ -127,6 +129,8 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
 
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
+
+        :raises ~django.http.Http404: If no imprint exists for the region
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

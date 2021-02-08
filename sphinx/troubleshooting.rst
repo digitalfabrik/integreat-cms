@@ -70,6 +70,29 @@ Not a git repository
         sudo add-apt-repository ppa:git-core/ppa
         sudo apt-get update
 
+
+.. _circleci-unauthorized:
+
+⚠ Unauthorized (CircleCI)
+=========================
+
+.. Error::
+
+    .. image:: images/circleci-unauthorized.png
+        :width: 300
+        :alt: CircleCI Unauthorized
+
+.. admonition:: Solution
+    :class: hint
+
+    If you get this error on your CircleCI build, check the following:
+
+    * Is your GitHub user a member of the `Integreat/cms <https://github.com/orgs/Integreat/teams/cms>`__ team?
+    * Is your GitHub account connected with `CircleCI <https://circleci.com/vcs-authorize/>`__?
+
+    See :ref:`circleci-docker-images` for background information on this error.
+
+
 MacOS on M1
 ===========
 

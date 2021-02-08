@@ -17,12 +17,35 @@ from ...models import (
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class RegionFeedbackListView(PermissionRequiredMixin, TemplateView):
+    """
+    View to list all region feedback (content feedback)
+    """
+
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
     permission_required = "cms.view_feedback"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
     raise_exception = True
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "feedback/region_feedback_list.html"
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
+        """
+        Render region feedback list
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+
         # current region
         region = Region.get_current_region(request)
 

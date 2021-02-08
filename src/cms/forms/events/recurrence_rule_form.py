@@ -17,7 +17,14 @@ class RecurrenceRuleForm(forms.ModelForm):
     has_recurrence_end_date = forms.BooleanField(required=False)
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = RecurrenceRule
+        #: The fields of the model which should be handled by this form
         fields = [
             "frequency",
             "interval",
@@ -26,6 +33,7 @@ class RecurrenceRuleForm(forms.ModelForm):
             "week_for_monthly",
             "recurrence_end_date",
         ]
+        #: The widgets which are used in this form
         widgets = {
             "weekdays_for_weekly": forms.SelectMultiple(choices=weekdays.CHOICES),
             "recurrence_end_date": forms.DateInput(
@@ -58,6 +66,12 @@ class RecurrenceRuleForm(forms.ModelForm):
                 field.disabled = True
 
     def clean(self):
+        """
+        Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
+
+        :return: The cleaned form data
+        :rtype: dict
+        """
         cleaned_data = super().clean()
 
         if not cleaned_data.get("frequency"):

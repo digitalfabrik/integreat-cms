@@ -1,22 +1,20 @@
 """
 This module contains all possible configurations of postal codes in offers.
 This is needed when the postal code is placed inside the offer's url or api request data.
-
-* ``NONE``: No postal code needed for this offer
-
-* ``GET``: Append postal code to offer URL
-
-* ``POST``: Add postal code to post parameters of the offer's api
 """
 from django.utils.translation import ugettext_lazy as _
 
 
+#: No postal code needed for this offer
 NONE = "NONE"
+#: Append postal code to offer URL
 GET = "GET"
+#: Add postal code to post parameters of the offer's api
 POST = "POST"
 
+#: Choices to use these constants in a database field
 CHOICES = (
-    (NONE, _("No")),
+    (NONE, _("Do not use postcode")),
     (GET, _("Append postal code to URL")),
     (POST, _("Add postal code to post parameters")),
 )

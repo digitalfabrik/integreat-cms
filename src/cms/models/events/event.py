@@ -2,6 +2,7 @@ from datetime import datetime, time, date
 from dateutil.rrule import weekday, rrule
 
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from .recurrence_rule import RecurrenceRule
 from ..pois.poi import POI
@@ -12,42 +13,42 @@ from ...constants import frequency, status
 class Event(models.Model):
     """
     Data model representing an event.
-
-    :param id: The database id of the event
-    :param start_date: The date when the event starts
-    :param start_time: The time when the event starts
-    :param end_date: The date when the event ends
-    :param end_time: The time when the event ends
-    :param picture: The thumbnail image of the event
-    :param archived: Whether or not the event is archived
-
-    Relationship fields:
-
-    :param region: The region to which the event belongs (related name: ``events``)
-    :param location: The point of interest where the event takes place (related name: ``events``)
-    :param recurrence_rule: If the event is recurring, the recurrence rule contains all necessary information on the
-                            frequency, interval etc. which is needed to calculate the single instances of a recurring
-                            event (related name: ``events``)
-
-    Reverse relationships:
-
-    :param translations: The translations of this event
-    :param feedback: The feedback to this event
+    Can be directly imported from :mod:`cms.models`.
     """
 
-    region = models.ForeignKey(Region, related_name="events", on_delete=models.CASCADE)
+    region = models.ForeignKey(
+        Region,
+        on_delete=models.CASCADE,
+        related_name="events",
+        verbose_name=_("region"),
+    )
     location = models.ForeignKey(
-        POI, related_name="events", on_delete=models.PROTECT, null=True, blank=True
+        POI,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="events",
+        verbose_name=_("location"),
     )
-    start_date = models.DateField()
-    start_time = models.TimeField(blank=True)
-    end_date = models.DateField()
-    end_time = models.TimeField(blank=True)
+    start_date = models.DateField(verbose_name=_("start date"))
+    start_time = models.TimeField(blank=True, verbose_name=_("start time"))
+    end_date = models.DateField(verbose_name=_("end date"))
+    end_time = models.TimeField(blank=True, verbose_name=_("end time"))
+    #: If the event is recurring, the recurrence rule contains all necessary information on the frequency, interval etc.
+    #: which is needed to calculate the single instances of a recurring event
     recurrence_rule = models.OneToOneField(
-        RecurrenceRule, null=True, on_delete=models.SET_NULL
+        RecurrenceRule,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_("recurrence rule"),
     )
-    picture = models.ImageField(null=True, blank=True, upload_to="events/%Y/%m/%d")
-    archived = models.BooleanField(default=False)
+    picture = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="events/%Y/%m/%d",
+        verbose_name=_("thumbnail icon"),
+    )
+    archived = models.BooleanField(default=False, verbose_name=_("archived"))
 
     @property
     def languages(self):
@@ -191,22 +192,15 @@ class Event(models.Model):
         ).first()
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param ordering: The fields which are used to sort the returned objects of a QuerySet
-        :type ordering: list [ str ]
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-
-        :param permissions: The custom permissions for this model
-        :type permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("event")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("events")
+        #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["start_date", "start_time"]
+        #: The default permissions for this model
         default_permissions = ()
+        #: The custom permissions for this model
         permissions = (
             ("view_events", "Can view events"),
             ("edit_events", "Can edit events"),

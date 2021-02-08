@@ -33,6 +33,9 @@ def generate_unique_slug(form_object, foreign_model):
                           a content-object), this paramaeter contains the model of the foreign related object.
     :type foreign_model: ~django.db.models.Model
 
+    :raises ~django.core.exceptions.ValidationError: When no slug is given and there is also no field which can be used
+                                                     as fallback (either ``title`` or ``name``).
+
     :return: An unique slug identifier
     :rtype: str
     """

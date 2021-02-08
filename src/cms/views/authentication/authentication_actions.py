@@ -145,7 +145,7 @@ def mfaAssert(request):
 
 def mfaVerify(request):
     """
-    Verify the response to the callenge generated in :func:`~cms.views.authentication.authentication_actions.mfaAssert`.
+    Verify the response to the challenge generated in :func:`~cms.views.authentication.authentication_actions.mfaAssert`.
     After a successful verification, the user is logged in.
 
     :param request: The current request
@@ -183,7 +183,7 @@ def mfaVerify(request):
     try:
         sign_count = webauthn_assertion_response.verify()
     # webauthn does not export AuthenticationRejectedException which directly extends Exception
-    # as AuthenticationRejectedException is the only exception that can be raused by verify()
+    # as AuthenticationRejectedException is the only exception that can be caused by verify()
     # it should be okay to just except Exception
     # pylint: disable=broad-except
     except Exception as exception:

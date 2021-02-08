@@ -14,7 +14,7 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.pages import PageForm, PageTranslationForm
 from ...models import PageTranslation, Region
-from .page_mixin import PageMixin
+from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
-class PageView(PermissionRequiredMixin, TemplateView, PageMixin):
+class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
     """
     View for the page form and page translation form
     """
@@ -294,7 +294,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageMixin):
     @staticmethod
     def get_side_by_side_language_options(region, language, page):
         """
-        This is a helper function to generate the side-by-side langauge options for both the get and post requests.
+        This is a helper function to generate the side-by-side language options for both the get and post requests.
 
         :param region: The current region
         :type region: ~cms.models.regions.region.Region

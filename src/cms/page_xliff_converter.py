@@ -348,6 +348,9 @@ class PageXliffHelper:
 
         :param pages: list of pages which should be translated
         :type pages: list [ ~cms.models.pages.page.Page ]
+
+        :return: The path of the generated zip file
+        :rtype: str
         """
         xliff_paths = []
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")

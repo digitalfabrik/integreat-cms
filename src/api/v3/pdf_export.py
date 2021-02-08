@@ -1,5 +1,5 @@
 """
-View to return PDF document containg the requested pages.
+View to return PDF document containing the requested pages.
 Single pages may be requested by url parameter, if no parameter is included all pages
 related to the current region and language will be returned.
 """
@@ -37,7 +37,7 @@ def pdf_export(request, region_slug, language_code):
     """
     region = Region.get_current_region(request)
     if request.GET.get("url"):
-        # remove leading and trailing slashed to avoid ambiguos urls
+        # remove leading and trailing slashed to avoid ambiguous urls
         url = request.GET.get("url").strip("/")
         # the last path component of the url is the page translation slug
         page_translation_slug = url.split("/")[-1]

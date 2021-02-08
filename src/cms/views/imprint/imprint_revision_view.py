@@ -26,6 +26,25 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
     base_context = {"current_menu_item": "imprint"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Render imprint page revision slider
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+        :raises ~django.http.Http404: If no imprint exists for the region
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region = Region.get_current_region(request)
         try:
@@ -87,6 +106,25 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
+        """
+        Restore a previous revision of an imprint page translation
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+        :raises ~django.http.Http404: If no imprint exists for the region
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region = Region.get_current_region(request)
         try:

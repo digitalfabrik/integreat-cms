@@ -33,7 +33,7 @@ class AnalyticsView(TemplateView):
         """
         Method to create CSV String from the API hits
 
-        :param languages: The list languages which sould be evaluated
+        :param languages: The list languages which should be evaluated
         :type languages: list
 
         :param hits: The list of response hits
@@ -86,7 +86,7 @@ class AnalyticsView(TemplateView):
         )
         end_date = request.GET.get("end_date", str(date.today()))
         if (start_date == "") or (end_date == ""):
-            messages.error(request, _("Please enter a correct start and enddate"))
+            messages.error(request, _("Please enter a correct start and end date"))
             return redirect("statistics", region_slug=region_slug)
 
         languages = [

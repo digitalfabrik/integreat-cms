@@ -15,7 +15,7 @@ class MatomoApiManager:
     You are also able to add new regions to your matomo instance and furthermore.
     """
 
-    #: HTTP Protocol: "http://" or "https://"
+    #: HTTP Protocol: ``http://`` or ``https://``
     protocol = "https://"
     #: Variable which allows you also to accept broken SSL-certificates with requests library (``False`` means: ignore
     #: SSL-issues, ``True`` means: don't allow broken SSL-certificates)
@@ -27,7 +27,7 @@ class MatomoApiManager:
 
     def __init__(self, matomo_url, matomo_api_key, ssl_verify):
         """
-        Constructor initialises matomo_url, matomo_api_key and ssl_verify
+        Constructor initializes matomo_url, matomo_api_key and ssl_verify
 
         :param matomo_url: URL to Matomo-Instance
         :type matomo_url: str
@@ -83,7 +83,7 @@ class MatomoApiManager:
 
     def get_visitors_per_timerange(self, date_string, region_id, period, lang):
         """
-        Returns the total unique visitors in a timerange as definded in period
+        Returns the total unique visitors in a timerange as defined in period
 
         :param date_string: Time range in the format ``"yyyy-mm-dd,yyyy-mm-dd"``
         :type date_string: str

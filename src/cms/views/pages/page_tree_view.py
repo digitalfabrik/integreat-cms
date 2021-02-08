@@ -10,13 +10,13 @@ from ...constants import translation_status
 from ...decorators import region_permission_required
 from ...forms.pages.page_filter_form import PageFilterForm
 from ...models import Region, Language
-from .page_mixin import PageMixin
+from .page_context_mixin import PageContextMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
-class PageTreeView(PermissionRequiredMixin, TemplateView, PageMixin):
+class PageTreeView(PermissionRequiredMixin, TemplateView, PageContextMixin):
     """
     View for showing the page tree
     """
@@ -155,4 +155,19 @@ class PageTreeView(PermissionRequiredMixin, TemplateView, PageMixin):
         )
 
     def post(self, request, *args, **kwargs):
+        """
+        Apply page filters and render page tree
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         return self.get(request, *args, **kwargs, filter_data=request.POST)

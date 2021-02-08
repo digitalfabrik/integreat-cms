@@ -30,6 +30,8 @@ def archive_imprint(request, region_slug):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
+    :raises ~django.http.Http404: If no imprint exists for the region
+
     :return: A redirection to the :class:`~cms.views.imprint.imprint_view.ImprintView`
     :rtype: ~django.http.HttpResponseRedirect
     """
@@ -66,6 +68,8 @@ def restore_imprint(request, region_slug):
 
     :param region_slug: The slug of the current region
     :type region_slug: str
+
+    :raises ~django.http.Http404: If no imprint exists for the region
 
     :return: A redirection to the :class:`~cms.views.imprint.imprint_view.ImprintView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -104,6 +108,8 @@ def delete_imprint(request, region_slug):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
+    :raises ~django.http.Http404: If no imprint exists for the region
+
     :return: A redirection to the :class:`~cms.views.imprint.imprint_view.ImprintView`
     :rtype: ~django.http.HttpResponseRedirect
     """
@@ -133,7 +139,7 @@ def expand_imprint_translation_id(request, imprint_translation_id):
     :param request: The current request
     :type request: ~django.http.HttpResponse
 
-    :param imprint_translation_id: The id of the reqested imprint translation
+    :param imprint_translation_id: The id of the requested imprint translation
     :type imprint_translation_id: int
 
     :return: A redirection to :class:`~backend.settings.WEBAPP_URL`

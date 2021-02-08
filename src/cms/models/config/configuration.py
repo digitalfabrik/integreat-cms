@@ -1,22 +1,34 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class Configuration(models.Model):
     """
     The Configuration model is used for settings which should reside in the database.
-
-    :param id: The database id of the configuration
-    :param key: The key of the configuration
-    :param value: The value of the configuration
-    :param created_date: The date and time when the configuration was created
-    :param last_updated: The date and time when the configuration was last changed
     """
 
-    key = models.CharField(max_length=100, unique=True, blank=False)
-    value = models.CharField(max_length=1000, blank=False)
-    created_date = models.DateTimeField(auto_now_add=True)
-    last_updated = models.DateTimeField(auto_now=True)
+    key = models.CharField(
+        max_length=100,
+        unique=True,
+        blank=False,
+        verbose_name=_("key"),
+    )
+    value = models.CharField(max_length=1000, blank=False, verbose_name=_("value"))
+    created_date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("modification date"),
+    )
 
     class Meta:
+        #: The verbose name of the model
+        verbose_name = _("configuration")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("configurations")
+        #: The default permissions for this model
         default_permissions = ()
+        #:  The custom permissions for this model
         permissions = (("manage_configuration", "Can manage configuration"),)
