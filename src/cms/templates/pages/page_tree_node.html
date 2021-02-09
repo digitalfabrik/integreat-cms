@@ -2,14 +2,15 @@
 {% load content_filters %}
 {% load page_filters %}
 {% load tree_filters %}
-<tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
-<tr id="page-{{ node.id }}" data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
-    <td class="single_icon">
+<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child{% if page.depth > 0 %} level-{{page.depth}}{% endif %}">
+    <td class="single_icon whitespace-nowrap">
         <span data-drag-id="{{ page.id }}"
               data-node-descendants="{{ page|get_descendants }}"
-              class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 block py-3 pl-4 pr-2"
+              class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 inline-block pl-4 align-middle"
               {% if enable_drag_and_drop %}
               draggable="true"
+              title="{% trans 'Change the order and position of the pages with drag & drop.' %}"
               {% else %}
               title="{% trans 'Drag & drop is disabled when filters are applied.' %}"
               {% endif %}>

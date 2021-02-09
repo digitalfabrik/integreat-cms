@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.urls import reverse
+from django.utils.text import capfirst
 from django.utils.translation import ugettext as _, get_language
 from django.utils.safestring import mark_safe
 
@@ -179,7 +180,10 @@ class PageForm(forms.ModelForm):
     """
 
     parent = ParentField(
-        queryset=Page.objects.all(), required=False, widget=ParentFieldWidget()
+        queryset=Page.objects.all(),
+        required=False,
+        widget=ParentFieldWidget(),
+        label=capfirst(Page._meta.get_field("parent").verbose_name),
     )
     related_page = forms.ModelChoiceField(
         queryset=Page.objects.all(), required=False, widget=forms.HiddenInput()
