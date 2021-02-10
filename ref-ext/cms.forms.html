@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2020-07-29T13:16:12+00:00" />
+    <meta property="article:modified_time" content="2021-02-07T18:48:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Forms &mdash; integreat-cms 0.0.14 documentation</title>
@@ -337,6 +337,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.models.html">Models</a><ul>
@@ -736,6 +737,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.models.html">Models</a><ul>
@@ -1186,6 +1188,216 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 </li>
 </ul>
 </div>
+<div class="section" id="module-cms.forms.placeholder_model_form">
+<span id="placeholder-model-form"></span><h2>Placeholder Model Form<a class="headerlink" href="#module-cms.forms.placeholder_model_form" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm">
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.placeholder_model_form.</code><code class="sig-name descname">PlaceholderModelForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ModelForm</span></code></a></p>
+<p>Form for populating all text widgets of a ModelForm with the default placeholder “Enter … here”.
+Use this form as base class instead of <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ModelForm</span></code></a>.</p>
+<p><strong>Form fields:</strong></p>
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize placeholder model form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If form is instantiated directly without an inheriting subclass</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.add_error">
+<code class="sig-name descname">add_error</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field</span></em>, <em class="sig-param"><span class="n">error</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L315"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.add_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the content of <cite>self._errors</cite>.</p>
+<p>The <cite>field</cite> argument is the name of the field to which the errors
+should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
+<p>The <cite>error</cite> argument can be a single error, a list of errors, or a
+dictionary that maps field names to lists of errors. An “error” can be
+either a simple string or an instance of ValidationError with its
+message attribute set and a “list or dictionary” can be an actual
+<cite>list</cite> or <cite>dict</cite> or an instance of ValidationError with its
+<cite>error_list</cite> or <cite>error_dict</cite> attribute set.</p>
+<p>If <cite>error</cite> is a dictionary, the <cite>field</cite> argument <em>must</em> be None and
+errors will be added to the fields that correspond to the keys of the
+dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.add_initial_prefix">
+<code class="sig-name descname">add_initial_prefix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L196"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a ‘initial’ prefix for checking dynamic initial values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.add_prefix">
+<code class="sig-name descname">add_prefix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L187"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.add_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the field name with a prefix appended, if this Form has a
+prefix set.</p>
+<p>Subclasses may wish to override.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.as_p">
+<code class="sig-name descname">as_p</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L297"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.as_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.as_table">
+<code class="sig-name descname">as_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L277"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.as_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.as_ul">
+<code class="sig-name descname">as_ul</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L287"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.as_ul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.changed_data">
+<code class="sig-name descname">changed_data</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.clean">
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L349"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
+called on every field. Any ValidationError raised by this method will
+not be associated with a particular field; it will have a special-case
+association with the field named ‘__all__’.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.default_renderer">
+<code class="sig-name descname">default_renderer</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.default_renderer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.errors">
+<em class="property">property </em><code class="sig-name descname">errors</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ErrorDict for the data provided for the form.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.field_order">
+<code class="sig-name descname">field_order</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.field_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.full_clean">
+<code class="sig-name descname">full_clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L368"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.full_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.get_initial_for_field">
+<code class="sig-name descname">get_initial_for_field</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field</span></em>, <em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L489"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return initial data for field on form. Use initial data from the form
+or the field, in that order. Evaluate callable values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.has_changed">
+<code class="sig-name descname">has_changed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L432"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if data differs from initial.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.has_error">
+<code class="sig-name descname">has_error</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field</span></em>, <em class="sig-param"><span class="n">code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L362"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.has_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.hidden_fields">
+<code class="sig-name descname">hidden_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L475"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all the BoundField objects that are hidden fields.
+Useful for manual form layout in templates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.is_multipart">
+<code class="sig-name descname">is_multipart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L468"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.is_multipart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
+FileInput, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.is_valid">
+<code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L183"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the form has no errors, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.media" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.non_field_errors">
+<code class="sig-name descname">non_field_errors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L307"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ErrorList of errors that aren’t associated with a particular
+field – i.e., from Form.clean(). Return an empty ErrorList if there
+are none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.order_fields">
+<code class="sig-name descname">order_fields</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_order</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L119"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.order_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rearrange the fields according to field_order.</p>
+<p>field_order is a list of field names specifying the order. Append fields
+not included in the list in the default order for backward compatibility
+with subclasses not overriding field_order. If field_order is None,
+keep all fields in the order defined in the class. Ignore unknown
+fields in field_order to allow disabling fields in form subclasses
+without redefining ordering.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.prefix">
+<code class="sig-name descname">prefix</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">commit</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L443"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
+a save_m2m() method to the form which can be called after the instance
+is saved manually at a later time. Return the model instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.use_required_attribute">
+<code class="sig-name descname">use_required_attribute</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/placeholder_model_form.py#L10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.validate_unique">
+<code class="sig-name descname">validate_unique</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L411"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.validate_unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the instance’s validate_unique() method and update the form’s
+validation errors if any were raised.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.placeholder_model_form.PlaceholderModelForm.visible_fields">
+<code class="sig-name descname">visible_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L482"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.placeholder_model_form.PlaceholderModelForm.visible_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of BoundField objects that aren’t hidden fields.
+The opposite of the hidden_fields() method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -1207,7 +1419,7 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 29, 2020.
+        Last updated on Feb 07, 2021.
       </span>
 
     </p>

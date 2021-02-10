@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2020-12-20T23:40:06+00:00" />
+    <meta property="article:modified_time" content="2021-02-07T18:48:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Roles &mdash; integreat-cms 0.0.14 documentation</title>
@@ -337,6 +337,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.models.html">Models</a><ul>
@@ -736,6 +737,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.models.html">Models</a><ul>
@@ -1115,8 +1117,8 @@
 <span id="role-form"></span><h2>Role Form<a class="headerlink" href="#module-cms.forms.roles.role_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.forms.roles.role_form.RoleForm">
-<em class="property">class </em><code class="sig-prename descclassname">cms.forms.roles.role_form.</code><code class="sig-name descname">RoleForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ModelForm</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">cms.forms.roles.role_form.</code><code class="sig-name descname">RoleForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cms.forms.html#cms.forms.placeholder_model_form.PlaceholderModelForm" title="cms.forms.placeholder_model_form.PlaceholderModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.placeholder_model_form.PlaceholderModelForm</span></code></a></p>
 <p>Form for creating and modifying user role objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -1125,8 +1127,19 @@
 </ul>
 <dl class="py method">
 <dt id="cms.forms.roles.role_form.RoleForm.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L22"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize placeholder model form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If form is instantiated directly without an inheriting subclass</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1180,7 +1193,7 @@ prefix set.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.roles.role_form.RoleForm.changed_data">
-<code class="sig-name descname">changed_data</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">changed_data</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.changed_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1194,18 +1207,18 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.roles.role_form.RoleForm.default_renderer">
-<code class="sig-name descname">default_renderer</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.default_renderer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">default_renderer</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.default_renderer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.roles.role_form.RoleForm.errors">
-<em class="property">property </em><code class="sig-name descname">errors</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.errors" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">errors</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an ErrorDict for the data provided for the form.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.forms.roles.role_form.RoleForm.field_order">
-<code class="sig-name descname">field_order</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.field_order" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">field_order</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.field_order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1254,7 +1267,7 @@ FileInput, or False otherwise.</p>
 
 <dl class="py method">
 <dt id="cms.forms.roles.role_form.RoleForm.media">
-<em class="property">property </em><code class="sig-name descname">media</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.media" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">media</code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.media" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
@@ -1280,7 +1293,7 @@ without redefining ordering.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.roles.role_form.RoleForm.prefix">
-<code class="sig-name descname">prefix</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">prefix</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1293,7 +1306,7 @@ is saved manually at a later time. Return the model instance.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.roles.role_form.RoleForm.use_required_attribute">
-<code class="sig-name descname">use_required_attribute</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">use_required_attribute</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.forms.roles.role_form.RoleForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1334,7 +1347,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Dec 20, 2020.
+        Last updated on Feb 07, 2021.
       </span>
 
     </p>
