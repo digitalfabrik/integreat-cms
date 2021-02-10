@@ -102,6 +102,25 @@ def can_publish_all_pages(user, page):
 
 
 @predicate
+def is_in_responsible_organization(user, page):
+    """
+    This predicate checks whether the given user is a member of the page's responsible organization.
+
+    :param user: The user who's permission should be checked
+    :type user: ~django.contrib.auth.models.User
+
+    :param page: The requested page
+    :type page: ~cms.models.pages.page.Page
+
+    :return: Whether or not ``user`` is a member of ``page.organization``
+    :rtype: bool
+    """
+    if not page or not page.organization:
+        return False
+    return user.profile in page.organization.members.all()
+
+
+@predicate
 def can_delete_chat_message(user, chat_message):
     """
     This predicate checks whether the given user can delete a given chat message
@@ -126,7 +145,14 @@ def can_delete_chat_message(user, chat_message):
 
 add_perm(
     "cms.edit_page",
-    can_edit_all_pages | is_page_editor | can_publish_all_pages | is_page_publisher,
+    can_edit_all_pages
+    | is_page_editor
+    | can_publish_all_pages
+    | is_page_publisher
+    | is_in_responsible_organization,
 )
-add_perm("cms.publish_page", can_publish_all_pages | is_page_publisher)
+add_perm(
+    "cms.publish_page",
+    can_publish_all_pages | is_page_publisher | is_in_responsible_organization,
+)
 add_perm("cms.delete_chat_message", can_delete_chat_message)

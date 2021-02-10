@@ -254,15 +254,26 @@
                                 <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                             </div>
                         </div>
-                    </div>
-                    {% if perms.cms.grant_page_permissions and region.page_permissions_enabled and request.user.profile.expert_mode %}
-                        <span class="block font-bold mb-2">{% trans 'Additional permissions for this page' %}</span>
-                        <p class="italic">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
-                        <div id="page_permission_table">
-                            {% include "pages/_page_permission_table.html" %}
-                        </div>
+                    {% if request.user.profile.expert_mode %}
+                        {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
+                            <span class="block font-bold mb-2">{% trans 'Additional permissions for this page' %}</span>
+                            <p class="italic">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
+                            <div id="page_permission_table">
+                                {% include "pages/_page_permission_table.html" %}
+                            </div>
+                        {% endif %}
                     {% endif %}
-                    <div class="pt-2 pb-4">
+                    <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
+                        <label for="{{ page_form.organization.id_for_label }}" class="font-bold mb-2 mt-4 block">{{ page_form.organization.label }}</label>
+                        <div class="my-2 text-s text-gray-600">{{ page_form.organization.help_text }}</div>
+                        <div class="relative">
+                            {% render_field page_form.organization class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-4">
                         <span class="block font-bold mb-4">{{ page_form.icon.label }}</span>
                         {% render_field page_form.icon id="icon" class="image-field" %}
                         <label for="{{ page_form.icon.id_for_label }}" class="block w-full text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-3 px-4 rounded cursor-pointer relative">
@@ -381,7 +392,6 @@
 </form>
 
 {% get_current_language as LANGUAGE_CODE %}
-{% has_perm 'cms.edit_page' request.user page as can_edit_page %}
 <div
         id="tinymce-config-options"
         data-language="{{ LANGUAGE_CODE|slice:'0:2' }}"

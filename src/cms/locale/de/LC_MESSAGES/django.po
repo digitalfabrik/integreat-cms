@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-19 18:38+0000\n"
+"POT-Creation-Date: 2021-02-19 20:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -510,7 +510,7 @@ msgstr "Einstellungen"
 #: models/feedback/region_feedback.py:17
 #: models/feedback/search_result_feedback.py:18
 #: models/languages/language_tree_node.py:37 models/offers/offer.py:24
-#: models/pages/imprint_page.py:27 models/pages/page.py:39
+#: models/pages/imprint_page.py:27 models/pages/page.py:40
 #: models/pois/poi.py:18 models/push_notifications/push_notification.py:17
 #: models/regions/region.py:285
 msgid "region"
@@ -542,7 +542,7 @@ msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
 #: models/events/event.py:49 models/pages/imprint_page.py:21
-#: models/pages/page.py:33 models/pois/poi.py:36 models/regions/region.py:145
+#: models/pages/page.py:34 models/pois/poi.py:36 models/regions/region.py:145
 msgid "thumbnail icon"
 msgstr "Vorschaubild"
 
@@ -964,12 +964,12 @@ msgstr "explizit archiviert"
 msgid "Whether or not the page is explicitly archived"
 msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
-#: models/pages/abstract_base_page.py:151 models/pages/page.py:160
+#: models/pages/abstract_base_page.py:151 models/pages/page.py:172
 #: models/pages/page_translation.py:38
 msgid "page"
 msgstr "Seite"
 
-#: models/pages/abstract_base_page.py:153 models/pages/page.py:162
+#: models/pages/abstract_base_page.py:153 models/pages/page.py:174
 msgid "pages"
 msgstr "Seiten"
 
@@ -994,26 +994,26 @@ msgstr "Impressums-Übersetzung"
 msgid "imprint translations"
 msgstr "Impressums-Übersetzungen"
 
-#: models/pages/page.py:27
+#: models/pages/page.py:28
 msgid "parent page"
 msgstr "übergeordnete Seite"
 
-#: models/pages/page.py:47
+#: models/pages/page.py:48
 msgid "mirrored page"
 msgstr "eingebettete Seite"
 
-#: models/pages/page.py:49
+#: models/pages/page.py:50
 msgid ""
 "If the page embeds live content from another page, it is referenced here."
 msgstr ""
 "Wenn die Seite Live-Inhalte von einer anderen Seite einbettet, wird hier auf "
 "sie verwiesen."
 
-#: models/pages/page.py:56
+#: models/pages/page.py:57
 msgid "Position of mirrored page"
 msgstr "Position der gespiegelten Seite"
 
-#: models/pages/page.py:58
+#: models/pages/page.py:59
 msgid ""
 "If a mirrored page is set, this field determines whether the live content is "
 "embedded before the content of this page or after."
@@ -1021,17 +1021,17 @@ msgstr ""
 "Wenn eine gespiegelte Seite eingestellt ist, bestimmt dieses Feld, ob der "
 "Live-Inhalt vor oder nach dem Inhalt dieser Seite eingebettet wird."
 
-#: models/pages/page.py:65
+#: models/pages/page.py:66
 msgid "editors"
 msgstr "Bearbeiter"
 
-#: models/pages/page.py:67
+#: models/pages/page.py:68
 msgid "A list of users who have the permission to edit this specific page."
 msgstr ""
 "Eine Liste von Benutzern, die die Berechtigung haben, diese bestimmte Seite "
 "zu editieren."
 
-#: models/pages/page.py:69
+#: models/pages/page.py:70
 msgid ""
 "Only has effect if these users do not have the permission to edit pages "
 "anyway."
@@ -1039,23 +1039,34 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: models/pages/page.py:77
+#: models/pages/page.py:78
 msgid "publishers"
 msgstr "Veröffentlicher"
 
-#: models/pages/page.py:79
+#: models/pages/page.py:80
 msgid "A list of users who have the permission to publish this specific page."
 msgstr ""
 "Eine Liste von Benutzern, die die Berechtigung haben, diese bestimmte Seite "
 "zu veröffentlichen."
 
-#: models/pages/page.py:81
+#: models/pages/page.py:82
 msgid ""
 "Only has effect if these users do not have the permission to publish pages "
 "anyway."
 msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu veröffentlichen."
+
+#: models/pages/page.py:92
+msgid "responsible organization"
+msgstr "zuständige Organisation"
+
+#: models/pages/page.py:94
+msgid ""
+"This allows all members of the organization to edit and publish this page."
+msgstr ""
+"Dies erlaubt allen Mitgliedern der Organisation diese Seite zu bearbeiten "
+"und veröffentlichen"
 
 #: models/pois/poi.py:21
 msgid "street and house number"
@@ -1827,7 +1838,7 @@ msgstr "Nicht nach"
 
 #: templates/events/_event_filter_form.html:34
 #: templates/events/event_form.html:347 templates/imprint/imprint_form.html:257
-#: templates/imprint/imprint_sbs.html:180 templates/pages/page_form.html:389
+#: templates/imprint/imprint_sbs.html:180 templates/pages/page_form.html:399
 #: templates/pages/page_sbs.html:190 templates/pois/poi_form.html:249
 msgid "Location"
 msgstr "Ort"
@@ -1990,7 +2001,7 @@ msgstr "Icon"
 
 #: templates/events/event_form.html:290 templates/imprint/imprint_form.html:205
 #: templates/organizations/organization_form.html:63
-#: templates/pages/page_form.html:270 templates/pois/poi_form.html:199
+#: templates/pages/page_form.html:281 templates/pois/poi_form.html:199
 #: templates/regions/region_icon_widget.html:16
 msgid "Set icon"
 msgstr "Icon festlegen"
@@ -2024,37 +2035,37 @@ msgid "Delete this event"
 msgstr "Diese Veranstaltung löschen"
 
 #: templates/events/event_form.html:346 templates/imprint/imprint_form.html:256
-#: templates/imprint/imprint_sbs.html:179 templates/pages/page_form.html:388
+#: templates/imprint/imprint_sbs.html:179 templates/pages/page_form.html:398
 #: templates/pages/page_sbs.html:189 templates/pois/poi_form.html:248
 msgid "Do not translate the selected text."
 msgstr "Der markierte Text wird nicht übersetzt."
 
 #: templates/events/event_form.html:349 templates/imprint/imprint_form.html:259
-#: templates/imprint/imprint_sbs.html:182 templates/pages/page_form.html:391
+#: templates/imprint/imprint_sbs.html:182 templates/pages/page_form.html:401
 #: templates/pages/page_sbs.html:192 templates/pois/poi_form.html:251
 msgid "Link"
 msgstr "Link"
 
 #: templates/events/event_form.html:351 templates/imprint/imprint_form.html:261
-#: templates/imprint/imprint_sbs.html:184 templates/pages/page_form.html:393
+#: templates/imprint/imprint_sbs.html:184 templates/pages/page_form.html:403
 #: templates/pages/page_sbs.html:194 templates/pois/poi_form.html:253
 msgid "Phone"
 msgstr "Telefon"
 
 #: templates/events/event_form.html:353 templates/imprint/imprint_form.html:263
-#: templates/imprint/imprint_sbs.html:186 templates/pages/page_form.html:395
+#: templates/imprint/imprint_sbs.html:186 templates/pages/page_form.html:405
 #: templates/pages/page_sbs.html:196 templates/pois/poi_form.html:255
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
 #: templates/events/event_form.html:355 templates/imprint/imprint_form.html:265
-#: templates/imprint/imprint_sbs.html:188 templates/pages/page_form.html:397
+#: templates/imprint/imprint_sbs.html:188 templates/pages/page_form.html:407
 #: templates/pages/page_sbs.html:198 templates/pois/poi_form.html:257
 msgid "Email"
 msgstr "Email"
 
 #: templates/events/event_form.html:357 templates/imprint/imprint_form.html:267
-#: templates/imprint/imprint_sbs.html:190 templates/pages/page_form.html:399
+#: templates/imprint/imprint_sbs.html:190 templates/pages/page_form.html:409
 #: templates/pages/page_sbs.html:200 templates/pois/poi_form.html:259
 msgid "Hint"
 msgstr "Tipp"
@@ -2250,15 +2261,15 @@ msgstr "In die Zwischenablage kopieren"
 msgid "Short URL"
 msgstr "Kurz-URL"
 
-#: templates/imprint/imprint_form.html:162 templates/pages/page_form.html:353
+#: templates/imprint/imprint_form.html:162 templates/pages/page_form.html:364
 msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
-#: templates/imprint/imprint_form.html:169 templates/pages/page_form.html:360
+#: templates/imprint/imprint_form.html:169 templates/pages/page_form.html:371
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
-#: templates/imprint/imprint_form.html:183 templates/pages/page_form.html:374
+#: templates/imprint/imprint_form.html:183 templates/pages/page_form.html:385
 msgid "Show translations side by side"
 msgstr "Übersetzungen nebeneinander anzeigen"
 
@@ -2682,17 +2693,17 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: templates/pages/page_form.html:277 templates/pages/page_form.html:278
-#: templates/pages/page_form.html:286
+#: templates/pages/page_form.html:288 templates/pages/page_form.html:289
+#: templates/pages/page_form.html:297
 #: templates/pages/page_tree_archived_node.html:94
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: templates/pages/page_form.html:283
+#: templates/pages/page_form.html:294
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: templates/pages/page_form.html:289
+#: templates/pages/page_form.html:300
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -2703,28 +2714,28 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: templates/pages/page_form.html:302 templates/pages/page_form.html:303
+#: templates/pages/page_form.html:313 templates/pages/page_form.html:314
 #: templates/pages/page_tree_node.html:124
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: templates/pages/page_form.html:309
+#: templates/pages/page_form.html:320
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: templates/pages/page_form.html:315 templates/pages/page_form.html:333
+#: templates/pages/page_form.html:326 templates/pages/page_form.html:344
 #: templates/pages/page_tree_archived_node.html:112
 #: templates/pages/page_tree_node.html:137
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: templates/pages/page_form.html:319
+#: templates/pages/page_form.html:330
 #: templates/pages/page_tree_archived_node.html:108
 #: templates/pages/page_tree_node.html:133 views/pages/page_actions.py:203
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: templates/pages/page_form.html:320
+#: templates/pages/page_form.html:331
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -2735,7 +2746,7 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: templates/pages/page_form.html:339
+#: templates/pages/page_form.html:350
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
@@ -3404,28 +3415,28 @@ msgstr "Benutzer \"%(user_name)s\" bearbeiten"
 msgid "Create new user"
 msgstr "Neuen Benutzer erstellen"
 
-#: templates/users/admin/user.html:108 templates/users/region/user.html:102
+#: templates/users/admin/user.html:113 templates/users/region/user.html:107
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: templates/users/admin/user.html:109 templates/users/region/user.html:97
+#: templates/users/admin/user.html:114 templates/users/region/user.html:102
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
-#: templates/users/admin/user.html:110 templates/users/region/user.html:98
+#: templates/users/admin/user.html:115 templates/users/region/user.html:103
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/users/admin/user.html:114 templates/users/region/user.html:96
+#: templates/users/admin/user.html:119 templates/users/region/user.html:101
 msgid "Delete this user"
 msgstr "Diesen Benutzer löschen"
 
-#: templates/users/region/user.html:107
+#: templates/users/region/user.html:112
 #, python-format
 msgid "Remove this user from region %(region)s"
 msgstr "Diesen Benutzer von Region %(region)s entfernen"
 
-#: templates/users/region/user.html:108
+#: templates/users/region/user.html:113
 #, python-format
 msgid ""
 "Please confirm that you really want to remove this user from region "
@@ -3434,11 +3445,11 @@ msgstr ""
 "Bitte bestätigen Sie, dass dieser Benutzer von der Region %(region)s "
 "entfernt werden soll."
 
-#: templates/users/region/user.html:109
+#: templates/users/region/user.html:114
 msgid "The user will keep access to the following regions:"
 msgstr "Der Benutzer wird den Zugang zu folgenden Regionen behalten:"
 
-#: templates/users/region/user.html:113
+#: templates/users/region/user.html:118
 msgid "Remove user from region"
 msgstr "Benutzer von Region entfernen"
 
