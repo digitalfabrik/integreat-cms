@@ -1,5 +1,6 @@
 from django import forms
 
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import PushNotification, PushNotificationTranslation
 
 
@@ -13,7 +14,7 @@ class PushNotificationForm(forms.ModelForm):
         fields = ["channel", "mode"]
 
 
-class PushNotificationTranslationForm(forms.ModelForm):
+class PushNotificationTranslationForm(PlaceholderModelForm):
     """
     Form for creating and modifying push notification translation objects
     """

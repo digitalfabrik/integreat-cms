@@ -1,8 +1,10 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block content %}
 <form enctype="multipart/form-data" method="post">
     {% csrf_token %}
     <div class="flex flex-wrap mb-4">
@@ -30,51 +32,51 @@
                     <h3 class="heading font-bold text-white">{% trans 'General Settings' %}</h3>
                 </div>
                 <div class="w-full p-4">
-
                     <!-- Options related to the region's administrative division -->
-                    <label for="administrative_division" class="font-bold block p-2 mb-1 cursor-pointer">{% trans 'Administrative division' %}</label>
+                    <label for="{{ form.administrative_division.id_for_label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ form.administrative_division.label }}</label>
                     <div class="relative">
-                        {% render_field form.administrative_division id="administrative_division" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        {% render_field form.administrative_division class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
                     <!-- General Options for region management -->
-                    <label for="id_name" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Name of the region" %}</label>
-                    {% trans "Enter the region's name here" as name_placeholder%}
-                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label for="id_name" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Common Region Identifier" %}</label>
-                    {% render_field form.common_id class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label for="id_aliases" class="font-bold block p-2 mt-5 cursor-pointer">{% trans 'Region aliases' %}</label>
-                    <label for="id_aliases" class="block px-2 py-1 mb-2 text-s cursor-pointer">{% trans 'Aliases JSON object. If empty, the CMS will try to fill this automatically.' %}</label>
-                    {% trans 'Enter region aliases here' as aliases_placeholder%}
-                    {% render_field form.aliases placeholder=aliases_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ form.name.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.name.label }}</label>
+                    {% render_field form.name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="id_slug" class="block p-2 mb-1 mt-5 font-bold cursor-pointer">{% trans 'Permalink' %}</label>
+                    <label for="{{ form.common_id.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.common_id.label }}</label>
+                    <div class="px-2 mb-2 text-s text-gray-600">{{ form.common_id.help_text }}</div>
+                    {% render_field form.common_id class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+                    <label for="{{ form.aliases.id_for_label }}" class="font-bold block p-2 mt-5 cursor-pointer">{{ form.aliases.label }}</label>
+                    <div class="px-2 mb-2 text-s text-gray-600">{{ form.aliases.help_text }}</div>
+                    {% render_field form.aliases class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+                    <label for="{{ form.slug.id_for_label }}" class="block p-2 mb-1 mt-5 font-bold cursor-pointer">{{ form.slug.label }}</label>
+                    <div class="px-2 mb-2 mb-2 text-s text-gray-600">{{ form.slug.help_text }}</div>
                     <div class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                        {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
                         {% spaceless %}
                             <div style="display: table; white-space: nowrap;">
                                 <span style="display: table-cell;">https://integreat.app/</span>
-                                <span style="display: table-cell; width: 100%;">{% render_field form.slug placeholder=slug_placeholder class="w-full rounded" %}</span>
+                                <span style="display: table-cell; width: 100%;">{% render_field form.slug class="w-full rounded" %}</span>
                             </div>
                         {% endspaceless %}
                     </div>
 
-                    <label for="id_admin_mail" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans 'E-mail-address of the administrator' %}</label>
-                    {% trans "Enter the administrator's e-mail-address here" as admin_mail_placeholder%}
-                    {% render_field form.admin_mail placeholder=admin_mail_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ form.admin_mail.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.admin_mail.label }}</label>
+                    {% render_field form.admin_mail class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     
                     <!-- Options related to coordinates for localization -->
-                    <label for="id_postal_code" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans 'Postal code' %}</label>
-                    {% trans 'Enter postal code here' as postal_code_placeholder%}
-                    {% render_field form.postal_code placeholder=postal_code_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label for="id_latitude" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans 'Latitude' %}</label>
-                    {% trans 'Enter latitude here' as latitude_placeholder%}
-                    {% render_field form.latitude placeholder=latitude_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label for="id_longitude" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans 'Longitude' %}</label>
-                    {% trans 'Enter longitude here' as longitude_placeholder%}
-                    {% render_field form.longitude placeholder=longitude_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ form.postal_code.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.postal_code.label }}</label>
+                    {% render_field form.postal_code class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+                    <label for="{{ form.latitude.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.latitude.label }}</label>
+                    <div class="px-2 mb-2 text-s text-gray-600">{{ form.latitude.help_text }}</div>
+                    {% render_field form.latitude class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+                    <label for="{{ form.longitude.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.longitude.label }}</label>
+                    <div class="px-2 mb-2 text-s text-gray-600">{{ form.longitude.help_text }}</div>
+                    {% render_field form.longitude class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
                     <!-- Options related to the region icon -->
                     {% if form.icon.value %}
@@ -84,9 +86,9 @@
                     {% endif %}
                     
                     <!-- Options related to region status -->
-                    <label for="id_status" class="block px-2 mb-1 mt-5 font-bold cursor-pointer">{% trans 'Status' %}</label>
+                    <label for="{{ form.status.id_for_label }}" class="block px-2 mb-1 mt-5 font-bold cursor-pointer">{{ form.status.label }}</label>
                     <div class="relative my-2">
-                        {% render_field form.status id="status" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                        {% render_field form.status class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
@@ -101,52 +103,63 @@
             </div>
             <div class="w-full p-4">
                 <!-- Options related to Events -->
-                <div class="py-2 pb-5 border-b solid border-gray-200">
-                    <label for="events_enabled" class="font-bold cursor-pointer mr-2">{% trans 'Activate events' %}</label>
-                    {% render_field form.events_enabled id="events_enabled" class="" %}
+                <span class="block p-2 text-xl font-bold">{% trans 'Events' %}</span>
+                <div class="p-2 pb-4 border-b solid border-gray-400">
+                    {% render_field form.events_enabled %}
+                    <label for="{{ form.events_enabled.id_for_label }}" class="font-bold cursor-pointer p-2 mb-1 mt-5">{{ form.events_enabled.label }}</label>
+                </div>
+
+                <!-- Options related to Author chat -->
+                <span class="block p-2 mt-2 text-xl font-bold">{% trans 'Author chat' %}</span>
+                <div class="p-2 pb-5 border-b solid border-gray-400">
+                    {% render_field form.chat_enabled %}
+                    <label for="{{ form.chat_enabled.id_for_label }}" class="font-bold cursor-pointer p-2 mb-1 mt-5">{{ form.chat_enabled.label }}</label>
+                    <div class="mt-2 text-s text-gray-600">{{ form.chat_enabled.help_text }}</div>
                 </div>
 
                 <!-- Options related to Push Notifications -->
-                <div class="py-4 border-b solid border-gray-200">
-                    <label for="push_notifications_enabled" class="font-bold cursor-pointer mr-2">{% trans 'Activate push notifications' %}</label>
-                    {% render_field form.push_notifications_enabled id="push_notifications_enabled" class="" %}
-                </div>
-                <div class="py-4 border-b solid border-gray-200">
-                    <label for="id_push_notification_channels" class="font-bold block mb-2 cursor-pointer">{% trans 'Push notification channels' %}</label>
-                    <label for="languages" class="block mb-2 text-s">{% trans 'Enter multiple channels separated by commas.' %}</label>
-                    {% trans 'Enter push notification channels here' as push_notification_channels_placeholder%}
-                    {% render_field form.push_notification_channels placeholder=push_notification_channels_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                </div>
-                <!-- Options related to Author chat -->
-                <div class="py-2 pb-5 border-b solid border-gray-200">
-                    <label for="events_enabled" class="font-bold cursor-pointer mr-2">{% trans 'Activate author chat' %}</label>
-                    {% render_field form.chat_enabled id="chat_enabled" class="" %}
+                <span class="block p-2 mt-2 text-xl font-bold">{% trans 'Push notifications' %}</span>
+                <div class="p-2 pb-4 border-b solid border-gray-400">
+                    {% render_field form.push_notifications_enabled %}
+                    <label for="{{ form.push_notifications_enabled.id_for_label }}" class="font-bold cursor-pointer p-2 mb-1 mt-5">{{ form.push_notifications_enabled.label }}</label>
+
+                    <div id="push-notifications-toggle-div" {% if not form.instance.push_notifications_enabled %} class="hidden" {% endif %}>
+                        <label for="{{ form.push_notification_channels.id_for_label }}" class="font-bold block mb-1 mt-5 cursor-pointer">{{ form.push_notification_channels.label }}</label>
+                        <div class="mb-2 text-s text-gray-600">{{ form.push_notification_channels.help_text }}</div>
+                        {% render_field form.push_notification_channels class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    </div>
                 </div>
 
                 <!-- Options related to Tracking -->
-                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Statistics' %}</span>
-                <div class="py-4">
-                    <label for="statistics_enabled" class="font-bold cursor-pointer mr-2">{% trans 'Activate statistics' %}</label>
-                    {% render_field form.statistics_enabled id="statistics_enabled" class="" %}
-                </div>
-                <div class="py-2">
-                    <label for="matomo_ssl_verify" class="font-bold cursor-pointer mr-2">{% trans 'Activate SSL verification for Matomo' %}</label>
-                    {% render_field form.matomo_ssl_verify id="matomo_ssl_verify" class="" %}
-                </div>
-                <div class="py-2">
-                    {% trans 'Enter URL for Matomo here' as matomo_url_placeholder%}
-                    {% render_field form.matomo_url placeholder=matomo_url_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                </div>
-                <div class="pt-2 pb-4 border-b solid border-gray-200">
-                    {% trans 'Enter token for Matomo here' as matomo_token_placeholder%}
-                    {% render_field form.matomo_token placeholder=matomo_token_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <span class="block p-2 mt-2 text-xl font-bold">{% trans 'Statistics' %}</span>
+                <div class="py-2 pb-4 border-b solid border-gray-400">
+                    <div class="p-2">
+                        {% render_field form.statistics_enabled %}
+                        <label for="{{ form.statistics_enabled.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.statistics_enabled.label }}</label>
+                    </div>
+
+                    <div id="statistics-toggle-div" {% if not form.instance.statistics_enabled %} class="hidden" {% endif %}>
+                        <div class="p-2">
+                            {% render_field form.matomo_ssl_verify %}
+                            <label for="{{ form.matomo_ssl_verify.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.matomo_ssl_verify.label }}</label>
+                            <div class="my-2 text-s text-gray-600">{{ form.matomo_ssl_verify.help_text }}</div>
+                        </div>
+
+                        <label for="{{ form.matomo_url.id_for_label }}" class="font-bold cursor-pointer block p-2 my-2">{{ form.matomo_url.label }}</label>
+                        {% render_field form.matomo_url class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+                        <label for="{{ form.matomo_token.id_for_label }}" class="font-bold cursor-pointer block p-2 my-2">{{ form.matomo_token.label }}</label>
+                        <div class="px-2 my-2 text-s text-gray-600">{{ form.matomo_token.help_text }}</div>
+                        {% render_field form.matomo_token class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    </div>
                 </div>
 
                 <!-- Options related to page-instance-specific permissions -->
-                <span class="block mb-2 pt-4 p2-4 text-xl font-bold">{% trans 'Page permissions' %}</span>
-                <div class="py-2">
-                    <label for="page_permissions_enabled" class="font-bold cursor-pointer mr-2">{% trans 'Activate permissions for specific pages' %}</label>
-                    {% render_field form.page_permissions_enabled id="page_permissions_enabled" %}
+                <span class="block p-2 mt-2 text-xl font-bold">{% trans 'Page permissions' %}</span>
+                <div class="p-2">
+                    {% render_field form.page_permissions_enabled %}
+                    <label for="{{ form.page_permissions_enabled.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.page_permissions_enabled.label }}</label>
+                    <div class="my-2 text-s text-gray-600">{{ form.page_permissions_enabled.help_text }}</div>
                 </div>
                 
             </div>
@@ -158,9 +171,9 @@
                 <h3 class="heading font-bold text-white">{% trans 'Duplicate content of another region' %}</h3>
             </div>
             <div class="w-full p-4">
-                <label for="duplicated_region" class="font-bold">{% trans 'Copy languages, pages and media from another region' %}</label>
+                <label for="{{ form.duplicated_region.id_for_label }}" class="font-bold">{% trans 'Copy languages, pages and media from another region' %}</label>
                 <div class="relative my-4">
-                    {% render_field form.duplicated_region id="duplicated_region" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    {% render_field form.duplicated_region class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                         <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                     </div>
@@ -189,4 +202,6 @@
 
 {% block javascript %}
 <script src="{% static 'js/confirmation-popups.js' %}"></script>
+<script src="{% static 'js/regions/region-form-icon.js' %}"></script>
+<script src="{% static 'js/regions/conditional-fields.js' %}"></script>
 {% endblock %}

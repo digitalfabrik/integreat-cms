@@ -1,9 +1,8 @@
-from django import forms
-
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import Language
 
 
-class LanguageForm(forms.ModelForm):
+class LanguageForm(PlaceholderModelForm):
     """
     Form for creating and modifying language objects
     """

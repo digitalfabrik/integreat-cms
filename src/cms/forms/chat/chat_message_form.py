@@ -1,13 +1,12 @@
 import logging
 
-from django import forms
-
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import ChatMessage
 
 logger = logging.getLogger(__name__)
 
 
-class ChatMessageForm(forms.ModelForm):
+class ChatMessageForm(PlaceholderModelForm):
     """
     Form for submitting chat messages
     """

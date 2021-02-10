@@ -1,9 +1,8 @@
-from django import forms
-
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import Organization
 
 
-class OrganizationForm(forms.ModelForm):
+class OrganizationForm(PlaceholderModelForm):
     """
     Form for creating and modifying organization objects
     """
@@ -22,6 +21,3 @@ class OrganizationForm(forms.ModelForm):
             "slug",
             "thumbnail",
         ]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)

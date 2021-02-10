@@ -32,17 +32,15 @@
 				<div class="w-full p-4">
 
 					<!-- General Options for organization management -->
-                    <label for="id_name" class="font-bold block p-2 mb-1 cursor-pointer">{% trans "Organizationname" %}</label>
-                    {% trans "Enter the organization's name here" as name_placeholder%}
-                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ form.name.id_for_label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ form.name.label }}</label>
+                    {% render_field form.name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="id_slug" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Slug of the organization" %}</label>
-                    {% trans "Enter the organization's slug here" as slug_placeholder%}
-                    {% render_field form.slug placeholder=slug_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ form.slug.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.slug.label }}</label>
+					<div class="px-2 mb-2 text-s text-gray-600">{{ form.slug.help_text }}</div>
+                    {% render_field form.slug class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="id_thumbnail" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Thumbnail of the organization" %}</label>
-                    {% trans "Enter the organization's thumbnail here" as thumbnail_placeholder%}
-                    {% render_field form.thumbnail placeholder=thumbnail_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ form.thumbnail.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.thumbnail.label }}</label>
+                    {% render_field form.thumbnail class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
 				</div>
 			</div>

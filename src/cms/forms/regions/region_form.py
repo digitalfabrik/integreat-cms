@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.apps import apps
 
 from gvz_api.utils import GvzRegion
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import Region, PageTranslation, LanguageTreeNode
 from ...utils.slug_utils import generate_unique_slug
 
@@ -20,7 +21,7 @@ class IconWidget(forms.ClearableFileInput):
     template_name = "regions/region_icon_widget.html"
 
 
-class RegionForm(forms.ModelForm):
+class RegionForm(PlaceholderModelForm):
     """
     Form for creating and modifying region objects
     """

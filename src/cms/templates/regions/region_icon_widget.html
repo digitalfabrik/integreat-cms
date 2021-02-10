@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load form_icon_filters %}
+
 <span class="block mb-1 mt-5 px-2 font-bold">{% trans 'Icon' %}</span>
 <div class="flex justify-center xl:justify-between flex-wrap w-full">
     {% with icon=widget.attrs.icon %}
@@ -24,6 +25,3 @@
     </div>
     {% endwith %}
 </div>
-{% block javascript_head %}
-<script src="{% static 'js/region-form-icon.js' %}"></script>
-{% endblock %}

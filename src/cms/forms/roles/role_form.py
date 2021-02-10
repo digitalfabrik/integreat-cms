@@ -1,8 +1,9 @@
-from django import forms
 from django.contrib.auth.models import Group as Role
 
+from ..placeholder_model_form import PlaceholderModelForm
 
-class RoleForm(forms.ModelForm):
+
+class RoleForm(PlaceholderModelForm):
     """
     Form for creating and modifying user role objects
     """

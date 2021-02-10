@@ -1,9 +1,9 @@
 import logging
 
-from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from ..placeholder_model_form import PlaceholderModelForm
 from ...constants import status
 from ...models import PageTranslation
 from ...utils.slug_utils import generate_unique_slug
@@ -12,7 +12,7 @@ from ...utils.slug_utils import generate_unique_slug
 logger = logging.getLogger(__name__)
 
 
-class PageTranslationForm(forms.ModelForm):
+class PageTranslationForm(PlaceholderModelForm):
     """
     Form for creating and modifying page translation objects
     """

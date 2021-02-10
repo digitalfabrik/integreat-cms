@@ -1,14 +1,13 @@
 import logging
 
-from django import forms
-
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import POI
 
 
 logger = logging.getLogger(__name__)
 
 
-class POIForm(forms.ModelForm):
+class POIForm(PlaceholderModelForm):
     """
     Form for creating and modifying POI objects
     """
@@ -22,7 +21,15 @@ class POIForm(forms.ModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = POI
         #: The fields of the model which should be handled by this form
-        fields = ["address", "postcode", "city", "country", "latitude", "longitude"]
+        fields = [
+            "address",
+            "postcode",
+            "city",
+            "country",
+            "latitude",
+            "longitude",
+            "thumbnail",
+        ]
 
     def __init__(self, data=None, instance=None):
         """

@@ -36,21 +36,20 @@
 				<div class="w-full p-4">
 
 					<!-- General Options for offer_template management -->
-                    <label for="id_name" class="font-bold block p-2 mb-1 cursor-pointer">{% trans "Offer name" %}</label>
-                    {% trans "Enter the offer's name here" as name_placeholder%}
-                    {% render_field form.name placeholder=name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ form.name.id_for_label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ form.name.label }}</label>
+                    {% render_field form.name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="id_slug" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Slug of the offer" %}</label>
-                    {% trans "Leave blank to generate unique slug from name" as slug_placeholder%}
-                    {% render_field form.slug placeholder=slug_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ form.slug.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.slug.label }}</label>
+					<div class="px-2 mb-2 text-s text-gray-600">{{ form.slug.help_text }}</div>
+                    {% render_field form.slug class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-					<label for="id_url" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "URL of the offer" %}</label>
-					{% trans "Enter the offer's url here" as url_placeholder%}
-					{% render_field form.url placeholder=url_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+					<label for="{{ form.url.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.url.label }}</label>
+					<div class="px-2 mb-2 text-s text-gray-600">{{ form.url.help_text }}</div>
+					{% render_field form.url class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-					<label for="id_thumbnail" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Thumbnail of the offer" %}</label>
-					{% trans "Enter the offer's thumbnail here" as thumbnail_placeholder%}
-					{% render_field form.thumbnail placeholder=thumbnail_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+					<label for="{{ form.thumbnail.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.thumbnail.label }}</label>
+					<div class="mb-2 text-s text-gray-600">{{ form.thumbnail.help_text }}</div>
+					{% render_field form.thumbnail class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 				</div>
 			</div>
 		</div>
@@ -60,15 +59,16 @@
 				<h3 class="heading font-bold text-white">{% trans 'Extended Settings' %}</h3>
 			</div>
 			<div class="w-full p-4">
-				<label for="id_post_data" class="font-bold block p-2 mb-1 cursor-pointer">{% trans "Post data of the offer in JSON (optional)" %}</label>
-				{% trans "Enter the offer's post data in JSON here" as post_data_placeholder %}
+				<label for="{{ form.post_data.id_for_label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ form.post_data.label }}</label>
+				<div class="px-2 mb-2 text-s text-gray-600">{{ form.post_data.help_text }}</div>
 				{% if form.post_data.value == "null" %}
-					{% render_field form.post_data value="{}" placeholder=post_data_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+					{% render_field form.post_data value="{}" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 				{% else %}
-					{% render_field form.post_data placeholder=post_data_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+					{% render_field form.post_data class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 				{% endif %}
 
-				<label for="id_use_postal_code" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{% trans "Does the offer make use of its region's postal code?" %}</label>
+				<label for="{{ form.use_postal_code.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.use_postal_code.label }}</label>
+				<div class="px-2 mb-2 text-s text-gray-600">{{ form.use_postal_code.help_text }}</div>
 				<div class="relative">
 					{% render_field form.use_postal_code class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 					<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">

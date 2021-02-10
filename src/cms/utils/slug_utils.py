@@ -59,7 +59,7 @@ def generate_unique_slug(form_object, foreign_model):
             raise ValidationError(
                 _("Cannot generate slug from %(fallback)s."),
                 code="invalid",
-                params={"fallback": fallback},
+                params={"fallback": _(fallback)},
             )
         # slugify to make sure slug doesn't contain special chars etc.
         slug = slugify(form_object.cleaned_data[fallback], allow_unicode=True)
