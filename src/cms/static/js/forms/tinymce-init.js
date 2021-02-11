@@ -12,8 +12,12 @@ tinymce.init({
     },
     contextmenu: "paste link",
     autosave_interval: '120s',
-    plugins: "code paste fullscreen autosave link preview media image lists directionality",
+    plugins: "code paste fullscreen autosave autolink link preview media image lists directionality",
+    external_plugins: {
+        'autolink_phone': '../js/tinymce_plugins/autolink_phone/plugin.js'
+    },
     toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate removeformat | aligncenter indent outdent | link image',
+    link_default_protocol: 'https',
     style_formats: [
         { title: 'Headings', items: [
                 { title: 'Heading 2', format: 'h2' },
