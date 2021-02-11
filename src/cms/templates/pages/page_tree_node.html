@@ -16,6 +16,14 @@
               {% endif %}>
             <i data-feather="move"></i>
         </span>
+        {% if not page.is_leaf_node %}
+        <span class="collapse-subpages cursor-pointer inline-block align-middle"
+              title="{% trans 'Collapse all subpages' %}"
+              data-page-id="{{ page.id }}"
+              data-page-children="{{ page|get_children }}">
+                <i data-feather="chevron-down"></i>
+            </span>
+        {% endif %}
     </td>
     <td class="pl-2">
         <input type="checkbox" name="page_selected" value="{{ page.id }}">
