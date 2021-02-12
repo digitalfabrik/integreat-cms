@@ -210,39 +210,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-1/3 pl-4 flex flex-wrap flex-col">
-            {% if page %}
-                <ul class="flex pl-4">
-                    <li class="z-10" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
-                            <div class="border-b-4 border-white">
-                                <i data-feather="columns" class="inline-block"></i>
-                                {% trans 'Side-by-Side view' %}
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                    <div class="w-full p-4">
-                        <span class="font-bold mb-2 mt-4 block">{% trans 'Direction of translation' %}</span>
-                        <div class="relative">
-                            <select id="side-by-side-select" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                                <option value="">---------</option>
-                                {% for side_by_side_language_option in side_by_side_language_options %}
-                                <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
-                        </div>
-                        <a id="side-by-side-link" class="block pointer-events-none w-full bg-gray-400 text-white text-center font-bold py-2 px-4 mt-2 rounded">
-                            <i data-feather="external-link" class="inline-block mr-2"></i>
-                            {% trans 'Show translations side by side' %}
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
+        <div class="w-1/3 pl-4 flex flex-wrap flex-col">    
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
@@ -378,6 +346,38 @@
                     {% endif %}
                 </div>
             </div>
+            {% if page %}
+                <ul class="flex pl-4">
+                    <li class="z-10" style="margin-bottom: -2px">
+                        <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
+                            <div class="border-b-4 border-white">
+                                <i data-feather="columns" class="inline-block"></i>
+                                {% trans 'Side-by-Side view' %}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
+                    <div class="w-full p-4">
+                        <span class="font-bold mb-2 mt-4 block">{% trans 'Direction of translation' %}</span>
+                        <div class="relative">
+                            <select id="side-by-side-select" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
+                                <option value="">---------</option>
+                                {% for side_by_side_language_option in side_by_side_language_options %}
+                                <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_code=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
+                        </div>
+                        <a id="side-by-side-link" class="block pointer-events-none w-full bg-gray-400 text-white text-center font-bold py-2 px-4 mt-2 rounded">
+                            <i data-feather="external-link" class="inline-block mr-2"></i>
+                            {% trans 'Show translations side by side' %}
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </form>
