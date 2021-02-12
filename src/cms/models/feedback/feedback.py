@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from ..languages.language import Language
 from ...constants import feedback_emotions
@@ -7,36 +8,47 @@ from ...constants import feedback_emotions
 class Feedback(models.Model):
     """
     Database model representing feedback from app-users.
-
-    :param id: The database id of the feedback
-    :param emotion: Whether the feedback is positive or negative (choices: :mod:`cms.constants.feedback_emotions`)
-    :param comment: A comment describing the feedback
-    :param is_technical: Whether or not the feedback is targeted at the developers
-    :param read_status: Whether or not the feedback is marked as read
-    :param created_date: The date and time when the feedback was created
-    :param last_updated: The date and time when the feedback was last updated
     """
 
-    language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    emotion = models.CharField(max_length=3, choices=feedback_emotions.CHOICES)
-    comment = models.CharField(max_length=1000)
-    is_technical = models.BooleanField()
-    read_status = models.BooleanField(default=False)
+    language = models.ForeignKey(
+        Language,
+        on_delete=models.CASCADE,
+        related_name="feedback",
+        verbose_name=_("language"),
+    )
+    #: Manage choices in :mod:`cms.constants.feedback_emotions`
+    emotion = models.CharField(
+        max_length=3,
+        choices=feedback_emotions.CHOICES,
+        verbose_name=_("emotion"),
+        help_text=_("Whether the feedback is positive or negative"),
+    )
+    comment = models.CharField(max_length=1000, verbose_name=_("comment"))
+    is_technical = models.BooleanField(
+        verbose_name=_("technical"),
+        help_text=_("Whether or not the feedback is targeted at the developers"),
+    )
+    read_status = models.BooleanField(
+        default=False,
+        verbose_name=_("read"),
+        help_text=_("Whether or not the feedback is marked as read"),
+    )
 
-    created_date = models.DateTimeField(auto_now_add=True)
-    last_updated = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("modification date"),
+    )
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-
-        :param permissions: The custom permissions for this model
-        :type permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("feedback")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("feedback")
+        #: The default permissions for this model
         default_permissions = ()
+        #:  The custom permissions for this model
         permissions = (("view_feedback", "Can view feedback"),)

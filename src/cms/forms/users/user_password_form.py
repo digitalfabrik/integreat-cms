@@ -32,11 +32,31 @@ class UserPasswordForm(forms.ModelForm):
     )
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = get_user_model()
+        #: The fields of the model which should be handled by this form
         fields = []
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved user object
+        :rtype: ~django.contrib.auth.models.User
+        """
 
         logger.info("UserSettingsForm saved with args %s and kwargs %s", args, kwargs)
 
@@ -49,6 +69,12 @@ class UserPasswordForm(forms.ModelForm):
         return self.instance
 
     def clean(self):
+        """
+        Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
+
+        :return: The cleaned form data
+        :rtype: dict
+        """
         cleaned_data = super().clean()
         old_password = cleaned_data.get("old_password")
         new_password = cleaned_data.get("new_password")

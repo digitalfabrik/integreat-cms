@@ -1,24 +1,20 @@
 """
 This module contains all constants representing the frequency of an :class:`~cms.models.events.event.Event`'s
-:class:`~cms.models.events.recurrence_rule.RecurrenceRule`:
-
-* ``DAILY``: Daily
-
-* ``WEEKLY``: Weekly
-
-* ``MONTHLY``: Monthly
-
-* ``YEARLY``: Yearly
+:class:`~cms.models.events.recurrence_rule.RecurrenceRule`.
 """
-
 from django.utils.translation import ugettext_lazy as _
 
 
+#: Daily
 DAILY = "DAILY"
+#: Weekly
 WEEKLY = "WEEKLY"
+#: Monthly
 MONTHLY = "MONTHLY"
+#: Yearly
 YEARLY = "YEARLY"
 
+#: Choices to use these constants in a database field
 CHOICES = (
     (DAILY, _("Daily")),
     (WEEKLY, _("Weekly")),

@@ -24,8 +24,16 @@ class LanguageTreeNodeForm(forms.ModelForm):
     """
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = LanguageTreeNode
+        #: The fields of the model which should be handled by this form
         fields = ["language", "parent", "active"]
+        #: The custom field classes to be used in this form
         field_classes = {
             "language": LanguageField,
             "parent": LanguageField,
@@ -61,7 +69,10 @@ class LanguageTreeNodeForm(forms.ModelForm):
 
     def save(self, commit=True):
         """
-        Function to create or update a language tree node
+        Function to save the form instance
+
+        :return: The saved language tree node object
+        :rtype: ~cms.models.languages.language_tree_node.LanguageTreeNode
         """
         logger.info(
             "LanguageTreeNodeForm saved with cleaned data %s and changed data %s",
@@ -73,9 +84,13 @@ class LanguageTreeNodeForm(forms.ModelForm):
 
     def clean(self):
         """
+        Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`:
         Don't allow multiple root nodes for one region:
-            If self is a root node and the region already has a default language,
-            raise a validation error.
+        If self is a root node and the region already has a default language, raise a
+        :class:`~django.core.exceptions.ValidationError`.
+
+        :return: The cleaned form data
+        :rtype: dict
         """
         cleaned_data = super().clean()
         logger.info("LanguageTreeNodeForm cleaned with cleaned data %s", cleaned_data)
@@ -100,3 +115,4 @@ class LanguageTreeNodeForm(forms.ModelForm):
                     code="invalid",
                 ),
             )
+        return cleaned_data

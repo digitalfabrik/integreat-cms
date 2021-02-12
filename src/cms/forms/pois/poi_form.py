@@ -1,23 +1,47 @@
 import logging
 
-from django import forms
-
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import POI
 
 
 logger = logging.getLogger(__name__)
 
 
-class POIForm(forms.ModelForm):
+class POIForm(PlaceholderModelForm):
     """
     Form for creating and modifying POI objects
     """
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = POI
-        fields = ["address", "postcode", "city", "country", "latitude", "longitude"]
+        #: The fields of the model which should be handled by this form
+        fields = [
+            "address",
+            "postcode",
+            "city",
+            "country",
+            "latitude",
+            "longitude",
+            "thumbnail",
+        ]
 
     def __init__(self, data=None, instance=None):
+        """
+        Initialize POI form
+
+        :param data: submitted POST data
+        :type data: dict
+
+        :param instance: This form's instance
+        :type instance: ~cms.models.pois.poi.POI
+        """
+
         logger.info("POIForm instantiated with data %s and instance %s", data, instance)
 
         # instantiate ModelForm
@@ -30,6 +54,17 @@ class POIForm(forms.ModelForm):
 
     # pylint: disable=arguments-differ
     def save(self, region=None):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param region: The region of this form's POI instance
+        :type region: ~cms.models.regions.region.Region
+
+        :return: The saved POI object
+        :rtype: ~cms.models.pois.poi.POI
+        """
+
         logger.info(
             "POIForm saved with cleaned data %s and changed data %s",
             self.cleaned_data,

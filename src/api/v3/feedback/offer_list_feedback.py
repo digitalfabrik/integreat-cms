@@ -3,11 +3,13 @@ APIv3 feedback endpoint for feedback about offers
 """
 from django.http import JsonResponse
 
-from api.decorators import feedback_handler
 from cms.models import OfferListFeedback
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 # pylint: disable=unused-argument
 def offer_list_feedback(data, region, language, comment, emotion, is_technical):
     """

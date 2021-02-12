@@ -11,6 +11,10 @@ logger = logging.getLogger(__name__)
 
 
 class EventFilterForm(forms.Form):
+    """
+    Form to filter the event list
+    """
+
     all_day = forms.TypedMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(attrs={"class": "default-checked"}),
         choices=all_day.CHOICES,

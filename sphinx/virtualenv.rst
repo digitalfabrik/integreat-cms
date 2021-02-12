@@ -1,12 +1,12 @@
-*******************
-Virtual Environment
-*******************
+****************************
+Virtual Environment (Pipenv)
+****************************
 
 All python dependencies are installed in a virtual Python environment (see :doc:`tutorial/venv`).
 
 As package manager for the virtual environment we use Pipenv (see :doc:`pipenv:index`)
 
-For portability and reproducibility, we use specific version of our dependencies locked in ``Pipenv.lock`` `[Source] <https://github.com/Integreat/cms-django/blob/develop/Pipfile.lock>`_.
+For portability and reproducibility, we use specific version of our dependencies locked in :github-source:`Pipfile.lock`.
 
 
 Install dependencies
@@ -24,7 +24,7 @@ To install exactly the specified versions of the dependencies, execute::
 Add dependencies
 ================
 
-When adding new functional dependencies, please add them to ``setup.py`` and execute::
+When adding new functional dependencies, please add them to :github-source:`setup.py` and execute::
 
     pipenv install -e .
 

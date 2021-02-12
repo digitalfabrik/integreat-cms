@@ -101,6 +101,27 @@ def can_publish_all_pages(user, page):
     return user.has_perm("cms.publish_pages")
 
 
+@predicate
+def can_delete_chat_message(user, chat_message):
+    """
+    This predicate checks whether the given user can delete a given chat message
+
+    :param user: The user who's permission should be checked
+    :type user: ~django.contrib.auth.models.User
+
+    :param chat_message: The requested chat message
+    :type chat_message: ~cms.models.chat.chat_message.ChatMessage
+
+    :return: Whether or not ``user`` is allowed to delete ``chat_message``
+    :rtype: bool
+    """
+    # Superusers and staff can delete all messages
+    if user.is_superuser or user.is_staff:
+        return True
+    # Normal users can only delete their own messages
+    return user == chat_message.sender
+
+
 # Permissions
 
 add_perm(
@@ -108,3 +129,4 @@ add_perm(
     can_edit_all_pages | is_page_editor | can_publish_all_pages | is_page_publisher,
 )
 add_perm("cms.publish_page", can_publish_all_pages | is_page_publisher)
+add_perm("cms.delete_chat_message", can_delete_chat_message)

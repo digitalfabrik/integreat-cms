@@ -1,6 +1,7 @@
 """
 This module contains views for generating the sitemap dynamically.
-The views are class-based patches of the inbuilt views :mod:`django.contrib.sitemaps.views`.
+The views are class-based patches of the inbuilt views :func:`~django.contrib.sitemaps.views.index` and
+:func:`~django.contrib.sitemaps.views.sitemap` of the :mod:`django.contrib.sitemaps` :doc:`django:ref/contrib/sitemaps`.
 """
 import logging
 
@@ -27,11 +28,13 @@ class SitemapIndexView(TemplateResponseMixin, View):
     It is a patched version of :func:`django.contrib.sitemaps.views.index` with the following changes:
 
     * Sitemaps dynamically queried on each request, not on the application startup
-    * :setting:`WEBAPP_URL` is used for the domain instead of the host of the sitemap
+    * :attr:`~backend.settings.WEBAPP_URL` is used for the domain instead of the host of the sitemap
     * Empty sitemaps are not included in the index
     """
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "sitemap_index.xml"
+    #: The content type to use for the response (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     content_type = "application/xml"
 
     def get(self, request, *args, **kwargs):
@@ -86,7 +89,9 @@ class SitemapView(TemplateResponseMixin, View):
     * Support for pagination was dropped (only needed with more than 50000 urls per region and language)
     """
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "sitemap.xml"
+    #: The content type to use for the response (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     content_type = "application/xml"
 
     def get(self, request, *args, **kwargs):
@@ -102,7 +107,7 @@ class SitemapView(TemplateResponseMixin, View):
         :param kwargs: The supplied keyword args (should contain ``region_slug`` and ``language_code``)
         :type kwargs: dict
 
-        :raises ~django.http.Http404: Raises a HTTP 404 if the either the region or langauge does not exist or is invalid
+        :raises ~django.http.Http404: Raises a HTTP 404 if the either the region or language does not exist or is invalid
                                       or if the sitemap is empty.
 
         :return: The rendered template response

@@ -348,6 +348,9 @@ class PageXliffHelper:
 
         :param pages: list of pages which should be translated
         :type pages: list [ ~cms.models.pages.page.Page ]
+
+        :return: The path of the generated zip file
+        :rtype: str
         """
         xliff_paths = []
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
@@ -415,6 +418,7 @@ class PageXliffHelper:
         tgt_trans.title = trans_fields["title"]
         tgt_trans.text = trans_fields["content"]
         tgt_trans.slug = PageXliffHelper._get_page_translation_slug(tgt_trans.title)
+        tgt_trans.currently_in_translation = False
         if tgt_trans.save():
             return True
         return False
@@ -479,10 +483,10 @@ class PageXliffHelper:
         :param xliff_paths: list of paths to XLIFF files
         :type xliff_paths: [ str ]
 
-        :return: dictionaries containing diffs between XLIFF and current translation versions
+        :return: dictionaries containing diffs between XLIFF and current translation versions or an error message
         :rtype: list [ dict ]
         """
-        diffs = []
+        results = []
         for xliff_path in xliff_paths:
             if xliff_path.endswith((".xlf", ".xliff")) and os.path.isfile(xliff_path):
                 with open(xliff_path, "r", encoding="utf-8") as f:
@@ -491,12 +495,21 @@ class PageXliffHelper:
                     trans_fields = converter.xliff_to_translation_data()
                     if trans_fields is None:
                         continue
-                    diffs.append(
-                        self.generate_translation_diff(
-                            trans_fields, os.path.basename(xliff_path)
-                        )
+                    diff = self.generate_translation_diff(
+                        trans_fields, os.path.basename(xliff_path)
                     )
-        return diffs
+                    if diff is None:
+                        results.append(
+                            {
+                                "error": True,
+                                "page_id": trans_fields["page_id"],
+                                "title": trans_fields["title"],
+                                "tgt_lang_code": trans_fields["tgt_lang_code"],
+                            }
+                        )
+                    else:
+                        results.append(diff)
+        return results
 
     @staticmethod
     def generate_translation_diff(trans_fields, xliff_name):
@@ -515,7 +528,7 @@ class PageXliffHelper:
         page = Page.objects.filter(id=int(trans_fields["page_id"])).first()
         tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_code"]).first()
         if tgt_lang is None or page is None:
-            return False
+            return None
         tgt_trans = PageTranslation.objects.filter(page=page, language=tgt_lang).first()
         if tgt_trans is None:
             tgt_trans = PageTranslation()
@@ -545,3 +558,21 @@ class PageXliffHelper:
             "xliff_name": xliff_name,
         }
         return result_diff
+
+    @staticmethod
+    # pylint: disable=unused-argument
+    def post_translation_state(pages, language_code, translation_state):
+        """Update translation state according to parameter
+
+        :param pages: list of pages
+        :type pages: list
+        :param language_code: language code of translation
+        :type language_code: str
+        :param translation_state: value to set for currently_in_translation
+        :type translation_state: bool
+        """
+        for page in pages:
+            if language_code in [language.code for language in page.languages]:
+                PageTranslation.objects.filter(
+                    page__id=page.id, language__code=language_code
+                ).update(currently_in_translation=translation_state)

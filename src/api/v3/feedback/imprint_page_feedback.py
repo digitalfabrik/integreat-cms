@@ -3,11 +3,13 @@ APIv3 endpoint for feedback about the imprint
 """
 from django.http import JsonResponse
 
-from api.decorators import feedback_handler
 from cms.models.feedback.imprint_page_feedback import ImprintPageFeedback
+
+from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler
+@json_response
 def imprint_page_feedback(data, region, language, comment, emotion, is_technical):
     """
     Store feedback about imprint in database

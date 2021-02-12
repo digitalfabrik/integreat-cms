@@ -7,8 +7,6 @@
 {% load rules %}
 
 {% block javascript_head %}
-    <script src="{% static 'js/confirmation-popups.js' %}"></script>
-    <script src="{% static 'js/pages/page_bulk_actions.js' %}"></script>
     <script src="{% static 'js/copy-clipboard.js' %}"></script>
 {% endblock %}
 
@@ -35,9 +33,16 @@
             <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
         </form>
 
-        {% has_perm 'cms.edit_page' request.user as can_edit_pages %}
-        {% if can_edit_pages %}
-            <div class="w-1/2 flex flex-wrap justify-end">
+
+        <div class="w-1/2 flex flex-wrap justify-end">
+            {% if request.user.profile.expert_mode %}
+            <button id="filter-toggle"
+                    class="bg-gray-500 hover:bg-gray-600 text-gray-800 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+                {% trans 'Filter pages' %}
+            </button>
+            {% endif %}
+            {% has_perm 'cms.edit_page' request.user as can_edit_pages %}
+            {% if can_edit_pages %}
                 {% if region.default_language == language %}
                     <a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         {% trans 'Create page' %}
@@ -47,9 +52,12 @@
                         {% trans 'Create page' %}
                     </button>
                 {% endif %}
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
+</div>
+<div id="filter-form-container" class="{% if not filter_form.has_changed %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    {% include 'pages/_page_filter_form.html' %}
 </div>
 
 <div class="table-listing">
@@ -57,7 +65,7 @@
         <thead>
             <tr class="border-b border-solid border-gray-200">
                 <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"></th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min"><input type="checkbox" class="h-full" name="select_all_pages" onclick="select_all_pages();"></th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min"><input type="checkbox" class="h-full" name="select_all_pages"></th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
@@ -86,7 +94,7 @@
             {% get_last_root_page pages as last_root_page %}
             {% recursetree pages %}
                 {% get_translation node language.code as page_translation %}
-                {% include "pages/page_tree_node.html" with page=node page_translation=page_translation %}
+                {% include "pages/page_tree_node.html" with page=node %}
                 {% if not node.is_leaf_node %}
                     {{children}}
                 {% endif %}
@@ -116,49 +124,59 @@
                     <select class="h-full pl-4 pr-4 rounded shadow" style="padding-top: 5px;" name="bulk_action" id="bulk_action">
                         <option>{% trans 'Please select' %}</option>
                         <option value="archive_pages">{% trans 'Archive pages' %}
-                        {% for lang in languages %}
-                        {% if lang != region.default_language %}
-                        <option value="{{ lang.code }}">{% trans 'Export XLIFF for translation to' %} {{ lang.translated_name }}</option>
+                        {% if request.user.profile.expert_mode %}
+                            {% for lang in languages %}
+                            {% if lang != region.default_language %}
+                            <option value="{{ lang.code }}">{% trans 'Export XLIFF for translation to' %} {{ lang.translated_name }}</option>
+                            {% endif %}
+                            {% endfor %}
                         {% endif %}
-                        {% endfor %}
                         <option value="pdf_export">{% trans 'Export as PDF' %}</option>
                     </select>
                 </div>
                 <div class="pl-3">
-                    <input type="button" onclick="bulk_action_execute();" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-2 px-4 rounded" value="{% trans 'Execute' %}" />
+                    <input id="bulk_action_btn" type="button" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-2 px-4 rounded" value="{% trans 'Execute' %}" />
                     <input type="hidden" id="bulk_action_url" value="{% url 'download_xliff' region_slug=region.slug language_code=language.code%}">
                     <input type="hidden" id="pdf_export_url" value="{% url 'export_pdf' region_slug=region.slug language_code=language.code %}"> 
+                    <div id="ajax_url" class="hidden" data-url="{% url 'post_translation_state_ajax' region_slug=region.slug %}"></div>
                 </div>
             </form>
         </div>
-        <div class="flex-wrap relative w-1/2">
-            <form class="table-search relative flex flex-wrap h-full" method="post" enctype="multipart/form-data"
-                  action="{% url 'upload_xliff' region_slug=region.slug language_code=language.code%}">
-                 <div class="pl-3" style="padding-top: 0.4em;">
-                    {% trans 'Upload XLIFF File' %}
-                </div>
-               <div class="pl-3">
-                    <i data-feather="upload" class="absolute"></i>
-                    <input type="file" name="xliff_file" class="h-full pl-10 pr-4 rounded shadow" style="padding-top: 5px;">
-                    {% csrf_token %}
-                </div>
+        {% if request.user.profile.expert_mode %}
+            <div class="flex-wrap relative w-1/2">
+                <form class="table-search relative flex flex-wrap h-full" method="post" enctype="multipart/form-data"
+                    action="{% url 'upload_xliff' region_slug=region.slug language_code=language.code%}">
+                    <div class="pl-3" style="padding-top: 0.4em;">
+                        {% trans 'Upload XLIFF File' %}
+                    </div>
                 <div class="pl-3">
-                    <input type="submit"
-                       class="inline-block cursor-pointer bg-blue-500
-                       hover:bg-blue-600 text-white h-full
-                       font-bold py-2 px-4 rounded" value="{% trans 'Upload' %}" />
-                </div>
-            </form>
-        </div>
+                        <i data-feather="upload" class="absolute"></i>
+                        <input type="file" name="xliff_file" class="h-full pl-10 pr-4 rounded shadow" style="padding-top: 5px;">
+                        {% csrf_token %}
+                    </div>
+                    <div class="pl-3">
+                        <input type="submit"
+                        class="inline-block cursor-pointer bg-blue-500
+                        hover:bg-blue-600 text-white h-full
+                        font-bold py-2 px-4 rounded" value="{% trans 'Upload' %}" />
+                    </div>
+                </form>
+            </div>
+        {% endif %}
     </div>
 </div>
 
-{% include "./confirmation_popups/archive_page.html" %}
-{% if user.is_superuser or user.is_staff %}
-    {% include "./confirmation_popups/delete_page.html" %}
-{% endif %}
+{% include "../generic_confirmation_dialog.html" %}
 {% endblock %}
 
 {% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
 <script src="{% static 'js/tree_drag_and_drop.js' %}"></script>
+<script src="{% static 'js/pages/page_bulk_actions.js' %}"></script>
+<script>
+    // event handler to toggle filter form
+    u('#filter-toggle').on('click', () => {
+        u('#filter-form-container').toggleClass('hidden');
+    });
+</script>
 {% endblock %}

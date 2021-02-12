@@ -4,9 +4,11 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 from django.conf import settings
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from .abstract_base_page import AbstractBasePage
 from ..regions.region import Region
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
@@ -14,59 +16,103 @@ logger = logging.getLogger(__name__)
 class Page(MPTTModel, AbstractBasePage):
     """
     Data model representing a page.
-
-    :param id: The database id of the page
-    :param icon: The title image of the page
-    :param mirrored_page_first: If ``mirrored_page`` is not ``None``, this field determines whether the live content is
-                                embedded before the content of this page or after.
-
-    Fields inherited from the MPTT model (see :doc:`models` for more information):
-
-    :param tree_id: The id of this page tree (all pages of one page tree share this id)
-    :param lft: The left neighbour of this page
-    :param rght: The right neighbour of this page
-    :param level: The depth of the page node. Root pages are level `0`, their immediate children are level `1`, their
-                  immediate children are level `2` and so on...
-
-    Fields inherited from the :class:`~cms.models.pages.abstract_base_page.AbstractBasePage` model:
-
-    :param archived: Whether or not the page is archived
-    :param created_date: The date and time when the page was created
-    :param last_updated: The date and time when the page was last updated
-
-    Relationship fields:
-
-    :param parent: The parent page of this page (related name: ``children``)
-    :param region: The region to which the page belongs (related name: ``pages``)
-    :param mirrored_page: If the page embeds live content from another page, it is referenced here.
-    :param editors: A list of users who have the permission to edit this specific page (related name:
-                    ``editable_pages``). Only has effect if these users do not have the permission to edit pages anyway.
-    :param publishers: A list of users who have the permission to publish this specific page (related name:
-                       ``publishable_pages``). Only has effect if these users do not have the permission to publish
-                       pages anyway.
-
-    Reverse relationships:
-
-    :param children: The children of this page
-    :param translations: The translations of this page
-    :param feedback: The feedback to this page
     """
 
     parent = TreeForeignKey(
-        "self", blank=True, null=True, related_name="children", on_delete=models.PROTECT
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="children",
+        verbose_name=_("parent page"),
     )
-    icon = models.ImageField(blank=True, null=True, upload_to="pages/%Y/%m/%d")
-    region = models.ForeignKey(Region, related_name="pages", on_delete=models.CASCADE)
+    icon = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="pages/%Y/%m/%d",
+        verbose_name=_("thumbnail icon"),
+    )
+    region = models.ForeignKey(
+        Region,
+        on_delete=models.CASCADE,
+        related_name="pages",
+        verbose_name=_("region"),
+    )
     mirrored_page = models.ForeignKey(
-        "self", null=True, blank=True, on_delete=models.PROTECT
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="mirroring_pages",
+        verbose_name=_("mirrored page"),
+        help_text=_(
+            "If the page embeds live content from another page, it is referenced here."
+        ),
     )
-    mirrored_page_first = models.BooleanField(default=True, null=True, blank=True)
+    mirrored_page_first = models.BooleanField(
+        default=True,
+        null=True,
+        blank=True,
+        verbose_name=_("Position of mirrored page"),
+        help_text=_(
+            "If a mirrored page is set, this field determines whether the live content is embedded before the content of this page or after."
+        ),
+    )
     editors = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="editable_pages", blank=True
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name="editable_pages",
+        verbose_name=_("editors"),
+        help_text=__(
+            _("A list of users who have the permission to edit this specific page."),
+            _(
+                "Only has effect if these users do not have the permission to edit pages anyway."
+            ),
+        ),
     )
     publishers = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="publishable_pages", blank=True
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name="publishable_pages",
+        verbose_name=_("publishers"),
+        help_text=__(
+            _("A list of users who have the permission to publish this specific page."),
+            _(
+                "Only has effect if these users do not have the permission to publish pages anyway."
+            ),
+        ),
     )
+
+    @property
+    def explicitly_archived_ancestors(self):
+        """
+        This returns all of the page's ancestors which are archived.
+
+        :return: The QuerySet of archived ancestors
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        """
+        return self.get_ancestors().filter(explicitly_archived=True)
+
+    @property
+    def implicitly_archived(self):
+        """
+        This checks whether one of the page's ancestors is archived which means that this page is implicitly archived as well.
+
+        :return: Whether or not this page is implicitly archived
+        :rtype: bool
+        """
+        return self.explicitly_archived_ancestors.exists()
+
+    @property
+    def archived(self):
+        """
+        A hierarchical page is archived either explicitly if ``explicitly_archived=True`` or implicitly if one of its
+        ancestors is explicitly archived.
+
+        :return: Whether or not this page is archived
+        :rtype: bool
+        """
+        return self.explicitly_archived or self.implicitly_archived
 
     @property
     def depth(self):
@@ -94,7 +140,7 @@ class Page(MPTTModel, AbstractBasePage):
             super().get_siblings(include_self=include_self).filter(region=self.region)
         )
 
-    def get_mirrored_text(self, language_code):
+    def get_mirrored_page(self, language_code):
         """
         Mirrored content always includes the live content from another page. This content needs to be added when
         delivering content to end users.
@@ -106,22 +152,17 @@ class Page(MPTTModel, AbstractBasePage):
         :rtype: str
         """
         if self.mirrored_page:
-            return self.mirrored_page.get_translation(language_code).text
+            return self.mirrored_page.get_public_translation(language_code)
         return None
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-
-        :param permissions: The custom permissions for this model
-        :type permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("page")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("pages")
+        #: The default permissions for this model
         default_permissions = ()
+        #: The custom permissions for this model
         permissions = (
             ("view_pages", "Can view pages"),
             ("edit_pages", "Can edit pages"),

@@ -13,20 +13,43 @@ from ...constants import status
 from ...decorators import region_permission_required
 from ...forms.events import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
+from .event_context_mixin import EventContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class EventView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.view_events"
-    raise_exception = True
+# pylint: disable=too-many-ancestors
+class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
+    """
+    Class for rendering the events form
+    """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.view_events"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "events/event_form.html"
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
+        """
+        Render event form for HTTP GET requests
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         region = Region.get_current_region(request)
         language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
 
@@ -61,11 +84,12 @@ class EventView(PermissionRequiredMixin, TemplateView):
         recurrence_rule_form = RecurrenceRuleForm(
             instance=recurrence_rule_instance, disabled=disabled
         )
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
+                **context,
                 "current_menu_item": "events_form",
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
@@ -78,6 +102,20 @@ class EventView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=too-many-locals,too-many-branches
     def post(self, request, **kwargs):
+        """
+        Save event and ender event form for HTTP POST requests
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         region = Region.get_current_region(request)
         language = Language.objects.get(code=kwargs.get("language_code"))
         poi = POI.objects.filter(id=request.POST.get("poi_id")).first()
@@ -191,7 +229,7 @@ class EventView(PermissionRequiredMixin, TemplateView):
                     messages.success(request, _("Event was successfully published"))
                 else:
                     messages.success(request, _("Event was successfully saved"))
-
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
@@ -203,5 +241,6 @@ class EventView(PermissionRequiredMixin, TemplateView):
                 "poi": poi,
                 "language": language,
                 "languages": region.languages if event_instance else [language],
+                **context,
             },
         )

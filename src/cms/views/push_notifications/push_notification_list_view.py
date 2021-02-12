@@ -13,13 +13,37 @@ from ...models import Language, Region
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 class PushNotificationListView(PermissionRequiredMixin, TemplateView):
+    """
+    Class that handles HTTP GET requests for listing push notifications
+    """
+
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
     permission_required = "cms.view_push_notifications"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
     raise_exception = True
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "push_notifications/push_notification_list.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "push_notifications"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Create a list that shows existing push notifications and translations
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+
         # current region
         region = Region.get_current_region(request)
 

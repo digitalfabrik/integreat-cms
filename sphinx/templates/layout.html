@@ -23,9 +23,9 @@
 
 {% block menu %}
     {{ super() }}
-    <a href="genindex.html">Full Index</a>
-    <a href="py-modindex.html">Module Index</a>
-    <a href="search.html">Search Page</a>
+    <a href="{{ pathto('genindex.html', 1) }}">Full Index</a>
+    <a href="{{ pathto('py-modindex.html', 1) }}">Module Index</a>
+    <a href="{{ pathto('search.html', 1) }}">Search Page</a>
 {% endblock %}
 
 {% block footer %}
@@ -65,6 +65,18 @@
         <!-- Adds target=_blank to external links -->
         $(document).ready(function () {
             $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+        <!-- Hide the extended reference unless it's currently open -->
+        $(document).ready(function () {
+            if (window.location.pathname.includes("/ref-ext/")) {
+                let ref = $('p.caption:contains("Reference"):not(:contains("Extended Reference"))');
+                ref.hide();
+                ref.next().hide();
+            } else {
+                let simple_ref = $('p.caption:contains("Extended Reference")');
+                simple_ref.hide();
+                simple_ref.next().hide();
+            }
         });
     </script>
 {% endblock %}

@@ -344,15 +344,6 @@ h2.heading {
     }
 }
 
-input[type=file].image-field {
-    width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-    z-index: -1;
-}
-
 .entity-lang-list {
     table {
         tr {
@@ -386,9 +377,16 @@ input[type=file].image-field {
     z-index: 90;
 }
 
-.confirmation-popup {
+#confirmation-dialog {
     margin: 0 auto;
     z-index: 100;
+}
+
+#chat-history a {
+    color: #4299e1;
+    &:hover {
+        color: #2b6cb0;
+    }
 }
 
 datalist {
@@ -514,5 +512,20 @@ datalist option {
     }
     &.drop-disallow span {
         background-color: #cc3333;
+    }
+}
+
+/* uses opacity and max-height instead of display none/flex
+to add animation */
+.dashboard {
+    .collapsible-content {
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.5s ease-out,
+        opacity 0.5s ease-out;
+        &.active {
+            max-height: 2000px;
+            opacity: 1;
+        }
     }
 }

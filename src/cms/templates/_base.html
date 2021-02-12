@@ -1,7 +1,7 @@
 {% extends "_raw.html" %}
 {% load i18n %}
-{% block raw_content %}
 {% load static %}
+{% block raw_content %}
 <div id="popup-overlay" class="fixed inset-0 opacity-75 bg-gray-800 hidden"></div>
 
 <header class="fixed top-0 inset-x-0 flex flex-wrap">
@@ -71,11 +71,7 @@
     </div>
     <div id="user-info" class="relative pl-2 pr-6 text-gray-800 flex flex-wrap flex-col justify-center cursor-pointer">
         <span class="relative block pr-6 font-bold mt-1">
-	        {% if request.user.first_name or request.user.last_name %}
-                {{ request.user.first_name }} {{ request.user.last_name }}
-	        {% else %}
-		        {{ request.user.username }}
-	        {% endif %}
+	        {{ request.user.profile.full_user_name }}
             <i data-feather="chevron-down" class="absolute top-0 right-0"></i>
         </span>
         <div id="user-menu" class="absolute shadow rounded-b" style="left: -120px;">
@@ -145,7 +141,7 @@
 					<a href="{% url 'pages' region_slug=region.slug %}" class="{% if current_menu_item == 'pages' %}active{% endif %}">
 						{% trans 'All pages' %}
 					</a>
-					{% if region.default_language == language %}
+					{% if region.default_language and region.default_language == language %}
 						<a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'new_page' and not page %}active{% endif %}">
 							{% trans 'Create page' %}
 						</a>
@@ -190,7 +186,7 @@
 					{% trans 'Users' %}
 				</a>
 				<div class="dropdown-container flex-col">
-					<a href="{% url 'pois' region_slug=region.slug %}" class="{% if current_menu_item == 'region_users' %}active{% endif %}">
+					<a href="{% url 'region_users' region_slug=region.slug %}" class="{% if current_menu_item == 'region_users' %}active{% endif %}">
 						{% trans 'All users' %}
 					</a>
 					<a href="{% url 'new_region_user' region_slug=region.slug %}" class="{% if current_menu_item == 'region_users_form' and not user_form.instance.id %}active{% endif %}">
@@ -198,7 +194,7 @@
 					</a>
 				</div>
 			</div>
-	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_feedback' %}active{% endif %}">
+	        <a href="{% url 'region_feedback' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'region_feedback' %}active{% endif %}">
 	            <i data-feather="thumbs-up" class="absolute"></i>
 		        {% trans 'Feedback' %}
 			</a>
@@ -226,7 +222,7 @@
 			    <i data-feather="star" class="absolute"></i>
 			    {% trans 'Offers' %}
 		    </a>
-	        <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'imprint' %}active{% endif %}">
+	        <a href="{% url 'edit_imprint' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'imprint' %}active{% endif %}">
 	            <i data-feather="file-text" class="absolute"></i>
 		        {% trans 'Imprint' %}
 			</a>
@@ -277,7 +273,7 @@
 			    <i data-feather="star" class="absolute"></i>
 			    {% trans 'Offer templates' %}
 			</a>
-		    <a href="" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
+		    <a href="{% url 'admin_feedback'%}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat {% if current_menu_item == 'admin_feedback' %}active{% endif %}">
 			    <i data-feather="thumbs-up" class="absolute"></i>
 			    {% trans 'Feedback' %}
 		    </a>

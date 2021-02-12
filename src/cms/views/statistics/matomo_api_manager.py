@@ -10,29 +10,35 @@ from urllib3.util.retry import Retry
 
 class MatomoApiManager:
     """
-    This class helps to interact with Matomo API
-    There are several functions to retrieve unique visitors for last 30 days,
-    a month, and a year.
+    This class helps to interact with Matomo API.
+    There are several functions to retrieve unique visitors for last 30 days, a month, and a year.
     You are also able to add new regions to your matomo instance and furthermore.
     """
 
-    protocol = "https://"  # Protocol "http://" or "https://"
-    """
-    Variable which allows you also to accept broken ssl-certificates with
-    requests library (False == ignore ssl-issues, True == dont allow broken
-    ssl-certificates
-    """
+    #: HTTP Protocol: ``http://`` or ``https://``
+    protocol = "https://"
+    #: Variable which allows you also to accept broken SSL-certificates with requests library (``False`` means: ignore
+    #: SSL-issues, ``True`` means: don't allow broken SSL-certificates)
     ssl_verify = True
-    matomo_url = ""  # URL to Matomo-Instance
-    matomo_api_key = ""  # Matomo API-key
+    #: URL to Matomo-Instance
+    matomo_url = ""
+    #: Matomo API-key
+    matomo_api_key = ""
 
     def __init__(self, matomo_url, matomo_api_key, ssl_verify):
         """
-        Constructor initialises matomo_url, matomo_api_key, ssl_verify
-        :param matomo_url:
-        :param matomo_api_key:
-        :param ssl_verify:
+        Constructor initializes matomo_url, matomo_api_key and ssl_verify
+
+        :param matomo_url: URL to Matomo-Instance
+        :type matomo_url: str
+
+        :param matomo_api_key: Matomo API-key
+        :type matomo_api_key: str
+
+        :param ssl_verify: Whether to check for broken SSL-certificates
+        :type ssl_verify: bool
         """
+
         self.matomo_url = matomo_url
         self.matomo_api_key = matomo_api_key
         self.matomo_api_key = (
@@ -46,6 +52,7 @@ class MatomoApiManager:
         Cleans Matomo-URL for proper requests.
         Checks ending slash and beginning http(s)://
         """
+
         self.matomo_url = re.sub(r"/\/$/", "", self.matomo_url)  # Cuts "/"
 
         if re.match(r"^http://", self.matomo_url):  # replace it to "https://"
@@ -59,8 +66,11 @@ class MatomoApiManager:
     def checkmatomo_url(self):
         """
         This method checks the proper functionality of a simple url request
-        :return: True or False
+
+        :return: Whether or not Matomo is available
+        :rtype: bool
         """
+
         try:
             http_code = requests.get(
                 self.matomo_url, verify=self.ssl_verify
@@ -73,13 +83,24 @@ class MatomoApiManager:
 
     def get_visitors_per_timerange(self, date_string, region_id, period, lang):
         """
-        Returns the total unique visitors in a timerange as definded in period
-        :param region_id: String
-        :param date_string: String "yyyy-mm-dd,yyyy-mm-dd"
-        :param period: String "day", "week", "month", "year"
-        :param lang: String contains the language, that is called
-        :return: List[Date, Hits]
+        Returns the total unique visitors in a timerange as defined in period
+
+        :param date_string: Time range in the format ``"yyyy-mm-dd,yyyy-mm-dd"``
+        :type date_string: str
+
+        :param region_id: The id of the requested region
+        :type region_id: str
+
+        :param period: The period (e.g. ``"day"``, ``"week"``, ``"month"`` or ``"year"``)
+        :type period: str
+
+        :param lang: The requested language code
+        :type lang: str
+
+        :return: List of visitors in the requested time range
+        :rtype: list
         """
+
         domain = self.matomo_url
         api_key = self.matomo_api_key
         url = f"""{domain}/index.php?date={date_string}&expanded=1

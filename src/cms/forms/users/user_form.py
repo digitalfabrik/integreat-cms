@@ -7,12 +7,15 @@ from django.contrib.auth.password_validation import (
     validate_password,
     password_validators_help_texts,
 )
+from django.utils.translation import ugettext_lazy as _
 
+
+from ..placeholder_model_form import PlaceholderModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class UserForm(forms.ModelForm):
+class UserForm(PlaceholderModelForm):
     """
     Form for creating and modifying user objects
     """
@@ -25,7 +28,14 @@ class UserForm(forms.ModelForm):
     )
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = get_user_model()
+        #: The fields of the model which should be handled by this form
         fields = [
             "username",
             "first_name",
@@ -51,9 +61,28 @@ class UserForm(forms.ModelForm):
             self.fields["roles"].initial = self.instance.groups.all()
             # don't require password if user already exists
             self.fields["password"].required = False
+            # adapt placeholder of password input field
+            self.fields["password"].widget.attrs.update(
+                {"placeholder": _("Leave empty to keep unchanged")}
+            )
+        # fix password label
+        self.fields["password"].label = _("Password")
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved user object
+        :rtype: ~django.contrib.auth.models.User
+        """
 
         logger.info(
             "UserForm saved with cleaned data %s and changed data %s",

@@ -2,6 +2,11 @@
 
 # This script executes the tests and starts the database docker container if necessary.
 
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+  export PIPENV_VERBOSITY=-1
+fi
+
 # Check if local postgres server is running
 if nc -w1 localhost 5432; then
 

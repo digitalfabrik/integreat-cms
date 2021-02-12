@@ -26,7 +26,9 @@ setup(
         (f"lib/integreat-{root}", [os.path.join(root, f) for f in files])
         for root, _, files in os.walk("src/cms/static/")
     ]
-    + [("usr/lib/systemd/system/", ["systemd/integreat-cms@.service"])],
+    + [
+        ("etc/apache2/site-available", ["example-configs/apache2-integreat-vhost.conf"])
+    ],
     install_requires=[
         "cffi",
         "Django~=2.2.13",
@@ -34,6 +36,7 @@ setup(
         "django-filer",
         "django-mptt",
         "django-widget-tweaks",
+        "feedparser",
         "idna",
         "lxml",
         "psycopg2-binary",

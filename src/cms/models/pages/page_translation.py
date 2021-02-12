@@ -2,11 +2,14 @@ import logging
 
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
+from backend.settings import BASE_URL
 from .abstract_base_page_translation import AbstractBasePageTranslation
-
 from .page import Page
 from ..languages.language import Language
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 
 logger = logging.getLogger(__name__)
@@ -15,42 +18,37 @@ logger = logging.getLogger(__name__)
 class PageTranslation(AbstractBasePageTranslation):
     """
     Data model representing a page translation
-
-    :param id: The database id of the page translation
-    :param slug: The slug identifier of the translation (unique per :class:`~cms.models.regions.region.Region` and
-                 :class:`~cms.models.languages.language.Language`)
-
-    Fields inherited from the :class:`~cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation` model:
-
-    :param status: The status of the page translation (choices: :mod:`cms.constants.status`)
-    :param title: The title of the page translation
-    :param text: The content of the page translation
-    :param currently_in_translation: Flag to indicate a translation is being updated by an external translator
-    :param version: The revision number of the page translation
-    :param minor_edit: Flag to indicate whether the difference to the previous revision requires an update in other
-                       languages
-    :param created_date: The date and time when the page translation was created
-    :param last_updated: The date and time when the page translation was last updated
-
-    Relationship fields:
-
-    :param page: The page the translation belongs to (related name: ``translations``)
-    :param language: The language of the page translation (related name: ``page_translations``)
-    :param creator: The user who created the page translation (related name: ``page_translations``)
     """
 
-    slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
+    slug = models.SlugField(
+        max_length=200,
+        blank=True,
+        allow_unicode=True,
+        verbose_name=_("URL parameter"),
+        help_text=__(
+            _("String identifier without spaces and special characters."),
+            _("Unique per region and language."),
+            _("Leave blank to generate unique parameter from title."),
+        ),
+    )
     page = models.ForeignKey(
-        Page, related_name="translations", on_delete=models.CASCADE
+        Page,
+        on_delete=models.CASCADE,
+        related_name="translations",
+        verbose_name=_("page"),
     )
     language = models.ForeignKey(
-        Language, related_name="page_translations", on_delete=models.CASCADE
+        Language,
+        on_delete=models.CASCADE,
+        related_name="page_translations",
+        verbose_name=_("language"),
     )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name="page_translations",
         null=True,
         on_delete=models.SET_NULL,
+        related_name="page_translations",
+        verbose_name=_("creator"),
     )
 
     @property
@@ -89,6 +87,19 @@ class PageTranslation(AbstractBasePageTranslation):
         )
 
     @property
+    def short_url(self):
+        """
+        This function returns the absolute short url to the page translation
+
+        :return: The short url of a page translation
+        :rtype: str
+        """
+
+        return BASE_URL + reverse(
+            "expand_page_translation_id", kwargs={"short_url_id": self.id}
+        )
+
+    @property
     def combined_text(self):
         """
         This function combines the text from this PageTranslation with the text from the mirrored page.
@@ -98,18 +109,32 @@ class PageTranslation(AbstractBasePageTranslation):
         :return: The combined content of this page and the mirrored page
         :rtype: str
         """
-        attached_text = self.page.get_mirrored_text(self.language.code)
+        attached_text = self.page.get_mirrored_page(self.language.code).text
         if attached_text is None:
             return self.text
         if self.page.mirrored_page_first:
             return attached_text + self.text
         return self.text + attached_text
 
+    @property
+    def combined_last_updated(self):
+        """
+        This function combines the last_updated date from this PageTranslation and from a mirrored page.
+        If this translation has no content, then the date from the mirrored translation will be used. In
+        other cases, the date from this translation will be used.
+
+        :return: The last_updated date of this or the mirrored page translation
+        :rtype: ~datetime.datetime
+        """
+        if self.page.get_mirrored_page and not self.text:
+            return self.page.get_mirrored_page(self.language.code).last_updated
+        return self.last_updated
+
     @classmethod
     def get_translations(cls, region, language):
         """
-        This function retrieves the most recent versions of a all :class:`~cms.models.pages.PageTranslation` objects of
-        a :class:`~cms.models.regions.region.Region` in a specific :class:`~cms.models.languages.language.Language`
+        This function retrieves the most recent versions of a all :class:`~cms.models.pages.page_translation.PageTranslation`
+        objects of a :class:`~cms.models.regions.region.Region` in a specific :class:`~cms.models.languages.language.Language`
 
         :param region: The requested :class:`~cms.models.regions.region.Region`
         :type region: ~cms.models.regions.region.Region
@@ -206,16 +231,11 @@ class PageTranslation(AbstractBasePageTranslation):
         return super().__str__()
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param ordering: The fields which are used to sort the returned objects of a QuerySet
-        :type ordering: list [ str ]
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("page translation")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("page translations")
+        #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["page", "-version"]
+        #: The default permissions for this model
         default_permissions = ()

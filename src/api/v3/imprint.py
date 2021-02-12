@@ -3,7 +3,10 @@ imprint API endpoint
 """
 from django.http import JsonResponse
 
+from backend.settings import BASE_URL
 from cms.models import Region
+
+from ..decorators import json_response
 
 
 def transform_imprint(imprint_translation):
@@ -16,6 +19,10 @@ def transform_imprint(imprint_translation):
     :return: return data necessary for API
     :rtype: dict
     """
+    if imprint_translation.page.icon:
+        thumbnail = BASE_URL + imprint_translation.page.icon.url
+    else:
+        thumbnail = None
     return {
         "id": imprint_translation.id,
         "url": imprint_translation.permalink,
@@ -25,15 +32,18 @@ def transform_imprint(imprint_translation):
         "content": imprint_translation.text,
         "parent": None,
         "available_languages": imprint_translation.available_languages,
-        "thumbnail": imprint_translation.page.icon,
+        "thumbnail": thumbnail,
         "hash": None,
     }
 
 
+@json_response
 # pylint: disable=unused-argument
 def imprint(request, region_slug, language_code):
     """
-    Get imprint for language and return JSON object to client
+    Get imprint for language and return JSON object to client. If no imprint translation
+    is available in the selected language, try to return the translation in the region
+    default language.
 
     :param request: Django request
     :type request: ~django.http.HttpRequest
@@ -46,10 +56,15 @@ def imprint(request, region_slug, language_code):
     :rtype: ~django.http.JsonResponse
     """
     region = Region.get_current_region(request)
-    result = []
-    imprint_translation = region.imprint.get_public_translation(language_code)
-    if imprint_translation:
-        result.append(transform_imprint(imprint_translation))
-    return JsonResponse(
-        result, safe=False
-    )  # Turn off Safe-Mode to allow serializing arrays
+    if hasattr(region, "imprint"):
+        imprint_translation = region.imprint.get_public_translation(language_code)
+        if imprint_translation:
+            return JsonResponse(transform_imprint(imprint_translation))
+        if region.default_language:
+            imprint_default_translation = region.imprint.get_public_translation(
+                region.default_language.code
+            )
+            if imprint_default_translation:
+                return JsonResponse(transform_imprint(imprint_default_translation))
+    # If imprint does not exist, return an empty response. Turn off Safe-Mode to allow serializing arrays
+    return JsonResponse([], safe=False)

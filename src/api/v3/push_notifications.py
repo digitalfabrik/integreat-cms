@@ -5,7 +5,10 @@ from django.http import JsonResponse
 
 from cms.models import PushNotificationTranslation
 
+from ..decorators import json_response
 
+
+@json_response
 def sent_push_notifications(request, region_slug, language_code):
     """
     Function to iterate through all sent push notifications related to a region and adds them to a JSON.
@@ -35,19 +38,19 @@ def sent_push_notifications(request, region_slug, language_code):
     return JsonResponse(result, safe=False)
 
 
-def transform_notification(pn):
+def transform_notification(pnt):
     """
-    Function to create a JSON from a single push_notification Object.
+    Function to create a JSON from a single push notification translation Object.
 
-    :param offer: one offer (formerly extra)
-    :type offer: ~cms.models.push_notifications.push_notification.PushNotification
+    :param pnt: A push notification translation
+    :type pnt: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
 
     :return: return data necessary for API
     :rtype: dict
     """
     return {
-        "title": pn.title,
-        "text": pn.text,
-        "channel": pn.push_notification.channel,
-        "sent_date": pn.push_notification.sent_date,
+        "title": pnt.title,
+        "text": pnt.text,
+        "channel": pnt.push_notification.channel,
+        "sent_date": pnt.push_notification.sent_date,
     }

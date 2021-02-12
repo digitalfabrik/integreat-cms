@@ -1,5 +1,5 @@
 """
-Python standard Init-File
+This package contains views related to login, logout and password reset functionality
 """
 from .authentication_actions import (
     login,

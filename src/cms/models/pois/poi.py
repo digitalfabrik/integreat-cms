@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from ..regions.region import Region, Language
 from ...constants import status
@@ -8,34 +9,37 @@ class POI(models.Model):
     """
     Data model representing a point of interest (POI). It contains all relevant data about its exact position, including
     coordinates.
-
-    :param id: The database id of the POI
-    :param address: The street and house number of the POI
-    :param postcode: The postal code of the POI
-    :param city: The city in which the POI is located
-    :param country: The country in which the POI is located
-    :param latitude: The latitude coordinate of the POI
-    :param longitude: The longitude coordinate of the POI
-    :param archived: Whether or not the POI is archived (read-only and hidden in the API)
-
-    Relationship fields:
-
-    :param region: The region of the POI (related name: ``pois``)
-
-    Reverse relationships:
-
-    :param events: All events which take place at this location
-    :param translations: All translations of this POI
     """
 
-    region = models.ForeignKey(Region, related_name="pois", on_delete=models.CASCADE)
-    address = models.CharField(max_length=250)
-    postcode = models.CharField(max_length=10)
-    city = models.CharField(max_length=250)
-    country = models.CharField(max_length=250)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    archived = models.BooleanField(default=False)
+    region = models.ForeignKey(
+        Region,
+        on_delete=models.CASCADE,
+        related_name="pois",
+        verbose_name=_("region"),
+    )
+    address = models.CharField(
+        max_length=250, verbose_name=_("street and house number")
+    )
+    postcode = models.CharField(max_length=10, verbose_name=_("postal code"))
+    city = models.CharField(max_length=250, verbose_name=_("city"))
+    country = models.CharField(max_length=250, verbose_name=_("country"))
+    latitude = models.FloatField(
+        verbose_name=_("latitude"), help_text=_("The latitude coordinate")
+    )
+    longitude = models.FloatField(
+        verbose_name=_("longitude"), help_text=_("The longitude coordinate")
+    )
+    thumbnail = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="pois/%Y/%m/%d",
+        verbose_name=_("thumbnail icon"),
+    )
+    archived = models.BooleanField(
+        default=False,
+        verbose_name=_("archived"),
+        help_text=_("Whether or not the location is read-only and hidden in the API."),
+    )
 
     @property
     def languages(self):
@@ -78,16 +82,11 @@ class POI(models.Model):
         ).first()
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-
-        :param permissions: The custom permissions for this model
-        :type permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("location")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("locations")
+        #: The default permissions for this model
         default_permissions = ()
+        #: The custom permissions for this model
         permissions = (("manage_pois", "Can manage points of interest"),)

@@ -9,11 +9,11 @@ from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
-
 from .forms.authentication import PasswordResetConfirmForm
 from .views import (
     authentication,
     analytics,
+    chat,
     dashboard,
     events,
     offers,
@@ -22,6 +22,7 @@ from .views import (
     languages,
     media,
     organizations,
+    imprint,
     pages,
     pois,
     push_notifications,
@@ -30,6 +31,7 @@ from .views import (
     settings,
     statistics,
     users,
+    feedback,
 )
 
 
@@ -44,9 +46,9 @@ urlpatterns = [
                     name="expand_page_translation_id",
                 ),
                 url(
-                    r"^(?P<short_url_id>[-\w]+)/",
-                    pages.expand_short_url,
-                    name="expand_short_url",
+                    r"^i/(?P<imprint_translation_id>[0-9]+)$",
+                    imprint.expand_imprint_translation_id,
+                    name="expand_imprint_translation_id",
                 ),
             ]
         ),
@@ -182,6 +184,18 @@ urlpatterns = [
         ),
     ),
     url(
+        r"^feedback/",
+        include(
+            [
+                url(
+                    r"^$",
+                    feedback.AdminFeedbackListView.as_view(),
+                    name="admin_feedback",
+                )
+            ]
+        ),
+    ),
+    url(
         r"^offer_templates/",
         include(
             [
@@ -279,6 +293,35 @@ urlpatterns = [
         include(
             [
                 url(
+                    r"^render/",
+                    include(
+                        [
+                            url(
+                                r"^mirrored_page_field/",
+                                pages.render_mirrored_page_field,
+                                name="render_mirrored_page_field",
+                            ),
+                        ]
+                    ),
+                ),
+                url(
+                    r"^chat/",
+                    include(
+                        [
+                            url(
+                                r"send-message/?$",
+                                chat.send_chat_message,
+                                name="send_chat_message",
+                            ),
+                            url(
+                                r"delete-message/(?P<message_id>[0-9]+)?$",
+                                chat.delete_chat_message,
+                                name="delete_chat_message",
+                            ),
+                        ]
+                    ),
+                ),
+                url(
                     r"^grant_page_permission$",
                     pages.grant_page_permission_ajax,
                     name="grant_page_permission_ajax",
@@ -289,14 +332,9 @@ urlpatterns = [
                     name="revoke_page_permission_ajax",
                 ),
                 url(
-                    r"^get_pages_list$",
-                    pages.get_pages_list_ajax,
-                    name="get_pages_list_ajax",
-                ),
-                url(
-                    r"^save_mirrored_page$",
-                    pages.save_mirrored_page,
-                    name="save_mirrored_page",
+                    r"^(?P<region_slug>[-\w]+)/post_translation_state$",
+                    pages.post_translation_state_ajax,
+                    name="post_translation_state_ajax",
                 ),
                 url(
                     r"^(?P<region_slug>[-\w]+)/(?P<parent_id>[0-9]+)/new_order_table$",
@@ -432,6 +470,67 @@ urlpatterns = [
                         ]
                     ),
                 ),
+                url(
+                    r"^imprint/",
+                    include(
+                        [
+                            url(
+                                r"^$",
+                                imprint.ImprintView.as_view(),
+                                name="edit_imprint",
+                            ),
+                            url(
+                                r"^(?P<language_code>[-\w]+)/",
+                                include(
+                                    [
+                                        url(
+                                            r"^$",
+                                            imprint.ImprintView.as_view(),
+                                            name="edit_imprint",
+                                        ),
+                                        url(
+                                            r"^sbs_edit$",
+                                            imprint.ImprintSideBySideView.as_view(),
+                                            name="sbs_edit_imprint",
+                                        ),
+                                        url(
+                                            r"^revisions/",
+                                            include(
+                                                [
+                                                    url(
+                                                        r"^$",
+                                                        imprint.ImprintRevisionView.as_view(),
+                                                        name="imprint_revisions",
+                                                    ),
+                                                    url(
+                                                        r"^(?P<selected_revision>[0-9]+)$",
+                                                        imprint.ImprintRevisionView.as_view(),
+                                                        name="imprint_revisions",
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            url(
+                                r"^archive$",
+                                imprint.archive_imprint,
+                                name="archive_imprint",
+                            ),
+                            url(
+                                r"^restore$",
+                                imprint.restore_imprint,
+                                name="restore_imprint",
+                            ),
+                            url(
+                                r"^delete$",
+                                imprint.delete_imprint,
+                                name="delete_imprint",
+                            ),
+                        ]
+                    ),
+                ),
                 # TODO: Change destination for delete_event, add view_event
                 url(
                     r"^events/",
@@ -553,6 +652,18 @@ urlpatterns = [
                     ),
                 ),
                 url(
+                    r"^feedback/",
+                    include(
+                        [
+                            url(
+                                r"^$",
+                                feedback.RegionFeedbackListView.as_view(),
+                                name="region_feedback",
+                            )
+                        ]
+                    ),
+                ),
+                url(
                     r"^push_notifications/",
                     include(
                         [
@@ -643,7 +754,7 @@ urlpatterns = [
                                         ),
                                         url(
                                             r"^delete$",
-                                            language_tree.LanguageTreeNodeView.as_view(),
+                                            language_tree.delete_language_tree_node,
                                             name="delete_language_tree_node",
                                         ),
                                         # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js

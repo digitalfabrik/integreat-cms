@@ -17,6 +17,7 @@ from .v3.feedback import (
 from .v3.imprint import imprint
 from .v3.languages import languages
 from .v3.pages import pages
+from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import regions, liveregions, hiddenregions, pushnew
 from .v3.offers import offers
@@ -32,7 +33,7 @@ urlpatterns = [
         include(
             [
                 url(r"languages/?$", languages),
-                url(r"(offers|extras)/?$", offers),
+                url(r"(?:offers|extras)/?$", offers),
                 url(
                     r"(?P<language_code>[-\w]+)/sent_push_notifications/?$",
                     sent_push_notifications,
@@ -62,11 +63,11 @@ urlpatterns = [
                     search_result_feedback.search_result_feedback,
                 ),
                 url(
-                    r"(?P<language_code>[-\w]+)/feedback/(extras|offers)/?$",
+                    r"(?P<language_code>[-\w]+)/feedback/(?:extras|offers)/?$",
                     offer_list_feedback.offer_list_feedback,
                 ),
                 url(
-                    r"(?P<language_code>[-\w]+)/feedback/(extra|offer)/?$",
+                    r"(?P<language_code>[-\w]+)/feedback/(?:extra|offer)/?$",
                     offer_feedback.offer_feedback,
                 ),
                 url(
@@ -74,9 +75,10 @@ urlpatterns = [
                     event_list_feedback.event_list_feedback,
                 ),
                 url(r"(?P<language_code>[-\w]+)/pages/?$", pages),
-                url(r"(?P<language_code>[-\w]+)/(offers|extras)/?$", offers),
+                url(r"(?P<language_code>[-\w]+)/(?:offers|extras)/?$", offers),
                 url(r"(?P<language_code>[-\w]+)/page/?$", single_page),
-                url(r"(?P<language_code>[-\w]+)/(imprint|disclaimer)/?$", imprint),
+                url(r"(?P<language_code>[-\w]+)/(?:imprint|disclaimer)/?$", imprint),
+                url(r"(?P<language_code>[-\w]+)/pdf/?$", pdf_export),
             ]
         ),
     ),

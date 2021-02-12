@@ -1,61 +1,83 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 from backend.settings import WEBAPP_URL
 
 from .event import Event
 from ..languages.language import Language
 from ...constants import status
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 
 class EventTranslation(models.Model):
     """
     Data model representing an event translation
-
-    :param id: The database id of the event translation
-    :param slug: The slug identifier of the translation (unique per :class:`~cms.models.regions.region.Region` and
-                 :class:`~cms.models.languages.language.Language`)
-    :param status: The status of the event translation (choices: :mod:`cms.constants.status`)
-    :param title: The title of the event translation
-    :param description: The description of the event translation
-    :param currently_in_translation: Flag to indicate a translation is being updated by an external translator
-    :param version: The revision number of the event translation
-    :param minor_edit: Flag to indicate whether the difference to the previous revision requires an update in other
-                       languages
-    :param created_date: The date and time when the event translation was created
-    :param last_updated: The date and time when the event translation was last updated
-
-    Relationship fields:
-
-    :param event: The event the translation belongs to (related name: ``translations``)
-    :param language: The language of the event translation (related name: ``event_translations``)
-    :param creator: The user who created the event translation (related name: ``event_translations``)
     """
 
     event = models.ForeignKey(
-        Event, related_name="translations", on_delete=models.CASCADE
+        Event,
+        on_delete=models.CASCADE,
+        related_name="translations",
+        verbose_name=_("event"),
     )
-    slug = models.SlugField(max_length=200, blank=True, allow_unicode=True)
+    slug = models.SlugField(
+        max_length=200,
+        blank=True,
+        allow_unicode=True,
+        verbose_name=_("URL parameter"),
+        help_text=__(
+            _("String identifier without spaces and special characters."),
+            _("Unique per region and language."),
+            _("Leave blank to generate unique parameter from title."),
+        ),
+    )
+    #: Manage choices in :mod:`cms.constants.status`
     status = models.CharField(
-        max_length=6, choices=status.CHOICES, default=status.DRAFT
+        max_length=6,
+        choices=status.CHOICES,
+        default=status.DRAFT,
+        verbose_name=_("status"),
     )
-    title = models.CharField(max_length=250)
-    description = models.TextField(blank=True)
+    title = models.CharField(max_length=250, verbose_name=_("title"))
+    description = models.TextField(blank=True, verbose_name=_("description"))
     language = models.ForeignKey(
-        Language, related_name="event_translations", on_delete=models.CASCADE
+        Language,
+        on_delete=models.CASCADE,
+        related_name="event_translations",
+        verbose_name=_("language"),
     )
-    currently_in_translation = models.BooleanField(default=False)
-    version = models.PositiveIntegerField(default=0)
-    minor_edit = models.BooleanField(default=False)
+    currently_in_translation = models.BooleanField(
+        default=False,
+        verbose_name=_("currently in translation"),
+        help_text=_(
+            "Flag to indicate a translation is being updated by an external translator"
+        ),
+    )
+    version = models.PositiveIntegerField(default=0, verbose_name=_("revision"))
+    minor_edit = models.BooleanField(
+        default=False,
+        verbose_name=_("minor edit"),
+        help_text=_(
+            "Tick if this change does not require an update of translations in other languages"
+        ),
+    )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name="event_translations",
         null=True,
         on_delete=models.SET_NULL,
+        related_name="event_translations",
+        verbose_name=_("creator"),
     )
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("modification date"),
+    )
 
     @property
     def foreign_object(self):
@@ -277,16 +299,11 @@ class EventTranslation(models.Model):
         return self.title
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param ordering: The fields which are used to sort the returned objects of a QuerySet
-        :type ordering: list [ str ]
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("event translation")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("event translations")
+        #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["event", "-version"]
+        #: The default permissions for this model
         default_permissions = ()

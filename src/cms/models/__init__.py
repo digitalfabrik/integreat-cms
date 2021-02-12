@@ -2,6 +2,7 @@
 This package contains all data models of the Integreat CMS.
 Please refer to :mod:`django.db.models` for general information about Django models.
 """
+from .chat.chat_message import ChatMessage
 
 from .config.configuration import Configuration
 
@@ -20,6 +21,7 @@ from .feedback.feedback import Feedback
 from .feedback.page_feedback import PageFeedback
 from .feedback.region_feedback import RegionFeedback
 from .feedback.search_result_feedback import SearchResultFeedback
+from .feedback.imprint_page_feedback import ImprintPageFeedback
 
 from .languages.language import Language
 from .languages.language_tree_node import LanguageTreeNode

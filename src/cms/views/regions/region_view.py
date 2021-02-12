@@ -14,13 +14,36 @@ from ...models import Region
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
 class RegionView(PermissionRequiredMixin, TemplateView):
+    """
+    View for the region form
+    """
+
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
     permission_required = "cms.manage_regions"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
     raise_exception = True
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "regions/region_form.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "regions"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Render :class:`~cms.forms.regions.region_form.RegionForm`
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region_instance = Region.objects.filter(slug=kwargs.get("region_slug")).first()
 
@@ -30,10 +53,26 @@ class RegionView(PermissionRequiredMixin, TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
+        """
+        Render :class:`~cms.forms.regions.region_form.RegionForm` and save :class:`~cms.models.regions.region.Region`
+        object
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
 
         region_instance = Region.objects.filter(slug=kwargs.get("region_slug")).first()
 
-        form = RegionForm(request.POST, instance=region_instance)
+        form = RegionForm(request.POST, request.FILES, instance=region_instance)
 
         # TODO: error handling
         if not form.is_valid():

@@ -8,7 +8,10 @@ from django.shortcuts import get_object_or_404
 from cms.models import Region
 from .pages import transform_page
 
+from ..decorators import json_response
 
+
+@json_response
 # pylint: disable=unused-argument
 def single_page(request, region_slug, language_code):
     """

@@ -20,16 +20,30 @@ from ...models import Region
 @method_decorator(region_permission_required, name="dispatch")
 class AnalyticsView(TemplateView):
     """
-    Class to create the statistic page, that can be found via -> "Statistiken"
+    View for the statistics
     """
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "statistics/statistics_dashboard.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "statistics"}
 
     @staticmethod
     def prepare_csv(languages, hits, dates):
         """
         Method to create CSV String from the API hits
+
+        :param languages: The list languages which should be evaluated
+        :type languages: list
+
+        :param hits: The list of response hits
+        :type hits: list
+
+        :param dates: The list of response dates
+        :type dates: list
+
+        :return: The raw csv string of the results
+        :rtype: str
         """
         csv_row = "date"
         csv_raw = ""
@@ -49,6 +63,22 @@ class AnalyticsView(TemplateView):
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
+        """
+        Render statistics of access numbers tracked by Matomo
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+
         region_slug = kwargs.get("region_slug")
         region = Region.get_current_region(request)
         start_date = request.GET.get(
@@ -56,7 +86,7 @@ class AnalyticsView(TemplateView):
         )
         end_date = request.GET.get("end_date", str(date.today()))
         if (start_date == "") or (end_date == ""):
-            messages.error(request, _("Please enter a correct start and enddate"))
+            messages.error(request, _("Please enter a correct start and end date"))
             return redirect("statistics", region_slug=region_slug)
 
         languages = [

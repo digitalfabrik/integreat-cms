@@ -2,9 +2,20 @@
 {% load i18n %}
 
 {% block raw_content %}
-<h1>{{page_translation.title}}</h1>
-
-<div style="padding-top: 30px">
-    {{ page_translation.text|safe }}
+<div class="px-4">
+    <h1 class="pt-4 font-bold text-lg">{{page_translation.title}}</h1>
+    {% if mirrored_translation and mirrored_page_first %}
+        <div class="pt-2">
+            {{ mirrored_translation.text|safe }}
+        </div>
+    {% endif %}
+    <div class="pt-2">
+        {{ page_translation.text|safe }}
+    </div>
+    {% if mirrored_translation and not mirrored_page_first %}
+        <div class="pt-2">
+            {{ mirrored_translation.text|safe }}
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -1,37 +1,28 @@
 """
-
-Returns:
-    [type]: [description]
+This module contains view actions related to pages.
 """
-import hashlib
 import json
 import logging
 import os
 import uuid
 
 from mptt.exceptions import InvalidMove
-from xhtml2pdf import pisa
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.staticfiles import finders
-from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
-from django.db.models import Min
-from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import ugettext as _
 from django.views.static import serve
-from django.http import HttpResponseNotFound
-from django.template.loader import get_template
+from django.http import HttpResponseNotFound, JsonResponse
 
-from backend.settings import WEBAPP_URL, STATIC_URL, MEDIA_URL
-from ...constants import text_directions
+from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, staff_required
 from ...forms.pages import PageForm
 from ...models import Page, Language, Region, PageTranslation
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
+from ...utils.pdf_utils import generate_pdf
 
 logger = logging.getLogger(__name__)
 
@@ -39,13 +30,34 @@ logger = logging.getLogger(__name__)
 @login_required
 @region_permission_required
 def archive_page(request, page_id, region_slug, language_code):
+    """
+    Archive page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page which should be archived
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
     if not request.user.has_perm("cms.edit_page", page):
         raise PermissionDenied
 
-    page.archived = True
+    page.explicitly_archived = True
     page.save()
 
     messages.success(request, _("Page was successfully archived"))
@@ -62,17 +74,53 @@ def archive_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 def restore_page(request, page_id, region_slug, language_code):
+    """
+    Restore page object (set ``archived=False``)
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page which should be restored
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
     if not request.user.has_perm("cms.edit_page", page):
         raise PermissionDenied
 
-    page.archived = False
+    page.explicitly_archived = False
     page.save()
 
-    messages.success(request, _("Page was successfully restored"))
-
+    if page.implicitly_archived:
+        messages.info(
+            request,
+            _("Page was successfully restored.")
+            + " "
+            + _(
+                "However, it is still archived because one of its parent pages is archived."
+            ),
+        )
+        return redirect(
+            "archived_pages",
+            **{
+                "region_slug": region_slug,
+                "language_code": language_code,
+            },
+        )
+    messages.success(request, _("Page was successfully restored."))
     return redirect(
         "pages",
         **{
@@ -87,24 +135,72 @@ def restore_page(request, page_id, region_slug, language_code):
 @permission_required("cms.view_pages", raise_exception=True)
 # pylint: disable=unused-argument
 def view_page(request, page_id, region_slug, language_code):
+    """
+    View page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page which should be viewed
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_view.html"
 
     page_translation = page.get_translation(language_code)
+    mirrored_translation = page.get_mirrored_page(language_code)
 
-    return render(request, template_name, {"page_translation": page_translation})
+    return render(
+        request,
+        template_name,
+        {
+            "page_translation": page_translation,
+            "mirrored_translation": mirrored_translation,
+            "mirrored_page_first": page.mirrored_page_first,
+        },
+    )
 
 
 @login_required
 @staff_required
 def delete_page(request, page_id, region_slug, language_code):
+    """
+    Delete page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page which should be deleted
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
     if page.children.exists():
-        messages.error(request, _("You cannot delete a page which has children"))
+        messages.error(request, _("You cannot delete a page which has subpages."))
     else:
         page.delete()
         messages.success(request, _("Page was successfully deleted"))
@@ -118,58 +214,19 @@ def delete_page(request, page_id, region_slug, language_code):
     )
 
 
-# pylint: disable=unused-argument
-def link_callback(uri, rel):
-    """
-    According to xhtml2pdf documentation (see :doc:`xhtml2pdf:usage`),
-    this function is neccessary for resolving the django static files references.
-    It returns the absolute paths to the files on the file system.
-
-    :param uri: URI that is generated by django template tag 'static'
-    :type uri: str
-
-    :return: The absolute path on the file system according to django's static file settings
-    :rtype: str
-    """
-    if uri.startswith(MEDIA_URL):
-        # Remove the MEDIA_URL from the start of the uri
-        uri = uri[len(MEDIA_URL) :]
-    elif uri.startswith(STATIC_URL):
-        # Remove the STATIC_URL from the start of the uri
-        uri = uri[len(STATIC_URL) :]
-    elif uri.startswith("../"):
-        # Remove ../ from the start of the uri
-        uri = uri[3:]
-    else:
-        logger.warning(
-            "The file %s is not inside the static directories %s and %s.",
-            uri,
-            STATIC_URL,
-            MEDIA_URL,
-        )
-        return uri
-    result = finders.find(uri)
-    if not result:
-        logger.exception(
-            "The file %s was not found in the static directories %s.",
-            uri,
-            finders.searched_locations,
-        )
-    return result
-
-
 @login_required
 @region_permission_required
-# pylint: disable=unused-argument, too-many-locals
+# pylint: disable=unused-argument
 def export_pdf(request, region_slug, language_code):
     """
-    Function for handling a pdf export request for a single page.
-    If the page is a root page, the corresponding django template
-    inserts the content of all children pages.
-    For more information on xhtml2pdf, see :doc:`xhtml2pdf:index`
+    Function for handling a pdf export request for pages.
+    The pages get extracted from request.GET attribute and the request is forwarded to :func:`~cms.utils.pdf_utils.generate_pdf`
 
     :param request: Request submitted for rendering pdf document
     :type request: ~django.http.HttpRequest
+
+    :param region_slug: unique region slug
+    :type region_slug: str
 
     :param language_code: bcp47 code of the current language
     :type language_code: str
@@ -177,90 +234,34 @@ def export_pdf(request, region_slug, language_code):
     :raises ~django.core.exceptions.PermissionDenied: User login and permissions required
 
     :return: PDF document offered for download
-    :rtype: ~django.http.HttpRequest
+    :rtype: ~django.http.HttpResponse
     """
     region = Region.get_current_region(request)
+    # retrieve the selected page ids
     page_ids = request.GET.get("pages").split(",")
-    # retrieve all selected pages
-    pages = region.pages.filter(archived=False, id__in=page_ids)
-    pdf_key_list = [region_slug]
-    for page in pages:
-        # retrieve the translation for each page
-        page_translation = page.get_public_translation(language_code)
-        if page_translation:
-            pdf_key_list.append(page_translation.id)
-            pdf_key_list.append(page_translation.last_updated)
-        else:
-            pages = pages.exclude(id=page.id)
-    pdf_key_string = "_".join(map(str, pdf_key_list))
-    pdf_hash_key = hashlib.sha256(bytes(pdf_key_string, "utf-8")).hexdigest()
-    cached_response = cache.get(pdf_hash_key, "has_expired")
-    if cached_response != "has_expired":
-        return cached_response
-
-    amount_pages = pages.count()
-    language = Language.objects.get(code=language_code)
-    template_path = "pages/page_pdf.html"
-    context = {
-        "html2pdf": True,
-        "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,
-        "region": region,
-        "pages": pages,
-        "language": language,
-        "amount_pages": amount_pages,
-    }
-    response = HttpResponse(content_type="application/pdf")
-    if amount_pages == 0:
-        return HttpResponse(_("No valid pages selected for PDF generation."))
-    if amount_pages == 1:
-        # If pdf contains only one page, take its title as filename
-        title = pages.first().get_public_translation(language_code).title
-    else:
-        # If pdf contains multiple pages, check the minimum level
-        min_level = pages.aggregate(Min("level")).get("level__min")
-        # Query all pages with this minimum level
-        min_level_pages = pages.filter(level=min_level)
-        if min_level_pages.count() == 1:
-            # If there's exactly one page with the minimum level, take its title
-            title = min_level_pages.first().get_public_translation(language_code).title
-        else:
-            # In any other case, take the region name
-            title = region.name
-    filename = f"Integreat - {language.translated_name} - {title}.pdf"
-    response["Content-Disposition"] = f'attachment; filename="{filename}"'
-    template = get_template(template_path)
-    html = template.render(context)
-    pisa_status = pisa.CreatePDF(
-        html, dest=response, link_callback=link_callback, encoding="UTF-8"
-    )
-    if pisa_status.err:
-        logger.error(
-            "The following PDF could not be rendered: Region: %s, Language: %s, Pages: %s.",
-            region,
-            language,
-            pages,
-        )
-        return HttpResponse(_("The PDF could not be successfully generated."))
-    cache.set(pdf_hash_key, response, 60 * 60 * 24)
+    # collect the corresponding page objects
+    pages = region.pages.filter(explicitly_archived=False, id__in=page_ids)
+    # generate PDF document wrapped in a HtmlResponse object
+    response = generate_pdf(region, language_code, pages)
+    # offer PDF document for download
+    response["Content-Disposition"] = response["Content-Disposition"] + "; attachment"
     return response
-
-
-def expand_short_url(request, short_url_id):
-    """
-    Searches for a page with requested short_url_id and redirects to that page.
-    """
-    queryset = PageTranslation.objects.filter(short_url_id=short_url_id)
-    page_translation = queryset.first().latest_public_revision
-
-    if page_translation and not page_translation.page.archived:
-        return redirect(WEBAPP_URL + page_translation.get_absolute_url())
-    return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
 def expand_page_translation_id(request, short_url_id):
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param short_url_id: The id of the requested page
+    :type short_url_id: int
+
+    :return: A redirection to :class:`~backend.settings.WEBAPP_URL`
+    :rtype: ~django.http.HttpResponseRedirect
     """
+
     page_translation = PageTranslation.objects.get(
         id=short_url_id
     ).latest_public_revision
@@ -275,8 +276,22 @@ def expand_page_translation_id(request, short_url_id):
 @permission_required("cms.view_pages", raise_exception=True)
 def download_xliff(request, region_slug, language_code):
     """
-    Create zip file that contains XLIFF files for target language.
+    Download a zip file of XLIFF files.
+    The target languages and pages are selected and the source languages automatically determined.
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
     """
+
     page_ids = []
     for page_id in request.GET.get("pages").split(","):
         if page_id.isnumeric():
@@ -301,6 +316,7 @@ def download_xliff(request, region_slug, language_code):
             response["Content-Disposition"] = 'attachment; filename="{}"'.format(
                 zip_path.split(os.sep)[-1]
             )
+            PageXliffHelper.post_translation_state(pages, target_language.code, True)
             return response
     return redirect(
         "pages",
@@ -312,9 +328,53 @@ def download_xliff(request, region_slug, language_code):
 
 
 @login_required
+# pylint: disable=unused-argument
+def post_translation_state_ajax(request, region_slug):
+    """This view is called for manually unseting the translation process
+
+    :param request: ajax request
+    :type request: ~django.http.HttpRequest
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+    :return: on success returns language of updated translation
+    :rtype: ~django.http.JsonResponse
+    """
+    if request.method == "POST":
+        decoded_json = json.loads(request.body.decode("utf-8"))
+        target_language = decoded_json["language"]
+        page_id = decoded_json["pageId"]
+        translation_state = decoded_json["translationState"]
+        region = Region.get_current_region(request)
+        page = get_list_or_404(region.pages, id=page_id)
+        PageXliffHelper.post_translation_state(
+            list(page), target_language, translation_state
+        )
+        return JsonResponse({"language": target_language}, status=200)
+    return JsonResponse(
+        {"error": _("Could not update page translation state")}, status=400
+    )
+
+
+@login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
 def upload_xliff(request, region_slug, language_code):
+    """
+    Upload and import an XLIFF file
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     if request.FILES.get("xliff_file"):
         xliff_helper = PageXliffHelper()
         upload_file = request.FILES["xliff_file"]
@@ -355,6 +415,22 @@ def upload_xliff(request, region_slug, language_code):
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
 def confirm_xliff_import(request, region_slug, language_code):
+    """
+    Confirm a started XLIFF import
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     if request.POST.get("upload_dir"):
         upload_dir = os.path.join(XLIFFS_DIR, "upload", request.POST.get("upload_dir"))
         xliff_paths = [
@@ -379,6 +455,31 @@ def confirm_xliff_import(request, region_slug, language_code):
 @permission_required("cms.edit_pages", raise_exception=True)
 # pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_code, page_id, target_id, position):
+    """
+    Move a page object in the page tree
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_code: The code of the current language
+    :type language_code: str
+
+    :param page_id: The id of the page which should be moved
+    :type page_id: int
+
+    :param target_id: The id of the page which determines the new position
+    :type target_id: int
+
+    :param position: The new position of the page relative to the target (choices: :mod:`cms.constants.position`)
+    :type position: str
+
+    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
     target = get_object_or_404(region.pages, id=target_id)
@@ -410,6 +511,18 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
 @permission_required("cms.grant_page_permissions", raise_exception=True)
 # pylint: disable=too-many-branches
 def grant_page_permission_ajax(request):
+    """
+    Grant a user editing or publishing permissions on a specific page object
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
+                                                      not have the permission to grant page permissions
+
+    :return: The rendered page permission table
+    :rtype: ~django.template.response.TemplateResponse
+    """
 
     try:
         data = json.loads(request.body.decode("utf-8"))
@@ -507,7 +620,7 @@ def grant_page_permission_ajax(request):
         "pages/_page_permission_table.html",
         {
             "page": page,
-            "page_form": PageForm(instance=page),
+            "page_form": PageForm(instance=page, region=page.region),
             "permission_message": {"message": message, "level_tag": level_tag},
         },
     )
@@ -519,6 +632,18 @@ def grant_page_permission_ajax(request):
 @permission_required("cms.grant_page_permissions", raise_exception=True)
 # pylint: disable=too-many-branches
 def revoke_page_permission_ajax(request):
+    """
+    Remove a page permission for a given user and page
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
+                                                      not have the permission to revoke page permissions
+
+    :return: The rendered page permission table
+    :rtype: ~django.template.response.TemplateResponse
+    """
 
     try:
         data = json.loads(request.body.decode("utf-8"))
@@ -610,7 +735,7 @@ def revoke_page_permission_ajax(request):
         "pages/_page_permission_table.html",
         {
             "page": page,
-            "page_form": PageForm(instance=page),
+            "page_form": PageForm(instance=page, region=page.region),
             "permission_message": {"message": message, "level_tag": level_tag},
         },
     )
@@ -621,6 +746,25 @@ def revoke_page_permission_ajax(request):
 @permission_required("cms.edit_pages", raise_exception=True)
 # pylint: disable=unused-argument
 def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
+    """
+    Retrieve the order table for a given page and a given parent page.
+    This is used in the page form to change the order of a page relative to its siblings.
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param page_id: The id of the page of the current page form
+    :type page_id: int
+
+    :param parent_id: The id of the parent page to which the order table should be returned
+    :type parent_id: int
+
+    :return: The rendered page order table
+    :rtype: ~django.template.response.TemplateResponse
+    """
 
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
@@ -651,6 +795,22 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
 @permission_required("cms.edit_pages", raise_exception=True)
 # pylint: disable=unused-argument
 def get_new_page_order_table_ajax(request, region_slug, parent_id):
+    """
+    Retrieve the order table for a new page and a given parent page.
+    This is used in the page form to set the position of a new page relative to its siblings.
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param parent_id: The id of the parent page to which the order table should be returned
+    :type parent_id: int
+
+    :return: The rendered page order table
+    :rtype: ~django.template.response.TemplateResponse
+    """
 
     region = Region.get_current_region(request)
 
@@ -674,57 +834,31 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
 
 
 @login_required
-def get_pages_list_ajax(request):
-    decoded_json = json.loads(request.body.decode("utf-8"))
-    if "region" not in decoded_json or decoded_json["region"] == "":
-        page = Page.objects.get(id=decoded_json["current_page"])
+def render_mirrored_page_field(request):
+    """
+    Retrieve the rendered mirrored page field template
 
-        if not request.user.has_perm("cms.edit_page", page):
-            logger.info(
-                "Error: The user %s cannot edit page %s.",
-                request.user.username,
-                page,
-            )
-            raise PermissionDenied
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
 
-        page.mirrored_page = None
-        page.save()
-        return JsonResponse({"nolist": True})
-    region = get_object_or_404(Region, id=decoded_json["region"])
-    result = []
-    for page in region.pages.all():
-        result.append(
-            {
-                "id": page.id,
-                "name": " -> ".join(
-                    [
-                        page_iter.best_language_title()
-                        for page_iter in page.get_ancestors(include_self=True)
-                    ]
-                ),
-            }
-        )
-    result = sorted(result, key=lambda k: k["name"])
-    return JsonResponse(result, safe=False)
+    :return: The rendered mirrored page field
+    :rtype: ~django.template.response.TemplateResponse
+    """
+    # Get the region from which the content should be embedded
+    region = get_object_or_404(Region, id=request.GET.get("region_id"))
+    # Get the page in which the content should be embedded (to exclude it from the possible selections)
+    page = Page.objects.filter(id=request.GET.get("page_id")).first()
 
+    page_form = PageForm(
+        {"mirrored_page_region": region.id},
+        instance=page,
+        region=region,
+    )
 
-@login_required
-def save_mirrored_page(request):
-    decoded_json = json.loads(request.body.decode("utf-8"))
-    page = Page.objects.get(id=decoded_json["current_page"])
-
-    if not request.user.has_perm("cms.edit_page", page):
-        logger.info(
-            "Error: The user %s cannot edit page %s.",
-            request.user.username,
-            page,
-        )
-        raise PermissionDenied
-
-    if int(decoded_json["mirrored_page"]) == 0:
-        page.mirrored_page = None
-    else:
-        page.mirrored_page = Page.objects.get(id=int(decoded_json["mirrored_page"]))
-        page.mirrored_page_first = decoded_json["mirrored_page_first"] == "True"
-    page.save()
-    return JsonResponse({"code": True})
+    return render(
+        request,
+        "pages/_mirrored_page_field.html",
+        {
+            "page_form": page_form,
+        },
+    )

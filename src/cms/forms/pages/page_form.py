@@ -1,13 +1,16 @@
 import logging
 
+from html import escape
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import ugettext as _, get_language
+from django.utils.safestring import mark_safe
 
-from ...constants import position
+from ...constants import position, region_status, mirrored_page_first
 from ...models import Page, Region
 
 
@@ -19,12 +22,40 @@ class ParentFieldWidget(forms.widgets.Select):
     This Widget class is used to append the url for retrieving the page order tables to the data attributes of the options
     """
 
+    #: The form this field is bound to
     form = None
 
     # pylint: disable=too-many-arguments
     def create_option(
         self, name, value, label, selected, index, subindex=None, attrs=None
     ):
+        """
+        This function creates an option which can be selected in the parent field
+
+        :param name: The name of the option
+        :type name: str
+
+        :param value: the value of the option (the page id)
+        :type value: int
+
+        :param label: The label of the option
+        :type label: str
+
+        :param selected: Whether or not the option is selected
+        :type selected: bool
+
+        :param index: The index of the option
+        :type index: int
+
+        :param subindex: The subindex of the option
+        :type subindex: int
+
+        :param attrs: The attributes of the option
+        :type attrs: dict
+
+        :return: The option dict
+        :rtype: dict
+        """
         option_dict = super().create_option(
             name, value, label, selected, index, subindex=subindex, attrs=attrs
         )
@@ -55,18 +86,34 @@ class ParentField(forms.ModelChoiceField):
     Form field helper class to overwrite the label function (which would otherwise call __str__)
     """
 
+    #: The language of this field
     language = None
 
     # pylint: disable=arguments-differ
     def label_from_instance(self, page):
-        label = " 🡒 ".join(
+        """
+        Generate a label for the given page in the parent page select options
+
+        :param page: The page which should be used as parent
+        :type page: ~cms.models.pages.page.Page
+
+        :return: The label for the given page
+        :rtype: str
+        """
+        label = " &rarr; ".join(
             [
-                page.get_first_translation([get_language(), self.language.code]).title
+                # escape page title because string is marked as safe afterwards
+                escape(
+                    page.get_first_translation(
+                        [get_language(), self.language.code]
+                    ).title
+                )
                 for page in page.get_ancestors(include_self=True)
             ]
         )
         logger.debug("Label for page %s: %s", page, label)
-        return label
+        # mark as safe so that the arrow is not escaped
+        return mark_safe(label)
 
 
 class MirrorPageField(forms.ModelChoiceField):
@@ -76,12 +123,54 @@ class MirrorPageField(forms.ModelChoiceField):
 
     # pylint: disable=arguments-differ
     def label_from_instance(self, page):
-        return " -> ".join(
+        """
+        Generate a label for the given page in the mirror page select options
+
+        :param page: The page which should be mirrored
+        :type page: ~cms.models.pages.page.Page
+
+        :return: The label for the given page
+        :rtype: str
+        """
+        label = " &rarr; ".join(
             [
-                page_iter.best_language_title()
+                # escape page title because string is marked as safe afterwards
+                escape(page_iter.best_language_title())
                 for page_iter in page.get_ancestors(include_self=True)
             ]
         )
+        # Add warning if page is archived
+        if page.archived:
+            label += " (&#9888; " + _("Archived") + ")"
+        # mark as safe so that the arrow and the warning triangle are not escaped
+        return mark_safe(label)
+
+
+class MirroredPageRegionField(forms.ModelChoiceField):
+    """
+    Form field helper class to warnings if mirrored content comes from hidden or archived region
+    """
+
+    # pylint: disable=arguments-differ
+    def label_from_instance(self, region):
+        """
+        Generate a label for the selected region in the mirror page select options
+
+        :param region: The region from which a page should be mirrored
+        :type region: ~cms.models.pages.page.Page
+
+        :return: The label for the given region
+        :rtype: str
+        """
+        label = escape(super().label_from_instance(region))
+        if region.status == region_status.HIDDEN:
+            # Add warning if region is hidden
+            label += " (&#9888; " + _("Hidden") + ")"
+        elif region.status == region_status.ARCHIVED:
+            # Add warning if region is archived
+            label += " (&#9888; " + _("Archived") + ")"
+        # mark as safe so that the warning triangle is not escaped
+        return mark_safe(label)
 
 
 class PageForm(forms.ModelForm):
@@ -106,23 +195,37 @@ class PageForm(forms.ModelForm):
     publishers = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(), required=False
     )
-    mirrored_page_region = forms.ModelChoiceField(
+    mirrored_page_region = MirroredPageRegionField(
         queryset=Region.objects.all(), required=False
-    )
-    mirrored_page = MirrorPageField(queryset=Page.objects.all(), required=False)
-    TRUE_FALSE_CHOICES = (
-        (True, _("Embed mirrored page before this page")),
-        (False, _("Embed mirrored page after this page")),
-    )
-    mirrored_page_first = forms.ChoiceField(
-        choices=TRUE_FALSE_CHOICES, widget=forms.Select(), required=False
     )
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = Page
-        fields = ["icon"]
+        #: The fields of the model which should be handled by this form
+        fields = ["icon", "mirrored_page", "mirrored_page_first"]
+        #: The classes for the fields if they differ from the standard field class
+        field_classes = {"mirrored_page": MirrorPageField}
+        #: The widgets for the fields if they differ from the standard widgets
+        widgets = {
+            "mirrored_page_first": forms.Select(choices=mirrored_page_first.CHOICES),
+        }
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize page form
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
 
         logger.info(
             "New PageForm instantiated with args %s and kwargs %s", args, kwargs
@@ -156,6 +259,31 @@ class PageForm(forms.ModelForm):
         # limit possible parents to pages of current region
         parent_queryset = self.region.pages
 
+        # Set the initial value for the mirrored page region
+        if self.instance.mirrored_page:
+            self.fields[
+                "mirrored_page_region"
+            ].initial = self.instance.mirrored_page.region
+
+        if self.is_bound:
+            # If form is bound (submitted with data) limit the queryset to the selected region to validate the selected
+            # mirrored page and to render the options for the mirrored page.
+            # If no region was selected, allow no mirrored page
+            mirrored_page_region = (
+                self.data["mirrored_page_region"]
+                if self.data["mirrored_page_region"]
+                else None
+            )
+            self.fields["mirrored_page"].queryset = self.fields[
+                "mirrored_page"
+            ].queryset.filter(region=mirrored_page_region)
+        else:
+            # If form is unbound (rendered without data), set the initial queryset to the pages of the initial region
+            # to render the options for the mirrored page
+            self.fields["mirrored_page"].queryset = Page.objects.filter(
+                region=self.fields["mirrored_page_region"].initial
+            )
+
         # check if instance of this form already exists
         if self.instance.id:
             # remove children from possible parents
@@ -174,22 +302,10 @@ class PageForm(forms.ModelForm):
             else:
                 self.fields["related_page"].initial = self.instance.parent
                 self.fields["position"].initial = position.LAST_CHILD
-
-        self.mirrored_page = forms.ModelChoiceField(
-            queryset=Page.objects.all(), required=False
-        )
-
-        if self.instance.mirrored_page:
-            self.fields["mirrored_page"].queryset = Page.objects.filter(
-                region=self.instance.mirrored_page.region
-            )
-            self.fields["mirrored_page"].initial = self.instance.mirrored_page
-            self.fields[
-                "mirrored_page_first"
-            ].initial = self.instance.mirrored_page_first
-            self.fields[
-                "mirrored_page_region"
-            ].initial = self.instance.mirrored_page.region
+            # Exclude the current page from the possible options for mirrored pages
+            self.fields["mirrored_page"].queryset = self.fields[
+                "mirrored_page"
+            ].queryset.exclude(id=self.instance.id)
 
         # add the language to the parent field to make sure the translated page titles are shown
         self.fields["parent"].language = language
@@ -197,6 +313,19 @@ class PageForm(forms.ModelForm):
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved page object
+        :rtype: ~cms.models.pages.page.Page
+        """
 
         logger.debug(
             "PageForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
@@ -213,14 +342,20 @@ class PageForm(forms.ModelForm):
         if not self.instance.id:
             # only update these values when page is created
             page.region = self.region
-        page.archived = bool(self.data.get("submit_archive"))
-        page.mirrored_page = self.cleaned_data["mirrored_page"]
         page.save()
         page.move_to(self.cleaned_data["related_page"], self.cleaned_data["position"])
 
         return page
 
     def get_editor_queryset(self):
+        """
+        This method retrieves all users, who are eligible to be defined as page editors because they don't yet have the
+        permission to edit this page.
+
+        :return: All potential page editors
+        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
+        """
+
         permission_edit_page = Permission.objects.get(codename="edit_pages")
         users_without_permissions = get_user_model().objects.exclude(
             Q(groups__permissions=permission_edit_page)
@@ -234,6 +369,14 @@ class PageForm(forms.ModelForm):
         return users_without_permissions
 
     def get_publisher_queryset(self):
+        """
+        This method retrieves all users, who are eligible to be defined as page publishers because they don't yet have
+        the permission to publish this page.
+
+        :return: All potential page publishers
+        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
+        """
+
         permission_publish_page = Permission.objects.get(codename="publish_pages")
         users_without_permissions = get_user_model().objects.exclude(
             Q(groups__permissions=permission_publish_page)

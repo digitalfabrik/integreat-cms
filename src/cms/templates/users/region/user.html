@@ -1,8 +1,11 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load widget_tweaks %}
+{% load user_filters %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
     <div class="flex flex-wrap mb-4">
@@ -33,30 +36,25 @@
 				<div class="w-full p-4">
 
 					<!-- General Options for user management -->
-                    <label for="id_username" class="font-bold block p-2 mb-1 cursor-pointer">{% trans "Username" %}</label>
-                    {% trans "Enter the username here" as username_placeholder%}
-                    {% render_field user_form.username placeholder=username_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ user_form.username.id_for_label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ user_form.username.label }}</label>
+                    {% render_field user_form.username class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="id_first_name" class="font-bold block p-2 mt-4 mb-1 cursor-pointer">{% trans "First name of the user" %}</label>
-                    {% trans "Enter the user's first name here" as first_name_placeholder%}
-                    {% render_field user_form.first_name placeholder=first_name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ user_form.first_name.id_for_label }}" class="font-bold block p-2 mt-4 mb-1 cursor-pointer">{{ user_form.first_name.label }}</label>
+                    {% render_field user_form.first_name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="id_last_name" class="font-bold block p-2 mt-4 mb-1 cursor-pointer">{% trans "Last name of the user" %}</label>
-                    {% trans "Enter the user's last name here" as last_name_placeholder%}
-                    {% render_field user_form.last_name placeholder=last_name_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ user_form.last_name.id_for_label }}" class="font-bold block p-2 mt-4 mb-1 cursor-pointer">{{ user_form.last_name.label }}</label>
+                    {% render_field user_form.last_name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="id_email" class="font-bold block p-2 mt-4 mb-1 cursor-pointer">{% trans 'E-mail-address of the user' %}</label>
-                    {% trans "Enter the user's e-mail-address here" as email_placeholder%}
-                    {% render_field user_form.email placeholder=email_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ user_form.email.id_for_label }}" class="font-bold block p-2 mt-4 mb-1 cursor-pointer">{{ user_form.email.label }}</label>
+                    {% render_field user_form.email class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="id_password" class="font-bold block p-2 mt-4 cursor-pointer">{% trans 'Password of the user' %}</label>
+                    <label for="{{ user_form.password.id_for_label }}" class="font-bold block p-2 mt-4 cursor-pointer">{{ user_form.password.label }}</label>
                     <ul>
                         {% for item in user_form.password.help_text %}
-                        <li class="py-1">{{ item }}</li>
+                        <li class="px-2 text-s text-gray-600">{{ item }}</li>
                         {% endfor %}
                     </ul>
-                    {% if user_form.instance.id %}{% trans 'Leave empty to keep unchanged' as password_placeholder%}{% else %}{% trans "Enter the user's password here" as password_placeholder%}{% endif %}
-                    {% render_field user_form.password placeholder=password_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    {% render_field user_form.password class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
 				</div>
 			</div>
@@ -69,32 +67,60 @@
 
                 <div class="w-full p-4">
                     <div class="py-4 border-b solid border-gray-200">
-                        <label for="id_is_active" class="font-bold cursor-pointer mr-2">{% trans 'Active' %}</label>
                         {% render_field user_form.is_active %}
+                        <label for="{{ user_form.is_active.id_for_label }}" class="font-bold cursor-pointer mr-2 p-2">{{ user_form.is_active.label }}</label>
                     </div>
 
                     <div class="py-4 border-b solid border-gray-200">
-                        <label for="id_roles" class="font-bold block mb-2 cursor-pointer">{% trans 'Roles' %}</label>
+                        {% render_field user_profile_form.expert_mode %}
+                        <label for="{{ user_profile_form.expert_mode.id_for_label }}" class="font-bold mr-2 p-2 cursor-pointer">{{ user_profile_form.expert_mode.label }}</label>
+                        <div class="my-2 text-s text-gray-600">{{ user_profile_form.expert_mode.help_text }}</div>
+                    </div>
+
+                    <div class="py-4 border-b solid border-gray-200">
+                        <label for="{{ user_form.roles.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ user_form.roles.label }}</label>
                         {% render_field user_form.roles class+="w-full" %}
                     </div>
 
                     <div class="pt-4 pb-2">
-                        <label for="id_organization" class="font-bold block mb-2 cursor-pointer">{% trans 'Organization' %}</label>
+                        <label for="{{ user_profile_form.organization.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ user_profile_form.organization.label }}</label>
                         {% render_field user_profile_form.organization class+="w-full"  %}
                     </div>
                 </div>
 
             </div>
         </div>
-	    {% if user_form.instance.id %}
-	    <div class="pt-2 pb-4">
-		    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded" onclick="confirmation_popup(event, '#confirm_delete_user')">
-			    {% trans 'Delete this user' %}
-		    </button>
-
-		    {% include "../confirmation_popups/delete_region_user.html" %}
-	    </div>
+        {% if user_form.instance.id %}
+            {% if user_form.instance.profile.regions.count == 1 %}
+                <div class="pt-2 pb-4">
+                    <button title="{% trans 'Delete this user' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                            data-confirmation-title="{% trans 'Please confirm that you really want to delete this user' %}"
+                            data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+                            data-confirmation-subject="{{ user_form.username.value }}"
+                            data-action="{% url 'delete_region_user' region_slug=region.slug user_id=user_form.instance.id %}">
+                        <i data-feather="trash-2" class="inline-block mr-2"></i>
+                        {% trans 'Delete user' %}
+                    </button>
+                </div>
+            {% else %}
+                <div class="pt-2 pb-4">
+                    <button title="{% blocktrans %}Remove this user from region {{ region }}{% endblocktrans %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                            data-confirmation-title="{% blocktrans %}Please confirm that you really want to remove this user from region {{ region }}.{% endblocktrans %}"
+                            data-confirmation-text="{% trans 'The user will keep access to the following regions:' %} {{ user_form.instance|remaining_regions:region|join:', ' }}"
+                            data-confirmation-subject="{{ user_form.username.value }}"
+                            data-action="{% url 'delete_region_user' region_slug=region.slug user_id=user_form.instance.id %}">
+                        <i data-feather="trash-2" class="inline-block mr-2"></i>
+                        {% trans 'Remove user from region' %}
+                    </button>
+                </div>
+            {% endif %}
 	    {% endif %}
     </div>
 </form>
+
+{% include "../../generic_confirmation_dialog.html" %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
 {% endblock %}

@@ -1,6 +1,7 @@
 """
 Configuration of GVZ API app
 """
+import os
 import sys
 import logging
 import json
@@ -23,8 +24,8 @@ class GvzApiConfig(AppConfig):
         """
         Checking if API is available
         """
-        # Only check availability if current command is "runserver"
-        if sys.argv[1] == "runserver":
+        # Only check availability if running a server
+        if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
             if settings.GVZ_API_ENABLED:
                 try:
                     response = requests.get(

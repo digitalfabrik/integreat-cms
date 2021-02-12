@@ -14,12 +14,12 @@ Following packages are required before installing the project (install them with
 
 * `git <https://git-scm.com/>`_
 * `npm <https://www.npmjs.com/>`_
-* `python3.7 <https://packages.ubuntu.com/search?keywords=python3.7>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_ [#ppa]_) / `python37 <https://aur.archlinux.org/packages/python37/>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
-* `python3.7-dev <https://packages.ubuntu.com/search?keywords=python3.7-dev>`_ (only required on `Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_)
-* `python3-pip <https://packages.ubuntu.com/search?keywords=python3-pip>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_) / `python-pip <https://www.archlinux.de/packages/extra/x86_64/python-pip>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
+* `python3.7 <https://packages.ubuntu.com/search?keywords=python3.7>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__ [#ppa]_) / `python37 <https://aur.archlinux.org/packages/python37/>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
+* `python3.7-dev <https://packages.ubuntu.com/search?keywords=python3.7-dev>`_ (only required on `Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__)
+* `python3-pip <https://packages.ubuntu.com/search?keywords=python3-pip>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__) / `python-pip <https://www.archlinux.de/packages/extra/x86_64/python-pip>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
 * `pipenv <https://pipenv.pypa.io/en/latest/>`_ for python3 [#pip]_
 * Either `postgresql <https://www.postgresql.org/>`_ **or** `docker <https://www.docker.com/>`_ to run a local database server
-* `gettext <https://www.gnu.org/software/gettext/>`_ to use the translation features
+* `gettext <https://www.gnu.org/software/gettext/>`_ and `pcregrep <https://pcre.org/original/doc/html/pcregrep.html>`_ to use the translation features
 
 .. Note::
 
@@ -29,7 +29,10 @@ Following packages are required before installing the project (install them with
 
     .. [#pip] If no recent version of pipenv is packaged for your distro, use ``pip3 install pipenv --user``.
 
-              You might have to add ``export PATH=\$PATH:~/.local/bin`` to your default shell config (e.g. ``~/.bashrc`` or ``~/.zshrc``).
+        You might have to add ``export PATH=$PATH:~/.local/bin`` to your default shell config (e.g. ``~/.bashrc`` or ``~/.zshrc``).
+
+        .. include:: include/pipenv-path-environment-variable.rst
+
 
 
 Download sources
@@ -43,23 +46,27 @@ Clone the project, either
 
     .. container:: left-side
 
-        via SSH::
+        via SSH:
 
-            git clone git@github.com:Integreat/cms-django.git
-            cd cms-django
+        .. parsed-literal::
+
+            git clone git\@github.com:|github-username|/|github-repository|.git
+            cd |github-repository|
 
     .. container:: right-side
 
-        or HTTPS::
+        or HTTPS:
 
-            git clone https://github.com/Integreat/cms-django.git
-            cd cms-django
+        .. parsed-literal::
+
+            git clone \https://github.com/|github-username|/|github-repository|.git
+            cd |github-repository|
 
 
 Install dependencies and local package
 ======================================
 
-And install it using our developer tool ``ìnstall.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/install.sh>`__]::
+And install it using our developer tool :github-source:`dev-tools/install.sh`::
 
     ./dev-tools/install.sh
 
@@ -88,12 +95,12 @@ Then install both packages with gdebi::
 
     apt install gdebi postgresql
     gdebi django-widget-tweaks/deb_dist/python3-django-widget-tweaks_1.4.3-1_all.deb
-    gdebi cms-django/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
+    gdebi |github-repository|/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
 
 In the end, create a PostgreSQL user and database and adjust the ``/usr/lib/python3/dist-packages/backend/settings.py``.
 
 .. Note::
 
-    In some cases, you can just use the developer tool ``package.sh`` [`Source <https://github.com/Integreat/cms-django/blob/develop/dev-tools/package.sh>`__]::
+    In some cases, you can just use the developer tool :github-source:`dev-tools/package.sh`::
 
         ./dev-tools/package.sh

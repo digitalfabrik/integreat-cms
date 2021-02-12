@@ -1,10 +1,10 @@
 import logging
 import re
 
-from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from ..placeholder_model_form import PlaceholderModelForm
 from ...constants import status
 from ...models import PageTranslation
 from ...utils.slug_utils import generate_unique_slug
@@ -13,16 +13,32 @@ from ...utils.slug_utils import generate_unique_slug
 logger = logging.getLogger(__name__)
 
 
-class PageTranslationForm(forms.ModelForm):
+class PageTranslationForm(PlaceholderModelForm):
     """
     Form for creating and modifying page translation objects
     """
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = PageTranslation
+        #: The fields of the model which should be handled by this form
         fields = ["title", "slug", "status", "text", "minor_edit"]
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize Page translation form
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
 
         logger.info("New PageTranslationForm with args %s and kwargs %s", args, kwargs)
 
@@ -57,6 +73,20 @@ class PageTranslationForm(forms.ModelForm):
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved page translation object
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        """
+
         logger.info(
             "PageTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
             args,
@@ -87,9 +117,23 @@ class PageTranslationForm(forms.ModelForm):
         return page_translation
 
     def clean_slug(self):
+        """
+        Validate the slug field (see :ref:`overriding-modelform-clean-method`)
+
+        :return: A unique slug based on the input value
+        :rtype: str
+        """
         return generate_unique_slug(self, "page")
 
     def clean_text(self):
+        """
+        Validate the text field (see :ref:`overriding-modelform-clean-method`)
+
+        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
+
+        :return: The valid text
+        :rtype: str
+        """
         text = self.data["text"]
 
         if "<h1>" in text:

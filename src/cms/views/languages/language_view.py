@@ -14,19 +14,56 @@ from ...models import Language
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
 class LanguageView(PermissionRequiredMixin, TemplateView):
-    permission_required = "cms.manage_languages"
-    raise_exception = True
+    """
+    This view shows and editing languages in the network administration back end.
+    """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.manage_languages"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "languages/language_form.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "languages"}
 
     def get(self, request, *args, **kwargs):
+        """
+        Handle HTTP GET to show form for a language
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         language = Language.objects.filter(code=kwargs.get("language_code")).first()
         form = LanguageForm(instance=language)
         return render(request, self.template_name, {"form": form, **self.base_context})
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
+        """
+        Handle HTTP to save and show form for a language
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
         language_code = kwargs.get("language_code")
         language = Language.objects.filter(code=language_code).first()
         form = LanguageForm(request.POST, instance=language)

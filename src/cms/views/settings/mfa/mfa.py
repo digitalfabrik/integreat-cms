@@ -1,3 +1,6 @@
+"""
+This module contains all views related to multi-factor authentication
+"""
 import time
 import json
 
@@ -20,28 +23,60 @@ from ....utils.mfa_utils import generate_challenge
 
 
 class AddMfaKeyForm(forms.Form):
+    """
+    Form to add an multi-factor-authentication key
+    """
+
     nickname = forms.CharField(max_length=255, required=True)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(modify_mfa_authenticated, name="dispatch")
 class AddMfaKeyView(FormView):
+    """
+    View to render and submit the :class:`~cms.views.settings.mfa.mfa.AddMfaKeyForm`
+    """
+
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "settings/mfa/add_key.html"
+    #: The form class to instantiate for this form view (see :class:`~django.views.generic.edit.FormMixin`)
     form_class = AddMfaKeyForm
 
 
 class AuthenticationForm(forms.Form):
+    """
+    Form to authenticate a user
+    """
+
     attrs = {"type": "password", "required": True}
     password = forms.CharField(widget=forms.TextInput(attrs=attrs))
 
 
 @method_decorator(login_required, name="dispatch")
 class AuthenticateModifyMfaView(FormView):
+    """
+    View to authenticate a user before changing the mfa settings
+    """
+
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "settings/mfa/authenticate.html"
+    #: The form class for this form view (see :class:`~django.views.generic.edit.FormMixin`)
     form_class = AuthenticationForm
+    #: The URL to redirect to when the form is successfully processed (see :class:`~django.views.generic.edit.FormMixin`)
     success_url = "/user_settings/add_new_mfa_key/"
 
     def form_valid(self, form):
+        """
+        This function overwrites :meth:`~django.views.generic.edit.FormMixin.form_valid` which is called if the
+        :class:`~cms.views.settings.mfa.mfa.AuthenticationForm` is valid. In case the user provided correct credentials,
+        the current time is saved in a session variable so a timeout of the authentication can be implemented.
+
+        :param form: Authentication form
+        :type form: ~cms.views.settings.mfa.mfa.AuthenticationForm
+
+        :return: Redirect user to mfa login view or to :attr:`~backend.settings.LOGIN_REDIRECT_URL`
+        :rtype: ~django.http.HttpResponseRedirect
+        """
         if check_password(form.cleaned_data["password"], self.request.user.password):
             self.request.session["modify_mfa_authentication_time"] = time.time()
             if "mfa_redirect_url" in self.request.session:
@@ -54,7 +89,21 @@ class AuthenticateModifyMfaView(FormView):
 @method_decorator(login_required, name="dispatch")
 @method_decorator(modify_mfa_authenticated, name="dispatch")
 class GetChallengeView(View):
+    """
+    View to generate a challenge for multi-factor-authentication
+    """
+
     def get(self, request):
+        """
+        Return MFA challenge
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :return: The mfa challenge as JSON
+        :rtype: ~django.http.JsonResponse
+        """
+
         challenge = generate_challenge(32)
         request.session["mfa_registration_challenge"] = challenge
 
@@ -75,9 +124,30 @@ class GetChallengeView(View):
 @method_decorator(login_required, name="dispatch")
 @method_decorator(modify_mfa_authenticated, name="dispatch")
 class DeleteMfaKey(TemplateView):
+    """
+    View to delete a multi-factor-authentication key
+    """
+
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "settings/mfa/delete.html"
 
     def get(self, request, *args, **kwargs):
+        """
+        Render mfa-deletion view
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+
         key = request.user.mfa_keys.get(id=kwargs["key_id"])
         return render(
             request,
@@ -86,12 +156,35 @@ class DeleteMfaKey(TemplateView):
         )
 
     def post(self, request, **kwargs):
+        """
+        Delete a multi-factor-authentication key
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: A redirection to the user settings
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+
         key = request.user.mfa_keys.get(id=kwargs["key_id"])
         key.delete()
         return redirect("user_settings")
 
 
 def register_mfa_key(request):
+    """
+    View to register a multi-factor-authentication key
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :return: The success status as JSON
+    :rtype: ~django.http.JsonResponse
+    """
+
     webauthn_registration_response = webauthn.WebAuthnRegistrationResponse(
         settings.HOSTNAME,
         settings.BASE_URL,

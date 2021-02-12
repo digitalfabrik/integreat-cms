@@ -3,22 +3,28 @@ Form for creating a user object
 """
 import logging
 
-from django import forms
 
 from ...models import UserProfile
-
+from ..placeholder_model_form import PlaceholderModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class UserProfileForm(forms.ModelForm):
+class UserProfileForm(PlaceholderModelForm):
     """
     Form for creating and modifying user profile objects
     """
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = UserProfile
-        fields = ["regions", "organization"]
+        #: The fields of the model which should be handled by this form
+        fields = ["regions", "organization", "expert_mode"]
 
     def __init__(self, data=None, instance=None):
 
@@ -31,6 +37,19 @@ class UserProfileForm(forms.ModelForm):
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved user profile object
+        :rtype: ~cms.models.users.user_profile.UserProfile
+        """
 
         logger.info(
             "UserProfileForm saved with cleaned data %s and changed data %s",

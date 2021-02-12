@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 from .offer_template import OfferTemplate
 from ..regions.region import Region
@@ -14,27 +15,27 @@ class Offer(models.Model):
     query and render the results inside the Integreat app.
     The sole existence of an offer object instance means that it is activated, and if there is no object for a
     region/template-combination, it is deactivated.
-
-    :param id: The database id of the offer
-    :param created_date: The date and time when the offer was created
-    :param last_updated: The date and time when the offer was last updated
-
-    Relationship fields:
-
-    :param region: The region where the offer is activated (related name: ``offers``)
-    :param template: The template which is used for the offer (related name: ``offers``)
-
-    Reverse relationships:
-
-    :param feedback: Feedback to this offer
     """
 
-    region = models.ForeignKey(Region, related_name="offers", on_delete=models.CASCADE)
-    template = models.ForeignKey(
-        OfferTemplate, related_name="offers", on_delete=models.CASCADE
+    region = models.ForeignKey(
+        Region,
+        on_delete=models.CASCADE,
+        related_name="offers",
+        verbose_name=_("region"),
     )
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    template = models.ForeignKey(
+        OfferTemplate,
+        on_delete=models.CASCADE,
+        related_name="offers",
+        verbose_name=_("template"),
+    )
+    created_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True, verbose_name=_("modification date")
+    )
 
     @property
     def slug(self):
@@ -101,25 +102,18 @@ class Offer(models.Model):
         return post_data
 
     class Meta:
-        """
-        This class contains additional meta configuration of the model class, see the
-        `official Django docs <https://docs.djangoproject.com/en/2.2/ref/models/options/>`_ for more information.
-
-        :param unique_together: There cannot be two offers with the same region and template
-        :type default_permissions: tuple
-
-        :param default_permissions: The default permissions for this model
-        :type default_permissions: tuple
-
-        :param permissions: The custom permissions for this model
-        :type permissions: tuple
-        """
-
+        #: The verbose name of the model
+        verbose_name = _("offer")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("offers")
+        #: There cannot be two offers with the same region and template
         unique_together = (
             (
                 "region",
                 "template",
             ),
         )
+        #: The default permissions for this model
         default_permissions = ()
+        #: The custom permissions for this model
         permissions = (("manage_offers", "Can manage offers"),)

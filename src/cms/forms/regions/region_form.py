@@ -5,13 +5,23 @@ from django.utils.translation import ugettext_lazy as _
 from django.apps import apps
 
 from gvz_api.utils import GvzRegion
+from ..placeholder_model_form import PlaceholderModelForm
 from ...models import Region, PageTranslation, LanguageTreeNode
 from ...utils.slug_utils import generate_unique_slug
 
 logger = logging.getLogger(__name__)
 
 
-class RegionForm(forms.ModelForm):
+class IconWidget(forms.ClearableFileInput):
+    """
+    A custom widget to render the icon field
+    """
+
+    #: The template to use for this widget
+    template_name = "regions/region_icon_widget.html"
+
+
+class RegionForm(PlaceholderModelForm):
     """
     Form for creating and modifying region objects
     """
@@ -23,12 +33,20 @@ class RegionForm(forms.ModelForm):
     )
 
     class Meta:
+        """
+        This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
+        for more information.
+        """
+
+        #: The model of this :class:`django.forms.ModelForm`
         model = Region
+        #: The fields of the model which should be handled by this form
         fields = [
             "name",
             "common_id",
             "slug",
             "events_enabled",
+            "chat_enabled",
             "push_notifications_enabled",
             "push_notification_channels",
             "latitude",
@@ -43,10 +61,28 @@ class RegionForm(forms.ModelForm):
             "page_permissions_enabled",
             "administrative_division",
             "aliases",
+            "icon",
         ]
+        #: The widgets which are used in this form
+        widgets = {
+            "icon": IconWidget(),
+        }
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The saved region object
+        :rtype: ~cms.models.regions.region.Region
+        """
 
         logger.info(
             "RegionForm saved with args %s, kwargs %s and cleaned data %s",
@@ -78,6 +114,12 @@ class RegionForm(forms.ModelForm):
         return region
 
     def clean(self):
+        """
+        Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
+
+        :return: The cleaned form data
+        :rtype: dict
+        """
         cleaned_data = super().clean()
         if apps.get_app_config("gvz_api").api_available:
             gvz_region = GvzRegion(
@@ -94,6 +136,12 @@ class RegionForm(forms.ModelForm):
         return cleaned_data
 
     def clean_slug(self):
+        """
+        Validate the slug field (see :ref:`overriding-modelform-clean-method`)
+
+        :return: A unique slug based on the input value
+        :rtype: str
+        """
         return generate_unique_slug(self, "region")
 
 

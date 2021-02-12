@@ -1,5 +1,56 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load static %}
+
 {% block content %}
-    Admin Dashboard
+<div class="dashboard">
+    <h1 class="font-bold">Dashboard</h1>
+    <div class="flex items-start">
+        <div class="flex flex-col w-1/2 ">
+            <div class="bg-white p-4 my-3 mr-3 shadow">
+                <h2 class="font-bold">{% trans 'At a glance' %}</h2>
+            </div>
+            {% if chat_form %}
+            {% include "chat/_chat.html" %}
+            {% endif %}
+        </div>
+        <div class="flex flex-col bg-white w-1/2 px-4 mt-3 ml-3 shadow">
+            <button type="button" class="collapsible font-bold py-4 text-left relative focus:outline-none">
+                <span class="font-bold">{% trans 'Technical Feedback' %}</span>
+                <i data-feather="chevron-up" class="up-arrow inline absolute right-0"></i>
+                <i data-feather="chevron-down" class="down-arrow inline hidden absolute right-0"></i>
+            </button>
+            <div class="collapsible-content flex flex-col active pb-4">
+                <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
+                    <tr class="border-b border-solid border-gray-200">
+                        <th class="text-sm text-left uppercase py-3 pl-2">{% trans 'Language' %}</th>
+                        <th class="text-sm text-left uppercase py-3">{% trans 'Comment' %}</th>
+                        <th class="text-sm text-left uppercase py-3">{% trans 'Rating' %}</th>
+                        <th class="text-sm text-right uppercase py-3 pr-2">{% trans 'Date' %}</th>
+                    </tr>
+                    {% for feedback in all_feedback %}
+                    <tr>
+                        <td class="pl-2 py-3">{{ feedback.language.translated_name }}</td>
+                        <td>{{ feedback.comment }}</td>
+                        <td>{{ feedback.get_emotion_display }}</td>
+                        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="6" class="px-2 py-3">{% trans 'No Feedback available yet.' %} </td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "../generic_confirmation_dialog.html" with confirmation_ajax_enabled=True %}
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
+<script src="{% static 'js/toggle-dashboard-section.js' %}"></script>
+<script src="{% static 'js/chat/send_chat_message.js' %}"></script>
+<script src="{% static 'js/chat/delete_chat_message.js' %}"></script>
 {% endblock %}

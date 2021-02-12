@@ -6,10 +6,6 @@
 {% load page_filters %}
 {% load rules %}
 
-{% block javascript_head %}
-    <script src="{% static 'js/confirmation-popups.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 <div class="table-header">
     <div class="w-1/2">
@@ -53,7 +49,6 @@
         </thead>
         <tbody>
         {% if pages %}
-            {% get_last_root_page pages as last_root_page %}
             {% recursetree pages %}
                 {% get_translation node language.code as page_translation %}
                 {% include "pages/page_tree_archived_node.html" with page=node page_translation=page_translation %}
@@ -71,9 +66,9 @@
         </tbody>
     </table>
 </div>
-{% include "./confirmation_popups/archive_page.html" %}
-{% include "./confirmation_popups/restore_page.html" %}
-{% if user.is_superuser or user.is_staff %}
-    {% include "./confirmation_popups/delete_page.html" %}
-{% endif %}
+{% include "../generic_confirmation_dialog.html" %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/confirmation-popups.js' %}"></script>
 {% endblock %}

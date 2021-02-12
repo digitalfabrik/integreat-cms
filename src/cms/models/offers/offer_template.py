@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 from ...constants import postal_code
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 
 class OfferTemplate(models.Model):
@@ -10,34 +12,54 @@ class OfferTemplate(models.Model):
     The OfferTemplate model is used to store templates of offers which can be activated for specific regions. The
     information stored in an offer template is global, so if you need parameters, which depend on local information
     of a region, it has to be added to the :class:`~cms.models.offers.offer.Offer` model.
-
-    :param id: The database id of the offer template
-    :param name: The name of the offer template
-    :param slug: The slug of the offer template
-    :param thumbnail: The thumbnail url of the offer template
-    :param url: The url of the offer template. This will be an external api endoint in most cases.
-    :param post_data: If additional post data is required for retrieving the url, it has to be stored in this dict.
-    :param use_postal_code: If and how the postal code should be injected in the url or post data (choices:
-                            :mod:`cms.constants.postal_code`)
-    :param created_date: The date and time when the offer template was created
-    :param last_updated: The date and time when the offer template was last updated
-
-    Reverse relationships:
-
-    :param offers: All offers which use this template
     """
 
-    name = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=60, unique=True, blank=True)
-    thumbnail = models.URLField(max_length=250)
-    url = models.URLField(max_length=250)
-    post_data = JSONField(max_length=250, default=dict, blank=True)
+    name = models.CharField(max_length=250, verbose_name=_("name"))
+    slug = models.SlugField(
+        max_length=60,
+        unique=True,
+        blank=True,
+        verbose_name=_("slug"),
+        help_text=__(
+            _("String identifier without spaces and special characters."),
+            _("Unique per region and language."),
+            _("Leave blank to generate unique parameter from name"),
+        ),
+    )
+    thumbnail = models.URLField(max_length=250, verbose_name=_("thumbnail URL"))
+    url = models.URLField(
+        max_length=250,
+        verbose_name=_("URL"),
+        help_text=_("This will be an external API endpoint in most cases."),
+    )
+    post_data = JSONField(
+        max_length=250,
+        default=dict,
+        blank=True,
+        verbose_name=_("POST parameter"),
+        help_text=__(
+            _("Additional POST data for retrieving the URL."), _("Specify as JSON.")
+        ),
+    )
+    #: Manage choices in :mod:`cms.constants.postal_code`
     use_postal_code = models.CharField(
-        max_length=4, choices=postal_code.CHOICES, default=postal_code.NONE
+        max_length=4,
+        choices=postal_code.CHOICES,
+        default=postal_code.NONE,
+        verbose_name=_("use postal code"),
+        help_text=_(
+            "Whether and how to insert the postcode of the region into the URL or POST data"
+        ),
     )
 
-    created_date = models.DateTimeField(default=timezone.now)
-    last_updated = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name=_("creation date"),
+    )
+    last_updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("modification date"),
+    )
 
     def __str__(self):
         """
@@ -49,5 +71,11 @@ class OfferTemplate(models.Model):
         return self.name
 
     class Meta:
+        #: The verbose name of the model
+        verbose_name = _("offer template")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("offer templates")
+        #: The default permissions for this model
         default_permissions = ()
+        #: The custom permissions for this model
         permissions = (("manage_offer_templates", "Can manage offer templates"),)
