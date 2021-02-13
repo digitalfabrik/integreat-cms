@@ -41,4 +41,6 @@
         </tbody>
     </table>
 </div>
+{% url "region_users" as url %}
+{% include "pagination.html" with url=url chunk=users %}
 {% endblock %}

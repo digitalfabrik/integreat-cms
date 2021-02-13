@@ -522,3 +522,12 @@ COMPRESS_ES6_COMPILER_CMD = 'export NODE_PATH="{paths}" && {browserify_bin} "{in
 
 #: Whether thumbnails should be stored in high resolution (used by :doc:`easy-thumbnails:index`)
 THUMBNAIL_HIGH_RESOLUTION = True
+
+##############
+# Pagination #
+##############
+
+#: Number of entries displayed per pagination chunk
+#: see :attr:`django-pagination:django.core.paginator.Paginator`
+
+PER_PAGE = 16

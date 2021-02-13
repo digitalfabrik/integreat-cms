@@ -3,10 +3,13 @@ from datetime import date, time
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
+
+from backend.settings import PER_PAGE
 
 from ...constants import all_day, recurrence
 from ...decorators import region_permission_required
@@ -162,6 +165,10 @@ class EventListView(
             event_filter_form = EventFilterForm()
             event_filter_form.changed_data.clear()
             poi = None
+        # for consistent pagination querysets should be ordered
+        paginator = Paginator(events.order_by("start_date", "start_time"), PER_PAGE)
+        chunk = request.GET.get("chunk")
+        event_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
         return render(
             request,
@@ -169,7 +176,7 @@ class EventListView(
             {
                 **context,
                 "current_menu_item": "events",
-                "events": events,
+                "events": event_chunk,
                 "archived_count": region.events.filter(archived=True).count(),
                 "language": language,
                 "languages": region.languages,

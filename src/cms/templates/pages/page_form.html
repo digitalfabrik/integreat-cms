@@ -237,26 +237,24 @@
                     <div id="page_order_table" class="mb-4">
                         {% include "pages/_page_order_table.html" %}
                     </div>
-                    {% if page %}
-                        <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
-                            <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
-                            <div class="relative my-2">
-                                {% render_field page_form.mirrored_page_region id="mirrored_page_region" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                    <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                                </div>
-                            </div>
-                            <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' %}?page_id={{ page_form.instance.id }}&region_id=">
-                                {% include "pages/_mirrored_page_field.html" %}
-                            </div>
-                            <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
-                                {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                    <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                                </div>
+                    <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
+                        <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
+                        <div class="relative my-2">
+                            {% render_field page_form.mirrored_page_region id="mirrored_page_region" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                             </div>
                         </div>
-                    {% endif %}
+                        <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' %}?page_id={{ page_form.instance.id }}&region_id=">
+                            {% include "pages/_mirrored_page_field.html" %}
+                        </div>
+                        <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
+                            {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
+                        </div>
+                    </div>
                     {% if perms.cms.grant_page_permissions and region.page_permissions_enabled and request.user.profile.expert_mode %}
                         <span class="block font-bold mb-2">{% trans 'Additional permissions for this page' %}</span>
                         <p class="italic">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>

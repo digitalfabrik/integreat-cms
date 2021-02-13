@@ -53,4 +53,6 @@
         </tbody>
     </table>
 </div>
+{% url "push_notifications" as url %}
+{% include "pagination.html" with url=url chunk=push_notifications %}
 {% endblock %}

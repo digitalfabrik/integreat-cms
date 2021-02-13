@@ -1,10 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
+
+from backend.settings import PER_PAGE
 
 from ...decorators import region_permission_required
 from ...models import Region, Language
@@ -96,13 +99,18 @@ class POIListView(PermissionRequiredMixin, TemplateView, POIContextMixin):
                 )
                 % {"language": region.default_language.translated_name},
             )
+        pois = region.pois.filter(archived=self.archived)
+        # for consistent pagination querysets should be ordered
+        paginator = Paginator(pois.order_by("region__slug"), PER_PAGE)
+        chunk = request.GET.get("chunk")
+        poi_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
                 "current_menu_item": "pois",
-                "pois": region.pois.filter(archived=self.archived),
+                "pois": poi_chunk,
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
                 "languages": region.languages,
