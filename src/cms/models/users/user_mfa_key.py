@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 
-class UserMfa(models.Model):
+class UserMfaKey(models.Model):
     """
     Data model representing a user's multi-factor-authentication (MFA) key
     """
@@ -14,7 +14,7 @@ class UserMfa(models.Model):
         related_name="mfa_keys",
         verbose_name=_("user"),
     )
-    name = models.CharField(max_length=200, verbose_name=_("name"))
+    name = models.CharField(max_length=200, verbose_name=_("key name"))
     key_id = models.BinaryField(
         max_length=255, null=False, verbose_name=_("WebAuthn ID")
     )
@@ -39,7 +39,7 @@ class UserMfa(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``UserMfa object (id)``.
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``UserMfaKey object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the user MFA
@@ -49,15 +49,13 @@ class UserMfa(models.Model):
 
     def __repr__(self):
         """
-        This overwrites the default Django ``__repr__()`` method which would return ``<UserMfa: UserMfa object (id)>``.
+        This overwrites the default Django ``__repr__()`` method which would return ``<UserMfaKey: UserMfaKey object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the user MFA
         :rtype: str
         """
-        return (
-            f"<UserMfa (id: {self.id}, name: {self.name}, user: {self.user.username})>"
-        )
+        return f"<UserMfaKey (id: {self.id}, name: {self.name}, user: {self.user.username})>"
 
     class Meta:
         #: The verbose name of the model

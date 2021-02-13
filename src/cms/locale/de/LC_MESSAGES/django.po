@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-18 13:53+0000\n"
+"POT-Creation-Date: 2021-04-18 16:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -419,7 +419,6 @@ msgstr "Alle Regionen"
 #: templates/feedback/admin_feedback_list.html:32
 #: templates/feedback/region_feedback_list.html:32
 #: templates/language_tree/language_tree.html:29
-#: templates/settings/user.html:90
 #: templates/statistics/statistics_overview.html:53
 msgid "Language"
 msgstr "Sprache"
@@ -508,28 +507,26 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
+#: forms/users/authentication_form.py:11 forms/users/user_form.py:68
+#: templates/authentication/password_reset_confirm.html:25
+msgid "Password"
+msgstr "Passwort"
+
 #: forms/users/user_form.py:63
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
 
-#: forms/users/user_form.py:68
-#: templates/authentication/password_reset_confirm.html:25
-#: templates/settings/mfa/authenticate.html:26
-#: templates/settings/mfa/authenticate.html:28 templates/settings/user.html:27
-msgid "Password"
-msgstr "Passwort"
-
 #: forms/users/user_password_form.py:24
-msgid "Your old password"
-msgstr "Ihr bisheriges Passwort"
+msgid "My old password"
+msgstr "Mein bisheriges Passwort"
 
 #: forms/users/user_password_form.py:31
-msgid "Your new password"
-msgstr "Ihr neues Passwort"
+msgid "My new password"
+msgstr "Mein neues Passwort"
 
 #: forms/users/user_password_form.py:37
-msgid "Confirm your new password"
-msgstr "Ihr neues Passwort bestätigen"
+msgid "Confirm my new password"
+msgstr "Mein neues Passwort bestätigen"
 
 #: forms/users/user_password_form.py:89
 msgid "Your old password is not correct."
@@ -598,7 +595,7 @@ msgstr "Wert"
 #: models/push_notifications/push_notification.py:42
 #: models/push_notifications/push_notification_translation.py:38
 #: models/regions/region.py:109 models/users/organization.py:28
-#: models/users/user_mfa.py:37
+#: models/users/user_mfa_key.py:37
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
@@ -1068,7 +1065,6 @@ msgstr "Angebote"
 #: models/offers/offer_template.py:16
 #: models/push_notifications/push_notification_channel.py:10
 #: models/regions/region.py:26 models/users/organization.py:11
-#: models/users/user_mfa.py:17
 msgid "name"
 msgstr "Name"
 
@@ -1527,35 +1523,39 @@ msgstr "Organisation"
 msgid "organizations"
 msgstr "Organisationen"
 
-#: models/users/user_mfa.py:15 models/users/user_profile.py:24
+#: models/users/user_mfa_key.py:15 models/users/user_profile.py:24
 msgid "user"
 msgstr "Benutzer"
 
-#: models/users/user_mfa.py:19
+#: models/users/user_mfa_key.py:17
+msgid "key name"
+msgstr "Schlüsselname"
+
+#: models/users/user_mfa_key.py:19
 msgid "WebAuthn ID"
 msgstr "WebAuthn ID"
 
-#: models/users/user_mfa.py:24
+#: models/users/user_mfa_key.py:24
 msgid "multi-factor-authentication public key"
 msgstr "öffentlicher Multi-Faktor-Authentifizierungsschlüssel"
 
-#: models/users/user_mfa.py:28
+#: models/users/user_mfa_key.py:28
 msgid "sign count"
 msgstr "Anzahl an Signier-Vorgängen"
 
-#: models/users/user_mfa.py:29
+#: models/users/user_mfa_key.py:29
 msgid "Token to prevent replay attacks."
 msgstr "Token zur Verhinderung von Replay-Attacken."
 
-#: models/users/user_mfa.py:33
+#: models/users/user_mfa_key.py:33
 msgid "last date of use"
 msgstr "Letztes Datum der Verwendung"
 
-#: models/users/user_mfa.py:64
+#: models/users/user_mfa_key.py:62
 msgid "multi-factor authentication key"
 msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 
-#: models/users/user_mfa.py:66
+#: models/users/user_mfa_key.py:64
 msgid "multi-factor authentication keys"
 msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 
@@ -1907,12 +1907,12 @@ msgid "The username or the password is incorrect."
 msgstr "Der Benutzername oder das Passwort ist falsch."
 
 #: templates/authentication/login.html:20
-#: templates/settings/mfa/authenticate.html:18
+#: templates/settings/mfa/authenticate.html:16
 msgid "Please try again."
 msgstr "Bitte versuchen Sie es erneut."
 
 #: templates/authentication/login.html:36
-#: templates/settings/mfa/authenticate.html:33
+#: templates/settings/mfa/authenticate.html:31
 msgid "Log in"
 msgstr "Anmelden"
 
@@ -1921,6 +1921,7 @@ msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
 #: templates/authentication/login_mfa.html:8
+#: templates/settings/mfa/authenticate.html:8
 msgid "Authentication"
 msgstr "Authentifizierung"
 
@@ -2810,7 +2811,7 @@ msgid "Active since"
 msgstr "Aktiv seit"
 
 #: templates/offers/offer_list.html:31 templates/pages/page_form.html:306
-#: templates/regions/region_list.html:30 templates/settings/user.html:59
+#: templates/regions/region_list.html:30 templates/settings/user.html:98
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -3393,132 +3394,105 @@ msgstr "Neue Rolle erstellen"
 msgid "Admin Settings"
 msgstr "Administrator-Einstellungen"
 
-#: templates/settings/mfa/add_key.html:10
-#: templates/settings/mfa/authenticate.html:10
-#: templates/settings/mfa/delete.html:10
-msgid "Integreat Logo"
-msgstr "Integreat Logo"
+#: templates/settings/mfa/add_key.html:8 templates/settings/mfa/add_key.html:29
+msgid "Add 2FA key"
+msgstr "2FA Schlüssel hinzufügen"
 
-#: templates/settings/mfa/add_key.html:16
+#: templates/settings/mfa/add_key.html:14
 msgid "Something went wrong during 2FA registration"
 msgstr ""
 "Während der Registrierung eines neuen Schlüssels ist ein Fehler aufgetreten"
 
-#: templates/settings/mfa/add_key.html:20
+#: templates/settings/mfa/add_key.html:18
 msgid ""
-"Please enter a nickname for your new key. This nickname can be used to find "
-"the correct key in case you need to revoke authentication."
+"Please enter a name for your new key. This name can be used to find the "
+"correct key in case you need to revoke authentication."
 msgstr ""
 "Bitte wählen Sie einen Namen für den neuen Schlüssel. Dieser Name kann "
 "verwendet werden um den Schlüssel später zum Bearbeiten der Einstellungen zu "
 "identifizieren."
 
 #: templates/settings/mfa/add_key.html:24
-#: templates/settings/mfa/add_key.html:26
-msgid "Nickname"
-msgstr "Schlüsselname"
+msgid "Enter key name here"
+msgstr "Schlüsselname hier eingeben"
 
-#: templates/settings/mfa/add_key.html:31
-msgid "Add 2FA key"
-msgstr "2FA Schlüssel hinzufügen"
-
-#: templates/settings/mfa/add_key.html:38 templates/settings/mfa/delete.html:37
+#: templates/settings/mfa/add_key.html:34 templates/settings/mfa/delete.html:28
 msgid "It seems like your browser does not support webauthn"
 msgstr ""
 "Ihr Browser unterstützt leider kein webauthn, es kann kein Schlüssel "
 "hinzugefügt werden"
 
-#: templates/settings/mfa/authenticate.html:18
+#: templates/settings/mfa/authenticate.html:16
 msgid "The password is incorrect."
 msgstr "Das Passwort ist falsch."
 
-#: templates/settings/mfa/authenticate.html:22
+#: templates/settings/mfa/authenticate.html:20
 msgid "Please authenticate to change security related settings"
 msgstr ""
 "Bitte authentifizieren Sie sich erneut, um sicherheitsrelevante "
 "Einstellungen zu bearbeiten."
 
-#: templates/settings/mfa/delete.html:18
-msgid "Remove the last key"
-msgstr "Entfernung des letzten Schlüssels"
+#: templates/settings/mfa/authenticate.html:26
+msgid "Enter your password here"
+msgstr "Ihr Passwort hier eingeben"
 
-#: templates/settings/mfa/delete.html:19
-msgid ""
-"This is your last key, once removed you will be able to log in without a "
-"second factor"
-msgstr ""
-"Dies ist der letzte Schlüssel. Sobald dieser entfernt wurde, ist ein Login "
-"ohne zusätzliche Authentifizierung möglich."
-
-#: templates/settings/mfa/delete.html:21
-msgid "Remove key"
-msgstr "Schlüssel entfernen"
-
-#: templates/settings/mfa/delete.html:22
-msgid ""
-"Once you remove the key you will need to use one of the other available keys "
-"to log into your account. Please make sure that you have at least one extra "
-"key available to log in before removing this key."
-msgstr ""
-"Sobald Sie diesen Schlüssel entfernt haben müssen Sie sich mit einem der "
-"übrigen Schlüssel anmelden. Bitte stellen Sie sicher, dass ihnen mindestens "
-"einer der aktuell registrierten Schlüssel vorliegen bevor Sie diesen "
-"Schlüssel entfernen."
-
-#: templates/settings/mfa/delete.html:30
+#: templates/settings/mfa/delete.html:8 templates/settings/mfa/delete.html:21
 msgid "Delete 2FA key"
 msgstr "Schlüssel entfernen"
+
+#: templates/settings/mfa/delete.html:16
+msgid "Nickname"
+msgstr "Schlüsselname"
 
 #: templates/settings/settings.html:11
 msgid "Settings for"
 msgstr "Einstellungen für"
 
 #: templates/settings/user.html:8
-msgid "User settings"
-msgstr "Benutzereinstellungen"
+msgid "My User Settings"
+msgstr "Meine Benutzereinstellungen"
 
-#: templates/settings/user.html:13 templates/users/admin/list.html:29
-#: templates/users/region/list.html:29
-msgid "E-mail-address"
-msgstr "E-Mail Adresse"
+#: templates/settings/user.html:13
+msgid "My Language Preference"
+msgstr "Meine Sprachauswahl"
+
+#: templates/settings/user.html:19
+msgid "Choose language:"
+msgstr "Sprache auswählen"
 
 #: templates/settings/user.html:21
+msgid "This setting only affects this device."
+msgstr "Diese Einstellung gilt nur für dieses Gerät."
+
+#: templates/settings/user.html:38
+msgid "Change language"
+msgstr "Sprache ändern"
+
+#: templates/settings/user.html:45
+msgid "My E-mail-address"
+msgstr "Meine E-Mail Adresse"
+
+#: templates/settings/user.html:53
 msgid "Change e-mail-address"
 msgstr "E-Mail Adresse ändern"
 
-#: templates/settings/user.html:37
-msgid "Enter your new password again here"
-msgstr "Ihr neues Passwort hier erneut eingeben"
+#: templates/settings/user.html:61
+msgid "My Password"
+msgstr "Mein Passwort"
 
-#: templates/settings/user.html:44
+#: templates/settings/user.html:71
+msgid "Enter my new password again here"
+msgstr "Mein neues Passwort hier erneut eingeben"
+
+#: templates/settings/user.html:78
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: templates/settings/user.html:50
-msgid "Two-Factor-Authentication"
-msgstr "2-Faktor-Authentifizierung"
+#: templates/settings/user.html:85
+msgid "My 2-Factor-Authentication Keys"
+msgstr "Meine 2-Faktor-Authentifizierungsschlüssel"
 
-#: templates/settings/user.html:56
-msgid "Key name"
-msgstr "Schlüsselname"
-
-#: templates/settings/user.html:57
-msgid "Last usage"
-msgstr "Letzte verwendung"
-
-#: templates/settings/user.html:58
-msgid "Date added"
-msgstr "Hinzugefügt am"
-
-#: templates/settings/user.html:73
-msgid "No 2FA keys have been added yet."
-msgstr "Es wurden noch keine 2-Faktor-Schlüssel hinzugefügt."
-
-#: templates/settings/user.html:79
-msgid "Add a new 2FA key"
-msgstr "Neuen Schlüssel hinzufügen"
-
-#: templates/settings/user.html:83
+#: templates/settings/user.html:88
 msgid ""
 "You can use your FIDO2 keys to secure your account. Once you added a key to "
 "your account you won't be able to log in without using the key."
@@ -3527,7 +3501,7 @@ msgstr ""
 "abzusichern. Sobald ein Schlüssel hinzugefügt wurde, ist ein Login nur noch "
 "mit diesem möglich."
 
-#: templates/settings/user.html:84
+#: templates/settings/user.html:89
 msgid ""
 "To make sure that you don't loose access to your account when you loose your "
 "FIDO2 key it is recommended to add multiple keys. Just make sure to keep at "
@@ -3539,16 +3513,24 @@ msgstr ""
 "Ersatzschlüssel sollten Sie an einem sicheren Ort aufbewahren."
 
 #: templates/settings/user.html:95
-msgid "Choose language:"
-msgstr "Sprache auswählen"
+msgid "Key name"
+msgstr "Schlüsselname"
+
+#: templates/settings/user.html:96
+msgid "Last usage"
+msgstr "Letzte verwendung"
 
 #: templates/settings/user.html:97
-msgid "This setting only affects this device."
-msgstr "Diese Einstellung gilt nur für dieses Gerät."
+msgid "Date added"
+msgstr "Hinzugefügt am"
 
-#: templates/settings/user.html:114
-msgid "Change language"
-msgstr "Sprache ändern"
+#: templates/settings/user.html:112
+msgid "No 2FA keys have been added yet."
+msgstr "Es wurden noch keine 2-Faktor-Schlüssel hinzugefügt."
+
+#: templates/settings/user.html:118
+msgid "Add a new 2FA key"
+msgstr "Neuen Schlüssel hinzufügen"
 
 #: templates/statistics/_statistics_widget.html:12
 msgid "Number of online accesses over the last 14 days."
@@ -3609,6 +3591,10 @@ msgstr "Vorname"
 #: templates/users/admin/list.html:28 templates/users/region/list.html:28
 msgid "Last Name"
 msgstr "Nachname"
+
+#: templates/users/admin/list.html:29 templates/users/region/list.html:29
+msgid "E-mail-address"
+msgstr "E-Mail Adresse"
 
 #: templates/users/admin/list.html:30 templates/users/region/list.html:30
 msgid "Organization"
@@ -4448,17 +4434,52 @@ msgstr "Rolle wurde erfolgreich erstellt"
 msgid "Errors have occurred"
 msgstr "Es sind Fehler aufgetreten"
 
-#: views/settings/mfa/mfa.py:85
+#: views/settings/mfa/authenticate_modify_mfa_view.py:47
 msgid "The provided password is not correct"
 msgstr "Das angegebene Passwort ist falsch"
 
-#: views/settings/mfa/mfa.py:202
-msgid "This nickname has already been used"
+#: views/settings/mfa/delete_user_mfa_key_view.py:47
+msgid ""
+"This is your last key, once removed you will be able to log in without a "
+"second factor."
+msgstr ""
+"Dies ist der letzte Schlüssel. Sobald dieser entfernt wurde, ist ein Login "
+"ohne zusätzliche Authentifizierung möglich."
+
+#: views/settings/mfa/delete_user_mfa_key_view.py:56
+msgid ""
+"Once you remove the key you will need to use one of the other available keys "
+"to log into your account."
+msgstr ""
+"Sobald Sie diesen Schlüssel entfernt haben müssen Sie sich mit einem der "
+"übrigen Schlüssel anmelden."
+
+#: views/settings/mfa/delete_user_mfa_key_view.py:59
+msgid ""
+"Please make sure that you have at least one extra key available to log in "
+"before removing this key."
+msgstr ""
+"Bitte stellen Sie sicher, dass ihnen mindestens einer der aktuell "
+"registrierten Schlüssel vorliegen bevor Sie diesen Schlüssel entfernen."
+
+#: views/settings/mfa/delete_user_mfa_key_view.py:88
+msgid "The 2-factor authentication key \"{}\" was successfully deleted"
+msgstr ""
+"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich gelöscht."
+
+#: views/settings/mfa/register_user_mfa_key_view.py:65
+msgid "This key name has already been used"
 msgstr "Dieser Schlüsselname wurde bereits genutzt"
 
-#: views/settings/mfa/mfa.py:210
+#: views/settings/mfa/register_user_mfa_key_view.py:73
 msgid "You already registered this key"
 msgstr "Sie haben diesen Schlüssel bereits registriert"
+
+#: views/settings/mfa/register_user_mfa_key_view.py:87
+msgid "The 2-factor authentication key \"{}\" was successfully registered."
+msgstr ""
+"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
+"registriert."
 
 #: views/settings/user_settings_view.py:92
 msgid "E-mail-address was successfully saved"
@@ -4511,55 +4532,29 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
-#~ msgid "Confirm my new password"
-#~ msgstr "Mein neues Passwort bestätigen"
-
-#~ msgid "key name"
-#~ msgstr "Schlüsselname"
-
-#~ msgid "Enter key name here"
-#~ msgstr "Schlüsselname hier eingeben"
-
-#~ msgid "Enter your password here"
-#~ msgstr "Ihr Passwort hier eingeben"
-
-#~ msgid "My User Settings"
-#~ msgstr "Meine Benutzereinstellungen"
-
-#~ msgid "My Language Preference"
-#~ msgstr "Meine Sprachauswahl"
-
-#~ msgid "My E-mail-address"
-#~ msgstr "Meine E-Mail Adresse"
-
-#~ msgid "My Password"
-#~ msgstr "Mein Passwort"
-
-#~ msgid ""
-#~ "Please make sure that you have at least one extra key available to log in "
-#~ "before removing this key."
-#~ msgstr ""
-#~ "Bitte stellen Sie sicher, dass ihnen mindestens einer der aktuell "
-#~ "registrierten Schlüssel vorliegen bevor Sie diesen Schlüssel entfernen."
-
-#~ msgid "The 2-factor authentication key \"{}\" was successfully deleted"
-#~ msgstr ""
-#~ "Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
-#~ "gelöscht."
-
-#~ msgid "The 2-factor authentication key \"{}\" was successfully registered."
-#~ msgstr ""
-#~ "Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
-#~ "registriert."
-
 #~ msgid "Superuser"
 #~ msgstr "Super-Administrator"
 
 #~ msgid "Choose new password"
 #~ msgstr "Neues Passwort festlegen"
 
+#~ msgid "User settings"
+#~ msgstr "Benutzereinstellungen"
+
+#~ msgid "Confirm your new password"
+#~ msgstr "Ihr neues Passwort bestätigen"
+
+#~ msgid "Remove the last key"
+#~ msgstr "Entfernung des letzten Schlüssels"
+
+#~ msgid "Remove key"
+#~ msgstr "Schlüssel entfernen"
+
 #~ msgid "Enter %(form.password.label)s here"
 #~ msgstr "%(form.password.label)s hier eingeben"
+
+#~ msgid "Integreat Logo"
+#~ msgstr "Integreat Logo"
 
 #~ msgid "Reload page"
 #~ msgstr "Seite neu laden"

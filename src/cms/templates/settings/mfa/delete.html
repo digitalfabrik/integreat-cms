@@ -1,42 +1,31 @@
-{% extends "_raw.html" %}
+{% extends "authentication/_base.html" %}
+
 {% load i18n %}
-{% block raw_content %}
 {% load static %}
 {% load widget_tweaks %}
-<div id="no-session" class="flex flex-wrap flex-col justify-center px-3 py-10">
-    <div class="mx-auto w-full max-w-xs">
-        <div class="mb-3" style="padding: 0 50px;">
-            <a href="/">
-                <img src="{% static 'images/integreat-logo.png' %}" alt="{% trans 'Integreat Logo' %}" class="w-full" />
-            </a>
-        </div>
-        <div class="add-mfa bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="mb-6">
-                    {% if last_key %}
-                        <h2 class="mb-4">{% trans 'Remove the last key' %}</h2>
-                        <p>{% trans 'This is your last key, once removed you will be able to log in without a second factor' %}</p>
-                    {% else %}
-                        <h2 class="mb-4">{% trans 'Remove key' %}</h2>
-                        <p>{% trans 'Once you remove the key you will need to use one of the other available keys to log into your account. Please make sure that you have at least one extra key available to log in before removing this key.' %}</p>
-                    {% endif %}
-                </div>
-                <div class="my-4">
-                    <p><b>Nickname: </b>{{ key.name }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-	                    {% trans 'Delete 2FA key' %}
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="mfa-not-supported bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 hidden">
-            <div class="mb-6">
-                <p>{% trans 'It seems like your browser does not support webauthn' %}</p>
+
+{% block heading %}
+    {% trans 'Delete 2FA key' %}
+{% endblock %}
+
+{% block content %}
+    <div class="add-mfa">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="my-4">
+                <p class="font-bold">{% trans 'Nickname' %}:</p>
+                <p>{{ key.name }}</p>
             </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="w-full text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+                    {% trans 'Delete 2FA key' %}
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="mfa-not-supported hidden">
+        <div class="mb-6">
+            <p>{% trans 'It seems like your browser does not support webauthn' %}</p>
         </div>
     </div>
-</div>
 {% endblock %}

@@ -23,7 +23,7 @@ admin_views = [
     "regions",
     "roles",
     "user_settings",
-    "user_settings_auth_modify_mfa",
+    "authenticate_modify_mfa",
     "users",
 ]
 

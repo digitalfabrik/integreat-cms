@@ -76,7 +76,7 @@ def modify_mfa_authenticated(function):
             "modify_mfa_authentication_time"
         ] < (time.time() - 5 * 60):
             request.session["mfa_redirect_url"] = request.path
-            return redirect("user_settings_auth_modify_mfa")
+            return redirect("authenticate_modify_mfa")
         return function(request, *args, **kwargs)
 
     return wrap

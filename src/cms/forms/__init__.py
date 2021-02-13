@@ -42,6 +42,7 @@ from .roles.role_form import RoleForm
 
 from .statistics.statistics_filter_form import StatisticsFilterForm
 
+from .users.authentication_form import AuthenticationForm
 from .users.region_user_form import RegionUserForm
 from .users.region_user_profile_form import RegionUserProfileForm
 from .users.user_email_form import UserEmailForm

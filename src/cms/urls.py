@@ -254,31 +254,40 @@ urlpatterns = [
         ),
     ),
     url(r"^settings/$", settings.AdminSettingsView.as_view(), name="admin_settings"),
-    url(r"^user_settings/$", settings.UserSettingsView.as_view(), name="user_settings"),
     url(
-        r"^user_settings/mfa/register/$",
-        settings.mfa.register_mfa_key,
-        name="user_settings_register_mfa_key",
-    ),
-    url(
-        r"^user_settings/mfa/delete/(?P<key_id>\d+)$",
-        settings.mfa.DeleteMfaKey.as_view(),
-        name="user_settings_delete_mfa_key",
-    ),
-    url(
-        r"^user_settings/mfa/get_challenge/$",
-        settings.mfa.GetChallengeView.as_view(),
-        name="user_settings_mfa_get_challenge",
-    ),
-    url(
-        r"^user_settings/add_new_mfa_key/$",
-        settings.mfa.AddMfaKeyView.as_view(),
-        name="user_settings_add_new_mfa_key",
-    ),
-    url(
-        r"^user_settings/authenticate_modify_mfa/$",
-        settings.mfa.AuthenticateModifyMfaView.as_view(),
-        name="user_settings_auth_modify_mfa",
+        r"^user_settings/",
+        include(
+            [
+                url(r"^$", settings.UserSettingsView.as_view(), name="user_settings"),
+                url(
+                    r"^mfa/",
+                    include(
+                        [
+                            url(
+                                r"^authenticate/$",
+                                settings.AuthenticateModifyMfaView.as_view(),
+                                name="authenticate_modify_mfa",
+                            ),
+                            url(
+                                r"^get_challenge/$",
+                                settings.GetMfaChallengeView.as_view(),
+                                name="get_mfa_challenge",
+                            ),
+                            url(
+                                r"^register/$",
+                                settings.RegisterUserMfaKeyView.as_view(),
+                                name="register_new_mfa_key",
+                            ),
+                            url(
+                                r"^delete/(?P<key_id>\d+)$",
+                                settings.DeleteUserMfaKeyView.as_view(),
+                                name="delete_mfa_key",
+                            ),
+                        ]
+                    ),
+                ),
+            ]
+        ),
     ),
     url(
         r"^login/",

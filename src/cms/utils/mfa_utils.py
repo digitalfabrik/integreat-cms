@@ -10,7 +10,7 @@ def generate_challenge(challenge_len):
     """
     This function generates a random challenge of the given length. It consists of ascii letters and digits.
 
-    Example usage: :class:`cms.views.settings.mfa.mfa.GetChallengeView`
+    Example usage: :class:`cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView`
 
     :param challenge_len: The desired length of the challenge
     :type challenge_len: int

@@ -113,14 +113,14 @@ else:
     #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__ (this is a setting in case the application runs behind a proxy).
     #: Used in the following views:
     #:
-    #: - :func:`~cms.views.settings.mfa.mfa.register_mfa_key`
+    #: - :class:`~cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
     #: - :class:`~cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
     BASE_URL = "http://localhost:8000"
     #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__ (this is a setting in case the application runs behind a proxy).
     #: Used in the following views:
     #:
-    #: - :class:`~cms.views.settings.mfa.mfa.GetChallengeView`
-    #: - :func:`~cms.views.settings.mfa.mfa.register_mfa_key`
+    #: - :class:`~cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView`
+    #: - :class:`~cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
     #: - :class:`~cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`
     #: - :class:`~cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
     HOSTNAME = "localhost"
