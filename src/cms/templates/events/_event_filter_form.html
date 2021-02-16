@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 {% load content_filters %}
 {% load poi_filters %}
+
 <form method="post">
     {% csrf_token %}
     {% get_current_language as LANGUAGE_CODE %}
@@ -67,17 +68,3 @@
                value="{% trans 'Apply filter' %}"/>
     </div>
 </form>
-
-{% block javascript %}
-    <script src="{% static 'js/events/event_query_pois.js' %}"></script>
-    <script src="{% static 'js/reset_filter.js' %}"></script>
-    <script>
-        // event handler to reset filter form
-        u('#filter-reset').on('click', (event) => {
-            // Manual reset implementation instead of just calling reset on the form is necessary
-            // because the form may be pre-populated with POST data
-            remove_poi();
-            reset_filter(event);
-        });
-    </script>
-{% endblock %}

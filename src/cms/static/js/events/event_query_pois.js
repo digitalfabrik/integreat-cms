@@ -46,6 +46,8 @@ function set_poi(event) {
     );
 }
 
+// event handler to reset filter form
+u('#filter-reset').on('click', remove_poi);
 function remove_poi() {
     render_poi_data(
         u('#poi-query-input').data('default-placeholder'),
