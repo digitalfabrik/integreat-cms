@@ -45,7 +45,7 @@ tinymce.init({
             ]}
     ],
     min_height: 400,
-    content_css : '{% static "css/tinymce_custom.css" %}',
+    content_css : tinymce_config.data("customcss-src"),
     language: tinymce_config.data("language"),
     setup: (editor) => {
         editor.ui.registry.addButton('notranslate',
