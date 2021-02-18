@@ -102,6 +102,24 @@ def can_publish_all_pages(user, page):
 
 
 @predicate
+def can_edit_or_publish_some_pages(user):
+    """
+    This predicate checks whether the given user can edit or publish at least some specific pages.
+
+    :param user: The user who's permission should be checked
+    :type user: ~django.contrib.auth.models.User
+
+    :return: Whether or not ``user`` can edit or publish some pages
+    :rtype: bool
+    """
+    if user.editable_pages.exists() or user.publishable_pages.exists():
+        return True
+    if user.profile.organization and user.profile.organization.pages.exists():
+        return True
+    return False
+
+
+@predicate
 def is_in_responsible_organization(user, page):
     """
     This predicate checks whether the given user is a member of the page's responsible organization.
@@ -143,6 +161,10 @@ def can_delete_chat_message(user, chat_message):
 
 # Permissions
 
+add_perm(
+    "cms.view_pages",
+    can_edit_or_publish_some_pages | can_edit_all_pages | can_publish_all_pages,
+)
 add_perm(
     "cms.edit_page",
     can_edit_all_pages

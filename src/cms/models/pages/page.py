@@ -176,7 +176,6 @@ class Page(MPTTModel, AbstractBasePage):
         default_permissions = ()
         #: The custom permissions for this model
         permissions = (
-            ("view_pages", "Can view pages"),
             ("edit_pages", "Can edit pages"),
             ("publish_pages", "Can publish pages"),
             ("grant_page_permissions", "Can grant page permissions"),
