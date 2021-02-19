@@ -48,8 +48,6 @@
                 </form>
             </div>
         </div>
-    </div>
-    <div class="w-full pr-2">
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white flex flex-wrap">
             <div class="w-full p-4 rounded bg-blue-500">
                 <h3 class="heading font-bold text-white">{% trans 'Two-Factor-Authentication' %}</h3>
@@ -89,6 +87,36 @@
                     {% trans "To make sure that you don't loose access to your account when you loose your FIDO2 key it is recommended to add multiple keys. Just make sure to keep at least one key at a secure place." %}
                 </div>
             </div>
+        </div>
+        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white flex flex-wrap">
+            <h3 class="w-full p-4 rounded bg-blue-500 heading font-bold text-white">
+                {% trans 'Language' %}
+            </h3>
+            <form action="{% url 'set_language' %}" method="post" class="flex flex-col w-full p-4">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <label for="language" class="font-bold p-2 mb-1 cursor-pointer mr-32">{% trans 'Choose language:' %}</label>
+                <div class="mb-2 pl-2">
+                    {% trans "This setting only affects this device." %}
+                </div>
+                <div class="relative">
+                    <select name="language" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for language_code, language_name in LANGUAGES %}
+                            <option value="{{ language_code }}"{% if language_code == LANGUAGE_CODE %} selected{% endif %}>
+                                {{ language_code|language_name_local }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                    </div>
+                </div>
+                <button type="submit" class="self-start bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-2 rounded inline-block">
+                    {% trans 'Change language' %}
+                </button>
+            </form>
         </div>
     </div>
 </div>
