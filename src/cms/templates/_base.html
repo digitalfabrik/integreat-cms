@@ -44,31 +44,6 @@
 	        {% endif %}
         </div>
     </div>
-    <div id="language-selector" class="relative flex flex-wrap flex-col justify-center px-4 cursor-pointer text-gray-800">
-        {% get_current_language as LANGUAGE_CODE %}
-        <div class="flex flex-wrap">
-            <div style="padding-top:6px;">
-                <img src="{% static '' %}/images/flags/{{ LANGUAGE_CODE }}.png" title="{{ LANGUAGE_CODE|language_name_local }}" />
-            </div>
-            <span class="mt-1 ml-2">
-	                {{ LANGUAGE_CODE|language_name_local }}
-	            </span>
-        </div>
-        <div id="language-selector-list" class="absolute shadow rounded-b">
-            {% get_available_languages as LANGUAGES %}
-            {% for language_code, language_name in LANGUAGES %}
-                {% if language_code != LANGUAGE_CODE %}
-                    <form id="i18n-{{ language_code }}" action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                        <input name="next" type="hidden" value="{{ redirect_to }}" />
-                        <input name="language" type="hidden" value="{{ language_code }}" />
-                        <a href="#" onclick="document.forms['i18n-{{ language_code }}'].submit();" class="block px-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
-                            {{ language_code|language_name_local }}
-                        </a>
-                    </form>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
     <div id="user-info" class="relative pl-2 pr-6 text-gray-800 flex flex-wrap flex-col justify-center cursor-pointer">
         <span class="relative block pr-6 font-bold mt-1">
 	        {{ request.user.profile.full_user_name }}
