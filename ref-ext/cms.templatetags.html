@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-11T23:17:18+00:00" />
+    <meta property="article:modified_time" content="2021-02-13T10:53:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Templatetags &mdash; integreat-cms 0.0.14 documentation</title>
@@ -414,6 +414,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#arithmetic">Arithmetic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#content-filters">Content Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#offer-filters">Offer Filters</a></li>
@@ -814,6 +815,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Templatetags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.arithmetic">Arithmetic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.content_filters">Content Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.offer_filters">Offer Filters</a></li>
@@ -1114,6 +1116,29 @@
 <p>Tags are used to provide arbitrary logic in the rendering process and are surrounded by <code class="docutils literal notranslate"><span class="pre">{%</span></code> and <code class="docutils literal notranslate"><span class="pre">%}</span></code>.
 Filters transform the values of variables and are surrounded by <code class="docutils literal notranslate"><span class="pre">{{</span></code> and <code class="docutils literal notranslate"><span class="pre">}}</span></code>.</p>
 <p>See <a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/" title="(in Django v2.2)"><span>Custom template tags and filters</span></a> for more information.</p>
+<div class="section" id="module-cms.templatetags.arithmetic">
+<span id="arithmetic"></span><h2>Arithmetic<a class="headerlink" href="#module-cms.templatetags.arithmetic" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="cms.templatetags.arithmetic.diff">
+<code class="sig-prename descclassname">cms.templatetags.arithmetic.</code><code class="sig-name descname">diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">arg</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/arithmetic.py#L6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.templatetags.arithmetic.diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>subtract arg from value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – origin value</p></li>
+<li><p><strong>arg</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – value to be subtracted</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>result of subtraction</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.templatetags.content_filters">
 <span id="content-filters"></span><h2>Content Filters<a class="headerlink" href="#module-cms.templatetags.content_filters" title="Permalink to this headline">¶</a></h2>
 <p>This is a collection of tags and filters which are useful for all content types (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>,
@@ -1468,7 +1493,7 @@ objects.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 11, 2021.
+        Last updated on Feb 13, 2021.
       </span>
 
     </p>
