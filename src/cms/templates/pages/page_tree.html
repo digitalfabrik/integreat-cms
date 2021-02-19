@@ -64,7 +64,7 @@
     <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto">
         <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"></th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Hierarchy' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min"><input type="checkbox" class="h-full" name="select_all_pages"></th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
@@ -173,6 +173,7 @@
 <script src="{% static 'js/confirmation-popups.js' %}"></script>
 <script src="{% static 'js/tree_drag_and_drop.js' %}"></script>
 <script src="{% static 'js/pages/page_bulk_actions.js' %}"></script>
+<script src="{% static 'js/pages/collapse-subpages.js' %}"></script>
 <script>
     // event handler to toggle filter form
     u('#filter-toggle').on('click', () => {
