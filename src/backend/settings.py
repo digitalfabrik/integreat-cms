@@ -528,6 +528,5 @@ THUMBNAIL_HIGH_RESOLUTION = True
 ##############
 
 #: Number of entries displayed per pagination chunk
-#: see :attr:`django-pagination:django.core.paginator.Paginator`
-
+#: see :class:`~django.core.paginator.Paginator`
 PER_PAGE = 16
