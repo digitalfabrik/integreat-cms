@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
+from backend.settings import PER_PAGE
 from ...decorators import staff_required
 from ...models import OfferTemplate
 
@@ -41,9 +43,12 @@ class OfferTemplateListView(PermissionRequiredMixin, TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
         offer_templates = OfferTemplate.objects.all()
-
+        # for consistent pagination querysets should be ordered
+        paginator = Paginator(offer_templates.order_by("slug"), PER_PAGE)
+        chunk = request.GET.get("chunk")
+        offer_templates_chunk = paginator.get_page(chunk)
         return render(
             request,
             self.template_name,
-            {**self.base_context, "offer_templates": offer_templates},
+            {**self.base_context, "offer_templates": offer_templates_chunk},
         )

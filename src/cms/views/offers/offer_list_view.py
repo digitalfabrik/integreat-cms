@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
+from backend.settings import PER_PAGE
 from ...decorators import region_permission_required
 from ...models import Region, OfferTemplate
 
@@ -43,13 +45,16 @@ class OfferListView(PermissionRequiredMixin, TemplateView):
         # current region
         region = Region.get_current_region(request)
         offer_templates = OfferTemplate.objects.all()
-
+        # for consistent pagination querysets should be ordered
+        paginator = Paginator(offer_templates.order_by("slug"), PER_PAGE)
+        chunk = request.GET.get("chunk")
+        offer_chunk = paginator.get_page(chunk)
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
-                "offer_templates": offer_templates,
+                "offer_templates": offer_chunk,
                 "region_offer_templates": offer_templates.filter(offers__region=region),
             },
         )

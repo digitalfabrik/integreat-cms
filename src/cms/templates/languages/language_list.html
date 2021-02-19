@@ -44,4 +44,6 @@
         </tbody>
     </table>
 </div>
+{% url "languages" as url %}
+{% include "pagination.html" with url=url chunk=languages %}
 {% endblock %}

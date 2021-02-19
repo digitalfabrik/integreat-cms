@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from backend.settings import PER_PAGE
 from ...decorators import staff_required
 from ...models import Language
 
@@ -40,8 +42,13 @@ class LanguageListView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
+        languages = Language.objects.all()
+        # for consistent pagination querysets should be ordered
+        paginator = Paginator(languages.order_by("code"), PER_PAGE)
+        chunk = request.GET.get("chunk")
+        language_chunk = paginator.get_page(chunk)
         return render(
             request,
             self.template_name,
-            {**self.base_context, "languages": Language.objects.all()},
+            {**self.base_context, "languages": language_chunk},
         )

@@ -16,6 +16,11 @@
         url('../fonts/raleway-v12-latin-regular.svg#Raleway') format('svg'); /* Legacy iOS */
 }
 
+@list-bg-color: white;
+@list-border-color: lightgray;
+@hover-bg-color: darken(@list-border-color, 20%);
+@active-bg-color: darken(@list-border-color, 10%);
+
 html, body {
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
@@ -496,6 +501,34 @@ to add animation */
         &.active {
             max-height: 2000px;
             opacity: 1;
+        }
+    }
+}
+
+/* styling for pagination links */
+.pagination {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 0.5rem;
+    .step-links {
+        display: flex;
+        a {
+            display: inline-block;
+            width: 40px;
+            text-align: center;
+            line-height: 25px;
+            border: 1px solid @list-border-color;
+            border-radius: 10%;
+            box-shadow: 1px 1px @list-border-color;
+            padding: 0.25rem;
+            margin: 0.125rem;
+            background-color: @list-bg-color;
+            &.active {
+                background-color: @active-bg-color;
+            }
+            &:hover {
+                background-color: @hover-bg-color;
+            }
         }
     }
 }

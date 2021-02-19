@@ -1,10 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from backend.settings import PER_PAGE
 from ...decorators import staff_required
 
 
@@ -42,7 +44,10 @@ class UserListView(PermissionRequiredMixin, TemplateView):
         """
 
         users = get_user_model().objects.all()
-
+        # for consistent pagination querysets should be ordered
+        paginator = Paginator(users.order_by("username"), PER_PAGE)
+        chunk = request.GET.get("chunk")
+        user_chunk = paginator.get_page(chunk)
         return render(
-            request, self.template_name, {**self.base_context, "users": users}
+            request, self.template_name, {**self.base_context, "users": user_chunk}
         )

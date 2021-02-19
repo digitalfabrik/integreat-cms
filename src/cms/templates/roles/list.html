@@ -38,4 +38,6 @@
         </tbody>
     </table>
 </div>
+{% url "roles" as url %}
+{% include "pagination.html" with url=url chunk=roles %}
 {% endblock %}
