@@ -10,6 +10,16 @@
     <div class="w-1/2 flex">
         <h2 class="heading font-normal mb-2">{% trans 'Feedback' %}</h2>
     </div>
+    <div class="w-1/2 flex justify-end">
+        <button id="filter-toggle"
+                class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+            <span class="filter-toggle-text">{% trans 'Show filters' %}</span>
+            <span class="filter-toggle-text hidden">{% trans 'Hide filters' %}</span>
+        </button>
+    </div>
+</div>
+<div id="filter-form-container" class="{% if not filter_form.has_changed %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    {% include 'feedback/_region_feedback_filter_form.html' %}
 </div>
 
 <form id="bulk-action-form" method="POST">
@@ -90,7 +100,11 @@
         {% empty %}
         <tr>
             <td colspan="9" class="px-2 py-3 text-center">
-                {% trans 'No feedback available yet.' %}
+                {% if filter_form.has_changed %}
+                    {% trans 'No feedback found with these filters.' %}
+                {% else %}
+                    {% trans 'No feedback available yet.' %}
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
@@ -120,4 +134,5 @@
 {% block javascript %}
 <script src="{% static 'js/feedback/toggle_feedback_comments.js' %}"></script>
 <script src="{% static 'js/bulk_actions.js' %}"></script>
+<script src="{% static 'js/filter_form.js' %}"></script>
 {% endblock %}

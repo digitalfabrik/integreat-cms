@@ -19,13 +19,13 @@ function reset_to_default_value(node) {
     if (u(node).is('[type=checkbox]')) {
         if (u(node).hasClass('default-checked')) {
             // Checkbox marked to be checked by default
-            u(node).first().checked = true;
+            node.checked = true;
         } else if (u(node).hasClass('default-not-checked')) {
             // Checkbox marked to be unchecked by default
-            u(node).first().checked = false;
+            node.checked = false;
         }
     } else if (u(node).hasClass('default-value')) {
         // Non-checkbox input marked to have a default value
-        u(node).first().value = u(node).data('default-value');
+        node.value = u(node).data('default-value');
     }
 }

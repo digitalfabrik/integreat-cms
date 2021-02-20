@@ -10,9 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 
 
 #: Only events which are all day long
-READ = True
+READ = "READ"
 #: Exclude events which are all day long
-UNREAD = False
+UNREAD = "UNREAD"
 
 #: Choices to use these constants in a database field
 CHOICES = [

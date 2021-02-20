@@ -32,8 +32,9 @@ msgid "Rural district"
 msgstr "Landkreis"
 
 #: constants/administrative_division.py:41
+#: forms/feedback/admin_feedback_filter_form.py:15
 #: templates/dashboard/admin_dashboard.html:32
-#: templates/feedback/admin_feedback_list.html:26
+#: templates/feedback/admin_feedback_list.html:36
 msgid "Region"
 msgstr "Region"
 
@@ -409,6 +410,65 @@ msgstr ""
 #: forms/events/recurrence_rule_form.py:130
 msgid "The recurrence end date has to be after the event's start date"
 msgstr "Das Ende der Wiederholung muss nach dem Veranstaltungsbeginn sein"
+
+#: forms/feedback/admin_feedback_filter_form.py:16
+msgid "All regions"
+msgstr "Alle Regionen"
+
+#: forms/feedback/region_feedback_filter_form.py:17
+#: templates/feedback/admin_feedback_list.html:32
+#: templates/feedback/region_feedback_list.html:32
+#: templates/language_tree/language_tree.html:31
+#: templates/settings/user.html:93
+msgid "Language"
+msgstr "Sprache"
+
+#: forms/feedback/region_feedback_filter_form.py:18
+msgid "All languages"
+msgstr "Alle Sprachen"
+
+#: forms/feedback/region_feedback_filter_form.py:22
+msgid "All categories"
+msgstr "Alle Kategorien"
+
+#: forms/feedback/region_feedback_filter_form.py:27
+#: templates/feedback/admin_feedback_list.html:30
+#: templates/feedback/region_feedback_list.html:30
+msgid "Category"
+msgstr "Kategorie"
+
+#: forms/feedback/region_feedback_filter_form.py:31
+#: templates/events/event_form.html:146 templates/events/event_list.html:65
+#: templates/events/event_list_archived.html:48
+#: templates/imprint/imprint_form.html:131
+#: templates/imprint/imprint_revisions.html:42
+#: templates/imprint/imprint_sbs.html:75 templates/imprint/imprint_sbs.html:138
+#: templates/imprint/imprint_sbs.html:153 templates/pages/page_form.html:162
+#: templates/pages/page_revisions.html:44 templates/pages/page_sbs.html:82
+#: templates/pages/page_sbs.html:149 templates/pages/page_sbs.html:154
+#: templates/pages/page_tree.html:71 templates/pages/page_tree_archived.html:26
+#: templates/pois/poi_form.html:135 templates/pois/poi_list.html:45
+#: templates/pois/poi_list_archived.html:28
+#: templates/regions/region_list.html:32
+msgid "Status"
+msgstr "Status"
+
+#: forms/feedback/region_feedback_filter_form.py:38
+#: templates/dashboard/admin_dashboard.html:31
+#: templates/feedback/admin_feedback_list.html:34
+#: templates/feedback/admin_feedback_list.html:35
+#: templates/feedback/region_feedback_list.html:34
+#: templates/feedback/region_feedback_list.html:35
+msgid "Rating"
+msgstr "Bewertung"
+
+#: forms/feedback/region_feedback_filter_form.py:45
+msgid "From"
+msgstr "Von"
+
+#: forms/feedback/region_feedback_filter_form.py:53
+msgid "To"
+msgstr "Bis"
 
 #: forms/language_tree/language_tree_node_form.py:112
 msgid ""
@@ -1775,28 +1835,20 @@ msgid "The five most recent entries are listed."
 msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
 
 #: templates/dashboard/admin_dashboard.html:29
-#: templates/feedback/admin_feedback_list.html:21
-#: templates/feedback/region_feedback_list.html:21
+#: templates/feedback/admin_feedback_list.html:31
+#: templates/feedback/region_feedback_list.html:31
 msgid "Feedback on"
 msgstr "Feedback zu"
 
 #: templates/dashboard/admin_dashboard.html:30
-#: templates/feedback/admin_feedback_list.html:23
-#: templates/feedback/region_feedback_list.html:23
+#: templates/feedback/admin_feedback_list.html:33
+#: templates/feedback/region_feedback_list.html:33
 msgid "Comment"
 msgstr "Kommentar"
 
-#: templates/dashboard/admin_dashboard.html:31
-#: templates/feedback/admin_feedback_list.html:24
-#: templates/feedback/admin_feedback_list.html:25
-#: templates/feedback/region_feedback_list.html:24
-#: templates/feedback/region_feedback_list.html:25
-msgid "Rating"
-msgstr "Bewertung"
-
 #: templates/dashboard/admin_dashboard.html:33
-#: templates/feedback/admin_feedback_list.html:28
-#: templates/feedback/region_feedback_list.html:27
+#: templates/feedback/admin_feedback_list.html:38
+#: templates/feedback/region_feedback_list.html:37
 #: templates/media/media_list.html:23
 msgid "Date"
 msgstr "Datum"
@@ -1873,11 +1925,15 @@ msgid "All day events"
 msgstr "Ganztägige Veranstaltungen"
 
 #: templates/events/_event_filter_form.html:65
+#: templates/feedback/_admin_feedback_filter_form.html:59
+#: templates/feedback/_region_feedback_filter_form.html:52
 #: templates/pages/_page_filter_form.html:18
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
 #: templates/events/_event_filter_form.html:68
+#: templates/feedback/_admin_feedback_filter_form.html:62
+#: templates/feedback/_region_feedback_filter_form.html:54
 #: templates/pages/_page_filter_form.html:21
 msgid "Apply filter"
 msgstr "Filter anwenden"
@@ -1945,21 +2001,6 @@ msgstr "Übersetzung erstellen"
 #: templates/pois/poi_list_archived.html:27
 msgid "Version"
 msgstr "Version"
-
-#: templates/events/event_form.html:146 templates/events/event_list.html:65
-#: templates/events/event_list_archived.html:48
-#: templates/imprint/imprint_form.html:131
-#: templates/imprint/imprint_revisions.html:42
-#: templates/imprint/imprint_sbs.html:75 templates/imprint/imprint_sbs.html:138
-#: templates/imprint/imprint_sbs.html:153 templates/pages/page_form.html:162
-#: templates/pages/page_revisions.html:44 templates/pages/page_sbs.html:82
-#: templates/pages/page_sbs.html:149 templates/pages/page_sbs.html:154
-#: templates/pages/page_tree.html:71 templates/pages/page_tree_archived.html:26
-#: templates/pois/poi_form.html:135 templates/pois/poi_list.html:45
-#: templates/pois/poi_list_archived.html:28
-#: templates/regions/region_list.html:32
-msgid "Status"
-msgstr "Status"
 
 #: templates/events/event_form.html:166 templates/imprint/imprint_form.html:148
 #: templates/imprint/imprint_sbs.html:164 templates/pages/page_form.html:206
@@ -2158,70 +2199,83 @@ msgstr "Nicht festgelegt"
 msgid "Edit event"
 msgstr "Veranstaltung bearbeiten"
 
+#: templates/feedback/_admin_feedback_filter_form.html:37
+#: templates/feedback/_region_feedback_filter_form.html:30
+msgid "Time range"
+msgstr "Zeitraum"
+
 #: templates/feedback/admin_feedback_list.html:11
 msgid "Technical Feedback"
 msgstr "Technisches Feedback"
 
-#: templates/feedback/admin_feedback_list.html:19
-#: templates/feedback/region_feedback_list.html:19
+#: templates/feedback/admin_feedback_list.html:16
+#: templates/feedback/region_feedback_list.html:16
+#: templates/pages/page_tree.html:41
+msgid "Show filters"
+msgstr "Filter einblenden"
+
+#: templates/feedback/admin_feedback_list.html:17
+#: templates/feedback/region_feedback_list.html:17
+#: templates/pages/page_tree.html:42
+msgid "Hide filters"
+msgstr "Filter ausblenden"
+
+#: templates/feedback/admin_feedback_list.html:29
+#: templates/feedback/region_feedback_list.html:29
 msgid "Select all"
 msgstr "Alle auswählen"
 
-#: templates/feedback/admin_feedback_list.html:20
-#: templates/feedback/region_feedback_list.html:20
-msgid "Category"
-msgstr "Kategorie"
-
-#: templates/feedback/admin_feedback_list.html:22
-#: templates/feedback/region_feedback_list.html:22
-#: templates/language_tree/language_tree.html:31
-#: templates/settings/user.html:93
-msgid "Language"
-msgstr "Sprache"
-
-#: templates/feedback/admin_feedback_list.html:25
-#: templates/feedback/region_feedback_list.html:25
+#: templates/feedback/admin_feedback_list.html:35
+#: templates/feedback/region_feedback_list.html:35
 msgid "overall"
 msgstr "insgesamt"
 
-#: templates/feedback/admin_feedback_list.html:27
-#: templates/feedback/region_feedback_list.html:26
+#: templates/feedback/admin_feedback_list.html:37
+#: templates/feedback/region_feedback_list.html:36
 msgid "Marked as read by"
 msgstr "Als gelesen markiert von"
 
-#: templates/feedback/admin_feedback_list.html:99
+#: templates/feedback/admin_feedback_list.html:110
+msgid "No technical feedback found with these filters."
+msgstr "Kein technisches Feedback mit diesen Filtern gefunden."
+
+#: templates/feedback/admin_feedback_list.html:112
 msgid "No technical feedback available yet."
 msgstr "Noch kein technisches Feedback vorhanden."
 
-#: templates/feedback/admin_feedback_list.html:109
-#: templates/feedback/region_feedback_list.html:103
+#: templates/feedback/admin_feedback_list.html:123
+#: templates/feedback/region_feedback_list.html:117
 #: templates/pages/page_tree.html:121
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
-#: templates/feedback/admin_feedback_list.html:110
-#: templates/feedback/region_feedback_list.html:104
+#: templates/feedback/admin_feedback_list.html:124
+#: templates/feedback/region_feedback_list.html:118
 msgid "Mark as read"
 msgstr "Als gelesen markieren"
 
-#: templates/feedback/admin_feedback_list.html:111
-#: templates/feedback/region_feedback_list.html:105
+#: templates/feedback/admin_feedback_list.html:125
+#: templates/feedback/region_feedback_list.html:119
 msgid "Mark as unread"
 msgstr "Als ungelesen markieren"
 
-#: templates/feedback/admin_feedback_list.html:113
-#: templates/feedback/region_feedback_list.html:107
+#: templates/feedback/admin_feedback_list.html:127
+#: templates/feedback/region_feedback_list.html:121
 #: templates/language_tree/language_tree.html:33
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/feedback/admin_feedback_list.html:120
-#: templates/feedback/region_feedback_list.html:114
+#: templates/feedback/admin_feedback_list.html:134
+#: templates/feedback/region_feedback_list.html:128
 #: templates/pages/page_tree.html:136
 msgid "Execute"
 msgstr "Ausführen"
 
-#: templates/feedback/region_feedback_list.html:93
+#: templates/feedback/region_feedback_list.html:104
+msgid "No feedback found with these filters."
+msgstr "Kein Feedback mit diesen Filtern gefunden."
+
+#: templates/feedback/region_feedback_list.html:106
 msgid "No feedback available yet."
 msgstr "Noch kein Feedback vorhanden."
 
@@ -2800,14 +2854,6 @@ msgstr ""
 #: templates/pages/page_tree.html:22
 msgid "Archived pages"
 msgstr "Archivierte Seiten"
-
-#: templates/pages/page_tree.html:41
-msgid "Show filters"
-msgstr "Filter einblenden"
-
-#: templates/pages/page_tree.html:42
-msgid "Hide filters"
-msgstr "Filter ausblenden"
 
 #: templates/pages/page_tree.html:52
 msgid "You can only create pages in the default language"
@@ -4203,29 +4249,8 @@ msgstr ""
 #~ msgid "Integreat Backend"
 #~ msgstr "Integreat CMS"
 
-#~ msgid "All regions"
-#~ msgstr "Alle Regionen"
-
-#~ msgid "All languages"
-#~ msgstr "Alle Sprachen"
-
-#~ msgid "All categories"
-#~ msgstr "Alle Kategorien"
-
-#~ msgid "From"
-#~ msgstr "Von"
-
-#~ msgid "To"
-#~ msgstr "Bis"
-
 #~ msgid "location feedback"
 #~ msgstr "Orts-Feedback"
-
-#~ msgid "No technical feedback found with these filters."
-#~ msgstr "Kein technisches Feedback mit diesen Filtern gefunden."
-
-#~ msgid "No feedback found with these filters."
-#~ msgstr "Kein Feedback mit diesen Filtern gefunden."
 
 #~ msgid "PDF Export"
 #~ msgstr "PDF Export"
