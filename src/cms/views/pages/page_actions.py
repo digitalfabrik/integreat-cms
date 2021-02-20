@@ -238,7 +238,7 @@ def export_pdf(request, region_slug, language_code):
     """
     region = Region.get_current_region(request)
     # retrieve the selected page ids
-    page_ids = request.GET.get("pages").split(",")
+    page_ids = request.POST.getlist("selected_ids[]")
     # collect the corresponding page objects
     pages = region.pages.filter(explicitly_archived=False, id__in=page_ids)
     # generate PDF document wrapped in a HtmlResponse object
@@ -285,22 +285,20 @@ def download_xliff(request, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
+    :param language_code: The code of the target language
     :type language_code: str
 
     :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    page_ids = []
-    for page_id in request.GET.get("pages").split(","):
-        if page_id.isnumeric():
-            page_ids.append(int(page_id))
+    page_ids = request.POST.getlist("selected_ids[]")
+
     if page_ids:
         region = Region.get_current_region(request)
         pages = get_list_or_404(region.pages, id__in=page_ids)
         target_language = get_object_or_404(
-            region.language_tree_nodes, language__code=request.GET.get("target_lang")
+            region.language_tree_nodes, language__code=language_code
         ).language
         source_language = get_object_or_404(
             region.language_tree_nodes, language=target_language

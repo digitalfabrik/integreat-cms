@@ -4,7 +4,10 @@
 {% load tree_filters %}
 <tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
 <tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child{% if page.depth > 0 %} level-{{page.depth}}{% endif %}">
-    <td class="single_icon whitespace-nowrap">
+    <td class="pl-4">
+        <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
+    </td>
+    <td class="hierarchy single_icon whitespace-nowrap">
         <span data-drag-id="{{ page.id }}"
               data-node-descendants="{{ page|get_descendants }}"
               class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 inline-block pl-4 align-middle"
@@ -24,9 +27,6 @@
                 <i data-feather="chevron-down"></i>
             </span>
         {% endif %}
-    </td>
-    <td class="pl-2">
-        <input type="checkbox" name="page_selected" value="{{ page.id }}">
     </td>
     <td>
         <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
@@ -68,7 +68,7 @@
             </td>
         {% endif %}
     {% endif %}
-    <td class="whitespace-no-wrap">
+    <td class="whitespace-nowrap">
         <div class="block py-3 px-2 text-gray-800">
             <div class="lang-grid">
                 {% for other_language in languages %}

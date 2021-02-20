@@ -37,8 +37,9 @@
         <div class="w-1/2 flex flex-wrap justify-end">
             {% if request.user.profile.expert_mode %}
             <button id="filter-toggle"
-                    class="bg-gray-500 hover:bg-gray-600 text-gray-800 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
-                {% trans 'Filter pages' %}
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+                <span class="filter-toggle-text">{% trans 'Show filters' %}</span>
+                <span class="filter-toggle-text hidden">{% trans 'Hide filters' %}</span>
             </button>
             {% endif %}
             {% has_perm 'cms.edit_page' request.user as can_edit_pages %}
@@ -60,12 +61,13 @@
     {% include 'pages/_page_filter_form.html' %}
 </div>
 
-<div class="table-listing">
+<form method="POST" id="bulk-action-form" class="table-listing">
+    {% csrf_token %}
     <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto">
         <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Hierarchy' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min"><input type="checkbox" class="h-full" name="select_all_pages"></th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"><input type="checkbox" class="h-full" id="bulk-select-all"></th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min">{% trans 'Hierarchy' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
@@ -77,7 +79,7 @@
                     {% endif %}
                 {% endif %}
                 <th class="text-sm text-left uppercase py-3 px-2">
-                    <div class="lang-grid flags whitespace-no-wrap">
+                    <div class="lang-grid flags whitespace-nowrap">
                         {% for lang in languages %}
                             <a href="{% url 'pages' region_slug=region.slug language_code=lang.code %}">
                                 <span title="{{ lang.translated_name }}"><img src="{% static '' %}images/flags/{{ lang.code }}.png" /></span>
@@ -112,59 +114,46 @@
         {% endif %}
         </tbody>
     </table>
-</div>
-<div class="table-footer">
-    <div class="flex flex-wrap" style="padding-top: 0.6em;">
-        <div class="flex-wrap relative w-1/2">
-            <form class="table-search relative flex flex-wrap h-full">
-                <div class="pl-3" style="padding-top: 0.4em;">
-                    {% trans 'Bulk actions' %}
-                </div>
-                <div class="pl-3">
-                    <select class="h-full pl-4 pr-4 rounded shadow" style="padding-top: 5px;" name="bulk_action" id="bulk_action">
-                        <option>{% trans 'Please select' %}</option>
-                        <option value="archive_pages">{% trans 'Archive pages' %}
-                        {% if request.user.profile.expert_mode %}
-                            {% for lang in languages %}
-                            {% if lang != region.default_language %}
-                            <option value="{{ lang.code }}">{% trans 'Export XLIFF for translation to' %} {{ lang.translated_name }}</option>
+    <div class="flex flex-wrap mt-5">
+        <div class="flex-wrap relative">
+            <div class="relative w-auto inline-block">
+                <select id="bulk-action" class="block appearance-none bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
+                    <option>{% trans 'Select bulk action' %}</option>
+                    <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
+                    <option data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_code=language.code %}" data-target="_blank">{% trans 'Export as PDF' %}</option>
+                    {% if request.user.profile.expert_mode %}
+                        {% for target_language in languages %}
+                            {% if target_language != region.default_language %}
+                                <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_code=target_language.code %}">{% trans 'Export XLIFF for translation to' %} {{ target_language.translated_name }}</option>
                             {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                        <option value="pdf_export">{% trans 'Export as PDF' %}</option>
-                    </select>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                    <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                 </div>
-                <div class="pl-3">
-                    <input id="bulk_action_btn" type="button" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-2 px-4 rounded" value="{% trans 'Execute' %}" />
-                    <input type="hidden" id="bulk_action_url" value="{% url 'download_xliff' region_slug=region.slug language_code=language.code%}">
-                    <input type="hidden" id="pdf_export_url" value="{% url 'export_pdf' region_slug=region.slug language_code=language.code %}"> 
-                    <div id="ajax_url" class="hidden" data-url="{% url 'post_translation_state_ajax' region_slug=region.slug %}"></div>
-                </div>
-            </form>
-        </div>
-        {% if request.user.profile.expert_mode %}
-            <div class="flex-wrap relative w-1/2">
-                <form class="table-search relative flex flex-wrap h-full" method="post" enctype="multipart/form-data"
-                    action="{% url 'upload_xliff' region_slug=region.slug language_code=language.code%}">
-                    <div class="pl-3" style="padding-top: 0.4em;">
-                        {% trans 'Upload XLIFF File' %}
-                    </div>
-                <div class="pl-3">
-                        <i data-feather="upload" class="absolute"></i>
-                        <input type="file" name="xliff_file" class="h-full pl-10 pr-4 rounded shadow" style="padding-top: 5px;">
-                        {% csrf_token %}
-                    </div>
-                    <div class="pl-3">
-                        <input type="submit"
-                        class="inline-block cursor-pointer bg-blue-500
-                        hover:bg-blue-600 text-white h-full
-                        font-bold py-2 px-4 rounded" value="{% trans 'Upload' %}" />
-                    </div>
-                </form>
             </div>
-        {% endif %}
+            <input id="bulk-action-execute" type="submit" class="inline-block bg-gray-500 cursor-not-allowed h-full text-white font-bold py-2 px-4 ml-2 rounded" value="{% trans 'Execute' %}" />
+        </div>
     </div>
+</form>
+{% if request.user.profile.expert_mode %}
+<div class="flex-wrap relative w-auto mt-4">
+    <h3 class="font-bold">{% trans 'Upload XLIFF File' %}</h3>
+    <form class="table-search relative flex flex-wrap h-full mt-2" method="post" enctype="multipart/form-data"
+          action="{% url 'upload_xliff' region_slug=region.slug language_code=language.code %}">
+        <i data-feather="upload" class="absolute m-2"></i>
+        <input type="file" name="xliff_file" class="h-full p-2 pl-10 rounded shadow bg-white block">
+        {% csrf_token %}
+        <div class="pl-3">
+            <input type="submit"
+                   class="inline-block cursor-pointer bg-blue-500
+            hover:bg-blue-600 text-white h-full
+            font-bold py-2 px-4 rounded" value="{% trans 'Upload' %}" />
+        </div>
+    </form>
 </div>
+{% endif %}
 
 {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}
@@ -172,7 +161,7 @@
 {% block javascript %}
 <script src="{% static 'js/confirmation-popups.js' %}"></script>
 <script src="{% static 'js/tree_drag_and_drop.js' %}"></script>
-<script src="{% static 'js/pages/page_bulk_actions.js' %}"></script>
 <script src="{% static 'js/pages/collapse-subpages.js' %}"></script>
+<script src="{% static 'js/bulk_actions.js' %}"></script>
 <script src="{% static 'js/filter_form.js' %}"></script>
 {% endblock %}

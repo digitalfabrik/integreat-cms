@@ -22,9 +22,7 @@
     <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
         <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"></th>
-                <th class="text-sm text-left uppercase py-3 pr-2 min">{% trans 'ID' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2 min">{% trans 'Version' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Hierarchy' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
@@ -36,7 +34,7 @@
                     {% endif %}
                 {% endif %}
                 <th class="text-sm text-left uppercase py-3 px-2">
-                    <div class="lang-grid flags whitespace-no-wrap">
+                    <div class="lang-grid flags whitespace-nowrap">
                         {% for lang in languages %}
                             <a href="{% url 'pages' region_slug=region.slug language_code=lang.code %}">
                                 <span title="{{ lang.translated_name }}"><img src="{% static '' %}images/flags/{{ lang.code }}.png" /></span>
@@ -58,7 +56,7 @@
             {% endrecursetree %}
         {% else %}
             <tr>
-                <td colspan="2" class="px-4 py-3">
+                <td colspan="7" class="px-4 py-3">
 	                {% trans 'No pages archived yet.' %}
                 </td>
             </tr>

@@ -2,20 +2,10 @@
 {% load content_filters %}
 {% load page_filters %}
 <tr class="border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
-    <td class="single_icon">
-        <span class="text-gray-800 block py-3 pl-4 pr-2">
+    <td class="hierarchy single_icon">
+        <span class="text-gray-800 block py-3 pl-4 pr-2" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
             <i data-feather="move"></i>
         </span>
-    </td>
-    <td class="pl-2">
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
-            {{ page.id }}
-        </a>
-    </td>
-    <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
-            {{ page_translation.version }}
-        </a>
     </td>
     <td>
         {% if page.explicitly_archived %}
@@ -54,7 +44,7 @@
             </td>
         {% endif %}
     {% endif %}
-    <td class="whitespace-no-wrap">
+    <td class="whitespace-nowrap">
         <div class="block py-3 px-2 text-gray-800">
             <div class="lang-grid">
                 {% for other_language in languages %}
@@ -91,7 +81,7 @@
             <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
         {% if page.explicitly_archived %}
-            <button title="{% trans 'Restore page' %}" class="confirmation-button py-3 pl-4"
+            <button title="{% trans 'Restore page' %}" class="confirmation-button py-3 pl-2"
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
                     data-confirmation-subject="{{ page.best_language_title }}"
@@ -109,7 +99,7 @@
                     <i data-feather="trash-2" class="inline-block text-gray-400"></i>
                 </button>
             {% else %}
-                <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 pl-4"
+                <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 pl-2"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ page.best_language_title }}"
