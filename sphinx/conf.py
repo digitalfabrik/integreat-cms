@@ -107,6 +107,7 @@ nitpick_ignore = [
     ("py:attr", "django.contrib.auth.models.User.profile"),
     ("py:attr", "django.contrib.auth.models.User.mfa_keys"),
     ("py:attr", "django.contrib.auth.models.User.editable_pages"),
+    ("py:attr", "django.contrib.auth.models.User.feedback"),
     ("py:attr", "django.contrib.auth.models.User.publishable_pages"),
     ("py:attr", "django.contrib.auth.models.User.page_translations"),
     ("py:attr", "django.contrib.auth.models.User.event_translations"),

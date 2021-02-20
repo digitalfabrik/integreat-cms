@@ -117,19 +117,21 @@ class AbstractBasePage(models.Model):
             status=status.PUBLIC,
         ).first()
 
-    def best_language_title(self):
+    @property
+    def backend_translation(self):
         """
-        This function tries to determine which title to be used for a page. The first priority is the current backend
-        language. If no translation is present in this language, the fallback is the region's default language.
+        This function tries to determine which translation to be used for showing a page in the backend.
+        The first priority is the current backend language.
+        If no translation is present in this language, the fallback is the region's default language.
 
-        :return: The "best" title for showing pages in the backend
-        :rtype: str
+        :return: The "best" translation of a page for displaying in the backend
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
         page_translation = self.translations.filter(language__code=get_language())
-        if not page_translation:
+        if not page_translation.exists():
             alt_code = self.region.default_language.code
             page_translation = self.translations.filter(language__code=alt_code)
-        return page_translation.first().title
+        return page_translation.first()
 
     def __str__(self):
         """

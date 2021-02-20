@@ -3,9 +3,9 @@
 {% load rules %}
 
 {% for message in chat_messages %}
-<div class="chat-message p-2 {% if not forloop.last or not chat_form %}border-t border-gray-400{% endif %} {% if chat_last_visited < message.sent_datetime %}bg-yellow-200{% endif %}">
+<div class="chat-message p-2 {% if not forloop.last or not chat_form %}border-t border-gray-400{% endif %} {% if chat_last_visited < message.sent_datetime %}bg-yellow-100 border-l-4 border-yellow-400{% endif %}" style="padding-left: {% if not chat_last_visited < message.sent_datetime %}10{% else %}8{% endif %}px;">
     {% if message.sender.is_superuser or message.sender.is_staff %}
-    <img class="inline-block h-4 align-top" src="{% static 'images/favicon.ico' %}"/>
+    <img class="inline-block h-5 pt-1 align-top" src="{% static 'images/favicon.ico' %}"/>
     {% endif %}
     <span class="font-bold">
         {{ message.sender.profile.full_user_name }}

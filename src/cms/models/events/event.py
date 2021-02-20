@@ -2,7 +2,7 @@ from datetime import datetime, time, date
 from dateutil.rrule import weekday, rrule
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language, ugettext_lazy as _
 
 from .recurrence_rule import RecurrenceRule
 from ..pois.poi import POI
@@ -190,6 +190,22 @@ class Event(models.Model):
             language__code=language_code,
             status=status.PUBLIC,
         ).first()
+
+    @property
+    def backend_translation(self):
+        """
+        This function tries to determine which translation to be used for showing an event in the backend.
+        The first priority is the current backend language.
+        If no translation is present in this language, the fallback is the region's default language.
+
+        :return: The "best" translation of an event for displaying in the backend
+        :rtype: ~cms.models.events.event_translation.EventTranslation
+        """
+        event_translation = self.translations.filter(language__code=get_language())
+        if not event_translation.exists():
+            alt_code = self.region.default_language.code
+            event_translation = self.translations.filter(language__code=alt_code)
+        return event_translation.first()
 
     class Meta:
         #: The verbose name of the model

@@ -19,7 +19,7 @@
                                 <i data-feather="move"></i>
                             </span>
                         </td>
-                        <td id="page_title" data-default-title="{{ node.best_language_title }}">{{ node.best_language_title }}</td>
+                        <td id="page_title" data-default-title="{{ node.backend_translation.title }}">{{ node.backend_translation.title }}</td>
                     </tr>
                 {% else %}
                     {% if page and node.get_previous_sibling == page %}
@@ -29,7 +29,7 @@
                     {% endif %}
                     <tr class="border border-gray-200 hover:bg-gray-100">
                         <td></td>
-                        <td>{{ node.best_language_title }}</td>
+                        <td>{{ node.backend_translation.title }}</td>
                     </tr>
                     {% if not node.get_next_sibling %}
                         {% if not page in node.get_siblings %}
@@ -57,7 +57,7 @@
                                 <i data-feather="move"></i>
                             </span>
                         </td>
-                        <td id="page_title" data-default-title="{{ page.best_language_title }}">{{ page.best_language_title }}</td>
+                        <td id="page_title" data-default-title="{{ page.backend_translation.title }}">{{ page.backend_translation.title }}</td>
                     </tr>
                 {% endif %}
             {% endif %}

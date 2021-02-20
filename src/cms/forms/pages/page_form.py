@@ -136,7 +136,7 @@ class MirrorPageField(forms.ModelChoiceField):
         label = " &rarr; ".join(
             [
                 # escape page title because string is marked as safe afterwards
-                escape(page_iter.best_language_title())
+                escape(page_iter.backend_translation.title)
                 for page_iter in page.get_ancestors(include_self=True)
             ]
         )

@@ -6,7 +6,7 @@ from django.http import JsonResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 
 from cms.models import Region, Language
-from cms.constants import feedback_emotions
+from cms.constants import feedback_ratings
 
 
 def feedback_handler(func):
@@ -27,8 +27,10 @@ def feedback_handler(func):
 
         :param request: Django request
         :type request: ~django.http.HttpRequest
+
         :param region_slug: slug of a region
         :type region_slug: str
+
         :param language_code: code of a language
         :type language_code: str
 
@@ -63,13 +65,13 @@ def feedback_handler(func):
                 {"error": "Either comment or rating is required."}, status=400
             )
         if rating == "up":
-            emotion = feedback_emotions.POS
+            rating_normalized = feedback_ratings.POSITIVE
         elif rating == "down":
-            emotion = feedback_emotions.NEG
+            rating_normalized = feedback_ratings.NEGATIVE
         else:
-            emotion = feedback_emotions.NA
+            rating_normalized = feedback_ratings.NOT_STATED
         is_technical = category == "Technisches Feedback"
-        return func(data, region, language, comment, emotion, is_technical)
+        return func(data, region, language, comment, rating_normalized, is_technical)
 
     return handle_feedback
 

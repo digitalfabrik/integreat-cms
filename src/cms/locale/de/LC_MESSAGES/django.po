@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-25 17:13+0000\n"
+"POT-Creation-Date: 2021-02-25 17:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -32,8 +32,8 @@ msgid "Rural district"
 msgstr "Landkreis"
 
 #: constants/administrative_division.py:41
-#: templates/feedback/admin_feedback_list.html:113
-#: templates/feedback/region_feedback_list.html:110
+#: templates/dashboard/admin_dashboard.html:32
+#: templates/feedback/admin_feedback_list.html:23
 msgid "Region"
 msgstr "Region"
 
@@ -85,17 +85,25 @@ msgstr "Ganztägige Veranstaltungen"
 msgid "Not all day long events"
 msgstr "Nicht ganztägige Veranstaltungen"
 
-#: constants/feedback_emotions.py:16
+#: constants/feedback_ratings.py:18 constants/feedback_ratings.py:25
 msgid "Positive"
 msgstr "Positiv"
 
-#: constants/feedback_emotions.py:17
+#: constants/feedback_ratings.py:19 constants/feedback_ratings.py:26
 msgid "Negative"
 msgstr "Negativ"
 
-#: constants/feedback_emotions.py:18
-msgid "Not Available"
-msgstr "Nicht verfügbar"
+#: constants/feedback_ratings.py:20 constants/feedback_ratings.py:27
+msgid "Not stated"
+msgstr "Nicht angegeben"
+
+#: constants/feedback_read_status.py:19
+msgid "Read"
+msgstr "Gelesen"
+
+#: constants/feedback_read_status.py:20
+msgid "Unread"
+msgstr "Ungelesen"
 
 #: constants/frequency.py:19
 msgid "Daily"
@@ -471,7 +479,7 @@ msgid "value"
 msgstr "Wert"
 
 #: models/config/configuration.py:19 models/events/event_translation.py:75
-#: models/feedback/feedback.py:39 models/languages/language.py:40
+#: models/feedback/feedback.py:58 models/languages/language.py:40
 #: models/languages/language_tree_node.py:48 models/offers/offer.py:34
 #: models/offers/offer_template.py:57 models/pages/abstract_base_page.py:19
 #: models/pages/abstract_base_page_translation.py:46
@@ -484,9 +492,9 @@ msgid "creation date"
 msgstr "Erstellungsdatum"
 
 #: models/config/configuration.py:23 models/events/event_translation.py:79
-#: models/feedback/feedback.py:43 models/languages/language.py:44
-#: models/languages/language_tree_node.py:52 models/offers/offer.py:37
-#: models/offers/offer_template.py:61 models/pages/abstract_base_page.py:22
+#: models/languages/language.py:44 models/languages/language_tree_node.py:52
+#: models/offers/offer.py:37 models/offers/offer_template.py:61
+#: models/pages/abstract_base_page.py:22
 #: models/pages/abstract_base_page_translation.py:50
 #: models/pois/poi_translation.py:75
 #: models/push_notifications/push_notification.py:45
@@ -503,12 +511,7 @@ msgstr "Einstellung"
 msgid "configurations"
 msgstr "Einstellungen"
 
-#: models/events/event.py:23 models/feedback/event_list_feedback.py:17
-#: models/feedback/imprint_page_feedback.py:17
-#: models/feedback/offer_feedback.py:24
-#: models/feedback/offer_list_feedback.py:17
-#: models/feedback/region_feedback.py:17
-#: models/feedback/search_result_feedback.py:18
+#: models/events/event.py:23 models/feedback/feedback.py:22
 #: models/languages/language_tree_node.py:37 models/offers/offer.py:24
 #: models/pages/imprint_page.py:27 models/pages/page.py:40
 #: models/pois/poi.py:18 models/push_notifications/push_notification.py:17
@@ -550,11 +553,11 @@ msgstr "Vorschaubild"
 msgid "archived"
 msgstr "archiviert"
 
-#: models/events/event.py:196 models/events/event_translation.py:23
+#: models/events/event.py:212 models/events/event_translation.py:23
 msgid "event"
 msgstr "Veranstaltung"
 
-#: models/events/event.py:198
+#: models/events/event.py:214
 msgid "events"
 msgstr "Veranstaltungen"
 
@@ -597,7 +600,7 @@ msgstr "Titel"
 msgid "description"
 msgstr "Beschreibung"
 
-#: models/events/event_translation.py:49 models/feedback/feedback.py:17
+#: models/events/event_translation.py:49 models/feedback/feedback.py:28
 #: models/languages/language.py:77 models/languages/language_tree_node.py:23
 #: models/pages/imprint_page_translation.py:32
 #: models/pages/page_translation.py:44 models/pois/poi_translation.py:52
@@ -647,7 +650,7 @@ msgstr ""
 msgid "creator"
 msgstr "Ersteller"
 
-#: models/events/event_translation.py:303 models/feedback/event_feedback.py:17
+#: models/events/event_translation.py:303 models/feedback/event_feedback.py:18
 msgid "event translation"
 msgstr "Veranstaltungs-Übersetzung"
 
@@ -723,49 +726,61 @@ msgstr ""
 msgid "recurrence rules"
 msgstr "Wiederholungs-Regeln"
 
-#: models/feedback/event_feedback.py:22 models/feedback/event_feedback.py:24
+#: models/feedback/event_feedback.py:64 models/feedback/event_feedback.py:66
 msgid "event feedback"
 msgstr "Veranstaltungs-Feedback"
 
-#: models/feedback/event_list_feedback.py:22
-#: models/feedback/event_list_feedback.py:24
+#: models/feedback/event_list_feedback.py:20
+msgid "Event list"
+msgstr "Veranstaltungen"
+
+#: models/feedback/event_list_feedback.py:51
+#: models/feedback/event_list_feedback.py:53
 msgid "event list feedback"
 msgstr "Veranstaltungslisten-Feedback"
 
-#: models/feedback/feedback.py:23
-msgid "emotion"
-msgstr "Emotion"
+#: models/feedback/feedback.py:36
+msgid "rating"
+msgstr "Bewertung"
 
-#: models/feedback/feedback.py:24
+#: models/feedback/feedback.py:37
 msgid "Whether the feedback is positive or negative"
 msgstr "Ob das Feedback positiv oder negativ ist"
 
-#: models/feedback/feedback.py:26
+#: models/feedback/feedback.py:39
 msgid "comment"
 msgstr "Kommentar"
 
-#: models/feedback/feedback.py:28
+#: models/feedback/feedback.py:41
 msgid "technical"
 msgstr "technisch"
 
-#: models/feedback/feedback.py:29
+#: models/feedback/feedback.py:42
 msgid "Whether or not the feedback is targeted at the developers"
 msgstr "Ob das Feedback an die Entwickler gerichtet ist oder nicht"
 
-#: models/feedback/feedback.py:33
-msgid "read"
-msgstr "gelesen"
+#: models/feedback/feedback.py:50
+msgid "marked as read by"
+msgstr "als gelesen markiert von"
 
-#: models/feedback/feedback.py:34
-msgid "Whether or not the feedback is marked as read"
-msgstr "Ob das Feedback als gelesen markiert ist oder nicht"
+#: models/feedback/feedback.py:52
+msgid "The user who marked this feedback as read."
+msgstr "Der Benutzer, der dieses Feedback als gelesen markiert hat."
 
-#: models/feedback/feedback.py:48 models/feedback/feedback.py:50
+#: models/feedback/feedback.py:53
+msgid "If the feedback is unread, this field is empty."
+msgstr "Wenn das Feedback ungelesen ist, ist dieses Feld leer."
+
+#: models/feedback/feedback.py:162 models/feedback/feedback.py:164
 msgid "feedback"
 msgstr "Feedback"
 
-#: models/feedback/imprint_page_feedback.py:22
-#: models/feedback/imprint_page_feedback.py:24
+#: models/feedback/imprint_page_feedback.py:25 templates/_base.html:208
+msgid "Imprint"
+msgstr "Impressum"
+
+#: models/feedback/imprint_page_feedback.py:57
+#: models/feedback/imprint_page_feedback.py:59
 msgid "imprint feedback"
 msgstr "Impressums-Feedback"
 
@@ -773,35 +788,43 @@ msgstr "Impressums-Feedback"
 msgid "offer"
 msgstr "Angebot"
 
-#: models/feedback/offer_feedback.py:29 models/feedback/offer_feedback.py:31
+#: models/feedback/offer_feedback.py:60 models/feedback/offer_feedback.py:62
 msgid "offer feedback"
 msgstr "Angebots-Feedback"
 
-#: models/feedback/offer_list_feedback.py:22
-#: models/feedback/offer_list_feedback.py:24
+#: models/feedback/offer_list_feedback.py:20
+msgid "Offer List"
+msgstr "Angebote"
+
+#: models/feedback/offer_list_feedback.py:51
+#: models/feedback/offer_list_feedback.py:53
 msgid "offer list feedback"
 msgstr "Angebotslisten-Feedback"
 
-#: models/feedback/page_feedback.py:17
+#: models/feedback/page_feedback.py:18
 #: models/pages/abstract_base_page_translation.py:304
 #: models/pages/page_translation.py:244
 msgid "page translation"
 msgstr "Seiten-Übersetzung"
 
-#: models/feedback/page_feedback.py:22 models/feedback/page_feedback.py:24
+#: models/feedback/page_feedback.py:64 models/feedback/page_feedback.py:66
 msgid "page feedback"
 msgstr "Seiten-Feedback"
 
-#: models/feedback/region_feedback.py:22 models/feedback/region_feedback.py:24
+#: models/feedback/region_feedback.py:51 models/feedback/region_feedback.py:53
 msgid "region feedback"
 msgstr "Regionen-Feedback"
 
-#: models/feedback/search_result_feedback.py:13
+#: models/feedback/search_result_feedback.py:12
 msgid "search term"
 msgstr "Suchbegriff"
 
-#: models/feedback/search_result_feedback.py:23
-#: models/feedback/search_result_feedback.py:25
+#: models/feedback/search_result_feedback.py:22
+msgid "Search results for {}"
+msgstr "Suchergebnisse für {}"
+
+#: models/feedback/search_result_feedback.py:51
+#: models/feedback/search_result_feedback.py:53
 msgid "search result feedback"
 msgstr "Suchergebnis-Feedback"
 
@@ -964,12 +987,12 @@ msgstr "explizit archiviert"
 msgid "Whether or not the page is explicitly archived"
 msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
-#: models/pages/abstract_base_page.py:151 models/pages/page.py:172
+#: models/pages/abstract_base_page.py:153 models/pages/page.py:172
 #: models/pages/page_translation.py:38
 msgid "page"
 msgstr "Seite"
 
-#: models/pages/abstract_base_page.py:153 models/pages/page.py:174
+#: models/pages/abstract_base_page.py:155 models/pages/page.py:174
 msgid "pages"
 msgstr "Seiten"
 
@@ -1436,9 +1459,7 @@ msgstr "Alle Mediendateien"
 msgid "Upload new media file"
 msgstr "Neue Mediendatei hochladen"
 
-#: templates/_base.html:109 templates/feedback/region_feedback_list.html:24
-#: templates/feedback/region_feedback_list.html:136
-#: templates/pages/page_tree.html:17
+#: templates/_base.html:109 templates/pages/page_tree.html:17
 msgid "Pages"
 msgstr "Seiten"
 
@@ -1452,7 +1473,6 @@ msgid "Create page"
 msgstr "Seite erstellen"
 
 #: templates/_base.html:127 templates/events/event_list.html:23
-#: templates/feedback/region_feedback_list.html:143
 #: templates/regions/region_form.html:106
 msgid "Events"
 msgstr "Veranstaltungen"
@@ -1491,7 +1511,7 @@ msgid "Create user"
 msgstr "Benutzer erstellen"
 
 #: templates/_base.html:178 templates/_base.html:275
-#: templates/feedback/region_feedback_list.html:6
+#: templates/feedback/region_feedback_list.html:11
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -1511,10 +1531,6 @@ msgstr "Push-Benachrichtigung verfassen"
 #: templates/_base.html:202 templates/offers/offer_list.html:9
 msgid "Offers"
 msgstr "Angebote"
-
-#: templates/_base.html:208
-msgid "Imprint"
-msgstr "Impressum"
 
 #: templates/_base.html:215 templates/language_tree/language_tree.html:10
 msgid "Language tree"
@@ -1745,50 +1761,53 @@ msgstr "Absender:"
 msgid "Sent on:"
 msgstr "Gesendet am:"
 
-#: templates/dashboard/admin_dashboard.html:11
+#: templates/dashboard/admin_dashboard.html:13
 #: templates/dashboard/dashboard.html:13
 msgid "At a glance"
 msgstr "Auf einen Blick"
 
-#: templates/dashboard/admin_dashboard.html:19
-#: templates/feedback/admin_feedback_list.html:6
-msgid "Technical Feedback"
-msgstr "Technisches Feedback"
+#: templates/dashboard/admin_dashboard.html:21
+msgid "Unread technical feedback"
+msgstr "Ungelesenes technisches Feedback"
 
 #: templates/dashboard/admin_dashboard.html:26
-#: templates/feedback/admin_feedback_list.html:12
-#: templates/feedback/region_feedback_list.html:12
-#: templates/language_tree/language_tree.html:31
-#: templates/settings/user.html:93
-msgid "Language"
-msgstr "Sprache"
+msgid "The five most recent entries are listed."
+msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
 
-#: templates/dashboard/admin_dashboard.html:27
-#: templates/feedback/admin_feedback_list.html:13
-#: templates/feedback/region_feedback_list.html:13
+#: templates/dashboard/admin_dashboard.html:29
+#: templates/feedback/admin_feedback_list.html:18
+#: templates/feedback/region_feedback_list.html:18
+msgid "Feedback on"
+msgstr "Feedback zu"
+
+#: templates/dashboard/admin_dashboard.html:30
+#: templates/feedback/admin_feedback_list.html:20
+#: templates/feedback/region_feedback_list.html:20
 msgid "Comment"
 msgstr "Kommentar"
 
-#: templates/dashboard/admin_dashboard.html:28
-#: templates/feedback/admin_feedback_list.html:14
-#: templates/feedback/region_feedback_list.html:14
-#: templates/feedback/region_feedback_list.html:122
+#: templates/dashboard/admin_dashboard.html:31
+#: templates/feedback/admin_feedback_list.html:21
+#: templates/feedback/admin_feedback_list.html:22
+#: templates/feedback/region_feedback_list.html:21
+#: templates/feedback/region_feedback_list.html:22
 msgid "Rating"
 msgstr "Bewertung"
 
-#: templates/dashboard/admin_dashboard.html:29
-#: templates/feedback/admin_feedback_list.html:15
-#: templates/feedback/region_feedback_list.html:15
+#: templates/dashboard/admin_dashboard.html:33
+#: templates/feedback/admin_feedback_list.html:25
+#: templates/feedback/region_feedback_list.html:24
 #: templates/media/media_list.html:23
 msgid "Date"
 msgstr "Datum"
 
-#: templates/dashboard/admin_dashboard.html:39
-#: templates/feedback/admin_feedback_list.html:18
-#: templates/feedback/region_feedback_list.html:18
-#: templates/feedback/region_feedback_list.html:131
+#: templates/dashboard/admin_dashboard.html:73
 msgid "No Feedback available yet."
 msgstr "Noch kein Feedback vorhanden."
+
+#: templates/dashboard/admin_dashboard.html:78
+msgid "Open feedback list"
+msgstr "Feedback-Liste öffnen"
 
 #: templates/error_handler/csrf_failure.html:6
 msgid "CSRF Error"
@@ -2139,63 +2158,39 @@ msgstr "Nicht festgelegt"
 msgid "Edit event"
 msgstr "Veranstaltung bearbeiten"
 
-#: templates/feedback/admin_feedback_list.html:10
-#: templates/feedback/region_feedback_list.html:10
-#: templates/feedback/region_feedback_list.html:126
-msgid "Type"
-msgstr "Typ"
-
 #: templates/feedback/admin_feedback_list.html:11
-#: templates/feedback/region_feedback_list.html:11
-msgid "Object"
-msgstr "Objekt"
+msgid "Technical Feedback"
+msgstr "Technisches Feedback"
 
-#: templates/feedback/admin_feedback_list.html:23
-msgid "Page"
-msgstr "Seite"
+#: templates/feedback/admin_feedback_list.html:17
+#: templates/feedback/region_feedback_list.html:17
+msgid "Category"
+msgstr "Kategorie"
 
-#: templates/feedback/admin_feedback_list.html:37
-#: templates/feedback/region_feedback_list.html:34
-msgid "Event"
-msgstr "Veranstaltung"
+#: templates/feedback/admin_feedback_list.html:19
+#: templates/feedback/region_feedback_list.html:19
+#: templates/language_tree/language_tree.html:31
+#: templates/settings/user.html:93
+msgid "Language"
+msgstr "Sprache"
 
-#: templates/feedback/admin_feedback_list.html:51
-#: templates/feedback/admin_feedback_list.html:54
-#: templates/feedback/region_feedback_list.html:48
-#: templates/feedback/region_feedback_list.html:51
-msgid "Event List"
-msgstr "Veranstaltungen"
+#: templates/feedback/admin_feedback_list.html:22
+#: templates/feedback/region_feedback_list.html:22
+msgid "overall"
+msgstr "insgesamt"
 
-#: templates/feedback/admin_feedback_list.html:65
-#: templates/feedback/region_feedback_list.html:62
-#: templates/feedback/region_feedback_list.html:150
-msgid "Offer"
-msgstr "Angebot"
-
-#: templates/feedback/admin_feedback_list.html:79
-#: templates/feedback/admin_feedback_list.html:82
-#: templates/feedback/region_feedback_list.html:76
-#: templates/feedback/region_feedback_list.html:79
-msgid "Offer List"
-msgstr "Angebote"
+#: templates/feedback/admin_feedback_list.html:24
+#: templates/feedback/region_feedback_list.html:23
+msgid "Marked as read by"
+msgstr "Als gelesen markiert von"
 
 #: templates/feedback/admin_feedback_list.html:93
-#: templates/feedback/region_feedback_list.html:90
-msgid "Search Result"
-msgstr "Suchergebnis"
+msgid "No technical feedback available yet."
+msgstr "Noch kein technisches Feedback vorhanden."
 
-#: templates/feedback/admin_feedback_list.html:103
-#: templates/feedback/region_feedback_list.html:100
-msgid "Imprint Page"
-msgstr "Impressum"
-
-#: templates/feedback/region_feedback_list.html:127
-msgid "Like"
-msgstr "Gefällt mir"
-
-#: templates/feedback/region_feedback_list.html:128
-msgid "Dislike"
-msgstr "Gafällt mir nicht"
+#: templates/feedback/region_feedback_list.html:88
+msgid "No feedback available yet."
+msgstr "Noch kein Feedback vorhanden."
 
 #: templates/generic_confirmation_dialog.html:11
 #: templates/pages/page_form.html:178
@@ -4171,6 +4166,36 @@ msgstr ""
 
 #~ msgid "Integreat Backend"
 #~ msgstr "Integreat CMS"
+
+#~ msgid "All regions"
+#~ msgstr "Alle Regionen"
+
+#~ msgid "All languages"
+#~ msgstr "Alle Sprachen"
+
+#~ msgid "All categories"
+#~ msgstr "Alle Kategorien"
+
+#~ msgid "From"
+#~ msgstr "Von"
+
+#~ msgid "To"
+#~ msgstr "Bis"
+
+#~ msgid "location feedback"
+#~ msgstr "Orts-Feedback"
+
+#~ msgid "No technical feedback found with these filters."
+#~ msgstr "Kein technisches Feedback mit diesen Filtern gefunden."
+
+#~ msgid "Mark as read"
+#~ msgstr "Als gelesen markieren"
+
+#~ msgid "Mark as unread"
+#~ msgstr "Als ungelesen markieren"
+
+#~ msgid "No feedback found with these filters."
+#~ msgstr "Kein Feedback mit diesen Filtern gefunden."
 
 #~ msgid "PDF Export"
 #~ msgstr "PDF Export"

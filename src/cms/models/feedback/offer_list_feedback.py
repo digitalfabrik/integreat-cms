@@ -1,8 +1,7 @@
-from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from .feedback import Feedback
-from ..regions.region import Region
 
 
 class OfferListFeedback(Feedback):
@@ -10,12 +9,42 @@ class OfferListFeedback(Feedback):
     Database model representing feedback about the offer list (e.g. missing offers).
     """
 
-    region = models.ForeignKey(
-        Region,
-        on_delete=models.CASCADE,
-        related_name="offer_list_feedback",
-        verbose_name=_("region"),
-    )
+    @property
+    def object_name(self):
+        """
+        This property returns the name of the object this feedback comments on.
+
+        :return: The name of the object this feedback refers to
+        :rtype: str
+        """
+        return _("Offer List")
+
+    @property
+    def object_url(self):
+        """
+        This property returns the url to the object this feedback comments on.
+
+        :return: The url to the referred object
+        :rtype: str
+        """
+        return reverse(
+            "offers",
+            kwargs={
+                "region_slug": self.region.slug,
+            },
+        )
+
+    @property
+    def related_feedback(self):
+        """
+        This property returns all feedback entries which relate to the same object and have the same is_technical value.
+
+        :return: The queryset of related feedback
+        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.feedback.offer_list_feedback.OfferListFeedback ]
+        """
+        return OfferListFeedback.objects.filter(
+            region=self.region, language=self.language, is_technical=self.is_technical
+        )
 
     class Meta:
         #: The verbose name of the model
