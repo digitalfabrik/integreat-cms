@@ -374,4 +374,7 @@
 <script src="{% static 'js/forms/tinymce-init.js' %}"></script>
 <script src="{% static 'js/forms/slug-error.js' %}"></script>
 <script src="{% static 'js/forms/file-field.js' %}"></script>
+{% if not event_form.disabled %}
+    <script src="{% static 'js/events/event_query_pois.js' %}"></script>
+{% endif %}
 {% endblock %}
