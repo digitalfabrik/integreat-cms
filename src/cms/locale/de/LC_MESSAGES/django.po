@@ -33,7 +33,7 @@ msgstr "Landkreis"
 
 #: constants/administrative_division.py:41
 #: templates/dashboard/admin_dashboard.html:32
-#: templates/feedback/admin_feedback_list.html:23
+#: templates/feedback/admin_feedback_list.html:26
 msgid "Region"
 msgstr "Region"
 
@@ -1775,28 +1775,28 @@ msgid "The five most recent entries are listed."
 msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
 
 #: templates/dashboard/admin_dashboard.html:29
-#: templates/feedback/admin_feedback_list.html:18
-#: templates/feedback/region_feedback_list.html:18
+#: templates/feedback/admin_feedback_list.html:21
+#: templates/feedback/region_feedback_list.html:21
 msgid "Feedback on"
 msgstr "Feedback zu"
 
 #: templates/dashboard/admin_dashboard.html:30
-#: templates/feedback/admin_feedback_list.html:20
-#: templates/feedback/region_feedback_list.html:20
+#: templates/feedback/admin_feedback_list.html:23
+#: templates/feedback/region_feedback_list.html:23
 msgid "Comment"
 msgstr "Kommentar"
 
 #: templates/dashboard/admin_dashboard.html:31
-#: templates/feedback/admin_feedback_list.html:21
-#: templates/feedback/admin_feedback_list.html:22
-#: templates/feedback/region_feedback_list.html:21
-#: templates/feedback/region_feedback_list.html:22
+#: templates/feedback/admin_feedback_list.html:24
+#: templates/feedback/admin_feedback_list.html:25
+#: templates/feedback/region_feedback_list.html:24
+#: templates/feedback/region_feedback_list.html:25
 msgid "Rating"
 msgstr "Bewertung"
 
 #: templates/dashboard/admin_dashboard.html:33
-#: templates/feedback/admin_feedback_list.html:25
-#: templates/feedback/region_feedback_list.html:24
+#: templates/feedback/admin_feedback_list.html:28
+#: templates/feedback/region_feedback_list.html:27
 #: templates/media/media_list.html:23
 msgid "Date"
 msgstr "Datum"
@@ -2162,33 +2162,66 @@ msgstr "Veranstaltung bearbeiten"
 msgid "Technical Feedback"
 msgstr "Technisches Feedback"
 
-#: templates/feedback/admin_feedback_list.html:17
-#: templates/feedback/region_feedback_list.html:17
+#: templates/feedback/admin_feedback_list.html:19
+#: templates/feedback/region_feedback_list.html:19
+msgid "Select all"
+msgstr "Alle auswählen"
+
+#: templates/feedback/admin_feedback_list.html:20
+#: templates/feedback/region_feedback_list.html:20
 msgid "Category"
 msgstr "Kategorie"
 
-#: templates/feedback/admin_feedback_list.html:19
-#: templates/feedback/region_feedback_list.html:19
+#: templates/feedback/admin_feedback_list.html:22
+#: templates/feedback/region_feedback_list.html:22
 #: templates/language_tree/language_tree.html:31
 #: templates/settings/user.html:93
 msgid "Language"
 msgstr "Sprache"
 
-#: templates/feedback/admin_feedback_list.html:22
-#: templates/feedback/region_feedback_list.html:22
+#: templates/feedback/admin_feedback_list.html:25
+#: templates/feedback/region_feedback_list.html:25
 msgid "overall"
 msgstr "insgesamt"
 
-#: templates/feedback/admin_feedback_list.html:24
-#: templates/feedback/region_feedback_list.html:23
+#: templates/feedback/admin_feedback_list.html:27
+#: templates/feedback/region_feedback_list.html:26
 msgid "Marked as read by"
 msgstr "Als gelesen markiert von"
 
-#: templates/feedback/admin_feedback_list.html:93
+#: templates/feedback/admin_feedback_list.html:99
 msgid "No technical feedback available yet."
 msgstr "Noch kein technisches Feedback vorhanden."
 
-#: templates/feedback/region_feedback_list.html:88
+#: templates/feedback/admin_feedback_list.html:109
+#: templates/feedback/region_feedback_list.html:103
+#: templates/pages/page_tree.html:121
+msgid "Select bulk action"
+msgstr "Mehrfachaktion auswählen"
+
+#: templates/feedback/admin_feedback_list.html:110
+#: templates/feedback/region_feedback_list.html:104
+msgid "Mark as read"
+msgstr "Als gelesen markieren"
+
+#: templates/feedback/admin_feedback_list.html:111
+#: templates/feedback/region_feedback_list.html:105
+msgid "Mark as unread"
+msgstr "Als ungelesen markieren"
+
+#: templates/feedback/admin_feedback_list.html:113
+#: templates/feedback/region_feedback_list.html:107
+#: templates/language_tree/language_tree.html:33
+msgid "Delete"
+msgstr "Löschen"
+
+#: templates/feedback/admin_feedback_list.html:120
+#: templates/feedback/region_feedback_list.html:114
+#: templates/pages/page_tree.html:136
+msgid "Execute"
+msgstr "Ausführen"
+
+#: templates/feedback/region_feedback_list.html:93
 msgid "No feedback available yet."
 msgstr "Noch kein Feedback vorhanden."
 
@@ -2392,10 +2425,6 @@ msgstr "Neu"
 #: templates/imprint/imprint_sbs.html:158 templates/pages/page_sbs.html:155
 msgid "Not saved yet"
 msgstr "Noch nicht gespeichert"
-
-#: templates/language_tree/language_tree.html:33
-msgid "Delete"
-msgstr "Löschen"
 
 #: templates/language_tree/language_tree.html:48
 msgid "No language tree available yet."
@@ -2792,10 +2821,6 @@ msgstr "Hierarchie"
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
-#: templates/pages/page_tree.html:121
-msgid "Select bulk action"
-msgstr "Mehrfachaktion auswählen"
-
 #: templates/pages/page_tree.html:122
 msgid "Archive pages"
 msgstr "Seiten archivieren"
@@ -2807,10 +2832,6 @@ msgstr "Als PDF Exportieren"
 #: templates/pages/page_tree.html:127
 msgid "Export XLIFF for translation to"
 msgstr "Exportiere XLIFF für Übersetzung nach"
-
-#: templates/pages/page_tree.html:136
-msgid "Execute"
-msgstr "Ausführen"
 
 #: templates/pages/page_tree.html:142
 msgid "Upload XLIFF File"
@@ -3616,6 +3637,21 @@ msgstr "Veranstaltung wurde erfolgreich veröffentlicht"
 msgid "Event was successfully saved"
 msgstr "Veranstaltung wurde erfolgreich gespeichert"
 
+#: views/feedback/admin_feedback_actions.py:41
+#: views/feedback/region_feedback_actions.py:46
+msgid "Feedback was successfully marked as read"
+msgstr "Feedback wurde als gelesen markiert"
+
+#: views/feedback/admin_feedback_actions.py:67
+#: views/feedback/region_feedback_actions.py:79
+msgid "Feedback was successfully marked as unread"
+msgstr "Feedback wurde als ungelesen markiert"
+
+#: views/feedback/admin_feedback_actions.py:93
+#: views/feedback/region_feedback_actions.py:112
+msgid "Feedback was successfully deleted"
+msgstr "Feedback wurde erfolgreich gelöscht"
+
 #: views/imprint/imprint_actions.py:49
 msgid "Imprint was successfully archived"
 msgstr "Impressum wurde erfolgreich archiviert"
@@ -4187,12 +4223,6 @@ msgstr ""
 
 #~ msgid "No technical feedback found with these filters."
 #~ msgstr "Kein technisches Feedback mit diesen Filtern gefunden."
-
-#~ msgid "Mark as read"
-#~ msgstr "Als gelesen markieren"
-
-#~ msgid "Mark as unread"
-#~ msgstr "Als ungelesen markieren"
 
 #~ msgid "No feedback found with these filters."
 #~ msgstr "Kein Feedback mit diesen Filtern gefunden."

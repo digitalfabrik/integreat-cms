@@ -191,7 +191,22 @@ urlpatterns = [
                     r"^$",
                     feedback.AdminFeedbackListView.as_view(),
                     name="admin_feedback",
-                )
+                ),
+                url(
+                    r"^mark_read$",
+                    feedback.mark_admin_feedback_as_read,
+                    name="mark_admin_feedback_as_read",
+                ),
+                url(
+                    r"^mark_unread$",
+                    feedback.mark_admin_feedback_as_unread,
+                    name="mark_admin_feedback_as_unread",
+                ),
+                url(
+                    r"^delete$",
+                    feedback.delete_admin_feedback,
+                    name="delete_admin_feedback",
+                ),
             ]
         ),
     ),
@@ -659,7 +674,22 @@ urlpatterns = [
                                 r"^$",
                                 feedback.RegionFeedbackListView.as_view(),
                                 name="region_feedback",
-                            )
+                            ),
+                            url(
+                                r"^mark_read$",
+                                feedback.mark_region_feedback_as_read,
+                                name="mark_region_feedback_as_read",
+                            ),
+                            url(
+                                r"^mark_unread$",
+                                feedback.mark_region_feedback_as_unread,
+                                name="mark_region_feedback_as_unread",
+                            ),
+                            url(
+                                r"^delete$",
+                                feedback.delete_region_feedback,
+                                name="delete_region_feedback",
+                            ),
                         ]
                     ),
                 ),
