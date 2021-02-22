@@ -1119,18 +1119,18 @@
 <h2>Push Notification List View<a class="headerlink" href="#push-notification-list-view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.push_notifications.push_notification_list_view.</code><code class="sig-name descname">PushNotificationListView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.push_notifications.push_notification_list_view.</span></code><code class="sig-name descname"><span class="pre">PushNotificationListView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>Class that handles HTTP GET requests for listing push notifications</p>
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'push_notifications'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'push_notifications'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L33"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create a list that shows existing push notifications and translations</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1151,19 +1151,19 @@
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.view_push_notifications'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.view_push_notifications'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname">template_name</code><em class="property"> = 'push_notifications/push_notification_list.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'push_notifications/push_notification_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_list_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1175,13 +1175,13 @@
 <p>Module for sending Push Notifications</p>
 <dl class="py class">
 <dt>
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.push_notifications.push_notification_sender.</code><code class="sig-name descname">PushNotificationSender</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">push_notification</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L16"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.push_notifications.push_notification_sender.</span></code><code class="sig-name descname"><span class="pre">PushNotificationSender</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">push_notification</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Sends push notifications via FCM HTTP API.
 Definition: <a class="reference external" href="https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json">https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json</a></p>
 <dl class="py method">
 <dt>
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">push_notification</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L25"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">push_notification</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Load relevant push notification translations and prepare content for sending</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1192,7 +1192,7 @@ Definition: <a class="reference external" href="https://firebase.google.com/docs
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">get_auth_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L76"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">get_auth_key</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get FCM API auth key</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1206,7 +1206,7 @@ Definition: <a class="reference external" href="https://firebase.google.com/docs
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L61"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Check if all data for sending push notifications is available</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1220,13 +1220,13 @@ Definition: <a class="reference external" href="https://firebase.google.com/docs
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">load_secondary_pnts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L43"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">load_secondary_pnts</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Load push notification translations in other languages</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">send_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L121"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">send_all</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Send all prepared push notification translations</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1240,7 +1240,7 @@ Definition: <a class="reference external" href="https://firebase.google.com/docs
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">send_pn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pnt</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L93"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">send_pn</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_sender.py#L93"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Send single push notification translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1262,18 +1262,18 @@ Definition: <a class="reference external" href="https://firebase.google.com/docs
 <h2>Push Notification View<a class="headerlink" href="#push-notification-view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.push_notifications.push_notification_view.</code><code class="sig-name descname">PushNotificationView</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.push_notifications.push_notification_view.</span></code><code class="sig-name descname"><span class="pre">PushNotificationView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>Class that handles HTTP POST and GET requests for editing push notifications</p>
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname">base_context</code><em class="property"> = {'current_menu_item': 'push_notifications_form'}</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'push_notifications_form'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L39"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Open form for creating or editing a push notification</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1297,13 +1297,13 @@ Definition: <a class="reference external" href="https://firebase.google.com/docs
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname">permission_required</code><em class="property"> = 'cms.view_push_notifications'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.view_push_notifications'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L107"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Save and show form for creating or editing a push notification. Send push notification
 if asked for by user.</p>
 <dl class="field-list simple">
@@ -1328,13 +1328,13 @@ if asked for by user.</p>
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname">raise_exception</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname">template_name</code><em class="property"> = 'push_notifications/push_notification_form.html'</em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'push_notifications/push_notification_form.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/push_notifications/push_notification_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 

@@ -1119,13 +1119,13 @@
 <h2>Authentication Actions<a class="headerlink" href="#authentication-actions" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property">class </em><code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">MfaEnableAuthentication</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L21"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">MfaEnableAuthentication</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LoginView</span></code></a></p>
 <p>View to extend the default login behaviour from <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
 multi-factor-authentication.</p>
 <dl class="py method">
 <dt>
-<code class="sig-name descname">form_valid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">form</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L27"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the login
 form is valid. In case the user has mfa-keys configured, the login is delegated to
 <a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.mfa" title="cms.views.authentication.authentication_actions.mfa"><code class="xref py py-func docutils literal notranslate"><span class="pre">mfa()</span></code></a>. Else, the default method
@@ -1148,7 +1148,7 @@ form is valid. In case the user has mfa-keys configured, the login is delegated 
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L50"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View for the login. Aliased to <a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.MfaEnableAuthentication" title="cms.views.authentication.authentication_actions.MfaEnableAuthentication"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaEnableAuthentication</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1165,7 +1165,7 @@ form is valid. In case the user has mfa-keys configured, the login is delegated 
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">logout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L202"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">logout</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View to log off a user</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1182,7 +1182,7 @@ form is valid. In case the user has mfa-keys configured, the login is delegated 
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">makeWebauthnUsers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L82"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">makeWebauthnUsers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create WebAuthnUser objects for each mfa key of the user (see <a class="reference external" href="https://pypi.org/project/webauthn/">webauthn</a> for
 more information)</p>
 <dl class="field-list simple">
@@ -1200,7 +1200,7 @@ more information)</p>
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">mfa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L66"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">mfa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View to check 2FA authentication. Aliased to <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with a custom template.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1217,7 +1217,7 @@ more information)</p>
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">mfaAssert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L113"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">mfaAssert</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Generate challenge for multi factor authentication.
 If the user did not provide the first factor (password) or already authenticated with multiple factors, an error is
 returned.
@@ -1237,7 +1237,7 @@ This AJAX view is called asynchronously by JavaScript.</p>
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">mfaVerify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L146"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">mfaVerify</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L146"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Verify the response to the challenge generated in <a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.mfaAssert" title="cms.views.authentication.authentication_actions.mfaAssert"><code class="xref py py-func docutils literal notranslate"><span class="pre">mfaAssert()</span></code></a>.
 After a successful verification, the user is logged in.</p>
 <dl class="field-list simple">
@@ -1255,7 +1255,7 @@ After a successful verification, the user is logged in.</p>
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">password_reset_complete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L256"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">password_reset_complete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L256"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View to indicate that the password was successfully reset</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1272,7 +1272,7 @@ After a successful verification, the user is logged in.</p>
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">password_reset_confirm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L241"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">password_reset_confirm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View to confirm that the password should be reset</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1289,7 +1289,7 @@ After a successful verification, the user is logged in.</p>
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">cms.views.authentication.authentication_actions.</code><code class="sig-name descname">password_reset_done</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L218"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">password_reset_done</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L218"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View to indicate that the password reset process has been initiated</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
