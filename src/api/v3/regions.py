@@ -68,9 +68,6 @@ def regions(_):
     """
     List all regions that are not archived and transform result into JSON
 
-    :param _: not used Django request
-    :type _: ~django.http.HttpRequest
-
     :return: JSON object according to APIv3 regions endpoint definition
     :rtype: ~django.http.JsonResponse
     """
@@ -92,9 +89,6 @@ def liveregions(_):
     """
     List all regions that are not archived and transform result into JSON
 
-    :param _: not used Django request
-    :type _: ~django.http.HttpRequest
-
     :return: JSON object according to APIv3 live regions endpoint definition
     :rtype: ~django.http.JsonResponse
     """
@@ -115,9 +109,6 @@ def liveregions(_):
 def hiddenregions(_):
     """
     List all regions that are hidden and transform result into JSON
-
-    :param _: not used Django request
-    :type _: ~django.http.HttpRequest
 
     :return: JSON object according to APIv3 hidden regions endpoint definition
     :rtype: ~django.http.JsonResponse
@@ -143,9 +134,6 @@ def pushnew(_):
     and it only consumes a few bytes of disk space, there is also no need to remove.
     And as non-profit projects rarely generate little money, this also does not pose a
     problem.
-
-    :param _: not used Django request
-    :type _: ~django.http.HttpRequest
 
     :return: All is right with the world
     :rtype: ~realms.magic.unicorn

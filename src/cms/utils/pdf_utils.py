@@ -94,6 +94,7 @@ def generate_pdf(region, language_code, pages):
     pisa_status = pisa.CreatePDF(
         html, dest=response, link_callback=link_callback, encoding="UTF-8"
     )
+    # pylint: disable=no-member
     if pisa_status.err:
         logger.error(
             "The following PDF could not be rendered: Region: %s, Language: %s, Pages: %s.",
