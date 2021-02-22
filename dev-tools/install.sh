@@ -32,8 +32,8 @@ if [ ! -x "$(command -v npm)" ]; then
     exit 1
 fi
 npm_version=$(npm -v)
-if [ "${npm_version%%.*}" -lt 5 ]; then
-    echo "npm version 5 or higher is required, but version $npm_version is installed. Please install a recent version manually and run this script again." >&2
+if [ "${npm_version%%.*}" -lt 7 ]; then
+    echo "npm version 7 or higher is required, but version $npm_version is installed. Please install a recent version manually (e.g. with 'npm install -g npm') and run this script again." >&2
     exit 1
 fi
 
