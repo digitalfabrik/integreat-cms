@@ -102,6 +102,43 @@ def can_publish_all_pages(user, page):
 
 
 @predicate
+def can_edit_or_publish_some_pages(user):
+    """
+    This predicate checks whether the given user can edit or publish at least some specific pages.
+
+    :param user: The user who's permission should be checked
+    :type user: ~django.contrib.auth.models.User
+
+    :return: Whether or not ``user`` can edit or publish some pages
+    :rtype: bool
+    """
+    if user.editable_pages.exists() or user.publishable_pages.exists():
+        return True
+    if user.profile.organization and user.profile.organization.pages.exists():
+        return True
+    return False
+
+
+@predicate
+def is_in_responsible_organization(user, page):
+    """
+    This predicate checks whether the given user is a member of the page's responsible organization.
+
+    :param user: The user who's permission should be checked
+    :type user: ~django.contrib.auth.models.User
+
+    :param page: The requested page
+    :type page: ~cms.models.pages.page.Page
+
+    :return: Whether or not ``user`` is a member of ``page.organization``
+    :rtype: bool
+    """
+    if not page or not page.organization:
+        return False
+    return user.profile in page.organization.members.all()
+
+
+@predicate
 def can_delete_chat_message(user, chat_message):
     """
     This predicate checks whether the given user can delete a given chat message
@@ -125,8 +162,19 @@ def can_delete_chat_message(user, chat_message):
 # Permissions
 
 add_perm(
-    "cms.edit_page",
-    can_edit_all_pages | is_page_editor | can_publish_all_pages | is_page_publisher,
+    "cms.view_pages",
+    can_edit_or_publish_some_pages | can_edit_all_pages | can_publish_all_pages,
 )
-add_perm("cms.publish_page", can_publish_all_pages | is_page_publisher)
+add_perm(
+    "cms.edit_page",
+    can_edit_all_pages
+    | is_page_editor
+    | can_publish_all_pages
+    | is_page_publisher
+    | is_in_responsible_organization,
+)
+add_perm(
+    "cms.publish_page",
+    can_publish_all_pages | is_page_publisher | is_in_responsible_organization,
+)
 add_perm("cms.delete_chat_message", can_delete_chat_message)

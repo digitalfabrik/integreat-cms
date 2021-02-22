@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .abstract_base_page import AbstractBasePage
 from ..regions.region import Region
+from ..users.organization import Organization
 from ...utils.translation_utils import ugettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
@@ -80,6 +81,17 @@ class Page(MPTTModel, AbstractBasePage):
             _(
                 "Only has effect if these users do not have the permission to publish pages anyway."
             ),
+        ),
+    )
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="pages",
+        verbose_name=_("responsible organization"),
+        help_text=_(
+            "This allows all members of the organization to edit and publish this page."
         ),
     )
 
@@ -164,7 +176,6 @@ class Page(MPTTModel, AbstractBasePage):
         default_permissions = ()
         #: The custom permissions for this model
         permissions = (
-            ("view_pages", "Can view pages"),
             ("edit_pages", "Can edit pages"),
             ("publish_pages", "Can publish pages"),
             ("grant_page_permissions", "Can grant page permissions"),

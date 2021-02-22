@@ -212,7 +212,7 @@ class PageForm(forms.ModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = Page
         #: The fields of the model which should be handled by this form
-        fields = ["icon", "mirrored_page", "mirrored_page_first"]
+        fields = ["icon", "mirrored_page", "mirrored_page_first", "organization"]
         #: The classes for the fields if they differ from the standard field class
         field_classes = {"mirrored_page": MirrorPageField}
         #: The widgets for the fields if they differ from the standard widgets
