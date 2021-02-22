@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-01-31T13:58:53+00:00" />
+    <meta property="article:modified_time" content="2021-02-18T20:04:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>CMS &mdash; integreat-cms 0.0.14 documentation</title>
@@ -2077,6 +2077,63 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="cms.rules.can_edit_or_publish_some_pages">
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_edit_or_publish_some_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L104"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_edit_or_publish_some_pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This predicate checks whether the given user can edit or publish at least some specific pages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can edit or publish some pages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.rules.is_in_responsible_organization">
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">is_in_responsible_organization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L122"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.is_in_responsible_organization" title="Permalink to this definition">¶</a></dt>
+<dd><p>This predicate checks whether the given user is a member of the page’s responsible organization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is a member of <code class="docutils literal notranslate"><span class="pre">page.organization</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.rules.can_delete_chat_message">
+<code class="sig-prename descclassname">cms.rules.</code><code class="sig-name descname">can_delete_chat_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user</span></em>, <em class="sig-param"><span class="n">chat_message</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L141"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cms.rules.can_delete_chat_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>This predicate checks whether the given user can delete a given chat message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v2.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>chat_message</strong> (<a class="reference internal" href="cms.models.chat.html#cms.models.chat.chat_message.ChatMessage" title="cms.models.chat.chat_message.ChatMessage"><em>ChatMessage</em></a>) – The requested chat message</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is allowed to delete <code class="docutils literal notranslate"><span class="pre">chat_message</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-cms.urls">
 <span id="urls"></span><h2>Urls<a class="headerlink" href="#module-cms.urls" title="Permalink to this headline">¶</a></h2>
@@ -2105,7 +2162,7 @@ See <a class="reference internal" href="backend.html#module-backend.urls" title=
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jan 31, 2021.
+        Last updated on Feb 18, 2021.
       </span>
 
     </p>
