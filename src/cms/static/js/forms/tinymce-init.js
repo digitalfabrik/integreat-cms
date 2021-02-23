@@ -8,13 +8,17 @@ tinymce.init({
     menubar: "edit view insert format icon",
     menu: {
         icon: { title: "Icons", items: "pinicon wwwicon callicon clockicon aticon ideaicon"},
-        format: { title: 'Format', items: 'bold italic underline strikethrough superscript | formats | forecolor backcolor | removeformat' }
+        format: { title: 'Format', items: 'bold italic underline strikethrough superscript | formats | forecolor backcolor' }
     },
     contextmenu: "paste link",
     autosave_interval: '120s',
     forced_root_block : false,
     plugins: "code paste fullscreen autosave link preview media image lists directionality wordcount",
-    toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate removeformat | aligncenter indent outdent | link image',
+    external_plugins: {
+        'autolink_tel': '../js/custom_plugins/autolink_tel/plugin.js'
+    },
+    link_default_protocol: 'https',
+    toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link image',
     style_formats: [
         { title: 'Headings', items: [
                 { title: 'Heading 2', format: 'h2' },
