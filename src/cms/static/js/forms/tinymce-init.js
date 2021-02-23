@@ -12,7 +12,8 @@ tinymce.init({
     },
     contextmenu: "paste link",
     autosave_interval: '120s',
-    plugins: "code paste fullscreen autosave link preview media image lists directionality",
+    forced_root_block : false,
+    plugins: "code paste fullscreen autosave link preview media image lists directionality wordcount",
     toolbar: 'bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate removeformat | aligncenter indent outdent | link image',
     style_formats: [
         { title: 'Headings', items: [
@@ -51,7 +52,7 @@ tinymce.init({
         editor.ui.registry.addButton('notranslate',
             {
                 tooltip: tinymce_config.data("notranslate-tooltip"),
-                icon: 'permanent-pen',
+                icon: 'no_translate',
                 onAction: () => {
                     editor.focus();
                     val = tinymce.activeEditor.dom.getAttrib(tinyMCE.activeEditor.selection.getNode(), "translate", "yes");
@@ -68,46 +69,47 @@ tinymce.init({
         editor.ui.registry.addIcon('clock_icon', '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 width="16" height="16" viewBox="0 0 468.067 468.067" style="enable-background:new 0 0 468.067 468.067;"	 xml:space="preserve">	<path d="M431.38,0.225H36.685C16.458,0.225,0,16.674,0,36.898v394.268c0,20.221,16.458,36.677,36.685,36.677H431.38		c20.232,0,36.688-16.456,36.688-36.677V36.898C468.062,16.668,451.606,0.225,431.38,0.225z M406.519,41.969		c8.678,0,15.711,7.04,15.711,15.72c0,8.683-7.033,15.717-15.711,15.717c-8.688,0-15.723-7.04-15.723-15.717		C390.796,49.009,397.83,41.969,406.519,41.969z M350.189,41.969c8.688,0,15.723,7.04,15.723,15.72		c0,8.683-7.034,15.717-15.723,15.717c-8.684,0-15.711-7.04-15.711-15.717C334.479,49.009,341.513,41.969,350.189,41.969z		 M426.143,425.924H41.919V112.429h384.224V425.924z M234.031,385.902c66.212,0,120.095-53.871,120.095-120.096		c0-66.221-53.883-120.095-120.095-120.095c-66.215,0-120.095,53.874-120.095,120.095		C113.936,332.031,167.815,385.902,234.031,385.902z M234.031,169.923c52.866,0,95.884,43.016,95.884,95.884		c0,52.866-43.019,95.885-95.884,95.885c-52.869,0-95.884-43.019-95.884-95.885C138.146,212.938,181.162,169.923,234.031,169.923z		 M221.926,265.807v-60.526c0-6.682,5.423-12.105,12.105-12.105s12.105,5.423,12.105,12.105v48.42h49.935		c6.679,0,12.105,5.427,12.105,12.105c0,6.68-5.427,12.105-12.105,12.105h-62.04C227.349,277.912,221.926,272.486,221.926,265.807z"		/></svg>');
         editor.ui.registry.addIcon('email_icon', '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 viewBox="0 0 490.2 490.2" style="enable-background:new 0 0 490.2 490.2;" xml:space="preserve"><g>	<path d="M420.95,61.8C376.25,20.6,320.65,0,254.25,0c-69.8,0-129.3,23.4-178.4,70.3s-73.7,105.2-73.7,175		c0,66.9,23.4,124.4,70.1,172.6c46.9,48.2,109.9,72.3,189.2,72.3c47.8,0,94.7-9.8,140.7-29.5c15-6.4,22.3-23.6,16.2-38.7l0,0		c-6.3-15.6-24.1-22.8-39.6-16.2c-40,17.2-79.2,25.8-117.4,25.8c-60.8,0-107.9-18.5-141.3-55.6c-33.3-37-50-80.5-50-130.4		c0-54.2,17.9-99.4,53.6-135.7c35.6-36.2,79.5-54.4,131.5-54.4c47.9,0,88.4,14.9,121.4,44.7s49.5,67.3,49.5,112.5		c0,30.9-7.6,56.7-22.7,77.2c-15.1,20.6-30.8,30.8-47.1,30.8c-8.8,0-13.2-4.7-13.2-14.2c0-7.7,0.6-16.7,1.7-27.1l18.6-152.1h-64		l-4.1,14.9c-16.3-13.3-34.2-20-53.6-20c-30.8,0-57.2,12.3-79.1,36.8c-22,24.5-32.9,56.1-32.9,94.7c0,37.7,9.7,68.2,29.2,91.3		c19.5,23.2,42.9,34.7,70.3,34.7c24.5,0,45.4-10.3,62.8-30.8c13.1,19.7,32.4,29.5,57.9,29.5c37.5,0,69.9-16.3,97.2-49		c27.3-32.6,41-72,41-118.1C488.05,152.9,465.75,103,420.95,61.8z M273.55,291.9c-11.3,15.2-24.8,22.9-40.5,22.9		c-10.7,0-19.3-5.6-25.8-16.8c-6.6-11.2-9.9-25.1-9.9-41.8c0-20.6,4.6-37.2,13.8-49.8s20.6-19,34.2-19c11.8,0,22.3,4.7,31.5,14.2		s13.8,22.1,13.8,37.9C290.55,259.2,284.85,276.6,273.55,291.9z"/></g></svg>');
         editor.ui.registry.addIcon('idea_icon', '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16"><path fill="#444444" d="M11.7 1.9c-1-1.2-2.6-1.9-4.2-1.9s-3.2 0.7-4.2 1.9c-1 1.1-1.4 2.6-1.2 4 0.2 1.5 0.8 2.6 2.1 3.7 0.5 0.4 0.7 0.8 0.9 1.2 0 0.1 0.1 0.2 0.1 0.3-0.1 0.1-0.2 0.2-0.2 0.4 0 0.3 0.2 0.5 0.5 0.5-0.3 0-0.5 0.2-0.5 0.5s0.2 0.5 0.5 0.5c-0.3 0-0.5 0.2-0.5 0.5s0.2 0.5 0.5 0.5c-0.3 0-0.5 0.2-0.5 0.5s0.2 0.5 0.5 0.5h0.5c0 0.5 0.7 1 1.5 1s1.5-0.5 1.5-1h0.5c0.3 0 0.5-0.2 0.5-0.5s-0.2-0.5-0.5-0.5c0.3 0 0.5-0.2 0.5-0.5s-0.2-0.5-0.5-0.5c0.3 0 0.5-0.2 0.5-0.5s-0.2-0.5-0.5-0.5c0.3 0 0.5-0.2 0.5-0.5 0-0.2-0.1-0.3-0.2-0.4 0-0.1 0.1-0.1 0.1-0.2 0.2-0.4 0.4-0.8 0.9-1.2 1.3-1.1 1.9-2.2 2.1-3.8 0.2-1.4-0.2-2.8-1.2-4zM12 5.8c-0.2 1.3-0.7 2.2-1.8 3.2-0.6 0.5-0.9 1-1.2 1.4-0.2 0.5-0.3 0.6-0.5 0.6h-2c-0.2 0-0.3-0.1-0.5-0.6-0.2-0.4-0.5-1-1.1-1.6-1.3-1.1-1.6-2-1.8-3-0.2-1.1 0.2-2.3 0.9-3.2 0.9-1 2.2-1.6 3.5-1.6s2.6 0.6 3.5 1.6c0.7 0.9 1.1 2.1 1 3.2z"></path><path fill="#444444" d="M11 5h-1c0-0.7-0.8-2-2-2v-1c1.8 0 3 1.8 3 3z"></path></svg>');
+        editor.ui.registry.addIcon('no_translate', '<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="18pt" height="16pt" viewBox="0 0 30.000000 28.000000" preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,28.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M187 236 c-5 -12 -21 -16 -67 -16 l-60 0 0 -100 0 -101 68 3 67 3 3 70 c3 69 4 71 33 82 25 10 30 16 27 40 -2 23 -8 29 -34 31 -21 2 -33 -2 -37 -12z m61 -23 c2 -15 -3 -23 -20 -28 -13 -4 -35 -19 -50 -33 -37 -34 -49 -20 -15 16 15 16 27 35 27 43 0 22 11 30 35 27 12 -2 21 -12 23 -25z"/> </g> </svg>')
         editor.ui.registry.addMenuItem('pinicon', {
             text: tinymce_config.data("pinicon-text"),
             icon: 'pin_icon',
             onAction: function () {
-                editor.insertContent('<img src="' + tinymce_config.data("pinicon-src") + '" style="width:1.5em">');
+                editor.insertContent('<img src="' + tinymce_config.data("pinicon-src") + '" style="width:15px; height:15px">');
             }
         });
         editor.ui.registry.addMenuItem('wwwicon', {
             text: tinymce_config.data("wwwicon-text"),
             icon: 'www_icon',
             onAction: function () {
-                editor.insertContent('<img src="' + tinymce_config.data("wwwicon-src") + '" style="width:1.5em">');
+                editor.insertContent('<img src="' + tinymce_config.data("wwwicon-src") + '" style="width:15px; height:15px">');
             }
         });
         editor.ui.registry.addMenuItem('callicon', {
             text: tinymce_config.data("callicon-text"),
             icon: 'call_icon',
             onAction: function () {
-                editor.insertContent('<img src="' + tinymce_config.data("callicon-src") + '" style="width:1.5em">');
+                editor.insertContent('<img src="' + tinymce_config.data("callicon-src") + '" style="width:15px; height:15px">');
             }
         });
         editor.ui.registry.addMenuItem('clockicon', {
             text: tinymce_config.data("clockicon-text"),
             icon: 'clock_icon',
             onAction: function () {
-                editor.insertContent('<img src="' + tinymce_config.data("clockicon-src") + '" style="width:1.5em">');
+                editor.insertContent('<img src="' + tinymce_config.data("clockicon-src") + '" style="width:15px; height:15px">');
             }
         });
         editor.ui.registry.addMenuItem('aticon', {
             text: tinymce_config.data("aticon-text"),
             icon: 'email_icon',
             onAction: function () {
-                editor.insertContent('<img src="' + tinymce_config.data("aticon-src") + '" style="width:1.5em">');
+                editor.insertContent('<img src="' + tinymce_config.data("aticon-src") + '" style="width:15px; height:15px">');
             }
         });
         editor.ui.registry.addMenuItem('ideaicon', {
             text: tinymce_config.data("ideaicon-text"),
             icon: 'idea_icon',
             onAction: function () {
-                editor.insertContent('<img src="' + tinymce_config.data("ideaicon-src") + '" style="width:1.5em">');
+                editor.insertContent('<img src="' + tinymce_config.data("ideaicon-src") + '" style="width:15px; height:15px">');
             }
         });
     },
