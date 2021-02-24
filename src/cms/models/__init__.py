@@ -15,6 +15,8 @@ from .offers.offer_template import OfferTemplate
 
 from .feedback.event_feedback import EventFeedback
 from .feedback.event_list_feedback import EventListFeedback
+from .feedback.poi_feedback import POIFeedback
+from .feedback.map_feedback import MapFeedback
 from .feedback.offer_feedback import OfferFeedback
 from .feedback.offer_list_feedback import OfferListFeedback
 from .feedback.feedback import Feedback

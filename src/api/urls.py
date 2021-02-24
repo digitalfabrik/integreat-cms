@@ -11,6 +11,8 @@ from .v3.feedback import (
     offer_list_feedback,
     event_list_feedback,
     event_feedback,
+    poi_feedback,
+    map_feedback,
     imprint_page_feedback,
     legacy_feedback_endpoint,
 )
@@ -64,6 +66,10 @@ urlpatterns = [
                                             page_feedback.page_feedback,
                                         ),
                                         url(
+                                            r"^poi/?$",
+                                            poi_feedback.poi_feedback,
+                                        ),
+                                        url(
                                             r"^event/?$",
                                             event_feedback.event_feedback,
                                         ),
@@ -74,6 +80,10 @@ urlpatterns = [
                                         url(
                                             r"^imprint-page/?$",
                                             imprint_page_feedback.imprint_page_feedback,
+                                        ),
+                                        url(
+                                            r"^map/?$",
+                                            map_feedback.map_feedback,
                                         ),
                                         url(
                                             r"^search/?$",

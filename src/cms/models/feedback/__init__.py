@@ -12,6 +12,10 @@ The base model :class:`~cms.models.feedback.feedback.Feedback` as well as the fo
 
 * :class:`~cms.models.feedback.page_feedback.PageFeedback`
 
+* :class:`~cms.models.feedback.poi_feedback.POIFeedback`
+
+* :class:`~cms.models.feedback.map_feedback.MapFeedback`
+
 * :class:`~cms.models.feedback.region_feedback.RegionFeedback`
 
 * :class:`~cms.models.feedback.search_result_feedback.SearchResultFeedback`

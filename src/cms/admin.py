@@ -26,9 +26,11 @@ from .models import UserProfile
 from .models import EventFeedback
 from .models import EventListFeedback
 from .models import ImprintPageFeedback
+from .models import MapFeedback
 from .models import OfferFeedback
 from .models import OfferListFeedback
 from .models import PageFeedback
+from .models import POIFeedback
 from .models import RegionFeedback
 from .models import SearchResultFeedback
 from .models import ImprintPage
@@ -55,9 +57,11 @@ admin.site.register(UserProfile)
 admin.site.register(EventFeedback)
 admin.site.register(EventListFeedback)
 admin.site.register(ImprintPageFeedback)
+admin.site.register(MapFeedback)
 admin.site.register(OfferFeedback)
 admin.site.register(OfferListFeedback)
 admin.site.register(PageFeedback)
+admin.site.register(POIFeedback)
 admin.site.register(RegionFeedback)
 admin.site.register(SearchResultFeedback)
 admin.site.register(ImprintPage)
