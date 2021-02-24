@@ -133,6 +133,9 @@
             </div>
             <input id="bulk-action-execute" type="submit" class="inline-block bg-gray-500 cursor-not-allowed text-white h-full font-bold py-2 px-4 ml-2 rounded" value="{% trans 'Execute' %}" />
         </div>
+        <div>
+            {% include "pagination.html" with url=url chunk=admin_feedback %}
+        </div>
     </div>
 </form>
 {% endblock %}

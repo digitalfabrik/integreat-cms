@@ -2,10 +2,12 @@ from datetime import date
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from backend.settings import PER_PAGE
 from ...constants import feedback_ratings, feedback_read_status
 from ...decorators import staff_required
 from ...forms.feedback import AdminFeedbackFilterForm
@@ -103,12 +105,16 @@ class AdminFeedbackListView(PermissionRequiredMixin, TemplateView):
             filter_form = AdminFeedbackFilterForm()
             filter_form.changed_data.clear()
 
+        paginator = Paginator(admin_feedback, PER_PAGE)
+        chunk = request.GET.get("chunk")
+        admin_feedback_chunk = paginator.get_page(chunk)
+
         return render(
             request,
             self.template_name,
             {
                 "current_menu_item": "admin_feedback",
-                "admin_feedback": admin_feedback,
+                "admin_feedback": admin_feedback_chunk,
                 "filter_form": filter_form,
             },
         )
