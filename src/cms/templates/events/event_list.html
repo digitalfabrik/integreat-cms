@@ -41,7 +41,7 @@
             </form>
             <div class="w-1/2 flex flex-wrap justify-end">
                 <button id="filter-toggle"
-                        class="bg-gray-500 hover:bg-gray-600 text-gray-800 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+                        class="bg-gray-500 hover:bg-gray-600 text-white hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
                     {% trans 'Filter events' %}
                 </button>
                 {% if region.default_language == language %}
@@ -60,8 +60,6 @@
         <table id="event-list" class="sort w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 px-2 min" data-sort-default>{% trans 'ID' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'Version' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
@@ -84,7 +82,7 @@
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Event location' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Start' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'End' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min no-sort" data-sort-method="none">{% trans 'Options' %}</th>
+                <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min no-sort" data-sort-method="none">{% trans 'Options' %}</th>
             </tr>
             </thead>
             <tbody>

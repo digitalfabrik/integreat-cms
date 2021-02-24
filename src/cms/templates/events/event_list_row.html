@@ -4,14 +4,6 @@
 {% load poi_filters %}
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
-    <td style="padding-left: 10px">
-        {{ event.id }}
-    </td>
-    <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
-            {{ event_translation.version }}
-        </a>
-    </td>
     <td>
         <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
             {{ event_translation.get_status_display }}
@@ -95,7 +87,7 @@
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if can_edit_event %}
             <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_code=language.code %}" class="py-3 px-2" title="{% trans 'Edit event' %}">
-                <i data-feather="edit" class="text-gray-800"></i>
+                <i data-feather="edit" class="inline-block text-gray-800"></i>
             </a>
             <button title="{% trans 'Archive event' %}" class="confirmation-button py-3 px-2" 
                 data-confirmation-title="{{ archive_dialog_title }}"
