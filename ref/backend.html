@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-19T18:56:32+00:00" />
+    <meta property="article:modified_time" content="2021-02-02T18:25:20+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
@@ -338,6 +338,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.middleware.html#timezone-middleware">Timezone Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.models.html">Models</a><ul>
@@ -739,6 +743,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.middleware.html#module-cms.middleware.timezone_middleware">Timezone Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.models.html">Models</a><ul>
@@ -1377,6 +1385,12 @@ or filter specified as the second item (see <a class="reference external" href="
 
 <dl class="py data">
 <dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CURRENT_TIME_ZONE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Europe/Berlin'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A string representing the time zone that is used for rendering</p>
+</dd></dl>
+
+<dl class="py data">
+<dt>
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DATABASES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'ATOMIC_REQUESTS':</span> <span class="pre">False,</span> <span class="pre">'AUTOCOMMIT':</span> <span class="pre">True,</span> <span class="pre">'CONN_MAX_AGE':</span> <span class="pre">0,</span> <span class="pre">'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span> <span class="pre">'HOST':</span> <span class="pre">'localhost',</span> <span class="pre">'NAME':</span> <span class="pre">'integreat',</span> <span class="pre">'OPTIONS':</span> <span class="pre">{},</span> <span class="pre">'PASSWORD':</span> <span class="pre">'password',</span> <span class="pre">'PORT':</span> <span class="pre">'5432',</span> <span class="pre">'TEST':</span> <span class="pre">{'CHARSET':</span> <span class="pre">None,</span> <span class="pre">'COLLATION':</span> <span class="pre">None,</span> <span class="pre">'MIRROR':</span> <span class="pre">None,</span> <span class="pre">'NAME':</span> <span class="pre">None},</span> <span class="pre">'TIME_ZONE':</span> <span class="pre">None,</span> <span class="pre">'USER':</span> <span class="pre">'integreat'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A dictionary containing the settings for all databases to be used with this Django installation
 (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-DATABASES" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
@@ -1600,7 +1614,7 @@ Used in the following views:</p>
 
 <dl class="py data">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MIDDLEWARE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['corsheaders.middleware.CorsMiddleware',</span> <span class="pre">'django.middleware.security.SecurityMiddleware',</span> <span class="pre">'django.contrib.sessions.middleware.SessionMiddleware',</span> <span class="pre">'django.middleware.locale.LocaleMiddleware',</span> <span class="pre">'django.middleware.common.CommonMiddleware',</span> <span class="pre">'django.middleware.csrf.CsrfViewMiddleware',</span> <span class="pre">'django.contrib.auth.middleware.AuthenticationMiddleware',</span> <span class="pre">'django.contrib.messages.middleware.MessageMiddleware',</span> <span class="pre">'django.middleware.clickjacking.XFrameOptionsMiddleware']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MIDDLEWARE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['corsheaders.middleware.CorsMiddleware',</span> <span class="pre">'django.middleware.security.SecurityMiddleware',</span> <span class="pre">'django.contrib.sessions.middleware.SessionMiddleware',</span> <span class="pre">'django.middleware.locale.LocaleMiddleware',</span> <span class="pre">'django.middleware.common.CommonMiddleware',</span> <span class="pre">'django.middleware.csrf.CsrfViewMiddleware',</span> <span class="pre">'django.contrib.auth.middleware.AuthenticationMiddleware',</span> <span class="pre">'django.contrib.messages.middleware.MessageMiddleware',</span> <span class="pre">'django.middleware.clickjacking.XFrameOptionsMiddleware',</span> <span class="pre">'cms.middleware.timezone_middleware.TimezoneMiddleware']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Activated middlewares (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-MIDDLEWARE" title="(in Django v2.2)"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;corsheaders.middleware.CorsMiddleware&#39;</span><span class="p">,</span>
@@ -1612,6 +1626,7 @@ Used in the following views:</p>
     <span class="s1">&#39;django.contrib.auth.middleware.AuthenticationMiddleware&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.messages.middleware.MessageMiddleware&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.middleware.clickjacking.XFrameOptionsMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;cms.middleware.timezone_middleware.TimezoneMiddleware&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -1854,7 +1869,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 19, 2021.
+        Last updated on Feb 02, 2021.
       </span>
 
     </p>

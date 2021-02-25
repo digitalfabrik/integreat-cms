@@ -5,10 +5,10 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2020-12-20T23:40:06+00:00" />
+    <meta property="article:modified_time" content="2021-02-02T18:25:20+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Feedback &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Middleware &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -24,7 +24,7 @@
   
 
   
-    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref-ext/cms.views.feedback.html" />
+    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref-ext/cms.middleware.html" />
 
   
   <!--[if lt IE 9]>
@@ -42,8 +42,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Imprint" href="cms.views.imprint.html" />
-    <link rel="prev" title="Events" href="cms.views.events.html" /> 
+    <link rel="next" title="Models" href="cms.models.html" />
+    <link rel="prev" title="Users" href="cms.forms.users.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -745,8 +745,8 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.middleware.html#module-cms.middleware.timezone_middleware">Timezone Middleware</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Middleware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.middleware.timezone_middleware">Timezone Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.models.html">Models</a><ul>
@@ -857,7 +857,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="cms.views.html">Views</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cms.views.html">Views</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
 </ul>
@@ -888,9 +888,9 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.events.html#module-cms.views.events.event_view">Event View</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Feedback</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.feedback.admin_feedback_list_view">Admin Feedback List View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.feedback.region_feedback_list_view">Region Feedback List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#module-cms.views.feedback.admin_feedback_list_view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#module-cms.views.feedback.region_feedback_list_view">Region Feedback List View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.imprint.html">Imprint</a><ul>
@@ -1099,15 +1099,13 @@
         
           <li><a href="cms.html">CMS</a> &raquo;</li>
         
-          <li><a href="cms.views.html">Views</a> &raquo;</li>
-        
-      <li>Feedback</li>
+      <li>Middleware</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../ref/cms.views.feedback.html" class="fa fa-search-minus"> Open simplified view</a>
+            <a href="../ref/cms.middleware.html" class="fa fa-search-minus"> Open simplified view</a>
           
         
       </li>
@@ -1120,302 +1118,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cms.views.feedback">
-<span id="feedback"></span><h1>Feedback<a class="headerlink" href="#module-cms.views.feedback" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-cms.views.feedback.admin_feedback_list_view">
-<span id="admin-feedback-list-view"></span><h2>Admin Feedback List View<a class="headerlink" href="#module-cms.views.feedback.admin_feedback_list_view" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="module-cms.middleware">
+<span id="middleware"></span><h1>Middleware<a class="headerlink" href="#module-cms.middleware" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-cms.middleware.timezone_middleware">
+<span id="timezone-middleware"></span><h2>Timezone Middleware<a class="headerlink" href="#module-cms.middleware.timezone_middleware" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_list_view.</span></code><code class="sig-name descname"><span class="pre">AdminFeedbackListView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
-<p>View to list all admin feedback (technical feedback)</p>
+<dt id="cms.middleware.timezone_middleware.TimezoneMiddleware">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.middleware.timezone_middleware.</span></code><code class="sig-name descname"><span class="pre">TimezoneMiddleware</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/middleware/timezone_middleware.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.middleware.timezone_middleware.TimezoneMiddleware" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Middleware class that sets the current time zone like specified in settings.py</p>
 <dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor. Called in the URLconf; can contain helpful extra
-keyword arguments, and other things.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.as_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main entry point for a request-response process.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.content_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.dispatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.extra_context" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render admin feedback list</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The rendered template response</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get_context_data">
-<code class="sig-name descname"><span class="pre">get_context_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get_context_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get_template_names">
-<code class="sig-name descname"><span class="pre">get_template_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get_template_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of template names to be used for the request. Must return
-a list. May not be called if render_to_response() is overridden.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.http_method_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.options" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.render_to_response">
-<code class="sig-name descname"><span class="pre">render_to_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.render_to_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
-template rendered with the given context.</p>
-<p>Pass response_kwargs to the constructor of the response class.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.response_class">
-<code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.setup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize attributes shared by all view methods.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.template_engine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'feedback/admin_feedback_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-cms.views.feedback.region_feedback_list_view">
-<span id="region-feedback-list-view"></span><h2>Region Feedback List View<a class="headerlink" href="#module-cms.views.feedback.region_feedback_list_view" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_list_view.</span></code><code class="sig-name descname"><span class="pre">RegionFeedbackListView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
-<p>View to list all region feedback (content feedback)</p>
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor. Called in the URLconf; can contain helpful extra
-keyword arguments, and other things.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.as_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main entry point for a request-response process.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.content_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.dispatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.extra_context" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render region feedback list</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The rendered template response</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)">TemplateResponse</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_context_data">
-<code class="sig-name descname"><span class="pre">get_context_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_context_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_login_url">
-<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_login_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the login_url attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_permission_denied_message">
-<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_denied_message attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_permission_required">
-<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_required attribute.
-Must return an iterable.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_redirect_field_name">
-<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the redirect_field_name attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_template_names">
-<code class="sig-name descname"><span class="pre">get_template_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_template_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of template names to be used for the request. Must return
-a list. May not be called if render_to_response() is overridden.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.handle_no_permission">
-<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.has_permission">
-<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to customize the way permissions are checked.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.http_method_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.login_url">
-<code class="sig-name descname"><span class="pre">login_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.login_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.options" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.permission_denied_message">
-<code class="sig-name descname"><span class="pre">permission_denied_message</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.permission_required">
-<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.view_feedback'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.raise_exception">
-<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.redirect_field_name">
-<code class="sig-name descname"><span class="pre">redirect_field_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.render_to_response">
-<code class="sig-name descname"><span class="pre">render_to_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.render_to_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
-template rendered with the given context.</p>
-<p>Pass response_kwargs to the constructor of the response class.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.response_class">
-<code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.setup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize attributes shared by all view methods.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.template_engine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'feedback/region_feedback_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dt id="cms.middleware.timezone_middleware.TimezoneMiddleware.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/middleware/timezone_middleware.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.middleware.timezone_middleware.TimezoneMiddleware.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1429,8 +1144,8 @@ template rendered with the given context.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="cms.views.imprint.html" class="btn btn-neutral float-right" title="Imprint" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="cms.views.events.html" class="btn btn-neutral float-left" title="Events" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cms.models.html" class="btn btn-neutral float-right" title="Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cms.forms.users.html" class="btn btn-neutral float-left" title="Users" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -1442,7 +1157,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Dec 20, 2020.
+        Last updated on Feb 02, 2021.
       </span>
 
     </p>
