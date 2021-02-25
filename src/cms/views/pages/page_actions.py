@@ -161,7 +161,7 @@ def view_page(request, page_id, region_slug, language_code):
     template_name = "pages/page_view.html"
 
     page_translation = page.get_translation(language_code)
-    mirrored_translation = page.get_mirrored_page(language_code)
+    mirrored_translation = page.get_mirrored_page_translation(language_code)
 
     return render(
         request,
