@@ -248,7 +248,8 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#all-day">All Day</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#feedback-emotions">Feedback Emotions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#months">Months</a></li>
@@ -278,6 +279,11 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#event-form">Event Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#event-translation-form">Event Translation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.events.html#recurrence-rule-form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.feedback.html#admin-feedback-filter-form">Admin Feedback Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.feedback.html#region-feedback-filter-form">Region Feedback Filter Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
@@ -364,9 +370,11 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#event-list-feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#id1">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#map-feedback">Map Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#offer-feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#poi-feedback">POI Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#region-feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.feedback.html#search-result-feedback">Search Result Feedback</a></li>
 </ul>
@@ -426,6 +434,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#user-filters">User Filters</a></li>
 </ul>
@@ -484,7 +493,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#admin-feedback-actions">Admin Feedback Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#admin-feedback-list-view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#region-feedback-actions">Region Feedback Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.feedback.html#region-feedback-list-view">Region Feedback List View</a></li>
 </ul>
 </li>
@@ -599,9 +610,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#event-list-feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#imprint-page-feedback">Imprint Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#legacy-feedback-endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#map-feedback">Map Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#offer-feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#offer-list-feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#page-feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#poi-feedback">POI Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#region-feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#search-result-feedback">Search Result Feedback</a></li>
 </ul>
@@ -653,7 +666,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.all_day">All Day</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.mirrored_page_first">Mirrored Page First</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.months">Months</a></li>
@@ -683,6 +697,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.events.html#module-cms.forms.events.event_form">Event Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.events.html#module-cms.forms.events.event_translation_form">Event Translation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.events.html#module-cms.forms.events.recurrence_rule_form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.feedback.html#module-cms.forms.feedback.admin_feedback_filter_form">Admin Feedback Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.feedback.html#module-cms.forms.feedback.region_feedback_filter_form">Region Feedback Filter Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html">Imprint</a><ul>
@@ -769,9 +788,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#id1">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.map_feedback">Map Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.poi_feedback">POI Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.region_feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.feedback.html#module-cms.models.feedback.search_result_feedback">Search Result Feedback</a></li>
 </ul>
@@ -831,6 +852,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.templatetags.html#module-cms.templatetags.user_filters">User Filters</a></li>
 </ul>
@@ -889,7 +911,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.feedback.html#module-cms.views.feedback.admin_feedback_actions">Admin Feedback Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.feedback.html#module-cms.views.feedback.admin_feedback_list_view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.feedback.html#module-cms.views.feedback.region_feedback_actions">Region Feedback Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.feedback.html#module-cms.views.feedback.region_feedback_list_view">Region Feedback List View</a></li>
 </ul>
 </li>
@@ -1004,9 +1028,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.map_feedback">Map Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.poi_feedback">POI Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
 </ul>
@@ -1126,7 +1152,7 @@
 <h2>Event Feedback<a class="headerlink" href="#event-feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.feedback.event_feedback.</span></code><code class="sig-name descname"><span class="pre">event_feedback_internal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emotion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/feedback/event_feedback.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.feedback.event_feedback.</span></code><code class="sig-name descname"><span class="pre">event_feedback_internal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/feedback/event_feedback.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Store feedback about single event in database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1135,7 +1161,7 @@
 <li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
 <li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
 <li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>emotion</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – up or downvote, neutral</p></li>
+<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – up or downvote, neutral</p></li>
 <li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
 </ul>
 </dd>
@@ -1158,7 +1184,7 @@
 <p>APIv3 endpoint for feedback about the imprint</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.feedback.imprint_page_feedback.</span></code><code class="sig-name descname"><span class="pre">imprint_page_feedback_internal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emotion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/feedback/imprint_page_feedback.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.feedback.imprint_page_feedback.</span></code><code class="sig-name descname"><span class="pre">imprint_page_feedback_internal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/feedback/imprint_page_feedback.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Store feedback about imprint in database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1167,7 +1193,7 @@
 <li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
 <li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
 <li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>emotion</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – up or downvote, neutral</p></li>
+<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – up or downvote, neutral</p></li>
 <li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
 </ul>
 </dd>
@@ -1185,6 +1211,10 @@
 <h2>Legacy Feedback Endpoint<a class="headerlink" href="#legacy-feedback-endpoint" title="Permalink to this headline">¶</a></h2>
 <p>APIv3 legacy feedback endpoint for pages, events and imprint</p>
 </div>
+<div class="section" id="map-feedback">
+<h2>Map Feedback<a class="headerlink" href="#map-feedback" title="Permalink to this headline">¶</a></h2>
+<p>APIv3 endpoint for the map (POIs in general)</p>
+</div>
 <div class="section" id="offer-feedback">
 <h2>Offer Feedback<a class="headerlink" href="#offer-feedback" title="Permalink to this headline">¶</a></h2>
 <p>APIv3 feedback endpoint for feedback about single offer</p>
@@ -1198,7 +1228,7 @@
 <p>APIv3 endpoint for feedback bout single pages</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.feedback.page_feedback.</span></code><code class="sig-name descname"><span class="pre">page_feedback_internal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emotion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/feedback/page_feedback.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.feedback.page_feedback.</span></code><code class="sig-name descname"><span class="pre">page_feedback_internal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/feedback/page_feedback.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Store feedback about single event in database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1207,7 +1237,7 @@
 <li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
 <li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
 <li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>emotion</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – up or downvote, neutral</p></li>
+<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – up or downvote, neutral</p></li>
 <li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
 </ul>
 </dd>
@@ -1220,6 +1250,9 @@
 </dl>
 </dd></dl>
 
+</div>
+<div class="section" id="poi-feedback">
+<h2>POI Feedback<a class="headerlink" href="#poi-feedback" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="region-feedback">
 <h2>Region Feedback<a class="headerlink" href="#region-feedback" title="Permalink to this headline">¶</a></h2>

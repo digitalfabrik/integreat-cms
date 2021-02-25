@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2020-01-24T10:53:18+00:00" />
+    <meta property="article:modified_time" content="2021-02-20T23:10:36+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Documentation (Sphinx) &mdash; integreat-cms 0.0.14 documentation</title>
@@ -248,7 +248,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#all-day">All Day</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#feedback-emotions">Feedback Emotions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#months">Months</a></li>
@@ -278,6 +279,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.events.html#event-form">Event Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.events.html#event-translation-form">Event Translation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.events.html#recurrence-rule-form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.feedback.html#admin-feedback-filter-form">Admin Feedback Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.feedback.html#region-feedback-filter-form">Region Feedback Filter Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.imprint.html">Imprint</a><ul>
@@ -364,9 +370,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#event-list-feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#id1">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#map-feedback">Map Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#offer-feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#poi-feedback">POI Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#region-feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.feedback.html#search-result-feedback">Search Result Feedback</a></li>
 </ul>
@@ -426,6 +434,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#user-filters">User Filters</a></li>
 </ul>
@@ -484,7 +493,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.feedback.html#admin-feedback-actions">Admin Feedback Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.feedback.html#admin-feedback-list-view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.feedback.html#region-feedback-actions">Region Feedback Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.feedback.html#region-feedback-list-view">Region Feedback List View</a></li>
 </ul>
 </li>
@@ -599,9 +610,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#event-list-feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#legacy-feedback-endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#map-feedback">Map Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#offer-feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#poi-feedback">POI Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#region-feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/api.v3.feedback.html#search-result-feedback">Search Result Feedback</a></li>
 </ul>
@@ -653,7 +666,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.all_day">All Day</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.feedback_emotions">Feedback Emotions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.mirrored_page_first">Mirrored Page First</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.months">Months</a></li>
@@ -683,6 +697,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.events.html#module-cms.forms.events.event_form">Event Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.events.html#module-cms.forms.events.event_translation_form">Event Translation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.events.html#module-cms.forms.events.recurrence_rule_form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.feedback.html#module-cms.forms.feedback.admin_feedback_filter_form">Admin Feedback Filter Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.feedback.html#module-cms.forms.feedback.region_feedback_filter_form">Region Feedback Filter Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.imprint.html">Imprint</a><ul>
@@ -769,9 +788,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.event_list_feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#id1">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.map_feedback">Map Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.poi_feedback">POI Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.region_feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.feedback.html#module-cms.models.feedback.search_result_feedback">Search Result Feedback</a></li>
 </ul>
@@ -831,6 +852,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.user_filters">User Filters</a></li>
 </ul>
@@ -889,7 +911,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.feedback.html#module-cms.views.feedback.admin_feedback_actions">Admin Feedback Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.feedback.html#module-cms.views.feedback.admin_feedback_list_view">Admin Feedback List View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.feedback.html#module-cms.views.feedback.region_feedback_actions">Region Feedback Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.feedback.html#module-cms.views.feedback.region_feedback_list_view">Region Feedback List View</a></li>
 </ul>
 </li>
@@ -1004,9 +1028,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.event_list_feedback">Event List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.imprint_page_feedback">Imprint Page Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.legacy_feedback_endpoint">Legacy Feedback Endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.map_feedback">Map Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.offer_feedback">Offer Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.offer_list_feedback">Offer List Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.page_feedback">Page Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.poi_feedback">POI Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.region_feedback">Region Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
 </ul>
@@ -1437,7 +1463,7 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py function">
 <dt id="conf.linkcode_resolve">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">linkcode_resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">linkcode_resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
 It links all classes and functions to their source files on GitHub including line numbers.</p>
 <dl class="field-list simple">
@@ -1467,7 +1493,7 @@ It links all classes and functions to their source files on GitHub including lin
 
 <dl class="py data">
 <dt id="conf.nitpick_ignore">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">nitpick_ignore</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">nitpick_ignore</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.feedback'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of (type, target) tuples that should be ignored when <a class="reference internal" href="#conf.nitpicky" title="conf.nitpicky"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nitpicky</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;builtins.int&#39;</span><span class="p">),</span>
@@ -1475,6 +1501,7 @@ It links all classes and functions to their source files on GitHub including lin
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.profile&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.mfa_keys&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.editable_pages&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.feedback&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.publishable_pages&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.page_translations&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.event_translations&#39;</span><span class="p">),</span>
@@ -1549,7 +1576,7 @@ It links all classes and functions to their source files on GitHub including lin
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jan 24, 2020.
+        Last updated on Feb 20, 2021.
       </span>
 
     </p>
