@@ -219,6 +219,11 @@ class Region(models.Model):
         """
         This property returns a QuerySet of all archived pages and their descendants of this region.
 
+        Per default, the returned queryset has some limitations because of the usage of
+        :meth:`~django.db.models.query.QuerySet.union`. To perform the extra effort of returning an unrestricted
+        queryset, use :meth:`~cms.models.regions.region.Region.get_pages` with the parameters ``archived`` and
+        ``return_unrestricted_queryset`` set to ``True``.
+
         :return: A QuerySet of all archived pages of this region
         :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
         """
@@ -244,6 +249,12 @@ class Region(models.Model):
         A page is considered as "non-archived" if its ``explicitly_archived`` property is ``False`` and all of the
         page's ancestors are not archived as well.
 
+        Per default, the returned queryset has some limitations because of the usage of
+        :meth:`~django.db.models.query.QuerySet.difference` (see :meth:`~django.db.models.query.QuerySet.union` for some
+        restrictions). To perform the extra effort of returning an unrestricted queryset, use
+        :meth:`~cms.models.regions.region.Region.get_pages` with the parameter ``return_unrestricted_queryset`` set to
+        ``True``.
+
         :return: A QuerySet of all non-archived pages of this region
         :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
         """
@@ -256,20 +267,35 @@ class Region(models.Model):
         # "recursetree" of django-mptt (see :doc:`django-mptt:templates`)
         return non_archived_pages.order_by("tree_id", "lft")
 
-    def get_pages(self, archived):
+    def get_pages(self, archived=False, return_unrestricted_queryset=False):
         """
         This method returns either all archived or all non-archived pages of this region.
-        To retrieve all pages independently from their archived-state, use the reverse foreign key ``region.pages``.
+        To retrieve all pages independently from their archived-state, use the reverse foreign key
+        :attr:`~cms.models.regions.region.Region.pages`.
 
-        :param archived: Whether or not only archived pages should be returned
+        Per default, the returned queryset has some limitations because of the usage of
+        :meth:`~django.db.models.query.QuerySet.difference` and :meth:`~django.db.models.query.QuerySet.union`.
+        To perform the extra effort of returning an unrestricted queryset, set the parameter
+        ``return_unrestricted_queryset`` to ``True``.
+
+        :param archived: Whether or not only archived pages should be returned (default: ``False``)
         :type archived: bool
+
+        :param return_unrestricted_queryset: Whether or not the result should be returned as unrestricted queryset.
+                                             (default: ``False``)
+        :type return_unrestricted_queryset: bool
 
         :return: Either the archived or the non-archived pages of this region
         :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
         """
         if archived:
-            return self.archived_pages
-        return self.non_archived_pages
+            pages = self.archived_pages
+        pages = self.non_archived_pages
+        if return_unrestricted_queryset:
+            # Generate a new unrestricted queryset containing the same pages
+            page_ids = [page.id for page in pages]
+            pages = self.pages.filter(id__in=page_ids)
+        return pages
 
     def __str__(self):
         """

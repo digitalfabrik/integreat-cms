@@ -146,7 +146,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                 **context,
                 "current_menu_item": "pages",
                 "pages": pages,
-                "archived_count": region.archived_pages.count(),
+                "archived_count": region.get_pages(archived=True).count(),
                 "language": language,
                 "languages": region.languages,
                 "filter_form": filter_form,

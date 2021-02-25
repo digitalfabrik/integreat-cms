@@ -36,6 +36,8 @@ def pdf_export(request, region_slug, language_code):
     :rtype: ~django.http.HttpResponse
     """
     region = Region.get_current_region(request)
+    # Request unrestricted queryset because pdf generator performs further operations (e.g. aggregation) on the queryset
+    pages = region.get_pages(return_unrestricted_queryset=True)
     if request.GET.get("url"):
         # remove leading and trailing slashed to avoid ambiguous urls
         url = request.GET.get("url").strip("/")
@@ -43,11 +45,9 @@ def pdf_export(request, region_slug, language_code):
         page_translation_slug = url.split("/")[-1]
         # get page by filtering for translation slug and translation language code
         page = get_object_or_404(
-            region.pages,
+            pages,
             translations__slug=page_translation_slug,
             translations__language__code=language_code,
         )
         pages = page.get_descendants(include_self=True)
-    else:
-        pages = region.pages.filter(archived=False)
     return generate_pdf(region, language_code, pages)

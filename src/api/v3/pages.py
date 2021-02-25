@@ -69,7 +69,7 @@ def pages(request, region_slug, language_code):
     """
     region = Region.get_current_region(request)
     result = []
-    for page in region.non_archived_pages:
+    for page in region.get_pages():
         page_translation = page.get_public_translation(language_code)
         if page_translation:
             result.append(transform_page(page_translation))
