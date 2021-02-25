@@ -112,7 +112,9 @@ jobs:
           at: .
       - run:
           name: Compile CSS
-          command: npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
+          command: |
+            pipenv run integreat-cms-cli tailwind install
+            pipenv run integreat-cms-cli tailwind build
       - run:
           name: Browserify revisions.js
           command: npx browserify src/cms/static/js/revisions.js -o src/cms/static/js/revisions_browserified.js -t [ babelify --presets [ @babel/preset-env ] ]
@@ -127,7 +129,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - src/cms/static/css/style.min.css
+            - src/tailwind_theme/static/css/styles.css
+            - src/tailwind_theme/static/css/styles.css.map
             - src/cms/static/CACHE
             - src/cms/locale/de/LC_MESSAGES/django.mo
   packaging:

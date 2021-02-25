@@ -33,7 +33,7 @@ pre {
       </form>
     </div>
     {% for xliff_diff in translation_diffs %}
-    <div class="border border-{% if xliff_diff.error %}red{% else %}green{% endif %}-500 m-4">
+    <div class="border {% if xliff_diff.error %}border-red-500{% else %}border-green-500{% endif %} m-4">
         {% if xliff_diff.error %}
         <h2 class="heading font-normal m-4">{% trans 'Translation cannot be imported' %}</h2>
         <p class="m-4">{% trans 'The page or target language does not exist.' %}

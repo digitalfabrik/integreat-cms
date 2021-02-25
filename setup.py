@@ -46,6 +46,7 @@ setup(
         "six",
         "webauthn",
         "xhtml2pdf",
+        "django-tailwind",
     ],
     author="Integreat App Project",
     author_email="info@integreat-app.de",

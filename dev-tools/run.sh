@@ -33,9 +33,6 @@ if nc -w1 localhost 5432; then
 
     cd $(dirname "$BASH_SOURCE")/..
 
-    # Compile CSS
-    npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
-
     # Browserify revisions.js
     npx browserify src/cms/static/js/revisions.js -o src/cms/static/js/revisions_browserified.js -t [ babelify --presets [ @babel/preset-env ] ]
 
@@ -46,6 +43,7 @@ if nc -w1 localhost 5432; then
     ./dev-tools/migrate.sh
 
     # Start Integreat CMS
+    pipenv run integreat-cms-cli tailwind start &\
     pipenv run integreat-cms-cli runserver localhost:8000
 
 else
@@ -74,9 +72,6 @@ else
     fi
 
     cd $(dirname "$BASH_SOURCE")/..
-
-    # Compile CSS
-    sudo -u $SUDO_USER env PATH="$PATH" npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
 
     # Browserify revisions.js
     sudo -u $SUDO_USER env PATH="$PATH" npx browserify src/cms/static/js/revisions.js -o src/cms/static/js/revisions_browserified.js -t [ babelify --presets [ @babel/preset-env ] ]
@@ -115,6 +110,7 @@ else
     fi
 
     # Start Integreat CMS
+    pipenv run integreat-cms-cli tailwind start &\
     sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
 
     # Stop the postgres database docker container

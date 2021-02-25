@@ -65,6 +65,7 @@ fi
 
 # Install pip dependencies
 pipenv install --dev
+pipenv run integreat-cms-cli tailwind install
 
 # Install pre-commit hook for black code style
 pipenv run pre-commit install

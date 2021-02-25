@@ -53,7 +53,7 @@ fi
 
 # Generate new .rst files from source code for maximum verbosity
 export SPHINX_APIDOC_OPTIONS="members,undoc-members,inherited-members,show-inheritance"
-pipenv run sphinx-apidoc --no-toc --module-first -o ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} ${SRC_DIR} ${SRC_DIR}/cms/migrations ${SRC_DIR}/gvz_api/migrations
+pipenv run sphinx-apidoc --no-toc --module-first -o ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} ${SRC_DIR} ${SRC_DIR}/cms/migrations ${SRC_DIR}/gvz_api/migrations ${SRC_DIR}/tailwind_theme
 
 # Modify .rst files to remove unnecessary submodule- & subpackage-titles
 # Example: "cms.models.push_notifications.push_notification_translation module" becomes "Push Notification Translation"

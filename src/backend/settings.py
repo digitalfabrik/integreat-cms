@@ -131,6 +131,8 @@ INSTALLED_APPS = [
     "filer",
     "mptt",
     "rules.apps.AutodiscoverRulesConfig",
+    "tailwind",
+    "tailwind_theme",
 ]
 
 #: Activated middlewares (see :setting:`django:MIDDLEWARE`)
@@ -534,3 +536,8 @@ THUMBNAIL_HIGH_RESOLUTION = True
 #: Number of entries displayed per pagination chunk
 #: see :class:`~django.core.paginator.Paginator`
 PER_PAGE = 16
+
+##############
+# Tailwind #
+##############
+TAILWIND_APP_NAME = "tailwind_theme"
