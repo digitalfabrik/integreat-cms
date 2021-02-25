@@ -144,6 +144,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "cms.middleware.timezone_middleware.TimezoneMiddleware",
 ]
 
 #: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
@@ -406,6 +407,9 @@ LANGUAGE_CODE = "de-de"
 #: A string representing the time zone for this installation
 #: (see :setting:`django:TIME_ZONE` and :doc:`topics/i18n/index`)
 TIME_ZONE = "UTC"
+
+#: A string representing the time zone that is used for rendering
+CURRENT_TIME_ZONE = "Europe/Berlin"
 
 #: A boolean that specifies whether Django’s translation system should be enabled
 #: (see :setting:`django:USE_I18N` and :doc:`topics/i18n/index`)
