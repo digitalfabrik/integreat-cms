@@ -245,7 +245,7 @@
                                 <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                             </div>
                         </div>
-                        <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' %}?page_id={{ page_form.instance.id }}&region_id=">
+                        <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
                             {% include "pages/_mirrored_page_field.html" %}
                         </div>
                         <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
