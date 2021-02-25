@@ -1,8 +1,9 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from .feedback import Feedback
 from ..events.event_translation import EventTranslation
+from .feedback import Feedback
 
 
 class EventFeedback(Feedback):
@@ -16,6 +17,47 @@ class EventFeedback(Feedback):
         related_name="feedback",
         verbose_name=_("event translation"),
     )
+
+    @property
+    def object_name(self):
+        """
+        This property returns the name of the object this feedback comments on.
+
+        :return: The name of the object this feedback refers to
+        :rtype: str
+        """
+        return self.event_translation.event.backend_translation.title
+
+    @property
+    def object_url(self):
+        """
+        This property returns the url to the object this feedback comments on.
+
+        :return: The url to the referred object
+        :rtype: str
+        """
+        return reverse(
+            "edit_event",
+            kwargs={
+                "event_id": self.event_translation.event.id,
+                "region_slug": self.region.slug,
+                "language_code": self.event_translation.event.backend_translation.language.code,
+            },
+        )
+
+    @property
+    def related_feedback(self):
+        """
+        This property returns all feedback entries which relate to the same object and have the same is_technical value.
+
+        :return: The queryset of related feedback
+        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.feedback.event_feedback.EventFeedback ]
+        """
+        return EventFeedback.objects.filter(
+            event_translation__event=self.event_translation.event,
+            language=self.language,
+            is_technical=self.is_technical,
+        )
 
     class Meta:
         #: The verbose name of the model

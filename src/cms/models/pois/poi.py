@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language, ugettext_lazy as _
 
 from ..regions.region import Region, Language
 from ...constants import status
@@ -80,6 +80,22 @@ class POI(models.Model):
             language__code=language_code,
             status=status.PUBLIC,
         ).first()
+
+    @property
+    def backend_translation(self):
+        """
+        This function tries to determine which translation to be used for showing a POI in the backend.
+        The first priority is the current backend language.
+        If no translation is present in this language, the fallback is the region's default language.
+
+        :return: The "best" translation of a POI for displaying in the backend
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
+        """
+        poi_translation = self.translations.filter(language__code=get_language())
+        if not poi_translation.exists():
+            alt_code = self.region.default_language.code
+            poi_translation = self.translations.filter(language__code=alt_code)
+        return poi_translation.first()
 
     class Meta:
         #: The verbose name of the model

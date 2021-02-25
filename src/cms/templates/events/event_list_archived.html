@@ -101,15 +101,13 @@
     <script src="{% static 'tablesort/dist/tablesort.min.js' %}"></script>
     <script src="{% static 'tablesort/dist/sorts/tablesort.date.min.js' %}"></script>
     <script src="{% static 'tablesort/dist/sorts/tablesort.number.min.js' %}"></script>
+    <script src="{% static 'js/events/event_query_pois.js' %}"></script>
+    <script src="{% static 'js/filter_form.js' %}"></script>
 {% endblock %}
+
 {% block javascript_nocompress %}
     <script>
         // Add sorting functionality to event table
         new Tablesort(document.getElementById("event-list"));
-
-        // event handler to toggle filter form
-        u('#filter-toggle').on('click', () => {
-            u('#filter-form-container').toggleClass('hidden');
-        });
     </script>
 {% endblock %}

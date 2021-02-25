@@ -1,130 +1,147 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load widget_tweaks %}
-<h2>{% trans 'Technical Feedback' %}</h2>
+{% load text_filters %}
 
-<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
-    <tr class="border-b border-solid border-gray-200">
-        <th class="text-sm text-left uppercase py-3 pl-2">{% trans 'Type' %}</th>
-        <th class="text-sm text-left uppercase py-3">{% trans 'Object' %}</th>
-        <th class="text-sm text-left uppercase py-3">{% trans 'Language' %}</th>
-        <th class="text-sm text-left uppercase py-3">{% trans 'Comment' %}</th>
-        <th class="text-sm text-left uppercase py-3">{% trans 'Rating' %}</th>
-        <th class="text-sm text-right uppercase py-3 pr-2">{% trans 'Date' %}</th>
-    </tr>
-  {% if not  admin_feedback_exists %}
-    <tr><td colspan="6" class="px-2 py-3">{% trans 'No Feedback available yet.' %} </td></tr>
-    
-    {% else %} 
-    {% for feedback in page_feedback %}
-     <tr>
-        <td class="pl-2 py-3">{% trans 'Page' %}</td>
-        <td>
-            <a href="{% url 'edit_page' page_id=feedback.page_translation.page.id region_slug=feedback.page_translation.page.region.slug language_code=feedback.page_translation.language.code %}">
-                {{ feedback.page_translation.title }}
-            </a>
-        </td>
-         <td>{{ feedback.language.translated_name }}</td>
-        <td>{{ feedback.comment }}</td>
-        <td>{{ feedback.get_emotion_display }}</td>
-        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
-    </tr>
-    {% endfor %}
-    {% for feedback in event_feedback %}
-    <tr>
-        <td class="pl-2 py-3">{% trans 'Event' %}</td>
-        <td>
-            <a href="{% url 'edit_event' event_id=feedback.event_translation.event.id region_slug=feedback.event_translation.event.region.slug language_code=feedback.event_translation.language.code %}">
-                {{ feedback.event_translation.title }}
-            </a>
-        </td>
-        <td>{{ feedback.language.translated_name }}</td>
-        <td>{{ feedback.comment }}</td>
-        <td>{{ feedback.get_emotion_display }}</td>
-        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
-    </tr>
-    {% endfor %}
-    {% for feedback in event_list_feedback %}
-    <tr>
-        <td class="pl-2 py-3">{% trans 'Event List' %}</td>
-        <td>
-            <a href="{% url 'events' region_slug=feedback.region.slug %}">
-                {% trans 'Event List' %}
-            </a>
-        </td>
-        <td>{{ feedback.language.translated_name }}</td>
-        <td>{{ feedback.comment }}</td>
-        <td>{{ feedback.get_emotion_display }}</td>
-        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
-    </tr>
-    {% endfor %}
-    {% for feedback in offer_feedback %}
-    <tr>
-        <td class="pl-2 py-3"></td>{% trans 'Offer' %}</td>
-        <td>
-            <a href="{% url 'edit_offer_template' offer_template_id=feedback.offer.template.id %}">
-                {{ feedback.offer.name }}
-            </a>
-        </td>
-        <td>{{ feedback.language.translated_name }}</td>
-        <td>{{ feedback.comment }}</td>
-        <td>{{ feedback.get_emotion_display }}</td>
-        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
-    </tr>
-    {% endfor %}
-    {% for feedback in offer_list_feedback %}
-    <tr>
-        <td class="pl-2 py-3">{% trans 'Offer List' %}</td>
-        <td>
-            <a href="{% url 'offers' region_slug=feedback.region.slug %}">
-                {% trans 'Offer List' %}
-            </a>
-        </td>
-        <td>{{ feedback.language.translated_name }}</td>
-        <td>{{ feedback.comment }}</td>
-        <td>{{ feedback.get_emotion_display }}</td>
-        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
-    </tr>
-    {% endfor %}
-    {% for feedback in search_result_feedback %}
-    <tr>
-        <td class="pl-2 py-3">{% trans 'Search Result' %}</td>
-        <td>{{ feedback.searchQuery }}</td>
-        <td>{{ feedback.language.translated_name }}</td>
-        <td>{{ feedback.comment }}</td>
-        <td>{{ feedback.get_emotion_display }}</td>
-        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
-    </tr>
-    {% endfor %}
-    {% for feedback in imprint_page_feedback %}
-    <tr>
-        <td class="pl-2 py-3">{% trans 'Imprint Page' %}</td>
-        <td>{{ feedback.region.imprint.translations.first.title }}</td> <!-- TODO: insert link to imprint form -->
-        <td>{{ feedback.language.translated_name }}</td>
-        <td>{{ feedback.comment }}</td>
-        <td>{{ feedback.get_emotion_display }}</td>
-        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
-    </tr>
-    {% endfor %}
-    {% for feedback in region_feedback %}
-    <tr>
-        <td class="pl-2 py-3">{% trans 'Region' %}</td>
-        <td>
-            <a href="{% url 'dashboard' region_slug=feedback.region.slug %}">
-                {{ feedback.region.name }}
-            </a>
-        </td>
-        <td>{{ feedback.language.translated_name }}</td>
-        <td>{{ feedback.comment }}</td>
-        <td>{{ feedback.get_emotion_display }}</td>
-        <td aclass="pr-2 text-right">{{ feedback.created_date }}</td>
-    </tr>
-    {% endfor %}
-    
-    {% endif %} 
+{% block content %}
+<div class="flex flex-wrap">
+    <div class="w-1/2 flex">
+        <h2 class="heading font-normal mb-2">{% trans 'Technical Feedback' %}</h2>
+    </div>
+    <div class="w-1/2 flex justify-end">
+        <button id="filter-toggle"
+                class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+            <span class="filter-toggle-text">{% trans 'Show filters' %}</span>
+            <span class="filter-toggle-text hidden">{% trans 'Hide filters' %}</span>
+        </button>
+    </div>
+</div>
+<div id="filter-form-container" class="{% if not filter_form.has_changed %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    {% include 'feedback/_admin_feedback_filter_form.html' %}
+</div>
 
-    
-</table>
+<form id="bulk-action-form" method="POST">
+    {% csrf_token %}
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <tr class="border-b border-solid border-gray-200">
+            <th class="text-sm text-left uppercase py-3 pr-2" style="padding-left: 10px;" title="{% trans 'Select all' %}"><input type="checkbox" id="bulk-select-all" class="h-full"></th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Category' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Feedback on' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Language' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Comment' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Rating' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Rating' %} ({% trans 'overall' %})</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Region' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Marked as read by' %}</th>
+            <th class="text-sm text-right uppercase py-3 pr-2">{% trans 'Date' %}</th>
+        </tr>
+
+        {% for feedback in admin_feedback %}
+        <tr class="border-t border-solid border-gray-200 hover:bg-gray-200 {% if not feedback.read %}bg-yellow-100 border-yellow-200 hover:border-gray-200{% endif %}">
+            <td class="py-3 {% if not feedback.read %}border-l-4 border-yellow-400{% endif %}" style="padding-left: {% if feedback.read %}10{% else %}8{% endif %}px;">
+                <input type="checkbox" name="selected_ids[]" value="{{ feedback.id }}" class="bulk-select-item">
+            </td>
+            <td class="pr-2 whitespace-nowrap">
+                {{ feedback.category }}
+            </td>
+            <td class="pr-2">
+                {% if feedback.object_url %}
+                <a href="{{ feedback.object_url }}" class="hover:underline">
+                    {{ feedback.object_name }}
+                </a>
+                {% else %}
+                    {{ feedback.object_name }}
+                {% endif %}
+            </td>
+            <td class="pr-2">{{ feedback.language.translated_name }}</td>
+            <td class="pr-2 feedback-comment">
+                {% if not feedback.comment %}
+                    <i data-feather="minus" class="inline-block pr-1"></i>
+                {% elif feedback.comment|words|length > 20 %}
+                    <span>
+                        {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                    </span>
+                    <span class="hidden">
+                        {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                    </span>
+                {% else %}
+                    {{ feedback.comment }}
+                {% endif %}
+            </td>
+            <td class="pr-2">
+                {% if feedback.rating == True %}
+                    <i data-feather="thumbs-up" class="inline-block pr-1"></i>
+                {% elif feedback.rating == False %}
+                    <i data-feather="thumbs-down" class="inline-block pr-1"></i>
+                {% elif feedback.rating == None %}
+                    <i data-feather="minus" class="inline-block pr-1"></i>
+                {% endif %}
+            </td>
+            <td class="pr-2">
+                <span class="{% if not feedback.rating_sum_positive %}invisible{% endif %}">
+                    <i data-feather="thumbs-up" class="inline-block pr-1"></i> {{ feedback.rating_sum_positive }}
+                </span>
+                <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
+                    <i data-feather="thumbs-down" class="inline-block pl-1"></i> {{ feedback.rating_sum_negative }}
+                </span>
+            </td>
+            <td class="pr-2">
+                <a href="{% url 'dashboard' region_slug=feedback.region.slug %}" class="hover:underline">
+                    {{ feedback.region.get_administrative_division_display }} {{ feedback.region.name }}
+                </a>
+            </td>
+            <td class="pr-2">
+                {% if feedback.read_by.email %}
+                    <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">
+                {% endif %}
+                {{ feedback.read_by.profile.full_user_name }}
+                {% if feedback.read_by.email %}
+                    </a>
+                {% endif %}
+            </td>
+            <td class="pr-2 text-right whitespace-nowrap">{{ feedback.created_date }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9" class="px-2 py-3 text-center">
+                {% if filter_form.has_changed %}
+                    {% trans 'No technical feedback found with these filters.' %}
+                {% else %}
+                    {% trans 'No technical feedback available yet.' %}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    <div class="flex justify-between mt-5">
+        <div class="flex">
+            <div class="relative">
+                <select id="bulk-action" class="block appearance-none bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
+                    <option>{% trans 'Select bulk action' %}</option>
+                    <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">{% trans 'Mark as read' %}</option>
+                    <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">{% trans 'Mark as unread' %}</option>
+                    {% if request.user.is_superuser or request.user.is_staff %}
+                        <option data-bulk-action="{% url 'delete_admin_feedback' %}">{% trans 'Delete' %}</option>
+                    {% endif %}
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                    <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                </div>
+            </div>
+            <input id="bulk-action-execute" type="submit" class="inline-block bg-gray-500 cursor-not-allowed text-white h-full font-bold py-2 px-4 ml-2 rounded" value="{% trans 'Execute' %}" />
+        </div>
+        <div>
+            {% include "pagination.html" with url=url chunk=admin_feedback %}
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/feedback/toggle_feedback_comments.js' %}"></script>
+<script src="{% static 'js/bulk_actions.js' %}"></script>
+<script src="{% static 'js/filter_form.js' %}"></script>
 {% endblock %}

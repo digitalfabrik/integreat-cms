@@ -36,13 +36,14 @@ class AdminDashboardView(TemplateView, ChatContextMixin):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        all_feedback = Feedback.objects.filter(is_technical=True)[:5]
+
+        admin_feedback = Feedback.objects.filter(is_technical=True, read_by=None)[:5]
 
         return render(
             request,
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
-                "all_feedback": all_feedback,
+                "admin_feedback": admin_feedback,
             },
         )

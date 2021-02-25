@@ -1,29 +1,30 @@
+from datetime import date
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from backend.settings import PER_PAGE
+from ...constants import feedback_ratings, feedback_read_status
 from ...decorators import staff_required
-from ...models import (
-    PageFeedback,
-    EventFeedback,
-    EventListFeedback,
-    OfferFeedback,
-    OfferListFeedback,
-    SearchResultFeedback,
-    ImprintPageFeedback,
-    RegionFeedback,
-    Feedback,
-)
+from ...forms.feedback import AdminFeedbackFilterForm
+from ...models import Feedback
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class AdminFeedbackListView(TemplateView):
+class AdminFeedbackListView(PermissionRequiredMixin, TemplateView):
     """
     View to list all admin feedback (technical feedback)
     """
 
+    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
+    permission_required = "cms.manage_feedback"
+    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
+    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "feedback/admin_feedback_list.html"
 
@@ -44,29 +45,94 @@ class AdminFeedbackListView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        page_feedback = PageFeedback.objects.filter(is_technical=True)
-        event_feedback = EventFeedback.objects.filter(is_technical=True)
-        event_list_feedback = EventListFeedback.objects.filter(is_technical=True)
-        offer_feedback = OfferFeedback.objects.filter(is_technical=True)
-        offer_list_feedback = OfferListFeedback.objects.filter(is_technical=True)
-        search_result_feedback = SearchResultFeedback.objects.filter(is_technical=True)
-        imprint_page_feedback = ImprintPageFeedback.objects.filter(is_technical=True)
-        region_feedback = RegionFeedback.objects.filter(is_technical=True)
-        admin_feedback_exists = Feedback.objects.filter(is_technical=True).exists()
+        admin_feedback = Feedback.objects.filter(is_technical=True)
+
+        # Filter pages according to given filters, if any
+        filter_data = kwargs.get("filter_data")
+        if filter_data:
+            # Set data for filter form rendering
+            filter_form = AdminFeedbackFilterForm(data=filter_data)
+            if filter_form.is_valid():
+                # Filter feedback for region
+                if filter_form.cleaned_data["region"]:
+                    admin_feedback = admin_feedback.filter(
+                        region=filter_form.cleaned_data["region"]
+                    )
+                # Filter feedback for language
+                if filter_form.cleaned_data["language"]:
+                    admin_feedback = admin_feedback.filter(
+                        language=filter_form.cleaned_data["language"]
+                    )
+                # Filter feedback for category
+                if filter_form.cleaned_data["category"]:
+                    # Inherited models automatically get their name as lowercase assigned as reverse relationship from the base class
+                    filter_condition = (
+                        filter_form.cleaned_data["category"].lower() + "__isnull"
+                    )
+                    admin_feedback = admin_feedback.filter(**{filter_condition: False})
+                # Filter feedback for timerange
+                admin_feedback = admin_feedback.filter(
+                    created_date__date__gte=filter_form.cleaned_data["date_from"]
+                    or date.min,
+                    created_date__date__lte=filter_form.cleaned_data["date_to"]
+                    or date.max,
+                )
+                # Filter feedback for their read status (skip filtering if either both or no checkboxes are checked)
+                read_status = filter_form.cleaned_data["read_status"]
+                if read_status == [feedback_read_status.READ]:
+                    admin_feedback = admin_feedback.filter(read_by__isnull=False)
+                elif read_status == [feedback_read_status.UNREAD]:
+                    admin_feedback = admin_feedback.filter(read_by__isnull=True)
+                # Filter feedback for ratings (skip filtering if either all or no checkboxes are checked)
+                if (
+                    len(filter_form.cleaned_data["rating"])
+                    != len(feedback_ratings.FILTER_CHOICES)
+                    and len(filter_form.cleaned_data["rating"]) != 0
+                ):
+                    if "" in filter_form.cleaned_data["rating"]:
+                        feedback_without_rating = admin_feedback.filter(
+                            rating__isnull=True
+                        )
+
+                    admin_feedback = admin_feedback.filter(
+                        rating__in=filter_form.cleaned_data["rating"]
+                    )
+
+                    if "" in filter_form.cleaned_data["rating"]:
+                        admin_feedback = admin_feedback.union(feedback_without_rating)
+            print(filter_form.errors)
+        else:
+            filter_form = AdminFeedbackFilterForm()
+            filter_form.changed_data.clear()
+
+        paginator = Paginator(admin_feedback, PER_PAGE)
+        chunk = request.GET.get("chunk")
+        admin_feedback_chunk = paginator.get_page(chunk)
 
         return render(
             request,
             self.template_name,
             {
                 "current_menu_item": "admin_feedback",
-                "page_feedback": page_feedback,
-                "event_feedback": event_feedback,
-                "event_list_feedback": event_list_feedback,
-                "offer_feedback": offer_feedback,
-                "offer_list_feedback": offer_list_feedback,
-                "search_result_feedback": search_result_feedback,
-                "imprint_page_feedback": imprint_page_feedback,
-                "region_feedback": region_feedback,
-                "admin_feedback_exists": admin_feedback_exists,
+                "admin_feedback": admin_feedback_chunk,
+                "filter_form": filter_form,
             },
         )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Render feedback list with applied filters
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+        return self.get(request, *args, **kwargs, filter_data=request.POST)
