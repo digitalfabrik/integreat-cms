@@ -290,7 +290,8 @@ class Region(models.Model):
         """
         if archived:
             pages = self.archived_pages
-        pages = self.non_archived_pages
+        else:
+            pages = self.non_archived_pages
         if return_unrestricted_queryset:
             # Generate a new unrestricted queryset containing the same pages
             page_ids = [page.id for page in pages]
