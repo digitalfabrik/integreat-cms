@@ -58,8 +58,10 @@ function register_event_handlers() {
     u('.drop').each(function(node) {
         u(node).off('dragleave,dragover,drop');
     });
-    // Event handlers for drag events
-    u('.drag').on('dragstart', dragstart);
+    // Event handlers for drag events (delay because of behaviour in Chrome browser)
+    u('.drag').on('dragstart', function(event) {
+        window.setTimeout(dragstart, 0, event);
+    });
     u('.drag').handle('dragend', dragend);
     // Event handlers for drop events
     u('.drop').each(function(node) {
@@ -72,7 +74,12 @@ function register_event_handlers() {
 // Register all handlers once initially
 register_event_handlers();
 
-// This function handles the start of a dragging event
+/*
+ * This function handles the start of a dragging event
+ *
+ * Manipulating the dom during dragstart event fires immediately a dragend event (chrome browser),
+ * so the changes to the dom must be delayed
+ */
 function dragstart(event) {
     // change appearance of dragged item
     u(event.target).removeClass('text-gray-800');
