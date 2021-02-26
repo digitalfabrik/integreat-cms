@@ -43,7 +43,7 @@ if nc -w1 localhost 5432; then
     ./dev-tools/migrate.sh
 
     # Start Integreat CMS
-    pipenv run integreat-cms-cli tailwind start &\
+    pipenv run integreat-cms-cli tailwind start &
     pipenv run integreat-cms-cli runserver localhost:8000
 
 else
@@ -110,7 +110,7 @@ else
     fi
 
     # Start Integreat CMS
-    pipenv run integreat-cms-cli tailwind start &\
+    sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli tailwind start &
     sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
 
     # Stop the postgres database docker container
