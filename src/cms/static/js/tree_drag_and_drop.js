@@ -10,7 +10,7 @@ u('.drag').each(function(node) {
 function dragstart(event) {
     // prepare the dragged node id for data transfer
     event.dataTransfer.setData("text", u(event.target).attr("data-drag-id"));
-    window.setTimeout(change_dom, 50, event.target);
+    window.setTimeout(change_dom, 0, event.target);
     // get descendants of dragged node
     var descendants = JSON.parse(u(event.target).attr("data-node-descendants"));
     // add event listeners for hovering over drop regions
