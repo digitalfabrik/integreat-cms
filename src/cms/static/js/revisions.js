@@ -40,7 +40,7 @@ function handle_revision_slider_input(event) {
     // The last updated date of the revision
     const revision_date = u("#revision-" + current_revision).data("date");
     // Update the revision info box
-    revision_info.innerHTML = "Revision: " + current_revision + "<br>" + revision_date;
+    revision_info.textContent = `Revision: ${current_revision}\r\n${revision_date}`;
     // Calculate position of revision info box to make sure it stays within the area of the slider position
     revision_info.style.left = `calc(${position}% + (${125 - position * 2.5}px))`;
     // Hide all other revisions
