@@ -26,29 +26,42 @@ from .v3.offers import offers
 from .v3.single_page import single_page
 
 urlpatterns = [
-    url(r"^regions/?$", regions),
-    url(r"^regions/live/?$", liveregions),
-    url(r"^regions/hidden/?$", hiddenregions),
-    url(r"^regions/pushnew/?$", pushnew),
+    url(r"^regions/?$", regions, name="api_regions"),
+    url(r"^regions/live/?$", liveregions, name="api_regions_live"),
+    url(r"^regions/hidden/?$", hiddenregions, name="api_regions_hidden"),
+    url(r"^regions/pushnew/?$", pushnew, name="api_pushnew"),
     url(
         r"^(?P<region_slug>[-\w]+)/",
         include(
             [
-                url(r"^languages/?$", languages),
-                url(r"^(?:offers|extras)/?$", offers),
+                url(r"^languages/?$", languages, name="api_languages"),
+                url(r"^(?:offers|extras)/?$", offers, name="api_offers"),
                 url(
                     r"^(?P<language_code>[-\w]+)/",
                     include(
                         [
-                            url(r"^pages/?$", pages),
-                            url(r"^page/?$", single_page),
-                            url(r"^pdf/?$", pdf_export),
+                            url(r"^pages/?$", pages, name="api_pages"),
+                            url(
+                                r"^page/?$",
+                                single_page,
+                                name="api_single_page",
+                            ),
+                            url(
+                                r"^pdf/?$",
+                                pdf_export,
+                                name="api_pdf_export",
+                            ),
                             url(
                                 r"^sent_push_notifications/?$",
                                 sent_push_notifications,
+                                name="api_sent_push_notifications",
                             ),
-                            url(r"^(?:imprint|disclaimer)/?$", imprint),
-                            url(r"^(?:offers|extras)/?$", offers),
+                            url(
+                                r"^(?:imprint|disclaimer)/?$",
+                                imprint,
+                                name="api_imprint",
+                            ),
+                            url(r"^(?:offers|extras)/?$", offers, name="api_offers"),
                             url(
                                 r"^feedback/",
                                 include(
@@ -56,46 +69,57 @@ urlpatterns = [
                                         url(
                                             r"^$",
                                             legacy_feedback_endpoint.legacy_feedback_endpoint,
+                                            name="api_legacy_feedback_endpoint",
                                         ),
                                         url(
                                             r"^categories/?$",
                                             region_feedback.region_feedback,
+                                            name="api_region_feedback",
                                         ),
                                         url(
                                             r"^page/?$",
                                             page_feedback.page_feedback,
+                                            name="api_page_feedback",
                                         ),
                                         url(
                                             r"^poi/?$",
                                             poi_feedback.poi_feedback,
+                                            name="api_poi_feedback",
                                         ),
                                         url(
                                             r"^event/?$",
                                             event_feedback.event_feedback,
+                                            name="api_event_feedback",
                                         ),
                                         url(
                                             r"^events/?$",
                                             event_list_feedback.event_list_feedback,
+                                            name="api_event_list_feedback",
                                         ),
                                         url(
                                             r"^imprint-page/?$",
                                             imprint_page_feedback.imprint_page_feedback,
+                                            name="api_imprint_page_feedbacks",
                                         ),
                                         url(
                                             r"^map/?$",
                                             map_feedback.map_feedback,
+                                            name="api_map_feedback",
                                         ),
                                         url(
                                             r"^search/?$",
                                             search_result_feedback.search_result_feedback,
+                                            name="api_search_result_feedback",
                                         ),
                                         url(
                                             r"^(?:extras|offers)/?$",
                                             offer_list_feedback.offer_list_feedback,
+                                            name="api_offer_list_feedback",
                                         ),
                                         url(
                                             r"^(?:extra|offer)/?$",
                                             offer_feedback.offer_feedback,
+                                            name="api_offer_feedback",
                                         ),
                                     ]
                                 ),

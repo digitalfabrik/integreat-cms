@@ -5,4 +5,5 @@ For more information, see :doc:`topics/testing/index` and :doc:`topics/testing/o
 """
 from .pages import *
 from .views.admin_view_test import AdminViewTest
+from .views.api_view_test import APIViewTest
 from .views.region_view_test import RegionViewTest
