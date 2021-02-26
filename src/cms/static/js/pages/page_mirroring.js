@@ -9,7 +9,7 @@ function render_mirrored_page_field(event){
     // Check if a region was selected
     if(event.target.value === "") {
         // Remove mirrored page field to make sure no old value is selected
-        u('#mirrored_page_div').html("");
+        u('#mirrored_page_div').empty();
         // Hide fields
         u('#mirrored_page_div').addClass('hidden');
         u('#mirrored_page_first_div').addClass('hidden');
@@ -27,7 +27,8 @@ function render_mirrored_page_field(event){
             u('#mirrored_page_first_div').removeClass('hidden');
         }).catch(function (error) {
             // Show error message instead of field
-            u('#mirrored_page_div').html('<div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-4" role="alert"><p>' + error.message + '</p></div>');
+            u('#mirrored_page_div').html('<div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-4" role="alert"><p id="mirrored-page-error"></p></div>');
+            u('#mirrored-page-error').text(error.message);
             u('#mirrored_page_div').removeClass('hidden');
             u('#mirrored_page_first_div').addClass('hidden');
         });

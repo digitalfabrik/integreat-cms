@@ -6,7 +6,7 @@ var inputs = document.querySelectorAll('.image-field');
 Array.prototype.forEach.call( inputs, function( input )
 {
     var label	 = input.nextElementSibling,
-        labelVal = label.innerHTML;
+        labelVal = label.textContent;
 
     input.addEventListener( 'change', function( e )
     {
@@ -15,10 +15,10 @@ Array.prototype.forEach.call( inputs, function( input )
 
         if( fileName ) {
             label.querySelector('span.standard_text').classList.add('hidden');
-            label.querySelector('span.filename').innerHTML = fileName;
+            label.querySelector('span.filename').textContent = fileName;
         } else {
             label.querySelector('span.standard_text').classList.remove('hidden');
-            label.innerHTML = labelVal;
+            label.textContent = labelVal;
         }
     });
 });
