@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Setup.py """
 
+from backend.settings import VERSION
 import os
 import sys
 
@@ -9,7 +10,6 @@ from setuptools import find_packages, setup
 # Add source directory to PATH variable to enable import of version number
 sys.path.append(os.path.abspath("src"))
 # pylint: disable=wrong-import-position
-from backend.settings import VERSION
 
 setup(
     name="integreat-cms",
@@ -46,7 +46,6 @@ setup(
         "six",
         "webauthn",
         "xhtml2pdf",
-        "django-tailwind",
     ],
     author="Integreat App Project",
     author_email="info@integreat-app.de",
