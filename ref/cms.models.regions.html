@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2020-12-20T23:40:06+00:00" />
+    <meta property="article:modified_time" content="2021-02-25T22:04:44+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Regions &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1224,6 +1224,10 @@
 <dt>
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">archived_pages</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns a QuerySet of all archived pages and their descendants of this region.</p>
+<p>Per default, the returned queryset has some limitations because of the usage of
+<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet.union" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">union()</span></code></a>. To perform the extra effort of returning an unrestricted
+queryset, use <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.get_pages" title="cms.models.regions.region.Region.get_pages"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pages()</span></code></a> with the parameters <code class="docutils literal notranslate"><span class="pre">archived</span></code> and
+<code class="docutils literal notranslate"><span class="pre">return_unrestricted_queryset</span></code> set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A QuerySet of all archived pages of this region</p>
@@ -1277,12 +1281,21 @@ with that slug.</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L259"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unrestricted_queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method returns either all archived or all non-archived pages of this region.
-To retrieve all pages independently from their archived-state, use the reverse foreign key <code class="docutils literal notranslate"><span class="pre">region.pages</span></code>.</p>
+To retrieve all pages independently from their archived-state, use the reverse foreign key
+<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.pages" title="cms.models.regions.region.Region.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>.</p>
+<p>Per default, the returned queryset has some limitations because of the usage of
+<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet.difference" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">difference()</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet.union" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">union()</span></code></a>.
+To perform the extra effort of returning an unrestricted queryset, set the parameter
+<code class="docutils literal notranslate"><span class="pre">return_unrestricted_queryset</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>archived</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether or not only archived pages should be returned</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether or not only archived pages should be returned (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>return_unrestricted_queryset</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether or not the result should be returned as unrestricted queryset.
+(default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Either the archived or the non-archived pages of this region</p>
@@ -1314,6 +1327,11 @@ To retrieve all pages independently from their archived-state, use the reverse f
 <dd><p>This property returns a QuerySet of all non-archived pages of this region.
 A page is considered as “non-archived” if its <code class="docutils literal notranslate"><span class="pre">explicitly_archived</span></code> property is <code class="docutils literal notranslate"><span class="pre">False</span></code> and all of the
 page’s ancestors are not archived as well.</p>
+<p>Per default, the returned queryset has some limitations because of the usage of
+<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet.difference" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">difference()</span></code></a> (see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet.union" title="(in Django v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">union()</span></code></a> for some
+restrictions). To perform the extra effort of returning an unrestricted queryset, use
+<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.get_pages" title="cms.models.regions.region.Region.get_pages"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pages()</span></code></a> with the parameter <code class="docutils literal notranslate"><span class="pre">return_unrestricted_queryset</span></code> set to
+<code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A QuerySet of all non-archived pages of this region</p>
@@ -1370,7 +1388,7 @@ region and are neither superusers nor staff.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Dec 20, 2020.
+        Last updated on Feb 25, 2021.
       </span>
 
     </p>
