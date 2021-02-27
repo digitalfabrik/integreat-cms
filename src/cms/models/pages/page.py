@@ -31,7 +31,7 @@ class Page(MPTTModel, AbstractBasePage):
         null=True,
         blank=True,
         upload_to="pages/%Y/%m/%d",
-        verbose_name=_("thumbnail icon"),
+        verbose_name=_("icon"),
     )
     region = models.ForeignKey(
         Region,

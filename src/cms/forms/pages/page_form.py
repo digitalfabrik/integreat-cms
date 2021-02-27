@@ -13,6 +13,7 @@ from django.utils.safestring import mark_safe
 
 from ...constants import position, region_status, mirrored_page_first
 from ...models import Page, Region
+from ..icon_widget import IconWidget
 
 
 logger = logging.getLogger(__name__)
@@ -218,6 +219,7 @@ class PageForm(forms.ModelForm):
         #: The widgets for the fields if they differ from the standard widgets
         widgets = {
             "mirrored_page_first": forms.Select(choices=mirrored_page_first.CHOICES),
+            "icon": IconWidget(),
         }
 
     def __init__(self, *args, **kwargs):
