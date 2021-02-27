@@ -6,6 +6,7 @@ from django import forms
 from django.utils.translation import ugettext as _
 
 from ...models import Event
+from ..icon_widget import IconWidget
 
 logger = logging.getLogger(__name__)
 
@@ -29,16 +30,17 @@ class EventForm(forms.ModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = Event
         #: The fields of the model which should be handled by this form
-        fields = ["start_date", "start_time", "end_date", "end_time", "picture"]
+        fields = ["start_date", "start_time", "end_date", "end_time", "icon"]
         #: The widgets which are used in this form
         widgets = {
             "start_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
             "end_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
             "start_time": forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
             "end_time": forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
+            "icon": IconWidget(),
         }
 
-    def __init__(self, data=None, instance=None, disabled=False):
+    def __init__(self, data=None, files=None, instance=None, disabled=False):
         """
         Initialize form
 
@@ -56,7 +58,7 @@ class EventForm(forms.ModelForm):
         )
 
         # Instantiate ModelForm
-        super().__init__(data=data, instance=instance)
+        super().__init__(data=data, files=files, instance=instance)
 
         if self.instance.id:
             # Initialize BooleanFields based on Event properties

@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post" id="content_form">
+<form id="content_form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% get_current_language as LANGUAGE_CODE %}
     {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
@@ -282,15 +282,10 @@
 
                         <label class="mt-4 mb-2 block font-bold uppercase text-sm">{% trans 'Map' %}</label>
                         <i class="text-teal-500">Google Map vs. OSM</i>
-                    <div class="pt-2 pb-4">
-                        <span class="block font-bold mb-4">{% trans 'Icon' %}</span>
-                        {% render_field event_form.picture class="image-field" %}
-                        <label for="{{ event_form.picture.id_for_label }}" class="block w-full text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer relative">
-                            <i data-feather="upload" class="inline-block mr-2"></i>
-                            <span class="standard_text">{% trans 'Set icon' %}</span>
-                            <span class="filename"></span>
-                        </label>
-                    </div>
+                        <div class="pt-4 pb-4">
+                            <span class="block font-bold mb-4">{{ event_form.icon.label }}</span>
+                            {% render_field event_form.icon label=event_form.icon.label %}
+                        </div>
                     {% if event_form.instance.id and can_edit_event %}
                         <div class="pt-2 pb-4">
                             {% if event_form.instance.archived %}
@@ -373,7 +368,7 @@
 <script src="{% static 'js/events/conditional-fields.js' %}"></script>
 <script src="{% static 'js/forms/tinymce-init.js' %}"></script>
 <script src="{% static 'js/forms/slug-error.js' %}"></script>
-<script src="{% static 'js/forms/file-field.js' %}"></script>
+<script src="{% static 'js/forms/icon-field.js' %}"></script>
 {% if not event_form.disabled %}
     <script src="{% static 'js/events/event_query_pois.js' %}"></script>
 {% endif %}
