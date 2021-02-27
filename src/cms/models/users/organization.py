@@ -16,10 +16,11 @@ class Organization(models.Model):
         verbose_name=_("slug"),
         help_text=_("Unique string identifier without spaces and special characters."),
     )
-    thumbnail = models.CharField(
-        max_length=250,
+    icon = models.ImageField(
+        null=True,
         blank=True,
-        verbose_name=_("thumbnail image"),
+        upload_to="organizations/%Y/%m/%d",
+        verbose_name=_("logo"),
     )
 
     created_date = models.DateTimeField(

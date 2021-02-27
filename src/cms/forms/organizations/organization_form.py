@@ -1,5 +1,6 @@
-from ..placeholder_model_form import PlaceholderModelForm
 from ...models import Organization
+from ..icon_widget import IconWidget
+from ..placeholder_model_form import PlaceholderModelForm
 
 
 class OrganizationForm(PlaceholderModelForm):
@@ -19,5 +20,9 @@ class OrganizationForm(PlaceholderModelForm):
         fields = [
             "name",
             "slug",
-            "thumbnail",
+            "icon",
         ]
+        #: The widgets which are used in this form
+        widgets = {
+            "icon": IconWidget(),
+        }
