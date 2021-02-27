@@ -12,6 +12,8 @@ import sys
 import inspect
 import importlib
 
+from django import VERSION as django_version
+
 from backend.settings import VERSION
 
 # Append project source directory to path environment variable
@@ -20,6 +22,8 @@ sys.path.append(os.path.abspath("../src/"))
 sys.path.append(os.path.abspath("./"))
 #: The path to the django settings module (see :doc:`sphinxcontrib-django2:readme`)
 django_settings = "backend.sphinx_settings"
+#: The "major.minor" version of Django
+django_doc_version = f"{django_version[0]}.{django_version[1]}"
 
 # -- Project information -----------------------------------------------------
 
@@ -57,7 +61,10 @@ extensions = [
 ]
 #: Enable cross-references to other documentations
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3.7/", None),
+    "python": (
+        f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}/",
+        None,
+    ),
     "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
     "requests": ("https://requests.readthedocs.io/en/master/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
@@ -74,8 +81,8 @@ intersphinx_mapping = {
         None,
     ),
     "django": (
-        "https://docs.djangoproject.com/en/2.2/",
-        "https://docs.djangoproject.com/en/2.2/_objects/",
+        f"https://docs.djangoproject.com/en/{django_doc_version}/",
+        f"https://docs.djangoproject.com/en/{django_doc_version}/_objects/",
     ),
     "django-compressor": ("https://django-compressor.readthedocs.io/en/stable/", None),
     "django-filer": ("https://django-filer.readthedocs.io/en/latest/", None),
