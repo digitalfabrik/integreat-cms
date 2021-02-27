@@ -29,11 +29,11 @@ class POI(models.Model):
     longitude = models.FloatField(
         verbose_name=_("longitude"), help_text=_("The longitude coordinate")
     )
-    thumbnail = models.ImageField(
+    icon = models.ImageField(
         null=True,
         blank=True,
         upload_to="pois/%Y/%m/%d",
-        verbose_name=_("thumbnail icon"),
+        verbose_name=_("icon"),
     )
     archived = models.BooleanField(
         default=False,
