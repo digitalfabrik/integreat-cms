@@ -142,7 +142,7 @@ class Region(models.Model):
         blank=True,
         null=True,
         upload_to="regions/%Y/%m/%d",
-        verbose_name=_("thumbnail icon"),
+        verbose_name=_("logo"),
     )
 
     chat_enabled = models.BooleanField(
