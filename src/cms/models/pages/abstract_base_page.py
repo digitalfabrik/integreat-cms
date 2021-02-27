@@ -34,14 +34,6 @@ class AbstractBasePage(models.Model):
         return self.explicitly_archived
 
     @property
-    def icon(self):
-        """
-        The title image of the page
-        To be implemented in the inheriting model.
-        """
-        raise NotImplementedError
-
-    @property
     def region(self):
         """
         The region to which the page belongs (related name: ``pages``)
