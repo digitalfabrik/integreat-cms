@@ -44,7 +44,12 @@
                             {% endif %}
                         </td>
                         <td class="pr-2 feedback-comment">
-                            {% if feedback.comment|words|length > 20 %}
+                            {% if feedback.comment.splitlines|length > 1 %}
+                                <span>
+                                    {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                                </span>
+                                <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i></span>
+                            {% elif feedback.comment|words|length > 20 %}
                                 <span>
                                     {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
                                 </span>

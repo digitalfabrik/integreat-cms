@@ -36,7 +36,7 @@ class Feedback(models.Model):
         verbose_name=_("rating"),
         help_text=_("Whether the feedback is positive or negative"),
     )
-    comment = models.CharField(max_length=1000, blank=True, verbose_name=_("comment"))
+    comment = models.TextField(blank=True, verbose_name=_("comment"))
     is_technical = models.BooleanField(
         verbose_name=_("technical"),
         help_text=_("Whether or not the feedback is targeted at the developers"),
