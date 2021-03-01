@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-07T18:48:08+00:00" />
+    <meta property="article:modified_time" content="2021-02-27T18:53:19+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Organizations &mdash; integreat-cms 0.0.14 documentation</title>
@@ -287,7 +287,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#imprint-form">Imprint Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#imprint-translation-form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -343,6 +342,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
@@ -706,7 +706,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -762,6 +761,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
@@ -1155,14 +1155,14 @@
 <h2>Organization Form<a class="headerlink" href="#organization-form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.organizations.organization_form.</span></code><code class="sig-name descname"><span class="pre">OrganizationForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/organizations/organization_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.organizations.organization_form.</span></code><code class="sig-name descname"><span class="pre">OrganizationForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/organizations/organization_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/cms.forms.html#cms.forms.placeholder_model_form.PlaceholderModelForm" title="cms.forms.placeholder_model_form.PlaceholderModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.placeholder_model_form.PlaceholderModelForm</span></code></a></p>
 <p>Form for creating and modifying organization objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/forms/fields/#django.forms.CharField" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">slug</span></code>: Slug (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/forms/fields/#django.forms.SlugField" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">thumbnail</span></code>: Thumbnail image (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/forms/fields/#django.forms.CharField" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Logo (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/forms/fields/#django.forms.ImageField" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageField</span></code></a>)</p></li>
 </ul>
 </dd></dl>
 
@@ -1188,7 +1188,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 07, 2021.
+        Last updated on Feb 27, 2021.
       </span>
 
     </p>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-26T16:58:59+00:00" />
+    <meta property="article:modified_time" content="2021-02-27T18:38:01+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Imprint &mdash; integreat-cms 0.0.14 documentation</title>
@@ -287,7 +287,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#imprint-form">Imprint Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#imprint-translation-form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -343,6 +342,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
@@ -706,7 +706,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -762,6 +761,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
@@ -1400,8 +1400,7 @@
 <dl class="py method">
 <dt>
 <code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_view.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Render <a class="reference internal" href="../ref-ext/cms.forms.imprint.html#cms.forms.imprint.imprint_form.ImprintForm" title="cms.forms.imprint.imprint_form.ImprintForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintForm</span></code></a> and
-<a class="reference internal" href="../ref-ext/cms.forms.imprint.html#cms.forms.imprint.imprint_translation_form.ImprintTranslationForm" title="cms.forms.imprint.imprint_translation_form.ImprintTranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintTranslationForm</span></code></a></p>
+<dd><p>Render <a class="reference internal" href="../ref-ext/cms.forms.imprint.html#cms.forms.imprint.imprint_translation_form.ImprintTranslationForm" title="cms.forms.imprint.imprint_translation_form.ImprintTranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintTranslationForm</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1424,7 +1423,7 @@
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">get_side_by_side_language_options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imprint</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_view.py#L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">get_side_by_side_language_options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imprint</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_view.py#L259"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This is a helper function to generate the side-by-side language options for both the get and post requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1445,7 +1444,7 @@
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_view.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_view.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Binds the user input data to the imprint form and validates the input.
 Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
 see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/http/file-uploads/" title="(in Django v2.2)"><span>File Uploads</span></a></p>
@@ -1490,7 +1489,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/2.2/to
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 26, 2021.
+        Last updated on Feb 27, 2021.
       </span>
 
     </p>

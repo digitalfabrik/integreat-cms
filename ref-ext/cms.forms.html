@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-07T18:48:08+00:00" />
+    <meta property="article:modified_time" content="2021-02-27T18:19:37+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Forms &mdash; integreat-cms 0.0.14 documentation</title>
@@ -287,7 +287,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.imprint.html#imprint-form">Imprint Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.imprint.html#imprint-translation-form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -343,6 +342,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
@@ -706,7 +706,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.imprint.html#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -762,6 +761,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.forms.icon_widget">Icon Widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
@@ -1173,7 +1173,6 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cms.forms.imprint.html#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.imprint.html#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -1230,6 +1229,152 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 </ul>
 </li>
 </ul>
+</div>
+<div class="section" id="module-cms.forms.icon_widget">
+<span id="icon-widget"></span><h2>Icon Widget<a class="headerlink" href="#module-cms.forms.icon_widget" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.forms.icon_widget.IconWidget">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.icon_widget.</span></code><code class="sig-name descname"><span class="pre">IconWidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/forms/widgets/#django.forms.ClearableFileInput" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ClearableFileInput</span></code></a></p>
+<p>A custom widget to render the icon field</p>
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.build_attrs">
+<code class="sig-name descname"><span class="pre">build_attrs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.build_attrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build an attribute dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.clear_checkbox_id">
+<code class="sig-name descname"><span class="pre">clear_checkbox_id</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L407"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.clear_checkbox_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the name of the clear checkbox input, return the HTML id for it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.clear_checkbox_label">
+<code class="sig-name descname"><span class="pre">clear_checkbox_label</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Clear'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.clear_checkbox_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.clear_checkbox_name">
+<code class="sig-name descname"><span class="pre">clear_checkbox_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.clear_checkbox_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the name of the file input, return the name of the clear checkbox
+input.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.format_value">
+<code class="sig-name descname"><span class="pre">format_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L419"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.format_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the file object if it has a defined url attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.get_context">
+<code class="sig-name descname"><span class="pre">get_context</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L426"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.get_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.id_for_label">
+<code class="sig-name descname"><span class="pre">id_for_label</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.id_for_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the HTML ID attribute of this Widget for use by a &lt;label&gt;,
+given the ID of the field. Return None if no ID is available.</p>
+<p>This hook is necessary because some widgets have multiple HTML
+elements and, thus, multiple IDs. In that case, this method should
+return an ID value that corresponds to the first ID in the widget’s
+tags.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.initial_text">
+<code class="sig-name descname"><span class="pre">initial_text</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Currently'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.initial_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.input_text">
+<code class="sig-name descname"><span class="pre">input_text</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Change'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.input_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.input_type">
+<code class="sig-name descname"><span class="pre">input_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'file'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.input_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.is_hidden">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_hidden</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.is_hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.is_initial">
+<code class="sig-name descname"><span class="pre">is_initial</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.is_initial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether value is considered to be initial value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.is_localized">
+<code class="sig-name descname"><span class="pre">is_localized</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.is_localized" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.is_required">
+<code class="sig-name descname"><span class="pre">is_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.is_required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.media">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">media</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.needs_multipart_form">
+<code class="sig-name descname"><span class="pre">needs_multipart_form</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.needs_multipart_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.render">
+<code class="sig-name descname"><span class="pre">render</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L239"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the widget as an HTML string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.subwidgets">
+<code class="sig-name descname"><span class="pre">subwidgets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.subwidgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.supports_microseconds">
+<code class="sig-name descname"><span class="pre">supports_microseconds</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.supports_microseconds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.forms.icon_widget.IconWidget.template_name">
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'icon_widget.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.template_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The template to use for this widget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.use_required_attribute">
+<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L454"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.value_from_datadict">
+<code class="sig-name descname"><span class="pre">value_from_datadict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.value_from_datadict" title="Permalink to this definition">¶</a></dt>
+<dd><p>File widgets take data from FILES, not POST</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.forms.icon_widget.IconWidget.value_omitted_from_data">
+<code class="sig-name descname"><span class="pre">value_omitted_from_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.icon_widget.IconWidget.value_omitted_from_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-cms.forms.placeholder_model_form">
 <span id="placeholder-model-form"></span><h2>Placeholder Model Form<a class="headerlink" href="#module-cms.forms.placeholder_model_form" title="Permalink to this headline">¶</a></h2>
@@ -1462,7 +1607,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 07, 2021.
+        Last updated on Feb 27, 2021.
       </span>
 
     </p>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-07T18:48:08+00:00" />
+    <meta property="article:modified_time" content="2021-02-27T18:38:01+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Imprint &mdash; integreat-cms 0.0.14 documentation</title>
@@ -287,7 +287,6 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#imprint-form">Imprint Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#imprint-translation-form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -343,6 +342,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
@@ -706,7 +706,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html">Imprint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html#module-cms.forms.imprint.imprint_form">Imprint Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.imprint.html#module-cms.forms.imprint.imprint_translation_form">Imprint Translation Form</a></li>
 </ul>
 </li>
@@ -762,6 +761,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
@@ -1150,35 +1150,7 @@
             
   <div class="section" id="imprint">
 <h1>Imprint<a class="headerlink" href="#imprint" title="Permalink to this headline">¶</a></h1>
-<p>Forms for creating and modifying imprint and imprint translation objects</p>
-<div class="section" id="imprint-form">
-<h2>Imprint Form<a class="headerlink" href="#imprint-form" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.imprint.imprint_form.</span></code><code class="sig-name descname"><span class="pre">ImprintForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_form.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ModelForm</span></code></a></p>
-<p>Form for creating and modifying imprint objects</p>
-<p><strong>Form fields:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Thumbnail icon (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/forms/fields/#django.forms.ImageField" title="(in Django v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageField</span></code></a>)</p></li>
-</ul>
-<dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_form.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_form.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Save this form’s self.instance object if commit=True. Otherwise, add
-a save_m2m() method to the form which can be called after the instance
-is saved manually at a later time. Return the model instance.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
+<p>Forms for creating and modifying imprint translation objects</p>
 <div class="section" id="imprint-translation-form">
 <h2>Imprint Translation Form<a class="headerlink" href="#imprint-translation-form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
@@ -1269,7 +1241,7 @@ which are not directly determined by input fields.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 07, 2021.
+        Last updated on Feb 27, 2021.
       </span>
 
     </p>
