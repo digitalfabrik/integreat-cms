@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -32,7 +31,7 @@ class OfferTemplate(models.Model):
         verbose_name=_("URL"),
         help_text=_("This will be an external API endpoint in most cases."),
     )
-    post_data = JSONField(
+    post_data = models.JSONField(
         max_length=250,
         default=dict,
         blank=True,
