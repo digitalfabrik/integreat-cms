@@ -5,20 +5,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.apps import apps
 
 from gvz_api.utils import GvzRegion
-from ..placeholder_model_form import PlaceholderModelForm
+
 from ...models import Region, PageTranslation, LanguageTreeNode
 from ...utils.slug_utils import generate_unique_slug
+from ..icon_widget import IconWidget
+from ..placeholder_model_form import PlaceholderModelForm
 
 logger = logging.getLogger(__name__)
-
-
-class IconWidget(forms.ClearableFileInput):
-    """
-    A custom widget to render the icon field
-    """
-
-    #: The template to use for this widget
-    template_name = "regions/region_icon_widget.html"
 
 
 class RegionForm(PlaceholderModelForm):

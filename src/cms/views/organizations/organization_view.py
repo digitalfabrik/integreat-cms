@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -66,19 +66,34 @@ class OrganizationView(PermissionRequiredMixin, TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
         # TODO: error handling
-        if organization_id:
-            organization = Organization.objects.get(id=organization_id)
-            form = OrganizationForm(request.POST, instance=organization)
-            success_message = _("Organization was successfully created")
-        else:
-            form = OrganizationForm(request.POST)
-            success_message = _("Organization was successfully saved")
+        organization_instance = Organization.objects.filter(id=organization_id).first()
+        form = OrganizationForm(
+            request.POST, request.FILES, instance=organization_instance
+        )
 
-        if form.is_valid():
-            form.save()
-            messages.success(request, success_message)
+        if not form.is_valid():
             # TODO: improve messages
-        else:
             messages.error(request, _("Errors have occurred."))
+            return render(
+                request, self.template_name, {"form": form, **self.base_context}
+            )
 
-        return render(request, self.template_name, {"form": form, **self.base_context})
+        if not form.has_changed():
+            messages.info(request, _("No changes detected."))
+            return render(
+                request, self.template_name, {"form": form, **self.base_context}
+            )
+
+        organization = form.save()
+
+        if not organization_instance:
+            messages.success(request, _("Organization was successfully created"))
+        else:
+            messages.success(request, _("Organization was successfully saved"))
+
+        return redirect(
+            "edit_organization",
+            **{
+                "organization_id": organization.id,
+            },
+        )

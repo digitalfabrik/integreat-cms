@@ -276,12 +276,7 @@
                     </div>
                     <div class="pt-4 pb-4">
                         <span class="block font-bold mb-4">{{ page_form.icon.label }}</span>
-                        {% render_field page_form.icon id="icon" class="image-field" %}
-                        <label for="{{ page_form.icon.id_for_label }}" class="block w-full text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-3 px-4 rounded cursor-pointer relative">
-                            <i data-feather="upload" class="inline-block"></i>
-                            <span class="standard_text">{% trans 'Set icon' %}</span>
-                            <span class="filename"></span>
-                        </label>
+                        {% render_field page_form.icon label=page_form.icon.label %}
                     </div>
                     {% if page and can_edit_page %}
                         <div class="pt-2 pb-4">
@@ -425,5 +420,5 @@
 <script src="{% static 'js/pages/unset_translation_state.js' %}"></script>
 <script src="{% static 'js/forms/tinymce-init.js' %}"></script>
 <script src="{% static 'js/forms/slug-error.js' %}"></script>
-<script src="{% static 'js/forms/file-field.js' %}"></script>
+<script src="{% static 'js/forms/icon-field.js' %}"></script>
 {% endblock %}

@@ -42,11 +42,11 @@ class Event(models.Model):
         on_delete=models.SET_NULL,
         verbose_name=_("recurrence rule"),
     )
-    picture = models.ImageField(
+    icon = models.ImageField(
         null=True,
         blank=True,
         upload_to="events/%Y/%m/%d",
-        verbose_name=_("thumbnail icon"),
+        verbose_name=_("icon"),
     )
     archived = models.BooleanField(default=False, verbose_name=_("archived"))
 

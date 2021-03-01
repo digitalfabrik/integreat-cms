@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post" id="content_form">
+<form id="content_form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
@@ -191,14 +191,9 @@
                         <div class="my-2 text-s text-gray-600">{{ poi_form.latitude.help_text }}</div>
                         {% render_field poi_form.latitude|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     </div>
-                    <div class="pt-2 pb-4">
-                        <span class="block font-bold mb-4">{{ poi_form.thumbnail.label }}</span>
-                        {% render_field poi_form.thumbnail|add_error_class:"border-red-500" class="image-field" %}
-                        <label for="{{ poi_form.thumbnail.id_for_label }}" class="w-full block text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white font-bold py-3 px-4 rounded cursor-pointer relative">
-                            <i data-feather="upload" class="inline-block mr-2"></i>
-                            <span class="standard_text">{% trans 'Set icon' %}</span>
-                            <span class="filename"></span>
-                        </label>
+                    <div class="pt-4 pb-4">
+                        <span class="block font-bold mb-4">{{ poi_form.icon.label }}</span>
+                        {% render_field poi_form.icon label=poi_form.icon.label %}
                     </div>
                     {% if poi_form.instance.id %}
                         <div class="pt-2 pb-4">
@@ -274,5 +269,5 @@
 <script src="{% static 'js/confirmation-popups.js' %}"></script>
 <script src="{% static 'js/forms/tinymce-init.js' %}"></script>
 <script src="{% static 'js/forms/slug-error.js' %}"></script>
-<script src="{% static 'js/forms/file-field.js' %}"></script>
+<script src="{% static 'js/forms/icon-field.js' %}"></script>
 {% endblock %}

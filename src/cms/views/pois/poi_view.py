@@ -127,7 +127,8 @@ class POIView(PermissionRequiredMixin, TemplateView, POIContextMixin):
             )
 
         poi_form = POIForm(
-            request.POST,
+            data=request.POST,
+            files=request.FILES,
             instance=poi_instance,
         )
         poi_translation_form = POITranslationForm(
@@ -147,46 +148,59 @@ class POIView(PermissionRequiredMixin, TemplateView, POIContextMixin):
                 for error in form.non_field_errors():
                     messages.error(request, _(error))
 
-        elif not poi_form.has_changed() and not poi_translation_form.has_changed():
+            return render(
+                request,
+                self.template_name,
+                {
+                    **self.base_context,
+                    **self.get_context_data(**kwargs),
+                    "poi_form": poi_form,
+                    "poi_translation_form": poi_translation_form,
+                    "language": language,
+                    # Languages for tab view
+                    "languages": region.languages if poi_instance else [language],
+                },
+            )
+
+        if not poi_form.has_changed() and not poi_translation_form.has_changed():
 
             messages.info(request, _("No changes detected"))
 
-        else:
+            return render(
+                request,
+                self.template_name,
+                {
+                    **self.base_context,
+                    **self.get_context_data(**kwargs),
+                    "poi_form": poi_form,
+                    "poi_translation_form": poi_translation_form,
+                    "language": language,
+                    # Languages for tab view
+                    "languages": region.languages if poi_instance else [language],
+                },
+            )
 
-            poi = poi_form.save(region=region)
-            poi_translation_form.save(poi=poi, user=request.user)
+        poi = poi_form.save(region=region)
+        poi_translation_form.save(poi=poi, user=request.user)
 
-            published = poi_translation_form.instance.status == status.PUBLIC
-            if not poi_instance:
-                if published:
-                    messages.success(
-                        request, _("Location was successfully created and published")
-                    )
-                else:
-                    messages.success(request, _("Location was successfully created"))
-                return redirect(
-                    "edit_poi",
-                    **{
-                        "poi_id": poi.id,
-                        "region_slug": region.slug,
-                        "language_code": language.code,
-                    }
+        published = poi_translation_form.instance.status == status.PUBLIC
+        if not poi_instance:
+            if published:
+                messages.success(
+                    request, _("Location was successfully created and published")
                 )
+            else:
+                messages.success(request, _("Location was successfully created"))
+        else:
             if published:
                 messages.success(request, _("Location was successfully published"))
             else:
                 messages.success(request, _("Location was successfully saved"))
-        context = self.get_context_data(**kwargs)
-        return render(
-            request,
-            self.template_name,
-            {
-                **self.base_context,
-                **context,
-                "poi_form": poi_form,
-                "poi_translation_form": poi_translation_form,
-                "language": language,
-                # Languages for tab view
-                "languages": region.languages if poi_instance else [language],
-            },
+        return redirect(
+            "edit_poi",
+            **{
+                "poi_id": poi.id,
+                "region_slug": region.slug,
+                "language_code": language.code,
+            }
         )

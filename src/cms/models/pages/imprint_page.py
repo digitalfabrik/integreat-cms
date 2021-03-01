@@ -14,12 +14,6 @@ class ImprintPage(AbstractBasePage):
     Data model representing an imprint.
     """
 
-    icon = models.ImageField(
-        blank=True,
-        null=True,
-        upload_to="imprints/%Y/%m/%d",
-        verbose_name=_("thumbnail icon"),
-    )
     region = models.OneToOneField(
         Region,
         related_name="imprint",

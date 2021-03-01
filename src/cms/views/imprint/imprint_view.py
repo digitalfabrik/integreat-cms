@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from backend.settings import IMPRINT_SLUG, WEBAPP_URL
 from ...constants import status
 from ...decorators import region_permission_required
-from ...forms.imprint import ImprintForm, ImprintTranslationForm
+from ...forms.imprint import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage, Region
 
 logger = logging.getLogger(__name__)
@@ -37,8 +37,7 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.imprint.imprint_form.ImprintForm` and
-        :class:`~cms.forms.imprint.imprint_translation_form.ImprintTranslationForm`
+        Render :class:`~cms.forms.imprint.imprint_translation_form.ImprintTranslationForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -121,7 +120,6 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
                     },
                 )
 
-        imprint_form = ImprintForm(instance=imprint, region=region, disabled=disabled)
         imprint_translation_form = ImprintTranslationForm(
             instance=imprint_translation, disabled=disabled
         )
@@ -136,7 +134,6 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
             self.template_name,
             {
                 **self.base_context,
-                "imprint_form": imprint_form,
                 "imprint_translation_form": imprint_translation_form,
                 "imprint": imprint,
                 "language": language,
@@ -179,12 +176,6 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
             language=language,
         ).first()
 
-        imprint_form = ImprintForm(
-            request.POST,
-            request.FILES,
-            instance=imprint_instance,
-            region=region,
-        )
         imprint_translation_form = ImprintTranslationForm(
             request.POST,
             instance=imprint_translation_instance,
@@ -197,14 +188,13 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
         )
 
         # TODO: error handling
-        if not imprint_form.is_valid() or not imprint_translation_form.is_valid():
+        if not imprint_translation_form.is_valid():
             messages.error(request, _("Errors have occurred."))
             return render(
                 request,
                 self.template_name,
                 {
                     **self.base_context,
-                    "imprint_form": imprint_form,
                     "imprint_translation_form": imprint_translation_form,
                     "imprint": imprint_instance,
                     "language": language,
@@ -214,17 +204,13 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
                 },
             )
 
-        if (
-            not imprint_form.has_changed()
-            and not imprint_translation_form.has_changed()
-        ):
+        if not imprint_translation_form.has_changed():
             messages.info(request, _("No changes detected."))
             return render(
                 request,
                 self.template_name,
                 {
                     **self.base_context,
-                    "imprint_form": imprint_form,
                     "imprint_translation_form": imprint_translation_form,
                     "imprint": imprint_instance,
                     "language": language,
@@ -234,7 +220,8 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
                 },
             )
 
-        imprint = imprint_form.save()
+        if not imprint_instance:
+            imprint = ImprintPage.objects.create(region=region)
         imprint_translation = imprint_translation_form.save(
             imprint=imprint,
             user=request.user,

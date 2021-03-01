@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 {% load widget_tweaks %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="flex flex-wrap mb-4">
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="flex flex-wrap">
-	    <div class="w-1/2 pr-2">
+	    <div class="w-3/4 pr-2">
 		    {{form.errors}}
 		    <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
 				<div class="w-full p-4 rounded bg-blue-500">
@@ -39,36 +39,24 @@
 					<div class="px-2 mb-2 text-s text-gray-600">{{ form.slug.help_text }}</div>
                     {% render_field form.slug class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="{{ form.thumbnail.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.thumbnail.label }}</label>
-                    {% render_field form.thumbnail class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-
 				</div>
 			</div>
 		</div>
-	<div class="w-1/2 pl-2">
+	<div class="w-1/4 pl-2">
 		<div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
 			<div class="w-full p-4 rounded bg-blue-500">
 				<h3 class="heading font-bold text-white">{% trans 'Extended Settings' %}</h3>
 			</div>
 			<div class="w-full p-4">
-				<div class="flex w-full bg-gray-200">
-					<img class="flex w-2/3 p-2 h-40 pt-4 pb-4 justify-start" src="https://tailwindcss.com/img/card-top.jpg">
-					</img>
-					<div class="flex h-48 w-1/3 pt-4 p-2 pb-4 justify-end">
-						{% render_field form.icon id="icon" class="image-field" %}
-						<label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500hover:text-white">
-							<svg class="w-1/4 h-1/4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-								<path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-							</svg>
-							<span class="mt-2 text-base leading-normal text-center">{% trans 'Set icon' %}</span>
-							<input type='filename' class="hidden" />
-						</label>
-					</div>
-				</div>
+				<span class="block font-bold mb-4">{{ form.icon.label }}</span>
+				{% render_field form.icon label=form.icon.label %}
 			</div>
-			
 		</div>
 	</div>
 </div>
 </form>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/forms/icon-field.js' %}"></script>
 {% endblock %}
