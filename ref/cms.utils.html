@@ -1160,7 +1160,7 @@
 <p>Example usage: <a class="reference internal" href="../ref-ext/cms.views.media.html#cms.views.media.media_edit_view.MediaEditView" title="cms.views.media.media_edit_view.MediaEditView"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.media.media_edit_view.MediaEditView</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpRequest" title="(in Django v2.2)"><em>HttpRequest</em></a>) – The current request submitting the file(s)</p>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request submitting the file(s)</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A dictionary containing the <a class="reference internal" href="../ref-ext/cms.forms.media.html#cms.forms.media.document_form.DocumentForm" title="cms.forms.media.document_form.DocumentForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentForm</span></code></a> object and the boolean return status</p>
@@ -1212,13 +1212,13 @@ For more information on xhtml2pdf, see <a class="reference external" href="https
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v2.2)"><strong>PermissionDenied</strong></a> – User login and permissions required</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.1)"><strong>PermissionDenied</strong></a> – User login and permissions required</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>PDF document wrapped in a HtmlResponse</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.HttpResponse" title="(in Django v2.2)">HttpResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)">HttpResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1266,13 +1266,13 @@ In case the slug exists already, it appends a counter which is increased until t
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>form_object</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/forms/api/#django.forms.Form" title="(in Django v2.2)"><em>Form</em></a>) – The form which contains the slug field</p></li>
-<li><p><strong>foreign_model</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/models/instances/#django.db.models.Model" title="(in Django v2.2)"><em>Model</em></a>) – If the form instance has a foreign key to another model (e.g. because it is a translation of
+<li><p><strong>form_object</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/api/#django.forms.Form" title="(in Django v3.1)"><em>Form</em></a>) – The form which contains the slug field</p></li>
+<li><p><strong>foreign_model</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model" title="(in Django v3.1)"><em>Model</em></a>) – If the form instance has a foreign key to another model (e.g. because it is a translation of
 a content-object), this paramaeter contains the model of the foreign related object.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v2.2)"><strong>ValidationError</strong></a> – When no slug is given and there is also no field which can be used
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.1)"><strong>ValidationError</strong></a> – When no slug is given and there is also no field which can be used
 as fallback (either <code class="docutils literal notranslate"><span class="pre">title</span></code> or <code class="docutils literal notranslate"><span class="pre">name</span></code>).</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1291,7 +1291,7 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 <dl class="py function">
 <dt>
 <code class="sig-prename descclassname"><span class="pre">cms.utils.translation_utils.</span></code><code class="sig-name descname"><span class="pre">ugettext_many_lazy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">strings</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/translation_utils.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This function is a wrapper for <a class="reference external" href="https://docs.djangoproject.com/en/2.2/ref/utils/#django.utils.text.format_lazy" title="(in Django v2.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.utils.text.format_lazy()</span></code></a> for the special case that the given strings
+<dd><p>This function is a wrapper for <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/utils/#django.utils.text.format_lazy" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.utils.text.format_lazy()</span></code></a> for the special case that the given strings
 should be concatenated with a space in between. This is useful for splitting lazy translated strings by sentences
 which improves the translation memory.</p>
 <dl class="field-list simple">
