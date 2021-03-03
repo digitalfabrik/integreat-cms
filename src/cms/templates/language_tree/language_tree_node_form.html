@@ -43,6 +43,12 @@
                 </div>
                 <div class="py-2 border-b solid border-gray-200 mb-2">
 	                <div class="py-2 pb-4">
+                        {% render_field language_tree_node_form.visible|add_error_class:"border-red-500" id="visible" %}
+		                <label for="{{ language_tree_node_form.visible.id_for_label }}" class="font-bold px-2">{{ language_tree_node_form.visible.label }}</label>
+	                </div>
+                </div>
+                <div class="py-2 border-b solid border-gray-200 mb-2">
+	                <div class="py-2 pb-4">
                         {% render_field language_tree_node_form.active|add_error_class:"border-red-500" id="active" %}
 		                <label for="{{ language_tree_node_form.active.id_for_label }}" class="font-bold px-2">{{ language_tree_node_form.active.label }}</label>
 	                </div>

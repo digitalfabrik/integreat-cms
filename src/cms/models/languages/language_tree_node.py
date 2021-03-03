@@ -36,12 +36,15 @@ class LanguageTreeNode(MPTTModel):
         related_name="language_tree_nodes",
         verbose_name=_("region"),
     )
+    visible = models.BooleanField(
+        default=True,
+        verbose_name=_("visible"),
+        help_text=_("Defined if this language should be delivered via the API"),
+    )
     active = models.BooleanField(
         default=True,
         verbose_name=_("active"),
-        help_text=_(
-            "Whether or not it should be possible to create new pages in this language and content of this language should be delivered via the API"
-        ),
+        help_text=_("Defined if content in this language can be created or edited"),
     )
     created_date = models.DateTimeField(
         default=timezone.now,
