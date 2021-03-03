@@ -97,7 +97,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                 messages.info(
                     request,
                     _(
-                        "This is <b>not</b> the most recent public revision of this translation. Instead, <a href='%(revision_url)s' class='underline hover:no-underline'>revision %(revision)s</a> is shown in the apps."
+                        "The latest changes have only been saved as a draft. Currently, <a href='%(revision_url)s' class='underline hover:no-underline'>version %(revision)s</a> of this page is displayed in the app."
                     )
                     % {
                         "revision_url": reverse(

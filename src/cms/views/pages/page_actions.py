@@ -12,10 +12,11 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.views.static import serve
-from django.http import HttpResponseNotFound, JsonResponse
 
 from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, staff_required
@@ -23,6 +24,7 @@ from ...forms.pages import PageForm
 from ...models import Page, Language, Region, PageTranslation
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 from ...utils.pdf_utils import generate_pdf
+from ...utils.slug_utils import generate_unique_slug
 
 logger = logging.getLogger(__name__)
 
@@ -858,3 +860,40 @@ def render_mirrored_page_field(request):
             "page_form": page_form,
         },
     )
+
+
+@login_required
+@region_permission_required
+@permission_required("cms.edit_pages", raise_exception=True)
+# pylint: disable=unused-argument
+def slugify_ajax(request, region_slug, language_slug):
+    """checks the current user input for page title and generates unique slug for permalink
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+    :param region_slug: region identifier
+    :type region_slug: str
+    :param language_slug: language slug
+    :type language_slug: str
+    :return: unique page translation slug
+    :rtype: str
+    """
+    json_data = json.loads(request.body)
+    form_title = slugify(json_data["title"], allow_unicode=True)
+    region = Region.get_current_region(request)
+    language = get_object_or_404(region.languages, slug=language_slug)
+    page = region.pages.filter(id=request.GET.get("page")).first()
+    page_translation = PageTranslation.objects.filter(
+        page=page,
+        language=language,
+    ).first()
+    kwargs = {
+        "slug": form_title,
+        "manager": PageTranslation.objects,
+        "object_instance": page_translation,
+        "foreign_model": "page",
+        "region": region,
+        "language": language,
+    }
+    unique_slug = generate_unique_slug(**kwargs)
+    return JsonResponse({"unique_slug": unique_slug})

@@ -7,7 +7,7 @@ from django.apps import apps
 from gvz_api.utils import GvzRegion
 
 from ...models import Region, PageTranslation, LanguageTreeNode
-from ...utils.slug_utils import generate_unique_slug
+from ...utils.slug_utils import generate_unique_slug_helper
 from ..icon_widget import IconWidget
 from ..placeholder_model_form import PlaceholderModelForm
 
@@ -135,7 +135,7 @@ class RegionForm(PlaceholderModelForm):
         :return: A unique slug based on the input value
         :rtype: str
         """
-        return generate_unique_slug(self, "region")
+        return generate_unique_slug_helper(self, "region")
 
 
 def duplicate_language_tree(
