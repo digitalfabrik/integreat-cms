@@ -1,24 +1,27 @@
-u('.collapsible').each(function(node){
-    u(node).on('click', toggle_dashboard_section);
-});
+window.addEventListener("load", () => {
+  document.querySelectorAll(".collapsible").forEach((node) => {
+    node.addEventListener("click", toggleDashboardSection);
+  });
 
-/**
- * Handles toggling boxes on the dashboard
- * @param {Event} event Click event for dashboard containers
- */
-function toggle_dashboard_section(event){
+  /**
+   * Handles toggling boxes on the dashboard
+   * @param {Event} event Click event for dashboard containers
+   */
+  function toggleDashboardSection(event: Event) {
     // The button which was clicked
-    let button = u(event.target).closest('.collapsible');
+    const target = event.target as HTMLElement;
+    const button = target.closest(".collapsible");
     // The div which should be collapsed or expanded
-    let content = button.parent().find('.collapsible-content')
+    const content = button.parentNode.querySelector(".collapsible-content");
     // Toggle content div
-    content.toggleClass('active');
+    content.classList.toggle("active");
     // Toggle arrows
-    if (content.hasClass('active')){
-        button.find('.up-arrow').removeClass('hidden');
-        button.find('.down-arrow').addClass('hidden');
+    if (content.classList.contains("active")) {
+      button.querySelector(".up-arrow").classList.remove("hidden");
+      button.querySelector(".down-arrow").classList.add("hidden");
     } else {
-        button.find('.up-arrow').addClass('hidden');
-        button.find('.down-arrow').removeClass('hidden');
+      button.querySelector(".up-arrow").classList.add("hidden");
+      button.querySelector(".down-arrow").classList.remove("hidden");
     }
-}
+  }
+});

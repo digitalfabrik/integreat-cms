@@ -1,3 +1,13 @@
-async function autosave_editor(event){
-    const data = await fetch(window.location, {method: 'POST', headers: { "X-CSRFToken": u('#content_form').find('input[name=csrfmiddlewaretoken]').first().value, "Content-Type": "application/x-www-form-urlencoded"}, body: u('#content_form').serialize()});
+import { getCsrfToken } from "../utils/csrf-token";
+
+export async function autosaveEditor() {
+  const form = document.getElementById("content_form") as HTMLFormElement;
+  const formData = new FormData(form);
+  const data = await fetch(window.location.href, {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": getCsrfToken(),
+    },
+    body: formData
+  });
 }

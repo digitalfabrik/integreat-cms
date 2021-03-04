@@ -1,52 +1,70 @@
 /**
  * This file contains all functions which are needed for the diff calculation of revisions.
- * It cannot be included directly, because the npm module htmldiff-js needs to be browserified before it can be used in the browser.
- * Use the following command to bundle this file (this is also automatically executed in dev-tools/run.sh):
- *
- *     npx browserify src/cms/static/js/revisions.js -o src/cms/static/js/revisions_browserified.js -t [ babelify --presets [ @babel/preset-env ] ]
  */
 
-import HtmlDiff from 'htmldiff-js';
+import HtmlDiff from "htmldiff-js";
 
-// Iterate over revisions and calculate diff
-u(".revision-plain").each(function(node, i){
-    // The plain content div of the revision
-    const revision = u(node);
+window.addEventListener("load", () => {
+  // Iterate over revisions and calculate diff
+  document.querySelectorAll(".revision-plain").forEach((revision) => {
     // The div wrapper around plain content and diff
-    const parent = revision.parent();
+    const parent = revision.parentNode;
     // The numeric id of the revision
-    const id = parseInt(parent.attr('id').substring(9));
+    const id = parseInt((parent as HTMLElement).id.substring(9));
     // The plain content div of the previous revision
-    let prev_revision = u("#revision-" + (id - 1)).children(".revision-plain");
+    let prevRevision = document
+      .getElementById("revision-" + (id - 1))
+      ?.querySelector(":scope > .revision-plain");
     // Calculate the actual diff and insert into the diff div
-    parent.children(".revision-diff").html(HtmlDiff.execute(prev_revision.html(), revision.html()));
+    if (parent.querySelector(":scope > .revision-diff")) {
+      parent.querySelector(
+        ":scope > .revision-diff"
+      ).innerHTML = HtmlDiff.execute(
+        prevRevision?.innerHTML || "",
+        revision.innerHTML
+      );
+    }
+  });
+
+  const revisionSlider = document.getElementById("revision-slider");
+  if (revisionSlider) {
+    // Add event handler for slider input
+    document
+      .getElementById("revision-slider")
+      .addEventListener("input", (event) => {
+        event.preventDefault();
+        handleRevisionSliderInput(event);
+      });
+    // Simulate initial input after page load
+    revisionSlider.dispatchEvent(new Event("input"));
+  }
 });
 
-// Add event handler for slider input
-u("#revision-slider").handle("input", handle_revision_slider_input);
-// Simulate initial input after page load
-u("#revision-slider").trigger("input");
-
 // function to update the revision info and hide/show the current revision diff
-function handle_revision_slider_input(event) {
-    const revision_info = u("#revision-info").first();
-    // The current revision
-    const current_revision = event.target.value;
-    // The total number of revisions
-    const num_revisions = event.target.max;
-    // The percentage of the current slider position (left = 0%, right = 100%)
-    // If num_revisions == 1, the division results in NaN and the part || 0 converts this case to 0%
-    const position = Number(((current_revision - 1) / (num_revisions - 1)) * 100) || 0;
-    // The last updated date of the revision
-    const revision_date = u("#revision-" + current_revision).data("date");
-    // Update the revision info box
-    revision_info.textContent = `Revision: ${current_revision}\r\n${revision_date}`;
-    // Calculate position of revision info box to make sure it stays within the area of the slider position
-    revision_info.style.left = `calc(${position}% + (${125 - position * 2.5}px))`;
-    // Hide all other revisions
-    u(".revision-wrapper").each(function(node) {
-        u(node).addClass("hidden");
-    });
-    // Show the current revision diff
-    u("#revision-" + current_revision).removeClass("hidden");
+function handleRevisionSliderInput({ target }: Event) {
+  const revisionInfo = document.getElementById("revision-info");
+  // The current revision
+  const currentRevision = Number.parseInt((target as HTMLInputElement).value);
+  // The total number of revisions
+  const numRevisions = Number.parseInt((target as HTMLInputElement).max);
+  // The percentage of the current slider position (left = 0%, right = 100%)
+  // If numRevisions == 1, the division results in NaN and the part || 0 converts this case to 0%
+  const position = ((currentRevision - 1) / (numRevisions - 1)) * 100 || 0;
+  // The last updated date of the revision
+  const revisionDate = document
+    .getElementById("revision-" + currentRevision)
+    .getAttribute("data-date");
+  // Update the revision info box
+  revisionInfo.textContent =
+  `Revision: ${currentRevision}\r\n${revisionDate}`;
+  // Calculate position of revision info box to make sure it stays within the area of the slider position
+  revisionInfo.style.left = `calc(${position}% + (${125 - position * 2.5}px))`;
+  // Hide all other revisions
+  document.querySelectorAll(".revision-wrapper").forEach((node) => {
+    node.classList.add("hidden");
+  });
+  // Show the current revision diff
+  document
+    .getElementById("revision-" + currentRevision)
+    .classList.remove("hidden");
 }

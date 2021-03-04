@@ -3,18 +3,29 @@
  */
 
 // event handler to toggle push notification fields
-u("#id_push_notifications_enabled").on('click', function(event) {
-    if (event.target.checked) {
-        u("#push-notifications-toggle-div").removeClass('hidden');
-    } else {
-        u("#push-notifications-toggle-div").addClass('hidden');
+window.addEventListener('load', () => {
+    const enablePushNotificationButton = document.getElementById("id_push_notifications_enabled");
+    const pushNotificationsToggle = document.getElementById("push-notifications-toggle-div");
+    if(enablePushNotificationButton && pushNotificationsToggle) {  
+        enablePushNotificationButton.addEventListener('click', ({target}) => {
+            if ((target as HTMLInputElement).checked) {
+                pushNotificationsToggle.classList.remove('hidden');
+            } else {
+                pushNotificationsToggle.classList.add('hidden');
+            }
+        })
     }
-});
-// event handler to toggle statistic fields
-u("#id_statistics_enabled").on('click', function(event) {
-    if (event.target.checked) {
-        u("#statistics-toggle-div").removeClass('hidden');
-    } else {
-        u("#statistics-toggle-div").addClass('hidden');
+
+    // event handler to toggle statistic fields
+    const statisticsEnabled = document.getElementById("id_statistics_enabled");
+    const statisticsToggle = document.getElementById("statistics-toggle-div");
+    if(statisticsEnabled && statisticsToggle) {
+        statisticsEnabled.addEventListener('click', ({target}) => {
+            if ((target as HTMLInputElement).checked) {
+                statisticsToggle.classList.remove('hidden');
+            } else {
+                statisticsToggle.classList.add('hidden');
+            }
+        });
     }
 });

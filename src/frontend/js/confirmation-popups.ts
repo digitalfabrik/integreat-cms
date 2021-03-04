@@ -1,45 +1,71 @@
 /**
  * This file contains all functions which are needed for toggling the confirmation popup
  */
+type EventHandler = (event: Event) => any;
+const handlers = new Map<HTMLElement, EventHandler>();
 
-// event handler for showing confirmation popups
-u('.confirmation-button').handle('click', show_confirmation_popup);
-// event handler for closing confirmation popups
-u('#confirmation-dialog').find('button').handle('click', close_confirmation_popup);
+window.addEventListener("load", () => {
+  // event handler for showing confirmation popups
+  document
+    .querySelectorAll(".confirmation-button")
+    .forEach((el) => el.addEventListener("click", showConfirmationPopup));
+  // event handler for closing confirmation popups
+  document
+    .querySelectorAll("#confirmation-dialog button")
+    .forEach((el) => el.addEventListener("click", closeConfirmationPopup));
+});
 
-function show_confirmation_popup(event) {
-    let button = u(event.target).closest('button');
-    // Set confirmation data
-    u('#confirmation-subject').html(button.data('confirmation-subject'));
-    u('#confirmation-title').html(button.data('confirmation-title'));
-    u('#confirmation-text').html(button.data('confirmation-text'));
-    let confirmation_popup = u('#confirmation-dialog');
-    confirmation_popup.find('form').attr('action', button.data('action'));
-    // Show confirmation popup
-    confirmation_popup.removeClass('hidden');
-    u('#popup-overlay').removeClass('hidden');
+export function showConfirmationPopup(event: Event) {
+  event.preventDefault();
+  const button = (event.target as HTMLElement).closest("button");
+  // Set confirmation data
+  document.getElementById(
+    "confirmation-subject"
+  ).textContent = button.getAttribute("data-confirmation-subject");
+  document.getElementById("confirmation-title").textContent = button.getAttribute(
+    "data-confirmation-title"
+  );
+  document.getElementById("confirmation-text").textContent = button.getAttribute(
+    "data-confirmation-text"
+  );
+  const confirmationPopup = document.getElementById("confirmation-dialog");
+  confirmationPopup
+    .querySelector("form")
+    .setAttribute("action", button.getAttribute("data-action"));
+  // Show confirmation popup
+  confirmationPopup.classList.remove("hidden");
+  document.getElementById("popup-overlay").classList.remove("hidden");
 
-    // If ajax mode is enabled, trigger custom event instead of submitting the form
-    if (confirmation_popup.data("ajax")) {
-        // Handle form submission differently
-        confirmation_popup.find("form").handle("submit", function() {
-            // Trigger the custom "action-confirmed" event of the source button
-            button.trigger("action-confirmed");
-            // Close conformation popup
-            close_confirmation_popup();
-        });
-    }
+  // If ajax mode is enabled, trigger custom event instead of submitting the form
+  if (confirmationPopup.getAttribute("data-ajax")) {
+    // Handle form submission differently
+    const handler = (event: Event) => handleSubmit(event, button);
+    handlers.set(confirmationPopup, handler);
+    confirmationPopup.querySelector("form").addEventListener("submit", handler);
+  }
 }
 
-function close_confirmation_popup() {
-    // Hide confirmation popup
-    u('#popup-overlay').addClass('hidden');
-    let confirmation_popup = u('#confirmation-dialog');
-    confirmation_popup.addClass('hidden');
+function handleSubmit(event: Event, button: HTMLButtonElement) {
+  // Trigger the custom "action-confirmed" event of the source button
+  button.dispatchEvent(new Event("action-confirmed"));
+  // Close conformation popup
+  closeConfirmationPopup(event);
+}
 
-    // If ajax mode is enabled, remove custom event handler which was inserted in the show_confirmation_popup() function
-    if (confirmation_popup.data("ajax")) {
-        // Handle form submission differently
-        confirmation_popup.find("form").off("submit");
+function closeConfirmationPopup(event: Event) {
+  event.preventDefault();
+  // Hide confirmation popup
+  document.getElementById("popup-overlay").classList.add("hidden");
+  const confirmationPopup = document.getElementById("confirmation-dialog");
+  confirmationPopup.classList.add("hidden");
+
+  // If ajax mode is enabled, remove custom event handler which was inserted in the showConfirmationPopup() function
+  if (confirmationPopup.getAttribute("data-ajax")) {
+    // Handle form submission differently
+    if (handlers.has(confirmationPopup)) {
+      confirmationPopup
+        .querySelector("form")
+        .removeEventListener("submit", handlers.get(confirmationPopup));
     }
+  }
 }

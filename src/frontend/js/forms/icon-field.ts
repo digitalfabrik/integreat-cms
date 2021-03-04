@@ -3,53 +3,69 @@
  */
 
 // Set event handlers
-u('#id_icon').on('change', updateIconDisplay);
-u('#remove-icon').on('click', removeIcon);
-u('#restore-icon').on('click', setIcon);
+window.addEventListener("load", () => {
+  const iconField = document.getElementById("id_icon");
+  const removeButton = document.getElementById("remove-icon");
+  const restoreButton = document.getElementById("restore-icon");
+
+  if (iconField) {
+    iconField.addEventListener("change", updateIconDisplay);
+  }
+  if (removeButton) {
+    removeButton.addEventListener("click", removeIcon);
+  }
+  if (restoreButton) {
+    restoreButton.addEventListener("click", setIcon);
+  }
+});
 
 /**
  * Listen for user input (selection in file browser) for uploading icons.
  * Updates the icon preview and UI for clearing.
  *
- * @param {Event} event - selected icon changed
+ * @param event - selected icon changed
  */
-function updateIconDisplay(event) {
-    const files = u(event.target).first().files;
-    // Fill in uploaded file path
-    u('#icon_preview').find("img").attr("src", URL.createObjectURL(files[0]))
-    u('#icon_filename').text(files[0].name);
-    // Update UI elements
-    setIcon();
+function updateIconDisplay({ target }: Event) {
+  const files = (target as HTMLInputElement).files;
+  // Fill in uploaded file path
+  document
+    .querySelector("#icon_preview img")
+    .setAttribute("src", URL.createObjectURL(files[0]));
+  document.getElementById("icon_filename").innerText = files[0].name;
+  // Update UI elements
+  setIcon();
 }
 
 /**
  * Handles all UI elements when an icon is removed
  */
 function removeIcon() {
-    // Hide preview
-    u('#icon_preview').addClass("hidden");
-    // Change icon label
-    u('#change-icon-label').addClass("hidden");
-    u('#set-icon-label').removeClass("hidden");
-    // Toggle remove/restore buttons
-    u('#remove-icon').addClass("hidden");
-    u('#restore-icon').removeClass("hidden");
-    // Set clear-checkbox
-    u('#icon-clear_id').first().checked = true;
+  // Hide preview
+  document.getElementById("icon_preview").classList.add("hidden");
+  // Change icon label
+  document.getElementById("change-icon-label").classList.add("hidden");
+  document.getElementById("set-icon-label").classList.remove("hidden");
+  // Toggle remove/restore buttons
+  document.getElementById("remove-icon").classList.add("hidden");
+  document.getElementById("restore-icon").classList.remove("hidden");
+  // Set clear-checkbox
+  (document.getElementById("icon-clear_id") as HTMLInputElement).checked = true;
 }
 
 /**
  * Handles all UI elements when an icon is selected or restored
  */
 function setIcon() {
-    // Show preview
-    u('#icon_preview').removeClass("hidden");
-    // Change icon label
-    u('#set-icon-label').addClass("hidden");
-    u('#change-icon-label').removeClass("hidden");
-    // Toggle remove/restore buttons
-    u('#restore-icon').addClass("hidden");
-    u('#remove-icon').removeClass("hidden");
-    // Unset clear-checkbox
-    u('#icon-clear_id').first().checked = false;
+  // Show preview
+  document.getElementById("icon_preview").classList.remove("hidden");
+  // Change icon label
+  document.getElementById("set-icon-label").classList.add("hidden");
+  document.getElementById("change-icon-label").classList.remove("hidden");
+  // Toggle remove/restore buttons
+  document.getElementById("restore-icon").classList.add("hidden");
+  document.getElementById("remove-icon").classList.remove("hidden");
+  // Unset clear-checkbox
+  (document.getElementById(
+    "icon-clear_id"
+  ) as HTMLInputElement).checked = false;
 }

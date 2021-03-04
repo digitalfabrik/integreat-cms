@@ -1,115 +1,159 @@
-u(document).handle('DOMContentLoaded', set_poi_query_event_listeners);
-
-async function query_pois(url, query_string, region_slug, create_poi_option) {
-    const data = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': u('[name=csrfmiddlewaretoken]').first().value
-        },
-        body: JSON.stringify({
-            'query_string': query_string,
-            'region_slug': region_slug,
-            'create_poi_option': create_poi_option
-        })
-    }).then(res => {
-        if (res.status != 200) {
-            // Invalid status => return empty result
-            return '';
-        } else {
-            // Return response text
-            return res.text();
-        }
-    });
-    if (data) {
-        // Set and display new data
-        u('#poi-query-result').removeClass('hidden');
-        u('#poi-query-result').html(data);
+window.addEventListener("load", () => {
+  if (
+    document.getElementById("poi-query-input") &&
+    !document.querySelector("[data-disable-poi-query]")
+  ) {
+    setPoiQueryEventListeners();
+    // event handler to reset filter form
+    const resetFilter = document.getElementById("filter-reset");
+    if (resetFilter) {
+      resetFilter.addEventListener("click", removePoi);
     }
+  }
+});
 
-    u('.option-new-poi').each(function (node) {
-        u(node).handle('click', new_poi_window);
+async function queryPois(
+  url: string,
+  queryString: string,
+  regionSlug: string,
+  createPoiOption: boolean
+) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": (document.querySelector(
+        "input[name=csrfmiddlewaretoken]"
+      ) as HTMLInputElement).value,
+    },
+    body: JSON.stringify({
+      query_string: queryString,
+      region_slug: regionSlug,
+      create_poi_option: createPoiOption,
+    }),
+  });
+
+  if (response.status != 200) {
+    // Invalid status => return empty result
+    return "";
+  }
+
+  const data = await response.text();
+
+  if (data) {
+    // Set and display new data
+    document.getElementById("poi-query-result").classList.remove("hidden");
+    document.getElementById("poi-query-result").innerHTML = data;
+  }
+
+  document.querySelectorAll(".option-new-poi").forEach((node) => {
+    node.addEventListener("click", (event) => {
+      event.preventDefault();
+      newPoiWindow(event);
+    });
+  });
+
+  document.querySelectorAll(".option-existing-poi").forEach((node) => {
+    console.log("add", node);
+    node.addEventListener("click", (event) => {
+      event.preventDefault();
+      console.log("click");
+      setPoi(event);
+    });
+  });
+}
+
+function setPoi({ target }: Event) {
+  const option = (target as HTMLElement).closest(".option-existing-poi");
+  renderPoiData(
+    option.getAttribute("data-poi-title"),
+    option.getAttribute("data-poi-id"),
+    option.getAttribute("data-poi-address"),
+    option.getAttribute("data-poi-city"),
+    option.getAttribute("data-poi-country")
+  );
+}
+
+function removePoi() {
+  renderPoiData(
+    document
+      .getElementById("poi-query-input")
+      .getAttribute("data-default-placeholder"),
+    "-1",
+    "",
+    "",
+    ""
+  );
+}
+
+function newPoiWindow({ target }: Event) {
+  const option = (target as HTMLElement).closest(".option-new-poi");
+  const new_window = window.open(option.getAttribute("data-url"), "_blank");
+  new_window.onload = function () {
+    new_window.document
+      .getElementById("id_title")
+      .setAttribute("value", option.getAttribute("data-poi-title"));
+  };
+}
+
+function renderPoiData(
+  queryPlaceholder: string,
+  id: string,
+  address: string,
+  city: string,
+  country: string
+) {
+  document
+    .getElementById("poi-query-input")
+    .setAttribute("placeholder", queryPlaceholder);
+  document.getElementById("poi-id").setAttribute("value", id);
+  document.getElementById("poi-address").setAttribute("value", address);
+  document.getElementById("poi-city").setAttribute("value", city);
+  document.getElementById("poi-country").setAttribute("value", country);
+
+  document.getElementById("poi-query-result").classList.add("hidden");
+  (document.getElementById("poi-query-input") as HTMLInputElement).value = "";
+}
+
+let scheduledFunction: number | false = false;
+function setPoiQueryEventListeners() {
+  // AJAX search
+  document
+    .getElementById("poi-query-input")
+    .addEventListener("keyup", (event) => {
+      event.preventDefault();
+      const input_field = (event.target as HTMLElement).closest("input");
+
+      // Reschedule function execution on new input
+      if (scheduledFunction) {
+        clearTimeout(scheduledFunction);
+      }
+      // Schedule function execution
+      scheduledFunction = setTimeout(
+        queryPois,
+        300,
+        input_field.getAttribute("data-url"),
+        input_field.value,
+        input_field.getAttribute("data-region-slug"),
+        !input_field.classList.contains("no-new-poi") // Allow suppressing the option to create a new POI
+      );
     });
 
-    u('.option-existing-poi').each(function (node) {
-        u(node).handle('click', set_poi);
-    });
-}
-
-function set_poi(event) {
-    let option = u(event.target).closest('.option-existing-poi');
-    render_poi_data(
-        option.data('poi-title'),
-        option.data('poi-id'),
-        option.data('poi-address'),
-        option.data('poi-city'),
-        option.data('poi-country')
-    );
-}
-
-// event handler to reset filter form
-u('#filter-reset').on('click', remove_poi);
-function remove_poi() {
-    render_poi_data(
-        u('#poi-query-input').data('default-placeholder'),
-        -1,
-        '',
-        '',
-        ''
-    );
-}
-
-function new_poi_window(event) {
-    let option = u(event.target).closest('.option-new-poi');
-    let new_window = window.open(option.data('url'), "_blank");
-    new_window.onload = function () {
-        u('#id_title', new_window.document).attr('value', option.data('poi-title'));
+  // Hide AJAX search results
+  document.addEventListener("click", ({ target }) => {
+    if (
+      !(target as HTMLElement).closest("#poi-query-input") &&
+      !(target as HTMLElement).closest("#poi-query-result")
+    ) {
+      // Neither clicking on input field nor on result to select it
+      document.getElementById("poi-query-result").innerHTML = "";
+      (document.getElementById("poi-query-input") as HTMLInputElement).value =
+        "";
     }
-}
+  });
 
-function render_poi_data(query_placeholder, id, address, city, country) {
-    u('#poi-query-input').attr('placeholder', query_placeholder);
-    u('#poi-id').attr('value', id);
-    u('#poi-address').attr('value', address);
-    u('#poi-city').attr('value', city);
-    u('#poi-country').attr('value', country);
-
-    u('#poi-query-result').addClass('hidden');
-    u('#poi-query-input').first().value = '';
-}
-
-function set_poi_query_event_listeners() {
-    let scheduled_function = false;
-    // AJAX search
-    u('#poi-query-input').handle('keyup', function (event) {
-        let input_field = u(event.target).closest('input');
-
-        // Reschedule function execution on new input
-        if (scheduled_function) {
-            clearTimeout(scheduled_function);
-        }
-        // Schedule function execution
-        scheduled_function = setTimeout(
-            query_pois,
-            300,
-            input_field.data('url'),
-            input_field.first().value,
-            input_field.data('region-slug'),
-            !input_field.hasClass('no-new-poi')  // Allow suppressing the option to create a new POI
-        );
-    });
-
-    // Hide AJAX search results
-    u(document).on('click', function (event) {
-        if (
-            u(event.target).closest('#poi-query-input').first() !== u('#poi-query-input').first() &&
-            u(event.target).closest('#poi-query-result').first() !== u('#poi-query-result').first()
-        ) {
-            // Neither clicking on input field nor on result to select it
-            u('#poi-query-result').empty();
-            u('#poi-query-input').first().value = '';
-        }
-    });
-
-    // Remove POI
-    u('#poi-remove').handle('click', remove_poi);
+  // Remove POI
+  document.getElementById("poi-remove").addEventListener("click", (event) => {
+    event.preventDefault();
+    removePoi();
+  });
 }

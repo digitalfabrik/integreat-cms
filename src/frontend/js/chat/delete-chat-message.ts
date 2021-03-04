@@ -2,34 +2,75 @@
  * This file contains the deletion function for the author chat
  */
 
+import { showConfirmationPopup } from "../confirmation-popups";
+
+export function refreshChatDeleteHandlers() {
+  document
+    .querySelectorAll(".confirmation-button")
+    .forEach((button) =>
+      button.removeEventListener("action-confirmed", deleteChatMessage)
+    );
+  document
+    .querySelectorAll(".confirmation-button")
+    .forEach((button) =>
+      button.addEventListener("action-confirmed", deleteChatMessage)
+    );
+  document
+    .querySelectorAll(".confirmation-button")
+    .forEach((button) =>
+      button.removeEventListener("click", showConfirmationPopup)
+    );
+  document
+    .querySelectorAll(".confirmation-button")
+    .forEach((button) =>
+      button.addEventListener("click", showConfirmationPopup)
+    );
+}
+
 // Listen on the custom event "action-confirmed" which is triggered by the confirmation popup
-u('.confirmation-button').handle('action-confirmed', delete_chat_message);
+window.addEventListener("load", refreshChatDeleteHandlers);
 
 // Function to delete a chat message
-async function delete_chat_message(event) {
-    // Hide error in case it was shown before
-    u('#chat-network-error').addClass("hidden");
-    u('#chat-server-error').addClass("hidden");
+async function deleteChatMessage(event: Event) {
+  event.preventDefault();
+  const chatNetworkError = document.getElementById("chat-network-error");
+  const chatServerError = document.getElementById("chat-server-error");
 
-    // Delete chat message
-    let deletion_button = u(event.target).closest(".confirmation-button")
-    fetch(deletion_button.data("action")).then(function (response) {
-        // HTTP status 200 OK could also mean CSRF error, but if json is returned, it was really successful
-        if (response.status === 200 && response.headers.get('Content-Type') === "application/json") {
-            // If message was deleted successfully, remove the div containing the message
-            deletion_button.closest(".chat-message").remove();
-        } else {
-            // Throw error which will then be caught later
-            throw new Error("Chat message could not be deleted: HTTP status " + response.status + " " + response.statusText);
-        }
-    }).catch(error => {
-        console.log(error);
-        if (error instanceof TypeError) {
-            // Handle network error
-            u('#chat-network-error').removeClass("hidden");
-        } else {
-            // Handle server error
-            u('#chat-server-error').removeClass("hidden");
-        }
-    });
+  // Hide error in case it was shown before
+  chatNetworkError.classList.add("hidden");
+  chatServerError.classList.add("hidden");
+
+  // Delete chat message
+  const deletionButton = (event.target as HTMLElement).closest(
+    ".confirmation-button"
+  );
+  try {
+    const response = await fetch(deletionButton.getAttribute("data-action"));
+
+    // HTTP status 200 OK could also mean CSRF error, but if json is returned, it was really successful
+    if (
+      response.status === 200 &&
+      response.headers.get("Content-Type") === "application/json"
+    ) {
+      // If message was deleted successfully, remove the div containing the message
+      deletionButton.closest(".chat-message").remove();
+    } else {
+      // Throw error which will then be caught later
+      throw new Error(
+        "Chat message could not be deleted: HTTP status " +
+          response.status +
+          " " +
+          response.statusText
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    if (error instanceof TypeError) {
+      // Handle network error
+      chatNetworkError.classList.remove("hidden");
+    } else {
+      // Handle server error
+      chatServerError.classList.remove("hidden");
+    }
+  }
 }

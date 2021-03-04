@@ -2,74 +2,82 @@
  * This file contains all event handlers and functions which are needed for granting and revoking permissions on individual pages.
  */
 
-u(document).handle('DOMContentLoaded', set_page_permission_event_listeners);
+document.addEventListener("DOMContentLoaded", setPagePermissionEventListeners);
 
 // function to set the page permission event listeners
-function set_page_permission_event_listeners() {
-
-    u('.grant-page-permission').each(function(node)  {
-        u(node).handle('click', grant_page_permission);
+function setPagePermissionEventListeners() {
+  document.querySelectorAll(".grant-page-permission").forEach(function (node) {
+    node.addEventListener("click", (event) => {
+      event.preventDefault();
+      grantPagePermission(event);
     });
-    u('.revoke-page-permission').each(function(node)  {
-        u(node).handle('click', revoke_page_permission);
+  });
+  document.querySelectorAll(".revoke-page-permission").forEach(function (node) {
+    node.addEventListener("click", (event) => {
+      event.preventDefault();
+      revokePagePermission(event);
     });
-
+  });
 }
 
 // function for granting page permissions
-async function grant_page_permission(event) {
-    let button = u(event.target).closest('button');
-    let user_id = button.parent().find('select').first().value;
-    // only submit ajax request when user is selected
-    if (user_id) {
-        await update_page_permission(
-            button.data('url'),
-            button.data('page-id'),
-            user_id,
-            button.data('permission'),
-        );
-    }
+async function grantPagePermission({ target }: Event) {
+  const button = (target as HTMLElement).closest("button");
+  const userId = button.parentNode.querySelector("select").value;
+  // only submit ajax request when user is selected
+  if (userId) {
+    await updatePagePermission(
+      button.getAttribute("data-url"),
+      button.getAttribute("data-page-id"),
+      userId,
+      button.getAttribute("data-permission")
+    );
+  }
 }
 
 // function for revoking page permissions
-async function revoke_page_permission(event) {
-    let link = u(event.target).closest('a');
-    await update_page_permission(
-        link.attr('href'),
-        link.data('page-id'),
-        link.data('user-id'),
-        link.data('permission')
-    );
+async function revokePagePermission({ target }: Event) {
+  const link = (target as HTMLElement).closest("a");
+  await updatePagePermission(
+    link.getAttribute("href"),
+    link.getAttribute("data-page-id"),
+    link.getAttribute("data-user-id"),
+    link.getAttribute("data-permission")
+  );
 }
 
 // ajax call for updating the page permissions
-async function update_page_permission(url, page_id, user_id, permission) {
-    const data = await fetch(url, {
-        method: 'POST',
-        headers:  {
-            'X-CSRFToken': u('[name=csrfmiddlewaretoken]').first().value
-        },
-        body: JSON.stringify({
-            'page_id': page_id,
-            'user_id': user_id,
-            'permission': permission
-        })
-    }).then(res => {
-        if (res.status !== 200) {
-            // return empty result if status is not ok
-            return '';
-        } else {
-            // return response text otherwise
-            return res.text();
-        }
-    });
-    if (data) {
-        // insert response into table
-        u("#page_permission_table").html(data);
-        // set new event listeners
-        set_page_permission_event_listeners();
-        // trigger icon replacement
-        feather.replace();
-    }
+async function updatePagePermission(
+  url: string,
+  pageId: string,
+  userId: string,
+  permission: string
+) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": (document.querySelector(
+        "[name=csrfmiddlewaretoken]"
+      ) as HTMLInputElement).value,
+    },
+    body: JSON.stringify({
+      page_id: pageId,
+      user_id: userId,
+      permission: permission,
+    }),
+  });
+  
+  if (response.status !== 200) {
+    return "";
+  }
+  const data = await response.text();
 
+  if (data) {
+    // insert response into table
+    document.getElementById("page_permission_table").innerHTML = data;
+    // set new event listeners
+    setPagePermissionEventListeners();
+    // trigger icon replacement
+    feather.replace();
+  }
 }

@@ -18,7 +18,6 @@
  *         </select>
  *
  * - Add submit button: <input id="bulk-action-execute" type="submit" value="{% trans 'Execute' %}" />
- * - Include <script src="{% static 'js/bulk_actions.js' %}"></script> in javascript block
  *
  *  VIEW
  * ######
@@ -29,43 +28,79 @@
  *
  */
 
-u("#bulk-select-all").on("click", bulk_select_all);
-function bulk_select_all() {
-    u(".bulk-select-item").each(function(item){
-        // Set the "checked" attr of all items to the "checked" state of the top checkbox
-        item.checked = u("#bulk-select-all").first().checked;
+function isInputElement(el: Element): el is HTMLInputElement {
+  return el instanceof HTMLInputElement;
+}
+
+window.addEventListener("load", () => {
+  const selectAllCheckbox = document.getElementById("bulk-select-all");
+  const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
+  const bulkActionForm = document.getElementById("bulk-action-form");
+  const selectItems = Array.from(document.getElementsByClassName("bulk-select-item"));
+  const bulkActionButton = document.getElementById(
+    "bulk-action-execute"
+  ) as HTMLInputElement;
+
+  if (selectAllCheckbox && isInputElement(selectAllCheckbox)) {
+    selectAllCheckbox.addEventListener("click", () => {
+      const value = selectAllCheckbox.checked;
+      selectItems
+        .filter(isInputElement)
+        .forEach((checkbox) => (checkbox.checked = value));
+      toggleBulkActionButton();
     });
-}
+  }
 
-toggle_bulk_action_button();
-u(".bulk-select-item").on("click", toggle_bulk_action_button);
-u("#bulk-select-all").on("click", toggle_bulk_action_button);
-u("#bulk-action").on("change", toggle_bulk_action_button);
-function toggle_bulk_action_button() {
-    let bulk_action_button = u("#bulk-action-execute")
+  if (bulkAction) {
+    bulkAction.addEventListener("change", toggleBulkActionButton);
+    toggleBulkActionButton();
+  }
+  if (bulkActionForm) {
+    bulkActionForm.addEventListener("submit", bulkActionExecute);
+  }
+
+  selectItems.forEach((el) => {
+    el.addEventListener("click", toggleBulkActionButton);
+  });
+
+  function toggleBulkActionButton() {
     // Only activate button if at least one item and the action is selected
-    if (u(".bulk-select-item").filter(":checked").length === 0 || u("#bulk-action").first().selectedIndex === 0) {
-        bulk_action_button.removeClass("bg-blue-500", "hover:bg-blue-600", "cursor-pointer");
-        bulk_action_button.addClass("bg-gray-500", "cursor-not-allowed");
-        bulk_action_button.first().disabled = true;
-    } else  {
-        bulk_action_button.removeClass("bg-gray-500", "cursor-not-allowed");
-        bulk_action_button.addClass("bg-blue-500", "hover:bg-blue-600", "cursor-pointer");
-        bulk_action_button.first().disabled = false;
+    if (
+      !selectItems
+        .filter(isInputElement)
+        .some((el) => el.checked) ||
+      bulkAction.selectedIndex === 0
+    ) {
+      bulkActionButton.classList.remove(
+        "bg-blue-500",
+        "hover:bg-blue-600",
+        "cursor-pointer"
+      );
+      bulkActionButton.classList.add("bg-gray-500", "cursor-not-allowed");
+      bulkActionButton.disabled = true;
+    } else {
+      bulkActionButton.classList.remove("bg-gray-500", "cursor-not-allowed");
+      bulkActionButton.classList.add(
+        "bg-blue-500",
+        "hover:bg-blue-600",
+        "cursor-pointer"
+      );
+      bulkActionButton.disabled = false;
     }
-}
+  }
 
-u("#bulk-action-form").handle('submit', bulk_action_execute);
-function bulk_action_execute(event) {
-    let select = u("#bulk-action").first();
-    let selected_action = u(select.options[select.selectedIndex]);
+  function bulkActionExecute(event: Event) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const selectedAction = bulkAction.options[bulkAction.selectedIndex];
     // Set form action to url of the bulk action
-    event.target.action = selected_action.data("bulk-action");
+    form.action = selectedAction.getAttribute("data-bulk-action");
     // Set form target in case action is to be opened in a new tab
-    let target = selected_action.data("target");
+    const target = selectedAction.getAttribute("data-target");
     if (target !== null) {
-        event.target.target = target;
+      form.target = target;
     }
     // Submit form and execute bulk action
-    event.target.submit();
-}
+    form.submit();
+  }
+});

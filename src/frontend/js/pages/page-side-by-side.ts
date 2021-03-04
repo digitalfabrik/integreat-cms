@@ -2,22 +2,28 @@
  * This file contains all functions which are needed for the page side by side view dropdown and button.
  */
 
-function toggle_sbs_button(event) {
-    if (event.target.value !== '') {
-        u('#side-by-side-link').attr('href', event.target.value);
-        u('#side-by-side-link').removeClass('bg-gray-400');
-        u('#side-by-side-link').removeClass('pointer-events-none');
-        u('#side-by-side-link').addClass('bg-blue-500');
-        u('#side-by-side-link').addClass('hover:bg-blue-600');
-    } else {
-        u('#side-by-side-link').first().removeAttribute('href');
-        u('#side-by-side-link').removeClass('bg-blue-500');
-        u('#side-by-side-link').removeClass('hover:bg-blue-600');
-        u('#side-by-side-link').addClass('bg-gray-400');
-        u('#side-by-side-link').addClass('pointer-events-none');
-    }
+function toggle_sbs_button({ target }: Event) {
+  const sideBySideLink = document.getElementById("side-by-side-link");
+  if ((target as HTMLInputElement).value !== "") {
+    sideBySideLink.setAttribute("href", (target as HTMLInputElement).value);
+    sideBySideLink.classList.remove("bg-gray-400");
+    sideBySideLink.classList.remove("pointer-events-none");
+    document.getElementById("side-by-side-link").classList.add("bg-blue-500");
+    sideBySideLink.classList.add("hover:bg-blue-600");
+  } else {
+    document.getElementById("side-by-side-link").removeAttribute("href");
+    sideBySideLink.classList.remove("bg-blue-500");
+    sideBySideLink.classList.remove("hover:bg-blue-600");
+    document.getElementById("side-by-side-link").classList.add("bg-gray-400");
+    sideBySideLink.classList.add("pointer-events-none");
+  }
 }
-u(document).handle('DOMContentLoaded', function() {
-    u('#side-by-side-select').handle('change', toggle_sbs_button);
-    u('#side-by-side-select').trigger('change')
+document.addEventListener("DOMContentLoaded", () => {
+  const sideBySideSelect = document.getElementById(
+    "side-by-side-select"
+  ) as HTMLSelectElement;
+  if (sideBySideSelect) {
+    sideBySideSelect.addEventListener("change", toggle_sbs_button);
+    sideBySideSelect.dispatchEvent(new Event("change"));
+  }
 });

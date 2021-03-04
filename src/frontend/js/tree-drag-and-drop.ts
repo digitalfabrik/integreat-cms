@@ -3,94 +3,117 @@
  * Currently, this is used in src/cms/templates/pages/page_tree.html and src/cms/templates/language_tree/language_tree.html
  */
 
-// event handler for starting drag events
-u('.drag').each(function(node) {
-    u(node).on('dragstart', dragstart);
-});
-function dragstart(event) {
+import { off, on } from "./utils/wrapped-events";
+
+window.addEventListener("load", () => {
+  // event handler for starting drag events
+  document.querySelectorAll(".drag").forEach((node) => {
+    (node as HTMLElement).addEventListener("dragstart", dragstart);
+  });
+  function dragstart(event: DragEvent) {
+    const target = event.target as HTMLElement;
     // prepare the dragged node id for data transfer
-    event.dataTransfer.setData("text", u(event.target).attr("data-drag-id"));
-    window.setTimeout(change_dom, 0, event.target);
+    event.dataTransfer.setData("text", target.getAttribute("data-drag-id"));
+    window.setTimeout(() => changeDom(target));
     // get descendants of dragged node
-    var descendants = JSON.parse(u(event.target).attr("data-node-descendants"));
+    const descendants = JSON.parse(
+      target.getAttribute("data-node-descendants")
+    ) as number[];
     // add event listeners for hovering over drop regions
-    u('.drop').each(function(node) {
-        // get target node id of the hovered drop region
-        var drop_id = parseInt(u(node).attr("data-drop-id"));
-        if (descendants.includes(drop_id)) {
-            // if the target node is a descendant of the dragged node, disallow dropping it
-            u(node).on('dragover', drop_disallow);
-        } else {
-            // else, the move would be valid and dropping is allowed
-            u(node).handle('dragover', drop_allow);
-        }
+    document.querySelectorAll(".drop").forEach((node) => {
+      // get target node id of the hovered drop region
+      const drop_id = parseInt(node.getAttribute("data-drop-id"));
+      if (descendants.includes(drop_id)) {
+        // if the target node is a descendant of the dragged node, disallow dropping it
+        on(node, "dragover", dropDisallow);
+      } else {
+        // else, the move would be valid and dropping is allowed
+        on(node,
+          "dragover",
+          (e: Event) => {
+            e.preventDefault();
+            dropAllow(e);
+          }
+        );
+      }
     });
-}
+  }
 
-/* manipulating the dom during dragstart event fires immediately a dragend event (chrome browser)
+  /* manipulating the dom during dragstart event fires immediately a dragend event (chrome browser)
 so the changes to the dom must be delayed */
-function change_dom(target) {
+  function changeDom(target: HTMLElement) {
     // change appearance of dragged item
-    u(target).removeClass('text-gray-800');
-    u(target).addClass('text-blue-500');
+    target.classList.remove("text-gray-800");
+    target.classList.add("text-blue-500");
     // show dropping regions between table rows
-    u('.drop-between').each(function(node)  {
-        u(node).closest('tr').removeClass("hidden");
+    document.querySelectorAll(".drop-between").forEach((node) => {
+      node.closest("tr").classList.remove("hidden");
     });
-}
+  }
 
-// event handlers for dragover events
-function drop_allow(event) {
-    u(event.target.parentElement).closest('tr').addClass("drop-allow");
-}
-function drop_disallow(event) {
-    u(event.target.parentElement).closest('tr').addClass("drop-disallow");
-}
+  // event handlers for dragover events
+  function dropAllow(event: Event) {
+    const target = event.target as HTMLElement;
+    target.parentElement.closest("tr").classList.add("drop-allow");
+  }
+  function dropDisallow(event: Event) {
+    const target = event.target as HTMLElement;
+    target.parentElement.closest("tr").classList.add("drop-disallow");
+  }
 
-// event handler for stopping drag events
-u('.drag').each(function(node) {
-    u(node).handle('dragend', dragend);
-});
-function dragend(event) {
+  // event handler for stopping drag events
+  document.querySelectorAll(".drag").forEach(function (node) {
+    on(node, "dragend", dragend);
+  });
+
+  function dragend(event: Event) {
+    event.preventDefault();
+
+    const target = event.target as HTMLElement;
     // hide the drop regions between table rows
-    u('.drop-between').each(function(node) {
-        u(node).closest('tr').addClass("hidden");
+    document.querySelectorAll(".drop-between").forEach((node) => {
+      node.closest("tr").classList.add("hidden");
     });
-    // remove event listeners for dragover events
-    u('.drop').each(function(node) {
-        u(node).off('dragover');
-    });
+    document.querySelectorAll('.drop').forEach((node) => {
+      off(node, 'dragover');
+  });
+
     // change appearance of dragged item
-    u(event.target).removeClass('text-blue-500');
-    u(event.target).addClass('text-gray-800');
-}
+    target.classList.remove("text-blue-500");
+    target.classList.add("text-gray-800");
+  }
 
-// event handler for dragleave events
-u('.drop').each(function(node) {
-    u(node).handle('dragleave', dragleave);
-});
-function dragleave(event) {
+  // event handler for dragleave events
+  document.querySelectorAll(".drop").forEach((node) => {
+    node.addEventListener("dragleave", dragleave);
+  });
+  function dragleave(event: Event) {
     // remove hover effect on allowed or disallowed drop regions
-    var target = u(event.target.parentElement).closest('tr');
-    target.removeClass("drop-allow");
-    target.removeClass("drop-disallow");
-}
+    const target = (event.target as HTMLElement).closest("tr");
+    target.classList.remove("drop-allow");
+    target.classList.remove("drop-disallow");
+  }
 
-// event handler for drop events
-u('.drop').each(function(node) {
-    u(node).handle('drop', drop);
-});
-function drop(event) {
+  // event handler for drop events
+  document.querySelectorAll(".drop").forEach((node) => {
+    node.addEventListener("drop", (e: Event) => {
+      e.preventDefault();
+      drop(e as DragEvent);
+    });
+  });
+  function drop(event: DragEvent) {
     // prevent the table from collapsing again after successful drop
-    u('.drag').each(function(node) {
-        u(node).off('dragend');
+    document.querySelectorAll(".drag").forEach((node) => {
+      off(node, "dragend");
     });
     // get dragged node id from data transfer
     var node_id = event.dataTransfer.getData("text");
     // get target node if from dropped region
-    var target = u(event.target.parentElement).closest('tr');
-    var target_id = target.attr("data-drop-id");
-    var position = target.attr("data-drop-position");
+    const target = (event.target as HTMLElement).closest("tr");
+    const target_id = target.getAttribute("data-drop-id");
+    const position = target.getAttribute("data-drop-position");
     // call view to move a node (current location is the nodes url)
-    window.location.href = window.location.href + node_id + "/move/" + target_id + "/" + position;
-}
+    window.location.href =
+      window.location.href + node_id + "/move/" + target_id + "/" + position;
+  }
+});
