@@ -2,48 +2,120 @@
 
 # This script can be used to check the translation file for missing or empty entries.
 
-if [[ "$VIRTUAL_ENV" != "" ]]
-then
-  export PIPENV_VERBOSITY=-1
+# This function prints the given input lines in red color
+function print_error {
+    while read -r line; do
+        echo -e "\e[1;31m$line\e[0;39m" >&2
+    done
+}
+
+# This function prints the given input lines in green color
+function print_success {
+    while read -r line; do
+        echo -e "\e[1;32m$line\e[0;39m"
+    done
+}
+
+# This function prints the given input lines with a nice little border to separate it from the rest of the content.
+# Pipe your content to this function.
+function print_with_borders {
+    echo "┌──────────────────────────────────────"
+    while read -r line; do
+        echo "│ $line"
+    done
+    echo -e "└──────────────────────────────────────\n"
+}
+
+# This function applies different sed replacements to make sure the matched lines from grep are aligned and colored
+# sed doesn't understand \e, therefore \x1b has to be used as escape sequence.
+function format_grep_output {
+    while read -r line; do
+        echo "$line" | sed -E \
+            -e "s/^([0-9])([:-])(.*)/\1\2      \3/" `# Pad line numbers with 1 digit` \
+            -e "s/^([0-9]{2})([:-])(.*)/\1\2     \3/" `# Pad line numbers with 2 digits` \
+            -e "s/^([0-9]{3})([:-])(.*)/\1\2    \3/" `# Pad line numbers with 3 digits` \
+            -e "s/^([0-9]{4})([:-])(.*)/\1\2   \3/" `# Pad line numbers with 4 digits` \
+            -e "s/^([0-9]{5})([:-])(.*)/\1\2  \3/" `# Pad line numbers with 5 digits` \
+            -e "s/^([0-9]+):(.*)/\x1b[1;31m\1\2\x1b[0;39m/" `# Make matched line red` \
+            -e "s/^([0-9]+)-(.*)/\1\2/" `# Remove dash of unmatched line`
+    done
+}
+
+if [[ -n "$VIRTUAL_ENV" ]]; then
+    export PIPENV_VERBOSITY=-1
 fi
 
 # Check if pcregrep is installed
 if [ ! -x "$(command -v pcregrep)" ]; then
-    echo "PCRE grep is not installed. Please install pcregrep manually and run this script again." >&2
+    echo "PCRE grep is not installed. Please install pcregrep manually and run this script again." | print_error
     exit 1
 fi
 
 # Change directory to make sure to ignore files in the venv
-cd $(dirname "$BASH_SOURCE")/../src/cms
+cd $(dirname "$BASH_SOURCE")/../src/cms || exit 1
+
+# Relative path from src/cms
+TRANSLATION_FILE="locale/de/LC_MESSAGES/django.po"
 
 # Re-generating translation file
-pipenv run integreat-cms-cli makemessages -l de > /dev/null
+pipenv run integreat-cms-cli makemessages -l de > /dev/null || exit 1
 
-# Check for missing entries
-if ! git diff --shortstat locale/de/LC_MESSAGES/django.po | grep -q "1 file changed, 1 insertion(+), 1 deletion(-)"; then
-    echo "Your translation file is not up to date." >&2
-    # Check if script is running in CircleCI context
-    if [[ -z "$CIRCLECI" ]]; then
-        echo "Please check if any strings need manual translation." >&2
-    else
-        echo "Please run ./dev-tools/translate.sh and check if any strings need manual translation." >&2
+# Check if translation file is up to date
+TRANSLATION_DIFF=$(git diff --shortstat $TRANSLATION_FILE)
+# The translation file is up to date if the diff is either empty (which means the last change was less than a minute ago)
+# or has exactly one changed line (which means only the timestamp changed)
+[[ -z "$TRANSLATION_DIFF" ]] || echo "$TRANSLATION_DIFF" | grep -q "1 file changed, 1 insertion(+), 1 deletion(-)"
+UP_TO_DATE=$?
+
+if [ $UP_TO_DATE -eq 0 ]; then
+    # Reset the translation file if only the POT-Creation-Date changed
+    git checkout -- $TRANSLATION_FILE
+fi
+
+# Check for empty entries
+pcregrep -Mq 'msgstr ""\n\n' $TRANSLATION_FILE
+EMPTY_ENTRIES=$?
+
+# Check for fuzzy headers (automatic translation proposals)
+grep -q "#, fuzzy" $TRANSLATION_FILE
+FUZZY_ENTRIES=$?
+
+# Check if there are any problems
+if [ $UP_TO_DATE -ne 0 ] || [ $EMPTY_ENTRIES -eq 0 ] || [ $FUZZY_ENTRIES -eq 0 ]; then
+    # Check for missing entries
+    if [ $UP_TO_DATE -ne 0 ]; then
+        echo -e "Your translation file is not up to date." | print_error
+        # Check if script is running in CircleCI context
+        if [[ -z "$CIRCLECI" ]]; then
+            echo -e "Please add the current changes to your commit:\n" | print_error
+        else
+            echo -e "Please run ./dev-tools/translate.sh and add the add the resulting changes to your commit:\n" | print_error
+        fi
+        git --no-pager diff --color $TRANSLATION_FILE | print_with_borders
+    fi
+    # Check for empty entries
+    if [ $EMPTY_ENTRIES -eq 0 ]; then
+        echo -e "You have empty entries in your translation file. Please translate them manually:\n" | print_error
+        echo -e "src/cms/$TRANSLATION_FILE"
+        pcregrep -M -B2 -n --color=never 'msgstr ""\n\n' $TRANSLATION_FILE | sed '4~5d' | format_grep_output | print_with_borders
+    fi
+    # Check for fuzzy headers (automatic translation proposals)
+    if [ $FUZZY_ENTRIES -eq 0 ]; then
+        echo -e "You have fuzzy headers in your translation file (See [1] for more information)." | print_error
+        echo -e "Please review them manually, adjust the translation if necessary and remove the fuzzy header afterwards.\n" | print_error
+        echo -e "src/cms/$TRANSLATION_FILE"
+        grep -A3 -B1 -n --color=never "#, fuzzy" $TRANSLATION_FILE | format_grep_output | print_with_borders
+        echo -e "[1]: https://www.gnu.org/software/gettext/manual/html_node/Fuzzy-Entries.html\n\n" >&2
+    fi
+
+    # Check if script is running in pre-commit context
+    if [[ -n "$PRE_COMMIT" ]]; then
+        echo -e "If you want to disable all pre-commit hooks for this commit, use:\n"
+        echo "\tgit commit --no-verify" | print_success
+        echo -e "\nIf you only want to disable the translations hook for this commit, use:\n"
+        echo "\tSKIP=translations git commit" | print_success
     fi
     exit 1
 fi
 
-# Reset the translation file if only the POT-Creation-Date changed
-git checkout -- locale/de/LC_MESSAGES/django.po
-
-# Check for empty entries
-if pcregrep -Mq 'msgstr ""\n\n' locale/de/LC_MESSAGES/django.po; then
-    echo "You have empty entries in your translation file. Please translate them manually." >&2
-    exit 1
-fi
-
-# Check for fuzzy headers (automatic translation proposals)
-if grep -q "#, fuzzy" locale/de/LC_MESSAGES/django.po; then
-    echo -e "You have fuzzy headers in your translation file (See [1] for more information). Please review them manually, adjust the translation if necessary and remove the fuzzy header afterwards.\n\n[1]: https://www.gnu.org/software/gettext/manual/html_node/Fuzzy-Entries.html" >&2
-    exit 1
-fi
-
-echo "Your translation file looks good!"
+echo "Your translation file looks good!" | print_success
