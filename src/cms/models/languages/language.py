@@ -16,7 +16,7 @@ class Language(models.Model):
         max_length=8,
         unique=True,
         validators=[MinLengthValidator(2)],
-        verbose_name=_("language tag"),
+        verbose_name=_("Language Slug"),
         help_text=_(
             "Unique string identifier used in URLs without spaces and special characters."
         ),
@@ -30,7 +30,7 @@ class Language(models.Model):
         unique=True,
         validators=[MinLengthValidator(2)],
         verbose_name=_("BCP47 Tag"),
-        help_text=_("Unique string identifier without spaces and special characters."),
+        help_text=_("Language identifier without spaces and special characters."),
     )
     native_name = models.CharField(
         max_length=250, blank=False, verbose_name=_("native name")
