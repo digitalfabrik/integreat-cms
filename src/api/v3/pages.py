@@ -27,10 +27,10 @@ def transform_page(page_translation):
         parent = {
             "id": page_translation.page.parent.id,
             "url": page_translation.page.parent.get_translation(
-                page_translation.language.code
+                page_translation.language.slug
             ).permalink,
             "path": page_translation.page.parent.get_translation(
-                page_translation.language.code
+                page_translation.language.slug
             ).slug,
         }
     else:
@@ -53,7 +53,7 @@ def transform_page(page_translation):
 
 @json_response
 # pylint: disable=unused-argument
-def pages(request, region_slug, language_code):
+def pages(request, region_slug, language_slug):
     """
     Function to iterate through all non-archived pages of a region and return them as JSON.
 
@@ -61,8 +61,8 @@ def pages(request, region_slug, language_code):
     :type request: ~django.http.HttpRequest
     :param region_slug: slug of a region
     :type region_slug: str
-    :param language_code: language code
-    :type language_code: str
+    :param language_slug: language slug
+    :type language_slug: str
 
     :return: JSON object according to APIv3 pages endpoint definition
     :rtype: ~django.http.JsonResponse
@@ -70,7 +70,7 @@ def pages(request, region_slug, language_code):
     region = Region.get_current_region(request)
     result = []
     for page in region.get_pages():
-        page_translation = page.get_public_translation(language_code)
+        page_translation = page.get_public_translation(language_slug)
         if page_translation:
             result.append(transform_page(page_translation))
     return JsonResponse(

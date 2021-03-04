@@ -53,7 +53,7 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
             raise Http404 from e
 
         language = get_object_or_404(
-            region.language_tree_nodes, language__code=kwargs.get("language_code")
+            region.language_tree_nodes, language__slug=kwargs.get("language_slug")
         ).language
 
         imprint_translations = imprint.translations.filter(language=language)
@@ -63,7 +63,7 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
                 "edit_imprint",
                 **{
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 
@@ -77,7 +77,7 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
                 "imprint_revisions",
                 **{
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 
@@ -132,7 +132,7 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
         except ImprintPage.DoesNotExist as e:
             raise Http404 from e
 
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        language = Language.objects.get(slug=kwargs.get("language_slug"))
 
         revision = imprint.translations.filter(
             language=language, version=request.POST.get("revision")
@@ -144,11 +144,11 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
                 "imprint_revisions",
                 **{
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 
-        current_revision = imprint.get_translation(language.code)
+        current_revision = imprint.get_translation(language.slug)
 
         if (
             revision.title == current_revision.title
@@ -164,7 +164,7 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
                 "imprint_revisions",
                 **{
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 

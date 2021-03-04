@@ -47,7 +47,7 @@ class SetupClass(TestCase):
         page_data,
         user,
         region_slug,
-        language_code,
+        language_slug,
         page_id=None,
         publish=False,
         explicitly_archived=False,
@@ -59,7 +59,7 @@ class SetupClass(TestCase):
             publish=publish,
             explicitly_archived=explicitly_archived,
             region_slug=region_slug,
-            language_code=language_code,
+            language_slug=language_slug,
             user=user,
         )
         if page_form.is_valid():
@@ -147,7 +147,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             region_slug="demo",
-            language_code="en-us",
+            language_slug="en-us",
             publish=True,
         )
 
@@ -169,7 +169,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             region_slug="demo",
-            language_code="en-us",
+            language_slug="en-us",
             publish=True,
         )
 
@@ -186,7 +186,7 @@ class SetupClass(TestCase):
             user=self.user,
             page_id=self.page_slot_one.id,
             region_slug="demo",
-            language_code="de-de",
+            language_slug="de-de",
             publish=True,
         )
 
@@ -202,7 +202,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             region_slug="demo",
-            language_code="en-us",
+            language_slug="en-us",
             publish=True,
         )
 
@@ -218,7 +218,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             region_slug="demo",
-            language_code="en-us",
+            language_slug="en-us",
             publish=True,
         )
 

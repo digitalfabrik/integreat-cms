@@ -20,7 +20,7 @@ class ImprintPageFeedback(Feedback):
         """
         try:
             # pylint: disable=no-member
-            return self.region.imprint.get_translation(self.language.code).title
+            return self.region.imprint.get_translation(self.language.slug).title
         except ImprintPage.DoesNotExist:
             return _("Imprint")
 
@@ -36,7 +36,7 @@ class ImprintPageFeedback(Feedback):
             "edit_imprint",
             kwargs={
                 "region_slug": self.region.slug,
-                "language_code": self.language.code,
+                "language_slug": self.language.slug,
             },
         )
 

@@ -4,7 +4,7 @@ It contains the following routes:
 
 * ``/sitemap.xml`` is routed to :mod:`~sitemap.views.SitemapIndexView`
 
-* ``/<region_slug>/<language_code>/sitemap.xml`` is routed to :mod:`~sitemap.views.SitemapView`
+* ``/<region_slug>/<language_slug>/sitemap.xml`` is routed to :mod:`~sitemap.views.SitemapView`
 
 See :mod:`backend.urls` for the other namespaces of this application.
 
@@ -17,7 +17,7 @@ from .views import SitemapIndexView, SitemapView
 urlpatterns = [
     path("sitemap.xml", SitemapIndexView.as_view(), name="sitemap_index"),
     path(
-        "<slug:region_slug>/<slug:language_code>/sitemap.xml",
+        "<slug:region_slug>/<slug:language_slug>/sitemap.xml",
         SitemapView.as_view(),
         name="sitemap",
     ),

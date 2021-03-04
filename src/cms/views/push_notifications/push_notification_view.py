@@ -58,7 +58,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             id=kwargs.get("push_notification_id")
         ).first()
         region = Region.get_current_region(request)
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        language = Language.objects.get(slug=kwargs.get("language_slug"))
         num_languages = len(region.languages)
         if push_notification is not None:
             pn_form = PushNotificationForm(instance=push_notification)
@@ -131,7 +131,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             raise PermissionDenied
 
         region = Region.get_current_region(request)
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        language = Language.objects.get(slug=kwargs.get("language_slug"))
         num_languages = len(region.languages)
 
         PushNewsFormset = modelformset_factory(

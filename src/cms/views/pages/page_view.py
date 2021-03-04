@@ -59,7 +59,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
         """
 
         region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
+        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
 
         # get page and translation objects if they exist
         page = region.pages.filter(id=kwargs.get("page_id")).first()
@@ -92,7 +92,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                         "You don't have the permission to edit this page, but you can propose changes and submit them for review instead."
                     ),
                 )
-            public_translation = page.get_public_translation(language.code)
+            public_translation = page.get_public_translation(language.slug)
             if public_translation and page_translation != public_translation:
                 messages.info(
                     request,
@@ -104,7 +104,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                             "page_revisions",
                             kwargs={
                                 "region_slug": region.slug,
-                                "language_code": language.code,
+                                "language_slug": language.slug,
                                 "page_id": page.id,
                                 "selected_revision": public_translation.version,
                             },
@@ -176,7 +176,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
         """
 
         region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
+        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
 
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
         page_translation_instance = PageTranslation.objects.filter(
@@ -287,7 +287,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
             **{
                 "page_id": page.id,
                 "region_slug": region.slug,
-                "language_code": language.code,
+                "language_slug": language.slug,
             },
         )
 
@@ -318,7 +318,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                 )
                 side_by_side_language_options.append(
                     {
-                        "value": language_node.language.code,
+                        "value": language_node.language.slug,
                         "label": _("{source_language} to {target_language}").format(
                             source_language=language_node.parent.language.translated_name,
                             target_language=language_node.language.translated_name,

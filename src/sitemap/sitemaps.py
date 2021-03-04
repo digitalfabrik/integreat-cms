@@ -250,7 +250,7 @@ class OfferSitemap(WebappSitemap):
         :return: The absolute path of the given offer object
         :rtype: str
         """
-        return "/" + "/".join([obj.region.slug, self.language.code, "offers", obj.slug])
+        return "/" + "/".join([obj.region.slug, self.language.slug, "offers", obj.slug])
 
     def sitemap_alternates(self, obj):
         """
@@ -264,8 +264,8 @@ class OfferSitemap(WebappSitemap):
         """
         return [
             {
-                "location": f"{WEBAPP_URL}/{self.region.slug}/{language_tree_node.code}/offers/{obj.slug}",
-                "lang_code": language_tree_node.code,
+                "location": f"{WEBAPP_URL}/{self.region.slug}/{language_tree_node.slug}/offers/{obj.slug}",
+                "lang_slug": language_tree_node.slug,
             }
             for language_tree_node in self.region.language_tree_nodes.filter(
                 active=True

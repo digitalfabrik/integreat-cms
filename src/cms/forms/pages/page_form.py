@@ -107,7 +107,7 @@ class ParentField(forms.ModelChoiceField):
                 # escape page title because string is marked as safe afterwards
                 escape(
                     page.get_first_translation(
-                        [get_language(), self.language.code]
+                        [get_language(), self.language.slug]
                     ).title
                 )
                 for page in page.get_ancestors(include_self=True)

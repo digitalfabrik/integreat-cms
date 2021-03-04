@@ -94,7 +94,7 @@ class MatomoApiManager:
         :param period: The period (e.g. ``"day"``, ``"week"``, ``"month"`` or ``"year"``)
         :type period: str
 
-        :param lang: The requested language code
+        :param lang: The requested language slug
         :type lang: str
 
         :return: List of visitors in the requested time range

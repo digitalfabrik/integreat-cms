@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 @login_required
 @region_permission_required
-def archive(request, event_id, region_slug, language_code):
+def archive(request, event_id, region_slug, language_slug):
     """
     Set archived flag for an event
 
@@ -33,8 +33,8 @@ def archive(request, event_id, region_slug, language_code):
     :param region_slug: slug of the region which the event belongs to
     :type region_slug: str
 
-    :param language_code: current GUI language code
-    :type language_code: str
+    :param language_slug: current GUI language slug
+    :type language_slug: str
 
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
 
@@ -56,14 +56,14 @@ def archive(request, event_id, region_slug, language_code):
         "events",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         }
     )
 
 
 @login_required
 @region_permission_required
-def restore(request, event_id, region_slug, language_code):
+def restore(request, event_id, region_slug, language_slug):
     """
     Remove archived flag for an event
 
@@ -76,8 +76,8 @@ def restore(request, event_id, region_slug, language_code):
     :param region_slug: slug of the region which the event belongs to
     :type region_slug: str
 
-    :param language_code: current GUI language code
-    :type language_code: str
+    :param language_slug: current GUI language slug
+    :type language_slug: str
 
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
 
@@ -99,14 +99,14 @@ def restore(request, event_id, region_slug, language_code):
         "events",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         }
     )
 
 
 @login_required
 @staff_required
-def delete(request, event_id, region_slug, language_code):
+def delete(request, event_id, region_slug, language_slug):
     """
     Delete a single event
 
@@ -119,8 +119,8 @@ def delete(request, event_id, region_slug, language_code):
     :param region_slug: slug of the region which the event belongs to
     :type region_slug: str
 
-    :param language_code: current GUI language code
-    :type language_code: str
+    :param language_slug: current GUI language slug
+    :type language_slug: str
 
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
@@ -137,7 +137,7 @@ def delete(request, event_id, region_slug, language_code):
         "events",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         }
     )
 

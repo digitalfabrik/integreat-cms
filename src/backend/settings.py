@@ -400,7 +400,7 @@ LANGUAGES = (
 #: (see :setting:`django:LOCALE_PATHS` and :doc:`topics/i18n/index`)
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
-#: A string representing the language code for this installation
+#: A string representing the language slug for this installation
 #: (see :setting:`django:LANGUAGE_CODE` and :doc:`topics/i18n/index`)
 LANGUAGE_CODE = "de-de"
 

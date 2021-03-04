@@ -225,8 +225,8 @@ class TranslationXliffConverter:  # pylint: disable=R0902
             "title": self.elem_title.text,
             "content": self.elem_content.text,
             "page_id": self.page_id,
-            "tgt_lang_code": self.tgt_lang.code,
-            "src_lang_code": self.src_lang.code,
+            "tgt_lang_slug": self.tgt_lang.code,
+            "src_lang_slug": self.src_lang.code,
             "tgt_version": self.elem_trans_version.text,
         }
 
@@ -402,8 +402,8 @@ class PageXliffHelper:
         :rtype: list or bool
         """
         page = Page.objects.filter(id=int(trans_fields["page_id"])).first()
-        tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_code"]).first()
-        src_lang = Language.objects.filter(code=trans_fields["src_lang_code"]).first()
+        tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_slug"]).first()
+        src_lang = Language.objects.filter(code=trans_fields["src_lang_slug"]).first()
         if tgt_lang is None or src_lang is None or page is None:
             return False
         tgt_trans = PageTranslation.objects.filter(page=page, language=tgt_lang).first()
@@ -504,7 +504,7 @@ class PageXliffHelper:
                                 "error": True,
                                 "page_id": trans_fields["page_id"],
                                 "title": trans_fields["title"],
-                                "tgt_lang_code": trans_fields["tgt_lang_code"],
+                                "tgt_lang_slug": trans_fields["tgt_lang_slug"],
                             }
                         )
                     else:
@@ -526,7 +526,7 @@ class PageXliffHelper:
         :rtype: dict
         """
         page = Page.objects.filter(id=int(trans_fields["page_id"])).first()
-        tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_code"]).first()
+        tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_slug"]).first()
         if tgt_lang is None or page is None:
             return None
         tgt_trans = PageTranslation.objects.filter(page=page, language=tgt_lang).first()
@@ -561,18 +561,18 @@ class PageXliffHelper:
 
     @staticmethod
     # pylint: disable=unused-argument
-    def post_translation_state(pages, language_code, translation_state):
+    def post_translation_state(pages, language_slug, translation_state):
         """Update translation state according to parameter
 
         :param pages: list of pages
         :type pages: list
-        :param language_code: language code of translation
-        :type language_code: str
+        :param language_slug: language slug of translation
+        :type language_slug: str
         :param translation_state: value to set for currently_in_translation
         :type translation_state: bool
         """
         for page in pages:
-            if language_code in [language.code for language in page.languages]:
+            if language_slug in [language.slug for language in page.languages]:
                 PageTranslation.objects.filter(
-                    page__id=page.id, language__code=language_code
+                    page__id=page.id, language__slug=language_slug
                 ).update(currently_in_translation=translation_state)

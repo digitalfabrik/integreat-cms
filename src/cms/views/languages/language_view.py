@@ -43,7 +43,7 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        language = Language.objects.filter(code=kwargs.get("language_code")).first()
+        language = Language.objects.filter(slug=kwargs.get("language_slug")).first()
         form = LanguageForm(instance=language)
         return render(request, self.template_name, {"form": form, **self.base_context})
 
@@ -64,12 +64,12 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        language_code = kwargs.get("language_code")
-        language = Language.objects.filter(code=language_code).first()
+        language_slug = kwargs.get("language_slug")
+        language = Language.objects.filter(slug=language_slug).first()
         form = LanguageForm(request.POST, instance=language)
         if form.is_valid():
             form.save()
-            if language_code:
+            if language_slug:
                 messages.success(request, _("Language was successfully saved"))
             else:
                 messages.success(request, _("Language was successfully created"))

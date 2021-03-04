@@ -34,7 +34,7 @@
             </h2>
         </div>
         <div class="w-2/5 flex justify-end mb-6">
-            <a href="{% url 'edit_page' page_id=source_page_translation.page.id region_slug=region.slug language_code=target_language.code %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2">
+            <a href="{% url 'edit_page' page_id=source_page_translation.page.id region_slug=region.slug language_slug=target_language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2">
                 {% trans 'Go Back to Page Editor' %}
             </a>
             {% has_perm 'cms.edit_page' request.user source_page_translation.page as can_edit_page %}
@@ -85,7 +85,7 @@
                 <div class="appearance-none block mb-2 w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                     {% spaceless %}
                     <div style="display: table; white-space: nowrap;">
-                        <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ source_page_translation.language.code }}/</span>
+                        <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ source_page_translation.language.slug }}/</span>
                         {% if source_page_translation.ancestor_path %}
                         <span style="display: table-cell;">{{ source_page_translation.ancestor_path }}/</span>
                         {% endif %}
@@ -159,7 +159,7 @@
                     {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
                     {% spaceless %}
                     <div style="display: table; white-space: nowrap;">
-                        <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ target_language.code }}/</span>
+                        <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ target_language.slug }}/</span>
                         {% if page_translation_form.instance.ancestor_path %}
                         <span style="display: table-cell;">{{ page_translation_form.instance.ancestor_path }}/</span>
                         {% endif %}

@@ -51,15 +51,15 @@ class PushNotificationListView(PermissionRequiredMixin, TemplateView):
         region = Region.get_current_region(request)
 
         # current language
-        language_code = kwargs.get("language_code")
-        if language_code:
-            language = Language.objects.get(code=language_code)
+        language_slug = kwargs.get("language_slug")
+        if language_slug:
+            language = Language.objects.get(slug=language_slug)
         elif region.default_language:
             return redirect(
                 "push_notifications",
                 **{
                     "region_slug": region.slug,
-                    "language_code": region.default_language.code,
+                    "language_slug": region.default_language.slug,
                 }
             )
         else:

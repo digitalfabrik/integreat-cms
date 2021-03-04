@@ -13,88 +13,88 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_translation(instance, language_code):
+def get_translation(instance, language_slug):
     """
     This tag returns the most recent translation of the requested content object in the requested language.
 
     :param instance: The content object instance
     :type instance: ~cms.models.pages.page.Page, ~cms.models.events.event.Event or ~cms.models.pois.poi.POI
 
-    :param language_code: The code of the requested language
-    :type language_code: str
+    :param language_slug: The slug of the requested language
+    :type language_slug: str
 
     :return: The translation object of the requested instance
     :rtype: ~cms.models.pages.page_translation.PageTranslation, ~cms.models.events.event_translation.EventTranslation,
             or ~cms.models.pois.poi_translation.POITranslation
     """
-    return instance.get_translation(language_code)
+    return instance.get_translation(language_slug)
 
 
 @register.simple_tag
-def get_public_translation(instance, language_code):
+def get_public_translation(instance, language_slug):
     """
     This tag returns the most recent public translation of the requested content object in the requested language.
 
     :param instance: The content object instance
     :type instance: ~cms.models.pages.page.Page, ~cms.models.events.event.Event or ~cms.models.pois.poi.POI
 
-    :param language_code: The code of the requested language
-    :type language_code: str
+    :param language_slug: The slug of the requested language
+    :type language_slug: str
 
     :return: The translation object of the requested instance
     :rtype: ~cms.models.pages.page_translation.PageTranslation, ~cms.models.events.event_translation.EventTranslation,
             or ~cms.models.pois.poi_translation.POITranslation
     """
-    return instance.get_public_translation(language_code)
+    return instance.get_public_translation(language_slug)
 
 
 @register.simple_tag
-def translated_language_name(language_code):
+def translated_language_name(language_slug):
     """
     This tag returns the name of the requested language in the current backend language
 
-    :param language_code: The code of the requested language
-    :type language_code: str
+    :param language_slug: The slug of the requested language
+    :type language_slug: str
 
     :return: The translated name of the requested language
     :rtype: str
     """
-    language = Language.objects.filter(code=language_code)
+    language = Language.objects.filter(slug=language_slug)
     if language.exists():
         return language.first().translated_name
     return ""
 
 
 @register.simple_tag
-def get_language(language_code):
+def get_language(language_slug):
     """
     This tag returns the name of the requested language in the current backend language
 
-    :param language_code: The code of the requested language
-    :type language_code: str
+    :param language_slug: The slug of the requested language
+    :type language_slug: str
 
     :return: The translated name of the requested language
     :rtype: str
     """
-    return Language.objects.filter(code=language_code).first()
+    return Language.objects.filter(slug=language_slug).first()
 
 
-# Unify the language codes of backend and content languages
+# Unify the language slugs of backend and content languages
 @register.simple_tag
-def unify_language_code(language_code):
+def unify_language_slug(language_slug):
     """
-    This tag returns the unified language code.
+    This tag returns the unified language slug.
     This is used to treat British English and American English as the same language.
 
-    :param language_code: The code of the requested language
-    :type language_code: str
+    :param language_slug: The slug of the requested language
+    :type language_slug: str
 
-    :return: The unified code of the requested language
+    :return: The unified slug of the requested language
     :rtype: str
     """
-    if language_code == "en-gb":
+    if language_slug == "en-gb":
         return "en-us"
-    return language_code
+    return language_slug
 
 
 @register.filter

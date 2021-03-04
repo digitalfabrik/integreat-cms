@@ -50,7 +50,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         return "/".join(
             filter(
                 None,
-                [self.page.region.slug, self.language.code, IMPRINT_SLUG],
+                [self.page.region.slug, self.language.slug, IMPRINT_SLUG],
             )
         )
 
@@ -86,7 +86,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
         if self.id:
-            return f"(id: {self.id}, page_id: {self.page.id}, lang: {self.language.code}, version: {self.version})"
+            return f"(id: {self.id}, page_id: {self.page.id}, lang: {self.language.slug}, version: {self.version})"
         return super().__str__()
 
     class Meta:

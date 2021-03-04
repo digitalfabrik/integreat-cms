@@ -49,7 +49,7 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
         region = Region.get_current_region(request)
         page = region.pages.get(id=kwargs.get("page_id"))
 
-        target_language = Language.objects.get(code=kwargs.get("language_code"))
+        target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         source_language_node = region.language_tree_nodes.get(
             language=target_language
         ).parent
@@ -68,12 +68,12 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": target_language.code,
+                    "language_slug": target_language.slug,
                 }
             )
 
-        source_page_translation = page.get_translation(source_language.code)
-        target_page_translation = page.get_translation(target_language.code)
+        source_page_translation = page.get_translation(source_language.slug)
+        target_page_translation = page.get_translation(target_language.slug)
 
         if not source_page_translation:
             messages.error(
@@ -87,7 +87,7 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": target_language.code,
+                    "language_slug": target_language.slug,
                 }
             )
 
@@ -137,14 +137,14 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
             )
             raise PermissionDenied
 
-        target_language = Language.objects.get(code=kwargs.get("language_code"))
+        target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         source_language_node = region.language_tree_nodes.get(
             language=target_language
         ).parent
 
         if source_language_node:
             source_page_translation = page.get_translation(
-                source_language_node.language.code
+                source_language_node.language.slug
             )
         else:
             messages.error(
@@ -158,11 +158,11 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": target_language.code,
+                    "language_slug": target_language.slug,
                 }
             )
 
-        page_translation_instance = page.get_translation(target_language.code)
+        page_translation_instance = page.get_translation(target_language.slug)
 
         if not source_page_translation:
             messages.error(
@@ -176,7 +176,7 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": target_language.code,
+                    "language_slug": target_language.slug,
                 }
             )
 

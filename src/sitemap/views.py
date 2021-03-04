@@ -67,7 +67,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
                         "sitemap",
                         kwargs={
                             "region_slug": region.slug,
-                            "language_code": language_tree_node.code,
+                            "language_slug": language_tree_node.slug,
                         },
                     )
                     absolute_url = f"{WEBAPP_URL}{sitemap_url}"
@@ -104,7 +104,7 @@ class SitemapView(TemplateResponseMixin, View):
         :param args: The supplied args
         :type args: list
 
-        :param kwargs: The supplied keyword args (should contain ``region_slug`` and ``language_code``)
+        :param kwargs: The supplied keyword args (should contain ``region_slug`` and ``language_slug``)
         :type kwargs: dict
 
         :raises ~django.http.Http404: Raises a HTTP 404 if the either the region or language does not exist or is invalid
@@ -123,7 +123,7 @@ class SitemapView(TemplateResponseMixin, View):
         # Only return a sitemap if the language is active
         language = get_object_or_404(
             region.language_tree_nodes,
-            language__code=kwargs.get("language_code"),
+            language__slug=kwargs.get("language_slug"),
             active=True,
         ).language
 

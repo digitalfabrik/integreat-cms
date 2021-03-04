@@ -8,7 +8,7 @@ Delegates the following namespaces:
 
 * ``/i18n/`` to :mod:`django.conf.urls.i18n`
 
-* ``/sitemap.xml`` and ``/<region_slug>/<language_code>/sitemap.xml`` to :mod:`sitemap.urls`
+* ``/sitemap.xml`` and ``/<region_slug>/<language_slug>/sitemap.xml`` to :mod:`sitemap.urls`
 
 * ``/`` to :mod:`cms.urls`
 

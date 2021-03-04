@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<form method="post" action="{% url 'imprint_revisions' region_slug=region.slug language_code=language.code %}">
+<form method="post" action="{% url 'imprint_revisions' region_slug=region.slug language_slug=language.slug %}">
     {% csrf_token %}
     <div class="w-full mb-20 relative">
         <input type="range" name="revision" min="1" max="{{ imprint_translations.count }}" value="{{ selected_revision.version }}" id="revision-slider" list="steplist">
@@ -81,7 +81,7 @@
             <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this revision as draft' %}" />
             <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore and publish this revision' %}" />
         {% endif %}
-        <a href="{% url 'edit_imprint' region_slug=region.slug language_code=language.code %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
+        <a href="{% url 'edit_imprint' region_slug=region.slug language_slug=language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
             {% trans 'Go back to imprint editor' %}
         </a>
     </div>

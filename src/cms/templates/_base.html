@@ -113,7 +113,7 @@
 							{% trans 'All pages' %}
 						</a>
 						{% if region.default_language and region.default_language == language %}
-							<a href="{% url 'new_page' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'new_page' and not page %}active{% endif %}">
+							<a href="{% url 'new_page' region_slug=region.slug language_slug=language.slug %}" class="{% if current_menu_item == 'new_page' and not page %}active{% endif %}">
 								{% trans 'Create page' %}
 							</a>
 						{% endif %}
@@ -131,7 +131,7 @@
 							{% trans 'All events' %}
 						</a>
 						{% if language %}
-						<a href="{% url 'new_event' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'events_form' and not event_form.instance.id %}active{% endif %}">
+						<a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}" class="{% if current_menu_item == 'events_form' and not event_form.instance.id %}active{% endif %}">
 							{% trans 'Create event' %}
 						</a>
 						{% endif %}
@@ -149,7 +149,7 @@
 							{% trans 'All locations' %}
 						</a>
 						{% if language %}
-						<a href="{% url 'new_poi' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'pois_form' and not poi_form.instance.id %}active{% endif %}">
+						<a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" class="{% if current_menu_item == 'pois_form' and not poi_form.instance.id %}active{% endif %}">
 							{% trans 'Create location' %}
 						</a>
 						{% endif %}
@@ -189,7 +189,7 @@
 							{% trans 'All push notifications' %}
 						</a>
 						{% if language %}
-						<a href="{% url 'new_push_notification' region_slug=region.slug language_code=language.code %}" class="{% if current_menu_item == 'push_notifications_form' and not push_notification %}active{% endif %}">
+						<a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}" class="{% if current_menu_item == 'push_notifications_form' and not push_notification %}active{% endif %}">
 							{% trans 'Create push notification' %}
 						</a>
 						{% endif %}

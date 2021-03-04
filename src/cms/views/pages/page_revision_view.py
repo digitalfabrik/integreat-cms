@@ -51,7 +51,7 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
         page = get_object_or_404(region.pages, id=kwargs.get("page_id"))
 
         language = get_object_or_404(
-            region.language_tree_nodes, language__code=kwargs.get("language_code")
+            region.language_tree_nodes, language__slug=kwargs.get("language_slug")
         ).language
 
         page_translations = page.translations.filter(language=language)
@@ -62,7 +62,7 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 
@@ -83,7 +83,7 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 
@@ -132,7 +132,7 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
         if not request.user.has_perm("cms.edit_page", page):
             raise PermissionDenied
 
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        language = Language.objects.get(slug=kwargs.get("language_slug"))
 
         revision = page.translations.filter(
             language=language, version=request.POST.get("revision")
@@ -145,11 +145,11 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 
-        current_revision = page.get_translation(language.code)
+        current_revision = page.get_translation(language.slug)
 
         if (
             revision.slug == current_revision.slug
@@ -167,7 +167,7 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
                 **{
                     "page_id": page.id,
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 

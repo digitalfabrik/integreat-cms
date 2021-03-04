@@ -21,7 +21,7 @@ def feedback_handler(func):
     """
 
     @csrf_exempt
-    def handle_feedback(request, region_slug, language_code):
+    def handle_feedback(request, region_slug, language_slug):
         """
         Parse feedback API request parameters
 
@@ -31,8 +31,8 @@ def feedback_handler(func):
         :param region_slug: slug of a region
         :type region_slug: str
 
-        :param language_code: code of a language
-        :type language_code: str
+        :param language_slug: slug of a language
+        :type language_slug: str
 
         :return: return decorated function
         :rtype: ~collections.abc.Callable
@@ -41,14 +41,14 @@ def feedback_handler(func):
             return JsonResponse({"error": "Invalid request."}, status=405)
         try:
             region = Region.objects.get(slug=region_slug)
-            language = Language.objects.get(code=language_code)
+            language = Language.objects.get(slug=language_slug)
         except Region.DoesNotExist:
             return JsonResponse(
                 {"error": f'No region found with slug "{region_slug}"'}, status=404
             )
         except Language.DoesNotExist:
             return JsonResponse(
-                {"error": f'No language found with code "{language_code}"'}, status=404
+                {"error": f'No language found with slug "{language_slug}"'}, status=404
             )
         if request.content_type == "application/json":
             data = json.loads(request.body.decode())

@@ -26,8 +26,8 @@
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
-                {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
-                {% if LANGUAGE_CODE != language.code %}
+                {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE != language.slug %}
                     {% get_language LANGUAGE_CODE as backend_language %}
                     {% if backend_language %}
                         <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
@@ -36,8 +36,8 @@
                 <th class="text-sm text-left uppercase py-3 px-2">
                     <div class="lang-grid flags whitespace-nowrap">
                         {% for lang in languages %}
-                            <a href="{% url 'pages' region_slug=region.slug language_code=lang.code %}">
-                                <span title="{{ lang.translated_name }}"><img src="{% static '' %}images/flags/{{ lang.code }}.png" /></span>
+                            <a href="{% url 'pages' region_slug=region.slug language_slug=lang.slug %}">
+                                <span title="{{ lang.translated_name }}"><img src="{% static '' %}images/flags/{{ lang.slug }}.png" /></span>
                             </a>
                         {% endfor %}
                     </div>
@@ -48,7 +48,7 @@
         <tbody>
         {% if pages %}
             {% recursetree pages %}
-                {% get_translation node language.code as page_translation %}
+                {% get_translation node language.slug as page_translation %}
                 {% include "pages/page_tree_archived_node.html" with page=node page_translation=page_translation %}
                 {% if not node.is_leaf_node %}
                     {{children}}

@@ -13,9 +13,9 @@ class Language(models.Model):
     """
 
     #: The recommended minimum buffer for `bcp47 <https://tools.ietf.org/html/bcp47>`__ is 35.
-    #: It's unlikely that we have language codes longer than 8 characters though.
+    #: It's unlikely that we have language slugs longer than 8 characters though.
     #: See `RFC 5646 Section 4.4.1. <https://tools.ietf.org/html/bcp47#section-4.4.1>`__
-    code = models.SlugField(
+    slug = models.SlugField(
         max_length=8,
         unique=True,
         validators=[MinLengthValidator(2)],

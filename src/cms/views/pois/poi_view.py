@@ -56,7 +56,7 @@ class POIView(PermissionRequiredMixin, TemplateView, POIContextMixin):
         """
 
         region = Region.get_current_region(request)
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        language = Language.objects.get(slug=kwargs.get("language_slug"))
 
         # get poi and translation objects if they exist
         poi = POI.objects.filter(id=kwargs.get("poi_id")).first()
@@ -108,7 +108,7 @@ class POIView(PermissionRequiredMixin, TemplateView, POIContextMixin):
         """
 
         region = Region.get_current_region(request)
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        language = Language.objects.get(slug=kwargs.get("language_slug"))
 
         poi_instance = POI.objects.filter(id=kwargs.get("poi_id")).first()
         poi_translation_instance = POITranslation.objects.filter(
@@ -122,7 +122,7 @@ class POIView(PermissionRequiredMixin, TemplateView, POIContextMixin):
                 **{
                     "poi_id": poi_instance.id,
                     "region_slug": region.slug,
-                    "language_code": language.code,
+                    "language_slug": language.slug,
                 }
             )
 
@@ -201,6 +201,6 @@ class POIView(PermissionRequiredMixin, TemplateView, POIContextMixin):
             **{
                 "poi_id": poi.id,
                 "region_slug": region.slug,
-                "language_code": language.code,
+                "language_slug": language.slug,
             }
         )

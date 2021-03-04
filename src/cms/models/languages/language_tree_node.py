@@ -56,14 +56,14 @@ class LanguageTreeNode(MPTTModel):
     )
 
     @property
-    def code(self):
+    def slug(self):
         """
-        Returns the code of this node's language
+        Returns the slug of this node's language
 
-        :return: The language code of this language node
+        :return: The language slug of this language node
         :rtype: str
         """
-        return self.language.code
+        return self.language.slug
 
     @property
     def native_name(self):

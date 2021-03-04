@@ -46,9 +46,9 @@
                         {% trans 'Create new translation of the location' %}
                     {% endif %}
                     {% get_current_language as LANGUAGE_CODE %}
-                    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+                    {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
                     {% get_translation poi_form.instance LANGUAGE_CODE as backend_translation %}
-                    {% if backend_translation and LANGUAGE_CODE != language.code %}
+                    {% if backend_translation and LANGUAGE_CODE != language.slug %}
                         ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
                     {% endif %}
                 {% else %}
@@ -98,9 +98,9 @@
                                 {{ other_language.translated_name }}
                             </div>
                         {% else %}
-                            <a class="block p-4" style="color: inherit;" href="{% url 'edit_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=other_language.code %}">
+                            <a class="block p-4" style="color: inherit;" href="{% url 'edit_poi' poi_id=poi_form.instance.id region_slug=region.slug language_slug=other_language.slug %}">
                                 {% if other_language in poi_form.instance.languages %}
-                                    {% get_translation poi_form.instance other_language.code as other_poi_translation %}
+                                    {% get_translation poi_form.instance other_language.slug as other_poi_translation %}
                                     {% if other_poi_translation.is_outdated %}
                                         <span title="{% trans 'Translation outdated' %}">
                                             <i data-feather="alert-triangle" class="inline-block"></i>
@@ -142,7 +142,7 @@
                     <div id="slug-div" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                         {% spaceless %}
                             <div style="display: table; white-space: nowrap;">
-                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.code }}/</span>
+                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.slug }}/</span>
                                 <span style="display: table-cell; width: 100%;">{% render_field poi_translation_form.slug|add_error_class:"slug-error" class="w-full rounded" %}</span>
                             </div>
                         {% endspaceless %}
@@ -203,7 +203,7 @@
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                    data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}">
+                                    data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=region.slug language_slug=language.slug %}">
                                     <i data-feather="refresh-ccw" class="inline-block mr-2"></i> {% trans 'Restore this location' %}
                                 </button>
                             {% else %}
@@ -212,7 +212,7 @@
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                    data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}">
+                                    data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=region.slug language_slug=language.slug %}">
                                     <i data-feather="archive" class="inline-block mr-2"></i> {% trans 'Archive this location' %}
                                 </button>
                             {% endif %}
@@ -224,7 +224,7 @@
                                     data-confirmation-title="{{ delete_dialog_title }}"
                                     data-confirmation-text="{{ delete_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                    data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=region.slug language_code=language.code %}">
+                                    data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=region.slug language_slug=language.slug %}">
                                     <i data-feather="trash-2" class="inline-block mr-2"></i> {% trans 'Delete this location' %}
                                 </button>
                             </div>

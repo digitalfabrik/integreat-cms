@@ -24,7 +24,7 @@
             </div>
             <div class="w-1/2 flex flex-wrap flex-col justify-center">
                 <div class="flex flex-wrap justify-end">
-                    <a href="{% url 'events_archived' region_slug=region.slug language_code=language.code %}"
+                    <a href="{% url 'events_archived' region_slug=region.slug language_slug=language.slug %}"
                        class="font-bold text-xs text-gray-800 block pb-2 hover:underline">
                         {% trans 'Archived events' %}
                         <span class="inline-block rounded-full bg-integreat text-gray-800 px-2 py-1 text-xs font-bold">
@@ -45,7 +45,7 @@
                     {% trans 'Filter events' %}
                 </button>
                 {% if region.default_language == language %}
-                    <a href="{% url 'new_event' region_slug=region.slug language_code=language.code %}"
+                    <a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}"
                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         {% trans 'Create event' %}
                     </a>
@@ -63,8 +63,8 @@
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
-                {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
-                {% if LANGUAGE_CODE != language.code %}
+                {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE != language.slug %}
                     {% get_language LANGUAGE_CODE as backend_language %}
                     {% if backend_language %}
                         <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
@@ -73,8 +73,8 @@
                 <th class="text-sm text-left uppercase py-3 px-2 no-sort" data-sort-method="none">
                     <div class="lang-grid flags">
                         {% for lang in languages %}
-                            <a href="{% url 'events' region_slug=region.slug language_code=lang.code %}">
-                                <img src="{% static '' %}images/flags/{{ lang.code }}.png" title="{{ lang.name }}"/>
+                            <a href="{% url 'events' region_slug=region.slug language_slug=lang.slug %}">
+                                <img src="{% static '' %}images/flags/{{ lang.slug }}.png" title="{{ lang.name }}"/>
                             </a>
                         {% endfor %}
                     </div>
@@ -88,7 +88,7 @@
             <tbody>
             {% if events %}
                 {% for event in events %}
-                    {% get_translation event language.code as event_translation %}
+                    {% get_translation event language.slug as event_translation %}
                     {% include "events/event_list_row.html" with event=event event_translation=event_translation %}
                 {% endfor %}
             {% else %}

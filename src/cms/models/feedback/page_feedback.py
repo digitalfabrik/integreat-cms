@@ -41,7 +41,7 @@ class PageFeedback(Feedback):
             kwargs={
                 "page_id": self.page_translation.page.id,
                 "region_slug": self.region.slug,
-                "language_code": self.page_translation.page.backend_translation.language.code,
+                "language_slug": self.page_translation.page.backend_translation.language.slug,
             },
         )
 

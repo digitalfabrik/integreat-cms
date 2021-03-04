@@ -92,9 +92,9 @@
                                 {{ other_language.translated_name }}
                             </div>
                         {% else %}
-                            <a class="p-4 block" style="color: inherit;" href="{% url 'edit_imprint' region_slug=region.slug language_code=other_language.code %}">
+                            <a class="p-4 block" style="color: inherit;" href="{% url 'edit_imprint' region_slug=region.slug language_slug=other_language.slug %}">
                                 {% if other_language in imprint.languages %}
-                                    {% get_translation imprint other_language.code as other_imprint_translation %}
+                                    {% get_translation imprint other_language.slug as other_imprint_translation %}
                                     {% if other_imprint_translation.is_outdated %}
                                         <span title="{% trans 'Translation outdated' %}">
                                             <i data-feather="alert-triangle" class="inline-block"></i>
@@ -126,12 +126,12 @@
                     {% if imprint_translation_form.instance.id %}
                         <span class="inline-block mt-4 mb-2 font-bold">{% trans 'Revision' %}:</span>
                         {{ imprint_translation_form.instance.version }}
-                        (<a href="{% url 'imprint_revisions' region_slug=region.slug language_code=language.code %}" class="text-blue-500 hover:underline">{% trans 'Show revisions' %}</a>)<br>
+                        (<a href="{% url 'imprint_revisions' region_slug=region.slug language_slug=language.slug %}" class="text-blue-500 hover:underline">{% trans 'Show revisions' %}</a>)<br>
                         <span class="inline-block mb-2 font-bold">{% trans 'Status' %}:</span>
                         {{ imprint_translation_form.instance.get_status_display }}<br>
                         <span class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</span>
-                        <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.code }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.code }}/{{ IMPRINT_SLUG }}</a>
-                        <a href="#" onclick="short_url_to_clipboard('{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.code }}/{{ IMPRINT_SLUG }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
+                        <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}</a>
+                        <a href="#" onclick="short_url_to_clipboard('{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="copy" class="inline-block"></i>
                         </a><br>
                         <span class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</span>
@@ -170,7 +170,7 @@
                             <select id="side-by-side-select" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                                 <option value="">---------</option>
                                 {% for side_by_side_language_option in side_by_side_language_options %}
-                                <option value="{% url 'sbs_edit_imprint' region_slug=region.slug language_code=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
+                                <option value="{% url 'sbs_edit_imprint' region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
                                 {% endfor %}
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">

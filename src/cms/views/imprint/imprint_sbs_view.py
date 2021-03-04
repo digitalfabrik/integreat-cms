@@ -60,7 +60,7 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
         except ImprintPage.DoesNotExist as e:
             raise Http404 from e
 
-        target_language = Language.objects.get(code=kwargs.get("language_code"))
+        target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         source_language_node = region.language_tree_nodes.get(
             language=target_language
         ).parent
@@ -78,12 +78,12 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
                 "edit_imprint",
                 **{
                     "region_slug": region.slug,
-                    "language_code": target_language.code,
+                    "language_slug": target_language.slug,
                 }
             )
 
-        source_imprint_translation = imprint.get_translation(source_language.code)
-        target_imprint_translation = imprint.get_translation(target_language.code)
+        source_imprint_translation = imprint.get_translation(source_language.slug)
+        target_imprint_translation = imprint.get_translation(target_language.slug)
 
         if not source_imprint_translation:
             messages.error(
@@ -96,7 +96,7 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
                 "edit_imprint",
                 **{
                     "region_slug": region.slug,
-                    "language_code": target_language.code,
+                    "language_slug": target_language.slug,
                 }
             )
 
@@ -143,14 +143,14 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
         except ImprintPage.DoesNotExist as e:
             raise Http404 from e
 
-        target_language = Language.objects.get(code=kwargs.get("language_code"))
+        target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         source_language_node = region.language_tree_nodes.get(
             language=target_language
         ).parent
 
         if source_language_node:
             source_imprint_translation = imprint.get_translation(
-                source_language_node.language.code
+                source_language_node.language.slug
             )
         else:
             messages.error(
@@ -163,11 +163,11 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
                 "edit_imprint",
                 **{
                     "region_slug": region.slug,
-                    "language_code": target_language.code,
+                    "language_slug": target_language.slug,
                 }
             )
 
-        imprint_translation_instance = imprint.get_translation(target_language.code)
+        imprint_translation_instance = imprint.get_translation(target_language.slug)
 
         if not source_imprint_translation:
             messages.error(
@@ -180,7 +180,7 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
                 "edit_imprint",
                 **{
                     "region_slug": region.slug,
-                    "language_code": target_language.code,
+                    "language_slug": target_language.slug,
                 }
             )
 

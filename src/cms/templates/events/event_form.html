@@ -35,7 +35,7 @@
 <form id="content_form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% get_current_language as LANGUAGE_CODE %}
-    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
     {% get_language LANGUAGE_CODE as current_language %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
@@ -45,7 +45,7 @@
                         {% with event_translation_form.instance.title as event_title %}
                         {% blocktrans %}Edit event "{{ event_title }}"{% endblocktrans %}
                         {% endwith %}
-                        {% if LANGUAGE_CODE != language.code %}
+                        {% if LANGUAGE_CODE != language.slug %}
                             {% get_translation event_form.instance LANGUAGE_CODE as backend_translation %}
                             {% if backend_translation %}
                                 ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
@@ -109,9 +109,9 @@
                                     {{ other_language.translated_name }}
                                 </div>
                             {% else %}
-                                <a class="block p-4" style="color: inherit;" href="{% url 'edit_event' event_id=event_form.instance.id region_slug=region.slug language_code=other_language.code %}">
+                                <a class="block p-4" style="color: inherit;" href="{% url 'edit_event' event_id=event_form.instance.id region_slug=region.slug language_slug=other_language.slug %}">
                                     {% if other_language in event_form.instance.languages %}
-                                        {% get_translation event_form.instance other_language.code as other_event_translation %}
+                                        {% get_translation event_form.instance other_language.slug as other_event_translation %}
                                         {% if other_event_translation.is_outdated %}
                                             <span title="{% trans 'Translation outdated' %}">
                                                 <i data-feather="alert-triangle" class="inline-block"></i>
@@ -153,7 +153,7 @@
                     <div id="slug-div" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                         {% spaceless %}
                             <div style="display: table; white-space: nowrap;">
-                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.code }}/events/</span>
+                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.slug }}/events/</span>
                                 {% if event_translation_form.instance.ancestor_path %}
                                     <span style="display: table-cell;">{{ event_translation_form.instance.ancestor_path }}/</span>
                                 {% endif %}
@@ -294,7 +294,7 @@
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text}}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}">
+                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
                                     <i data-feather="refresh-ccw" class="inline-block mr-2"></i>
                                     {% trans 'Restore this event' %}
                                 </button>
@@ -304,7 +304,7 @@
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}">
+                                    data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
                                     <i data-feather="archive" class="inline-block mr-2"></i>
                                     {% trans 'Archive this event' %}
                                 </button>
@@ -317,7 +317,7 @@
                                     data-confirmation-title="{{ delete_dialog_title }}"
                                     data-confirmation-text="{{ delete_dialog_text }}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_code=language.code %}">
+                                    data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
                                     <i data-feather="trash-2" class="inline-block mr-2"></i>
                                     {% trans 'Delete this event' %}
                                 </button>

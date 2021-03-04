@@ -41,7 +41,7 @@ class POIFeedback(Feedback):
             kwargs={
                 "poi_id": self.poi_translation.poi.id,
                 "region_slug": self.region.slug,
-                "language_code": self.poi_translation.poi.backend_translation.language.code,
+                "language_slug": self.poi_translation.poi.backend_translation.language.slug,
             },
         )
 

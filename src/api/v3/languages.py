@@ -28,7 +28,7 @@ def languages(request, region_slug):
         map(
             lambda l: {
                 "id": l.language.id,
-                "code": l.language.code,
+                "code": l.language.slug,
                 "native_name": l.language.native_name,
                 "dir": l.language.text_direction,
             },

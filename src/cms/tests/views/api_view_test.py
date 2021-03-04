@@ -41,5 +41,5 @@ class APIViewTest(ViewTest):
     generate_test_functions(
         class_variables=vars(),
         views=region_language_views,
-        kwargs={"region_slug": "augsburg", "language_code": "de-de"},
+        kwargs={"region_slug": "augsburg", "language_slug": "de"},
     )

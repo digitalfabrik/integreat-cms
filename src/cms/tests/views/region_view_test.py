@@ -46,7 +46,7 @@ class RegionViewTest(ViewTest):
             push_notification_channels=[],
         )
         language = Language.objects.create(
-            code="te-st", native_name="test_language", english_name="test_language"
+            slug="te-st", native_name="test_language", english_name="test_language"
         )
         LanguageTreeNode.objects.create(language=language, region=region)
         user = get_user_model().objects.create_user(username="region_user")
@@ -65,5 +65,5 @@ class RegionViewTest(ViewTest):
     generate_test_functions(
         class_variables=vars(),
         views=region_language_views,
-        kwargs={"region_slug": "test_region", "language_code": "te-st"},
+        kwargs={"region_slug": "test_region", "language_slug": "te-st"},
     )
