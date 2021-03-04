@@ -29,6 +29,7 @@ def languages(request, region_slug):
             lambda l: {
                 "id": l.language.id,
                 "code": l.language.slug,
+                "bcp47_tag": l.language.bcp47_tag,
                 "native_name": l.language.native_name,
                 "dir": l.language.text_direction,
             },

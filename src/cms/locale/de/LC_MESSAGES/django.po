@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-04 15:57+0000\n"
+"POT-Creation-Date: 2021-03-04 15:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -538,7 +538,7 @@ msgid "value"
 msgstr "Wert"
 
 #: models/config/configuration.py:19 models/events/event_translation.py:75
-#: models/feedback/feedback.py:58 models/languages/language.py:40
+#: models/feedback/feedback.py:58 models/languages/language.py:50
 #: models/languages/language_tree_node.py:51 models/offers/offer.py:34
 #: models/offers/offer_template.py:56 models/pages/abstract_base_page.py:19
 #: models/pages/abstract_base_page_translation.py:46
@@ -551,7 +551,7 @@ msgid "creation date"
 msgstr "Erstellungsdatum"
 
 #: models/config/configuration.py:23 models/events/event_translation.py:79
-#: models/languages/language.py:44 models/languages/language_tree_node.py:55
+#: models/languages/language.py:54 models/languages/language_tree_node.py:55
 #: models/offers/offer.py:37 models/offers/offer_template.py:60
 #: models/pages/abstract_base_page.py:22
 #: models/pages/abstract_base_page_translation.py:50
@@ -659,7 +659,7 @@ msgid "description"
 msgstr "Beschreibung"
 
 #: models/events/event_translation.py:49 models/feedback/feedback.py:28
-#: models/languages/language.py:77 models/languages/language_tree_node.py:23
+#: models/languages/language.py:87 models/languages/language_tree_node.py:23
 #: models/pages/imprint_page_translation.py:32
 #: models/pages/page_translation.py:44 models/pois/poi_translation.py:52
 #: models/push_notifications/push_notification_translation.py:25
@@ -903,40 +903,49 @@ msgstr "Suchergebnisse für {}"
 msgid "search result feedback"
 msgstr "Suchergebnis-Feedback"
 
-#: models/languages/language.py:22
+#: models/languages/language.py:19
 msgid "language tag"
 msgstr "Sprach-Tag"
 
-#: models/languages/language.py:23 models/regions/region.py:36
+#: models/languages/language.py:21
+msgid ""
+"Unique string identifier used in URLs without spaces and special characters."
+msgstr "Eindeutiger Bezeichner für URLs, ohne Leerzeichen und Sonderzeichen."
+
+#: models/languages/language.py:32 templates/languages/language_list.html:28
+msgid "BCP47 Tag"
+msgstr "BCP47 Tag"
+
+#: models/languages/language.py:33 models/regions/region.py:36
 #: models/users/organization.py:17
 msgid "Unique string identifier without spaces and special characters."
 msgstr "Eindeutiger Bezeichner ohne Leerzeichen und Sonderzeichen."
 
-#: models/languages/language.py:26
+#: models/languages/language.py:36
 msgid "native name"
 msgstr "nativer Name"
 
-#: models/languages/language.py:29
+#: models/languages/language.py:39
 msgid "name in English"
 msgstr "Name auf Englisch"
 
-#: models/languages/language.py:36
+#: models/languages/language.py:46
 msgid "text direction"
 msgstr "Schreibrichtung"
 
-#: models/languages/language.py:49
+#: models/languages/language.py:59
 msgid "\"Table of contents\" in this language"
 msgstr "\"Inhaltsverzeichnis\" in dieser Sprache"
 
-#: models/languages/language.py:51
+#: models/languages/language.py:61
 msgid "The native name for \"Table of contents\" in this language."
 msgstr "Der native Name für \"Inhaltsverzeichnis\" in dieser Sprache."
 
-#: models/languages/language.py:52
+#: models/languages/language.py:62
 msgid "This is used in exported PDFs."
 msgstr "Dies wird in exportierten PDFs verwendet."
 
-#: models/languages/language.py:79
+#: models/languages/language.py:89
 msgid "languages"
 msgstr "Sprachen"
 
@@ -2147,7 +2156,7 @@ msgstr "Ende"
 
 #: templates/events/event_list.html:85
 #: templates/events/event_list_archived.html:70
-#: templates/languages/language_list.html:31
+#: templates/languages/language_list.html:32
 #: templates/offer_templates/offer_template_list.html:29
 #: templates/organizations/organization_list.html:27
 #: templates/pages/page_tree.html:91 templates/pages/page_tree_archived.html:45
@@ -2554,26 +2563,28 @@ msgid "Native name"
 msgstr "Nativer Name"
 
 #: templates/languages/language_list.html:27
-msgid "Code"
-msgstr "Code"
+#: templates/offer_templates/offer_template_list.html:25
+#: templates/organizations/organization_list.html:25
+msgid "Slug"
+msgstr "URL-Parameter"
 
-#: templates/languages/language_list.html:28
+#: templates/languages/language_list.html:29
 msgid "Text direction"
 msgstr "Schreibrichtung"
 
-#: templates/languages/language_list.html:29
+#: templates/languages/language_list.html:30
 #: templates/offer_templates/offer_template_list.html:28
 #: templates/regions/region_list.html:30
 msgid "Created"
 msgstr "Erstellt"
 
-#: templates/languages/language_list.html:30
+#: templates/languages/language_list.html:31
 #: templates/offer_templates/offer_template_list.html:27
 #: templates/pages/page_tree.html:90 templates/regions/region_list.html:31
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
-#: templates/languages/language_list.html:40
+#: templates/languages/language_list.html:41
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
@@ -2635,11 +2646,6 @@ msgstr "Angebots-Vorlagen"
 #: templates/offer_templates/offer_template_list.html:14
 msgid "Create offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
-
-#: templates/offer_templates/offer_template_list.html:25
-#: templates/organizations/organization_list.html:25
-msgid "Slug"
-msgstr "URL-Parameter"
 
 #: templates/offer_templates/offer_template_list.html:38
 msgid "No offer templates available yet."
@@ -4256,6 +4262,9 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "Code"
+#~ msgstr "Code"
 
 #~ msgid ""
 #~ "Whether or not it should be possible to create new pages in this language "

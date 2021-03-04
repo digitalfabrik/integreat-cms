@@ -12,14 +12,24 @@ class Language(models.Model):
     Data model representing a content language.
     """
 
-    #: The recommended minimum buffer for `bcp47 <https://tools.ietf.org/html/bcp47>`__ is 35.
-    #: It's unlikely that we have language slugs longer than 8 characters though.
-    #: See `RFC 5646 Section 4.4.1. <https://tools.ietf.org/html/bcp47#section-4.4.1>`__
     slug = models.SlugField(
         max_length=8,
         unique=True,
         validators=[MinLengthValidator(2)],
         verbose_name=_("language tag"),
+        help_text=_(
+            "Unique string identifier used in URLs without spaces and special characters."
+        ),
+    )
+    #: The recommended minimum buffer for `bcp47 <https://tools.ietf.org/html/bcp47>`__ is 35.
+    #: It's unlikely that we have language slugs longer than 8 characters though.
+    #: See `RFC 5646 Section 4.4.1. <https://tools.ietf.org/html/bcp47#section-4.4.1>`__
+    #: Registered tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
+    bcp47_tag = models.SlugField(
+        max_length=35,
+        unique=True,
+        validators=[MinLengthValidator(2)],
+        verbose_name=_("BCP47 Tag"),
         help_text=_("Unique string identifier without spaces and special characters."),
     )
     native_name = models.CharField(
