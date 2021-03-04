@@ -515,10 +515,6 @@ COMPRESS_PRECOMPILERS = (
     ("css", "compressor_toolkit.precompilers.SCSSCompiler"),
 )
 
-#: Command that will be executed to transform ES6 into ES5 code (see
-#: `django-compressor-toolkit <https://github.com/kottenator/django-compressor-toolkit>`__)
-COMPRESS_ES6_COMPILER_CMD = 'export NODE_PATH="{paths}" && {browserify_bin} "{infile}" -o "{outfile}" -t [ "{node_modules}/babelify" --presets [ @babel/preset-env ] --plugins [ @babel/plugin-transform-runtime ] ]'
-
 
 ###################
 # EASY THUMBNAILS #

@@ -34,10 +34,7 @@ if nc -w1 localhost 5432; then
     cd $(dirname "$BASH_SOURCE")/..
 
     # Compile CSS
-    npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
-
-    # Browserify revisions.js
-    npx browserify src/cms/static/js/revisions.js -o src/cms/static/js/revisions_browserified.js -t [ babelify --presets [ @babel/preset-env ] ]
+    npm run dev &
 
     # Re-generating translation file and compile it
     ./dev-tools/translate.sh
@@ -76,10 +73,7 @@ else
     cd $(dirname "$BASH_SOURCE")/..
 
     # Compile CSS
-    sudo -u $SUDO_USER env PATH="$PATH" npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
-
-    # Browserify revisions.js
-    sudo -u $SUDO_USER env PATH="$PATH" npx browserify src/cms/static/js/revisions.js -o src/cms/static/js/revisions_browserified.js -t [ babelify --presets [ @babel/preset-env ] ]
+    sudo -u $SUDO_USER env PATH="$PATH" npm run dev &
 
     # Re-generating translation file and compile it
     sudo -u $SUDO_USER env PATH="$PATH" ./dev-tools/translate.sh

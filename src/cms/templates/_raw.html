@@ -9,23 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no" />
     <title>{% trans 'Integreat Editorial System' %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}">
-    {% compress css %}
-    {% block css %}{% endblock %}
-    <link href="{% static 'css/style.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/upload_form.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tailwindcss/dist/tailwind.css' %}" rel="stylesheet" type="text/css">
-    {% endcompress %}
+
+    <script src="{% static 'main.js' %}"></script>
+    <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+
     {% compress js %}
-    <script src="{% static 'umbrellajs/umbrella.js' %}"></script>
-    <script src="{% static 'feather-icons/dist/feather.js' %}"></script>
-    <script src="{% static 'base64-js/base64js.min.js' %}"></script>
     {% block javascript_head %}{% endblock %}
     {% endcompress %}
 </head>
 <body>
     {% block raw_content %}{% endblock raw_content %}
     {% compress js %}
-    <script>feather.replace()</script>
     {% block javascript %}{% endblock %}
     {% endcompress %}
     {% block javascript_nocompress %}{% endblock %}

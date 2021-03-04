@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "CMS delevoped by the Integreat-Team",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development webpack serve --mode development",
+    "prod": "NODE_ENV=production webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -16,29 +17,49 @@
   },
   "homepage": "https://integreat-app.de/",
   "devDependencies": {
-    "@babel/core": "7.12.17",
+    "@babel/core": "^7.12.17",
     "@babel/plugin-transform-runtime": "7.12.17",
-    "@babel/preset-env": "7.12.17",
+    "@babel/preset-env": "^7.13.5",
+    "@types/feather-icons": "^4.7.0",
+    "@types/tinymce": "^4.6.0",
     "autoprefixer": "10.2.4",
-    "babelify": "10.0.0",
-    "browserify": "17.0.0",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^8.0.0",
+    "css-loader": "^5.1.0",
+    "css-minimizer-webpack-plugin": "^1.2.0",
+    "cssnano": "^4.1.10",
+    "file-loader": "^6.2.0",
     "htmldiff-js": "1.0.5",
-    "less": "4.1.1",
-    "less-plugin-clean-css": "1.5.1",
+    "mini-css-extract-plugin": "^1.3.9",
     "node-sass": "5.0.0",
     "npm-check": "5.9.2",
-    "postcss-cli": "8.3.1"
+    "postcss-cli": "8.3.1",
+    "postcss-import": "^14.0.0",
+    "postcss-loader": "^5.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.1.1",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.2.2",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "base64-js": "1.5.1",
     "chart.js": "2.9.4",
+    "core-js": "^3.9.1",
+    "element-closest": "^3.0.2",
     "feather-icons": "^4.28.0",
-    "jquery": "3.5.1",
     "promise-polyfill": "8.2.0",
+    "regenerator-runtime": "^0.11.1",
     "tablesort": "5.2.1",
     "tailwindcss": "2.0.3",
     "tinymce": "5.7.0",
     "tinymce-i18n": "20.12.25",
-    "umbrellajs": "3.2.3"
+    "whatwg-fetch": "^3.6.2"
   }
 }

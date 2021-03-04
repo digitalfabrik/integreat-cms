@@ -5,23 +5,6 @@
 {% load widget_tweaks %}
 {% load rules %}
 
-{% block javascript_head %}
-<script src="{% static 'js/copy-clipboard.js' %}"></script>
-<script src="{% static 'js/forms/autosave.js' %}"></script>
-<script src="{% static 'tinymce/tinymce.min.js' %}"></script>
-<script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
-<script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/fullscreen/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/autosave/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/link/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/preview/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/code/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
-<script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
-{% endblock %}
 
 {% block content %}
 <form method="post" id="content_form">
@@ -75,20 +58,20 @@
                 <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
                 {{ source_imprint_translation.get_status_display }}<br>
                 <label class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</label>
-                <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}</a>
-                <a href="#" onclick="short_url_to_clipboard('{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
+                <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.code }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}</a>
+                <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
                     <i data-feather="copy" class="inline-block"></i>
                 </a><br>
                 <label class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</label>
                 <a href="{{ source_imprint_translation.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ source_imprint_translation.short_url }}</a>
-                <a href="#" onclick="short_url_to_clipboard('{{ source_imprint_translation.short_url }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
+                <a href="#" data-copy-to-clipboard="{{ source_imprint_translation.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
                     <i data-feather="copy" class="inline-block"></i>
                 </a>
                 <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
                 <input type="text" value="{{source_imprint_translation.title}}" class="appearance-none block w-full bg-gray-200 text-xl border border-gray-200 rounded py-3 px-4 leading-tight" disabled>
 	            <div class="mt-4">
                     <label class="block mt-4 font-bold" style="margin-bottom: 86px;">{% trans 'Content' %}</label>
-                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="bg-gray-200 w-full p-2" disabled>{{source_imprint_translation.text}}</textarea>
+                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea bg-gray-200 w-full p-2" disabled>{{source_imprint_translation.text}}</textarea>
                 </div>
 
                 <span class="block font-bold mt-4 mb-4">{% trans 'Copy content' %}</span>
@@ -139,12 +122,12 @@
                     {{ imprint_translation_form.instance.get_status_display }}<br>
                     <label class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</label>
                     <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}</a>
-                    <a href="#" onclick="short_url_to_clipboard('{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
+                    <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
                         <i data-feather="copy" class="inline-block"></i>
                     </a><br>
                     <label class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</label>
                     <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
-                    <a href="#" onclick="short_url_to_clipboard('{{ imprint_translation_form.instance.short_url }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
+                    <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
                         <i data-feather="copy" class="inline-block"></i>
                     </a>
                 {% else %}
@@ -160,7 +143,7 @@
                 <label for="{{ imprint_translation_form.title.id_for_label }}" class="block mb-2 font-bold">{{ imprint_translation_form.title.label }}</label>
                 {% render_field imprint_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                 <label for="{{ imprint_translation_form.text.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ imprint_translation_form.text.label }}</label>
-                {% render_field imprint_translation_form.text|add_error_class:"border-red-500" class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
+                {% render_field imprint_translation_form.text|add_error_class:"border-red-500" id="target_translation_tinymce" class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
                 <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
                 {% render_field imprint_translation_form.minor_edit %}
                 <label for="{{ imprint_translation_form.minor_edit.id_for_label }}" class="text-s">{{ imprint_translation_form.minor_edit.label }}</label>
@@ -189,7 +172,7 @@
         data-aticon-src="{% static 'svg/at.svg' %}"
         data-ideaicon-text="{% trans 'Hint' %}"
         data-ideaicon-src="{% static 'svg/idea.svg' %}"
-        data-customcss-src="{% static 'css/tinymce_custom.css' %}"
+        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
         {% if imprint_translation_form.instance.id and imprint_translation_form.instance.page.archived %}
         data-readonly="1"
         {% endif %}
@@ -198,6 +181,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'js/pages/sbs_copy_content.js' %}"></script>
-<script src="{% static 'js/forms/tinymce-init.js' %}"></script>
+<script src="{% static 'editor.js' %}"></script>
+<link href="{% static 'editor.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
