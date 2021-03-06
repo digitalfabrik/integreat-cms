@@ -9,7 +9,6 @@
 
 {% block content %}
 {% get_current_language as LANGUAGE_CODE %}
-{% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
 {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
 <form enctype="multipart/form-data" method="post" id="content_form">
     {% csrf_token %}

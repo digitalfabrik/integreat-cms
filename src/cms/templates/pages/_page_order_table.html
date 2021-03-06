@@ -6,7 +6,6 @@
     <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto">
         <tbody>
             {% get_current_language as LANGUAGE_CODE %}
-            {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
             {% recursetree siblings %}
                 {% if node == page %}
                     <tr class="border-2 border-blue-500 hover:bg-gray-100">

@@ -79,24 +79,6 @@ def get_language(language_slug):
     return Language.objects.filter(slug=language_slug).first()
 
 
-# Unify the language slugs of backend and content languages
-@register.simple_tag
-def unify_language_slug(language_slug):
-    """
-    This tag returns the unified language slug.
-    This is used to treat British English and American English as the same language.
-
-    :param language_slug: The slug of the requested language
-    :type language_slug: str
-
-    :return: The unified slug of the requested language
-    :rtype: str
-    """
-    if language_slug == "en-gb":
-        return "en-us"
-    return language_slug
-
-
 @register.filter
 def get_int_list(data, list_name):
     """

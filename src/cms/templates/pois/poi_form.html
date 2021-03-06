@@ -22,7 +22,6 @@
                         {% trans 'Create new translation of the location' %}
                     {% endif %}
                     {% get_current_language as LANGUAGE_CODE %}
-                    {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
                     {% get_translation poi_form.instance LANGUAGE_CODE as backend_translation %}
                     {% if backend_translation and LANGUAGE_CODE != language.slug %}
                         ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")

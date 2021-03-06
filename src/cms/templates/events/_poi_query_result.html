@@ -3,7 +3,6 @@
 {% load poi_filters %}
 {% if poi_query and region %}
     {% get_current_language as LANGUAGE_CODE %}
-    {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
     {% get_language LANGUAGE_CODE as current_language %}
     <select size="{% if poi_query_result|length > 5 %}5{% else %}{{ poi_query_result|length|add:"1" }}{% endif %}" class="appearance-none absolute block w-full bg-white text-gray-800 border border-gray-500 mb-2 py-2 px-2">
         {% if create_poi_option %}

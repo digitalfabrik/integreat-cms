@@ -52,8 +52,8 @@ TEST_BLOG_ID = 154
 
 #: RSS feed URLs to the Integreat blog
 RSS_FEED_URLS = {
-    "en-us": "https://integreat-app.de/en/feed/",
-    "de-de": "https://integreat-app.de/feed/",
+    "en": "https://integreat-app.de/en/feed/",
+    "de": "https://integreat-app.de/feed/",
     "home-page": "https://integreat-app.de/",
 }
 
@@ -390,8 +390,8 @@ LOGGING = {
 
 #: A list of all available languages (see :setting:`django:LANGUAGES` and :doc:`topics/i18n/index`)
 LANGUAGES = (
-    ("en-us", "English"),
-    ("de-de", "Deutsch"),
+    ("en", "English"),
+    ("de", "Deutsch"),
 )
 
 #: A list of directories where Django looks for translation files
@@ -400,7 +400,7 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 #: A string representing the language slug for this installation
 #: (see :setting:`django:LANGUAGE_CODE` and :doc:`topics/i18n/index`)
-LANGUAGE_CODE = "de-de"
+LANGUAGE_CODE = "de"
 
 #: A string representing the time zone for this installation
 #: (see :setting:`django:TIME_ZONE` and :doc:`topics/i18n/index`)
