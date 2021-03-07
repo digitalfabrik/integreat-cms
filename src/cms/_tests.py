@@ -7,10 +7,7 @@ from django.test import TestCase
 
 from .constants import position, status, region_status
 from .models import Language, Region
-from .forms.language_tree import LanguageTreeNodeForm
-from .forms.languages import LanguageForm
-from .forms.pages import PageForm
-from .forms.regions import RegionForm
+from .forms import LanguageTreeNodeForm, LanguageForm, PageForm, RegionForm
 
 
 # pylint: disable=too-many-instance-attributes,missing-class-docstring

@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 from backend.settings import PER_PAGE
 from ...constants import feedback_ratings, feedback_read_status
 from ...decorators import region_permission_required
-from ...forms.feedback import RegionFeedbackFilterForm
+from ...forms import RegionFeedbackFilterForm
 from ...models import Feedback, Region
 
 

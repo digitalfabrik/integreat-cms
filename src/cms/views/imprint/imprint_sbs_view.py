@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 from backend.settings import IMPRINT_SLUG, WEBAPP_URL
 from ...constants import status
 from ...decorators import region_permission_required
-from ...forms.imprint import ImprintTranslationForm
+from ...forms import ImprintTranslationForm
 from ...models import Region, Language, ImprintPage
 
 

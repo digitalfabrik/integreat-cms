@@ -1,12 +1,12 @@
 import logging
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...models import ChatMessage
 
 logger = logging.getLogger(__name__)
 
 
-class ChatMessageForm(PlaceholderModelForm):
+class ChatMessageForm(CustomModelForm):
     """
     Form for submitting chat messages
     """

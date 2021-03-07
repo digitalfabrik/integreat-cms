@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import region_permission_required
-from ...forms.pages import PageForm, PageTranslationForm
+from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation, Region
 from .page_context_mixin import PageContextMixin
 

@@ -121,6 +121,7 @@ nitpick_ignore = [
     ("py:attr", "django.contrib.auth.models.User.imprint_translations"),
     ("py:attr", "django.contrib.auth.models.User.chat_messages"),
     ("py:func", "django.contrib.sitemaps.Sitemap._urls"),
+    ("py:func", "django.utils.text.capfirst"),
     ("py:class", "django.core.handlers.WSGIHandler"),
     ("py:class", "django.forms.models.ModelChoiceIterator"),
     ("py:class", "mptt.models.MPTTModel"),

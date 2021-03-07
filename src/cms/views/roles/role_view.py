@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...decorators import staff_required
-from ...forms.roles import RoleForm
+from ...forms import RoleForm
 
 
 @method_decorator(login_required, name="dispatch")

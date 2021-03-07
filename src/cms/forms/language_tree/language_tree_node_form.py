@@ -3,6 +3,7 @@ import logging
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from ..custom_model_form import CustomModelForm
 from ...models import Language, LanguageTreeNode
 
 
@@ -18,7 +19,7 @@ class LanguageField(forms.ModelChoiceField):
         return obj.translated_name
 
 
-class LanguageTreeNodeForm(forms.ModelForm):
+class LanguageTreeNodeForm(CustomModelForm):
     """
     Form for creating and modifying language tree node objects
     """

@@ -20,7 +20,7 @@ from django.views.static import serve
 
 from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, staff_required
-from ...forms.pages import PageForm
+from ...forms import PageForm
 from ...models import Page, Language, Region, PageTranslation
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
 from ...utils.pdf_utils import generate_pdf

@@ -1,14 +1,14 @@
 import logging
 
 from ...models import POI
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
 
 
 logger = logging.getLogger(__name__)
 
 
-class POIForm(PlaceholderModelForm):
+class POIForm(CustomModelForm):
     """
     Form for creating and modifying POI objects
     """

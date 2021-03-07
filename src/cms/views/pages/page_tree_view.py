@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from ...constants import translation_status
 from ...decorators import region_permission_required
-from ...forms.pages.page_filter_form import PageFilterForm
+from ...forms import PageFilterForm
 from ...models import Region, Language
 from .page_context_mixin import PageContextMixin
 

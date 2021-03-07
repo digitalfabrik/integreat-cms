@@ -1,13 +1,12 @@
-import logging
-
 from django import forms
+from django.core.exceptions import FieldDoesNotExist
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import capfirst
+
+from ..utils.text_utils import lowfirst
 
 
-logger = logging.getLogger(__name__)
-
-
-class PlaceholderModelForm(forms.ModelForm):
+class CustomModelForm(forms.ModelForm):
     """
     Form for populating all text widgets of a ModelForm with the default placeholder "Enter ... here".
     Use this form as base class instead of :class:`django.forms.ModelForm`.
@@ -29,9 +28,7 @@ class PlaceholderModelForm(forms.ModelForm):
         try:
             super().__init__(*args, **kwargs)
         except ValueError as e:
-            raise TypeError(
-                "PlaceholderModelForm cannot be instantiated directly."
-            ) from e
+            raise TypeError("CustomModelForm cannot be instantiated directly.") from e
 
         # Set placeholder for every text input fields
         for field_name in self.fields:
@@ -47,13 +44,16 @@ class PlaceholderModelForm(forms.ModelForm):
                     forms.NumberInput,
                 ),
             ):
-                # Use verbose_name of model field instead of field label because label is capitalized
-                # pylint: disable=no-member
-                model_field = self._meta.model._meta.get_field(field_name)
-                field.widget.attrs.update(
-                    {"placeholder": _("Enter {} here").format(model_field.verbose_name)}
-                )
+                try:
+                    # Use verbose_name of model field instead of field label because label is capitalized
+                    # pylint: disable=no-member
+                    model_field = self._meta.model._meta.get_field(
+                        field_name
+                    ).verbose_name
+                except FieldDoesNotExist:
+                    # In case field is not a model field, just use the label and make it lowercase
+                    model_field = lowfirst(field.label)
 
-        logger.debug(
-            "Default placeholders for form %s initialized", type(self).__name__
-        )
+                field.widget.attrs.update(
+                    {"placeholder": capfirst(_("Enter {} here").format(model_field))}
+                )

@@ -6,29 +6,36 @@ from django.contrib.auth.password_validation import (
     validate_password,
     password_validators_help_texts,
 )
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
+
+from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class UserPasswordForm(forms.ModelForm):
+class UserPasswordForm(CustomModelForm):
     """
     Form for changing a user's password
     """
 
     old_password = forms.CharField(
-        widget=forms.PasswordInput, help_text=password_validators_help_texts
+        widget=forms.PasswordInput,
+        label=_("Your old password"),
+        help_text=password_validators_help_texts,
     )
 
     new_password = forms.CharField(
         widget=forms.PasswordInput,
         validators=[validate_password],
+        label=_("Your new password"),
         help_text=password_validators_help_texts,
     )
 
     new_password_confirm = forms.CharField(
-        widget=forms.PasswordInput, help_text=password_validators_help_texts
+        widget=forms.PasswordInput,
+        label=_("Confirm your new password"),
+        help_text=password_validators_help_texts,
     )
 
     class Meta:

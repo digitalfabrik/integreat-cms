@@ -8,7 +8,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 
-from ...forms.chat import ChatMessageForm
+from ...forms import ChatMessageForm
 from ...models import ChatMessage
 
 logger = logging.getLogger(__name__)

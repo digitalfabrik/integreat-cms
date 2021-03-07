@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
 
-from ...forms.users import UserEmailForm, UserPasswordForm
+from ...forms import UserEmailForm, UserPasswordForm
 
 
 @method_decorator(login_required, name="dispatch")

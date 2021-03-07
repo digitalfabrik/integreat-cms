@@ -1,9 +1,9 @@
 from ...models import Organization
 from ..icon_widget import IconWidget
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 
 
-class OrganizationForm(PlaceholderModelForm):
+class OrganizationForm(CustomModelForm):
     """
     Form for creating and modifying organization objects
     """

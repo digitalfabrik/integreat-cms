@@ -3,7 +3,7 @@ import logging
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...constants import status
 from ...models import ImprintPageTranslation
 
@@ -11,7 +11,7 @@ from ...models import ImprintPageTranslation
 logger = logging.getLogger(__name__)
 
 
-class ImprintTranslationForm(PlaceholderModelForm):
+class ImprintTranslationForm(CustomModelForm):
     """
     Form for creating and modifying imprint translation objects
     """

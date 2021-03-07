@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import region_permission_required
-from ...forms.pois import POIForm, POITranslationForm
+from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Region, Language
 from .poi_context_mixin import POIContextMixin
 

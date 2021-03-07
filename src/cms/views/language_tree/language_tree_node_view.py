@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required
-from ...forms.language_tree import LanguageTreeNodeForm
+from ...forms import LanguageTreeNodeForm
 from ...models import Region
 
 

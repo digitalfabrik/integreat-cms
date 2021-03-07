@@ -9,12 +9,12 @@ from gvz_api.utils import GvzRegion
 from ...models import Region, PageTranslation, LanguageTreeNode
 from ...utils.slug_utils import generate_unique_slug_helper
 from ..icon_widget import IconWidget
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class RegionForm(PlaceholderModelForm):
+class RegionForm(CustomModelForm):
     """
     Form for creating and modifying region objects
     """

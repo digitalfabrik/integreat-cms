@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
 from ...decorators import staff_required
-from ...forms.offer_templates import OfferTemplateForm
+from ...forms import OfferTemplateForm
 from ...models import OfferTemplate
 
 

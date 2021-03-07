@@ -12,7 +12,7 @@ from django.forms import modelformset_factory
 
 from .push_notification_sender import PushNotificationSender
 from ...decorators import region_permission_required
-from ...forms.push_notifications import (
+from ...forms import (
     PushNotificationForm,
     PushNotificationTranslationForm,
 )

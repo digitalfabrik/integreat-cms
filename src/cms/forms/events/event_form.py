@@ -6,12 +6,13 @@ from django import forms
 from django.utils.translation import ugettext as _
 
 from ...models import Event
+from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
 
 logger = logging.getLogger(__name__)
 
 
-class EventForm(forms.ModelForm):
+class EventForm(CustomModelForm):
     """
     Form for creating and modifying event objects
     """

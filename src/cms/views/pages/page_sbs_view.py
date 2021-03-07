@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import region_permission_required
-from ...forms.pages import PageTranslationForm
+from ...forms import PageTranslationForm
 from ...models import Region, Language
 
 

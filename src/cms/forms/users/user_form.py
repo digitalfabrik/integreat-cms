@@ -10,12 +10,12 @@ from django.contrib.auth.password_validation import (
 from django.utils.translation import ugettext_lazy as _
 
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class UserForm(PlaceholderModelForm):
+class UserForm(CustomModelForm):
     """
     Form for creating and modifying user objects
     """

@@ -3,7 +3,7 @@ import logging
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...constants import status
 from ...models import POITranslation
 from ...utils.slug_utils import generate_unique_slug_helper
@@ -12,7 +12,7 @@ from ...utils.slug_utils import generate_unique_slug_helper
 logger = logging.getLogger(__name__)
 
 
-class POITranslationForm(PlaceholderModelForm):
+class POITranslationForm(CustomModelForm):
     """
     Form for creating and modifying POI translation objects
     """

@@ -2,7 +2,7 @@ import logging
 
 from django.views.generic.base import ContextMixin
 
-from ...forms.chat import ChatMessageForm
+from ...forms import ChatMessageForm
 from ...models import ChatMessage, Region
 
 logger = logging.getLogger(__name__)

@@ -6,81 +6,18 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
-from django.urls import reverse
-from django.utils.text import capfirst
+from django.utils.html import mark_safe
 from django.utils.translation import ugettext as _, get_language
-from django.utils.safestring import mark_safe
+from django.utils.text import capfirst
 
 from ...constants import position, region_status, mirrored_page_first
 from ...models import Page, Region
+from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
+from .parent_field_widget import ParentFieldWidget
 
 
 logger = logging.getLogger(__name__)
-
-
-class ParentFieldWidget(forms.widgets.Select):
-    """
-    This Widget class is used to append the url for retrieving the page order tables to the data attributes of the options
-    """
-
-    #: The form this field is bound to
-    form = None
-
-    # pylint: disable=too-many-arguments
-    def create_option(
-        self, name, value, label, selected, index, subindex=None, attrs=None
-    ):
-        """
-        This function creates an option which can be selected in the parent field
-
-        :param name: The name of the option
-        :type name: str
-
-        :param value: the value of the option (the page id)
-        :type value: int
-
-        :param label: The label of the option
-        :type label: str
-
-        :param selected: Whether or not the option is selected
-        :type selected: bool
-
-        :param index: The index of the option
-        :type index: int
-
-        :param subindex: The subindex of the option
-        :type subindex: int
-
-        :param attrs: The attributes of the option
-        :type attrs: dict
-
-        :return: The option dict
-        :rtype: dict
-        """
-        option_dict = super().create_option(
-            name, value, label, selected, index, subindex=subindex, attrs=attrs
-        )
-        if not value:
-            value = 0
-        if self.form.instance.id:
-            option_dict["attrs"]["data-url"] = reverse(
-                "get_page_order_table_ajax",
-                kwargs={
-                    "region_slug": self.form.region.slug,
-                    "page_id": self.form.instance.id,
-                    "parent_id": value,
-                },
-            )
-        else:
-            option_dict["attrs"]["data-url"] = reverse(
-                "get_new_page_order_table_ajax",
-                kwargs={
-                    "region_slug": self.form.region.slug,
-                    "parent_id": value,
-                },
-            )
-        return option_dict
 
 
 class ParentField(forms.ModelChoiceField):
@@ -175,7 +112,7 @@ class MirroredPageRegionField(forms.ModelChoiceField):
         return mark_safe(label)
 
 
-class PageForm(forms.ModelForm):
+class PageForm(CustomModelForm):
     """
     Form for creating and modifying page objects
     """
