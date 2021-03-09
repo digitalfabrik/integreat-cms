@@ -46,6 +46,7 @@ def archive_imprint(request, region_slug):
     imprint.archived = True
     imprint.save()
 
+    logger.debug("%r archived by %r", imprint, request.user.profile)
     messages.success(request, _("Imprint was successfully archived"))
 
     return redirect(
@@ -85,6 +86,7 @@ def restore_imprint(request, region_slug):
     imprint.archived = False
     imprint.save()
 
+    logger.debug("%r restored by %r", imprint, request.user.profile)
     messages.success(request, _("Imprint was successfully restored"))
 
     return redirect(
@@ -120,6 +122,8 @@ def delete_imprint(request, region_slug):
         imprint = region.imprint
     except ImprintPage.DoesNotExist as e:
         raise Http404 from e
+
+    logger.debug("%r deleted by %r", imprint, request.user.profile)
 
     imprint.delete()
     messages.success(request, _("Imprint was successfully deleted"))

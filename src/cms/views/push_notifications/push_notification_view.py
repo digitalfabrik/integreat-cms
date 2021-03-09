@@ -1,3 +1,5 @@
+import logging
+
 from datetime import datetime
 
 from django.contrib import messages
@@ -17,6 +19,8 @@ from ...forms import (
     PushNotificationTranslationForm,
 )
 from ...models import Language, PushNotification, PushNotificationTranslation, Region
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -128,6 +132,11 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
         ).first()
 
         if not request.user.has_perm("cms.edit_push_notifications"):
+            logger.warning(
+                "%r tried to edit %r",
+                request.user.profile,
+                push_notification,
+            )
             raise PermissionDenied
 
         region = Region.get_current_region(request)
@@ -153,10 +162,16 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
                     form.save()
                 messages.success(request, _("Push Notification saved"))
         else:
+            logger.debug("PushNotificationForm errors: %r", pn_form.errors)
             messages.error(request, _("Error while saving Push Notification"))
 
         if "submit_send" in request.POST:
             if not request.user.has_perm("cms.send_push_notifications"):
+                logger.warning(
+                    "%r tried to send %r",
+                    request.user.profile,
+                    push_notification,
+                )
                 raise PermissionDenied
             push_sender = PushNotificationSender(push_notification)
             if push_sender.is_valid():

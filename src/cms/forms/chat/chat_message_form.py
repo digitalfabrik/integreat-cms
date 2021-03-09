@@ -30,11 +30,6 @@ class ChatMessageForm(CustomModelForm):
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
         """
-
-        logger.info(
-            "New ChatMessageForm instantiated with args %s and kwargs %s", args, kwargs
-        )
-
         # pop kwarg to make sure the super class does not get this param
         sender = kwargs.pop("sender", None)
 

@@ -50,6 +50,7 @@ def archive(request, event_id, region_slug, language_slug):
     event.archived = True
     event.save()
 
+    logger.debug("%r archived by %r", event, request.user.profile)
     messages.success(request, _("Event was successfully archived"))
 
     return redirect(
@@ -93,6 +94,7 @@ def restore(request, event_id, region_slug, language_slug):
     event.archived = False
     event.save()
 
+    logger.debug("%r restored by %r", event, request.user.profile)
     messages.success(request, _("Event was successfully restored"))
 
     return redirect(
@@ -128,6 +130,8 @@ def delete(request, event_id, region_slug, language_slug):
     region = Region.get_current_region(request)
     event = get_object_or_404(region.events, id=event_id)
 
+    logger.info("%r deleted by %r", event, request.user.profile)
+
     if event.recurrence_rule:
         event.recurrence_rule.delete()
     event.delete()
@@ -159,7 +163,7 @@ def search_poi_ajax(request):
     poi_query = data.get("query_string")
     create_poi_option = data.get("create_poi_option")
 
-    logger.info('Ajax call: Live search for POIs with query "%s"', poi_query)
+    logger.debug('Ajax call: Live search for POIs with query "%r"', poi_query)
 
     region = get_object_or_404(Region, slug=data.get("region_slug"))
 

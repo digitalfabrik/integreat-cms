@@ -42,7 +42,6 @@ class PageTranslationForm(CustomModelForm):
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
         """
-        logger.info("New PageTranslationForm with args %s and kwargs %s", args, kwargs)
 
         # pop kwarg to make sure the super class does not get this param
         self.region = kwargs.pop("region", None)
@@ -64,7 +63,7 @@ class PageTranslationForm(CustomModelForm):
                 post.update({"status": status.PUBLIC})
             # Set the args to POST again
             args = (post,)
-            logger.info("changed POST arg status manually")
+            logger.debug("Changed POST arg status manually to %r", post["status"])
 
         super().__init__(*args, **kwargs)
 
@@ -88,14 +87,6 @@ class PageTranslationForm(CustomModelForm):
         :return: The saved page translation object
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
-
-        logger.info(
-            "PageTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
-            args,
-            kwargs,
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         # pop kwarg to make sure the super class does not get this param
         page = kwargs.pop("page", None)

@@ -46,8 +46,8 @@ def delete_region(request, *args, **kwargs):
     # Delete region and cascade delete all contents
     deleted_objects = region.delete()
     logger.info(
-        'User "%s" deleted region "%s", cascade deleted objects: %s',
-        request.user,
+        "%r deleted %r, cascade deleted objects: %r",
+        request.user.profile,
         region,
         deleted_objects,
     )
@@ -57,12 +57,11 @@ def delete_region(request, *args, **kwargs):
         is_superuser=False, is_staff=False, profile__regions=None
     )
     if orphan_users.exists():
-        orphan_users_str = ", ".join([f'"{user.username}"' for user in orphan_users])
-        orphan_users.delete()
         logger.info(
-            "Deleted orphan users: %s",
-            orphan_users_str,
+            "Deleted orphan users: %r",
+            orphan_users,
         )
+        orphan_users.delete()
 
     messages.success(request, _("Region was successfully deleted"))
 

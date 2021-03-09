@@ -45,11 +45,6 @@ class RecurrenceRuleForm(CustomModelForm):
         }
 
     def __init__(self, data=None, instance=None, event_start_date=None, disabled=False):
-        logger.info(
-            "RecurrenceRuleForm instantiated with data %s and instance %s",
-            data,
-            instance,
-        )
 
         # Instantiate ModelForm
         super().__init__(data=data, instance=instance)

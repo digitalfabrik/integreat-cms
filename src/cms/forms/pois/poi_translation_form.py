@@ -53,12 +53,6 @@ class POITranslationForm(CustomModelForm):
         :type language: ~cms.models.languages.language.Language
         """
 
-        logger.info(
-            "POITranslationForm instantiated with data %s and instance %s",
-            data,
-            instance,
-        )
-
         self.region = region
         self.language = language
 
@@ -96,12 +90,6 @@ class POITranslationForm(CustomModelForm):
         :return: The saved POI translation object
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
-
-        logger.info(
-            "POITranslationForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         poi_translation = super().save(commit=False)
 

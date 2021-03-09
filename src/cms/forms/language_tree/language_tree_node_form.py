@@ -41,11 +41,6 @@ class LanguageTreeNodeForm(CustomModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        logger.info(
-            "LanguageTreeNodeForm instantiated with data %s and instance %s",
-            kwargs.get("data"),
-            kwargs.get("instance"),
-        )
 
         # current region
         region = kwargs.pop("region", None)
@@ -68,21 +63,6 @@ class LanguageTreeNodeForm(CustomModelForm):
             id__in=excluded_languages
         )
 
-    def save(self, commit=True):
-        """
-        Function to save the form instance
-
-        :return: The saved language tree node object
-        :rtype: ~cms.models.languages.language_tree_node.LanguageTreeNode
-        """
-        logger.info(
-            "LanguageTreeNodeForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
-
-        return super().save(commit=commit)
-
     def clean(self):
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`:
@@ -94,7 +74,7 @@ class LanguageTreeNodeForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
-        logger.info("LanguageTreeNodeForm cleaned with cleaned data %s", cleaned_data)
+        logger.debug("LanguageTreeNodeForm cleaned with cleaned data %r", cleaned_data)
         default_language = self.instance.region.default_language
         # There are two cases in which this error is thrown.
         # Both cases include that the parent field is None.

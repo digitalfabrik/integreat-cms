@@ -50,7 +50,7 @@ class ParentField(forms.ModelChoiceField):
                 for page in page.get_ancestors(include_self=True)
             ]
         )
-        logger.debug("Label for page %s: %s", page, label)
+        logger.debug("Label for page %r: %r", page, label)
         # mark as safe so that the arrow is not escaped
         return mark_safe(label)
 
@@ -170,10 +170,6 @@ class PageForm(CustomModelForm):
         :type kwargs: dict
         """
 
-        logger.info(
-            "New PageForm instantiated with args %s and kwargs %s", args, kwargs
-        )
-
         # pop kwarg to make sure the super class does not get this param
         self.region = kwargs.pop("region", None)
         language = kwargs.pop("language", None)
@@ -269,14 +265,6 @@ class PageForm(CustomModelForm):
         :return: The saved page object
         :rtype: ~cms.models.pages.page.Page
         """
-
-        logger.debug(
-            "PageForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
-            args,
-            kwargs,
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         # don't commit saving of ModelForm, because required fields are still missing
         kwargs["commit"] = False

@@ -54,10 +54,6 @@ class EventForm(CustomModelForm):
         :param disabled: Whether or not the form is readonly
         :type disabled: bool
         """
-        logger.info(
-            "EventForm instantiated with data %s and instance %s", data, instance
-        )
-
         # Instantiate ModelForm
         super().__init__(data=data, files=files, instance=instance)
 
@@ -90,12 +86,6 @@ class EventForm(CustomModelForm):
         :return: The saved event object
         :rtype: ~cms.models.events.event.Event
         """
-        logger.info(
-            "EventForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
-
         # Disable instant commit on saving because missing information would cause errors
         event = super().save(commit=False)
 
@@ -121,7 +111,7 @@ class EventForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
-        logger.info("EventForm cleaned [1/2] with cleaned data %s", cleaned_data)
+        logger.debug("EventForm cleaned [1/2] with cleaned data %r", cleaned_data)
 
         # make self.data mutable to allow values to be changed manually
         self.data = self.data.copy()
@@ -182,6 +172,6 @@ class EventForm(CustomModelForm):
                             ),
                         )
 
-        logger.info("EventForm cleaned [2/2] with cleaned data %s", cleaned_data)
+        logger.debug("EventForm cleaned [2/2] with cleaned data %r", cleaned_data)
 
         return cleaned_data

@@ -42,6 +42,7 @@ def archive_poi(request, poi_id, region_slug, language_slug):
     poi.archived = True
     poi.save()
 
+    logger.debug("%r archived by %r", poi, request.user.profile)
     messages.success(request, _("Location was successfully archived"))
 
     return redirect(
@@ -80,6 +81,7 @@ def restore_poi(request, poi_id, region_slug, language_slug):
     poi.archived = False
     poi.save()
 
+    logger.debug("%r restored by %r", poi, request.user.profile)
     messages.success(request, _("Location was successfully restored"))
 
     return redirect(
@@ -114,6 +116,7 @@ def delete_poi(request, poi_id, region_slug, language_slug):
     """
 
     poi = POI.objects.get(id=poi_id)
+    logger.debug("%r deleted by %r", poi, request.user.profile)
     poi.delete()
     messages.success(request, _("Location was successfully deleted"))
 

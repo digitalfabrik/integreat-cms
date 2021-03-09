@@ -54,7 +54,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        logger.debug("Sitemap index requested with args %s and kwargs %s", args, kwargs)
+        logger.debug("Sitemap index requested with args %r and kwargs %r", args, kwargs)
 
         sitemaps = []
         # Only add active regions to the sitemap index
@@ -73,7 +73,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
                     absolute_url = f"{WEBAPP_URL}{sitemap_url}"
                     sitemaps.append(absolute_url)
 
-        logger.debug("Sitemap index: %s", sitemaps)
+        logger.debug("Sitemap index: %r", sitemaps)
 
         return self.render_to_response({"sitemaps": sitemaps})
 
@@ -114,7 +114,7 @@ class SitemapView(TemplateResponseMixin, View):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        logger.debug("Sitemap requested with args %s and kwargs %s", args, kwargs)
+        logger.debug("Sitemap requested with args %r and kwargs %r", args, kwargs)
 
         # Only return a sitemap if the region is active
         region = get_object_or_404(
@@ -141,7 +141,7 @@ class SitemapView(TemplateResponseMixin, View):
         # Pick the latest last_modified if all sitemaps
         last_modified = max([sitemap.latest_lastmod for sitemap in sitemaps])
 
-        logger.debug("Sitemap urls %s", urls)
+        logger.debug("Sitemap urls %r", urls)
 
         response = self.render_to_response({"urlset": urls})
         response["Last-Modified"] = http_date(last_modified.timestamp())

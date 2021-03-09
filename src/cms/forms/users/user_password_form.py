@@ -65,8 +65,6 @@ class UserPasswordForm(CustomModelForm):
         :rtype: ~django.contrib.auth.models.User
         """
 
-        logger.info("UserSettingsForm saved with args %s and kwargs %s", args, kwargs)
-
         # check if password field was changed
         if self.cleaned_data["new_password"]:
             # change password

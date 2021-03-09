@@ -37,11 +37,6 @@ class EventTranslationForm(CustomModelForm):
     def __init__(
         self, data=None, instance=None, disabled=False, region=None, language=None
     ):
-        logger.info(
-            "EventTranslationForm instantiated with data %s and instance %s",
-            data,
-            instance,
-        )
 
         self.region = region
         self.language = language
@@ -83,12 +78,6 @@ class EventTranslationForm(CustomModelForm):
         :return: The saved event object
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
-
-        logger.info(
-            "EventTranslationForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         # Disable instant commit on saving because missing information would cause error
         event_translation = super().save(commit=False)

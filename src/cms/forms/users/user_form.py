@@ -48,10 +48,6 @@ class UserForm(CustomModelForm):
 
     def __init__(self, data=None, instance=None):
 
-        logger.info(
-            "UserForm instantiated with data %s and instance %s", data, instance
-        )
-
         # instantiate ModelForm
         super().__init__(data=data, instance=instance)
 
@@ -84,12 +80,6 @@ class UserForm(CustomModelForm):
         :rtype: ~django.contrib.auth.models.User
         """
 
-        logger.info(
-            "UserForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
-
         # save ModelForm
         user = super().save(*args, **kwargs)
 
@@ -102,11 +92,11 @@ class UserForm(CustomModelForm):
         # assign all selected roles which the user does not have already
         for role in set(self.cleaned_data["roles"]) - set(user.groups.all()):
             role.user_set.add(user)
-            logger.info("The role %s was assigned to the user %s", role, user)
+            logger.info("%r was assigned to %r", role, user.profile)
 
         # remove all unselected roles which the user had before
         for role in set(user.groups.all()) - set(self.cleaned_data["roles"]):
             role.user_set.remove(user)
-            logger.info("The role %s was removed from the user %s", role, user)
+            logger.info("The role %r was removed from %r", role, user.profile)
 
         return user

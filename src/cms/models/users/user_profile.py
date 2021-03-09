@@ -92,10 +92,10 @@ class UserProfile(models.Model):
         self.chat_last_visited = timezone.now()
         self.save()
         logger.debug(
-            "Field chat_last_visited of user %s updated from %s to %s",
-            self.user,
-            previous_chat_last_visited,
-            self.chat_last_visited,
+            "Field chat_last_visited of %r updated from %s to %s",
+            self.user.profile,
+            previous_chat_last_visited.strftime("%Y-%m-%d %H:%M:%r"),
+            self.chat_last_visited.strftime("%Y-%m-%d %H:%M:%r"),
         )
         return previous_chat_last_visited
 

@@ -77,13 +77,6 @@ class RegionForm(CustomModelForm):
         :rtype: ~cms.models.regions.region.Region
         """
 
-        logger.info(
-            "RegionForm saved with args %s, kwargs %s and cleaned data %s",
-            args,
-            kwargs,
-            self.cleaned_data,
-        )
-
         # Only duplicate content if region is created and a region was selected
         duplicate_region = (
             not self.instance.id and self.cleaned_data["duplicated_region"]
@@ -94,9 +87,7 @@ class RegionForm(CustomModelForm):
 
         if duplicate_region:
             source_region = self.cleaned_data["duplicated_region"]
-            logger.info(
-                "Duplicate content of region %s to region %s", source_region, region
-            )
+            logger.info("Duplicate content of %r to %r", source_region, region)
             # Duplicate language tree
             duplicate_language_tree(source_region, region)
             # Duplicate pages
@@ -208,8 +199,8 @@ def duplicate_pages(
     :type level: int
     """
 
-    logger.info(
-        "%s Source parent %s started (target parent %s)",
+    logger.debug(
+        "%s Source parent %r started (target parent %r)",
         "|  " * level + "├" + "─",
         source_parent_id,
         target_parent,
@@ -218,8 +209,8 @@ def duplicate_pages(
     # At first, get all pages from the source region with a specific parent page
     # As the parent will be None for the initial call, this returns all pages from the root level
     for target_page in source_region.pages.filter(parent__id=source_parent_id):
-        logger.info(
-            "%s Source page %s started", "|  " * (level + 1) + "├" + "─", target_page
+        logger.debug(
+            "%s Source page %r started", "|  " * (level + 1) + "├" + "─", target_page
         )
         # Store the source page id into a buffer (if we store the whole object instance instead of only the id,
         # it will also change when we change target_page, because both variables would reference the same object)
@@ -244,8 +235,8 @@ def duplicate_pages(
             page_translation.full_clean()
             # Save duplicated page translation
             page_translation.save()
-            logger.info(
-                "%s Page translation %s finished",
+            logger.debug(
+                "%s %r finished",
                 "|  " * (level + 3) + "├" + "─",
                 page_translation,
             )
@@ -253,14 +244,14 @@ def duplicate_pages(
         duplicate_pages(
             source_region, target_region, source_page_id, target_page, level + 2
         )
-        logger.info(
-            "%s Source page %s finished (target page %s)",
+        logger.debug(
+            "%s Source page %r finished (target %r)",
             "|  " * (level + 1) + "├" + "─",
             source_page_id,
             target_page,
         )
-    logger.info(
-        "%s Source parent %s finished (target parent %s)",
+    logger.debug(
+        "%s Source parent %r finished (target parent %r)",
         "|  " * level + "├" + "─",
         source_parent_id,
         target_parent,

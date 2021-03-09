@@ -47,8 +47,6 @@ class POIForm(CustomModelForm):
         :type instance: ~cms.models.pois.poi.POI
         """
 
-        logger.info("POIForm instantiated with data %s and instance %s", data, instance)
-
         # instantiate ModelForm
         super().__init__(data=data, files=files, instance=instance)
 
@@ -69,12 +67,6 @@ class POIForm(CustomModelForm):
         :return: The saved POI object
         :rtype: ~cms.models.pois.poi.POI
         """
-
-        logger.info(
-            "POIForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         poi = super().save(commit=False)
 

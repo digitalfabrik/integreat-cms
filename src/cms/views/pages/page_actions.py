@@ -62,6 +62,7 @@ def archive_page(request, page_id, region_slug, language_slug):
     page.explicitly_archived = True
     page.save()
 
+    logger.debug("%r archived by %r", page, request.user.profile)
     messages.success(request, _("Page was successfully archived"))
 
     return redirect(
@@ -107,6 +108,11 @@ def restore_page(request, page_id, region_slug, language_slug):
     page.save()
 
     if page.implicitly_archived:
+        logger.debug(
+            "%r restored by %r but still implicitly archived",
+            page,
+            request.user.profile,
+        )
         messages.info(
             request,
             _("Page was successfully restored.")
@@ -122,6 +128,7 @@ def restore_page(request, page_id, region_slug, language_slug):
                 "language_slug": language_slug,
             },
         )
+    logger.debug("%r restored by %r", page, request.user.profile)
     messages.success(request, _("Page was successfully restored."))
     return redirect(
         "pages",
@@ -204,6 +211,7 @@ def delete_page(request, page_id, region_slug, language_slug):
     if page.children.exists():
         messages.error(request, _("You cannot delete a page which has subpages."))
     else:
+        logger.info("%r deleted by %r", page, request.user.profile)
         page.delete()
         messages.success(request, _("Page was successfully deleted"))
 
@@ -310,6 +318,11 @@ def download_xliff(request, region_slug, language_slug):
         )
         zip_path = page_xliff_helper.pages_to_zipped_xliffs(region, pages)
         if zip_path is not None and zip_path.startswith(XLIFFS_DIR):
+            logger.info(
+                "XLIFFS for pages %r exported by %r",
+                page_ids,
+                request.user.profile,
+            )
             response = serve(
                 request, zip_path.split(XLIFFS_DIR)[1], document_root=XLIFFS_DIR
             )
@@ -441,6 +454,11 @@ def confirm_xliff_import(request, region_slug, language_slug):
         ]
         xliff_helper = PageXliffHelper()
         xliff_helper.import_xliff_files(xliff_paths, user=request.user)
+        logger.info(
+            "XLIFFS of directory %r imported by %r",
+            upload_dir,
+            request.user.profile,
+        )
     return redirect(
         "pages",
         **{
@@ -486,6 +504,13 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
 
     try:
         page.move_to(target, position)
+        logger.debug(
+            "%r moved to %r of %r by %r",
+            page,
+            position,
+            target,
+            request.user.profile,
+        )
         messages.success(
             request,
             _('The page "{page}" was successfully moved.').format(
@@ -527,31 +552,28 @@ def grant_page_permission_ajax(request):
     try:
         data = json.loads(request.body.decode("utf-8"))
         permission = data.get("permission")
-        page_id = data.get("page_id")
-        user_id = data.get("user_id")
+        page = Page.objects.get(id=data.get("page_id"))
+        user = get_user_model().objects.get(id=data.get("user_id"))
 
-        logger.info(
-            "Ajax call: The user %s wants to grant the permission to %s page with id %s to user with id %s.",
-            request.user.username,
+        logger.debug(
+            "[AJAX] %r wants to grant %r the permission to %s %r",
+            request.user.profile,
+            user.profile,
             permission,
-            page_id,
-            user_id,
+            page,
         )
 
-        page = Page.objects.get(id=page_id)
-        user = get_user_model().objects.get(id=user_id)
-
         if not page.region.page_permissions_enabled:
-            logger.info(
-                'Error: Page permissions are not activated for the region "%s".',
+            logger.warning(
+                "Error: Page permissions are not activated for %r",
                 page.region,
             )
             raise PermissionDenied
 
         if not request.user.has_perm("cms.grant_page_permissions"):
-            logger.info(
-                "Error: The user %s does not have the permission to grant page permissions.",
-                request.user.username,
+            logger.warning(
+                "Error: %r does not have the permission to grant page permissions",
+                request.user.profile,
             )
             raise PermissionDenied
 
@@ -559,18 +581,18 @@ def grant_page_permission_ajax(request):
             # additional checks if requesting user is no superuser or staff
             if page.region not in request.user.profile.regions:
                 # requesting user can only grant permissions for pages of his region
-                logger.info(
-                    "Error: The user %s cannot grant permissions for region %s.",
-                    request.user.username,
-                    page.region.name,
+                logger.warning(
+                    "Error: %r cannot grant permissions for %r",
+                    request.user.profile,
+                    page.region,
                 )
                 raise PermissionDenied
             if page.region not in user.profile.regions:
                 # user can only receive permissions for pages of his region
-                logger.info(
-                    "Error: The user %s cannot receive permissions for region %s.",
-                    user.username,
-                    page.region.name,
+                logger.warning(
+                    "Error: %r cannot receive permissions for %r",
+                    user.profile,
+                    page.region,
                 )
                 raise PermissionDenied
 
@@ -605,15 +627,15 @@ def grant_page_permission_ajax(request):
                 ).format(user=user.username)
                 level_tag = "success"
         else:
-            logger.info("Error: The permission %s is not supported.", permission)
+            logger.warning("Error: The permission %r is not supported", permission)
             raise PermissionDenied
     # pylint: disable=broad-except
     except Exception as e:
-        logger.error(e)
+        logger.exception(e)
         message = _("An error has occurred. Please contact an administrator.")
         level_tag = "error"
 
-    logger.info(message)
+    logger.debug(message)
 
     return render(
         request,
@@ -648,29 +670,28 @@ def revoke_page_permission_ajax(request):
     try:
         data = json.loads(request.body.decode("utf-8"))
         permission = data.get("permission")
-        page_id = data.get("page_id")
-        page = Page.objects.get(id=page_id)
+        page = Page.objects.get(id=data.get("page_id"))
         user = get_user_model().objects.get(id=data.get("user_id"))
 
-        logger.info(
-            "Ajax call: The user %s wants to revoke the permission to %s page with id %s from user %s.",
-            request.user.username,
+        logger.debug(
+            "[AJAX] %r wants to revoke the permission to %s %r from %r",
+            request.user.profile,
             permission,
-            page_id,
-            user.username,
+            page,
+            user.profile,
         )
 
         if not page.region.page_permissions_enabled:
-            logger.info(
-                'Error: Page permissions are not activated for the region "%s".',
+            logger.warning(
+                "Error: Page permissions are not activated for %r",
                 page.region,
             )
             raise PermissionDenied
 
         if not request.user.has_perm("cms.grant_page_permissions"):
-            logger.info(
-                "Error: The user %s does not have the permission to revoke page permissions.",
-                request.user.username,
+            logger.warning(
+                "Error: %r does not have the permission to revoke page permissions",
+                request.user.profile,
             )
             raise PermissionDenied
 
@@ -678,10 +699,10 @@ def revoke_page_permission_ajax(request):
             # additional checks if requesting user is no superuser or staff
             if page.region not in request.user.profile.regions:
                 # requesting user can only revoke permissions for pages of his region
-                logger.info(
-                    "Error: The user %s cannot revoke permissions for region %s.",
-                    request.user.username,
-                    page.region.name,
+                logger.warning(
+                    "Error: %r cannot revoke permissions for %r",
+                    request.user.profile,
+                    page.region,
                 )
                 raise PermissionDenied
 
@@ -720,15 +741,15 @@ def revoke_page_permission_ajax(request):
                 ).format(user=user.username)
                 level_tag = "success"
         else:
-            logger.info("Error: The permission %s is not supported.", permission)
+            logger.warning("Error: The permission %r is not supported", permission)
             raise PermissionDenied
     # pylint: disable=broad-except
     except Exception as e:
-        logger.error(e)
+        logger.exception(e)
         message = _("An error has occurred. Please contact an administrator.")
         level_tag = "error"
 
-    logger.info(message)
+    logger.debug(message)
 
     return render(
         request,
@@ -775,7 +796,7 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
         siblings = region.pages.filter(parent__id=parent_id)
 
     logger.debug(
-        "Page order table for page %s and siblings %s",
+        "Page order table for %r and siblings %r",
         page,
         siblings,
     )
@@ -820,7 +841,7 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
         siblings = region.pages.filter(parent__id=parent_id)
 
     logger.debug(
-        "Page order table for a new page and siblings %s",
+        "Page order table for a new page and siblings %r",
         siblings,
     )
 

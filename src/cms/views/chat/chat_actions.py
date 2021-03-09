@@ -25,8 +25,8 @@ def send_chat_message(request):
     chat_form = ChatMessageForm(request.POST, sender=request.user)
 
     if not chat_form.is_valid():
-        logger.info(
-            "Invalid ChatMessageForm submitted by user %s with errors: %s",
+        logger.debug(
+            "Invalid ChatMessageForm submitted by %r with errors: %r",
             request.user,
             chat_form.errors,
         )
@@ -34,7 +34,7 @@ def send_chat_message(request):
         return JsonResponse(chat_form.errors, status=400)
 
     message = chat_form.save()
-    logger.debug("ChatMessage created: %s", message)
+    logger.debug("%r created", message)
 
     return render(
         request,
@@ -61,15 +61,15 @@ def delete_chat_message(request, message_id):
 
     if not request.user.has_perm("cms.delete_chat_message", message):
         # If the user is neither superuser or staff, nor the sender of the message, he cannot delete it
-        logger.info(
-            "PermissionDenied: User %s tried to delete the chat message %s",
-            request.user,
+        logger.warning(
+            "PermissionDenied: %r tried to delete %r",
+            request.user.profile,
             message,
         )
         raise PermissionDenied
 
     message.delete()
-    logger.debug("ChatMessage deleted: %s", message)
+    logger.debug("%r deleted by %r", message, request.user.profile)
 
     return JsonResponse(
         {

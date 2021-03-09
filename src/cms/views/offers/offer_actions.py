@@ -1,6 +1,8 @@
 """
 This module contains view actions for offer objects.
 """
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.translation import ugettext as _
@@ -8,6 +10,8 @@ from django.shortcuts import redirect
 
 from ...decorators import region_permission_required
 from ...models import Region, Offer, OfferTemplate
+
+logger = logging.getLogger(__name__)
 
 
 @login_required
@@ -31,12 +35,11 @@ def activate(request, region_slug, offer_template_slug):
     """
     region = Region.get_current_region(request)
     template = OfferTemplate.objects.get(slug=offer_template_slug)
-    Offer.objects.create(region=region, template=template)
+    offer = Offer.objects.create(region=region, template=template)
     messages.success(
-        request,
-        _('Offer "%(offer_name)s" was successfully activated')
-        % {"offer_name": template.name},
+        request, _("Offer {} was successfully activated").format(offer.name)
     )
+    logger.debug("%r activated by %r", offer, request.user.profile)
     return redirect(
         "offers",
         **{
@@ -68,12 +71,11 @@ def deactivate(request, region_slug, offer_template_slug):
     region = Region.get_current_region(request)
     template = OfferTemplate.objects.get(slug=offer_template_slug)
     offer = Offer.objects.filter(region=region, template=template).first()
-    offer.delete()
     messages.success(
-        request,
-        _('Offer "%(offer_name)s" was successfully deactivated')
-        % {"offer_name": template.name},
+        request, _("Offer {} was successfully deactivated").format(offer.name)
     )
+    logger.debug("%r deactivated by %r", offer, request.user.profile)
+    offer.delete()
     return redirect(
         "offers",
         **{

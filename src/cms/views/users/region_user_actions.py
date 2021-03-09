@@ -38,14 +38,17 @@ def delete_region_user(request, region_slug, user_id):
     region = Region.get_current_region(request)
     user = get_object_or_404(region.users, id=user_id)
     if user.profile.regions.count() == 1:
+        logger.info("%r deleted %r", request.user.profile, user.profile)
         user.delete()
-        logger.info('User "%s" deleted user "%s"', request.user, user)
         messages.success(request, _("User {} was successfully deleted.").format(user))
     else:
         user.profile.regions.remove(region)
         user.profile.save()
         logger.info(
-            'User "%s" removed user "%s" from region "%s"', request.user, user, region
+            "%r removed %r from %r",
+            request.user.profile,
+            user.profile,
+            region,
         )
         messages.success(
             request,

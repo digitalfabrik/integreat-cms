@@ -31,10 +31,6 @@ class ImprintTranslationForm(CustomModelForm):
         :type kwargs: dict
         """
 
-        logger.info(
-            "New ImprintPageTranslationForm with args %s and kwargs %s", args, kwargs
-        )
-
         # pop kwarg to make sure the super class does not get this param
         self.region = kwargs.pop("region", None)
         self.language = kwargs.pop("language", None)
@@ -53,7 +49,7 @@ class ImprintTranslationForm(CustomModelForm):
                 post.update({"status": status.PUBLIC})
             # Set the args to POST again
             args = (post,)
-            logger.info("changed POST arg status manually")
+            logger.debug("Changed POST arg status manually to %r", post["status"])
 
         super().__init__(*args, **kwargs)
 
@@ -77,13 +73,6 @@ class ImprintTranslationForm(CustomModelForm):
         :return: The saved imprint page translation object
         :rtype: ~cms.models.pages.imprint_page_translation.ImprintPageTranslation
         """
-        logger.info(
-            "ImprintTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
-            args,
-            kwargs,
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         # pop kwarg to make sure the super class does not get this param
         imprint = kwargs.pop("imprint", None)

@@ -35,8 +35,6 @@ def get_sitemaps(region, language):
     # Only return sitemaps which actually contain items
     sitemaps = [sitemap for sitemap in sitemaps if sitemap.items().exists()]
 
-    logger.debug(
-        "Sitemaps for region %s and language %s: %s", region, language, sitemaps
-    )
+    logger.debug("Sitemaps for %r and %r: %r", region, language, sitemaps)
 
     return sitemaps

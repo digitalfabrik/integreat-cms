@@ -41,14 +41,6 @@ class UserProfileForm(CustomModelForm):
         :rtype: ~cms.models.users.user_profile.UserProfile
         """
 
-        logger.info(
-            "UserProfileForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
-
-        logger.info("UserProfileForm saved with args %s and kwargs %s", args, kwargs)
-
         # pop kwarg to make sure the super class does not get this param
         user = kwargs.pop("user", None)
 

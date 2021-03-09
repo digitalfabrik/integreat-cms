@@ -31,7 +31,7 @@ class GvzApiWrapper:
         :rtype: str
         """
 
-        logger.info("Searching for %s", region_name)
+        logger.debug("Searching for %r", region_name)
         response = requests.get(f"{self.api_url}/search/{region_name}")
         regions = json.loads(response.text)
         return regions
@@ -46,7 +46,7 @@ class GvzApiWrapper:
         :return: dictionary containing longitude, latitude, type, key, name
         :rtype: dict
         """
-        logger.info("GVZ API: Details for %s", region_key)
+        logger.debug("GVZ API: Details for %r", region_key)
         response = requests.get(f"{self.api_url}/details/{region_key}")
         region = json.loads(response.text)
         if len(region) != 1:
@@ -132,7 +132,7 @@ class GvzApiWrapper:
         if len(results) == 1:
             return results[0]
         # Second: drop all that are not literal matches:
-        logger.info("GVZ API found more than one region for %s.", region_name)
+        logger.debug("GVZ API found more than one region for %r.", region_name)
         results_literal = []
         for region in results:
             if "," in region["name"]:
@@ -141,7 +141,7 @@ class GvzApiWrapper:
                 results_literal.append(region)
         if len(results_literal) == 1:
             return results_literal[0]
-        logger.info("GVZ API did not find literal match for %s.", region_name)
+        logger.debug("GVZ API did not find literal match for %r.", region_name)
         # Third: match type
         if region_type is None:
             return None
@@ -156,7 +156,7 @@ class GvzApiWrapper:
         if len(results_type) == 1:
             return results_type[0]
         print(results_type)
-        logger.info("GVZ API did not find type match for %s", region_name)
+        logger.debug("GVZ API did not find type match for %r", region_name)
         return None
 
 

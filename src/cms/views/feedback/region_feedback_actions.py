@@ -43,6 +43,11 @@ def mark_region_feedback_as_read(request, region_slug):
         id__in=selected_ids, region=region, is_technical=False
     ).update(read_by=request.user)
 
+    logger.debug(
+        "Feedback objects %r marked as read by %r",
+        selected_ids,
+        request.user.profile,
+    )
     messages.success(request, _("Feedback was successfully marked as read"))
 
     return redirect("region_feedback", region_slug=region_slug)
@@ -76,6 +81,11 @@ def mark_region_feedback_as_unread(request, region_slug):
         id__in=selected_ids, region=region, is_technical=False
     ).update(read_by=None)
 
+    logger.debug(
+        "Feedback objects %r marked as unread by %r",
+        selected_ids,
+        request.user.profile,
+    )
     messages.success(request, _("Feedback was successfully marked as unread"))
 
     return redirect("region_feedback", region_slug=region_slug)
@@ -109,6 +119,7 @@ def delete_region_feedback(request, region_slug):
         id__in=selected_ids, region=region, is_technical=False
     ).delete()
 
+    logger.info("Feedback objects %r deleted by %r", selected_ids, request.user.profile)
     messages.success(request, _("Feedback was successfully deleted"))
 
     return redirect("region_feedback", region_slug=region_slug)
