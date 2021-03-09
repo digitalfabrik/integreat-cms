@@ -51,7 +51,7 @@ tests
 -----
 
 This job runs the unit tests. It sets up a temporary postgres database and runs the migrations before testing.
-It uses the command ``pipenv run integreat-cms-cli test cms --set=COVERAGE --settings=backend.circleci_settings`` and
+It uses the command ``pipenv run integreat-cms-cli test cms --set=COVERAGE`` and
 passes the coverage in the ``htmlcov`` directory to the build artifacts.
 
 check-translations

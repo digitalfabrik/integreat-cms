@@ -84,7 +84,6 @@ intersphinx_mapping = {
         f"https://docs.djangoproject.com/en/{django_doc_version}/",
         f"https://docs.djangoproject.com/en/{django_doc_version}/_objects/",
     ),
-    "django-compressor": ("https://django-compressor.readthedocs.io/en/stable/", None),
     "django-filer": ("https://django-filer.readthedocs.io/en/latest/", None),
     "django-mptt": ("https://django-mptt.readthedocs.io/en/latest/", None),
     "easy-thumbnails": ("https://easy-thumbnails.readthedocs.io/en/latest/", None),

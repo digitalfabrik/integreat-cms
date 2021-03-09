@@ -123,8 +123,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
-    "compressor",
-    "compressor_toolkit",
     "corsheaders",
     "widget_tweaks",
     "easy_thumbnails",
@@ -451,7 +449,6 @@ STATICFILES_DIRS = [
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
 )
 
 #: URL that handles the media served from :setting:`MEDIA_ROOT` (see :setting:`django:MEDIA_URL`)
@@ -481,40 +478,6 @@ CACHES = {
         "LOCATION": os.path.join(STATIC_ROOT, "CACHE/django_cache"),
     }
 }
-
-
-##############
-# COMPRESSOR #
-##############
-
-
-#: Boolean that decides if compression will happen (see :attr:`django-compressor:django.conf.settings.COMPRESS_ENABLED`)
-COMPRESS_ENABLED = False
-
-#: Boolean that decides if compression should be done outside of the request/response loop
-#: (see :attr:`django-compressor:django.conf.settings.COMPRESS_OFFLINE` and :ref:`django-compressor:offline_compression`)
-COMPRESS_OFFLINE = True
-
-#: A list of filters that will be applied to CSS (see :attr:`django-compressor:django.conf.settings.COMPRESS_CSS_FILTERS`)
-COMPRESS_CSS_FILTERS = [
-    "compressor.filters.css_default.CssAbsoluteFilter",
-    "compressor.filters.cssmin.CSSMinFilter",
-    "compressor.filters.template.TemplateFilter",
-]
-
-#: A list of filters that will be applied to javascript
-#: (see :attr:`django-compressor:django.conf.settings.COMPRESS_JS_FILTERS`)
-COMPRESS_JS_FILTERS = [
-    "compressor.filters.jsmin.JSMinFilter",
-]
-
-#: An iterable of two-tuples whose first item is the mimetype of the files or hunks you want to compile with the command
-#: or filter specified as the second item (see :attr:`django-compressor:django.conf.settings.COMPRESS_PRECOMPILERS`)
-COMPRESS_PRECOMPILERS = (
-    ("module", "compressor_toolkit.precompilers.ES6Compiler"),
-    ("css", "compressor_toolkit.precompilers.SCSSCompiler"),
-)
-
 
 ###################
 # EASY THUMBNAILS #

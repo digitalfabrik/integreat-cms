@@ -27,9 +27,6 @@ cd $(dirname "$BASH_SOURCE")/..
 # Compile CSS file
 pipenv run npm run prod
 
-# Compress JS & CSS files
-pipenv run integreat-cms-cli compress
-
 # Compile translation file
 pipenv run integreat-cms-cli compilemessages
 

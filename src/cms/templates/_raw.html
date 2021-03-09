@@ -1,6 +1,5 @@
 {% load static %}
 {% load i18n %}
-{% load compress %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +12,10 @@
     <script src="{% static 'main.js' %}"></script>
     <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
 
-    {% compress js %}
     {% block javascript_head %}{% endblock %}
-    {% endcompress %}
 </head>
 <body>
     {% block raw_content %}{% endblock raw_content %}
-    {% compress js %}
     {% block javascript %}{% endblock %}
-    {% endcompress %}
-    {% block javascript_nocompress %}{% endblock %}
 </body>
 </html>

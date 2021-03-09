@@ -40,7 +40,7 @@ Run the inbuilt local webserver with :github-source:`dev-tools/run.sh`::
 This is a convenience script which also performs the following actions:
 
 * Compile and minify CSS
-* Compress JS and CSS files
+* Starting a webpack dev server that compiles js and css code
 * Regenerate and compile translation file
 * Migrate database
 
