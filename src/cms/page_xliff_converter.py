@@ -64,12 +64,12 @@ class TranslationXliffConverter:  # pylint: disable=R0902
             self.elem_file = file_elements[0]
 
         if self.tgt_lang is None:
-            tgt_langs = Language.objects.filter(code=self.xliff.attrib["trgLang"])
+            tgt_langs = Language.objects.filter(slug=self.xliff.attrib["trgLang"])
             if len(tgt_langs) == 1:
                 self.tgt_lang = tgt_langs[0]
 
         if self.src_lang is None:
-            src_langs = Language.objects.filter(code=self.xliff.attrib["srcLang"])
+            src_langs = Language.objects.filter(slug=self.xliff.attrib["srcLang"])
             if len(src_langs) == 1:
                 self.src_lang = src_langs[0]
 
@@ -137,8 +137,8 @@ class TranslationXliffConverter:  # pylint: disable=R0902
         :rtype: bool
         """
         if self.src_lang is not None and self.tgt_lang is not None:
-            self.xliff.attrib["srcLang"] = self.src_lang.code
-            self.xliff.attrib["trgLang"] = self.tgt_lang.code
+            self.xliff.attrib["srcLang"] = self.src_lang.slug
+            self.xliff.attrib["trgLang"] = self.tgt_lang.slug
             return True
         return False
 
@@ -225,8 +225,8 @@ class TranslationXliffConverter:  # pylint: disable=R0902
             "title": self.elem_title.text,
             "content": self.elem_content.text,
             "page_id": self.page_id,
-            "tgt_lang_slug": self.tgt_lang.code,
-            "src_lang_slug": self.src_lang.code,
+            "tgt_lang_slug": self.tgt_lang.slug,
+            "src_lang_slug": self.src_lang.slug,
             "tgt_version": self.elem_trans_version.text,
         }
 
@@ -307,10 +307,10 @@ class PageXliffHelper:
 
         # properties that make a translation unique: page id, target language, source version
         xliff_id = (
-            self.tgt_lang.code + "_" + str(page.id) + "_" + str(src_trans.version)
+            self.tgt_lang.slug + "_" + str(page.id) + "_" + str(src_trans.version)
         )
 
-        filename = f"{region_slug}_{self.src_lang.code}__{xliff_id}__{slug}.xliff"
+        filename = f"{region_slug}_{self.src_lang.slug}__{xliff_id}__{slug}.xliff"
         xliff_content = converter.translation_to_xliff(
             page.id, src_trans, tgt_trans, xliff_id
         )
@@ -355,7 +355,7 @@ class PageXliffHelper:
         xliff_paths = []
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
         zip_name = (
-            f"{region.slug}_{timestamp}_{self.src_lang.code}_{self.tgt_lang.code}.zip"
+            f"{region.slug}_{timestamp}_{self.src_lang.slug}_{self.tgt_lang.slug}.zip"
         )
         for page in pages:
             xliff_path = self.export_page_translation_xliff(page)
@@ -402,8 +402,8 @@ class PageXliffHelper:
         :rtype: list or bool
         """
         page = Page.objects.filter(id=int(trans_fields["page_id"])).first()
-        tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_slug"]).first()
-        src_lang = Language.objects.filter(code=trans_fields["src_lang_slug"]).first()
+        tgt_lang = Language.objects.filter(slug=trans_fields["tgt_lang_slug"]).first()
+        src_lang = Language.objects.filter(slug=trans_fields["src_lang_slug"]).first()
         if tgt_lang is None or src_lang is None or page is None:
             return False
         tgt_trans = PageTranslation.objects.filter(page=page, language=tgt_lang).first()
@@ -526,7 +526,7 @@ class PageXliffHelper:
         :rtype: dict
         """
         page = Page.objects.filter(id=int(trans_fields["page_id"])).first()
-        tgt_lang = Language.objects.filter(code=trans_fields["tgt_lang_slug"]).first()
+        tgt_lang = Language.objects.filter(slug=trans_fields["tgt_lang_slug"]).first()
         if tgt_lang is None or page is None:
             return None
         tgt_trans = PageTranslation.objects.filter(page=page, language=tgt_lang).first()

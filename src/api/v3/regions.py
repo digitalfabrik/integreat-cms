@@ -138,8 +138,8 @@ def pushnew(_):
     :return: All is right with the world
     :rtype: ~realms.magic.unicorn
     """
-    de = Language(code="de", title="Deutsch", text_direction="ltr")
-    dutch = Language(code="nl", title="Netherlands", text_direction="ltr")
+    de = Language(slug="de", title="Deutsch", text_direction="ltr")
+    dutch = Language(slug="nl", title="Netherlands", text_direction="ltr")
     de.save()
     dutch.save()
     region = Region(

@@ -90,15 +90,15 @@ class SetupClass(TestCase):
         )
 
         self.english = self.create_language(
-            {"name": "English", "code": "en-us", "text_direction": "ltr"}
+            {"name": "English", "slug": "en", "text_direction": "ltr"}
         )
 
         self.deutsch = self.create_language(
-            {"name": "Deutsch", "code": "de-de", "text_direction": "ltr"}
+            {"name": "Deutsch", "slug": "de", "text_direction": "ltr"}
         )
 
         self.arabic = self.create_language(
-            {"name": "Arabic", "code": "ar-ma", "text_direction": "rtl"}
+            {"name": "Arabic", "slug": "ar", "text_direction": "rtl"}
         )
 
         self.english_node = self.create_language_tree_node(

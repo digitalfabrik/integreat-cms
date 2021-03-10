@@ -30,7 +30,12 @@ class Language(models.Model):
         unique=True,
         validators=[MinLengthValidator(2)],
         verbose_name=_("BCP47 Tag"),
-        help_text=_("Language identifier without spaces and special characters."),
+        help_text=__(
+            _("Language identifier without spaces and special characters."),
+            _(
+                "This field usually contains a combination of subtags from the IANA Subtag Registry."
+            ),
+        ),
     )
     native_name = models.CharField(
         max_length=250, blank=False, verbose_name=_("native name")
