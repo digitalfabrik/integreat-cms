@@ -72,15 +72,15 @@ class EventListView(
         region = Region.get_current_region(request)
 
         # current language
-        language_code = kwargs.get("language_code")
-        if language_code:
-            language = region.languages.get(code=language_code)
+        language_slug = kwargs.get("language_slug")
+        if language_slug:
+            language = region.languages.get(slug=language_slug)
         elif region.default_language is not None:
             return redirect(
                 "events",
                 **{
                     "region_slug": region.slug,
-                    "language_code": region.default_language.code,
+                    "language_slug": region.default_language.slug,
                 }
             )
         else:

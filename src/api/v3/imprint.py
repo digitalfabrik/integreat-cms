@@ -39,7 +39,7 @@ def transform_imprint(imprint_translation):
 
 @json_response
 # pylint: disable=unused-argument
-def imprint(request, region_slug, language_code):
+def imprint(request, region_slug, language_slug):
     """
     Get imprint for language and return JSON object to client. If no imprint translation
     is available in the selected language, try to return the translation in the region
@@ -49,20 +49,20 @@ def imprint(request, region_slug, language_code):
     :type request: ~django.http.HttpRequest
     :param region_slug: slug of a region
     :type region_slug: str
-    :param language_code: language code
-    :type language_code: str
+    :param language_slug: language slug
+    :type language_slug: str
 
     :return: JSON object according to APIv3 imprint endpoint definition
     :rtype: ~django.http.JsonResponse
     """
     region = Region.get_current_region(request)
     if hasattr(region, "imprint"):
-        imprint_translation = region.imprint.get_public_translation(language_code)
+        imprint_translation = region.imprint.get_public_translation(language_slug)
         if imprint_translation:
             return JsonResponse(transform_imprint(imprint_translation))
         if region.default_language:
             imprint_default_translation = region.imprint.get_public_translation(
-                region.default_language.code
+                region.default_language.slug
             )
             if imprint_default_translation:
                 return JsonResponse(transform_imprint(imprint_default_translation))

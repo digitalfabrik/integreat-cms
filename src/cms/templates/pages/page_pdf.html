@@ -57,7 +57,7 @@
 
         {% recursetree pages %}
             <li>
-                {% get_public_translation node language.code as page_translation %}
+                {% get_public_translation node language.slug as page_translation %}
                 <h1 class="{% if node.level == 0 %}root_title{% endif %}">{{ page_translation.title }}</h1>
                 <div class="content" style="padding-bottom: 30px;">
                     {{ page_translation.text|safe }}

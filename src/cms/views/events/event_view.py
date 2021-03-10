@@ -51,7 +51,7 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
+        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
 
         # get event and event translation objects if they exist, otherwise objects are None
         event_instance = region.events.filter(id=kwargs.get("event_id")).first()
@@ -117,7 +117,7 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         region = Region.get_current_region(request)
-        language = Language.objects.get(code=kwargs.get("language_code"))
+        language = Language.objects.get(slug=kwargs.get("language_slug"))
         poi = POI.objects.filter(id=request.POST.get("poi_id")).first()
 
         event_instance = Event.objects.filter(id=kwargs.get("event_id")).first()
@@ -255,6 +255,6 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
             **{
                 "event_id": event.id,
                 "region_slug": region.slug,
-                "language_code": language.code,
+                "language_slug": language.slug,
             }
         )

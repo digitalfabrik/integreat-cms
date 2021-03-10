@@ -58,15 +58,15 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
         region = Region.get_current_region(request)
 
         # current language
-        language_code = kwargs.get("language_code")
-        if language_code:
-            language = get_object_or_404(region.languages, code=language_code)
+        language_slug = kwargs.get("language_slug")
+        if language_slug:
+            language = get_object_or_404(region.languages, slug=language_slug)
         elif region.default_language:
             return redirect(
                 "edit_imprint",
                 **{
                     "region_slug": region.slug,
-                    "language_code": region.default_language.code,
+                    "language_slug": region.default_language.slug,
                 },
             )
         else:
@@ -100,7 +100,7 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
                 messages.warning(
                     request, _("You cannot manage the imprint because it is archived.")
                 )
-            public_translation = imprint.get_public_translation(language.code)
+            public_translation = imprint.get_public_translation(language.slug)
             if public_translation and imprint_translation != public_translation:
                 messages.info(
                     request,
@@ -112,7 +112,7 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
                             "imprint_revisions",
                             kwargs={
                                 "region_slug": region.slug,
-                                "language_code": language.code,
+                                "language_slug": language.slug,
                                 "selected_revision": public_translation.version,
                             },
                         ),
@@ -164,7 +164,7 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
         """
 
         region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, code=kwargs.get("language_code"))
+        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
 
         try:
             imprint_instance = region.imprint
@@ -252,7 +252,7 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
             "edit_imprint",
             **{
                 "region_slug": region.slug,
-                "language_code": language.code,
+                "language_slug": language.slug,
             },
         )
 
@@ -282,7 +282,7 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
                 )
                 side_by_side_language_options.append(
                     {
-                        "value": language_node.language.code,
+                        "value": language_node.language.slug,
                         "label": _("{source_language} to {target_language}").format(
                             source_language=language_node.parent.language.translated_name,
                             target_language=language_node.language.translated_name,

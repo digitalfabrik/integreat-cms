@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 
 @login_required
 @region_permission_required
-def archive_page(request, page_id, region_slug, language_code):
+def archive_page(request, page_id, region_slug, language_slug):
     """
     Archive page object
 
@@ -42,8 +42,8 @@ def archive_page(request, page_id, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
@@ -66,14 +66,14 @@ def archive_page(request, page_id, region_slug, language_code):
         "pages",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         },
     )
 
 
 @login_required
 @region_permission_required
-def restore_page(request, page_id, region_slug, language_code):
+def restore_page(request, page_id, region_slug, language_slug):
     """
     Restore page object (set ``archived=False``)
 
@@ -86,8 +86,8 @@ def restore_page(request, page_id, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
@@ -117,7 +117,7 @@ def restore_page(request, page_id, region_slug, language_code):
             "archived_pages",
             **{
                 "region_slug": region_slug,
-                "language_code": language_code,
+                "language_slug": language_slug,
             },
         )
     messages.success(request, _("Page was successfully restored."))
@@ -125,7 +125,7 @@ def restore_page(request, page_id, region_slug, language_code):
         "pages",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         },
     )
 
@@ -134,7 +134,7 @@ def restore_page(request, page_id, region_slug, language_code):
 @region_permission_required
 @permission_required("cms.view_pages", raise_exception=True)
 # pylint: disable=unused-argument
-def view_page(request, page_id, region_slug, language_code):
+def view_page(request, page_id, region_slug, language_slug):
     """
     View page object
 
@@ -147,8 +147,8 @@ def view_page(request, page_id, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -160,8 +160,8 @@ def view_page(request, page_id, region_slug, language_code):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_view.html"
 
-    page_translation = page.get_translation(language_code)
-    mirrored_translation = page.get_mirrored_page_translation(language_code)
+    page_translation = page.get_translation(language_slug)
+    mirrored_translation = page.get_mirrored_page_translation(language_slug)
 
     return render(
         request,
@@ -176,7 +176,7 @@ def view_page(request, page_id, region_slug, language_code):
 
 @login_required
 @staff_required
-def delete_page(request, page_id, region_slug, language_code):
+def delete_page(request, page_id, region_slug, language_slug):
     """
     Delete page object
 
@@ -189,8 +189,8 @@ def delete_page(request, page_id, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -209,7 +209,7 @@ def delete_page(request, page_id, region_slug, language_code):
         "pages",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         },
     )
 
@@ -217,7 +217,7 @@ def delete_page(request, page_id, region_slug, language_code):
 @login_required
 @region_permission_required
 # pylint: disable=unused-argument
-def export_pdf(request, region_slug, language_code):
+def export_pdf(request, region_slug, language_slug):
     """
     Function for handling a pdf export request for pages.
     The pages get extracted from request.GET attribute and the request is forwarded to :func:`~cms.utils.pdf_utils.generate_pdf`
@@ -228,8 +228,8 @@ def export_pdf(request, region_slug, language_code):
     :param region_slug: unique region slug
     :type region_slug: str
 
-    :param language_code: bcp47 code of the current language
-    :type language_code: str
+    :param language_slug: bcp47 slug of the current language
+    :type language_slug: str
 
     :raises ~django.core.exceptions.PermissionDenied: User login and permissions required
 
@@ -242,7 +242,7 @@ def export_pdf(request, region_slug, language_code):
     # collect the corresponding page objects
     pages = region.pages.filter(explicitly_archived=False, id__in=page_ids)
     # generate PDF document wrapped in a HtmlResponse object
-    response = generate_pdf(region, language_code, pages)
+    response = generate_pdf(region, language_slug, pages)
     # offer PDF document for download
     response["Content-Disposition"] = response["Content-Disposition"] + "; attachment"
     return response
@@ -274,7 +274,7 @@ def expand_page_translation_id(request, short_url_id):
 @login_required
 @region_permission_required
 @permission_required("cms.view_pages", raise_exception=True)
-def download_xliff(request, region_slug, language_code):
+def download_xliff(request, region_slug, language_slug):
     """
     Download a zip file of XLIFF files.
     The target languages and pages are selected and the source languages automatically determined.
@@ -285,8 +285,8 @@ def download_xliff(request, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the target language
-    :type language_code: str
+    :param language_slug: The slug of the target language
+    :type language_slug: str
 
     :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -298,7 +298,7 @@ def download_xliff(request, region_slug, language_code):
         region = Region.get_current_region(request)
         pages = get_list_or_404(region.pages, id__in=page_ids)
         target_language = get_object_or_404(
-            region.language_tree_nodes, language__code=language_code
+            region.language_tree_nodes, language__slug=language_slug
         ).language
         source_language = get_object_or_404(
             region.language_tree_nodes, language=target_language
@@ -314,13 +314,13 @@ def download_xliff(request, region_slug, language_code):
             response["Content-Disposition"] = 'attachment; filename="{}"'.format(
                 zip_path.split(os.sep)[-1]
             )
-            PageXliffHelper.post_translation_state(pages, target_language.code, True)
+            PageXliffHelper.post_translation_state(pages, target_language.slug, True)
             return response
     return redirect(
         "pages",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         },
     )
 
@@ -356,7 +356,7 @@ def post_translation_state_ajax(request, region_slug):
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
-def upload_xliff(request, region_slug, language_code):
+def upload_xliff(request, region_slug, language_slug):
     """
     Upload and import an XLIFF file
 
@@ -366,8 +366,8 @@ def upload_xliff(request, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -397,14 +397,14 @@ def upload_xliff(request, region_slug, language_code):
                 "translation_diffs": xliff_helper.generate_xliff_import_diff(
                     xliff_paths
                 ),
-                "language": Language.objects.get(code=language_code),
+                "language": Language.objects.get(slug=language_slug),
             },
         )
     return redirect(
         "pages",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         },
     )
 
@@ -412,7 +412,7 @@ def upload_xliff(request, region_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
-def confirm_xliff_import(request, region_slug, language_code):
+def confirm_xliff_import(request, region_slug, language_slug):
     """
     Confirm a started XLIFF import
 
@@ -422,8 +422,8 @@ def confirm_xliff_import(request, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -443,7 +443,7 @@ def confirm_xliff_import(request, region_slug, language_code):
         "pages",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         },
     )
 
@@ -452,7 +452,7 @@ def confirm_xliff_import(request, region_slug, language_code):
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
 # pylint: disable=too-many-arguments
-def move_page(request, region_slug, language_code, page_id, target_id, position):
+def move_page(request, region_slug, language_slug, page_id, target_id, position):
     """
     Move a page object in the page tree
 
@@ -462,8 +462,8 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :param page_id: The id of the page which should be moved
     :type page_id: int
@@ -487,7 +487,7 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
         messages.success(
             request,
             _('The page "{page}" was successfully moved.').format(
-                page=page.get_first_translation([language_code]).title
+                page=page.get_first_translation([language_slug]).title
             ),
         )
     except (ValueError, InvalidMove) as e:
@@ -498,7 +498,7 @@ def move_page(request, region_slug, language_code, page_id, target_id, position)
         "pages",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         },
     )
 

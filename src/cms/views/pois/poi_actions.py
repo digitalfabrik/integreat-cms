@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 @login_required
 @region_permission_required
 @permission_required("cms.manage_pois", raise_exception=True)
-def archive_poi(request, poi_id, region_slug, language_code):
+def archive_poi(request, poi_id, region_slug, language_slug):
     """
     Archive POI object
 
@@ -31,8 +31,8 @@ def archive_poi(request, poi_id, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -48,7 +48,7 @@ def archive_poi(request, poi_id, region_slug, language_code):
         "pois",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         }
     )
 
@@ -56,7 +56,7 @@ def archive_poi(request, poi_id, region_slug, language_code):
 @login_required
 @region_permission_required
 @permission_required("cms.manage_pois", raise_exception=True)
-def restore_poi(request, poi_id, region_slug, language_code):
+def restore_poi(request, poi_id, region_slug, language_slug):
     """
     Restore POI object (set ``archived=False``)
 
@@ -69,8 +69,8 @@ def restore_poi(request, poi_id, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -86,14 +86,14 @@ def restore_poi(request, poi_id, region_slug, language_code):
         "pois",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         }
     )
 
 
 @login_required
 @staff_required
-def delete_poi(request, poi_id, region_slug, language_code):
+def delete_poi(request, poi_id, region_slug, language_slug):
     """
     Delete POI object
 
@@ -106,8 +106,8 @@ def delete_poi(request, poi_id, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -121,7 +121,7 @@ def delete_poi(request, poi_id, region_slug, language_code):
         "pois",
         **{
             "region_slug": region_slug,
-            "language_code": language_code,
+            "language_slug": language_slug,
         }
     )
 
@@ -130,7 +130,7 @@ def delete_poi(request, poi_id, region_slug, language_code):
 @region_permission_required
 @permission_required("cms.manage_pois", raise_exception=True)
 # pylint: disable=unused-argument
-def view_poi(request, poi_id, region_slug, language_code):
+def view_poi(request, poi_id, region_slug, language_slug):
     """
     View POI object
 
@@ -143,8 +143,8 @@ def view_poi(request, poi_id, region_slug, language_code):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param language_code: The code of the current language
-    :type language_code: str
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :raises ~django.http.Http404: If user no translation exists for the requested POI and language
 
@@ -155,7 +155,7 @@ def view_poi(request, poi_id, region_slug, language_code):
     template_name = "pois/poi_view.html"
     poi = POI.objects.get(id=poi_id)
 
-    poi_translation = poi.get_translation(language_code)
+    poi_translation = poi.get_translation(language_slug)
 
     if not poi_translation:
         raise Http404

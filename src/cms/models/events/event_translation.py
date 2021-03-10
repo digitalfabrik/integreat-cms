@@ -99,7 +99,7 @@ class EventTranslation(models.Model):
         :rtype: str
         """
         return "/".join(
-            [self.event.region.slug, self.language.code, "events", self.slug]
+            [self.event.region.slug, self.language.slug, "events", self.slug]
         )
 
     def get_absolute_url(self):
@@ -120,7 +120,7 @@ class EventTranslation(models.Model):
         The returned dict has the following format::
 
             {
-                available_translation.language.code: {
+                available_translation.language.slug: {
                     'id': available_translation.id,
                     'url': available_translation.permalink
                 },
@@ -134,9 +134,9 @@ class EventTranslation(models.Model):
         languages.remove(self.language)
         available_languages = {}
         for language in languages:
-            other_translation = self.event.get_public_translation(language.code)
+            other_translation = self.event.get_public_translation(language.slug)
             if other_translation:
-                available_languages[language.code] = {
+                available_languages[language.slug] = {
                     "id": other_translation.id,
                     "url": other_translation.permalink,
                 }
@@ -156,12 +156,12 @@ class EventTranslation(models.Model):
         languages.remove(self.language)
         available_languages = []
         for language in languages:
-            other_translation = self.event.get_public_translation(language.code)
+            other_translation = self.event.get_public_translation(language.slug)
             if other_translation:
                 available_languages.append(
                     {
                         "location": f"{WEBAPP_URL}{other_translation.get_absolute_url()}",
-                        "lang_code": other_translation.language.code,
+                        "lang_slug": other_translation.language.slug,
                     }
                 )
         return available_languages
@@ -182,7 +182,7 @@ class EventTranslation(models.Model):
             language=self.language
         ).parent
         if source_language_tree_node:
-            return self.event.get_translation(source_language_tree_node.code)
+            return self.event.get_translation(source_language_tree_node.slug)
         return None
 
     @property

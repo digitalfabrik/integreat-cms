@@ -37,7 +37,7 @@ urlpatterns = [
                 url(r"^languages/?$", languages, name="api_languages"),
                 url(r"^(?:offers|extras)/?$", offers, name="api_offers"),
                 url(
-                    r"^(?P<language_code>[-\w]+)/",
+                    r"^(?P<language_slug>[-\w]+)/",
                     include(
                         [
                             url(r"^pages/?$", pages, name="api_pages"),

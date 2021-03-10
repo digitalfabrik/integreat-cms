@@ -23,11 +23,11 @@ pre {
 </style>
 <div class="xliff-confirm">
     <div class="m-4">
-      <form action="{% url 'confirm_xliff_import' region_slug=region.slug language_code=language.code%}" method="POST">
+      <form action="{% url 'confirm_xliff_import' region_slug=region.slug language_slug=language.slug%}" method="POST">
         <h2 class="heading pb-4">{% trans 'Review XLIFF Import' %}</h2>
         <p class="pb-4">{% trans 'Please review the changes that will be applied to the page translations below.' %}</p>
         <input type="submit" value="{% trans 'Confirm' %}" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-2 px-4 rounded p-4">
-        <input type="button" value="{% trans 'Abort' %}" onclick="window.location='{% url 'pages' region_slug=region.slug language_code=language.code %}';" class="inline-block cursor-pointer bg-red-500 hover:bg-red-600 text-white h-full font-bold py-2 px-4 rounded p-4">
+        <input type="button" value="{% trans 'Abort' %}" onclick="window.location='{% url 'pages' region_slug=region.slug language_slug=language.slug %}';" class="inline-block cursor-pointer bg-red-500 hover:bg-red-600 text-white h-full font-bold py-2 px-4 rounded p-4">
         <input type="hidden" value={{ upload_dir }} name="upload_dir">
         {% csrf_token %}
       </form>
@@ -40,7 +40,7 @@ pre {
         <ul class="list-disc m-4 pl-4">
             <li class="">{% trans 'Title' %}: {{ xliff_diff.title }}</li>
             <li class="">{% trans 'Page ID' %}: {{ xliff_diff.page_id }}</li>
-            <li class="">{% trans 'Target language code' %}: {{ xliff_diff.tgt_lang_code }}</li>
+            <li class="">{% trans 'Target language slug' %}: {{ xliff_diff.tgt_lang_slug }}</li>
         <ul>
         {% else %}
         <h2 class="heading font-normal m-4">XLIFF {% trans 'file' %}: {{ xliff_diff.xliff_name }}</h2>

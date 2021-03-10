@@ -29,7 +29,7 @@ def transform_offer(offer):
 
 @json_response
 # pylint: disable=unused-argument
-def offers(request, region_slug, language_code=None):
+def offers(request, region_slug, language_slug=None):
     """
     Function to iterate through all offers related to a region and adds them to a JSON.
 
@@ -37,8 +37,8 @@ def offers(request, region_slug, language_code=None):
     :type request: ~django.http.HttpRequest
     :param region_slug: slug of a region
     :type region_slug: str
-    :param language_code: language code
-    :type language_code: str
+    :param language_slug: language slug
+    :type language_slug: str
 
     :return: JSON object according to APIv3 offers endpoint definition
     :rtype: ~django.http.JsonResponse

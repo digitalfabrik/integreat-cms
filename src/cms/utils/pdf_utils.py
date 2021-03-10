@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 # pylint: disable=too-many-locals
-def generate_pdf(region, language_code, pages):
+def generate_pdf(region, language_slug, pages):
     """
     Function for handling a pdf export request for pages.
     The pages were either selected by cms user (see :js:func:`cms.static.js.pages.page_bulk_action.bulk_action_execute`)
@@ -28,8 +28,8 @@ def generate_pdf(region, language_code, pages):
     :param region: region which requested the pdf document
     :type region: ~cms.models.regions.region.Region
 
-    :param language_code: bcp47 code of the current language
-    :type language_code: str
+    :param language_slug: bcp47 slug of the current language
+    :type language_slug: str
 
     :param pages: at least on page to render as PDF document
     :type pages: ~mptt.querysets.TreeQuerySet
@@ -44,7 +44,7 @@ def generate_pdf(region, language_code, pages):
     pdf_key_list = [region.slug, region.last_updated]
     for page in pages:
         # add translation id and last_updated to hash key list if they exist
-        page_translation = page.get_public_translation(language_code)
+        page_translation = page.get_public_translation(language_slug)
         if page_translation:
             # if translation for this language exists
             pdf_key_list.append(page_translation.id)
@@ -67,7 +67,7 @@ def generate_pdf(region, language_code, pages):
         )
     if amount_pages == 1:
         # If pdf contains only one page, take its title as filename
-        title = pages.first().get_public_translation(language_code).title
+        title = pages.first().get_public_translation(language_slug).title
     else:
         # If pdf contains multiple pages, check the minimum level
         min_level = pages.aggregate(Min("level")).get("level__min")
@@ -75,11 +75,11 @@ def generate_pdf(region, language_code, pages):
         min_level_pages = pages.filter(level=min_level)
         if min_level_pages.count() == 1:
             # If there's exactly one page with the minimum level, take its title
-            title = min_level_pages.first().get_public_translation(language_code).title
+            title = min_level_pages.first().get_public_translation(language_slug).title
         else:
             # In any other case, take the region name
             title = region.name
-    language = Language.objects.get(code=language_code)
+    language = Language.objects.get(slug=language_slug)
     filename = f"Integreat - {language.translated_name} - {title}.pdf"
     context = {
         "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,

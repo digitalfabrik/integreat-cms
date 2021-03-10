@@ -29,12 +29,12 @@
         {% endif %}
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
             {{ page_translation.get_status_display }}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -43,13 +43,13 @@
         </a>
     </td>
     {% get_current_language as LANGUAGE_CODE %}
-    {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
-    {% if LANGUAGE_CODE != language.code %}
+    {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE != language.slug %}
         {% get_language LANGUAGE_CODE as backend_language %}
         {% if backend_language %}
             {% get_translation page LANGUAGE_CODE as backend_translation %}
             <td>
-                <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+                <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
                     <div class="translation-title">
                         {% if backend_translation %}
                             {% if not backend_translation.currently_in_translation %}
@@ -72,9 +72,9 @@
         <div class="block py-3 px-2 text-gray-800">
             <div class="lang-grid">
                 {% for other_language in languages %}
-                    <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=other_language.code %}"
-                        class="{{ other_language.code }}">
-                        {% get_translation page other_language.code as other_translation %}
+                    <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=other_language.slug %}"
+                        class="{{ other_language.slug }}">
+                        {% get_translation page other_language.slug as other_translation %}
                         <div id="translation-icon">
                         {% if other_translation %}
                             {% if other_translation.currently_in_translation %}
@@ -107,17 +107,17 @@
         </div>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
             {{ page_translation.last_updated }}
         </a>
     </td>
     <td class="pl-2 pr-4 text-right min">
         <!-- TODO: add link to view page in web app -->
-        <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_code=language.code %}"
+        <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
            target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="py-3 px-2">
             <i data-feather="eye" class="inline-block text-gray-800"></i>
         </a>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" title="{% trans 'Edit page' %}" class="py-3 px-2">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="py-3 px-2">
             <i data-feather="edit" class="inline-block text-gray-800"></i>
         </a>
 
@@ -125,7 +125,7 @@
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ page.backend_translation.title }}"
-                data-action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
+                data-action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
             <i data-feather="archive" class="inline-block text-gray-800"></i>
         </button>
         {% if user.is_superuser or user.is_staff %}
@@ -138,7 +138,7 @@
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ page.backend_translation.title }}"
-                        data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_code=language.code %}">
+                        data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
                     <i data-feather="trash-2" class="inline-block text-gray-800"></i>
                 </button>
             {% endif %}

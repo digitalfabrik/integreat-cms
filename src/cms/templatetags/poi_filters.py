@@ -21,7 +21,7 @@ def poi_translation_title(poi, language):
     :rtype: str
     """
     all_poi_translations = poi.translations
-    poi_translation = all_poi_translations.filter(language__code=language.code)
+    poi_translation = all_poi_translations.filter(language__slug=language.slug)
     if poi_translation.exists():
         return poi_translation.first().title
     if all_poi_translations.exists():

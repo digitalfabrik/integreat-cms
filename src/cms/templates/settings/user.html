@@ -103,9 +103,9 @@
                     <select name="language" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
-                        {% for language_code, language_name in LANGUAGES %}
-                            <option value="{{ language_code }}"{% if language_code == LANGUAGE_CODE %} selected{% endif %}>
-                                {{ language_code|language_name_local }}
+                        {% for language_slug, language_name in LANGUAGES %}
+                            <option value="{{ language_slug }}"{% if language_slug == LANGUAGE_CODE %} selected{% endif %}>
+                                {{ language_slug|language_name_local }}
                             </option>
                         {% endfor %}
                     </select>

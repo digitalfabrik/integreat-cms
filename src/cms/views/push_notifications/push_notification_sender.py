@@ -107,10 +107,10 @@ class PushNotificationSender:
         else:
             region_slug = self.push_notification.region.slug
         payload = {
-            "to": f"/topics/{region_slug}-{pnt.language.code}-{self.push_notification.channel}",
+            "to": f"/topics/{region_slug}-{pnt.language.slug}-{self.push_notification.channel}",
             "notification": {"title": pnt.title, "body": pnt.text},
             "data": {
-                "lanCode": pnt.language.code,
+                "lanCode": pnt.language.slug,
                 "city": self.push_notification.region.slug,
             },
         }

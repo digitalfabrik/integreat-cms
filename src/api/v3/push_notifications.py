@@ -9,7 +9,7 @@ from ..decorators import json_response
 
 
 @json_response
-def sent_push_notifications(request, region_slug, language_code):
+def sent_push_notifications(request, region_slug, language_slug):
     """
     Function to iterate through all sent push notifications related to a region and adds them to a JSON.
 
@@ -17,8 +17,8 @@ def sent_push_notifications(request, region_slug, language_code):
     :type request: ~django.http.HttpRequest
     :param region_slug: slug of a region
     :type region_slug: str
-    :param language_code: language code
-    :type language_code: str
+    :param language_slug: language slug
+    :type language_slug: str
 
     :return: JSON object according to APIv3 push notifications definition
     :rtype: ~django.http.JsonResponse
@@ -30,7 +30,7 @@ def sent_push_notifications(request, region_slug, language_code):
             push_notification__region__slug=region_slug
         )
         .filter(push_notification__sent_date__isnull=False)
-        .filter(language__code=language_code)
+        .filter(language__slug=language_slug)
     )
     if channel != "all":
         query_result = query_result.filter(push_notification__channel=channel)

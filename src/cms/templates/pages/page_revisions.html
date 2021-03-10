@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<form method="post" action="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_code=language.code %}">
+<form method="post" action="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
     {% csrf_token %}
     <div class="w-full mb-20 relative">
         <input type="range" name="revision" min="1" max="{{ page_translations.count }}" value="{{ selected_revision.version }}" id="revision-slider" list="steplist">
@@ -91,7 +91,7 @@
                 {% endif %}
             {% endif %}
         {% endif %}
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_code=language.code %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
             {% trans 'Go Back to Page Editor' %}
         </a>
     </div>

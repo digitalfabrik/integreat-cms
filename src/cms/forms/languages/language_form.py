@@ -17,7 +17,8 @@ class LanguageForm(PlaceholderModelForm):
         model = Language
         #: The fields of the model which should be handled by this form
         fields = [
-            "code",
+            "slug",
+            "bcp47_tag",
             "english_name",
             "native_name",
             "text_direction",

@@ -52,32 +52,32 @@ class POI(models.Model):
         """
         return Language.objects.filter(poi_translations__poi=self)
 
-    def get_translation(self, language_code):
+    def get_translation(self, language_slug):
         """
         This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the requested :class:`~cms.models.languages.language.Language` code.
+        and filters them to the requested :class:`~cms.models.languages.language.Language` slug.
 
-        :param language_code: The code of the desired :class:`~cms.models.languages.language.Language`
-        :type language_code: str
+        :param language_slug: The slug of the desired :class:`~cms.models.languages.language.Language`
+        :type language_slug: str
 
         :return: The POI translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
                  if no translation exists
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
-        return self.translations.filter(language__code=language_code).first()
+        return self.translations.filter(language__slug=language_slug).first()
 
-    def get_public_translation(self, language_code):
+    def get_public_translation(self, language_slug):
         """
         This function retrieves the newest public translation of a POI.
 
-        :param language_code: The code of the requested :class:`~cms.models.languages.language.Language`
-        :type language_code: str
+        :param language_slug: The slug of the requested :class:`~cms.models.languages.language.Language`
+        :type language_slug: str
 
         :return: The public translation of a POI
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
         return self.translations.filter(
-            language__code=language_code,
+            language__slug=language_slug,
             status=status.PUBLIC,
         ).first()
 
@@ -91,10 +91,10 @@ class POI(models.Model):
         :return: The "best" translation of a POI for displaying in the backend
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
-        poi_translation = self.translations.filter(language__code=get_language())
+        poi_translation = self.translations.filter(language__slug=get_language())
         if not poi_translation.exists():
-            alt_code = self.region.default_language.code
-            poi_translation = self.translations.filter(language__code=alt_code)
+            alt_slug = self.region.default_language.slug
+            poi_translation = self.translations.filter(language__slug=alt_slug)
         return poi_translation.first()
 
     class Meta:

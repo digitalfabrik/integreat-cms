@@ -28,8 +28,8 @@
                 <th class="text-sm text-left uppercase py-3">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
-                {% unify_language_code LANGUAGE_CODE as LANGUAGE_CODE %}
-                {% if LANGUAGE_CODE != language.code %}
+                {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE != language.slug %}
                     {% get_language LANGUAGE_CODE as backend_language %}
                     {% if backend_language %}
                         <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
@@ -44,7 +44,7 @@
         </thead>
         <tbody>
         {% for poi in pois %}
-            {% get_translation poi language.code as poi_translation %}
+            {% get_translation poi language.slug as poi_translation %}
             {% include "pois/poi_list_archived_row.html" %}
         {% empty %}
             <tr>

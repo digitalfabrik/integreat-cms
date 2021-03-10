@@ -43,8 +43,8 @@ class DashboardView(TemplateView, ChatContextMixin):
         """
 
         # RSS FEED
-        language_code = translation.get_language()
-        feed = feedparser.parse(RSS_FEED_URLS[language_code])
+        language_slug = translation.get_language()
+        feed = feedparser.parse(RSS_FEED_URLS[language_slug])
         # select five most recent feeds
         feed["entries"] = feed["entries"][:5]
         # decode html entities like dash and split after line break

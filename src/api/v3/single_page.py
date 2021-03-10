@@ -13,7 +13,7 @@ from ..decorators import json_response
 
 @json_response
 # pylint: disable=unused-argument
-def single_page(request, region_slug, language_code):
+def single_page(request, region_slug, language_slug):
     """
     View function returning the desired page as a JSON or a 404 if the
     requested page does not exist.
@@ -24,8 +24,8 @@ def single_page(request, region_slug, language_code):
     :param region_slug: Slug defining the region
     :type region_slug: str
 
-    :param language_code: Code to identify the desired language
-    :type language_code: str
+    :param language_slug: Code to identify the desired language
+    :type language_slug: str
 
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
@@ -36,7 +36,7 @@ def single_page(request, region_slug, language_code):
 
     if request.GET.get("id"):
         page = get_object_or_404(region.pages, id=request.GET.get("id"))
-        page_translation = page.get_public_translation(language_code)
+        page_translation = page.get_public_translation(language_slug)
         if page_translation:
             return JsonResponse(transform_page(page_translation), safe=False)
 
@@ -45,14 +45,14 @@ def single_page(request, region_slug, language_code):
         url = request.GET.get("url").strip("/")
         # The last path component of the url is the page translation slug
         page_translation_slug = url.split("/")[-1]
-        # Get page by filtering for translation slug and translation language code
+        # Get page by filtering for translation slug and translation language slug
         page = get_object_or_404(
             region.pages,
             translations__slug=page_translation_slug,
-            translations__language__code=language_code,
+            translations__language__slug=language_slug,
         )
         # Get most recent public revision of the page
-        page_translation = page.get_public_translation(language_code)
+        page_translation = page.get_public_translation(language_slug)
         if page_translation:
             return JsonResponse(transform_page(page_translation), safe=False)
 

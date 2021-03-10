@@ -94,19 +94,19 @@ class Event(models.Model):
         """
         return bool(self.location)
 
-    def get_translation(self, language_code):
+    def get_translation(self, language_slug):
         """
         This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the requested :class:`~cms.models.languages.language.Language` code.
+        and filters them to the requested :class:`~cms.models.languages.language.Language` slug.
 
-        :param language_code: The code of the desired :class:`~cms.models.languages.language.Language`
-        :type language_code: str
+        :param language_slug: The slug of the desired :class:`~cms.models.languages.language.Language`
+        :type language_slug: str
 
         :return: The event translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
                  if no translation exists
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
-        return self.translations.filter(language__code=language_code).first()
+        return self.translations.filter(language__slug=language_slug).first()
 
     def get_occurrences(self, start, end):
         """
@@ -176,18 +176,18 @@ class Event(models.Model):
             else []
         )
 
-    def get_public_translation(self, language_code):
+    def get_public_translation(self, language_slug):
         """
         This function retrieves the newest public translation of an event.
 
-        :param language_code: The code of the requested :class:`~cms.models.languages.language.Language`
-        :type language_code: str
+        :param language_slug: The slug of the requested :class:`~cms.models.languages.language.Language`
+        :type language_slug: str
 
         :return: The public translation of an event
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(
-            language__code=language_code,
+            language__slug=language_slug,
             status=status.PUBLIC,
         ).first()
 
@@ -201,10 +201,10 @@ class Event(models.Model):
         :return: The "best" translation of an event for displaying in the backend
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
-        event_translation = self.translations.filter(language__code=get_language())
+        event_translation = self.translations.filter(language__slug=get_language())
         if not event_translation.exists():
-            alt_code = self.region.default_language.code
-            event_translation = self.translations.filter(language__code=alt_code)
+            alt_slug = self.region.default_language.slug
+            event_translation = self.translations.filter(language__slug=alt_slug)
         return event_translation.first()
 
     class Meta:

@@ -90,7 +90,7 @@ urlpatterns = [
                 url(r"^$", languages.LanguageListView.as_view(), name="languages"),
                 url(r"^new$", languages.LanguageView.as_view(), name="new_language"),
                 url(
-                    r"^(?P<language_code>[-\w]+)/",
+                    r"^(?P<language_slug>[-\w]+)/",
                     include(
                         [
                             url(
@@ -381,7 +381,7 @@ urlpatterns = [
                         [
                             url(r"^$", pages.PageTreeView.as_view(), name="pages"),
                             url(
-                                r"^(?P<language_code>[-\w]+)/",
+                                r"^(?P<language_slug>[-\w]+)/",
                                 include(
                                     [
                                         url(
@@ -495,7 +495,7 @@ urlpatterns = [
                                 name="edit_imprint",
                             ),
                             url(
-                                r"^(?P<language_code>[-\w]+)/",
+                                r"^(?P<language_slug>[-\w]+)/",
                                 include(
                                     [
                                         url(
@@ -553,7 +553,7 @@ urlpatterns = [
                         [
                             url(r"^$", events.EventListView.as_view(), name="events"),
                             url(
-                                r"^(?P<language_code>[-\w]+)/",
+                                r"^(?P<language_slug>[-\w]+)/",
                                 include(
                                     [
                                         url(
@@ -610,7 +610,7 @@ urlpatterns = [
                         [
                             url(r"^$", pois.POIListView.as_view(), name="pois"),
                             url(
-                                r"^(?P<language_code>[-\w]+)/",
+                                r"^(?P<language_slug>[-\w]+)/",
                                 include(
                                     [
                                         url(
@@ -703,7 +703,7 @@ urlpatterns = [
                                 name="push_notifications",
                             ),
                             url(
-                                r"^(?P<language_code>[-\w]+)/",
+                                r"^(?P<language_slug>[-\w]+)/",
                                 include(
                                     [
                                         url(

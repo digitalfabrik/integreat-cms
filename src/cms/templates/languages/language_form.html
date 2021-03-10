@@ -8,13 +8,13 @@
     <div class="flex flex-wrap mb-4">
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
             <h2 class="heading font-normal">
-	            {% if form.instance.id %}
-		            {% with form.instance.translated_name as translated_language_name %}
-		            {% blocktrans %}Edit language "{{ translated_language_name }}"{% endblocktrans %}
-		            {% endwith %}
-	            {% else %}
-		            {% trans 'Create new language' %}
-	            {% endif %}
+              {% if form.instance.id %}
+                {% with form.instance.translated_name as translated_language_name %}
+                {% blocktrans %}Edit language "{{ translated_language_name }}"{% endblocktrans %}
+                {% endwith %}
+              {% else %}
+                {% trans 'Create new language' %}
+              {% endif %}
             </h2>
         </div>
         <div class="w-3/5 flex justify-end">
@@ -23,31 +23,36 @@
     </div>
 
     <div class="flex flex-wrap">
-	    <div class="w-full">
-		    {{form.errors}}
-		    <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-			    <label for="{{ form.native_name.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.native_name.label }}</label>
-			    {% render_field form.native_name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-		    </div>
-			<div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-				<label for="{{ form.english_name.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.english_name.label }}</label>
-				{% render_field form.english_name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-			</div>
-		    <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-			    <label for="{{ form.code.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.code.label }}</label>
-				<div class="mb-2 text-s text-gray-600">{{ form.code.help_text|urlize }}</div>
-			    {% render_field form.code class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-		    </div>
-		    <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-			    <label for="{{ form.text_direction.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.text_direction.label }}</label>
-			    {% render_field form.text_direction class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-			</div>
-			<div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-			    <label for="{{ form.table_of_contents.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.table_of_contents.label }}</label>
-				<div class="mb-2 text-s text-gray-600">{{ form.table_of_contents.help_text }}</div>
-			    {% render_field form.table_of_contents class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-		    </div>
-	    </div>
+      <div class="w-full">
+        {{form.errors}}
+        <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+          <label for="{{ form.native_name.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.native_name.label }}</label>
+          {% render_field form.native_name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+        </div>
+        <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+          <label for="{{ form.english_name.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.english_name.label }}</label>
+          {% render_field form.english_name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+        </div>
+        <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+          <label for="{{ form.slug.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.slug.label }}</label>
+          <div class="mb-2 text-s text-gray-600">{{ form.slug.help_text }} {% trans 'This is in many cases a single (macro-)language tag, according to the' %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" class="underline">IANA Subtag Registry</a> {% trans 'or'%} <a href="https://iso639-3.sil.org/code_tables/639/data" class="underline" target="_blank">ISO 639</a>.</div>
+          {% render_field form.slug class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+        </div>
+        <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+          <label for="{{ form.bcp47_tag.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.bcp47_tag.label }}</label>
+          <div class="mb-2 text-s text-gray-600">{{ form.bcp47_tag.help_text }}</div>
+          {% render_field form.bcp47_tag class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+        </div>
+        <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+          <label for="{{ form.text_direction.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.text_direction.label }}</label>
+          {% render_field form.text_direction class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+        </div>
+        <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+          <label for="{{ form.table_of_contents.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.table_of_contents.label }}</label>
+          <div class="mb-2 text-s text-gray-600">{{ form.table_of_contents.help_text }}</div>
+          {% render_field form.table_of_contents class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+        </div>
+      </div>
     </div>
 </form>
 {% endblock %}

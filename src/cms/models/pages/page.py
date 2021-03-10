@@ -152,19 +152,19 @@ class Page(MPTTModel, AbstractBasePage):
             super().get_siblings(include_self=include_self).filter(region=self.region)
         )
 
-    def get_mirrored_page_translation(self, language_code):
+    def get_mirrored_page_translation(self, language_slug):
         """
         Mirrored content always includes the live content from another page. This content needs to be added when
         delivering content to end users.
 
-        :param language_code: The code of the requested :class:`~cms.models.languages.language.Language`
-        :type language_code: str
+        :param language_slug: The slug of the requested :class:`~cms.models.languages.language.Language`
+        :type language_slug: str
 
         :return: The content of a mirrored page
         :rtype: str
         """
         if self.mirrored_page:
-            return self.mirrored_page.get_public_translation(language_code)
+            return self.mirrored_page.get_public_translation(language_slug)
         return None
 
     class Meta:

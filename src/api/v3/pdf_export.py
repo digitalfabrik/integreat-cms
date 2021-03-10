@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 @json_response
 # pylint: disable=unused-argument
-def pdf_export(request, region_slug, language_code):
+def pdf_export(request, region_slug, language_slug):
     """
     View function that either returns the requested page specified by the
     url parameter or returns all pages of current region and language as PDF document
@@ -29,8 +29,8 @@ def pdf_export(request, region_slug, language_code):
     :param region_slug: Slug defining the region
     :type region_slug: str
 
-    :param language_code: current language code
-    :type language_code: str
+    :param language_slug: current language slug
+    :type language_slug: str
 
     :return: The requested pages as PDF document (inline)
     :rtype: ~django.http.HttpResponse
@@ -43,11 +43,11 @@ def pdf_export(request, region_slug, language_code):
         url = request.GET.get("url").strip("/")
         # the last path component of the url is the page translation slug
         page_translation_slug = url.split("/")[-1]
-        # get page by filtering for translation slug and translation language code
+        # get page by filtering for translation slug and translation language slug
         page = get_object_or_404(
             pages,
             translations__slug=page_translation_slug,
-            translations__language__code=language_code,
+            translations__language__slug=language_slug,
         )
         pages = page.get_descendants(include_self=True)
-    return generate_pdf(region, language_code, pages)
+    return generate_pdf(region, language_slug, pages)

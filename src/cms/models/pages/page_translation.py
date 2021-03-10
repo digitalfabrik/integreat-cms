@@ -61,7 +61,7 @@ class PageTranslation(AbstractBasePageTranslation):
         """
         return "/".join(
             [
-                ancestor.get_first_translation([self.language.code]).slug
+                ancestor.get_first_translation([self.language.slug]).slug
                 for ancestor in self.page.get_ancestors()
             ]
         )
@@ -79,7 +79,7 @@ class PageTranslation(AbstractBasePageTranslation):
                 None,
                 [
                     self.page.region.slug,
-                    self.language.code,
+                    self.language.slug,
                     self.ancestor_path,
                     self.slug,
                 ],
@@ -110,7 +110,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
         mirrored_page_translation = self.page.get_mirrored_page_translation(
-            self.language.code
+            self.language.slug
         )
         if not mirrored_page_translation or not mirrored_page_translation.text:
             return self.text
@@ -129,7 +129,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :rtype: ~datetime.datetime
         """
         mirrored_page_translation = self.page.get_mirrored_page_translation(
-            self.language.code
+            self.language.slug
         )
         if (
             not self.text
@@ -236,7 +236,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
         if self.id:
-            return f"(id: {self.id}, page_id: {self.page.id}, lang: {self.language.code}, version: {self.version}, slug: {self.slug})"
+            return f"(id: {self.id}, page_id: {self.page.id}, lang: {self.language.slug}, version: {self.version}, slug: {self.slug})"
         return super().__str__()
 
     class Meta:

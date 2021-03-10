@@ -41,7 +41,7 @@ class EventFeedback(Feedback):
             kwargs={
                 "event_id": self.event_translation.event.id,
                 "region_slug": self.region.slug,
-                "language_code": self.event_translation.event.backend_translation.language.code,
+                "language_slug": self.event_translation.event.backend_translation.language.slug,
             },
         )
 
