@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-27T18:21:52+00:00" />
+    <meta property="article:modified_time" content="2021-03-10T16:46:36+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Events &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1156,7 +1156,7 @@
 <p>This module contains action methods for events (archive, restore, …)</p>
 <dl class="py function">
 <dt id="cms.views.events.event_actions.archive">
-<code class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></code><code class="sig-name descname"><span class="pre">archive</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.archive" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></code><code class="sig-name descname"><span class="pre">archive</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.archive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set archived flag for an event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1164,7 +1164,7 @@
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
 <li><p><strong>event_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – internal id of the event to be archived</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of the region which the event belongs to</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language code</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language slug</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1181,7 +1181,7 @@
 
 <dl class="py function">
 <dt id="cms.views.events.event_actions.delete">
-<code class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></code><code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></code><code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete a single event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1189,7 +1189,7 @@
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
 <li><p><strong>event_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – internal id of the event to be deleted</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of the region which the event belongs to</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language code</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language slug</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1203,7 +1203,7 @@
 
 <dl class="py function">
 <dt id="cms.views.events.event_actions.restore">
-<code class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></code><code class="sig-name descname"><span class="pre">restore</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.restore" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></code><code class="sig-name descname"><span class="pre">restore</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.restore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove archived flag for an event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1211,7 +1211,7 @@
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
 <li><p><strong>event_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – internal id of the event to be un-archived</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of the region which the event belongs to</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language code</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language slug</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1728,7 +1728,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 27, 2021.
+        Last updated on Mar 10, 2021.
       </span>
 
     </p>

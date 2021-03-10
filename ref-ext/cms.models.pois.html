@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-27T18:21:52+00:00" />
+    <meta property="article:modified_time" content="2021-03-10T16:46:36+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>POIs &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1354,11 +1354,11 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi.POI.get_public_translation">
-<code class="sig-name descname"><span class="pre">get_public_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_public_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_public_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_public_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function retrieves the newest public translation of a POI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+<dd class="field-odd"><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The public translation of a POI</p>
@@ -1371,12 +1371,12 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt id="cms.models.pois.poi.POI.get_translation">
-<code class="sig-name descname"><span class="pre">get_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pois.poi.POI.get_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
-and filters them to the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> code.</p>
+and filters them to the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> slug.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the desired <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+<dd class="field-odd"><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the desired <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The POI translation in the requested <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>
@@ -1642,7 +1642,7 @@ from <code class="docutils literal notranslate"><span class="pre">self.language<
 It only returns languages which have a public translation, so drafts are not included here.
 The returned dict has the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="n">available_translation</span><span class="o">.</span><span class="n">language</span><span class="o">.</span><span class="n">code</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">available_translation</span><span class="o">.</span><span class="n">language</span><span class="o">.</span><span class="n">slug</span><span class="p">:</span> <span class="p">{</span>
         <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">available_translation</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
         <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">available_translation</span><span class="o">.</span><span class="n">permalink</span>
     <span class="p">},</span>
@@ -2143,7 +2143,7 @@ failed.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 27, 2021.
+        Last updated on Mar 10, 2021.
       </span>
 
     </p>

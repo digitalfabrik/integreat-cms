@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-27T18:21:52+00:00" />
+    <meta property="article:modified_time" content="2021-03-10T16:46:36+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>POIs &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1156,7 +1156,7 @@
 <p>This module contains view actions for objects related to POIs.</p>
 <dl class="py function">
 <dt id="cms.views.pois.poi_actions.archive_poi">
-<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">archive_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.archive_poi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">archive_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.archive_poi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Archive POI object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1164,7 +1164,7 @@
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>poi_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the POI which should be archived</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the current language</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current language</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1178,7 +1178,7 @@
 
 <dl class="py function">
 <dt id="cms.views.pois.poi_actions.delete_poi">
-<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">delete_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.delete_poi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">delete_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.delete_poi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete POI object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1186,7 +1186,7 @@
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>poi_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the POI which should be deleted</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the current language</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current language</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1200,7 +1200,7 @@
 
 <dl class="py function">
 <dt id="cms.views.pois.poi_actions.restore_poi">
-<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">restore_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.restore_poi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">restore_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.restore_poi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore POI object (set <code class="docutils literal notranslate"><span class="pre">archived=False</span></code>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1208,7 +1208,7 @@
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>poi_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the POI which should be restored</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the current language</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current language</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1222,7 +1222,7 @@
 
 <dl class="py function">
 <dt id="cms.views.pois.poi_actions.view_poi">
-<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">view_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.view_poi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">view_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.view_poi" title="Permalink to this definition">¶</a></dt>
 <dd><p>View POI object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1230,7 +1230,7 @@
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>poi_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the POI which should be viewed</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the current language</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current language</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1715,7 +1715,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 27, 2021.
+        Last updated on Mar 10, 2021.
       </span>
 
     </p>

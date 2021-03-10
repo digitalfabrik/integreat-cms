@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-27T18:19:37+00:00" />
+    <meta property="article:modified_time" content="2021-03-10T16:46:36+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>V3 &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1171,7 +1171,7 @@
 <p>imprint API endpoint</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.imprint.</span></code><code class="sig-name descname"><span class="pre">imprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.imprint.</span></code><code class="sig-name descname"><span class="pre">imprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get imprint for language and return JSON object to client. If no imprint translation
 is available in the selected language, try to return the translation in the region
 default language.</p>
@@ -1180,7 +1180,7 @@ default language.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language code</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1239,14 +1239,14 @@ default language.</p>
 <p>Provides an endpoint for delivering a JSON with all active offers.</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></code><code class="sig-name descname"><span class="pre">offers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></code><code class="sig-name descname"><span class="pre">offers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to iterate through all offers related to a region and adds them to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language code</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1281,14 +1281,14 @@ default language.</p>
 <p>pages API endpoint</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.pages.</span></code><code class="sig-name descname"><span class="pre">pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.pages.</span></code><code class="sig-name descname"><span class="pre">pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to iterate through all non-archived pages of a region and return them as JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language code</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1325,7 +1325,7 @@ Single pages may be requested by url parameter, if no parameter is included all 
 related to the current region and language will be returned.</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.pdf_export.</span></code><code class="sig-name descname"><span class="pre">pdf_export</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pdf_export.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.pdf_export.</span></code><code class="sig-name descname"><span class="pre">pdf_export</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pdf_export.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View function that either returns the requested page specified by the
 url parameter or returns all pages of current region and language as PDF document
 by forwarding the request to <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.pdf_utils.generate_pdf" title="cms.utils.pdf_utils.generate_pdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_pdf()</span></code></a></p>
@@ -1334,7 +1334,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/cms.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – request that was sent to the server</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Slug defining the region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current language code</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current language slug</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1352,14 +1352,14 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/cms.
 <p>Retrieve push notifications that have been sent, optionally filtering by channel.</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.push_notifications.</span></code><code class="sig-name descname"><span class="pre">sent_push_notifications</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/push_notifications.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.push_notifications.</span></code><code class="sig-name descname"><span class="pre">sent_push_notifications</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/push_notifications.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to iterate through all sent push notifications related to a region and adds them to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language code</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1493,7 +1493,7 @@ problem.</p>
 be selected via the id or the permalink.</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">api.v3.single_page.</span></code><code class="sig-name descname"><span class="pre">single_page</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/single_page.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.single_page.</span></code><code class="sig-name descname"><span class="pre">single_page</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/single_page.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View function returning the desired page as a JSON or a 404 if the
 requested page does not exist.</p>
 <dl class="field-list simple">
@@ -1501,7 +1501,7 @@ requested page does not exist.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The request that has been sent to the Django server</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Slug defining the region</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Code to identify the desired language</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Code to identify the desired language</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1538,7 +1538,7 @@ requested page does not exist.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 27, 2021.
+        Last updated on Mar 10, 2021.
       </span>
 
     </p>

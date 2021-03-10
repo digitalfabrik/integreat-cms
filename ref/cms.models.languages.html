@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-27T18:19:37+00:00" />
+    <meta property="article:modified_time" content="2021-03-10T16:46:36+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Languages &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1163,7 +1163,8 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.AutoField" title="(in Django v3.1)"><em>AutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>code</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.1)"><em>SlugField</em></a>) – Language tag. Unique string identifier without spaces and special characters.</p></li>
+<li><p><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.1)"><em>SlugField</em></a>) – Language Slug. Unique string identifier used in URLs without spaces and special characters.</p></li>
+<li><p><strong>bcp47_tag</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.1)"><em>SlugField</em></a>) – BCP47 Tag. Language identifier without spaces and special characters. This field usually contains a combination of subtags from the IANA Subtag Registry.</p></li>
 <li><p><strong>native_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.CharField" title="(in Django v3.1)"><em>CharField</em></a>) – Native name</p></li>
 <li><p><strong>english_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.CharField" title="(in Django v3.1)"><em>CharField</em></a>) – Name in English</p></li>
 <li><p><strong>text_direction</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.CharField" title="(in Django v3.1)"><em>CharField</em></a>) – Text direction</p></li>
@@ -1201,12 +1202,13 @@
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">code</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">bcp47_tag</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a></p>
-<p>Language tag. Unique string identifier without spaces and special characters.</p>
+<p>BCP47 Tag. Language identifier without spaces and special characters. This field usually contains a combination of subtags from the IANA Subtag Registry.</p>
 <p>The recommended minimum buffer for <a class="reference external" href="https://tools.ietf.org/html/bcp47">bcp47</a> is 35.
-It’s unlikely that we have language codes longer than 8 characters though.
-See <a class="reference external" href="https://tools.ietf.org/html/bcp47#section-4.4.1">RFC 5646 Section 4.4.1.</a></p>
+It’s unlikely that we have language slugs longer than 8 characters though.
+See <a class="reference external" href="https://tools.ietf.org/html/bcp47#section-4.4.1">RFC 5646 Section 4.4.1.</a>
+Registered tags: <a class="reference external" href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry</a></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1251,7 +1253,8 @@ identified by the root node. The base functionality inherits from the package <a
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.AutoField" title="(in Django v3.1)"><em>AutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>active</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.1)"><em>BooleanField</em></a>) – Active. Whether or not it should be possible to create new pages in this language and content of this language should be delivered via the API</p></li>
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.1)"><em>BooleanField</em></a>) – Visible. Defined if this language should be delivered via the API</p></li>
+<li><p><strong>active</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.1)"><em>BooleanField</em></a>) – Active. Defined if content in this language can be created or edited</p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.1)"><em>DateTimeField</em></a>) – Creation date</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.1)"><em>DateTimeField</em></a>) – Modification date</p></li>
 <li><p><strong>lft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.1)"><em>PositiveIntegerField</em></a>) – Lft</p></li>
@@ -1291,20 +1294,6 @@ identified by the root node. The base functionality inherits from the package <a
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">code</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Returns the code of this node’s language</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The language code of this language node</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt>
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">depth</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Counts how many ancestors the node has. If the node is the root node, its depth is <cite>0</cite>.</p>
 <dl class="field-list simple">
@@ -1333,7 +1322,7 @@ identified by the root node. The base functionality inherits from the package <a
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_ancestors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_ancestors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the ancestors of this model
 instance.</p>
 <p>This defaults to being in descending order (root ancestor first,
@@ -1346,7 +1335,7 @@ include this model instance.</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_children</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_children</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the immediate children of this
 model instance, in tree order.</p>
 <p>The benefit of using this method over the reverse relation
@@ -1359,13 +1348,13 @@ a leaf node (it has no children).</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_descendant_count</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_descendant_count</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the number of descendants this model instance has.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_descendants</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_descendants</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing descendants of this model
 instance, in tree order.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">include_self</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> will also
@@ -1374,27 +1363,27 @@ include this model instance.</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_family</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_family</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the ancestors, the model itself
 and the descendants, in tree order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the root node of this model instance’s tree.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">insert_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first-child'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_existing_pk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">insert_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first-child'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_existing_pk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L144"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Convenience method for calling <code class="docutils literal notranslate"><span class="pre">TreeManager.insert_node</span></code> with this
 model instance.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">move_to</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first-child'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">move_to</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first-child'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Convenience method for calling <code class="docutils literal notranslate"><span class="pre">TreeManager.move_node</span></code> with this
 model instance.</p>
 <p>NOTE: This is a low-level method; it does NOT respect <code class="docutils literal notranslate"><span class="pre">MPTTMeta.order_insertion_by</span></code>.
@@ -1408,6 +1397,20 @@ In most cases you should just move the node yourself by setting node.parent.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The native name of this language node</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">slug</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Returns the slug of this node’s language</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The language slug of this language node</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
@@ -1467,7 +1470,7 @@ In most cases you should just move the node yourself by setting node.parent.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 27, 2021.
+        Last updated on Mar 10, 2021.
       </span>
 
     </p>

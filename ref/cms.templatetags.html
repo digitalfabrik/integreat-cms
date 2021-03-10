@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-20T23:10:36+00:00" />
+    <meta property="article:modified_time" content="2021-03-10T16:46:36+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Templatetags &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1201,11 +1201,11 @@ Filters transform the values of variables and are surrounded by <code class="doc
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_language</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_language</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the name of the requested language in the current backend language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested language</p>
+<dd class="field-odd"><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested language</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The translated name of the requested language</p>
@@ -1218,13 +1218,13 @@ Filters transform the values of variables and are surrounded by <code class="doc
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_public_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_public_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the most recent public translation of the requested content object in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a><em>, </em><a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><em>Event</em></a><em> or </em><a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><em>POI</em></a>) – The content object instance</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested language</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested language</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1239,13 +1239,13 @@ or <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.model
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the most recent translation of the requested content object in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a><em>, </em><a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><em>Event</em></a><em> or </em><a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><em>POI</em></a>) – The content object instance</p></li>
-<li><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested language</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested language</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1277,11 +1277,11 @@ or <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.model
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">translated_language_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">translated_language_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the name of the requested language in the current backend language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested language</p>
+<dd class="field-odd"><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested language</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The translated name of the requested language</p>
@@ -1294,15 +1294,15 @@ or <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.model
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">unify_language_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This tag returns the unified language code.
+<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">unify_language_slug</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This tag returns the unified language slug.
 This is used to treat British English and American English as the same language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>language_code</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The code of the requested language</p>
+<dd class="field-odd"><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested language</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The unified code of the requested language</p>
+<dd class="field-even"><p>The unified slug of the requested language</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
@@ -1550,7 +1550,7 @@ objects.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 20, 2021.
+        Last updated on Mar 10, 2021.
       </span>
 
     </p>
