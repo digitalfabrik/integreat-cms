@@ -1,6 +1,6 @@
 from ..placeholder_model_form import PlaceholderModelForm
 from ...models import OfferTemplate
-from ...utils.slug_utils import generate_unique_slug
+from ...utils.slug_utils import generate_unique_slug_helper
 
 
 class OfferTemplateForm(PlaceholderModelForm):
@@ -26,7 +26,7 @@ class OfferTemplateForm(PlaceholderModelForm):
         :return: A unique slug based on the input value
         :rtype: str
         """
-        return generate_unique_slug(self, "offer-template")
+        return generate_unique_slug_helper(self, "offer-template")
 
     def clean_post_data(self):
         """

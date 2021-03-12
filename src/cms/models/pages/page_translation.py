@@ -24,7 +24,7 @@ class PageTranslation(AbstractBasePageTranslation):
         max_length=200,
         blank=True,
         allow_unicode=True,
-        verbose_name=_("URL parameter"),
+        verbose_name=_("Page link"),
         help_text=__(
             _("String identifier without spaces and special characters."),
             _("Unique per region and language."),

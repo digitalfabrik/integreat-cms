@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from ..placeholder_model_form import PlaceholderModelForm
 from ...constants import status
 from ...models import POITranslation
-from ...utils.slug_utils import generate_unique_slug
+from ...utils.slug_utils import generate_unique_slug_helper
 
 
 logger = logging.getLogger(__name__)
@@ -128,7 +128,7 @@ class POITranslationForm(PlaceholderModelForm):
         :return: A unique slug based on the input value
         :rtype: str
         """
-        unique_slug = generate_unique_slug(self, "poi")
+        unique_slug = generate_unique_slug_helper(self, "poi")
         self.data = self.data.copy()
         self.data["slug"] = unique_slug
         return unique_slug

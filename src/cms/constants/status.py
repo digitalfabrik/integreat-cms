@@ -15,5 +15,5 @@ PUBLIC = "PUBLIC"
 CHOICES = (
     (DRAFT, _("Draft")),
     (REVIEW, _("Pending Review")),
-    (PUBLIC, _("Public")),
+    (PUBLIC, _("Published")),
 )

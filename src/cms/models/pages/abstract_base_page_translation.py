@@ -13,11 +13,11 @@ class AbstractBasePageTranslation(models.Model):
 
     title = models.CharField(
         max_length=250,
-        verbose_name=_("title"),
+        verbose_name=_("title of the page"),
     )
     text = models.TextField(
         blank=True,
-        verbose_name=_("content"),
+        verbose_name=_("content of the page"),
     )
     #: Manage choices in :mod:`cms.constants.status`
     status = models.CharField(
@@ -33,7 +33,7 @@ class AbstractBasePageTranslation(models.Model):
             "Flag to indicate a translation is being updated by an external translator"
         ),
     )
-    version = models.PositiveIntegerField(default=0, verbose_name=_("revision"))
+    version = models.PositiveIntegerField(default=0, verbose_name=_("version"))
     minor_edit = models.BooleanField(
         default=False,
         verbose_name=_("minor edit"),

@@ -1,12 +1,13 @@
 import logging
 
 from django.core.exceptions import ValidationError
+from django.forms import TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from ..placeholder_model_form import PlaceholderModelForm
 from ...constants import status
 from ...models import PageTranslation
-from ...utils.slug_utils import generate_unique_slug
+from ...utils.slug_utils import generate_unique_slug_helper
 
 
 logger = logging.getLogger(__name__)
@@ -27,6 +28,9 @@ class PageTranslationForm(PlaceholderModelForm):
         model = PageTranslation
         #: The fields of the model which should be handled by this form
         fields = ["title", "slug", "status", "text", "minor_edit"]
+        widgets = {
+            "slug": TextInput(attrs={"readonly": "readonly"}),
+        }
 
     def __init__(self, *args, **kwargs):
         """
@@ -38,7 +42,6 @@ class PageTranslationForm(PlaceholderModelForm):
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
         """
-
         logger.info("New PageTranslationForm with args %s and kwargs %s", args, kwargs)
 
         # pop kwarg to make sure the super class does not get this param
@@ -122,7 +125,7 @@ class PageTranslationForm(PlaceholderModelForm):
         :return: A unique slug based on the input value
         :rtype: str
         """
-        return generate_unique_slug(self, "page")
+        return generate_unique_slug_helper(self, "page")
 
     def clean_text(self):
         """
