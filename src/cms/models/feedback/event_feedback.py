@@ -26,7 +26,7 @@ class EventFeedback(Feedback):
         :return: The name of the object this feedback refers to
         :rtype: str
         """
-        return self.event_translation.event.backend_translation.title
+        return self.event_translation.event.best_translation.title
 
     @property
     def object_url(self):
@@ -41,7 +41,7 @@ class EventFeedback(Feedback):
             kwargs={
                 "event_id": self.event_translation.event.id,
                 "region_slug": self.region.slug,
-                "language_slug": self.event_translation.event.backend_translation.language.slug,
+                "language_slug": self.event_translation.event.best_translation.language.slug,
             },
         )
 

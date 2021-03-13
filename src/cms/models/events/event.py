@@ -194,18 +194,35 @@ class Event(models.Model):
     @property
     def backend_translation(self):
         """
-        This function tries to determine which translation to be used for showing an event in the backend.
-        The first priority is the current backend language.
-        If no translation is present in this language, the fallback is the region's default language.
+        This function returns the translation of this event in the current backend language.
+
+        :return: The backend translation of a event
+        :rtype: ~cms.models.events.event_translation.EventTranslation
+        """
+        return self.translations.filter(language__slug=get_language()).first()
+
+    @property
+    def default_translation(self):
+        """
+        This function returns the translation of this event in the region's default language.
+        Since an event can only be created by creating a translation in the default language, this is guaranteed to return
+        an event translation.
+
+        :return: The default translation of an event
+        :rtype: ~cms.models.events.event_translation.EventTranslation
+        """
+        return self.translations.filter(language=self.region.default_language).first()
+
+    @property
+    def best_translation(self):
+        """
+        This function returns the translation of this event in the current backend language and if it doesn't exist, it
+        provides a fallback to the translation in the region's default language.
 
         :return: The "best" translation of an event for displaying in the backend
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
-        event_translation = self.translations.filter(language__slug=get_language())
-        if not event_translation.exists():
-            alt_slug = self.region.default_language.slug
-            event_translation = self.translations.filter(language__slug=alt_slug)
-        return event_translation.first()
+        return self.backend_translation or self.default_translation
 
     class Meta:
         #: The verbose name of the model

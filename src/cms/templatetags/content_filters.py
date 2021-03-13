@@ -68,13 +68,13 @@ def translated_language_name(language_slug):
 @register.simple_tag
 def get_language(language_slug):
     """
-    This tag returns the name of the requested language in the current backend language
+    This tag returns the requested language by slug
 
     :param language_slug: The slug of the requested language
     :type language_slug: str
 
-    :return: The translated name of the requested language
-    :rtype: str
+    :return: The requested language
+    :rtype: ~cms.models.languages.language.Language
     """
     return Language.objects.filter(slug=language_slug).first()
 

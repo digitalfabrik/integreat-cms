@@ -61,7 +61,9 @@ class PageTranslation(AbstractBasePageTranslation):
         """
         return "/".join(
             [
-                ancestor.get_first_translation([self.language.slug]).slug
+                ancestor.get_translation(self.language.slug).slug
+                if ancestor.get_translation(self.language.slug)
+                else ancestor.default_translation.slug
                 for ancestor in self.page.get_ancestors()
             ]
         )

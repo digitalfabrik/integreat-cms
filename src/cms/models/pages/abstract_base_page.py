@@ -71,29 +71,6 @@ class AbstractBasePage(models.Model):
         """
         return self.translations.filter(language__slug=language_slug).first()
 
-    def get_first_translation(self, priority_language_slugs=None):
-        """
-        Helper function for page labels, second level paths etc. where the ancestor translation might not exist
-        This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the first requested :class:`~cms.models.languages.language.Language` slug that matches.
-        So a lower list index means a higher priority.
-
-        :param priority_language_slugs: A list of :class:`~cms.models.languages.language.Language` slugs,
-                                        defaults to ``None``
-        :type priority_language_slugs: list [ str ]
-
-        :return: The first page translation which matches one of the :class:`~cms.models.languages.language.Language`
-                 given or :obj:`None` if no translation exists
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
-        """
-        # Taking [] directly as default parameter would be dangerous because it is mutable
-        if not priority_language_slugs:
-            priority_language_slugs = []
-        for language_slug in priority_language_slugs + ["en-us", "de-de"]:
-            if self.translations.filter(language__slug=language_slug).exists():
-                return self.translations.filter(language__slug=language_slug).first()
-        return self.translations.first()
-
     def get_public_translation(self, language_slug):
         """
         This function retrieves the newest public translation of a page.
@@ -112,18 +89,35 @@ class AbstractBasePage(models.Model):
     @property
     def backend_translation(self):
         """
-        This function tries to determine which translation to be used for showing a page in the backend.
-        The first priority is the current backend language.
-        If no translation is present in this language, the fallback is the region's default language.
+        This function returns the translation of this page in the current backend language.
+
+        :return: The backend translation of a page
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        """
+        return self.translations.filter(language__slug=get_language()).first()
+
+    @property
+    def default_translation(self):
+        """
+        This function returns the translation of this page in the region's default language.
+        Since a page can only be created by creating a translation in the default language, this is guaranteed to return
+        a page translation.
+
+        :return: The default translation of a page
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        """
+        return self.translations.filter(language=self.region.default_language).first()
+
+    @property
+    def best_translation(self):
+        """
+        This function returns the translation of this page in the current backend language and if it doesn't exist, it
+        provides a fallback to the translation in the region's default language.
 
         :return: The "best" translation of a page for displaying in the backend
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
-        page_translation = self.translations.filter(language__slug=get_language())
-        if not page_translation.exists():
-            alt_slug = self.region.default_language.slug
-            page_translation = self.translations.filter(language__slug=alt_slug)
-        return page_translation.first()
+        return self.backend_translation or self.default_translation
 
     def __str__(self):
         """

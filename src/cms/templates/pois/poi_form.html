@@ -22,9 +22,8 @@
                         {% trans 'Create new translation of the location' %}
                     {% endif %}
                     {% get_current_language as LANGUAGE_CODE %}
-                    {% get_translation poi_form.instance LANGUAGE_CODE as backend_translation %}
-                    {% if backend_translation and LANGUAGE_CODE != language.slug %}
-                        ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
+                    {% if poi_form.instance.backend_translation and LANGUAGE_CODE != language.slug %}
+                        ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ poi_form.instance.backend_translation.title }}")
                     {% endif %}
                 {% else %}
                     {% trans 'Create new location' %}
