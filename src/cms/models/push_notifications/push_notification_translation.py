@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from ..languages.language import Language
+from .push_notification import PushNotification
+
 
 class PushNotificationTranslation(models.Model):
     """
@@ -19,13 +22,13 @@ class PushNotificationTranslation(models.Model):
         verbose_name=_("content"),
     )
     language = models.ForeignKey(
-        "Language",
+        Language,
         on_delete=models.CASCADE,
         related_name="push_notification_translations",
         verbose_name=_("language"),
     )
     push_notification = models.ForeignKey(
-        "PushNotification",
+        PushNotification,
         on_delete=models.CASCADE,
         related_name="translations",
         verbose_name=_("push notification"),
@@ -41,12 +44,23 @@ class PushNotificationTranslation(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <PushNotificationTranslation object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PushNotificationTranslation object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation (in this case the title) of the push notification translation
+        :return: A readable string representation of the event
         :rtype: str
         """
         return self.title
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<PushNotificationTranslation: PushNotificationTranslation object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the event
+        :rtype: str
+        """
+        return f"<PushNotificationTranslation (id: {self.id}, push_notification_id: {self.push_notification.id}, title: {self.title})>"
 
     class Meta:
         #: The verbose name of the model

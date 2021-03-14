@@ -114,6 +114,26 @@ class POI(models.Model):
         """
         return self.backend_translation or self.default_translation
 
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``POI object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the POI
+        :rtype: str
+        """
+        return self.best_translation.title
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<POI: POI object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the POI
+        :rtype: str
+        """
+        return f"<POI (id: {self.id}, region: {self.region.slug}, slug: {self.best_translation.slug})>"
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("location")

@@ -4,7 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from ...constants import feedback_ratings, feedback_read_status
 from ...models import Feedback, Language
-from ..language_tree.language_tree_node_form import LanguageField
 
 
 class RegionFeedbackFilterForm(forms.Form):
@@ -12,7 +11,7 @@ class RegionFeedbackFilterForm(forms.Form):
     Form for filtering feedback objects
     """
 
-    language = LanguageField(
+    language = forms.ModelChoiceField(
         Language.objects.all(),
         label=_("Language"),
         empty_label=_("All languages"),

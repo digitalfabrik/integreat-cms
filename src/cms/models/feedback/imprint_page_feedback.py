@@ -19,7 +19,6 @@ class ImprintPageFeedback(Feedback):
         :rtype: str
         """
         try:
-            # pylint: disable=no-member
             return self.region.imprint.get_translation(self.language.slug).title
         except ImprintPage.DoesNotExist:
             return _("Imprint")

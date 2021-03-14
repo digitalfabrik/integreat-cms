@@ -40,12 +40,23 @@ class Document(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <Document object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Document object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation (in this case the filename) of the document
+        :return: A readable string representation of the document
         :rtype: str
         """
         return self.document.name
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<Document: Document object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the document
+        :rtype: str
+        """
+        return f"<Document (id: {self.id}, name: {self.document.name})>"
 
     class Meta:
         #: The verbose name of the model

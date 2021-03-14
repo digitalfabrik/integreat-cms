@@ -77,18 +77,6 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         """
         return settings.IMPRINT_SLUG
 
-    def __str__(self):
-        """
-        This overwrites the default Python __str__ method which would return <ImprintPageTranslation object at 0xDEADBEEF>
-
-        :return: The string representation of the imprint page translation with information about the most important
-                 fields (useful for debugging purposes)
-        :rtype: str
-        """
-        if self.id:
-            return f"(id: {self.id}, page_id: {self.page.id}, lang: {self.language.slug}, version: {self.version})"
-        return super().__str__()
-
     class Meta:
         #: The verbose name of the model
         verbose_name = _("imprint translation")

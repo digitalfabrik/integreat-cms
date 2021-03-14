@@ -11,12 +11,23 @@ class PushNotificationChannel(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method, returns the channel name
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PushNotificationChannel object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: channel name
+        :return: A readable string representation of the push notification channel
         :rtype: str
         """
         return self.name
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<PushNotificationChannel: PushNotificationChannel object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the push notification channel
+        :rtype: str
+        """
+        return f"<PushNotificationChannel (id: {self.id}, name: {self.name})>"
 
     class Meta:
         #: The verbose name of the model

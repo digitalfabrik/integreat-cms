@@ -121,18 +121,24 @@ class AbstractBasePage(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <Page object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``AbstractBasePage object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation of the page with information about the most important fields (useful for
-                 debugging purposes)
+        :return: A readable string representation of the page
         :rtype: str
         """
-        if self.id:
-            first_translation = self.get_first_translation()
-            if first_translation:
-                return f"(id: {self.id}, slug: {first_translation.slug} ({first_translation.language.slug}))"
-            return f"(id: {self.id})"
-        return super().__str__()
+        return self.best_translation.title
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<AbstractBasePage: AbstractBasePage object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the page
+        :rtype: str
+        """
+        class_name = type(self).__name__
+        return f"<{class_name} (id: {self.id}, region: {self.region.slug}, slug: {self.best_translation.slug})>"
 
     class Meta:
         #: The verbose name of the model

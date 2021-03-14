@@ -1,115 +1,18 @@
 import logging
 
-from html import escape
-
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
-from django.utils.html import mark_safe
-from django.utils.translation import ugettext as _, get_language
 from django.utils.text import capfirst
 
-from ...constants import position, region_status, mirrored_page_first
+from ...constants import position, mirrored_page_first
 from ...models import Page, Region
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
 from .parent_field_widget import ParentFieldWidget
 
-
 logger = logging.getLogger(__name__)
-
-
-class ParentField(forms.ModelChoiceField):
-    """
-    Form field helper class to overwrite the label function (which would otherwise call __str__)
-    """
-
-    #: The language of this field
-    language = None
-
-    # pylint: disable=arguments-differ
-    def label_from_instance(self, page):
-        """
-        Generate a label for the given page in the parent page select options
-
-        :param page: The page which should be used as parent
-        :type page: ~cms.models.pages.page.Page
-
-        :return: The label for the given page
-        :rtype: str
-        """
-        label = " &rarr; ".join(
-            [
-                # escape page title because string is marked as safe afterwards
-                escape(
-                    page.get_first_translation(
-                        [get_language(), self.language.slug]
-                    ).title
-                )
-                for page in page.get_ancestors(include_self=True)
-            ]
-        )
-        logger.debug("Label for page %r: %r", page, label)
-        # mark as safe so that the arrow is not escaped
-        return mark_safe(label)
-
-
-class MirrorPageField(forms.ModelChoiceField):
-    """
-    Form field helper class to show ancestors page titles in mirror page select
-    """
-
-    # pylint: disable=arguments-differ
-    def label_from_instance(self, page):
-        """
-        Generate a label for the given page in the mirror page select options
-
-        :param page: The page which should be mirrored
-        :type page: ~cms.models.pages.page.Page
-
-        :return: The label for the given page
-        :rtype: str
-        """
-        label = " &rarr; ".join(
-            [
-                # escape page title because string is marked as safe afterwards
-                escape(page_iter.backend_translation.title)
-                for page_iter in page.get_ancestors(include_self=True)
-            ]
-        )
-        # Add warning if page is archived
-        if page.archived:
-            label += " (&#9888; " + _("Archived") + ")"
-        # mark as safe so that the arrow and the warning triangle are not escaped
-        return mark_safe(label)
-
-
-class MirroredPageRegionField(forms.ModelChoiceField):
-    """
-    Form field helper class to warnings if mirrored content comes from hidden or archived region
-    """
-
-    # pylint: disable=arguments-differ
-    def label_from_instance(self, region):
-        """
-        Generate a label for the selected region in the mirror page select options
-
-        :param region: The region from which a page should be mirrored
-        :type region: ~cms.models.pages.page.Page
-
-        :return: The label for the given region
-        :rtype: str
-        """
-        label = escape(super().label_from_instance(region))
-        if region.status == region_status.HIDDEN:
-            # Add warning if region is hidden
-            label += " (&#9888; " + _("Hidden") + ")"
-        elif region.status == region_status.ARCHIVED:
-            # Add warning if region is archived
-            label += " (&#9888; " + _("Archived") + ")"
-        # mark as safe so that the warning triangle is not escaped
-        return mark_safe(label)
 
 
 class PageForm(CustomModelForm):
@@ -117,7 +20,7 @@ class PageForm(CustomModelForm):
     Form for creating and modifying page objects
     """
 
-    parent = ParentField(
+    parent = forms.ModelChoiceField(
         queryset=Page.objects.all(),
         required=False,
         widget=ParentFieldWidget(),
@@ -137,7 +40,7 @@ class PageForm(CustomModelForm):
     publishers = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(), required=False
     )
-    mirrored_page_region = MirroredPageRegionField(
+    mirrored_page_region = forms.ModelChoiceField(
         queryset=Region.objects.all(), required=False
     )
 
@@ -151,8 +54,6 @@ class PageForm(CustomModelForm):
         model = Page
         #: The fields of the model which should be handled by this form
         fields = ["icon", "mirrored_page", "mirrored_page_first", "organization"]
-        #: The classes for the fields if they differ from the standard field class
-        field_classes = {"mirrored_page": MirrorPageField}
         #: The widgets for the fields if they differ from the standard widgets
         widgets = {
             "mirrored_page_first": forms.Select(choices=mirrored_page_first.CHOICES),

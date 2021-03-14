@@ -1,8 +1,11 @@
 import logging
 
+from html import escape
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from backend.settings import BASE_URL
@@ -231,15 +234,28 @@ class PageTranslation(AbstractBasePageTranslation):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <PageTranslation object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PageTranslation object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation of the page translation with information about the most important fields
-                 (useful for debugging purposes)
+        :return: A readable string representation of the page translation
         :rtype: str
         """
-        if self.id:
-            return f"(id: {self.id}, page_id: {self.page.id}, lang: {self.language.slug}, version: {self.version}, slug: {self.slug})"
-        return super().__str__()
+        label = " &rarr; ".join(
+            [
+                # escape page title because string is marked as safe afterwards
+                escape(
+                    ancestor.get_translation(self.language.slug).title
+                    if ancestor.get_translation(self.language.slug)
+                    else ancestor.best_translation.title
+                )
+                for ancestor in self.page.get_ancestors(include_self=True)
+            ]
+        )
+        # Add warning if page is archived
+        if self.page.archived:
+            label += " (&#9888; " + _("Archived") + ")"
+        # mark as safe so that the arrow and the warning triangle are not escaped
+        return mark_safe(label)
 
     class Meta:
         #: The verbose name of the model

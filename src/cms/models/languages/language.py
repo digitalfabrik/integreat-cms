@@ -1,6 +1,7 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
 from ...constants import text_directions
@@ -76,16 +77,29 @@ class Language(models.Model):
         :return: The translated name of the language
         :rtype: str
         """
-        return _(self.english_name)
+        return ugettext(self.english_name)
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <Language object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Language object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation (in this case the English name) of the language
+        :return: A readable string representation of the language
         :rtype: str
         """
-        return self.english_name
+        return self.translated_name
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<Language: Language object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the language
+        :rtype: str
+        """
+        return (
+            f"<Language (id: {self.id}, slug: {self.slug}, name: {self.english_name})>"
+        )
 
     class Meta:
         #: The verbose name of the model

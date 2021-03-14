@@ -159,12 +159,23 @@ class LanguageTreeNode(MPTTModel):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <LanguageTreeNode object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``LanguageTreeNode object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation (in this case the English name) of the node's language
+        :return: A readable string representation of the language node
         :rtype: str
         """
-        return self.language.english_name
+        return self.translated_name
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<LanguageTreeNode: LanguageTreeNode object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the language node
+        :rtype: str
+        """
+        return f"<LanguageTreeNode (id: {self.id}, language: {self.language.slug}, region: {self.region})>"
 
     class Meta:
         #: The verbose name of the model

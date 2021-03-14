@@ -291,12 +291,23 @@ class EventTranslation(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <EventTranslation object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``EventTranslation object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation (in this case the title) of the event
+        :return: A readable string representation of the event translation
         :rtype: str
         """
         return self.title
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<EventTranslation: EventTranslation object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the event translation
+        :rtype: str
+        """
+        return f"<EventTranslation (id: {self.id}, event_id: {self.event.id}, language: {self.language.slug}, slug: {self.slug})>"
 
     class Meta:
         #: The verbose name of the model

@@ -10,15 +10,6 @@ from ...models import Language, LanguageTreeNode
 logger = logging.getLogger(__name__)
 
 
-class LanguageField(forms.ModelChoiceField):
-    """
-    Form field helper class to overwrite the label function (which would otherwise call __str__)
-    """
-
-    def label_from_instance(self, obj):
-        return obj.translated_name
-
-
 class LanguageTreeNodeForm(CustomModelForm):
     """
     Form for creating and modifying language tree node objects
@@ -34,11 +25,6 @@ class LanguageTreeNodeForm(CustomModelForm):
         model = LanguageTreeNode
         #: The fields of the model which should be handled by this form
         fields = ["language", "parent", "visible", "active"]
-        #: The custom field classes to be used in this form
-        field_classes = {
-            "language": LanguageField,
-            "parent": LanguageField,
-        }
 
     def __init__(self, *args, **kwargs):
 
