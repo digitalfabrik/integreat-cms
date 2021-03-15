@@ -9,6 +9,7 @@ from django.http import Http404
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseNotFound
+from django.views.decorators.http import require_POST
 
 from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, staff_required
@@ -17,6 +18,7 @@ from ...models import Region, ImprintPage, ImprintPageTranslation
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.manage_imprint", raise_exception=True)
@@ -57,6 +59,7 @@ def archive_imprint(request, region_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.manage_imprint", raise_exception=True)
@@ -97,6 +100,7 @@ def restore_imprint(request, region_slug):
     )
 
 
+@require_POST
 @login_required
 @staff_required
 @permission_required("cms.manage_imprint", raise_exception=True)

@@ -1,3 +1,5 @@
+import { getCsrfToken } from "../utils/csrf-token";
+
 window.addEventListener("load", () => {
   if (
     document.getElementById("poi-query-input") &&
@@ -21,9 +23,7 @@ async function queryPois(
   const response = await fetch(url, {
     method: "POST",
     headers: {
-      "X-CSRFToken": (document.querySelector(
-        "input[name=csrfmiddlewaretoken]"
-      ) as HTMLInputElement).value,
+      "X-CSRFToken": getCsrfToken(),
     },
     body: JSON.stringify({
       query_string: queryString,

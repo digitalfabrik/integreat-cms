@@ -40,7 +40,7 @@ async function sendChatMessage(event: Event) {
       body: new FormData(chatForm),
     });
 
-    // HTTP status 201 Created means the chat message was sent successfully (status 200 OK could also mean CSRF error)
+    // HTTP status 201 Created means the chat message was sent successfully
     if (response.status === 201) {
       // The response text contains the rendered message html
       const data = await response.text();

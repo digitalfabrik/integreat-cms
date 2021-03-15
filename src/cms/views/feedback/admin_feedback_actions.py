@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_POST
 
 from ...decorators import staff_required
 from ...models import Feedback
@@ -15,6 +16,7 @@ from ...models import Feedback
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @login_required
 @staff_required
 def mark_admin_feedback_as_read(request):
@@ -46,6 +48,7 @@ def mark_admin_feedback_as_read(request):
     return redirect("admin_feedback")
 
 
+@require_POST
 @login_required
 @staff_required
 def mark_admin_feedback_as_unread(request):
@@ -75,6 +78,7 @@ def mark_admin_feedback_as_unread(request):
     return redirect("admin_feedback")
 
 
+@require_POST
 @login_required
 @staff_required
 def delete_admin_feedback(request):

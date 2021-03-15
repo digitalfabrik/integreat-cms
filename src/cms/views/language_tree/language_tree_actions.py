@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required
 from ...models import LanguageTreeNode, Region
@@ -17,6 +18,7 @@ from ...models import LanguageTreeNode, Region
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.manage_language_tree", raise_exception=True)
@@ -76,6 +78,7 @@ def move_language_tree_node(
     return redirect("language_tree", **{"region_slug": region_slug})
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.manage_language_tree", raise_exception=True)

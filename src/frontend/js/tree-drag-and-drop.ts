@@ -112,8 +112,9 @@ so the changes to the dom must be delayed */
     const target = (event.target as HTMLElement).closest("tr");
     const target_id = target.getAttribute("data-drop-id");
     const position = target.getAttribute("data-drop-position");
-    // call view to move a node (current location is the nodes url)
-    window.location.href =
-      window.location.href + node_id + "/move/" + target_id + "/" + position;
+    // abuse confirmation dialog form to perform action
+    let form = document.getElementById("confirmation-dialog").querySelector("form");
+    form.action = window.location.href + node_id + "/move/" + target_id + "/" + position;
+    form.submit();
   }
 });

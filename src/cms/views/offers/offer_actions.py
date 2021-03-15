@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
+from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required
 from ...models import Region, Offer, OfferTemplate
@@ -14,6 +15,7 @@ from ...models import Region, Offer, OfferTemplate
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.manage_offers", raise_exception=True)
@@ -48,6 +50,7 @@ def activate(request, region_slug, offer_template_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.manage_offers", raise_exception=True)

@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required, staff_required
 from ...models import POI
@@ -15,6 +16,7 @@ from ...models import POI
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.manage_pois", raise_exception=True)
@@ -54,6 +56,7 @@ def archive_poi(request, poi_id, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.manage_pois", raise_exception=True)
@@ -93,6 +96,7 @@ def restore_poi(request, poi_id, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @staff_required
 def delete_poi(request, poi_id, region_slug, language_slug):
