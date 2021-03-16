@@ -26,7 +26,6 @@
 		</a>
 	</td>
     {% get_current_language as LANGUAGE_CODE %}
-    {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE != language.slug %}
         {% get_language LANGUAGE_CODE as backend_language %}
         {% if backend_language %}

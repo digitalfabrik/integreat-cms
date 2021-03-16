@@ -45,7 +45,6 @@
                 <th class="text-sm text-left uppercase py-3">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
-                {% unify_language_slug LANGUAGE_CODE as LANGUAGE_CODE %}
                 {% if LANGUAGE_CODE != language.slug %}
                     {% get_language LANGUAGE_CODE as backend_language %}
                     {% if backend_language %}

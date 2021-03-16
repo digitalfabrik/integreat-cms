@@ -147,7 +147,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             region_slug="demo",
-            language_slug="en-us",
+            language_slug="en",
             publish=True,
         )
 
@@ -169,7 +169,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             region_slug="demo",
-            language_slug="en-us",
+            language_slug="en",
             publish=True,
         )
 
@@ -186,7 +186,7 @@ class SetupClass(TestCase):
             user=self.user,
             page_id=self.page_slot_one.id,
             region_slug="demo",
-            language_slug="de-de",
+            language_slug="de",
             publish=True,
         )
 
@@ -202,7 +202,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             region_slug="demo",
-            language_slug="en-us",
+            language_slug="en",
             publish=True,
         )
 
@@ -218,7 +218,7 @@ class SetupClass(TestCase):
             },
             user=self.user,
             region_slug="demo",
-            language_slug="en-us",
+            language_slug="en",
             publish=True,
         )
 
@@ -244,8 +244,8 @@ class PageFormTestCase(SetupClass):
         self.assertEqual(len(self.page_slot_one.languages), 2)
         self.assertEqual(len(self.page_slot_two.languages), 1)
 
-        self.assertIsNone(self.page_tunews.get_translation("de-de"))
-        self.assertIsNotNone(self.page_slot_one.get_translation("de-de"))
+        self.assertIsNone(self.page_tunews.get_translation("de"))
+        self.assertIsNotNone(self.page_slot_one.get_translation("de"))
 
     # pylint: disable=missing-function-docstring
     def test_pages(self):
