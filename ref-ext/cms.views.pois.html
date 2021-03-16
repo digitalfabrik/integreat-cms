@@ -317,6 +317,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#parent-field-widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.pois.html">POIs</a><ul>
@@ -326,6 +327,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.push_notifications.html#push-notification-translation-form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.regions.html">Regions</a><ul>
@@ -345,8 +347,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.middleware.html">Middleware</a><ul>
@@ -462,6 +464,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#translation-utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -735,6 +738,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.parent_field_widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
@@ -744,6 +748,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_translation_form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
@@ -763,8 +768,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -880,6 +885,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -1180,7 +1186,7 @@
 
 <dl class="py function">
 <dt id="cms.views.pois.poi_actions.delete_poi">
-<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">delete_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.delete_poi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">delete_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.delete_poi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete POI object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1202,7 +1208,7 @@
 
 <dl class="py function">
 <dt id="cms.views.pois.poi_actions.restore_poi">
-<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">restore_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.restore_poi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">restore_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.restore_poi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore POI object (set <code class="docutils literal notranslate"><span class="pre">archived=False</span></code>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1224,7 +1230,7 @@
 
 <dl class="py function">
 <dt id="cms.views.pois.poi_actions.view_poi">
-<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">view_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.view_poi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.pois.poi_actions.</span></code><code class="sig-name descname"><span class="pre">view_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pois/poi_actions.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.pois.poi_actions.view_poi" title="Permalink to this definition">¶</a></dt>
 <dd><p>View POI object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

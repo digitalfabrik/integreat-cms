@@ -317,6 +317,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#parent-field-widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.pois.html">POIs</a><ul>
@@ -326,6 +327,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.push_notifications.html#push-notification-translation-form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.regions.html">Regions</a><ul>
@@ -345,8 +347,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.middleware.html">Middleware</a><ul>
@@ -462,6 +464,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#translation-utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -735,6 +738,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.parent_field_widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
@@ -744,6 +748,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_translation_form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
@@ -763,8 +768,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -880,6 +885,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -1157,7 +1163,7 @@
 <span id="language-tree-node-form"></span><h2>Language Tree Node Form<a class="headerlink" href="#module-cms.forms.language_tree.language_tree_node_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.language_tree.language_tree_node_form.</span></code><code class="sig-name descname"><span class="pre">LanguageField</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'---------'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">help_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_field_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_choices_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.language_tree.language_tree_node_form.</span></code><code class="sig-name descname"><span class="pre">LanguageField</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'---------'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">help_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_field_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_choices_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ModelChoiceField</span></code></a></p>
 <p>Form field helper class to overwrite the label function (which would otherwise call __str__)</p>
 <dl class="py method">
@@ -1178,7 +1184,7 @@ a bit differently.</p>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField.choices">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">choices</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.choices" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">choices</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.choices" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1190,17 +1196,17 @@ appropriate Python object. Raise ValidationError for any errors.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField.default_error_messages">
-<code class="sig-name descname"><span class="pre">default_error_messages</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'invalid_choice':</span> <span class="pre">'Select</span> <span class="pre">a</span> <span class="pre">valid</span> <span class="pre">choice.</span> <span class="pre">That</span> <span class="pre">choice</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">one</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">available</span> <span class="pre">choices.'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.default_error_messages" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">default_error_messages</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'invalid_choice':</span> <span class="pre">'Select</span> <span class="pre">a</span> <span class="pre">valid</span> <span class="pre">choice.</span> <span class="pre">That</span> <span class="pre">choice</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">one</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">available</span> <span class="pre">choices.'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.default_error_messages" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField.default_validators">
-<code class="sig-name descname"><span class="pre">default_validators</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.default_validators" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">default_validators</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.default_validators" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField.empty_values">
-<code class="sig-name descname"><span class="pre">empty_values</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[None,</span> <span class="pre">'',</span> <span class="pre">[],</span> <span class="pre">(),</span> <span class="pre">{}]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.empty_values" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">empty_values</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[None,</span> <span class="pre">'',</span> <span class="pre">[],</span> <span class="pre">(),</span> <span class="pre">{}]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.empty_values" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1225,7 +1231,7 @@ field in a template.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField.hidden_widget">
-<code class="sig-name descname"><span class="pre">hidden_widget</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.hidden_widget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">hidden_widget</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.hidden_widget" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/widgets/#django.forms.HiddenInput" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.HiddenInput</span></code></a></p>
 </dd></dl>
 
@@ -1237,7 +1243,7 @@ field in a template.</p>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField.label_from_instance">
-<code class="sig-name descname"><span class="pre">label_from_instance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.label_from_instance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">label_from_instance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.label_from_instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert objects into strings and generate the labels for the choices
 presented by this object. Subclasses can override this method to
 customize the display of the choices.</p>
@@ -1250,7 +1256,7 @@ customize the display of the choices.</p>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField.queryset">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">queryset</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.queryset" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">queryset</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1278,7 +1284,7 @@ customize the display of the choices.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageField.widget">
-<code class="sig-name descname"><span class="pre">widget</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.widget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">widget</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageField.widget" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/widgets/#django.forms.Select" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Select</span></code></a></p>
 </dd></dl>
 
@@ -1294,8 +1300,8 @@ Field.</p>
 
 <dl class="py class">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.language_tree.language_tree_node_form.</span></code><code class="sig-name descname"><span class="pre">LanguageTreeNodeForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ModelForm</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.language_tree.language_tree_node_form.</span></code><code class="sig-name descname"><span class="pre">LanguageTreeNodeForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
 <p>Form for creating and modifying language tree node objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -1306,8 +1312,19 @@ Field.</p>
 </ul>
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize placeholder model form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If form is instantiated directly without an inheriting subclass</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1361,12 +1378,12 @@ prefix set.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.changed_data">
-<code class="sig-name descname"><span class="pre">changed_data</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">changed_data</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.changed_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a>:
 Don’t allow multiple root nodes for one region:
 If self is a root node and the region already has a default language, raise a
@@ -1383,18 +1400,18 @@ If self is a root node and the region already has a default language, raise a
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.default_renderer">
-<code class="sig-name descname"><span class="pre">default_renderer</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.default_renderer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">default_renderer</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.default_renderer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.errors">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">errors</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.errors" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">errors</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an ErrorDict for the data provided for the form.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.field_order">
-<code class="sig-name descname"><span class="pre">field_order</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.field_order" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">field_order</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.field_order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1443,7 +1460,7 @@ FileInput, or False otherwise.</p>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.media">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">media</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.media" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">media</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.media" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
@@ -1469,26 +1486,33 @@ without redefining ordering.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.prefix">
-<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to save the form instance</p>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
+logging</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The saved language tree node object</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode">LanguageTreeNode</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The saved object returned by <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#topics-modelform-save" title="(in Django v3.1)"><span>The save() method</span></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)">object</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.use_required_attribute">
-<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/language_tree/language_tree_node_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

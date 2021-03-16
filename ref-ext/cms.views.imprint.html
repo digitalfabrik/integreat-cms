@@ -317,6 +317,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.pages.html#parent-field-widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.pois.html">POIs</a><ul>
@@ -326,6 +327,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.push_notifications.html#push-notification-translation-form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.regions.html">Regions</a><ul>
@@ -345,8 +347,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.middleware.html">Middleware</a><ul>
@@ -462,6 +464,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#translation-utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -735,6 +738,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#module-cms.forms.pages.parent_field_widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
@@ -744,6 +748,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_translation_form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
@@ -763,8 +768,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -880,6 +885,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -1180,7 +1186,7 @@
 
 <dl class="py function">
 <dt id="cms.views.imprint.imprint_actions.delete_imprint">
-<code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_actions.</span></code><code class="sig-name descname"><span class="pre">delete_imprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_actions.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_actions.delete_imprint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_actions.</span></code><code class="sig-name descname"><span class="pre">delete_imprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_actions.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_actions.delete_imprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete imprint object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1203,7 +1209,7 @@
 
 <dl class="py function">
 <dt id="cms.views.imprint.imprint_actions.expand_imprint_translation_id">
-<code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_actions.</span></code><code class="sig-name descname"><span class="pre">expand_imprint_translation_id</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imprint_translation_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_actions.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_actions.expand_imprint_translation_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_actions.</span></code><code class="sig-name descname"><span class="pre">expand_imprint_translation_id</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imprint_translation_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_actions.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_actions.expand_imprint_translation_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searches for an imprint translation with corresponding ID and redirects browser to web app</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1223,7 +1229,7 @@
 
 <dl class="py function">
 <dt id="cms.views.imprint.imprint_actions.restore_imprint">
-<code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_actions.</span></code><code class="sig-name descname"><span class="pre">restore_imprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_actions.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_actions.restore_imprint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_actions.</span></code><code class="sig-name descname"><span class="pre">restore_imprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_actions.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_actions.restore_imprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore imprint object (set <code class="docutils literal notranslate"><span class="pre">archived=False</span></code>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

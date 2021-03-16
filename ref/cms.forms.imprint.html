@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-04T08:22:15+00:00" />
+    <meta property="article:modified_time" content="2021-03-09T13:55:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Imprint &mdash; integreat-cms 0.0.14 documentation</title>
@@ -317,6 +317,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#parent-field-widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
@@ -326,6 +327,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#push-notification-translation-form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
@@ -345,8 +347,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -462,6 +464,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#translation-utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -735,6 +738,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.parent_field_widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.pois.html">POIs</a><ul>
@@ -744,6 +748,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_translation_form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.regions.html">Regions</a><ul>
@@ -763,8 +768,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.middleware.html">Middleware</a><ul>
@@ -880,6 +885,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -1158,7 +1164,7 @@
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.imprint.imprint_translation_form.</span></code><code class="sig-name descname"><span class="pre">ImprintTranslationForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_translation_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/cms.forms.html#cms.forms.placeholder_model_form.PlaceholderModelForm" title="cms.forms.placeholder_model_form.PlaceholderModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.placeholder_model_form.PlaceholderModelForm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
 <p>Form for creating and modifying imprint translation objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -1183,7 +1189,7 @@
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">clean_text</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_translation_form.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">clean_text</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_translation_form.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the text field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.1)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -1200,7 +1206,7 @@
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_translation_form.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/imprint/imprint_translation_form.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -1243,7 +1249,7 @@ which are not directly determined by input fields.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 04, 2021.
+        Last updated on Mar 09, 2021.
       </span>
 
     </p>

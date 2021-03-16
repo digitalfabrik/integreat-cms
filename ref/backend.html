@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-06T13:57:37+00:00" />
+    <meta property="article:modified_time" content="2021-03-09T13:55:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
@@ -317,6 +317,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.pages.html#parent-field-widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.pois.html">POIs</a><ul>
@@ -326,6 +327,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#push-notification-translation-form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
@@ -345,8 +347,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -462,6 +464,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#translation-utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -735,6 +738,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.pages.html#module-cms.forms.pages.parent_field_widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.pois.html">POIs</a><ul>
@@ -744,6 +748,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_translation_form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.regions.html">Regions</a><ul>
@@ -763,8 +768,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.middleware.html">Middleware</a><ul>
@@ -880,6 +885,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -1215,6 +1221,7 @@ For the full list of settings and their values, see <a class="reference external
 <li><p><a class="reference internal" href="../ref-ext/backend.html#backend.settings.WEBAPP_URL" title="backend.settings.WEBAPP_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a></p></li>
 <li><p><a class="reference internal" href="../ref-ext/backend.html#backend.settings.STATIC_ROOT" title="backend.settings.STATIC_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a></p></li>
 <li><p><a class="reference internal" href="../ref-ext/backend.html#backend.settings.MEDIA_ROOT" title="backend.settings.MEDIA_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/backend.html#backend.settings.LOGFILE" title="backend.settings.LOGFILE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGFILE</span></code></a></p></li>
 <li><p><a class="reference internal" href="../ref-ext/backend.html#backend.settings.DATABASES" title="backend.settings.DATABASES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DATABASES</span></code></a> settings:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1226,7 +1233,27 @@ For the full list of settings and their values, see <a class="reference external
 </ul>
 </div></blockquote>
 </li>
+<li><p>Email settings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_HOST</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_HOST_PASSWORD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_HOST_USER</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_PORT</span></code></p></li>
 </ul>
+</div></blockquote>
+</li>
+</ul>
+<dl class="py data">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">ADMINS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('Integreat</span> <span class="pre">Helpdesk',</span> <span class="pre">'tech&#64;integreat-app.de')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A list of all the people who get code error notifications.
+When <a class="reference internal" href="../ref-ext/backend.html#backend.settings.DEBUG" title="backend.settings.DEBUG"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DEBUG</span></code></a> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, Django emails these people the details of exceptions raised in the request/response cycle.</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;Integreat Helpdesk&#39;</span><span class="p">,</span> <span class="s1">&#39;tech@integreat-app.de&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="py data">
 <dt>
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">ALLOWED_HOSTS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['localhost',</span> <span class="pre">'127.0.0.1',</span> <span class="pre">'0.0.0.0']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1392,6 +1419,19 @@ Used in the following views:</p>
 
 <dl class="py data">
 <dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEFAULT_FROM_EMAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'keineantwort&#64;integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Default email address to use for various automated correspondence from the site manager(s)
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DEFAULT_FROM_EMAIL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">DEFAULT_FROM_EMAIL</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEPS_LOG_LEVEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'INFO'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The log level for dependencies</p>
+</dd></dl>
+
+<dl class="py data">
+<dt>
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">EMAIL_BACKEND</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'django.core.mail.backends.console.EmailBackend'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The backend to use for sending emails (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-EMAIL_BACKEND" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">EMAIL_BACKEND</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/email/" title="(in Django v3.1)"><span>Sending email</span></a>)</p>
 </dd></dl>
@@ -1497,43 +1537,81 @@ Used in the following views:</p>
 
 <dl class="py data">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGGING</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'disable_existing_loggers':</span> <span class="pre">False,</span> <span class="pre">'formatters':</span> <span class="pre">{'console':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'%(asctime)s</span> <span class="pre">INTEGREAT</span> <span class="pre">CMS</span> <span class="pre">-</span> <span class="pre">%(levelname)s:</span> <span class="pre">%(message)s'},</span> <span class="pre">'default':</span> <span class="pre">{'format':</span> <span class="pre">'INTEGREAT</span> <span class="pre">CMS</span> <span class="pre">-</span> <span class="pre">%(levelname)s:</span> <span class="pre">%(message)s'}},</span> <span class="pre">'handlers':</span> <span class="pre">{'authlog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'auth',</span> <span class="pre">'formatter':</span> <span class="pre">'default',</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'console':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'formatter':</span> <span class="pre">'console'},</span> <span class="pre">'syslog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'syslog',</span> <span class="pre">'formatter':</span> <span class="pre">'default',</span> <span class="pre">'level':</span> <span class="pre">'INFO'}},</span> <span class="pre">'loggers':</span> <span class="pre">{'api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO',</span> <span class="pre">'propagate':</span> <span class="pre">True},</span> <span class="pre">'auth':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'authlog',</span> <span class="pre">'syslog'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'backend':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO',</span> <span class="pre">'propagate':</span> <span class="pre">True},</span> <span class="pre">'cms':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO',</span> <span class="pre">'propagate':</span> <span class="pre">True},</span> <span class="pre">'django':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'WARN',</span> <span class="pre">'propagate':</span> <span class="pre">True},</span> <span class="pre">'gvz_api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO',</span> <span class="pre">'propagate':</span> <span class="pre">True},</span> <span class="pre">'rules':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG',</span> <span class="pre">'propagate':</span> <span class="pre">True},</span> <span class="pre">'sitemap':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO',</span> <span class="pre">'propagate':</span> <span class="pre">True}},</span> <span class="pre">'version':</span> <span class="pre">1}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGFILE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The file path of the logfile. Needs to be writeble by the application.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGGING</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'disable_existing_loggers':</span> <span class="pre">False,</span> <span class="pre">'filters':</span> <span class="pre">{'require_debug_false':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugFalse'},</span> <span class="pre">'require_debug_true':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugTrue'}},</span> <span class="pre">'formatters':</span> <span class="pre">{'default':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname:7}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'email':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%Y-%m-%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'Date</span> <span class="pre">and</span> <span class="pre">time:</span> <span class="pre">{asctime}\nSeverity:</span> <span class="pre">{levelname}\nLogger:</span> <span class="pre">{name}\nMessage:</span> <span class="pre">{message}\nFile:</span> <span class="pre">{funcName}()</span> <span class="pre">in</span> <span class="pre">{pathname}:{lineno}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'syslog':</span> <span class="pre">{'format':</span> <span class="pre">'INTEGREAT</span> <span class="pre">CMS</span> <span class="pre">-</span> <span class="pre">{levelname}:</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'}},</span> <span class="pre">'handlers':</span> <span class="pre">{'authlog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'auth',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'syslog'},</span> <span class="pre">'console':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'default'},</span> <span class="pre">'logfile':</span> <span class="pre">{'class':</span> <span class="pre">'logging.FileHandler',</span> <span class="pre">'filename':</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log',</span> <span class="pre">'formatter':</span> <span class="pre">'default'},</span> <span class="pre">'mail_admins':</span> <span class="pre">{'class':</span> <span class="pre">'django.utils.log.AdminEmailHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'email',</span> <span class="pre">'level':</span> <span class="pre">'ERROR'},</span> <span class="pre">'syslog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'syslog',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'syslog'}},</span> <span class="pre">'loggers':</span> <span class="pre">{'PIL':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'auth':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'authlog',</span> <span class="pre">'syslog'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'backend':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'cms':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'django':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'filer':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'gvz_api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'requests':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'rules':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'sitemap':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'urllib3':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'}},</span> <span class="pre">'version':</span> <span class="pre">1}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Logging configuration dictionary (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LOGGING" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
+    <span class="s1">&#39;filters&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;require_debug_false&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span> <span class="s1">&#39;django.utils.log.RequireDebugFalse&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;require_debug_true&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span> <span class="s1">&#39;django.utils.log.RequireDebugTrue&#39;</span><span class="p">},</span>
+    <span class="p">},</span>
     <span class="s1">&#39;formatters&#39;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s1">&#39;console&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s1">&#39;datefmt&#39;</span><span class="o">:</span> <span class="s1">&#39;%b %d %H:%M:%S&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;format&#39;</span><span class="o">:</span> <span class="s1">&#39;%(asctime)s INTEGREAT CMS - %(levelname)s: %(message)s&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;format&#39;</span><span class="o">:</span> <span class="s1">&#39;{asctime} {levelname:7} {name} - {message}&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;style&#39;</span><span class="o">:</span> <span class="s1">&#39;{&#39;</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;format&#39;</span><span class="o">:</span> <span class="s1">&#39;INTEGREAT CMS - %(levelname)s: %(message)s&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;email&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;datefmt&#39;</span><span class="o">:</span> <span class="s1">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;format&#39;</span><span class="o">:</span> <span class="s1">&#39;Date and time: {asctime}\nSeverity: {levelname}\nLogger: {name}\nMessage: {message}\nFile: {funcName}() in {pathname}:{lineno}&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;style&#39;</span><span class="o">:</span> <span class="s1">&#39;{&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;syslog&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;format&#39;</span><span class="o">:</span> <span class="s1">&#39;INTEGREAT CMS - {levelname}: {message}&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;style&#39;</span><span class="o">:</span> <span class="s1">&#39;{&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
     <span class="p">},</span>
     <span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s1">&#39;authlog&#39;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s1">&#39;address&#39;</span><span class="o">:</span> <span class="s1">&#39;/dev/log&#39;</span><span class="p">,</span>
             <span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;logging.handlers.SysLogHandler&#39;</span><span class="p">,</span>
             <span class="s1">&#39;facility&#39;</span><span class="o">:</span> <span class="s1">&#39;auth&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filters&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;require_debug_false&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;syslog&#39;</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s1">&#39;console&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;logging.StreamHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;console&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;console&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;logging.StreamHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filters&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;require_debug_true&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;logfile&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;logging.FileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="o">:</span> <span class="s1">&#39;/home/circleci/project/src/integreat-cms.log&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;mail_admins&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;django.utils.log.AdminEmailHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filters&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;require_debug_false&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
         <span class="s1">&#39;syslog&#39;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s1">&#39;address&#39;</span><span class="o">:</span> <span class="s1">&#39;/dev/log&#39;</span><span class="p">,</span>
             <span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;logging.handlers.SysLogHandler&#39;</span><span class="p">,</span>
             <span class="s1">&#39;facility&#39;</span><span class="o">:</span> <span class="s1">&#39;syslog&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filters&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;require_debug_false&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="o">:</span> <span class="s1">&#39;syslog&#39;</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">},</span>
     <span class="s1">&#39;loggers&#39;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s1">&#39;api&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
-        <span class="s1">&#39;auth&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;authlog&#39;</span><span class="p">,</span> <span class="s1">&#39;syslog&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;backend&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
-        <span class="s1">&#39;cms&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
-        <span class="s1">&#39;django&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;WARN&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
-        <span class="s1">&#39;gvz_api&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
-        <span class="s1">&#39;rules&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
-        <span class="s1">&#39;sitemap&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;propagate&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">},</span>
+        <span class="s1">&#39;PIL&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;api&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">,</span> <span class="s1">&#39;mail_admins&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;auth&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">,</span> <span class="s1">&#39;authlog&#39;</span><span class="p">,</span> <span class="s1">&#39;syslog&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;backend&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">,</span> <span class="s1">&#39;mail_admins&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;cms&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">,</span> <span class="s1">&#39;mail_admins&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;django&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;filer&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;gvz_api&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">,</span> <span class="s1">&#39;mail_admins&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;requests&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;rules&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;sitemap&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">,</span> <span class="s1">&#39;mail_admins&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;urllib3&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;logfile&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
     <span class="p">},</span>
     <span class="s1">&#39;version&#39;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
 <span class="p">}</span>
@@ -1557,6 +1635,12 @@ Used in the following views:</p>
 <dt>
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGOUT_REDIRECT_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The URL where requests are redirected after logout (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LOGOUT_REDIRECT_URL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LOGOUT_REDIRECT_URL</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOG_LEVEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'DEBUG'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The log level for integreat-cms django apps</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1629,6 +1713,13 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/re
 
 <dl class="py data">
 <dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">SERVER_EMAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'keineantwort&#64;integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The email address that error messages come from, such as those sent to <a class="reference internal" href="../ref-ext/backend.html#backend.settings.ADMINS" title="backend.settings.ADMINS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ADMINS</span></code></a>.
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-SERVER_EMAIL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">SERVER_EMAIL</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt>
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATICFILES_DIRS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['/home/circleci/project/src/../node_modules']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This setting defines the additional locations the staticfiles app will traverse
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATICFILES_DIRS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_DIRS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/howto/static-files/" title="(in Django v3.1)"><span class="xref std std-doc">Managing static files</span></a>)</p>
@@ -1662,6 +1753,12 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/re
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATIC_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/static/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>URL to use when referring to static files located in <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v3.1)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a>
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATIC_URL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">STATIC_URL</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/howto/static-files/" title="(in Django v3.1)"><span class="xref std std-doc">Managing static files</span></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">SYS_LOG_LEVEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'INFO'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The log level for the syslog</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1827,7 +1924,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 06, 2021.
+        Last updated on Mar 09, 2021.
       </span>
 
     </p>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-09T20:09:09+00:00" />
+    <meta property="article:modified_time" content="2021-03-07T13:16:58+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Documentation (Sphinx) &mdash; integreat-cms 0.0.14 documentation</title>
@@ -317,6 +317,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.pages.html#page-form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.pages.html#parent-field-widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.pois.html">POIs</a><ul>
@@ -326,6 +327,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.push_notifications.html#push-notification-translation-form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.regions.html">Regions</a><ul>
@@ -345,8 +347,8 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.html#icon-widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.html#placeholder-model-form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.middleware.html">Middleware</a><ul>
@@ -462,6 +464,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#translation-utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -735,6 +738,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_filter_form">Page Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_form">Page Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.pages.html#module-cms.forms.pages.page_translation_form">Page Translation Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.pages.html#module-cms.forms.pages.parent_field_widget">Parent Field Widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.pois.html">POIs</a><ul>
@@ -744,6 +748,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_form">Push Notification Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_translation_form">Push Notification Translation Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.regions.html">Regions</a><ul>
@@ -763,8 +768,8 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.html#module-cms.forms.placeholder_model_form">Placeholder Model Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.middleware.html">Middleware</a><ul>
@@ -880,6 +885,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
 </ul>
 </li>
@@ -1469,7 +1475,7 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py function">
 <dt id="conf.linkcode_resolve">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">linkcode_resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L161"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">linkcode_resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L162"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
 It links all classes and functions to their source files on GitHub including line numbers.</p>
 <dl class="field-list simple">
@@ -1499,7 +1505,7 @@ It links all classes and functions to their source files on GitHub including lin
 
 <dl class="py data">
 <dt id="conf.nitpick_ignore">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">nitpick_ignore</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.feedback'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">nitpick_ignore</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.feedback'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.utils.text.capfirst'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of (type, target) tuples that should be ignored when <a class="reference internal" href="#conf.nitpicky" title="conf.nitpicky"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nitpicky</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;builtins.int&#39;</span><span class="p">),</span>
@@ -1515,6 +1521,7 @@ It links all classes and functions to their source files on GitHub including lin
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.imprint_translations&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.chat_messages&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:func&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.sitemaps.Sitemap._urls&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;py:func&#39;</span><span class="p">,</span> <span class="s1">&#39;django.utils.text.capfirst&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;django.core.handlers.WSGIHandler&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;django.forms.models.ModelChoiceIterator&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;mptt.models.MPTTModel&#39;</span><span class="p">),</span>
@@ -1582,7 +1589,7 @@ It links all classes and functions to their source files on GitHub including lin
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 09, 2021.
+        Last updated on Mar 07, 2021.
       </span>
 
     </p>
