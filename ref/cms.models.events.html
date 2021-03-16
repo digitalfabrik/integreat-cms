@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-10T16:46:36+00:00" />
+    <meta property="article:modified_time" content="2021-03-14T12:58:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Events &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1214,12 +1214,41 @@ Can be directly imported from <a class="reference internal" href="../ref-ext/cms
 <dl class="py method">
 <dt>
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">backend_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This function tries to determine which translation to be used for showing an event in the backend.
-The first priority is the current backend language.
-If no translation is present in this language, the fallback is the region’s default language.</p>
+<dd><p>This function returns the translation of this event in the current backend language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The backend translation of a event</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">EventTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">best_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns the translation of this event in the current backend language and if it doesn’t exist, it
+provides a fallback to the translation in the region’s default language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The “best” translation of an event for displaying in the backend</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">EventTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">default_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns the translation of this event in the region’s default language.
+Since an event can only be created by creating a translation in the default language, this is guaranteed to return
+an event translation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The default translation of an event</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation">EventTranslation</a></p>
@@ -1628,7 +1657,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
 <h2>Recurrence Rule<a class="headerlink" href="#recurrence-rule" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.events.recurrence_rule.</span></code><code class="sig-name descname"><span class="pre">RecurrenceRule</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.events.recurrence_rule.</span></code><code class="sig-name descname"><span class="pre">RecurrenceRule</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>Data model representing the recurrence frequency and interval of an event</p>
 <dl class="field-list simple">
@@ -1652,19 +1681,19 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
 </dl>
 <dl class="py exception">
 <dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">frequency</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">frequency</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.CharField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Frequency. How often the event recurs</p>
 <p>Choices:</p>
@@ -1679,7 +1708,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">week_for_monthly</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">week_for_monthly</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.IntegerField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
 <p>Week. If the frequency is monthly, this field determines on which week of the month the event takes place</p>
 <p>Choices:</p>
@@ -1694,7 +1723,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">weekday_for_monthly</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">weekday_for_monthly</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.IntegerField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
 <p>Weekday. If the frequency is monthly, this field determines on which days the event takes place</p>
 <p>Choices:</p>
@@ -1712,7 +1741,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">weekdays_for_weekly</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">weekdays_for_weekly</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/recurrence_rule.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/postgres/fields/#django.contrib.postgres.fields.ArrayField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayField</span></code></a></p>
 <p>Weekdays. If the frequency is weekly, this field determines on which days the event takes place</p>
 <p>Manage choices in <a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.weekdays" title="cms.constants.weekdays"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.weekdays</span></code></a></p>
@@ -1742,7 +1771,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 10, 2021.
+        Last updated on Mar 14, 2021.
       </span>
 
     </p>
