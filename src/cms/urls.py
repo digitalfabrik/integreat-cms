@@ -9,7 +9,7 @@ from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
-from .forms.authentication import PasswordResetConfirmForm
+from .forms import PasswordResetConfirmForm
 from .views import (
     authentication,
     analytics,

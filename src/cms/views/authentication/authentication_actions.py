@@ -1,5 +1,6 @@
 import json
 import datetime
+import logging
 import webauthn
 
 from django.contrib import messages
@@ -16,6 +17,8 @@ from django.http import JsonResponse
 from backend import settings
 
 from ...utils.mfa_utils import generate_challenge
+
+logger = logging.getLogger(__name__)
 
 
 class MfaEnableAuthentication(auth_views.LoginView):
@@ -182,12 +185,9 @@ def mfaVerify(request):
 
     try:
         sign_count = webauthn_assertion_response.verify()
-    # webauthn does not export AuthenticationRejectedException which directly extends Exception
-    # as AuthenticationRejectedException is the only exception that can be caused by verify()
-    # it should be okay to just except Exception
-    # pylint: disable=broad-except
-    except Exception as exception:
-        return JsonResponse({"success": False, "error": str(exception)})
+    except webauthn.webauthn.AuthenticationRejectedException as e:
+        logger.exception(e)
+        return JsonResponse({"success": False, "error": str(e)})
 
     # Update counter.
     key.sign_count = sign_count
@@ -226,6 +226,9 @@ def password_reset_done(request):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
+    logger.debug(
+        "Password reset process for %r has been initiated", request.user.profile
+    )
     messages.info(
         request,
         (
@@ -264,6 +267,7 @@ def password_reset_complete(request):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
+    logger.info("Password of %r was reset", request.user.profile)
     messages.success(
         request,
         (

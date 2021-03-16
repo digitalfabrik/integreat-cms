@@ -15,9 +15,8 @@
             <div class="w-full p-4">
                 <form method="post">
                     {% csrf_token %}
-                    <label for="id_email" class="font-bold block p-2 mb-1 cursor-pointer">{% trans 'Your E-mail-address' %}</label>
-                    {% trans "Enter your e-mail-address here" as email_placeholder%}
-                    {% render_field user_email_form.email|add_error_class:"border-red-500" placeholder=email_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ user_email_form.email.label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ user_email_form.email.label }}</label>
+                    {% render_field user_email_form.email|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
                     <button type="submit"  name="submit_form" value="email_form" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded">{% trans 'Change e-mail-address' %}</button>
                 </form>
@@ -30,14 +29,12 @@
             <div class="w-full p-4">
                 <form method="post">
                 {% csrf_token %}
-                <label for="id_old_password" class="font-bold block p-2 mt-4 cursor-pointer">{% trans 'Your old Password' %}</label>
-                {% trans 'Enter your old password here' as old_password_placeholder%}
-                {% render_field user_password_form.old_password|add_error_class:"border-red-500" placeholder=old_password_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                <label for="id_new_password" class="font-bold block p-2 mt-4 cursor-pointer">{% trans 'Your new Password' %}</label>
-                {% trans 'Enter your new password here' as new_password_placeholder%}
-                {% render_field user_password_form.new_password|add_error_class:"border-red-500" placeholder=new_password_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                <label for="id_new_password_confirm" class="font-bold block p-2 mt-4 cursor-pointer">{% trans 'Confirm your new Password' %}</label>
-                {% trans 'Confirm your new password here' as new_password_confirm_placeholder%}
+                <label for="{{ user_password_form.old_password.id_for_label }}" class="font-bold block p-2 mt-4 cursor-pointer">{{ user_password_form.old_password.label }}</label>
+                {% render_field user_password_form.old_password|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <label for="{{ user_password_form.new_password.id_for_label }}" class="font-bold block p-2 mt-4 cursor-pointer">{{ user_password_form.new_password.label }}</label>
+                {% render_field user_password_form.new_password|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <label for="{{ user_password_form.new_password_confirm.id_for_label }}" class="font-bold block p-2 mt-4 cursor-pointer">{{ user_password_form.new_password_confirm.label }}</label>
+                {% trans 'Enter your new password again here' as new_password_confirm_placeholder %}
                 {% render_field user_password_form.new_password_confirm|add_error_class:"border-red-500" placeholder=new_password_confirm_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                 <ul class="p-2">
                     {% for item in user_password_form.new_password.help_text %}

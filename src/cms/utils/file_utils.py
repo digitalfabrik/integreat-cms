@@ -2,7 +2,7 @@
 This module contains helpers for file handling.
 """
 
-from ..forms.media import DocumentForm
+from ..forms import DocumentForm
 
 
 def save_file(request):

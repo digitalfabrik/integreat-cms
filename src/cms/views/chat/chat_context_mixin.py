@@ -2,7 +2,7 @@ import logging
 
 from django.views.generic.base import ContextMixin
 
-from ...forms.chat import ChatMessageForm
+from ...forms import ChatMessageForm
 from ...models import ChatMessage, Region
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class ChatContextMixin(ContextMixin):
         region = Region.get_current_region(self.request)
 
         if region and not region.chat_enabled:
-            logger.debug("Chat in region %s is disabled", region)
+            logger.debug("Chat in %r is disabled", region)
             return {}
 
         return {

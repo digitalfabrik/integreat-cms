@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 from backend.settings import PER_PAGE
 from ...constants import feedback_ratings, feedback_read_status
 from ...decorators import staff_required
-from ...forms.feedback import AdminFeedbackFilterForm
+from ...forms import AdminFeedbackFilterForm
 from ...models import Feedback
 
 

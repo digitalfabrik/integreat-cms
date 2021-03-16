@@ -5,11 +5,12 @@ from django.utils.translation import ugettext as _
 
 from ...constants import weekdays, frequency
 from ...models import RecurrenceRule
+from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class RecurrenceRuleForm(forms.ModelForm):
+class RecurrenceRuleForm(CustomModelForm):
     """
     Form for creating and modifying event recurrence rule objects
     """
@@ -44,11 +45,6 @@ class RecurrenceRuleForm(forms.ModelForm):
         }
 
     def __init__(self, data=None, instance=None, event_start_date=None, disabled=False):
-        logger.info(
-            "RecurrenceRuleForm instantiated with data %s and instance %s",
-            data,
-            instance,
-        )
 
         # Instantiate ModelForm
         super().__init__(data=data, instance=instance)

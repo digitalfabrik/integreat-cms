@@ -1,9 +1,9 @@
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...models import OfferTemplate
 from ...utils.slug_utils import generate_unique_slug_helper
 
 
-class OfferTemplateForm(PlaceholderModelForm):
+class OfferTemplateForm(CustomModelForm):
     """
     Form for creating and modifying offer template objects
     """

@@ -3,7 +3,7 @@ import logging
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...constants import status
 from ...models import POITranslation
 from ...utils.slug_utils import generate_unique_slug_helper
@@ -12,7 +12,7 @@ from ...utils.slug_utils import generate_unique_slug_helper
 logger = logging.getLogger(__name__)
 
 
-class POITranslationForm(PlaceholderModelForm):
+class POITranslationForm(CustomModelForm):
     """
     Form for creating and modifying POI translation objects
     """
@@ -53,12 +53,6 @@ class POITranslationForm(PlaceholderModelForm):
         :type language: ~cms.models.languages.language.Language
         """
 
-        logger.info(
-            "POITranslationForm instantiated with data %s and instance %s",
-            data,
-            instance,
-        )
-
         self.region = region
         self.language = language
 
@@ -96,12 +90,6 @@ class POITranslationForm(PlaceholderModelForm):
         :return: The saved POI translation object
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
-
-        logger.info(
-            "POITranslationForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         poi_translation = super().save(commit=False)
 

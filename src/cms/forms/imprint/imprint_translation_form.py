@@ -3,7 +3,7 @@ import logging
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...constants import status
 from ...models import ImprintPageTranslation
 
@@ -11,7 +11,7 @@ from ...models import ImprintPageTranslation
 logger = logging.getLogger(__name__)
 
 
-class ImprintTranslationForm(PlaceholderModelForm):
+class ImprintTranslationForm(CustomModelForm):
     """
     Form for creating and modifying imprint translation objects
     """
@@ -31,10 +31,6 @@ class ImprintTranslationForm(PlaceholderModelForm):
         :type kwargs: dict
         """
 
-        logger.info(
-            "New ImprintPageTranslationForm with args %s and kwargs %s", args, kwargs
-        )
-
         # pop kwarg to make sure the super class does not get this param
         self.region = kwargs.pop("region", None)
         self.language = kwargs.pop("language", None)
@@ -53,7 +49,7 @@ class ImprintTranslationForm(PlaceholderModelForm):
                 post.update({"status": status.PUBLIC})
             # Set the args to POST again
             args = (post,)
-            logger.info("changed POST arg status manually")
+            logger.debug("Changed POST arg status manually to %r", post["status"])
 
         super().__init__(*args, **kwargs)
 
@@ -77,13 +73,6 @@ class ImprintTranslationForm(PlaceholderModelForm):
         :return: The saved imprint page translation object
         :rtype: ~cms.models.pages.imprint_page_translation.ImprintPageTranslation
         """
-        logger.info(
-            "ImprintTranslationForm saved with args %s, kwargs %s, cleaned data %s and changed data %s",
-            args,
-            kwargs,
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         # pop kwarg to make sure the super class does not get this param
         imprint = kwargs.pop("imprint", None)

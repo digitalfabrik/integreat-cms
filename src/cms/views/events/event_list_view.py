@@ -14,7 +14,7 @@ from backend.settings import PER_PAGE
 from ...constants import all_day, recurrence
 from ...decorators import region_permission_required
 from ...models import Region
-from ...forms.events import EventFilterForm
+from ...forms import EventFilterForm
 from .event_context_mixin import EventContextMixin
 
 

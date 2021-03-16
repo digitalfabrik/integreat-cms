@@ -3,14 +3,13 @@ Form for creating a user object
 """
 import logging
 
-
 from ...models import UserProfile
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class UserProfileForm(PlaceholderModelForm):
+class UserProfileForm(CustomModelForm):
     """
     Form for creating and modifying user profile objects
     """
@@ -25,15 +24,6 @@ class UserProfileForm(PlaceholderModelForm):
         model = UserProfile
         #: The fields of the model which should be handled by this form
         fields = ["regions", "organization", "expert_mode"]
-
-    def __init__(self, data=None, instance=None):
-
-        logger.info(
-            "UserProfileForm instantiated with data %s and instance %s", data, instance
-        )
-
-        # Instantiate ModelForm
-        super().__init__(data=data, instance=instance)
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
@@ -50,14 +40,6 @@ class UserProfileForm(PlaceholderModelForm):
         :return: The saved user profile object
         :rtype: ~cms.models.users.user_profile.UserProfile
         """
-
-        logger.info(
-            "UserProfileForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
-
-        logger.info("UserProfileForm saved with args %s and kwargs %s", args, kwargs)
 
         # pop kwarg to make sure the super class does not get this param
         user = kwargs.pop("user", None)

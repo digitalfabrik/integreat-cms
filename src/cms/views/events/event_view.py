@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import region_permission_required
-from ...forms.events import EventForm, EventTranslationForm, RecurrenceRuleForm
+from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
 from .event_context_mixin import EventContextMixin
 

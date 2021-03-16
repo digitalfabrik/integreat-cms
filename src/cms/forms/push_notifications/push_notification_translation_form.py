@@ -1,16 +1,10 @@
-import logging
-
-from django.contrib.auth import get_user_model
-
-from .user_form import UserForm
+from ..custom_model_form import CustomModelForm
+from ...models import PushNotificationTranslation
 
 
-logger = logging.getLogger(__name__)
-
-
-class RegionUserForm(UserForm):
+class PushNotificationTranslationForm(CustomModelForm):
     """
-    Form for creating and modifying region user objects
+    Form for creating and modifying push notification translation objects
     """
 
     class Meta:
@@ -20,6 +14,6 @@ class RegionUserForm(UserForm):
         """
 
         #: The model of this :class:`django.forms.ModelForm`
-        model = get_user_model()
+        model = PushNotificationTranslation
         #: The fields of the model which should be handled by this form
-        fields = ["username", "first_name", "last_name", "email", "is_active"]
+        fields = ["title", "text", "language"]

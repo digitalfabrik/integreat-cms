@@ -1,8 +1,8 @@
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...models import Document
 
 
-class DocumentForm(PlaceholderModelForm):
+class DocumentForm(CustomModelForm):
     """
     Form for creating and modifying document objects
     """

@@ -3,7 +3,7 @@ import logging
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...constants import status
 from ...models import EventTranslation
 from ...utils.slug_utils import generate_unique_slug_helper
@@ -11,7 +11,7 @@ from ...utils.slug_utils import generate_unique_slug_helper
 logger = logging.getLogger(__name__)
 
 
-class EventTranslationForm(PlaceholderModelForm):
+class EventTranslationForm(CustomModelForm):
     """
     Form for creating and modifying event translation objects
     """
@@ -37,11 +37,6 @@ class EventTranslationForm(PlaceholderModelForm):
     def __init__(
         self, data=None, instance=None, disabled=False, region=None, language=None
     ):
-        logger.info(
-            "EventTranslationForm instantiated with data %s and instance %s",
-            data,
-            instance,
-        )
 
         self.region = region
         self.language = language
@@ -83,12 +78,6 @@ class EventTranslationForm(PlaceholderModelForm):
         :return: The saved event object
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
-
-        logger.info(
-            "EventTranslationForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         # Disable instant commit on saving because missing information would cause error
         event_translation = super().save(commit=False)

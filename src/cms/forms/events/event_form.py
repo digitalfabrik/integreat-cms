@@ -6,12 +6,13 @@ from django import forms
 from django.utils.translation import ugettext as _
 
 from ...models import Event
+from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
 
 logger = logging.getLogger(__name__)
 
 
-class EventForm(forms.ModelForm):
+class EventForm(CustomModelForm):
     """
     Form for creating and modifying event objects
     """
@@ -53,10 +54,6 @@ class EventForm(forms.ModelForm):
         :param disabled: Whether or not the form is readonly
         :type disabled: bool
         """
-        logger.info(
-            "EventForm instantiated with data %s and instance %s", data, instance
-        )
-
         # Instantiate ModelForm
         super().__init__(data=data, files=files, instance=instance)
 
@@ -89,12 +86,6 @@ class EventForm(forms.ModelForm):
         :return: The saved event object
         :rtype: ~cms.models.events.event.Event
         """
-        logger.info(
-            "EventForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
-
         # Disable instant commit on saving because missing information would cause errors
         event = super().save(commit=False)
 
@@ -120,7 +111,7 @@ class EventForm(forms.ModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
-        logger.info("EventForm cleaned [1/2] with cleaned data %s", cleaned_data)
+        logger.debug("EventForm cleaned [1/2] with cleaned data %r", cleaned_data)
 
         # make self.data mutable to allow values to be changed manually
         self.data = self.data.copy()
@@ -181,6 +172,6 @@ class EventForm(forms.ModelForm):
                             ),
                         )
 
-        logger.info("EventForm cleaned [2/2] with cleaned data %s", cleaned_data)
+        logger.debug("EventForm cleaned [2/2] with cleaned data %r", cleaned_data)
 
         return cleaned_data

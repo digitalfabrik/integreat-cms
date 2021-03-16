@@ -1,14 +1,14 @@
 import logging
 
 from ...models import POI
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
 
 
 logger = logging.getLogger(__name__)
 
 
-class POIForm(PlaceholderModelForm):
+class POIForm(CustomModelForm):
     """
     Form for creating and modifying POI objects
     """
@@ -47,8 +47,6 @@ class POIForm(PlaceholderModelForm):
         :type instance: ~cms.models.pois.poi.POI
         """
 
-        logger.info("POIForm instantiated with data %s and instance %s", data, instance)
-
         # instantiate ModelForm
         super().__init__(data=data, files=files, instance=instance)
 
@@ -69,12 +67,6 @@ class POIForm(PlaceholderModelForm):
         :return: The saved POI object
         :rtype: ~cms.models.pois.poi.POI
         """
-
-        logger.info(
-            "POIForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
 
         poi = super().save(commit=False)
 

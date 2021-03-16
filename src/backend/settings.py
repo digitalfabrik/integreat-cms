@@ -14,6 +14,7 @@ For production use, the following settings can be set with environment variables
 * :attr:`~backend.settings.WEBAPP_URL`
 * :attr:`~backend.settings.STATIC_ROOT`
 * :attr:`~backend.settings.MEDIA_ROOT`
+* :attr:`~backend.settings.LOGFILE`
 * :attr:`~backend.settings.DATABASES` settings:
 
     * ``DJANGO_DB_HOST``
@@ -22,14 +23,21 @@ For production use, the following settings can be set with environment variables
     * ``DJANGO_DB_USER``
     * ``DJANGO_DB_PORT``
 
+* Email settings:
+
+    * ``DJANGO_EMAIL_HOST``
+    * ``DJANGO_EMAIL_HOST_PASSWORD``
+    * ``DJANGO_EMAIL_HOST_USER``
+    * ``DJANGO_EMAIL_PORT``
+
 """
 import os
 import urllib
 
+
 ###################
 # CUSTOM SETTINGS #
 ###################
-
 
 #: Build paths inside the project like this: ``os.path.join(BASE_DIR, ...)``
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -60,10 +68,10 @@ RSS_FEED_URLS = {
 #: How many days of chat history should be shown
 AUTHOR_CHAT_HISTORY_DAYS = 30
 
+
 ###########
 # GVZ API #
 ###########
-
 
 #: Whether or not the GVZ (Gemeindeverzeichnis) API is enabled. This is used to automatically import coordinates and
 #: region aliases (see :mod:`gvz_api` for more information).
@@ -101,7 +109,6 @@ else:
 ########################
 # DJANGO CORE SETTINGS #
 ########################
-
 
 if "DJANGO_DEBUG" in os.environ:
     DEBUG = bool(os.environ["DJANGO_DEBUG"])
@@ -170,14 +177,10 @@ TEMPLATES = [
 #: WSGI (Web Server Gateway Interface) config (see :setting:`django:WSGI_APPLICATION`)
 WSGI_APPLICATION = "backend.wsgi.application"
 
-#: The backend to use for sending emails (see :setting:`django:EMAIL_BACKEND` and :doc:`django:topics/email`)
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 
 ############
 # DATABASE #
 ############
-
 
 if (
     "DJANGO_DB_HOST" in os.environ
@@ -244,7 +247,6 @@ CSRF_FAILURE_VIEW = "cms.views.error_handler.csrf_failure"
 # CORS HEADERS #
 ################
 
-
 #: Allow access to all domains by setting the following variable to ``True``
 #: (see `django-cors-headers/ <https://pypi.org/project/django-cors-headers/>`__)
 CORS_ORIGIN_ALLOW_ALL = True
@@ -268,7 +270,6 @@ CORS_ALLOW_HEADERS = [
 ##################
 # AUTHENTICATION #
 ##################
-
 
 #: A list of authentication backend classes (as strings) to use when attempting to authenticate a user
 #: (see :setting:`django:AUTHENTICATION_BACKENDS` and :ref:`django:authentication-backends`)
@@ -308,6 +309,22 @@ LOGOUT_REDIRECT_URL = "/login"
 # LOGGING #
 ###########
 
+#: The log level for integreat-cms django apps
+LOG_LEVEL = "DEBUG" if DEBUG else "INFO"
+
+#: The log level for the syslog
+SYS_LOG_LEVEL = "INFO"
+
+#: The log level for dependencies
+DEPS_LOG_LEVEL = "INFO" if DEBUG else "WARN"
+
+if "DJANGO_LOGFILE" in os.environ:
+    LOGFILE = os.environ["DJANGO_LOGFILE"]
+elif DEBUG:
+    #: The file path of the logfile. Needs to be writeble by the application.
+    LOGFILE = os.path.join(BASE_DIR, "integreat-cms.log")
+else:
+    LOGFILE = "/var/log/integreat-cms.log"
 
 #: Logging configuration dictionary (see :setting:`django:LOGGING`)
 LOGGING = {
@@ -315,78 +332,160 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "default": {
-            "format": "INTEGREAT CMS - %(levelname)s: %(message)s",
-        },
-        "console": {
-            "format": "%(asctime)s INTEGREAT CMS - %(levelname)s: %(message)s",
+            "format": "{asctime} {levelname:7} {name} - {message}",
             "datefmt": "%b %d %H:%M:%S",
+            "style": "{",
+        },
+        "syslog": {
+            "format": "INTEGREAT CMS - {levelname}: {message}",
+            "style": "{",
+        },
+        "email": {
+            "format": "Date and time: {asctime}\nSeverity: {levelname}\nLogger: {name}\nMessage: {message}\nFile: {funcName}() in {pathname}:{lineno}",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+            "style": "{",
+        },
+    },
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+        "require_debug_false": {
+            "()": "django.utils.log.RequireDebugFalse",
         },
     },
     "handlers": {
-        "console": {"class": "logging.StreamHandler", "formatter": "console"},
+        "console": {
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "default",
+        },
+        "logfile": {
+            "class": "logging.FileHandler",
+            "filename": LOGFILE,
+            "formatter": "default",
+        },
         "authlog": {
-            "level": "INFO",
+            "filters": ["require_debug_false"],
             "class": "logging.handlers.SysLogHandler",
             "address": "/dev/log",
             "facility": "auth",
-            "formatter": "default",
+            "formatter": "syslog",
         },
         "syslog": {
-            "level": "INFO",
+            "filters": ["require_debug_false"],
             "class": "logging.handlers.SysLogHandler",
             "address": "/dev/log",
             "facility": "syslog",
-            "formatter": "default",
+            "formatter": "syslog",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+            "formatter": "email",
         },
     },
     "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": "WARN",
-            "propagate": True,
-        },
+        # Loggers of integreat-cms django apps
         "api": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": True,
+            "handlers": ["console", "logfile", "mail_admins"],
+            "level": LOG_LEVEL,
         },
         "backend": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": True,
+            "handlers": ["console", "logfile", "mail_admins"],
+            "level": LOG_LEVEL,
         },
         "cms": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": True,
+            "handlers": ["console", "logfile", "mail_admins"],
+            "level": LOG_LEVEL,
         },
         "gvz_api": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": True,
+            "handlers": ["console", "logfile", "mail_admins"],
+            "level": LOG_LEVEL,
         },
         "sitemap": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": True,
+            "handlers": ["console", "logfile", "mail_admins"],
+            "level": LOG_LEVEL,
+        },
+        # Syslog for authentication
+        "auth": {
+            "handlers": ["console", "logfile", "authlog", "syslog"],
+            "level": SYS_LOG_LEVEL,
+        },
+        # Loggers of dependencies
+        "django": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
+        "filer": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
+        "PIL": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
+        "requests": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
         },
         "rules": {
-            "handlers": ["console"],
-            "level": "DEBUG",
-            "propagate": True,
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
         },
-        "auth": {
-            "handlers": ["console", "authlog", "syslog"],
-            "level": "INFO",
+        "urllib3": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
         },
     },
 }
 
 
+##########
+# EMAILS #
+##########
+
+if DEBUG:
+    #: The backend to use for sending emails (see :setting:`django:EMAIL_BACKEND` and :doc:`django:topics/email`)
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+#: Default email address to use for various automated correspondence from the site manager(s)
+#: (see :setting:`django:DEFAULT_FROM_EMAIL`)
+DEFAULT_FROM_EMAIL = "keineantwort@integreat-app.de"
+
+#: The email address that error messages come from, such as those sent to :attr:`~backend.settings.ADMINS`.
+#: (see :setting:`django:SERVER_EMAIL`)
+SERVER_EMAIL = "keineantwort@integreat-app.de"
+
+#: A list of all the people who get code error notifications.
+#: When :attr:`~backend.settings.DEBUG` is ``False``, Django emails these people the details of exceptions raised in the request/response cycle.
+ADMINS = [("Integreat Helpdesk", "tech@integreat-app.de")]
+
+if "DJANGO_EMAIL_HOST" in os.environ:
+    #: The host to use for sending email.
+    EMAIL_HOST = os.environ["DJANGO_EMAIL_HOST"]
+
+if "DJANGO_EMAIL_HOST_PASSWORD" in os.environ:
+    #: Password to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`.
+    #: This setting is used in conjunction with :attr:`~backend.settings.EMAIL_HOST_USER` when authenticating to the SMTP server.
+    #: If either of these settings is empty, Django won’t attempt authentication.
+    EMAIL_HOST_PASSWORD = os.environ["DJANGO_EMAIL_HOST_PASSWORD"]
+
+if "DJANGO_EMAIL_HOST_USER" in os.environ:
+    #: Username to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`. If empty, Django won’t attempt authentication.
+    EMAIL_HOST_USER = os.environ["DJANGO_EMAIL_HOST_USER"]
+
+if "DJANGO_EMAIL_PORT" in os.environ:
+    #: Port to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`.
+    EMAIL_PORT = os.environ["DJANGO_EMAIL_PORT"]
+
+
 ########################
 # INTERNATIONALIZATION #
 ########################
-
 
 #: A list of all available languages (see :setting:`django:LANGUAGES` and :doc:`topics/i18n/index`)
 LANGUAGES = (
@@ -425,7 +524,6 @@ USE_TZ = True
 ################
 # STATIC FILES #
 ################
-
 
 if "DJANGO_STATIC_PARENT" in os.environ:
     STATIC_ROOT = os.environ["DJANGO_STATIC_ROOT"]
@@ -470,7 +568,6 @@ FILER_CANONICAL_URL = "media/"
 # CACHE #
 #########
 
-
 #: Configuration for PDF cache (see :setting:`django:CACHES`)
 CACHES = {
     "default": {
@@ -479,12 +576,14 @@ CACHES = {
     }
 }
 
+
 ###################
 # EASY THUMBNAILS #
 ###################
 
 #: Whether thumbnails should be stored in high resolution (used by :doc:`easy-thumbnails:index`)
 THUMBNAIL_HIGH_RESOLUTION = True
+
 
 ##############
 # Pagination #

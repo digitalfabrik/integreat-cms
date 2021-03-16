@@ -36,7 +36,7 @@ class CmsConfig(AppConfig):
             settings.SECRET_KEY == "-!v282$zj815_q@htaxcubylo)(l%a+k*-xi78hw*#s2@i86@_"
             and not settings.DEBUG
         ):
-            logger.error(
+            logger.critical(
                 "You are running the Integreat CMS in production mode. Change the SECRET_KEY in the settings.py!"
             )
             sys.exit(1)

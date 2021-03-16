@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-16 16:51+0000\n"
+"POT-Creation-Date: 2021-03-16 17:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -227,12 +227,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: constants/region_status.py:17 forms/pages/page_form.py:170
+#: constants/region_status.py:17 forms/pages/page_form.py:107
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: constants/region_status.py:18 forms/pages/page_form.py:146
-#: forms/pages/page_form.py:173 templates/pages/page_form.html:153
+#: constants/region_status.py:18 forms/pages/page_form.py:83
+#: forms/pages/page_form.py:110 templates/pages/page_form.html:153
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
 msgstr "Archiviert"
@@ -348,64 +348,68 @@ msgstr "Vierte Woche"
 msgid "The passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: forms/events/event_form.py:20
+#: forms/custom_model_form.py:88
+msgid "Enter {} here"
+msgstr "{} hier eingeben"
+
+#: forms/events/event_form.py:21
 msgid "All-day"
 msgstr "Ganztägig"
 
-#: forms/events/event_form.py:22
+#: forms/events/event_form.py:23
 msgid "Recurring"
 msgstr "Wiederholend"
 
-#: forms/events/event_form.py:140
+#: forms/events/event_form.py:131
 msgid "If the event is not all-day, the start time is required"
 msgstr ""
 "Wenn die Veranstaltung nicht ganztägig ist, muss eine Start-Uhrzeit "
 "angegeben werden"
 
-#: forms/events/event_form.py:148
+#: forms/events/event_form.py:139
 msgid "If the event is not all-day, the end time is required"
 msgstr ""
 "Wenn die Veranstaltung nicht ganztägig ist, muss eine End-Uhrzeit angegeben "
 "werden"
 
-#: forms/events/event_form.py:164 forms/events/event_form.py:178
+#: forms/events/event_form.py:155 forms/events/event_form.py:169
 msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
 
-#: forms/events/event_translation_form.py:135
-#: forms/imprint/imprint_translation_form.py:122
-#: forms/pages/page_translation_form.py:143
-#: forms/pois/poi_translation_form.py:149
+#: forms/events/event_translation_form.py:124
+#: forms/imprint/imprint_translation_form.py:111
+#: forms/pages/page_translation_form.py:134
+#: forms/pois/poi_translation_form.py:137
 msgid "Use of Heading 1 style not allowed."
 msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
 
-#: forms/events/recurrence_rule_form.py:18
+#: forms/events/recurrence_rule_form.py:19
 msgid "Recurrence ends"
 msgstr "Wiederholung endet"
 
-#: forms/events/recurrence_rule_form.py:83
+#: forms/events/recurrence_rule_form.py:79
 msgid "No recurrence frequency selected"
 msgstr "Keine Häufigkeit der Wiederholung angegeben"
 
-#: forms/events/recurrence_rule_form.py:92
+#: forms/events/recurrence_rule_form.py:88
 msgid "No weekdays for weekly recurrence selected"
 msgstr "Keine Wochentage für die wöchentliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:100
+#: forms/events/recurrence_rule_form.py:96
 msgid "No weekday for monthly recurrence selected"
 msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:107
+#: forms/events/recurrence_rule_form.py:103
 msgid "No week for monthly recurrence selected"
 msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:117
+#: forms/events/recurrence_rule_form.py:113
 msgid "If the recurrence ends, the recurrence end date is required"
 msgstr ""
 "Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
 "erforderlich"
 
-#: forms/events/recurrence_rule_form.py:130
+#: forms/events/recurrence_rule_form.py:126
 msgid "The recurrence end date has to be after the event's start date"
 msgstr "Das Ende der Wiederholung muss nach dem Veranstaltungsbeginn sein"
 
@@ -417,7 +421,7 @@ msgstr "Alle Regionen"
 #: templates/feedback/admin_feedback_list.html:32
 #: templates/feedback/region_feedback_list.html:32
 #: templates/language_tree/language_tree.html:31
-#: templates/settings/user.html:93
+#: templates/settings/user.html:90
 msgid "Language"
 msgstr "Sprache"
 
@@ -468,7 +472,7 @@ msgstr "Von"
 msgid "To"
 msgstr "Bis"
 
-#: forms/language_tree/language_tree_node_form.py:112
+#: forms/language_tree/language_tree_node_form.py:93
 msgid ""
 "This region has already a default language.Please specify a source language "
 "for this language."
@@ -476,31 +480,39 @@ msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
 
-#: forms/placeholder_model_form.py:54
-msgid "Enter {} here"
-msgstr "{} hier eingeben"
-
 #: forms/regions/region_form.py:24
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
 
-#: forms/users/user_form.py:66
+#: forms/users/user_form.py:62
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
 
-#: forms/users/user_form.py:69
+#: forms/users/user_form.py:65
 #: templates/authentication/password_reset_confirm.html:22
 #: templates/authentication/password_reset_confirm.html:24
 #: templates/settings/mfa/authenticate.html:26
-#: templates/settings/mfa/authenticate.html:28 templates/settings/user.html:28
+#: templates/settings/mfa/authenticate.html:28 templates/settings/user.html:27
 msgid "Password"
 msgstr "Passwort"
 
-#: forms/users/user_password_form.py:84
+#: forms/users/user_password_form.py:24
+msgid "Your old password"
+msgstr "Ihr bisheriges Passwort"
+
+#: forms/users/user_password_form.py:31
+msgid "Your new password"
+msgstr "Ihr neues Passwort"
+
+#: forms/users/user_password_form.py:37
+msgid "Confirm your new password"
+msgstr "Ihr neues Passwort bestätigen"
+
+#: forms/users/user_password_form.py:89
 msgid "Your old password is not correct."
 msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 
-#: forms/users/user_password_form.py:87
+#: forms/users/user_password_form.py:92
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
@@ -2688,7 +2700,7 @@ msgid "Active since"
 msgstr "Aktiv seit"
 
 #: templates/offers/offer_list.html:33 templates/pages/page_form.html:304
-#: templates/regions/region_list.html:33 templates/settings/user.html:62
+#: templates/regions/region_list.html:33 templates/settings/user.html:59
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -2872,7 +2884,7 @@ msgstr "Seite löschen"
 
 #: templates/pages/page_form.html:354
 #: templates/pages/page_tree_archived_node.html:97
-#: templates/pages/page_tree_node.html:132 views/pages/page_actions.py:205
+#: templates/pages/page_tree_node.html:132 views/pages/page_actions.py:212
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -3267,18 +3279,6 @@ msgstr "Rolle \"%(role_name)s\" bearbeiten"
 msgid "Create new role"
 msgstr "Neue Rolle erstellen"
 
-#: templates/roles/role.html:30
-msgid "Name of the Role"
-msgstr "Name der Rolle"
-
-#: templates/roles/role.html:33
-msgid "Enter the role's name here"
-msgstr "Name der Rolle hier eingeben"
-
-#: templates/roles/role.html:41
-msgid "Permissions of the role"
-msgstr "Berechtigungen der Rolle"
-
 #: templates/settings/admin_settings.html:9
 msgid "Admin Settings"
 msgstr "Administrator-Einstellungen"
@@ -3366,71 +3366,43 @@ msgstr "Benutzereinstellungen"
 msgid "E-mail-address"
 msgstr "E-Mail Adresse"
 
-#: templates/settings/user.html:18
-msgid "Your E-mail-address"
-msgstr "Ihre E-Mail Adresse"
-
-#: templates/settings/user.html:19
-msgid "Enter your e-mail-address here"
-msgstr "Ihre E-Mail-Adresse hier eingeben"
-
-#: templates/settings/user.html:22
+#: templates/settings/user.html:21
 msgid "Change e-mail-address"
 msgstr "E-Mail Adresse ändern"
 
-#: templates/settings/user.html:33
-msgid "Your old Password"
-msgstr "Ihr bisheriges Passwort"
-
-#: templates/settings/user.html:34
-msgid "Enter your old password here"
-msgstr "Ihr bisheriges Passwort hier eingeben"
-
-#: templates/settings/user.html:36
-msgid "Your new Password"
-msgstr "Ihr neues Passwort"
-
 #: templates/settings/user.html:37
-msgid "Enter your new password here"
-msgstr "Ihr neues Passwort hier eingeben"
+msgid "Enter your new password again here"
+msgstr "Ihr neues Passwort hier erneut eingeben"
 
-#: templates/settings/user.html:39
-msgid "Confirm your new Password"
-msgstr "Neues Passwort bestätigen"
-
-#: templates/settings/user.html:40
-msgid "Confirm your new password here"
-msgstr "Ihr neues Passwort erneut eingeben"
-
-#: templates/settings/user.html:47
+#: templates/settings/user.html:44
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: templates/settings/user.html:53
+#: templates/settings/user.html:50
 msgid "Two-Factor-Authentication"
 msgstr "2-Faktor-Authentifizierung"
 
-#: templates/settings/user.html:59
+#: templates/settings/user.html:56
 msgid "Key name"
 msgstr "Schlüsselname"
 
-#: templates/settings/user.html:60
+#: templates/settings/user.html:57
 msgid "Last usage"
 msgstr "Letzte verwendung"
 
-#: templates/settings/user.html:61
+#: templates/settings/user.html:58
 msgid "Date added"
 msgstr "Hinzugefügt am"
 
-#: templates/settings/user.html:76
+#: templates/settings/user.html:73
 msgid "No 2FA keys have been added yet."
 msgstr "Es wurden noch keine 2-Faktor-Schlüssel hinzugefügt."
 
-#: templates/settings/user.html:82
+#: templates/settings/user.html:79
 msgid "Add a new 2FA key"
 msgstr "Neuen Schlüssel hinzufügen"
 
-#: templates/settings/user.html:86
+#: templates/settings/user.html:83
 msgid ""
 "You can use your FIDO2 keys to secure your account. Once you added a key to "
 "your account you won't be able to log in without using the key."
@@ -3439,7 +3411,7 @@ msgstr ""
 "abzusichern. Sobald ein Schlüssel hinzugefügt wurde, ist ein Login nur noch "
 "mit diesem möglich."
 
-#: templates/settings/user.html:87
+#: templates/settings/user.html:84
 msgid ""
 "To make sure that you don't loose access to your account when you loose your "
 "FIDO2 key it is recommended to add multiple keys. Just make sure to keep at "
@@ -3450,15 +3422,15 @@ msgstr ""
 "empfohlen mindestens einen weiteren Schlüssel zu hinterlegen. Diesen "
 "Ersatzschlüssel sollten Sie an einem sicheren Ort aufbewahren."
 
-#: templates/settings/user.html:98
+#: templates/settings/user.html:95
 msgid "Choose language:"
 msgstr "Sprache auswählen"
 
-#: templates/settings/user.html:100
+#: templates/settings/user.html:97
 msgid "This setting only affects this device."
 msgstr "Diese Einstellung gilt nur für dieses Gerät."
 
-#: templates/settings/user.html:117
+#: templates/settings/user.html:114
 msgid "Change language"
 msgstr "Sprache ändern"
 
@@ -3587,21 +3559,21 @@ msgid "No valid pages selected for PDF generation."
 msgstr ""
 "Es wurden keine gültigen Seiten zur Erzeugung der PDF-Datei ausgewählt."
 
-#: utils/pdf_utils.py:106
+#: utils/pdf_utils.py:105
 msgid "The PDF could not be successfully generated."
 msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 
-#: utils/slug_utils.py:93
+#: utils/slug_utils.py:91
 #, python-format
 msgid "Cannot generate slug from %(fallback)s."
 msgstr "Slug kann nicht aus dem %(fallback)s abgeleitet werden."
 
-#: views/authentication/authentication_actions.py:128
-#: views/authentication/authentication_actions.py:159
+#: views/authentication/authentication_actions.py:131
+#: views/authentication/authentication_actions.py:162
 msgid "You need to log in first"
 msgstr "Sie müssen sich zunächst einloggen"
 
-#: views/authentication/authentication_actions.py:131
+#: views/authentication/authentication_actions.py:134
 msgid "You are already logged in"
 msgstr "Sie sind bereits eingeloggt"
 
@@ -3609,7 +3581,7 @@ msgstr "Sie sind bereits eingeloggt"
 msgid "You have been successfully logged off."
 msgstr "Sie wurden erfolgreich abgemeldet."
 
-#: views/authentication/authentication_actions.py:233
+#: views/authentication/authentication_actions.py:236
 msgid ""
 "A message with instructions for resetting your password has been sent to the "
 "e-mail address provided."
@@ -3617,11 +3589,11 @@ msgstr ""
 "Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an die "
 "angegebene E-Mail Adresse geschickt."
 
-#: views/authentication/authentication_actions.py:270
+#: views/authentication/authentication_actions.py:274
 msgid "Your password has been successfully changed."
 msgstr "Ihr Passwort wurde erfolgreich geändert."
 
-#: views/authentication/authentication_actions.py:271
+#: views/authentication/authentication_actions.py:275
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 
@@ -3657,15 +3629,15 @@ msgstr "Interner Server-Fehler"
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
-#: views/events/event_actions.py:53
+#: views/events/event_actions.py:54
 msgid "Event was successfully archived"
 msgstr "Veranstaltung wurde erfolgreich archiviert"
 
-#: views/events/event_actions.py:96
+#: views/events/event_actions.py:98
 msgid "Event was successfully restored"
 msgstr "Veranstaltung wurde erfolgreich wiederhergestellt"
 
-#: views/events/event_actions.py:134
+#: views/events/event_actions.py:138
 msgid "Event was successfully deleted"
 msgstr "Veranstaltung wurde erfolgreich gelöscht"
 
@@ -3752,30 +3724,30 @@ msgstr "Veranstaltung wurde erfolgreich veröffentlicht"
 msgid "Event was successfully saved"
 msgstr "Veranstaltung wurde erfolgreich gespeichert"
 
-#: views/feedback/admin_feedback_actions.py:41
-#: views/feedback/region_feedback_actions.py:46
+#: views/feedback/admin_feedback_actions.py:44
+#: views/feedback/region_feedback_actions.py:51
 msgid "Feedback was successfully marked as read"
 msgstr "Feedback wurde als gelesen markiert"
 
-#: views/feedback/admin_feedback_actions.py:67
-#: views/feedback/region_feedback_actions.py:79
+#: views/feedback/admin_feedback_actions.py:73
+#: views/feedback/region_feedback_actions.py:89
 msgid "Feedback was successfully marked as unread"
 msgstr "Feedback wurde als ungelesen markiert"
 
-#: views/feedback/admin_feedback_actions.py:93
-#: views/feedback/region_feedback_actions.py:112
+#: views/feedback/admin_feedback_actions.py:100
+#: views/feedback/region_feedback_actions.py:123
 msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
 
-#: views/imprint/imprint_actions.py:49
+#: views/imprint/imprint_actions.py:50
 msgid "Imprint was successfully archived"
 msgstr "Impressum wurde erfolgreich archiviert"
 
-#: views/imprint/imprint_actions.py:88
+#: views/imprint/imprint_actions.py:90
 msgid "Imprint was successfully restored"
 msgstr "Impressum wurde erfolgreich erstellt"
 
-#: views/imprint/imprint_actions.py:125
+#: views/imprint/imprint_actions.py:129
 msgid "Imprint was successfully deleted"
 msgstr "Impressum wurde erfolgreich erstellt"
 
@@ -3896,7 +3868,7 @@ msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
-#: views/language_tree/language_tree_actions.py:121
+#: views/language_tree/language_tree_actions.py:129
 msgid ""
 "The language tree node \"{}\" and all corresponding translations were "
 "successfully deleted."
@@ -3945,15 +3917,13 @@ msgstr "Angebots-Vorlage wurde erfolgreich gespeichert"
 msgid "Offer template was successfully created"
 msgstr "Angebots-Vorlage wurde erfolgreich erstellt"
 
-#: views/offers/offer_actions.py:37
-#, python-format
-msgid "Offer \"%(offer_name)s\" was successfully activated"
-msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich aktiviert"
+#: views/offers/offer_actions.py:40
+msgid "Offer {} was successfully activated"
+msgstr "Angebot {} wurde erfolgreich aktiviert."
 
-#: views/offers/offer_actions.py:74
-#, python-format
-msgid "Offer \"%(offer_name)s\" was successfully deactivated"
-msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich deaktiviert"
+#: views/offers/offer_actions.py:75
+msgid "Offer {} was successfully deactivated"
+msgstr "Angebot {} wurde erfolgreich deaktiviert."
 
 #: views/organizations/organization_view.py:90
 msgid "Organization was successfully created"
@@ -3963,55 +3933,55 @@ msgstr "Organisation wurde erfolgreich erstellt"
 msgid "Organization was successfully saved"
 msgstr "Organisation wurde erfolgreich gespeichert"
 
-#: views/pages/page_actions.py:65
+#: views/pages/page_actions.py:66
 msgid "Page was successfully archived"
 msgstr "Seite wurde erfolgreich archiviert"
 
-#: views/pages/page_actions.py:112 views/pages/page_actions.py:125
+#: views/pages/page_actions.py:118 views/pages/page_actions.py:132
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page_actions.py:115
+#: views/pages/page_actions.py:121
 msgid ""
 "However, it is still archived because one of its parent pages is archived."
 msgstr ""
 "Sie ist jedoch immer noch archiviert, weil eine ihrer übergeordneten Seiten "
 "archiviert ist."
 
-#: views/pages/page_actions.py:208
+#: views/pages/page_actions.py:216
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
-#: views/pages/page_actions.py:354
+#: views/pages/page_actions.py:367
 msgid "Could not update page translation state"
 msgstr "Zustand der Übersetzung konnte nicht aktualisiert werden"
 
-#: views/pages/page_actions.py:491
+#: views/pages/page_actions.py:516
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: views/pages/page_actions.py:581 views/pages/page_actions.py:596
+#: views/pages/page_actions.py:603 views/pages/page_actions.py:618
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page_actions.py:588
+#: views/pages/page_actions.py:610
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page_actions.py:604
+#: views/pages/page_actions.py:626
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: views/pages/page_actions.py:613 views/pages/page_actions.py:728
+#: views/pages/page_actions.py:635 views/pages/page_actions.py:749
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: views/pages/page_actions.py:696
+#: views/pages/page_actions.py:717
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -4021,12 +3991,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: views/pages/page_actions.py:702
+#: views/pages/page_actions.py:723
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page_actions.py:713
+#: views/pages/page_actions.py:734
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -4036,7 +4006,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: views/pages/page_actions.py:719
+#: views/pages/page_actions.py:740
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -4138,15 +4108,15 @@ msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
 msgid "Page was successfully created"
 msgstr "Seite wurde erfolgreich erstellt"
 
-#: views/pois/poi_actions.py:45
+#: views/pois/poi_actions.py:46
 msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
 
-#: views/pois/poi_actions.py:83
+#: views/pois/poi_actions.py:85
 msgid "Location was successfully restored"
 msgstr "Ort wurde erfolgreich wiederhergestellt"
 
-#: views/pois/poi_actions.py:118
+#: views/pois/poi_actions.py:121
 msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
 
@@ -4211,27 +4181,27 @@ msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
 "Benachrichtigungen verwalten."
 
-#: views/push_notifications/push_notification_view.py:154
+#: views/push_notifications/push_notification_view.py:163
 msgid "Push Notification saved"
 msgstr "Push-Benachrichtigung gespeichert"
 
-#: views/push_notifications/push_notification_view.py:156
+#: views/push_notifications/push_notification_view.py:166
 msgid "Error while saving Push Notification"
 msgstr "Fehler während des Speicherns der Push-Benachrichtigung"
 
-#: views/push_notifications/push_notification_view.py:164
+#: views/push_notifications/push_notification_view.py:179
 msgid "Push Notification send successfully"
 msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
 
-#: views/push_notifications/push_notification_view.py:168
+#: views/push_notifications/push_notification_view.py:183
 msgid "Error while sending Push Notification"
 msgstr "Fehler während des Sendens der Push-Benachrichtigung"
 
-#: views/push_notifications/push_notification_view.py:171
+#: views/push_notifications/push_notification_view.py:186
 msgid "Required Push Notification texts are missing"
 msgstr "Benötigte Texte für die Push-Benachrichtigung fehlen"
 
-#: views/regions/region_actions.py:67
+#: views/regions/region_actions.py:66
 msgid "Region was successfully deleted"
 msgstr "Region wurde erfolgreich gelöscht"
 
@@ -4302,7 +4272,7 @@ msgstr ""
 msgid "User {} was successfully deleted."
 msgstr "Benutzer {} wurde erfolgreich gelöscht."
 
-#: views/users/region_user_actions.py:52
+#: views/users/region_user_actions.py:55
 msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
@@ -4326,6 +4296,15 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
+#~ msgid "Recurrence rule"
+#~ msgstr "Wiederholungs-Regel"
+
+#~ msgid "Offer \"%(offer_name)s\" was successfully activated"
+#~ msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich aktiviert"
+
+#~ msgid "Offer \"%(offer_name)s\" was successfully deactivated"
+#~ msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich deaktiviert"
+
 #~ msgid "Code"
 #~ msgstr "Code"
 
@@ -4341,6 +4320,27 @@ msgstr ""
 
 #~ msgid "Icon"
 #~ msgstr "Icon"
+
+#~ msgid "Name of the Role"
+#~ msgstr "Name der Rolle"
+
+#~ msgid "Enter the role's name here"
+#~ msgstr "Name der Rolle hier eingeben"
+
+#~ msgid "Permissions of the role"
+#~ msgstr "Berechtigungen der Rolle"
+
+#~ msgid "Your E-mail-address"
+#~ msgstr "Ihre E-Mail Adresse"
+
+#~ msgid "Enter your e-mail-address here"
+#~ msgstr "Ihre E-Mail-Adresse hier eingeben"
+
+#~ msgid "Enter your old password here"
+#~ msgstr "Ihr bisheriges Passwort hier eingeben"
+
+#~ msgid "Confirm your new password here"
+#~ msgstr "Ihr neues Passwort erneut eingeben"
 
 #~ msgid "Set icon"
 #~ msgstr "Icon festlegen"
@@ -4820,9 +4820,6 @@ msgstr ""
 
 #~ msgid "Push notification was successfully sent"
 #~ msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
-
-#~ msgid "Offer was successfully deactivated."
-#~ msgstr "Angebot wurde erfolgreich deaktiviert."
 
 #~ msgid "All POIs"
 #~ msgstr "Alle POIs"

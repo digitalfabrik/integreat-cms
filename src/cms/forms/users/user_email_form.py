@@ -2,12 +2,12 @@ import logging
 
 from django.contrib.auth import get_user_model
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class UserEmailForm(PlaceholderModelForm):
+class UserEmailForm(CustomModelForm):
     """
     Form for modifying user email addresses
     """

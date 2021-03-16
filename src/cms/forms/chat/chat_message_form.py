@@ -1,12 +1,12 @@
 import logging
 
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...models import ChatMessage
 
 logger = logging.getLogger(__name__)
 
 
-class ChatMessageForm(PlaceholderModelForm):
+class ChatMessageForm(CustomModelForm):
     """
     Form for submitting chat messages
     """
@@ -30,11 +30,6 @@ class ChatMessageForm(PlaceholderModelForm):
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
         """
-
-        logger.info(
-            "New ChatMessageForm instantiated with args %s and kwargs %s", args, kwargs
-        )
-
         # pop kwarg to make sure the super class does not get this param
         sender = kwargs.pop("sender", None)
 

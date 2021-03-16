@@ -24,17 +24,6 @@ class RegionUserProfileForm(UserProfileForm):
         #: The fields of the model which should be handled by this form
         fields = ["organization", "expert_mode"]
 
-    def __init__(self, data=None, instance=None):
-
-        logger.info(
-            "RegionUserProfileForm instantiated with data %s and instance %s",
-            data,
-            instance,
-        )
-
-        # Instantiate ModelForm
-        super().__init__(data=data, instance=instance)
-
     def save(self, *args, **kwargs):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
@@ -49,13 +38,6 @@ class RegionUserProfileForm(UserProfileForm):
         :return: The saved user profile object
         :rtype: ~cms.models.users.user_profile.UserProfile
         """
-
-        logger.info(
-            "RegionUserProfileForm saved with cleaned data %s and changed data %s",
-            self.cleaned_data,
-            self.changed_data,
-        )
-
         # pop kwarg to make sure the super class does not get this param
         region = kwargs.pop("region", None)
 
@@ -69,8 +51,6 @@ class RegionUserProfileForm(UserProfileForm):
             # only update the region when user is created
             user_profile.regions.add(region)
             user_profile.save()
-            logger.info(
-                "The new user %s was added to the region %s.", user_profile.user, region
-            )
+            logger.info("%r was added to %r", user_profile, region)
 
         return user_profile

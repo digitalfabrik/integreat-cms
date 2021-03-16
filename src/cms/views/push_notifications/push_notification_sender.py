@@ -11,6 +11,8 @@ from ...models import PushNotificationTranslation
 from ...models import Region
 from ...constants import push_notifications as pnt_const
 
+logger = logging.getLogger(__name__)
+
 
 # pylint: disable=too-few-public-methods
 class PushNotificationSender:
@@ -19,7 +21,6 @@ class PushNotificationSender:
     Definition: https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json
     """
 
-    logger = logging.getLogger(__name__)
     fcm_url = "https://fcm.googleapis.com/fcm/send"
 
     def __init__(self, push_notification):
@@ -69,11 +70,12 @@ class PushNotificationSender:
             return False
         for pnt in self.prepared_pnts:
             if not pnt.title:
-                self.logger.info("Push Notification Translation invalid: %s", str(pnt))
+                logger.debug("%r has no title", pnt)
                 return False
         return True
 
-    def get_auth_key(self):
+    @staticmethod
+    def get_auth_key():
         """
         Get FCM API auth key
 
@@ -83,10 +85,10 @@ class PushNotificationSender:
         fcm_auth_config_key = "fcm_auth_key"
         auth_key = Configuration.objects.filter(key=fcm_auth_config_key)
         if auth_key.exists():
-            self.logger.info("Got fcm_auth_key from database")
+            logger.debug("Got fcm_auth_key from database")
             return auth_key.first().value
-        self.logger.info(
-            "Could not get %s from configuration database", fcm_auth_config_key
+        logger.warning(
+            "Could not get %r from configuration database", fcm_auth_config_key
         )
         return None
 
@@ -129,11 +131,12 @@ class PushNotificationSender:
         for pnt in self.prepared_pnts:
             res = self.send_pn(pnt)
             if res.status_code == 200:
-                self.logger.info("Message sent, id: %s", res.json()["message_id"])
+                logger.info("%r sent, FCM id: %r", pnt, res.json()["message_id"])
             else:
                 status = False
-                self.logger.info(
-                    "Received invalid response from FCM for push notification: %s, response body: %s",
+                logger.warning(
+                    "Received invalid response from FCM for %r, status: %r, body: %r",
+                    pnt,
                     res.status_code,
                     res.text,
                 )

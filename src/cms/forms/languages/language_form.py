@@ -1,8 +1,8 @@
-from ..placeholder_model_form import PlaceholderModelForm
+from ..custom_model_form import CustomModelForm
 from ...models import Language
 
 
-class LanguageForm(PlaceholderModelForm):
+class LanguageForm(CustomModelForm):
     """
     Form for creating and modifying language objects
     """

@@ -80,11 +80,9 @@ def generate_unique_slug(**kwargs):
     region = kwargs.get("region")
     language = kwargs.get("language")
 
-    logger.info("generate_unique_slug()")
-    logger.info('foreign_model: "%s"', foreign_model)
+    logger.debug("foreign_model: %r", foreign_model)
     if foreign_model in ["page", "event", "poi"]:
-        logger.info('region: "%s"', region)
-        logger.info('language: "%s"', language)
+        logger.debug("%r, %r", region, language)
 
     # if slug is empty and fallback field is set, generate from fallback:title/name
     if not slug and fallback:
@@ -134,5 +132,5 @@ def generate_unique_slug(**kwargs):
         i += 1
         unique_slug = f"{slug}-{i}"
 
-    logger.info("unique slug: %s", unique_slug)
+    logger.debug("unique slug: %r", unique_slug)
     return unique_slug
