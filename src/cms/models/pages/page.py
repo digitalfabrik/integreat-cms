@@ -1,9 +1,12 @@
 import logging
 
+from html import escape
+
 from mptt.models import MPTTModel, TreeForeignKey
 
 from django.conf import settings
 from django.db import models
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from .abstract_base_page import AbstractBasePage
@@ -166,6 +169,27 @@ class Page(MPTTModel, AbstractBasePage):
         if self.mirrored_page:
             return self.mirrored_page.get_public_translation(language_slug)
         return None
+
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Page object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the page
+        :rtype: str
+        """
+        label = " &rarr; ".join(
+            [
+                # escape page title because string is marked as safe afterwards
+                escape(ancestor.best_translation.title)
+                for ancestor in self.get_ancestors(include_self=True)
+            ]
+        )
+        # Add warning if page is archived
+        if self.archived:
+            label += " (&#9888; " + _("Archived") + ")"
+        # mark as safe so that the arrow and the warning triangle are not escaped
+        return mark_safe(label)
 
     class Meta:
         #: The verbose name of the model

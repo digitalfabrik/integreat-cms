@@ -101,6 +101,26 @@ class Offer(models.Model):
             post_data.update({"search-plz": self.region.postal_code})
         return post_data
 
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Offer object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the offer
+        :rtype: str
+        """
+        return self.name
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<Offer: Offer object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the offer
+        :rtype: str
+        """
+        return f"<Offer (id: {self.id}, region: {self.region.slug}, slug: {self.slug})>"
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("offer")

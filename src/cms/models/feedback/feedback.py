@@ -157,6 +157,31 @@ class Feedback(models.Model):
         """
         return bool(self.read_by)
 
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Feedback object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the feedback
+        :rtype: str
+        """
+        return self.comment
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<Feedback: Feedback object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the feedback
+        :rtype: str
+        """
+        # pylint: disable=unidiomatic-typecheck
+        if type(self) == Feedback:
+            class_name = type(self.submodel_instance).__name__
+        else:
+            class_name = type(self).__name__
+        return f"<{class_name} (id: {self.id})>"
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("feedback")

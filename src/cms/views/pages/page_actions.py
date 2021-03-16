@@ -514,7 +514,7 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
         messages.success(
             request,
             _('The page "{page}" was successfully moved.').format(
-                page=page.get_first_translation([language_slug]).title
+                page=page.best_translation.title
             ),
         )
     except (ValueError, InvalidMove) as e:

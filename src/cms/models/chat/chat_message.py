@@ -54,15 +54,23 @@ class ChatMessage(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <ChatMessage object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``ChatMessage object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation of the chat message with information about sender, sent_datetime and text
-                 (useful for debugging purposes)
+        :return: A readable string representation of the chat message
         :rtype: str
         """
-        return "{} ({}): {}".format(
-            self.sender, self.sent_datetime.strftime("%Y-%m-%d %H:%M"), self.text
-        )
+        return f"{self.sent_datetime.strftime('%Y-%m-%d %H:%M')} - {self.sender.profile.full_user_name}: {self.text}"
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<ChatMessage: ChatMessage object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the chat message
+        :rtype: str
+        """
+        return f"<ChatMessage (id: {self.id}, sender: {self.sender.username}, date: {self.sent_datetime.strftime('%Y-%m-%d %H:%M')})>"
 
     class Meta:
         #: The verbose name of the model

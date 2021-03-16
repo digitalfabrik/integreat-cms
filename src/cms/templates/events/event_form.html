@@ -21,9 +21,8 @@
                         {% blocktrans %}Edit event "{{ event_title }}"{% endblocktrans %}
                         {% endwith %}
                         {% if LANGUAGE_CODE != language.slug %}
-                            {% get_translation event_form.instance LANGUAGE_CODE as backend_translation %}
-                            {% if backend_translation %}
-                                ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
+                            {% if event_form.instance.backend_translation %}
+                                ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ event_form.instance.backend_translation.title }}")
                             {% endif %}
                         {% endif %}
                     {% else %}

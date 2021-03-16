@@ -34,12 +34,23 @@ class Organization(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <Organization object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Organization object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation (in this case the title) of the organization
+        :return: A readable string representation of the organization
         :rtype: str
         """
         return self.name
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<Organization: Organization object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the organization
+        :rtype: str
+        """
+        return f"<Organization (id: {self.id}, slug: {self.slug})>"
 
     class Meta:
         #: The verbose name of the model

@@ -19,20 +19,17 @@
         </a>
     </td>
     {% get_current_language as LANGUAGE_CODE %}
-    {% if LANGUAGE_CODE != language.slug %}
-        {% get_language LANGUAGE_CODE as backend_language %}
-        {% if backend_language %}
-            {% get_translation event LANGUAGE_CODE as backend_translation %}
-            <td>
-                <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
-                    {% if backend_translation %}
-                        {{ backend_translation.title }}
-                    {% else %}
-                        <i>{% trans 'Translation not available' %}</i>
-                    {% endif %}
-                </a>
-            </td>
-        {% endif %}
+    {% get_language LANGUAGE_CODE as backend_language %}
+    {% if backend_language and backend_language != language %}
+        <td>
+            <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+                {% if event.backend_translation %}
+                    {{ event.backend_translation.title }}
+                {% else %}
+                    <i>{% trans 'Translation not available' %}</i>
+                {% endif %}
+            </a>
+        </td>
     {% endif %}
     <td>
         <div class="block py-3 px-2 text-gray-800">

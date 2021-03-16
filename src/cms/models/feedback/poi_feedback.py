@@ -26,7 +26,7 @@ class POIFeedback(Feedback):
         :return: The name of the object this feedback refers to
         :rtype: str
         """
-        return self.poi_translation.poi.backend_translation.title
+        return self.poi_translation.poi.best_translation.title
 
     @property
     def object_url(self):
@@ -41,7 +41,7 @@ class POIFeedback(Feedback):
             kwargs={
                 "poi_id": self.poi_translation.poi.id,
                 "region_slug": self.region.slug,
-                "language_slug": self.poi_translation.poi.backend_translation.language.slug,
+                "language_slug": self.poi_translation.poi.best_translation.language.slug,
             },
         )
 

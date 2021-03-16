@@ -1,7 +1,12 @@
+from html import escape
+
+
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 
@@ -300,12 +305,31 @@ class Region(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <Region object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Region object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation (in this case the name) of the region
+        :return: A readable string representation of the region
         :rtype: str
         """
-        return self.name
+        label = escape(self.name)
+        if self.status == region_status.HIDDEN:
+            # Add warning if region is hidden
+            label += " (&#9888; " + ugettext("Hidden") + ")"
+        elif self.status == region_status.ARCHIVED:
+            # Add warning if region is archived
+            label += " (&#9888; " + ugettext("Archived") + ")"
+        # mark as safe so that the warning triangle is not escaped
+        return mark_safe(label)
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<Region: Region object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the region
+        :rtype: str
+        """
+        return f"<Region (id: {self.id}, slug: {self.slug})>"
 
     class Meta:
         #: The verbose name of the model

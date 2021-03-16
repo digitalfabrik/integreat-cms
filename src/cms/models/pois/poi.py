@@ -84,18 +84,55 @@ class POI(models.Model):
     @property
     def backend_translation(self):
         """
-        This function tries to determine which translation to be used for showing a POI in the backend.
-        The first priority is the current backend language.
-        If no translation is present in this language, the fallback is the region's default language.
+        This function returns the translation of this POI in the current backend language.
+
+        :return: The backend translation of a POI
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
+        """
+        return self.translations.filter(language__slug=get_language()).first()
+
+    @property
+    def default_translation(self):
+        """
+        This function returns the translation of this POI in the region's default language.
+        Since a POI can only be created by creating a translation in the default language, this is guaranteed to return
+        a POI translation.
+
+        :return: The default translation of a POI
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
+        """
+        return self.translations.filter(language=self.region.default_language).first()
+
+    @property
+    def best_translation(self):
+        """
+        This function returns the translation of this POI in the current backend language and if it doesn't exist, it
+        provides a fallback to the translation in the region's default language.
 
         :return: The "best" translation of a POI for displaying in the backend
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
-        poi_translation = self.translations.filter(language__slug=get_language())
-        if not poi_translation.exists():
-            alt_slug = self.region.default_language.slug
-            poi_translation = self.translations.filter(language__slug=alt_slug)
-        return poi_translation.first()
+        return self.backend_translation or self.default_translation
+
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``POI object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the POI
+        :rtype: str
+        """
+        return self.best_translation.title
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<POI: POI object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the POI
+        :rtype: str
+        """
+        return f"<POI (id: {self.id}, region: {self.region.slug}, slug: {self.best_translation.slug})>"
 
     class Meta:
         #: The verbose name of the model

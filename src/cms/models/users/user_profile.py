@@ -94,19 +94,30 @@ class UserProfile(models.Model):
         logger.debug(
             "Field chat_last_visited of %r updated from %s to %s",
             self.user.profile,
-            previous_chat_last_visited.strftime("%Y-%m-%d %H:%M:%r"),
-            self.chat_last_visited.strftime("%Y-%m-%d %H:%M:%r"),
+            previous_chat_last_visited.strftime("%Y-%m-%d %H:%M:%S"),
+            self.chat_last_visited.strftime("%Y-%m-%d %H:%M:%S"),
         )
         return previous_chat_last_visited
 
     def __str__(self):
         """
-        The string representation of this user profile
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``UserProfile object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: THe username
+        :return: A readable string representation of the user profile
         :rtype: str
         """
-        return self.user.username
+        return self.full_user_name
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<UserProfile: UserProfile object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the user profile
+        :rtype: str
+        """
+        return f"<UserProfile (id: {self.id}, username: {self.user.username})>"
 
     class Meta:
         #: The verbose name of the model

@@ -26,7 +26,7 @@ class PageFeedback(Feedback):
         :return: The name of the object this feedback refers to
         :rtype: str
         """
-        return self.page_translation.page.backend_translation.title
+        return self.page_translation.page.best_translation.title
 
     @property
     def object_url(self):
@@ -41,7 +41,7 @@ class PageFeedback(Feedback):
             kwargs={
                 "page_id": self.page_translation.page.id,
                 "region_slug": self.region.slug,
-                "language_slug": self.page_translation.page.backend_translation.language.slug,
+                "language_slug": self.page_translation.page.best_translation.language.slug,
             },
         )
 

@@ -23,6 +23,26 @@ class Configuration(models.Model):
         verbose_name=_("modification date"),
     )
 
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Configuration object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the configuration
+        :rtype: str
+        """
+        return f"{self.key}: {self.value}"
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<Configuration: Configuration object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the configuration
+        :rtype: str
+        """
+        return f"<Configuration (id: {self.id}, key: {self.key}, value: {self.value})>"
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("configuration")

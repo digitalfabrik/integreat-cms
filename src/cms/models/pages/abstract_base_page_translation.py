@@ -54,6 +54,7 @@ class AbstractBasePageTranslation(models.Model):
     def page(self):
         """
         The page the translation belongs to
+
         To be implemented in the inheriting model
         """
         raise NotImplementedError
@@ -62,6 +63,7 @@ class AbstractBasePageTranslation(models.Model):
     def language(self):
         """
         The language of the page translation
+
         To be implemented in the inheriting model
         """
         raise NotImplementedError
@@ -70,6 +72,7 @@ class AbstractBasePageTranslation(models.Model):
     def creator(self):
         """
         The user who created the page translation
+
         To be implemented in the inheriting model
         """
         raise NotImplementedError
@@ -78,6 +81,7 @@ class AbstractBasePageTranslation(models.Model):
     def permalink(self):
         """
         This property calculates the permalink dynamically
+
         To be implemented in the inheriting model
         """
         raise NotImplementedError
@@ -86,6 +90,7 @@ class AbstractBasePageTranslation(models.Model):
     def short_url(self):
         """
         This property calculates the short url dynamically
+
         To be implemented in the inheriting model
         """
         raise NotImplementedError
@@ -298,6 +303,27 @@ class AbstractBasePageTranslation(models.Model):
         :rtype: bool
         """
         return not self.currently_in_translation and not self.is_outdated
+
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``AbstractBasePageTranslation object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the page translation
+        :rtype: str
+        """
+        return self.title
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<AbstractBasePageTranslation: AbstractBasePageTranslation object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the page translation
+        :rtype: str
+        """
+        class_name = type(self).__name__
+        return f"<{class_name} (id: {self.id}, page_id: {self.page.id}, language: {self.language.slug}, slug: {self.slug})>"
 
     class Meta:
         #: The verbose name of the model

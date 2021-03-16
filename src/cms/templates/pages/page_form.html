@@ -21,9 +21,8 @@
                             {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
                         {% endwith %}
                         {% if LANGUAGE_CODE != language.slug %}
-                            {% get_translation page LANGUAGE_CODE as backend_translation %}
-                            {% if backend_translation %}
-                                ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ backend_translation.title }}")
+                            {% if page.backend_translation %}
+                                ({% trans 'Title in' %} {% translated_language_name LANGUAGE_CODE %}: "{{ page.backend_translation.title }}")
                             {% endif %}
                         {% endif %}
                     {% else %}
@@ -330,7 +329,7 @@
                                 </div>
                                 {% for ancestor in page.explicitly_archived_ancestors %}
                                     <a href="{% url 'edit_page' page_id=ancestor.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="inline-block mr-2"></i> {{ ancestor.backend_translation.title }}
+                                        <i data-feather="edit" class="inline-block mr-2"></i> {{ ancestor.best_translation.title }}
                                     </a>
                                 {% endfor %}
                             {% else %}
@@ -361,7 +360,7 @@
                                     </div>
                                     {% for descendant in page.get_descendants %}
                                     <a href="{% url 'edit_page' page_id=descendant.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="inline-block mr-2"></i> {{ descendant.backend_translation.title }}
+                                        <i data-feather="edit" class="inline-block mr-2"></i> {{ descendant.best_translation.title }}
                                     </a>
                                     {% endfor %}
                                 {% else %}

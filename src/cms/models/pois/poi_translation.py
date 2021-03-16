@@ -290,6 +290,26 @@ class POITranslation(models.Model):
         """
         return not self.currently_in_translation and not self.is_outdated
 
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``POITranslation object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the POI translation
+        :rtype: str
+        """
+        return self.title
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<POITranslation: POITranslation object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the POI translation
+        :rtype: str
+        """
+        return f"<POITranslation (id: {self.id}, poi_id: {self.poi.id}, language: {self.language.slug}, slug: {self.slug})>"
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("location translation")

@@ -39,12 +39,25 @@ class UserMfa(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <UserMfa object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``UserMfa object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation (in this case the title) of the multi-factor authentication key
+        :return: A readable string representation of the user MFA
         :rtype: str
         """
-        return self.user.username + str(self.key_id)
+        return f"{self.name} ({self.user.profile.full_user_name})"
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<UserMfa: UserMfa object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the user MFA
+        :rtype: str
+        """
+        return (
+            f"<UserMfa (id: {self.id}, name: {self.name}, user: {self.user.username})>"
+        )
 
     class Meta:
         #: The verbose name of the model

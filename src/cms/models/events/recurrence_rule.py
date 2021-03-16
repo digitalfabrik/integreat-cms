@@ -1,6 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
 from ...constants import frequency, weekdays, weeks
@@ -62,6 +63,28 @@ class RecurrenceRule(models.Model):
             "If the recurrence is not for an indefinite period, this field contains the end date"
         ),
     )
+
+    def __str__(self):
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``RecurrenceRule object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the recurrence rule
+        :rtype: str
+        """
+        return ugettext('Recurrence rule of "{}" ({})').format(
+            self.event.best_translation.title, self.get_frequency_display()
+        )
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<RecurrenceRule: RecurrenceRule object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the recurrence rule
+        :rtype: str
+        """
+        return f"<RecurrenceRule (id: {self.id}, event: {self.event.best_translation.slug})>"
 
     class Meta:
         #: The verbose name of the model

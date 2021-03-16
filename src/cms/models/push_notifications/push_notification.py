@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from ..regions.region import Region
 from .push_notification_channel import PushNotificationChannel
 from ...constants.push_notifications import PN_MODES
 
@@ -11,7 +12,7 @@ class PushNotification(models.Model):
     """
 
     region = models.ForeignKey(
-        "Region",
+        Region,
         on_delete=models.CASCADE,
         related_name="push_notifications",
         verbose_name=_("region"),
@@ -56,15 +57,28 @@ class PushNotification(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <PushNotification object at 0xDEADBEEF>
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PushNotification object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: The string representation of the push notification (in this case the title of the first existing
-                 push notification translation)
+        :return: A readable string representation of the event
         :rtype: str
         """
-        if self.translations.exists():
-            return self.translations.first().title
-        return ""
+        default_translation = self.translations.filter(
+            language=self.region.default_language
+        ).first()
+        if default_translation:
+            return default_translation.title
+        return repr(self)
+
+    def __repr__(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<PushNotification: PushNotification object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the event
+        :rtype: str
+        """
+        return f"<PushNotification (id: {self.id}, channel: {self.channel.name}, region: {self.region.slug})>"
 
     class Meta:
         #: The verbose name of the model

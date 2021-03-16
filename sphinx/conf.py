@@ -126,6 +126,7 @@ nitpick_ignore = [
     ("py:class", "django.forms.models.ModelChoiceIterator"),
     ("py:class", "mptt.models.MPTTModel"),
     ("py:class", "mptt.fields.TreeForeignKey"),
+    ("py:class", "mptt.forms.TreeNodeChoiceField"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("py:class", "realms.magic.unicorn"),
     ("js:func", "cms.static.js.pages.page_bulk_action.bulk_action_execute"),
