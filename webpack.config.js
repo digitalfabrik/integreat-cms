@@ -1,0 +1,95 @@
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
+
+module.exports = {
+  entry: {
+    main: "./src/frontend/index.ts",
+    editor: "./src/frontend/editor.ts",
+    pdf: "./src/frontend/pdf.ts"
+  },
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "src/cms/static"),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          process.env.NODE_ENV !== "production"
+            ? "style-loader"
+            : MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+        ],
+      },
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"],
+            },
+          },
+          "ts-loader",
+        ],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader",
+        options: {
+          name: "fonts/[name].[hash].[ext]",
+          publicPath: "/static/",
+        },
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/i,
+        loader: "url-loader",
+        options: {
+          limit: 8192,
+        },
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: "src/frontend/tinymce-plugins", to: "tinymce-plugins" },
+        { from: "src/frontend/svg", to: "svg" },
+        { from: "src/frontend/images", to: "images" },
+      ],
+    }),
+  ],
+  optimization: {
+    minimize: process.env.NODE_ENV === "production",
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+  },
+  devtool: process.env.NODE_ENV !== "production" ? "inline-source-map" : false,
+  devServer: {
+    contentBase: path.resolve(__dirname, "src/cms/static"),
+    compress: true,
+    port: 9000,
+    writeToDisk: true,
+  },
+};

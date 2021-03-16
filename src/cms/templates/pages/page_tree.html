@@ -6,10 +6,6 @@
 {% load page_filters %}
 {% load rules %}
 
-{% block javascript_head %}
-    <script src="{% static 'js/copy-clipboard.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 <div class="table-header">
     <div class="flex flex-wrap">
@@ -66,7 +62,7 @@
     <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto">
         <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"><input type="checkbox" class="h-full" id="bulk-select-all"></th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"><input type="checkbox" id="bulk-select-all"></th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min">{% trans 'Hierarchy' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
@@ -156,12 +152,4 @@
 {% endif %}
 
 {% include "../generic_confirmation_dialog.html" %}
-{% endblock %}
-
-{% block javascript %}
-<script src="{% static 'js/confirmation-popups.js' %}"></script>
-<script src="{% static 'js/tree_drag_and_drop.js' %}"></script>
-<script src="{% static 'js/pages/collapse-subpages.js' %}"></script>
-<script src="{% static 'js/bulk_actions.js' %}"></script>
-<script src="{% static 'js/filter_form.js' %}"></script>
 {% endblock %}

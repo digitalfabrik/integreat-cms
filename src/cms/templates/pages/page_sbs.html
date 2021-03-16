@@ -5,23 +5,6 @@
 {% load widget_tweaks %}
 {% load rules %}
 
-{% block javascript_head %}
-<script src="{% static 'tinymce/tinymce.min.js' %}"></script>
-<script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
-<script src="{% static 'js/forms/autosave.js' %}"></script>
-<script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/fullscreen/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/autosave/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/link/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/preview/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/code/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
-<script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
-<script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 <form method="post" id="content_form">
 <div>
@@ -99,7 +82,7 @@
                 <input type="text" value="{{source_page_translation.title}}" class="appearance-none block w-full bg-gray-200 text-xl border border-gray-200 rounded py-3 px-4 leading-tight" disabled>
 	            <div class="mt-4">
                     <label class="block mt-4 font-bold" style="margin-bottom: 86px;">{% trans 'Content' %}</label>
-                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="bg-gray-200 w-full p-2" disabled>{{source_page_translation.text}}</textarea>
+                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea bg-gray-200 w-full p-2" disabled>{{source_page_translation.text}}</textarea>
                 </div>
 
                 <span class="block font-bold mt-4 mb-4">{% trans 'Copy content' %}</span>
@@ -170,7 +153,7 @@
                 <label for="{{ page_translation_form.title.id_for_label }}" class="block mb-2 font-bold">{{ page_translation_form.title.label }}</label>
                 {% render_field page_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                 <label for="{{ page_translation_form.text.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ page_translation_form.text.label }}</label>
-                {% render_field page_translation_form.text|add_error_class:"border-red-500" class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
+                {% render_field page_translation_form.text|add_error_class:"border-red-500" class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" id="target_translation_tinymce" %}
                 <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
                 {% render_field page_translation_form.minor_edit id="minor_edit" %}
                 <label for="{{ page_translation_form.minor_edit.id_for_label }}" class="text-s">{{ page_translation_form.minor_edit.label }}</label>
@@ -199,7 +182,7 @@
         data-aticon-src="{% static 'svg/at.svg' %}"
         data-ideaicon-text="{% trans 'Hint' %}"
         data-ideaicon-src="{% static 'svg/idea.svg' %}"
-        data-customcss-src="{% static 'css/tinymce_custom.css' %}"
+        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
         {% if imprint_translation_form.instance.id and imprint_translation_form.instance.page.archived %}
         data-readonly="1"
         {% endif %}
@@ -207,7 +190,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'js/pages/sbs_copy_content.js' %}"></script>
-<script src="{% static 'js/forms/tinymce-init.js' %}"></script>
-<script src="{% static 'js/forms/slug-error.js' %}"></script>
+<script src="{% static 'editor.js' %}"></script>
+<link href="{% static 'editor.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}

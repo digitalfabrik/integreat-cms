@@ -84,11 +84,11 @@ jobs:
       - run:
           name: Migrate database
           command: |
-            pipenv run integreat-cms-cli makemigrations cms --settings=backend.circleci_settings
-            pipenv run integreat-cms-cli migrate --settings=backend.circleci_settings
+            pipenv run integreat-cms-cli makemigrations cms
+            pipenv run integreat-cms-cli migrate
       - run:
           name: Run tests
-          command: pipenv run integreat-cms-cli test cms --set=COVERAGE --settings=backend.circleci_settings
+          command: pipenv run integreat-cms-cli test cms --set=COVERAGE
       - store_artifacts:
           path: htmlcov
   check-translations:
@@ -111,24 +111,17 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Compile CSS
-          command: npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
-      - run:
-          name: Browserify revisions.js
-          command: npx browserify src/cms/static/js/revisions.js -o src/cms/static/js/revisions_browserified.js -t [ babelify --presets [ @babel/preset-env ] ]
-      - run:
-          name: Compress JS & CSS
-          command: pipenv run integreat-cms-cli compress --settings=backend.circleci_settings
+          name: Compile CSS and JS
+          command: npm run prod
       - run:
           name: Compile translation file
           command: |
             cd src/cms
-            pipenv run integreat-cms-cli compilemessages --settings=backend.circleci_settings
+            pipenv run integreat-cms-cli compilemessages
       - persist_to_workspace:
           root: .
           paths:
-            - src/cms/static/css/style.min.css
-            - src/cms/static/CACHE
+            - src/cms/static
             - src/cms/locale/de/LC_MESSAGES/django.mo
   packaging:
     docker:

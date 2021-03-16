@@ -6,31 +6,6 @@
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
-{% load compress %}
-
-{% block css %}
-    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
-{% endblock %}
-
-{% block javascript_head %}
-    <script src="{% static 'js/forms/autosave.js' %}"></script>
-    <script src="{% static 'js/pages/page_side_by_side.js' %}"></script>
-    <script src="{% static 'js/copy-clipboard.js' %}"></script>
-    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
-    <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/fullscreen/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/autosave/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/link/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/preview/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/code/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
-    <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
-{% endblock %}
 
 {% block content %}
 <form method="post" id="content_form">
@@ -131,12 +106,12 @@
                         {{ imprint_translation_form.instance.get_status_display }}<br>
                         <span class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</span>
                         <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}</a>
-                        <a href="#" onclick="short_url_to_clipboard('{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
+                        <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="copy" class="inline-block"></i>
                         </a><br>
                         <span class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</span>
                         <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
-                        <a href="#" onclick="short_url_to_clipboard('{{ imprint_translation_form.instance.short_url }}');" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
+                        <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="copy" class="inline-block"></i>
                         </a>
                     {% endif %}
@@ -256,7 +231,7 @@
         data-aticon-src="{% static 'svg/at.svg' %}"
         data-ideaicon-text="{% trans 'Hint' %}"
         data-ideaicon-src="{% static 'svg/idea.svg' %}"
-        data-customcss-src="{% static 'css/tinymce_custom.css' %}"
+        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
         {% if imprint.id and imprint.archived %}
         data-readonly="1"
         {% endif %}
@@ -266,6 +241,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'js/confirmation-popups.js' %}"></script>
-<script src="{% static 'js/forms/tinymce-init.js' %}"></script>
+<script src="{% static 'editor.js' %}"></script>
+<link href="{% static 'editor.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}

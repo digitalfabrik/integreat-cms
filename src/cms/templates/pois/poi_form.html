@@ -6,30 +6,6 @@
 {% load content_filters %}
 {% load rules %}
 {% load poi_filters %}
-{% load compress %}
-
-{% block css %}
-    <link href="{% static 'tinymce/skins/ui/oxide/skin.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tinymce/skins/ui/oxide/content.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'tinymce/skins/content/default/content.css' %}" rel="stylesheet"type="text/css">
-{% endblock %}
-
-{% block javascript_head %}
-    <script src="{% static 'js/forms/autosave.js' %}"></script>
-    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
-    <script src="{% static 'tinymce/themes/silver/theme.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/paste/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/fullscreen/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/autosave/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/link/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/preview/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/media/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/image/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/code/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/lists/plugin.js' %}"></script>
-    <script src="{% static 'tinymce/plugins/directionality/plugin.js' %}"></script>
-    <script src="{% static 'tinymce-i18n/langs/de.js' %}"></script>
-{% endblock %}
 
 {% block content %}
 <form id="content_form" method="post" enctype="multipart/form-data">
@@ -253,7 +229,7 @@
         data-aticon-src="{% static 'svg/at.svg' %}"
         data-ideaicon-text="{% trans 'Hint' %}"
         data-ideaicon-src="{% static 'svg/idea.svg' %}"
-        data-customcss-src="{% static 'css/tinymce_custom.css' %}"
+        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
         {% if poi_form.instance.archived %}
         data-readonly="1"
         {% endif %}
@@ -266,8 +242,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'js/confirmation-popups.js' %}"></script>
-<script src="{% static 'js/forms/tinymce-init.js' %}"></script>
-<script src="{% static 'js/forms/slug-error.js' %}"></script>
-<script src="{% static 'js/forms/icon-field.js' %}"></script>
+<script src="{% static 'editor.js' %}"></script>
+<link href="{% static 'editor.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}

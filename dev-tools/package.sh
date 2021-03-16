@@ -25,10 +25,7 @@ fi
 cd $(dirname "$BASH_SOURCE")/..
 
 # Compile CSS file
-pipenv run npx lessc -clean-css src/cms/static/css/style.less src/cms/static/css/style.min.css
-
-# Compress JS & CSS files
-pipenv run integreat-cms-cli compress
+pipenv run npm run prod
 
 # Compile translation file
 pipenv run integreat-cms-cli compilemessages

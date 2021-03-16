@@ -36,11 +36,13 @@ Basic Concepts
 
     virtualenv
     internationalization
+    frontend-bundling
     documentation
     continuous-integration
 
 * :doc:`virtualenv`: Virtual Python environment and Pipenv
 * :doc:`internationalization`: Multi-language support for the backend UI
+* :doc:`frontend-bundling`: Work on frontend assets
 * :doc:`documentation`: This Sphinx documentation
 * :doc:`continuous-integration`: Continuous Integration and Delivery with CircleCI
 

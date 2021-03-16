@@ -84,7 +84,6 @@ intersphinx_mapping = {
         f"https://docs.djangoproject.com/en/{django_doc_version}/",
         f"https://docs.djangoproject.com/en/{django_doc_version}/_objects/",
     ),
-    "django-compressor": ("https://django-compressor.readthedocs.io/en/stable/", None),
     "django-filer": ("https://django-filer.readthedocs.io/en/latest/", None),
     "django-mptt": ("https://django-mptt.readthedocs.io/en/latest/", None),
     "easy-thumbnails": ("https://easy-thumbnails.readthedocs.io/en/latest/", None),
@@ -143,9 +142,9 @@ html_theme_options = {
     "collapse_navigation": False,
 }
 #: The logo shown in the menu bar
-html_logo = "../src/cms/static/images/integreat-logo-white.png"
+html_logo = "../src/frontend/images/integreat-logo-white.png"
 #: The facivon of the html doc files
-html_favicon = "../src/cms/static/images/favicon.ico"
+html_favicon = "../src/frontend/images/favicon.ico"
 #: The url where the docs should be published (via gh-pages)
 html_baseurl = github_pages_url
 #: Do not include links to the documentation source (.rst files) in build
