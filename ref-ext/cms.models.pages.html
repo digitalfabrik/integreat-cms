@@ -144,6 +144,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../internationalization.html#developer-tools">Developer Tools</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
@@ -235,7 +239,6 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ref/backend.html">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#context-processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#settings">Settings</a></li>
@@ -654,7 +657,6 @@
 <p class="caption"><span class="caption-text">Extended Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="backend.html">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.circleci_settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.context_processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.docker_settings">Docker Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.settings">Settings</a></li>
@@ -3029,7 +3031,7 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L409"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -3106,7 +3108,7 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.delete">
-<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L1023"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L1105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calling <code class="docutils literal notranslate"><span class="pre">delete</span></code> on a node will delete it as well as its full
 subtree, as opposed to reattaching all the subnodes to its parent node.</p>
 <p>There are no argument specific to a MPTT model, all the arguments will
@@ -3170,7 +3172,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_ancestors">
-<code class="sig-name descname"><span class="pre">get_ancestors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_ancestors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_ancestors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L508"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_ancestors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the ancestors of this model
 instance.</p>
 <p>This defaults to being in descending order (root ancestor first,
@@ -3183,7 +3185,7 @@ include this model instance.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_children">
-<code class="sig-name descname"><span class="pre">get_children</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L562"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_children" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_children</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L596"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the immediate children of this
 model instance, in tree order.</p>
 <p>The benefit of using this method over the reverse relation
@@ -3202,13 +3204,13 @@ a leaf node (it has no children).</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_descendant_count">
-<code class="sig-name descname"><span class="pre">get_descendant_count</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L615"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_descendant_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_descendant_count</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L647"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_descendant_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of descendants this model instance has.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_descendants">
-<code class="sig-name descname"><span class="pre">get_descendants</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L586"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_descendants" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_descendants</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L620"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_descendants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing descendants of this model
 instance, in tree order.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">include_self</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> will also
@@ -3217,7 +3219,7 @@ include this model instance.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_family">
-<code class="sig-name descname"><span class="pre">get_family</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L537"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_family" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_family</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L567"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_family" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing the ancestors, the model itself
 and the descendants, in tree order.</p>
 </dd></dl>
@@ -3246,7 +3248,7 @@ given or <a class="reference external" href="https://docs.python.org/3.7/library
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_leafnodes">
-<code class="sig-name descname"><span class="pre">get_leafnodes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L625"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_leafnodes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_leafnodes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L657"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_leafnodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing leafnodes of this model
 instance, in tree order.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">include_self</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> will also
@@ -3255,7 +3257,7 @@ include this model instance (if it is a leaf node)</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_level">
-<code class="sig-name descname"><span class="pre">get_level</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L722"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_level</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L753"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the level of this node (distance from root)</p>
 </dd></dl>
 
@@ -3334,7 +3336,7 @@ delivering content to end users.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.get_root">
-<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L690"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_root" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L721"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.get_root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the root node of this model instance’s tree.</p>
 </dd></dl>
 
@@ -3397,14 +3399,14 @@ if no translation exists</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.insert_at">
-<code class="sig-name descname"><span class="pre">insert_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first-child'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_existing_pk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L728"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.insert_at" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">insert_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first-child'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_existing_pk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L759"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.insert_at" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method for calling <code class="docutils literal notranslate"><span class="pre">TreeManager.insert_node</span></code> with this
 model instance.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.is_ancestor_of">
-<code class="sig-name descname"><span class="pre">is_ancestor_of</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L781"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_ancestor_of" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_ancestor_of</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L823"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_ancestor_of" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model is an ancestor of the given node,
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.
 If include_self is True, also returns True if the two nodes are the same node.</p>
@@ -3412,14 +3414,14 @@ If include_self is True, also returns True if the two nodes are the same node.</
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.is_child_node">
-<code class="sig-name descname"><span class="pre">is_child_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L738"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_child_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_child_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L780"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_child_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model instance is a child node, <code class="docutils literal notranslate"><span class="pre">False</span></code>
 otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.is_descendant_of">
-<code class="sig-name descname"><span class="pre">is_descendant_of</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L759"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_descendant_of" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_descendant_of</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L801"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_descendant_of" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model is a descendant of the given node,
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.
 If include_self is True, also returns True if the two nodes are the same node.</p>
@@ -3427,14 +3429,14 @@ If include_self is True, also returns True if the two nodes are the same node.</
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.is_leaf_node">
-<code class="sig-name descname"><span class="pre">is_leaf_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L745"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_leaf_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_leaf_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L787"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_leaf_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model instance is a leaf node (it has no
 children), <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.is_root_node">
-<code class="sig-name descname"><span class="pre">is_root_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L752"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_root_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_root_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L794"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.is_root_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model instance is a root node,
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
@@ -3504,7 +3506,7 @@ translation exists.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.move_to">
-<code class="sig-name descname"><span class="pre">move_to</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first-child'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L792"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.move_to" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">move_to</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first-child'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L834"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.move_to" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method for calling <code class="docutils literal notranslate"><span class="pre">TreeManager.move_node</span></code> with this
 model instance.</p>
 <p>NOTE: This is a low-level method; it does NOT respect <code class="docutils literal notranslate"><span class="pre">MPTTMeta.order_insertion_by</span></code>.
@@ -3595,9 +3597,9 @@ of the field will call this method.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page.Page.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L828"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L877"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page.Page.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>If this is a new node, sets tree fields up before it is inserted
-into the database, making room in the tree structure as neccessary,
+into the database, making room in the tree structure as necessary,
 defaulting to making the new node the last child of its parent.</p>
 <p>It the node’s left and right edge indicators already been set, we
 take this as indication that the node has already been set up for

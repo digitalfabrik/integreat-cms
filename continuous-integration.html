@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2020-01-24T10:53:18+00:00" />
+    <meta property="article:modified_time" content="2021-03-09T20:09:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Continuous Integration (CircleCI) &mdash; integreat-cms 0.0.14 documentation</title>
@@ -144,6 +144,10 @@
 <li class="toctree-l2"><a class="reference internal" href="internationalization.html#developer-tools">Developer Tools</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation (Sphinx)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-tools">Developer Tools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#docstrings">Docstrings</a></li>
@@ -235,7 +239,6 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ref/backend.html">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ref/backend.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/backend.html#context-processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/backend.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/backend.html#settings">Settings</a></li>
@@ -654,7 +657,6 @@
 <p class="caption"><span class="caption-text">Extended Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ref-ext/backend.html">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.circleci_settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.context_processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.docker_settings">Docker Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.settings">Settings</a></li>
@@ -1181,7 +1183,7 @@ It passes the installed <code class="docutils literal notranslate"><span class="
 <div class="section" id="tests">
 <h3>tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h3>
 <p>This job runs the unit tests. It sets up a temporary postgres database and runs the migrations before testing.
-It uses the command <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">integreat-cms-cli</span> <span class="pre">test</span> <span class="pre">cms</span> <span class="pre">--set=COVERAGE</span> <span class="pre">--settings=backend.circleci_settings</span></code> and
+It uses the command <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">integreat-cms-cli</span> <span class="pre">test</span> <span class="pre">cms</span> <span class="pre">--set=COVERAGE</span></code> and
 passes the coverage in the <code class="docutils literal notranslate"><span class="pre">htmlcov</span></code> directory to the build artifacts.</p>
 </div>
 <div class="section" id="check-translations">
@@ -1277,7 +1279,7 @@ Don’t forget to change the image tag in <a class="reference external" href="ht
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jan 24, 2020.
+        Last updated on Mar 09, 2021.
       </span>
 
     </p>

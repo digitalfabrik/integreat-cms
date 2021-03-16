@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-04T08:22:15+00:00" />
+    <meta property="article:modified_time" content="2021-03-09T20:09:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
@@ -144,6 +144,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../internationalization.html#developer-tools">Developer Tools</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
@@ -235,7 +239,6 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ref/backend.html">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#context-processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#settings">Settings</a></li>
@@ -654,7 +657,6 @@
 <p class="caption"><span class="caption-text">Extended Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-backend.circleci_settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-backend.context_processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-backend.docker_settings">Docker Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-backend.settings">Settings</a></li>
@@ -1147,20 +1149,6 @@
   <div class="section" id="module-backend">
 <span id="backend"></span><h1>Backend<a class="headerlink" href="#module-backend" title="Permalink to this headline">¶</a></h1>
 <p>This package is the main entry point for the application and contains all configuration for the other packages.</p>
-<div class="section" id="module-backend.circleci_settings">
-<span id="circleci-settings"></span><h2>Circleci Settings<a class="headerlink" href="#module-backend.circleci_settings" title="Permalink to this headline">¶</a></h2>
-<p>Django settings for our CircleCI workflow.
-All configuration is imported from <a class="reference internal" href="#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a> except it sets <a class="reference internal" href="#backend.circleci_settings.COMPRESS_ENABLED" title="backend.circleci_settings.COMPRESS_ENABLED"><code class="xref py py-attr docutils literal notranslate"><span class="pre">COMPRESS_ENABLED</span></code></a> to <code class="docutils literal notranslate"><span class="pre">True</span></code> to make sure
-the compressing is tested in CI.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/settings/" title="(in Django v3.1)"><span>Django settings</span></a>.
-For the full list of settings and their values, see <a class="reference external" href="https://easy-thumbnails.readthedocs.io/en/latest/ref/settings/" title="(in easy-thumbnails v2.7)"><span>Settings</span></a>.</p>
-<dl class="py data">
-<dt id="backend.circleci_settings.COMPRESS_ENABLED">
-<code class="sig-prename descclassname"><span class="pre">backend.circleci_settings.</span></code><code class="sig-name descname"><span class="pre">COMPRESS_ENABLED</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/circleci_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.circleci_settings.COMPRESS_ENABLED" title="Permalink to this definition">¶</a></dt>
-<dd><p>Boolean that decides if compression will happen (see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_ENABLED" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_ENABLED</span></code></a>)</p>
-</dd></dl>
-
-</div>
 <div class="section" id="module-backend.context_processors">
 <span id="context-processors"></span><h2>Context Processors<a class="headerlink" href="#module-backend.context_processors" title="Permalink to this headline">¶</a></h2>
 <p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/templates/api/#context-processors" title="(in Django v3.1)"><span>Built-in template context processors</span></a>).</p>
@@ -1321,62 +1309,6 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="backend.settings.COMPRESS_CSS_FILTERS">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">COMPRESS_CSS_FILTERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['compressor.filters.css_default.CssAbsoluteFilter',</span> <span class="pre">'compressor.filters.cssmin.CSSMinFilter',</span> <span class="pre">'compressor.filters.template.TemplateFilter']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.COMPRESS_CSS_FILTERS" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of filters that will be applied to CSS (see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_CSS_FILTERS" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_CSS_FILTERS</span></code></a>)</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-    <span class="s1">&#39;compressor.filters.css_default.CssAbsoluteFilter&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;compressor.filters.cssmin.CSSMinFilter&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;compressor.filters.template.TemplateFilter&#39;</span><span class="p">,</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py data">
-<dt id="backend.settings.COMPRESS_ENABLED">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">COMPRESS_ENABLED</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.COMPRESS_ENABLED" title="Permalink to this definition">¶</a></dt>
-<dd><p>Boolean that decides if compression will happen (see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_ENABLED" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_ENABLED</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py data">
-<dt id="backend.settings.COMPRESS_ES6_COMPILER_CMD">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">COMPRESS_ES6_COMPILER_CMD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'export</span> <span class="pre">NODE_PATH=&quot;{paths}&quot;</span> <span class="pre">&amp;&amp;</span> <span class="pre">{browserify_bin}</span> <span class="pre">&quot;{infile}&quot;</span> <span class="pre">-o</span> <span class="pre">&quot;{outfile}&quot;</span> <span class="pre">-t</span> <span class="pre">[</span> <span class="pre">&quot;{node_modules}/babelify&quot;</span> <span class="pre">--presets</span> <span class="pre">[</span> <span class="pre">&#64;babel/preset-env</span> <span class="pre">]</span> <span class="pre">--plugins</span> <span class="pre">[</span> <span class="pre">&#64;babel/plugin-transform-runtime</span> <span class="pre">]</span> <span class="pre">]'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.COMPRESS_ES6_COMPILER_CMD" title="Permalink to this definition">¶</a></dt>
-<dd><p>Command that will be executed to transform ES6 into ES5 code (see
-<a class="reference external" href="https://github.com/kottenator/django-compressor-toolkit">django-compressor-toolkit</a>)</p>
-</dd></dl>
-
-<dl class="py data">
-<dt id="backend.settings.COMPRESS_JS_FILTERS">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">COMPRESS_JS_FILTERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['compressor.filters.jsmin.JSMinFilter']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.COMPRESS_JS_FILTERS" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of filters that will be applied to javascript
-(see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_JS_FILTERS" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_JS_FILTERS</span></code></a>)</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;compressor.filters.jsmin.JSMinFilter&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py data">
-<dt id="backend.settings.COMPRESS_OFFLINE">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">COMPRESS_OFFLINE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.COMPRESS_OFFLINE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Boolean that decides if compression should be done outside of the request/response loop
-(see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_OFFLINE" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_OFFLINE</span></code></a> and <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/usage/#offline-compression" title="(in Django Compressor v2.4)"><span>Offline Compression</span></a>)</p>
-</dd></dl>
-
-<dl class="py data">
-<dt id="backend.settings.COMPRESS_PRECOMPILERS">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">COMPRESS_PRECOMPILERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">(('module',</span> <span class="pre">'compressor_toolkit.precompilers.ES6Compiler'),</span> <span class="pre">('css',</span> <span class="pre">'compressor_toolkit.precompilers.SCSSCompiler'))</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.COMPRESS_PRECOMPILERS" title="Permalink to this definition">¶</a></dt>
-<dd><p>An iterable of two-tuples whose first item is the mimetype of the files or hunks you want to compile with the command
-or filter specified as the second item (see <a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_PRECOMPILERS" title="(in Django Compressor v2.4)"><code class="docutils literal notranslate"><span class="pre">django.conf.settings.COMPRESS_PRECOMPILERS</span></code></a>)</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="p">(</span><span class="s1">&#39;module&#39;</span><span class="p">,</span> <span class="s1">&#39;compressor_toolkit.precompilers.ES6Compiler&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;css&#39;</span><span class="p">,</span> <span class="s1">&#39;compressor_toolkit.precompilers.SCSSCompiler&#39;</span><span class="p">),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py data">
 <dt id="backend.settings.CORS_ALLOW_HEADERS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CORS_ALLOW_HEADERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['accept',</span> <span class="pre">'accept-encoding',</span> <span class="pre">'authorization',</span> <span class="pre">'content-type',</span> <span class="pre">'dnt',</span> <span class="pre">'origin',</span> <span class="pre">'user-agent',</span> <span class="pre">'x-csrftoken',</span> <span class="pre">'x-requested-with',</span> <span class="pre">'x-integreat-development']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.CORS_ALLOW_HEADERS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extend default headers with development header to differenciate dev traffic in statistics
@@ -1514,7 +1446,7 @@ Used in the following views:</p>
 
 <dl class="py data">
 <dt id="backend.settings.INSTALLED_APPS">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">INSTALLED_APPS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.admin',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'compressor',</span> <span class="pre">'compressor_toolkit',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'easy_thumbnails',</span> <span class="pre">'filer',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.INSTALLED_APPS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">INSTALLED_APPS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.admin',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'easy_thumbnails',</span> <span class="pre">'filer',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.INSTALLED_APPS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;cms.apps.CmsConfig&#39;</span><span class="p">,</span>
@@ -1526,8 +1458,6 @@ Used in the following views:</p>
     <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.sitemaps&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;compressor&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;compressor_toolkit&#39;</span><span class="p">,</span>
     <span class="s1">&#39;corsheaders&#39;</span><span class="p">,</span>
     <span class="s1">&#39;widget_tweaks&#39;</span><span class="p">,</span>
     <span class="s1">&#39;easy_thumbnails&#39;</span><span class="p">,</span>
@@ -1709,13 +1639,12 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/re
 
 <dl class="py data">
 <dt id="backend.settings.STATICFILES_FINDERS">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATICFILES_FINDERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('django.contrib.staticfiles.finders.FileSystemFinder',</span> <span class="pre">'django.contrib.staticfiles.finders.AppDirectoriesFinder',</span> <span class="pre">'compressor.finders.CompressorFinder')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.STATICFILES_FINDERS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATICFILES_FINDERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('django.contrib.staticfiles.finders.FileSystemFinder',</span> <span class="pre">'django.contrib.staticfiles.finders.AppDirectoriesFinder')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.STATICFILES_FINDERS" title="Permalink to this definition">¶</a></dt>
 <dd><p>The list of finder backends that know how to find static files in various locations
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATICFILES_FINDERS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_FINDERS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
     <span class="s1">&#39;django.contrib.staticfiles.finders.FileSystemFinder&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.staticfiles.finders.AppDirectoriesFinder&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;compressor.finders.CompressorFinder&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1898,7 +1827,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 04, 2021.
+        Last updated on Mar 09, 2021.
       </span>
 
     </p>

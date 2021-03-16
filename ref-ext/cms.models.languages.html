@@ -144,6 +144,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../internationalization.html#developer-tools">Developer Tools</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
@@ -235,7 +239,6 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ref/backend.html">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#context-processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/backend.html#settings">Settings</a></li>
@@ -654,7 +657,6 @@
 <p class="caption"><span class="caption-text">Extended Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="backend.html">Backend</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.circleci_settings">Circleci Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.context_processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.docker_settings">Docker Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backend.html#module-backend.settings">Settings</a></li>
@@ -1633,7 +1635,7 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L409"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -1686,7 +1688,7 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.delete">
-<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L1023"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L1105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calling <code class="docutils literal notranslate"><span class="pre">delete</span></code> on a node will delete it as well as its full
 subtree, as opposed to reattaching all the subnodes to its parent node.</p>
 <p>There are no argument specific to a MPTT model, all the arguments will
@@ -1790,7 +1792,7 @@ and the descendants, in tree order.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_leafnodes">
-<code class="sig-name descname"><span class="pre">get_leafnodes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L625"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_leafnodes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_leafnodes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L657"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_leafnodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing leafnodes of this model
 instance, in tree order.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">include_self</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> will also
@@ -1799,7 +1801,7 @@ include this model instance (if it is a leaf node)</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_level">
-<code class="sig-name descname"><span class="pre">get_level</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L722"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_level</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L753"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the level of this node (distance from root)</p>
 </dd></dl>
 
@@ -1817,7 +1819,7 @@ include this model instance (if it is a leaf node)</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_next_sibling">
-<code class="sig-name descname"><span class="pre">get_next_sibling</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_next_sibling" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_next_sibling</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_next_sibling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns this model instance’s next sibling in the tree, or
 <code class="docutils literal notranslate"><span class="pre">None</span></code> if it doesn’t have a next sibling.</p>
 </dd></dl>
@@ -1836,7 +1838,7 @@ include this model instance (if it is a leaf node)</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_sibling">
-<code class="sig-name descname"><span class="pre">get_previous_sibling</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_sibling" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_previous_sibling</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L695"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_sibling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns this model instance’s previous sibling in the tree, or
 <code class="docutils literal notranslate"><span class="pre">None</span></code> if it doesn’t have a previous sibling.</p>
 </dd></dl>
@@ -1849,7 +1851,7 @@ include this model instance (if it is a leaf node)</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.get_siblings">
-<code class="sig-name descname"><span class="pre">get_siblings</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L703"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_siblings" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_siblings</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L734"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.get_siblings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing siblings of this model
 instance. Root nodes are considered to be siblings of other root
 nodes.</p>
@@ -1873,7 +1875,7 @@ model instance.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.is_ancestor_of">
-<code class="sig-name descname"><span class="pre">is_ancestor_of</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L781"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_ancestor_of" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_ancestor_of</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L823"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_ancestor_of" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model is an ancestor of the given node,
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.
 If include_self is True, also returns True if the two nodes are the same node.</p>
@@ -1881,14 +1883,14 @@ If include_self is True, also returns True if the two nodes are the same node.</
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.is_child_node">
-<code class="sig-name descname"><span class="pre">is_child_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L738"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_child_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_child_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L780"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_child_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model instance is a child node, <code class="docutils literal notranslate"><span class="pre">False</span></code>
 otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.is_descendant_of">
-<code class="sig-name descname"><span class="pre">is_descendant_of</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L759"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_descendant_of" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_descendant_of</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L801"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_descendant_of" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model is a descendant of the given node,
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.
 If include_self is True, also returns True if the two nodes are the same node.</p>
@@ -1896,14 +1898,14 @@ If include_self is True, also returns True if the two nodes are the same node.</
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.is_leaf_node">
-<code class="sig-name descname"><span class="pre">is_leaf_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L745"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_leaf_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_leaf_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L787"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_leaf_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model instance is a leaf node (it has no
 children), <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.is_root_node">
-<code class="sig-name descname"><span class="pre">is_root_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L752"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_root_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_root_node</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L794"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.is_root_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if this model instance is a root node,
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
@@ -2029,9 +2031,9 @@ of the field will call this method.</p>
 
 <dl class="py method">
 <dt id="cms.models.languages.language_tree_node.LanguageTreeNode.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L828"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/mptt/models.py#L877"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language_tree_node.LanguageTreeNode.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>If this is a new node, sets tree fields up before it is inserted
-into the database, making room in the tree structure as neccessary,
+into the database, making room in the tree structure as necessary,
 defaulting to making the new node the last child of its parent.</p>
 <p>It the node’s left and right edge indicators already been set, we
 take this as indication that the node has already been set up for
