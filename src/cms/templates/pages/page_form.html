@@ -182,26 +182,29 @@
                             </div>
                         {% endif %}
                     {% endif %}
-                    <label for="{{ page_translation_form.slug.id_for_label }}" class="block mb-2 font-bold">
-                        {{ page_translation_form.slug.label }}
-                        <button type="button" class="p-1 bg-gray-200 rounded ml-2"
-                            onclick='document.getElementById("id_slug").readOnly = false;'>
-                            <i data-feather="edit-2" class="inline-block"></i>
+                    <div id="link-container" class="flex items-center">
+                        <label for="{{ page_translation_form.slug.id_for_label }}" class="mr-2 font-bold">
+                            {{ page_translation_form.slug.label }}:
+                        </label>
+                        <a href="{{ page_link }}{{ page_translation_form.instance.slug }}" class="mr-2 text-blue-500 hover:underline">{{ page_link }}{{ page_translation_form.instance.slug }}</a>
+                        <div class="flex mr-2 hidden flex-grow">
+                            {% spaceless %}
+                            <span>{{ page_link }}</span>
+                            {% render_field page_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
+                            {% endspaceless %}
+                        </div>
+                        <button id="edit-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500">
+                            <i data-feather="edit-3"></i>
                         </button>
-                    </label>
-                    <div class="my-2 text-s text-gray-600">{{ page_translation_form.slug.help_text }}</div>
-                    <div id="slug-div" class="appearance-none w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                        {% spaceless %}
-                            <div style="display: table; white-space: nowrap;">
-                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.slug }}/</span>
-                                {% if page_translation_form.instance.ancestor_path %}
-                                    <span style="display: table-cell;">{{ page_translation_form.instance.ancestor_path }}/</span>
-                                {% endif %}
-                                <span class="w-full table-cell">
-                                    {% render_field page_translation_form.slug|add_error_class:"slug-error" class="appearance-none w-full rounded" %}
-                                </span>
-                            </div>
-                        {% endspaceless %}
+                        <button id="copy-slug-btn" type="button" class="text-gray-800 hover:text-blue-500">
+                            <i data-feather="copy"></i>
+                        </button>
+                        <button id="save-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500 hidden">
+                            <i data-feather="save"></i>
+                        </button>
+                        <button id="restore-slug-btn" type="button" class="text-gray-800 hover:text-blue-500 hidden">
+                            <i data-feather="x-circle"></i>
+                        </button>
                     </div>
                     <label for="{{ page_translation_form.text.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ page_translation_form.text.label }}</label>
                     {% render_field page_translation_form.text class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
