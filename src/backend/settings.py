@@ -34,6 +34,8 @@ For production use, the following settings can be set with environment variables
 import os
 import urllib
 
+from .logging_formatter import ColorFormatter
+
 
 ###################
 # CUSTOM SETTINGS #
@@ -331,7 +333,18 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "default": {
+        "console": {
+            "format": "{asctime} \x1b[1m{levelname}\x1b[0m {name} - {message}",
+            "datefmt": "%b %d %H:%M:%S",
+            "style": "{",
+        },
+        "console-colored": {
+            "()": ColorFormatter,
+            "format": "{asctime} {levelname} {name} - {message}",
+            "datefmt": "%b %d %H:%M:%S",
+            "style": "{",
+        },
+        "logfile": {
             "format": "{asctime} {levelname:7} {name} - {message}",
             "datefmt": "%b %d %H:%M:%S",
             "style": "{",
@@ -358,12 +371,17 @@ LOGGING = {
         "console": {
             "filters": ["require_debug_true"],
             "class": "logging.StreamHandler",
-            "formatter": "default",
+            "formatter": "console",
+        },
+        "console-colored": {
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "console-colored",
         },
         "logfile": {
             "class": "logging.FileHandler",
             "filename": LOGFILE,
-            "formatter": "default",
+            "formatter": "logfile",
         },
         "authlog": {
             "filters": ["require_debug_false"],
@@ -377,7 +395,6 @@ LOGGING = {
             "class": "logging.handlers.SysLogHandler",
             "address": "/dev/log",
             "facility": "syslog",
-            "formatter": "syslog",
         },
         "mail_admins": {
             "level": "ERROR",
@@ -389,23 +406,23 @@ LOGGING = {
     "loggers": {
         # Loggers of integreat-cms django apps
         "api": {
-            "handlers": ["console", "logfile", "mail_admins"],
+            "handlers": ["console-colored", "logfile", "mail_admins"],
             "level": LOG_LEVEL,
         },
         "backend": {
-            "handlers": ["console", "logfile", "mail_admins"],
+            "handlers": ["console-colored", "logfile", "mail_admins"],
             "level": LOG_LEVEL,
         },
         "cms": {
-            "handlers": ["console", "logfile", "mail_admins"],
+            "handlers": ["console-colored", "logfile", "mail_admins"],
             "level": LOG_LEVEL,
         },
         "gvz_api": {
-            "handlers": ["console", "logfile", "mail_admins"],
+            "handlers": ["console-colored", "logfile", "mail_admins"],
             "level": LOG_LEVEL,
         },
         "sitemap": {
-            "handlers": ["console", "logfile", "mail_admins"],
+            "handlers": ["console-colored", "logfile", "mail_admins"],
             "level": LOG_LEVEL,
         },
         # Syslog for authentication
