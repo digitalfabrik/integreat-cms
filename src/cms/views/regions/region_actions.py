@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_POST
 
 from ...decorators import staff_required
 from ...models import Region
@@ -15,6 +16,7 @@ from ...models import Region
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @login_required
 @staff_required
 @permission_required("cms.manage_regions", raise_exception=True)

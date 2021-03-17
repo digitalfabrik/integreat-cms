@@ -1,6 +1,8 @@
 /**
  * This file contains all event handlers and functions which are needed for granting and revoking permissions on individual pages.
  */
+import feather from "feather-icons";
+import {getCsrfToken} from "../utils/csrf-token";
 
 document.addEventListener("DOMContentLoaded", setPagePermissionEventListeners);
 
@@ -56,9 +58,7 @@ async function updatePagePermission(
   const response = await fetch(url, {
     method: "POST",
     headers: {
-      "X-CSRFToken": (document.querySelector(
-        "[name=csrfmiddlewaretoken]"
-      ) as HTMLInputElement).value,
+      "X-CSRFToken": getCsrfToken(),
     },
     body: JSON.stringify({
       page_id: pageId,

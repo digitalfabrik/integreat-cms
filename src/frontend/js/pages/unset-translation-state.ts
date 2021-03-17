@@ -1,3 +1,5 @@
+import {getCsrfToken} from "../utils/csrf-token";
+
 interface TranslationState {
   language: string;
 }
@@ -49,9 +51,7 @@ async function postTranslationState(
     headers: {
       "Content-Type": "application/json",
       HTTP_X_REQUESTED_WITH: "XMLHttpRequest",
-      "X-CSRFToken": (document.querySelector(
-        "[name=csrfmiddlewaretoken]"
-      ) as HTMLInputElement).value,
+      "X-CSRFToken": getCsrfToken(),
     },
     body: JSON.stringify({
       language: languageCode,

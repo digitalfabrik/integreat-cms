@@ -1,5 +1,24 @@
-from django.shortcuts import render
+from django.http import (
+    HttpResponseBadRequest,
+    HttpResponseForbidden,
+    HttpResponseNotFound,
+    HttpResponseServerError,
+)
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
+
+
+def render_error_template(context):
+    """
+    Render the HTTP error template
+
+    :param context: The context data for the error template
+    :type context: dict
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
+    return render_to_string("error_handler/http_error.html", context)
 
 
 # pylint: disable=unused-argument
@@ -16,14 +35,12 @@ def handler400(request, exception):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    ctx = {
+    context = {
         "code": 400,
         "title": _("Bad request"),
         "message": _("There was an error in your request."),
     }
-    response = render(request, "error_handler/http_error.html", ctx)
-    response.status_code = 400
-    return response
+    return HttpResponseBadRequest(render_error_template(context))
 
 
 # pylint: disable=unused-argument
@@ -40,14 +57,12 @@ def handler403(request, exception):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    ctx = {
+    context = {
         "code": 403,
         "title": _("Forbidden"),
         "message": _("You don't have the permission to access this page."),
     }
-    response = render(request, "error_handler/http_error.html", ctx)
-    response.status_code = 403
-    return response
+    return HttpResponseForbidden(render_error_template(context))
 
 
 # pylint: disable=unused-argument
@@ -64,14 +79,12 @@ def handler404(request, exception):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    ctx = {
+    context = {
         "code": 404,
         "title": _("Page not found"),
         "message": _("The page you requested could not be found."),
     }
-    response = render(request, "error_handler/http_error.html", ctx)
-    response.status_code = 404
-    return response
+    return HttpResponseNotFound(render_error_template(context))
 
 
 def handler500(request):
@@ -84,14 +97,12 @@ def handler500(request):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    ctx = {
+    context = {
         "code": 500,
         "title": _("Internal Server Error"),
         "message": _("An unexpected error has occurred."),
     }
-    response = render(request, "error_handler/http_error.html", ctx)
-    response.status_code = 500
-    return response
+    return HttpResponseServerError(render_error_template(context))
 
 
 # pylint: disable=unused-argument
@@ -108,4 +119,9 @@ def csrf_failure(request, reason):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    return render(request, "error_handler/csrf_failure.html")
+    context = {
+        "code": 403,
+        "title": _("CSRF Error"),
+        "message": _("Please try to reload the page."),
+    }
+    return HttpResponseForbidden(render_error_template(context))

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-16 17:45+0000\n"
+"POT-Creation-Date: 2021-03-16 18:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1917,22 +1917,13 @@ msgstr "Noch kein Feedback vorhanden."
 msgid "Open feedback list"
 msgstr "Feedback-Liste öffnen"
 
-#: templates/error_handler/csrf_failure.html:6
-msgid "CSRF Error"
-msgstr "CSRF Fehler"
-
-#: templates/error_handler/csrf_failure.html:8
-msgid "Please try to reload the page."
-msgstr "Bitte versuchen Sie die Seite neu zu laden."
-
-#: templates/error_handler/csrf_failure.html:11
-#: templates/error_handler/http_error.html:12
-msgid "Return back home"
-msgstr "Zurück zur Startseite"
-
 #: templates/error_handler/http_error.html:6
 msgid "Error"
 msgstr "Fehler"
+
+#: templates/error_handler/http_error.html:12
+msgid "Return back home"
+msgstr "Zurück zur Startseite"
 
 #: templates/events/_event_filter_form.html:13
 msgid "Date and time"
@@ -2711,11 +2702,11 @@ msgstr "Aktionen"
 msgid "No offers available yet."
 msgstr "Noch keine Angebots vorhanden."
 
-#: templates/offers/offer_list_row.html:22
+#: templates/offers/offer_list_row.html:24
 msgid "Deactivate"
 msgstr "Deaktivieren"
 
-#: templates/offers/offer_list_row.html:26
+#: templates/offers/offer_list_row.html:30
 msgid "Activate"
 msgstr "Aktivieren"
 
@@ -2887,7 +2878,7 @@ msgstr "Seite löschen"
 
 #: templates/pages/page_form.html:353
 #: templates/pages/page_tree_archived_node.html:94
-#: templates/pages/page_tree_node.html:122 views/pages/page_actions.py:212
+#: templates/pages/page_tree_node.html:122 views/pages/page_actions.py:216
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -3600,47 +3591,55 @@ msgstr "Ihr Passwort wurde erfolgreich geändert."
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 
-#: views/error_handler/error_handler.py:21
+#: views/error_handler/error_handler.py:40
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
 
-#: views/error_handler/error_handler.py:22
+#: views/error_handler/error_handler.py:41
 msgid "There was an error in your request."
 msgstr "Die Anfrage war fehlerhaft aufgebaut."
 
-#: views/error_handler/error_handler.py:45
+#: views/error_handler/error_handler.py:62
 msgid "Forbidden"
 msgstr "Zugriff verweigert"
 
-#: views/error_handler/error_handler.py:46
+#: views/error_handler/error_handler.py:63
 msgid "You don't have the permission to access this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite aufzurufen."
 
-#: views/error_handler/error_handler.py:69
+#: views/error_handler/error_handler.py:84
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: views/error_handler/error_handler.py:70
+#: views/error_handler/error_handler.py:85
 msgid "The page you requested could not be found."
 msgstr "Die von Ihnen angeforderte Seite konnte leider nicht gefunden werden."
 
-#: views/error_handler/error_handler.py:89
+#: views/error_handler/error_handler.py:102
 msgid "Internal Server Error"
 msgstr "Interner Server-Fehler"
 
-#: views/error_handler/error_handler.py:90
+#: views/error_handler/error_handler.py:103
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
-#: views/events/event_actions.py:54
+#: views/error_handler/error_handler.py:124
+msgid "CSRF Error"
+msgstr "CSRF Fehler"
+
+#: views/error_handler/error_handler.py:125
+msgid "Please try to reload the page."
+msgstr "Bitte versuchen Sie, die Seite neu zu laden."
+
+#: views/events/event_actions.py:56
 msgid "Event was successfully archived"
 msgstr "Veranstaltung wurde erfolgreich archiviert"
 
-#: views/events/event_actions.py:98
+#: views/events/event_actions.py:101
 msgid "Event was successfully restored"
 msgstr "Veranstaltung wurde erfolgreich wiederhergestellt"
 
-#: views/events/event_actions.py:138
+#: views/events/event_actions.py:142
 msgid "Event was successfully deleted"
 msgstr "Veranstaltung wurde erfolgreich gelöscht"
 
@@ -3727,30 +3726,30 @@ msgstr "Veranstaltung wurde erfolgreich veröffentlicht"
 msgid "Event was successfully saved"
 msgstr "Veranstaltung wurde erfolgreich gespeichert"
 
-#: views/feedback/admin_feedback_actions.py:44
-#: views/feedback/region_feedback_actions.py:51
+#: views/feedback/admin_feedback_actions.py:46
+#: views/feedback/region_feedback_actions.py:53
 msgid "Feedback was successfully marked as read"
 msgstr "Feedback wurde als gelesen markiert"
 
-#: views/feedback/admin_feedback_actions.py:73
-#: views/feedback/region_feedback_actions.py:89
+#: views/feedback/admin_feedback_actions.py:76
+#: views/feedback/region_feedback_actions.py:92
 msgid "Feedback was successfully marked as unread"
 msgstr "Feedback wurde als ungelesen markiert"
 
-#: views/feedback/admin_feedback_actions.py:100
-#: views/feedback/region_feedback_actions.py:123
+#: views/feedback/admin_feedback_actions.py:104
+#: views/feedback/region_feedback_actions.py:127
 msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
 
-#: views/imprint/imprint_actions.py:50
+#: views/imprint/imprint_actions.py:52
 msgid "Imprint was successfully archived"
 msgstr "Impressum wurde erfolgreich archiviert"
 
-#: views/imprint/imprint_actions.py:90
+#: views/imprint/imprint_actions.py:93
 msgid "Imprint was successfully restored"
 msgstr "Impressum wurde erfolgreich erstellt"
 
-#: views/imprint/imprint_actions.py:129
+#: views/imprint/imprint_actions.py:133
 msgid "Imprint was successfully deleted"
 msgstr "Impressum wurde erfolgreich erstellt"
 
@@ -3859,19 +3858,19 @@ msgstr "Impressum wurde erfolgreich erstellt"
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
 
-#: views/language_tree/language_tree_actions.py:54
+#: views/language_tree/language_tree_actions.py:56
 msgid "You can only move language tree nodes within one region."
 msgstr "Sie können Sprach-Knoten nur innerhalb einer Region verschieben."
 
-#: views/language_tree/language_tree_actions.py:57
+#: views/language_tree/language_tree_actions.py:59
 msgid "A region can only have one root language."
 msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 
-#: views/language_tree/language_tree_actions.py:61
+#: views/language_tree/language_tree_actions.py:63
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
-#: views/language_tree/language_tree_actions.py:129
+#: views/language_tree/language_tree_actions.py:132
 msgid ""
 "The language tree node \"{}\" and all corresponding translations were "
 "successfully deleted."
@@ -3920,11 +3919,11 @@ msgstr "Angebots-Vorlage wurde erfolgreich gespeichert"
 msgid "Offer template was successfully created"
 msgstr "Angebots-Vorlage wurde erfolgreich erstellt"
 
-#: views/offers/offer_actions.py:40
+#: views/offers/offer_actions.py:42
 msgid "Offer {} was successfully activated"
 msgstr "Angebot {} wurde erfolgreich aktiviert."
 
-#: views/offers/offer_actions.py:75
+#: views/offers/offer_actions.py:78
 msgid "Offer {} was successfully deactivated"
 msgstr "Angebot {} wurde erfolgreich deaktiviert."
 
@@ -3936,55 +3935,51 @@ msgstr "Organisation wurde erfolgreich erstellt"
 msgid "Organization was successfully saved"
 msgstr "Organisation wurde erfolgreich gespeichert"
 
-#: views/pages/page_actions.py:66
+#: views/pages/page_actions.py:68
 msgid "Page was successfully archived"
 msgstr "Seite wurde erfolgreich archiviert"
 
-#: views/pages/page_actions.py:118 views/pages/page_actions.py:132
+#: views/pages/page_actions.py:121 views/pages/page_actions.py:135
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: views/pages/page_actions.py:121
+#: views/pages/page_actions.py:124
 msgid ""
 "However, it is still archived because one of its parent pages is archived."
 msgstr ""
 "Sie ist jedoch immer noch archiviert, weil eine ihrer übergeordneten Seiten "
 "archiviert ist."
 
-#: views/pages/page_actions.py:216
+#: views/pages/page_actions.py:220
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
-#: views/pages/page_actions.py:367
-msgid "Could not update page translation state"
-msgstr "Zustand der Übersetzung konnte nicht aktualisiert werden"
-
-#: views/pages/page_actions.py:516
+#: views/pages/page_actions.py:520
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: views/pages/page_actions.py:603 views/pages/page_actions.py:618
+#: views/pages/page_actions.py:608 views/pages/page_actions.py:623
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page_actions.py:610
+#: views/pages/page_actions.py:615
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page_actions.py:626
+#: views/pages/page_actions.py:631
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: views/pages/page_actions.py:635 views/pages/page_actions.py:749
+#: views/pages/page_actions.py:640 views/pages/page_actions.py:755
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: views/pages/page_actions.py:717
+#: views/pages/page_actions.py:723
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -3994,12 +3989,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: views/pages/page_actions.py:723
+#: views/pages/page_actions.py:729
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page_actions.py:734
+#: views/pages/page_actions.py:740
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -4009,7 +4004,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: views/pages/page_actions.py:740
+#: views/pages/page_actions.py:746
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -4111,15 +4106,15 @@ msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
 msgid "Page was successfully created"
 msgstr "Seite wurde erfolgreich erstellt"
 
-#: views/pois/poi_actions.py:46
+#: views/pois/poi_actions.py:48
 msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
 
-#: views/pois/poi_actions.py:85
+#: views/pois/poi_actions.py:88
 msgid "Location was successfully restored"
 msgstr "Ort wurde erfolgreich wiederhergestellt"
 
-#: views/pois/poi_actions.py:121
+#: views/pois/poi_actions.py:125
 msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
 
@@ -4204,7 +4199,7 @@ msgstr "Fehler während des Sendens der Push-Benachrichtigung"
 msgid "Required Push Notification texts are missing"
 msgstr "Benötigte Texte für die Push-Benachrichtigung fehlen"
 
-#: views/regions/region_actions.py:66
+#: views/regions/region_actions.py:68
 msgid "Region was successfully deleted"
 msgstr "Region wurde erfolgreich gelöscht"
 
@@ -4271,11 +4266,11 @@ msgstr ""
 "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen Sie "
 "Ihre Einstellungen."
 
-#: views/users/region_user_actions.py:43
+#: views/users/region_user_actions.py:45
 msgid "User {} was successfully deleted."
 msgstr "Benutzer {} wurde erfolgreich gelöscht."
 
-#: views/users/region_user_actions.py:55
+#: views/users/region_user_actions.py:57
 msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
@@ -4287,7 +4282,7 @@ msgstr "Benutzer wurde erfolgreich gespeichert"
 msgid "User was successfully created"
 msgstr "Benutzer wurde erfolgreich erstellt"
 
-#: views/users/user_actions.py:37
+#: views/users/user_actions.py:39
 msgid "User was successfully deleted"
 msgstr "Benutzer wurde erfolgreich gelöscht"
 
@@ -4299,14 +4294,17 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
-#~ msgid "Recurrence rule"
-#~ msgstr "Wiederholungs-Regel"
-
 #~ msgid "Offer \"%(offer_name)s\" was successfully activated"
 #~ msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich aktiviert"
 
 #~ msgid "Offer \"%(offer_name)s\" was successfully deactivated"
 #~ msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich deaktiviert"
+
+#~ msgid "Could not update page translation state"
+#~ msgstr "Zustand der Übersetzung konnte nicht aktualisiert werden"
+
+#~ msgid "Recurrence rule"
+#~ msgstr "Wiederholungs-Regel"
 
 #~ msgid "Code"
 #~ msgstr "Code"

@@ -7,12 +7,14 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_POST
 
 from ...decorators import staff_required
 
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @staff_required
 @login_required
 @permission_required("cms.manage_admin_users", raise_exception=True)

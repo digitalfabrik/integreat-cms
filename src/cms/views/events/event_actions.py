@@ -10,6 +10,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Subquery, OuterRef
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_POST
 
 from ...constants import status
 from ...decorators import region_permission_required, staff_required
@@ -18,6 +19,7 @@ from ...models import Region, POITranslation
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @login_required
 @region_permission_required
 def archive(request, event_id, region_slug, language_slug):
@@ -62,6 +64,7 @@ def archive(request, event_id, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 def restore(request, event_id, region_slug, language_slug):
@@ -106,6 +109,7 @@ def restore(request, event_id, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @staff_required
 def delete(request, event_id, region_slug, language_slug):
@@ -146,6 +150,7 @@ def delete(request, event_id, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 def search_poi_ajax(request):

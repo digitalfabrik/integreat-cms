@@ -1,7 +1,7 @@
 /**
  * This file contains the deletion function for the author chat
  */
-
+import { getCsrfToken } from "../utils/csrf-token";
 import { showConfirmationPopup } from "../confirmation-popups";
 
 export function refreshChatDeleteHandlers() {
@@ -45,13 +45,14 @@ async function deleteChatMessage(event: Event) {
     ".confirmation-button"
   );
   try {
-    const response = await fetch(deletionButton.getAttribute("data-action"));
-
-    // HTTP status 200 OK could also mean CSRF error, but if json is returned, it was really successful
-    if (
-      response.status === 200 &&
-      response.headers.get("Content-Type") === "application/json"
-    ) {
+    const response = await fetch(deletionButton.getAttribute("data-action"), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCsrfToken(),
+      }
+    });
+    if (response.status === 200) {
       // If message was deleted successfully, remove the div containing the message
       deletionButton.closest(".chat-message").remove();
     } else {

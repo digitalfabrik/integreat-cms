@@ -17,6 +17,7 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.views.static import serve
+from django.views.decorators.http import require_POST
 
 from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, staff_required
@@ -29,6 +30,7 @@ from ...utils.slug_utils import generate_unique_slug
 logger = logging.getLogger(__name__)
 
 
+@require_POST
 @login_required
 @region_permission_required
 def archive_page(request, page_id, region_slug, language_slug):
@@ -74,6 +76,7 @@ def archive_page(request, page_id, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 def restore_page(request, page_id, region_slug, language_slug):
@@ -183,6 +186,7 @@ def view_page(request, page_id, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @staff_required
 def delete_page(request, page_id, region_slug, language_slug):
@@ -340,6 +344,7 @@ def download_xliff(request, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 # pylint: disable=unused-argument
 def post_translation_state_ajax(request, region_slug):
@@ -352,22 +357,19 @@ def post_translation_state_ajax(request, region_slug):
     :return: on success returns language of updated translation
     :rtype: ~django.http.JsonResponse
     """
-    if request.method == "POST":
-        decoded_json = json.loads(request.body.decode("utf-8"))
-        target_language = decoded_json["language"]
-        page_id = decoded_json["pageId"]
-        translation_state = decoded_json["translationState"]
-        region = Region.get_current_region(request)
-        page = get_list_or_404(region.pages, id=page_id)
-        PageXliffHelper.post_translation_state(
-            list(page), target_language, translation_state
-        )
-        return JsonResponse({"language": target_language}, status=200)
-    return JsonResponse(
-        {"error": _("Could not update page translation state")}, status=400
+    decoded_json = json.loads(request.body.decode("utf-8"))
+    target_language = decoded_json["language"]
+    page_id = decoded_json["pageId"]
+    translation_state = decoded_json["translationState"]
+    region = Region.get_current_region(request)
+    page = get_list_or_404(region.pages, id=page_id)
+    PageXliffHelper.post_translation_state(
+        list(page), target_language, translation_state
     )
+    return JsonResponse({"language": target_language})
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
@@ -424,6 +426,7 @@ def upload_xliff(request, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
@@ -468,6 +471,7 @@ def confirm_xliff_import(request, region_slug, language_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
@@ -530,6 +534,7 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)
@@ -648,6 +653,7 @@ def grant_page_permission_ajax(request):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
 @permission_required("cms.edit_pages", raise_exception=True)

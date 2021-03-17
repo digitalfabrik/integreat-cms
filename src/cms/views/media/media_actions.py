@@ -3,11 +3,13 @@ This module contains view actions for media related objects.
 """
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required
 from ...models import Document, Region
 
 
+@require_POST
 @login_required
 @region_permission_required
 # pylint: disable=unused-argument

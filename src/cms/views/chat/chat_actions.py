@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_POST
 
 from ...forms import ChatMessageForm
 from ...models import ChatMessage
@@ -47,6 +48,7 @@ def send_chat_message(request):
     )
 
 
+@require_POST
 @login_required
 def delete_chat_message(request, message_id):
     """
