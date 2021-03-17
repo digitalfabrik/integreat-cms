@@ -238,6 +238,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ref/backend.html">Backend</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ref/backend.html#context-processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/backend.html#docker-settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ref/backend.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/backend.html#settings">Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/backend.html#sphinx-settings">Sphinx Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/backend.html#urls">Urls</a></li>
@@ -659,6 +660,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ref-ext/backend.html">Backend</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.context_processors">Context Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.docker_settings">Docker Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.logging_formatter">Logging Formatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.settings">Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.sphinx_settings">Sphinx Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/backend.html#module-backend.urls">Urls</a></li>
@@ -1185,6 +1187,8 @@
       <li><a href="ref-ext/api.html#api.apps.ApiConfig.__init__">__init__() (api.apps.ApiConfig method)</a>
 
       <ul>
+        <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.__init__">(backend.logging_formatter.ColorFormatter method)</a>
+</li>
         <li><a href="ref-ext/cms.html#cms.apps.CmsConfig.__init__">(cms.apps.CmsConfig method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.__init__">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
@@ -2628,6 +2632,13 @@
 
       <ul>
         <li><a href="ref-ext/backend.html#module-backend.docker_settings">module</a>
+</li>
+      </ul></li>
+      <li>
+    backend.logging_formatter
+
+      <ul>
+        <li><a href="ref-ext/backend.html#module-backend.logging_formatter">module</a>
 </li>
       </ul></li>
       <li>
@@ -4978,6 +4989,10 @@
 </li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.administrative_division.COLLECTIVE_MUNICIPALITY">COLLECTIVE_MUNICIPALITY (in module cms.constants.administrative_division)</a>
 </li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter">ColorFormatter (class in backend.logging_formatter)</a>
+</li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.COLORS">COLORS (backend.logging_formatter.ColorFormatter attribute)</a>
+</li>
       <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation.combined_last_updated">combined_last_updated() (cms.models.pages.page_translation.PageTranslation property)</a>
 </li>
       <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation.combined_text">combined_text() (cms.models.pages.page_translation.PageTranslation property)</a>
@@ -5124,6 +5139,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatHistoryManager.contribute_to_class">contribute_to_class() (cms.models.chat.chat_message.ChatHistoryManager method)</a>
+</li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.converter">converter() (backend.logging_formatter.ColorFormatter method)</a>
 </li>
       <li><a href="documentation.html#conf.copyright">copyright (in module conf)</a>
 </li>
@@ -5369,6 +5386,8 @@
 </li>
       <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.default_language">default_language() (cms.models.regions.region.Region property)</a>
 </li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.default_msec_format">default_msec_format (backend.logging_formatter.ColorFormatter attribute)</a>
+</li>
       <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.default_renderer">default_renderer (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
 
       <ul>
@@ -5435,6 +5454,8 @@
         <li><a href="ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.AuthenticationForm.default_renderer">(cms.views.settings.mfa.mfa.AuthenticationForm attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.default_time_format">default_time_format (backend.logging_formatter.ColorFormatter attribute)</a>
+</li>
       <li><a href="ref-ext/cms.models.events.html#cms.models.events.event.Event.default_translation">default_translation() (cms.models.events.event.Event property)</a>
 
       <ul>
@@ -6243,12 +6264,22 @@
         <li><a href="ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.form_valid">(cms.views.settings.mfa.mfa.AuthenticateModifyMfaView method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.format">format() (backend.logging_formatter.ColorFormatter method)</a>
+</li>
       <li><a href="ref-ext/cms.forms.html#cms.forms.icon_widget.IconWidget.format_value">format_value() (cms.forms.icon_widget.IconWidget method)</a>
 
       <ul>
         <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.parent_field_widget.ParentFieldWidget.format_value">(cms.forms.pages.parent_field_widget.ParentFieldWidget method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatException">formatException() (backend.logging_formatter.ColorFormatter method)</a>
+</li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatMessage">formatMessage() (backend.logging_formatter.ColorFormatter method)</a>
+</li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatStack">formatStack() (backend.logging_formatter.ColorFormatter method)</a>
+</li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatTime">formatTime() (backend.logging_formatter.ColorFormatter method)</a>
+</li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.weeks.FOURTH">FOURTH (in module cms.constants.weeks)</a>
 </li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.administrative_division.FREE_STATE">FREE_STATE (in module cms.constants.administrative_division)</a>
@@ -9471,6 +9502,8 @@
         <li><a href="ref-ext/backend.html#module-backend.context_processors">backend.context_processors</a>
 </li>
         <li><a href="ref-ext/backend.html#module-backend.docker_settings">backend.docker_settings</a>
+</li>
+        <li><a href="ref-ext/backend.html#module-backend.logging_formatter">backend.logging_formatter</a>
 </li>
         <li><a href="ref-ext/backend.html#module-backend.settings">backend.settings</a>
 </li>
@@ -13568,6 +13601,8 @@
       <li><a href="ref-ext/cms.views.settings.html#cms.views.settings.user_settings_view.UserSettingsView">UserSettingsView (class in cms.views.settings.user_settings_view)</a>
 </li>
       <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView">UserView (class in cms.views.users.user_view)</a>
+</li>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.usesTime">usesTime() (backend.logging_formatter.ColorFormatter method)</a>
 </li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatHistoryManager.using">using() (cms.models.chat.chat_message.ChatHistoryManager method)</a>
 </li>
