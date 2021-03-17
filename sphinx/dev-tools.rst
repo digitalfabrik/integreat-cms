@@ -11,7 +11,12 @@ Installation
 
 Install all project dependencies and the local python package with :github-source:`dev-tools/install.sh`::
 
-    ./dev-tools/install.sh
+    ./dev-tools/install.sh [--clean]
+
+If the ``--clean`` parameter is provided, the script will clean all installed dependencies in the ``.venv/`` and
+``node_modules/`` directories as well as compiled static files in ``src/cms/static/``. Existing outdated JavaScript
+files in these directories can cause compilation failures for the :doc:`frontend-bundling`.
+
 
 Update all project dependencies and fix security issues with :github-source:`dev-tools/update_dependencies.sh`::
 

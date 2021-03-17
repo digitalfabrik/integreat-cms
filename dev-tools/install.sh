@@ -53,6 +53,11 @@ fi
 
 cd $(dirname "$BASH_SOURCE")/..
 
+if [ "$1" == "--clean" ]; then
+  echo "Removing installed dependencies and compiled static files."
+  rm -rf .venv node_modules src/cms/static
+fi
+
 # Install npm dependencies
 npm install
 

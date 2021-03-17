@@ -4,6 +4,14 @@ Troubleshooting
 
 .. highlight:: bash
 
+.. admonition:: General Advice
+
+    If you are experiencing problems of any kind, make sure you have a clean working environment by executing::
+
+        ./dev-tools/install.sh --clean
+        ./dev-tools/prune_database.sh
+
+    before trying anything else.
 
 Pipenv not found
 ================
@@ -127,3 +135,20 @@ MacOS on M1
 
         pipenv run pip uninstall psycopg2-binary
         pipenv run pip install psycopg2-binary --no-cache-dir
+
+
+Webpack Compilation Errors
+==========================
+.. Error::
+
+    .. code-block:: text
+
+        ERROR in /path/to/integreat-cms/src/cms/static/@nodelib/...
+        ...
+        [tsl] ERROR in ...
+        TSXXXX: ...
+
+.. admonition:: Solution
+    :class: hint
+
+    There may be remnants of old JavaScript libraries in your installation. Run ``./dev-tools/install --clean`` to remove ``node_modules/`` and ``src/cms/static/`` or clean these directories manually.
