@@ -5,6 +5,8 @@ import "tablesort/src/sorts/tablesort.number.js";
 import "tablesort/tablesort.css";
 import "../css/tablesort.css";
 
-document
-  .querySelectorAll("[data-enable-table-sort]")
-  .forEach((node) => new Tablesort(node as HTMLElement));
+window.addEventListener("load", () => {
+  document
+    .querySelectorAll("[data-enable-table-sort]")
+    .forEach((node) => new Tablesort(node as HTMLElement));
+});

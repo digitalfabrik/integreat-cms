@@ -2,22 +2,24 @@
 {% load rules %}
 {% load content_filters %}
 
-<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
-	<td class="pl-4 pr-2 min">
-		{{ poi.id }}
+<tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
+	<td class="py-3 pl-4 pr-2 min">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.id }}
+        </a>
 	</td>
-    <td>
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+    <td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
             {{ poi_translation.version }}
         </a>
     </td>
-    <td>
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+    <td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
             {{ poi_translation.get_status_display }}
         </a>
     </td>
-	<td>
-		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block text-gray-800">
+	<td class="pr-2">
+		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
 			{%  if poi_translation %}
                 {{ poi_translation.title }}
             {% else %}
@@ -28,8 +30,8 @@
     {% get_current_language as LANGUAGE_CODE %}
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
-        <td>
-            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+        <td class="pr-2">
+            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block">
                 {% if poi.backend_translation %}
                     {{ poi.backend_translation.title }}
                 {% else %}
@@ -38,67 +40,71 @@
             </a>
         </td>
     {% endif %}
-	<td>
-		<div class="block py-3 px-2 text-gray-800">
-			<div class="lang-grid">
-				{% for other_language in languages %}
-					<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=other_language.slug %}">
-                        {% get_translation poi other_language.slug as other_translation %}
-                        {% if other_translation %}
-                            {% if other_translation.currently_in_translation %}
-                                <span title="{% trans 'Currently in translation' %}">
-                                    <i data-feather="clock" class="text-gray-800"></i>
-                                </span>
-                            {% elif other_translation.is_outdated %}
-                                <span title="{% trans 'Translation outdated' %}">
-                                    <i data-feather="alert-triangle" class="text-gray-800"></i>
-                                </span>
-                            {% else %}
-                                <span title="{% trans 'Translation up-to-date' %}">
-                                    <i data-feather="check" class="text-gray-800"></i>
-                                </span>
-                            {% endif %}
-                        {% else %}
-                            <span title="{% trans 'Translation missing' %}">
-                                <i data-feather="x" class="text-gray-800"></i>
-                            </span>
-                        {% endif %}
-                    </a>
-				{% endfor %}
-			</div>
-		</div>
+	<td class="pr-2 lang-grid">
+        {% for other_language in languages %}
+            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=other_language.slug %}">
+                {% get_translation poi other_language.slug as other_translation %}
+                {% if other_translation %}
+                    {% if other_translation.currently_in_translation %}
+                        <span title="{% trans 'Currently in translation' %}">
+                            <i data-feather="clock"></i>
+                        </span>
+                    {% elif other_translation.is_outdated %}
+                        <span title="{% trans 'Translation outdated' %}">
+                            <i data-feather="alert-triangle"></i>
+                        </span>
+                    {% else %}
+                        <span title="{% trans 'Translation up-to-date' %}">
+                            <i data-feather="check"></i>
+                        </span>
+                    {% endif %}
+                {% else %}
+                    <span title="{% trans 'Translation missing' %}">
+                        <i data-feather="x"></i>
+                    </span>
+                {% endif %}
+            </a>
+        {% endfor %}
 	</td>
-	<td>
-		{{ poi.address }}
+	<td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.address }}
+        </a>
 	</td>
-	<td>
-		{{ poi.postcode }}
+	<td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.postcode }}
+        </a>
 	</td>
-	<td>
-		{{ poi.city }}
+	<td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.city }}
+        </a>
 	</td>
-	<td>
-		{{ poi.country }}
+	<td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.country }}
+        </a>
 	</td>
-    <td class="pl-2 pr-4 min text-right">
+    <td class="pr-4 min text-right">
         <!-- TODO: add link to view poi in web app -->
         <a href="#" class="py-3">
-            <i data-feather="eye" class="inline-block text-gray-800"></i>
+            <i data-feather="eye" class="inline-block"></i>
         </a>
-        <button title="{% trans 'Archive location' %}" class="confirmation-button py-3 pl-4"
+        <button title="{% trans 'Archive location' %}" class="confirmation-button py-3 pl-2"
             data-confirmation-title="{{ archive_dialog_title }}"
             data-confirmation-text="{{ archive_dialog_text }}"
             data-confirmation-subject="{{ poi_translation.title }}"
             data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
-            <i data-feather="archive" class="inline-block text-gray-800"></i>
+            <i data-feather="archive" class="inline-block"></i>
         </button>
         {% if user.is_superuser or user.is_staff %}
-            <button title="{% trans 'Delete location' %}" class="confirmation-button py-3 pl-4"
+            <button title="{% trans 'Delete location' %}" class="confirmation-button py-3 pl-2"
                 data-confirmation-title="{{ delete_dialog_title }}"
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ poi_translation.title }}"
                 data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
-                <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+                <i data-feather="trash-2" class="inline-block"></i>
             </button>
         {% endif %}
     </td>
