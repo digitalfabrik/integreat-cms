@@ -10,6 +10,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from backend.settings import WEBAPP_URL
+
 from ...constants import status
 from ...decorators import region_permission_required
 from ...forms import PageForm, PageTranslationForm
@@ -39,6 +41,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
         "PUBLIC": status.PUBLIC,
     }
 
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         """
         Render :class:`~cms.forms.pages.page_form.PageForm` and :class:`~cms.forms.pages.page_translation_form.PageTranslationForm`
@@ -134,6 +137,9 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
         else:
             siblings = page.parent.children.all()
         context = self.get_context_data(**kwargs)
+        page_link = f"{WEBAPP_URL}/{region.slug}/{language.slug}/"
+        if page and page_translation.ancestor_path:
+            page_link += f"{page_translation.ancestor_path}/"
         return render(
             request,
             self.template_name,
@@ -148,6 +154,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                 # Languages for tab view
                 "languages": region.languages if page else [language],
                 "side_by_side_language_options": side_by_side_language_options,
+                "page_link": page_link,
             },
         )
 

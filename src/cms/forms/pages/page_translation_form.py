@@ -1,7 +1,6 @@
 import logging
 
 from django.core.exceptions import ValidationError
-from django.forms import TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from ..custom_model_form import CustomModelForm
@@ -28,9 +27,6 @@ class PageTranslationForm(CustomModelForm):
         model = PageTranslation
         #: The fields of the model which should be handled by this form
         fields = ["title", "slug", "status", "text", "minor_edit"]
-        widgets = {
-            "slug": TextInput(attrs={"readonly": "readonly"}),
-        }
 
     def __init__(self, *args, **kwargs):
         """
