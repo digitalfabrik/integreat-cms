@@ -40,8 +40,16 @@
                             <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
                         </div>
                     </div>
+
+                    <!-- Option for including/excluding administrative devision from region name -->
+                    <div class="p-2 mt-1">
+                        {% render_field form.administrative_division_included %}
+                        <label for="{{ form.administrative_division_included.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.administrative_division_included.label }}</label>
+                        <div class="my-2 text-s text-gray-600">{{ form.administrative_division_included.help_text }}</div>
+                    </div>
+
                     <!-- General Options for region management -->
-                    <label for="{{ form.name.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.name.label }}</label>
+                    <label for="{{ form.name.id_for_label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ form.name.label }}</label>
                     {% render_field form.name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
                     <label for="{{ form.common_id.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ form.common_id.label }}</label>
@@ -159,7 +167,7 @@
                     <label for="{{ form.page_permissions_enabled.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.page_permissions_enabled.label }}</label>
                     <div class="my-2 text-s text-gray-600">{{ form.page_permissions_enabled.help_text }}</div>
                 </div>
-                
+
             </div>
             
         </div>

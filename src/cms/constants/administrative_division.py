@@ -28,7 +28,7 @@ CITY_AND_DISTRICT = "CITY_AND_DISTRICT"
 REGION = "REGION"
 #: Municipality (German: "Gemeinde")
 MUNICIPALITY = "MUNICIPALITY"
-#: Collective municipality (German: "Gemeindeverband")
+#: Collective municipality (German: "Verbandsgemeinde")
 COLLECTIVE_MUNICIPALITY = "COLLECTIVE_MUNICIPALITY"
 #: Initial reception center (German: "Erstaufnahmeeinrichtung")
 INITIAL_RECEPTION_CENTER = "INITIAL_RECEPTION_CENTER"

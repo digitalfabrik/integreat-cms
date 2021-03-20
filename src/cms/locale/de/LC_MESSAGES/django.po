@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-23 15:26+0000\n"
+"POT-Creation-Date: 2021-03-23 16:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -72,7 +72,7 @@ msgstr "Gemeinde"
 
 #: constants/administrative_division.py:50
 msgid "Collective municipality"
-msgstr "Gemeindeverband"
+msgstr "Verbandsgemeinde"
 
 #: constants/administrative_division.py:51
 msgid "Initial reception center"
@@ -227,12 +227,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: constants/region_status.py:17 models/regions/region.py:317
+#: constants/region_status.py:17 models/regions/region.py:330
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: constants/region_status.py:18 models/pages/page.py:190
-#: models/pages/page_translation.py:256 models/regions/region.py:320
+#: models/pages/page_translation.py:256 models/regions/region.py:333
 #: templates/pages/page_form.html:152
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
@@ -584,7 +584,7 @@ msgstr "Einstellungen"
 #: models/languages/language_tree_node.py:37 models/offers/offer.py:24
 #: models/pages/imprint_page.py:21 models/pages/page.py:43
 #: models/pois/poi.py:18 models/push_notifications/push_notification.py:18
-#: models/regions/region.py:336
+#: models/regions/region.py:349
 msgid "region"
 msgstr "Region"
 
@@ -1447,7 +1447,27 @@ msgstr ""
 "Dies gewährt allen Benutzern dieser Region Zugang zum überregionalen Autoren-"
 "Chat."
 
-#: models/regions/region.py:338 models/users/user_profile.py:30
+#: models/regions/region.py:163
+msgid "include administrative division into name"
+msgstr "Verwaltungseinheit dem Namen hinzufügen"
+
+#: models/regions/region.py:166
+msgid ""
+"Determines whether the administrative division is displayed next to the "
+"region name."
+msgstr ""
+"Legt fest, ob die Verwaltungseinheit neben dem Namen der Region angezeigt "
+"wird."
+
+#: models/regions/region.py:169
+msgid ""
+"Sorting is always based on the name, independently from the administrative "
+"division."
+msgstr ""
+"Sortierungen werden immer auf Grundlage der Namen vorgenommen, unabhängig "
+"von der Verwaltungseinheit."
+
+#: models/regions/region.py:351 models/users/user_profile.py:30
 msgid "regions"
 msgstr "Regionen"
 
@@ -1564,7 +1584,7 @@ msgstr "Mein Dashboard"
 msgid "Translation Report"
 msgstr "Übersetzungs-Bericht"
 
-#: templates/_base.html:88 templates/regions/region_form.html:132
+#: templates/_base.html:88 templates/regions/region_form.html:140
 #: templates/statistics/statistics_dashboard.html:7
 msgid "Statistics"
 msgstr "Statistiken"
@@ -1595,7 +1615,7 @@ msgid "Create page"
 msgstr "Seite erstellen"
 
 #: templates/_base.html:127 templates/events/event_list.html:10
-#: templates/regions/region_form.html:104
+#: templates/regions/region_form.html:112
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -2668,7 +2688,7 @@ msgstr "Allgemeine Einstellungen"
 
 #: templates/offer_templates/offer_template_form.html:59
 #: templates/organizations/organization_form.html:48
-#: templates/regions/region_form.html:100 templates/users/admin/user.html:62
+#: templates/regions/region_form.html:108 templates/users/admin/user.html:62
 #: templates/users/region/user.html:65
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
@@ -3185,50 +3205,50 @@ msgstr "Region \"%(region_name)s\" bearbeiten"
 msgid "Create new region"
 msgstr "Neue Region erstellen"
 
-#: templates/regions/region_form.html:111
+#: templates/regions/region_form.html:119
 msgid "Author chat"
 msgstr "Autoren-Chat"
 
-#: templates/regions/region_form.html:119
+#: templates/regions/region_form.html:127
 msgid "Push notifications"
 msgstr "Push-Benachrichtigungen"
 
-#: templates/regions/region_form.html:156
+#: templates/regions/region_form.html:164
 msgid "Page permissions"
 msgstr "Seiten-Berechtigungen"
 
-#: templates/regions/region_form.html:169
+#: templates/regions/region_form.html:177
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: templates/regions/region_form.html:172
+#: templates/regions/region_form.html:180
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: templates/regions/region_form.html:185
+#: templates/regions/region_form.html:193
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: templates/regions/region_form.html:186
+#: templates/regions/region_form.html:194
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: templates/regions/region_form.html:187
+#: templates/regions/region_form.html:195
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/regions/region_form.html:187
+#: templates/regions/region_form.html:195
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: templates/regions/region_form.html:187
+#: templates/regions/region_form.html:195
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: templates/regions/region_form.html:191
+#: templates/regions/region_form.html:199
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
@@ -4293,6 +4313,9 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "Region name option"
+#~ msgstr "Option zum Namen der Region"
 
 #~ msgid "Offer \"%(offer_name)s\" was successfully activated"
 #~ msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich aktiviert"
