@@ -16,6 +16,16 @@
         for detailed information about the applied library concepts see
         the documentation of xhtml2pdf -->
         <link href="{% static 'pdf.css' %}" rel="stylesheet" type="text/css">
+        {% if language.slug not in prevent_italics %}
+            <!-- TODO In the moment the only font-family we could find that supports:
+            xhtml2pdf, arabic letters and italic style is DejaVu
+            but DejaVu has the drawback that it does not support for:
+            arabic and italic at the same time, so italic is not available for arabic -->
+            <style type="text/css">
+                em {font-family: DejaVu-Oblique;}
+                pdftoc.pdftoclevel2 {font-family: DejaVu-Oblique;}
+            </style>
+        {% endif %}
     </head>
     <body>
         <div id="header">
@@ -58,7 +68,11 @@
         {% recursetree pages %}
             <li>
                 {% get_public_translation node language.slug as page_translation %}
-                <h1 class="{% if node.level == 0 %}root_title{% endif %}">{{ page_translation.title }}</h1>
+                {% if node.level < 2 %}
+                    <h1 class="{% if node.level == 0 %}root_title{% endif %}">{{ page_translation.title }}</h1>
+                {% else %}
+                    <h2>{{ page_translation.title }}</h2>
+                {% endif %}
                 <div class="content" style="padding-bottom: 30px;">
                     {{ page_translation.text|safe }}
                 </div>
@@ -72,6 +86,5 @@
         {% if right_to_left %}
             </div>
         {% endif %}
-
     </body>
 </html>

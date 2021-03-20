@@ -1,3 +1,15 @@
+@font-face {
+    font-family: DejaVu;
+    src: url('../fonts/dejavu_sans/DejaVuSans.ttf') format('truetype');
+}
+@font-face {
+    font-family: DejaVu-Bold;
+    src: url('../fonts/dejavu_sans/DejaVuSans-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: DejaVu-Oblique;
+    src: url('../fonts/dejavu_sans/DejaVuSans-Oblique.ttf') format('truetype');
+}
 @page {
     size: a4;
     margin: 2cm;
@@ -46,10 +58,6 @@
         border-top-width: 1px;
     }
 }
-@font-face {
-    font-family: DejaVu;
-    src: url('../fonts/dejavu_sans/DejaVuSans.ttf') format('truetype');
-}
 html, body {
     font-family: DejaVu;
 }
@@ -64,27 +72,27 @@ pdftoc {
 } 
 pdftoc.pdftoclevel0 {
     /* applied only to the root of the page tree */
-    font-weight: bold;
+    font-family: DejaVu-Bold;
 }
 pdftoc.pdftoclevel1 {
     /* applied for all children of the root page */
-    font-weight: bold;
+    font-family: DejaVu-Bold;
     margin-left: 2em;
 }
 pdftoc.pdftoclevel2 {
     /* applied to all sub headers of the pages */
-    font-weight: normal;
     margin-left: 4em;
-    font-style: italic;
 }
 h1 {
     font-size: xx-large;
+    font-family: DejaVu-Bold;
     margin: 0.67em 0;
     /* set the level on which the tag is mapped to toc */
     -pdf-outline-level: 1;
 }
 h2,h3,h4,h5,h6 {
     font-size: x-large;
+    font-family: DejaVu-Bold;
     margin: 0.83em 0;
     padding: 3px 0px;
     -pdf-outline-level: 2;
@@ -121,4 +129,8 @@ li {
     text-align: right;
     background-color: white;
 }
+strong {
+    font-family: DejaVu-Bold;
+}
+
 
