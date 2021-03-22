@@ -113,7 +113,8 @@
                 <select id="bulk-action" class="block appearance-none bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                     <option>{% trans 'Select bulk action' %}</option>
                     <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
-                    <option data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}" data-target="_blank">{% trans 'Export as PDF' %}</option>
+                    <option id="pdf-export-option" data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
+                        data-target="_blank" data-language-slug="{{ language.slug }}">{% trans 'Export as PDF' %}</option>
                     {% if request.user.profile.expert_mode %}
                         {% for target_language in languages %}
                             {% if target_language != region.default_language %}
