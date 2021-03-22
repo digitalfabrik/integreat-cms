@@ -87,6 +87,7 @@ def generate_pdf(region, language_slug, pages):
         "pages": pages,
         "language": language,
         "amount_pages": amount_pages,
+        "prevent_italics": ["ar", "fa"],
     }
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = f'filename="{filename}"'
