@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-14T12:58:48+00:00" />
+    <meta property="article:modified_time" content="2021-03-20T08:53:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Regions &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1194,6 +1194,7 @@
 <li><p><strong>page_permissions_enabled</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.1)"><em>BooleanField</em></a>) – Activate page-specific permissions. This allows individual users to be granted the right to edit or publish a specific page.</p></li>
 <li><p><strong>icon</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ImageField" title="(in Django v3.1)"><em>ImageField</em></a>) – Logo</p></li>
 <li><p><strong>chat_enabled</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.1)"><em>BooleanField</em></a>) – Activate author chat. This gives all users of this region access to the cross-regional author chat.</p></li>
+<li><p><strong>administrative_division_included</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.1)"><em>BooleanField</em></a>) – Include administrative division into name. Determines whether the administrative division is displayed next to the region name. Sorting is always based on the name, independently from the administrative division.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1292,7 +1293,7 @@ root <a class="reference internal" href="../ref-ext/cms.models.languages.html#cm
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_current_region</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_current_region</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This class method returns the current region based on the current request and is used in
 <a class="reference internal" href="../ref-ext/backend.html#backend.context_processors.region_slug_processor" title="backend.context_processors.region_slug_processor"><code class="xref py py-func docutils literal notranslate"><span class="pre">backend.context_processors.region_slug_processor()</span></code></a></p>
 <dl class="field-list simple">
@@ -1311,7 +1312,7 @@ with that slug.</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unrestricted_queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unrestricted_queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method returns either all archived or all non-archived pages of this region.
 To retrieve all pages independently from their archived-state, use the reverse foreign key
 <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.pages" title="cms.models.regions.region.Region.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>.</p>
@@ -1425,7 +1426,7 @@ region and are neither superusers nor staff.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 14, 2021.
+        Last updated on Mar 20, 2021.
       </span>
 
     </p>
