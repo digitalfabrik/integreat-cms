@@ -158,6 +158,19 @@ class Region(models.Model):
         ),
     )
 
+    administrative_division_included = models.BooleanField(
+        default=False,
+        verbose_name=_("include administrative division into name"),
+        help_text=__(
+            _(
+                "Determines whether the administrative division is displayed next to the region name."
+            ),
+            _(
+                "Sorting is always based on the name, independently from the administrative division."
+            ),
+        ),
+    )
+
     @property
     def languages(self):
         """

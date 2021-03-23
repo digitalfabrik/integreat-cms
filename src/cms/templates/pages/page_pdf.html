@@ -1,5 +1,6 @@
 {% load static %}
 {% load mptt_tags %}
+{% load i18n %}
 {% load content_filters %}
 
 {% comment %}
@@ -42,6 +43,9 @@
                         <pdf:pagenumber>
                     </td>
                     <td id="second-footer">
+                        {% if region.administrative_division_included %}
+                            {% language 'de' %}{{ region.get_administrative_division_display }} {% endlanguage %}
+                        {% endif %}
                         {{ region.name }}
                     </td>
                     <td id="third-footer">
