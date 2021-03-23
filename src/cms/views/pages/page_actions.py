@@ -257,8 +257,11 @@ def export_pdf(request, region_slug, language_slug):
     pages = region.pages.filter(explicitly_archived=False, id__in=page_ids)
     # generate PDF document wrapped in a HtmlResponse object
     response = generate_pdf(region, language_slug, pages)
-    # offer PDF document for download
-    response["Content-Disposition"] = response["Content-Disposition"] + "; attachment"
+    if response.status_code == 200:
+        # offer PDF document for download
+        response["Content-Disposition"] = (
+            response["Content-Disposition"] + "; attachment"
+        )
     return response
 
 

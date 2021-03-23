@@ -65,11 +65,14 @@ window.addEventListener("load", () => {
 
   function toggleBulkActionButton() {
     // Only activate button if at least one item and the action is selected
+    // also check if at least one page translation exists for PDF export before activation
+    let selectedAction = bulkAction.options[bulkAction.selectedIndex];
     if (
       !selectItems
         .filter(isInputElement)
         .some((el) => el.checked) ||
-      bulkAction.selectedIndex === 0
+      bulkAction.selectedIndex === 0 ||
+      (selectedAction.id === "pdf-export-option" && !hasTranslation())
     ) {
       bulkActionButton.classList.remove(
         "bg-blue-500",
@@ -102,5 +105,18 @@ window.addEventListener("load", () => {
     }
     // Submit form and execute bulk action
     form.submit();
+  }
+
+  function hasTranslation(): boolean {
+    // checks if at least one of the selected pages has a translation for the current language
+    let languageSlug = document.getElementById("pdf-export-option").dataset.languageSlug;
+    return selectItems
+      .filter(isInputElement)
+      .filter(inputElement => inputElement.checked)
+      .some(inputElement => {
+        return inputElement
+          .closest("tr")
+          .querySelector(`.lang-grid .${languageSlug} .no-trans`) === null;
+      });
   }
 });
