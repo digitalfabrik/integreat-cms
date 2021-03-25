@@ -6,10 +6,19 @@ module.exports = {
     './src/**/*.js',
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'icon': "url('/src/frontend/images/integreat-icon.png')",
+        'logo': "url('/src/frontend/images/integreat-logo.png')",
+        'logo-white': "url('/src/frontend/images/integreat-logo-white.png')",
+        'logo-yellow': "url('/src/frontend/images/integreat-logo-yellow.png')",
+      },
+    },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundImage: ['hover', 'focus'],
+    },
   },
   plugins: [],
 }

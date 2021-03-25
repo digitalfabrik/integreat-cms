@@ -146,7 +146,7 @@ html_theme_options = {
 #: The logo shown in the menu bar
 html_logo = "../src/frontend/images/integreat-logo-white.png"
 #: The facivon of the html doc files
-html_favicon = "../src/frontend/images/favicon.ico"
+html_favicon = "../src/frontend/images/integreat-icon.png"
 #: The url where the docs should be published (via gh-pages)
 html_baseurl = github_pages_url
 #: Do not include links to the documentation source (.rst files) in build

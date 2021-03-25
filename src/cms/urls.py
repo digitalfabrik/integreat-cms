@@ -877,5 +877,7 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^favicon\.ico$", RedirectView.as_view(url="/static/images/favicon.ico")),
+    url(
+        r"^favicon\.ico$", RedirectView.as_view(url="/static/images/integreat-icon.png")
+    ),
 ] + static(django_settings.MEDIA_URL, document_root=django_settings.MEDIA_ROOT)
