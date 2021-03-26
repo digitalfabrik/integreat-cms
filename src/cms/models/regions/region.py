@@ -6,6 +6,8 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from django.utils.translation import activate
+from django.utils.translation import get_language
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
@@ -193,6 +195,33 @@ class Region(models.Model):
         """
         tree_root = self.language_tree_nodes.filter(level=0).first()
         return tree_root.language if tree_root else None
+
+    @property
+    def prefix(self):
+        """
+        This property returns the administrative division of a region if it's included in the name
+
+        :return: The prefix of the region
+        :rtype: str
+        """
+        if self.administrative_division_included:
+            # Get administrative division in region's default language
+            current_language = get_language()
+            activate(self.default_language.slug)
+            prefix = self.get_administrative_division_display()
+            activate(current_language)
+            return prefix
+        return ""
+
+    @property
+    def full_name(self):
+        """
+        This property returns the full name of a region including its administrative division
+
+        :return: The full name of the region
+        :rtype: str
+        """
+        return f"{self.prefix} {self.name}".strip()
 
     @property
     def users(self):

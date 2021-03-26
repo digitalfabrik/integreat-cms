@@ -22,10 +22,10 @@ def transform_region(region):
     """
     return {
         "id": region.id,
-        "name": region.get_administrative_division_display() + " " + region.name,
+        "name": region.full_name,
         "path": region.slug,
         "live": region.status == region_status.ACTIVE,
-        "prefix": region.get_administrative_division_display(),
+        "prefix": region.prefix,
         "name_without_prefix": region.name,
         "plz": region.postal_code,
         "extras": region.offers_enabled,
@@ -47,20 +47,10 @@ def transform_region_by_status(region):
     :return: return data necessary for API
     :rtype: dict
     """
-    return {
-        "id": region.id,
-        "name": region.get_administrative_division_display() + " " + region.name,
-        "path": region.slug,
-        "prefix": region.get_administrative_division_display(),
-        "name_without_prefix": region.name,
-        "plz": region.postal_code,
-        "offers": region.offers_enabled,
-        "events": region.events_enabled,
-        "push-notifications": region.push_notifications_enabled,
-        "longitude": region.longitude,
-        "latitude": region.latitude,
-        "aliases": region.aliases,
-    }
+    result = transform_region(region)
+    # Remove status
+    del result["live"]
+    return result
 
 
 @json_response

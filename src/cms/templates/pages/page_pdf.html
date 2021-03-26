@@ -43,10 +43,7 @@
                         <pdf:pagenumber>
                     </td>
                     <td id="second-footer">
-                        {% if region.administrative_division_included %}
-                            {% language 'de' %}{{ region.get_administrative_division_display }} {% endlanguage %}
-                        {% endif %}
-                        {{ region.name }}
+                        {{ region.full_name }}
                     </td>
                     <td id="third-footer">
                         <img src="{% static 'images/integreat-logo.jpg' %}" height="40">
