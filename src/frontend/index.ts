@@ -2,7 +2,7 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import "whatwg-fetch"; // IE11: fetch
-require("element-closest").default(window); // IE11: Element.clostest
+require("element-closest").default(window); // IE11: Element.closest
 
 import feather from 'feather-icons';
 import "./css/style.scss";

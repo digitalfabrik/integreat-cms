@@ -31,152 +31,46 @@ $active-bg-color: darken($list-border-color, 10%);
 html,
 body {
   font-family: "Raleway", sans-serif;
-  font-size: 16px;
-  line-height: 1.15;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  background-color: #ffffff;
-}
-
-a {
-  text-decoration: none;
 }
 
 header {
-  height: 50px;
-  padding-left: 220px;
-  z-index: 40;
-  background-color: #d6dde4;
-  #search {
-    height: 50px;
-    svg {
-      width: 16px;
-      height: 16px;
-      top: 17px;
-      left: 1.5rem;
-    }
-    input[type="search"] {
-      padding-top: 16px;
-      padding-bottom: 16px;
-      background-color: transparent;
+  #region-selector:hover  {
+    #region-list {
+      @apply block;
     }
   }
-  svg.feather-chevron-down {
-    width: 20px;
-    height: 20px;
-  }
-  #instance-selector {
-    #instance-selector-list {
-      top: 100%;
-      right: 0;
-      background-color: #d6dde4;
-      display: none;
-      visibility: hidden;
-      opacity: 0;
-    }
-    &:hover {
-      #instance-selector-list {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-    svg {
-      width: 23px;
-      height: 23px;
-    }
-  }
-  #user-info {
+  #user-info:hover {
     #user-menu {
-      top: 100%;
-      left: -25px;
-      right: 1.5rem;
-      background-color: #d6dde4;
-      display: none;
-      visibility: hidden;
-      opacity: 0;
-      a {
-        svg {
-          width: 16px;
-          height: 16px;
-          top: 13px;
-          left: 1rem;
-        }
-      }
+      @apply block;
     }
-    &:hover {
-      #user-menu {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-      }
-    }
+  }
+  svg {
+    @apply pr-1;
   }
 }
 
 nav#primary-navigation {
-  width: 100%;
-  max-width: 220px;
-  background-color: #4c5e70;
-  z-index: 50;
-  #logo {
-    height: 50px;
-    max-width: 220px;
-    background-color: #354556;
-    img {
-      max-height: 33px;
-    }
-  }
   #menu {
     max-height: calc(100vh - 50px);
-    overflow-y: auto;
     a {
-      color: #e2e8f0;
-      padding: 15px 22px 15px 50px;
-      svg {
-        width: 18px;
-        height: 18px;
-        top: 15px;
-        left: 22px;
-      }
-      &.active,
-      &:hover {
-        color: #606f7b;
-        background-color: #fbda16;
-      }
+      @apply relative block p-3 pl-6 hover:text-gray-600 hover:bg-integreat-500;
     }
-    h4 {
-      padding: 0 22px;
+    a.active, .active > a {
+      @apply text-gray-600 bg-integreat-500;
     }
     .dropdown-container {
-      display: none;
-    }
-    .active > a {
-      color: #606f7b;
-      background-color: #fbda16;
+      @apply flex-col hidden bg-gray-500;
     }
     .active > .dropdown-container {
-      display: flex;
-      color: #e2e8f0;
-      background-color: #657584;
+      @apply flex;
     }
     .dropdown-container > .active {
-      color: #354556;
-      background-color: #8392a0;
-      &:hover {
-        color: #606f7b;
-        background-color: #fbda16;
-      }
+      @apply text-gray-600 bg-gray-400 hover:text-gray-600 hover:bg-integreat-500;
+    }
+    svg {
+      @apply pr-1;
     }
   }
-}
-
-main {
-  min-height: 100vh;
-  padding-top: 50px;
-  padding-left: 220px;
-  background-color: #eff3f6;
 }
 
 #no-session {
@@ -449,16 +343,6 @@ datalist option {
   del {
     background-color: #feb2b2;
   }
-}
-
-/** classes to imitate tailwind tweaks **/
-.bg-integreat,
-.hover\:bg-integreat:hover {
-  background-color: #fbda16;
-}
-.text-integreat,
-.hover\:text-integreat:hover {
-  color: #fbda16;
 }
 
 /* classes for tree view drag and drop divs */

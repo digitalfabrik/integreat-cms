@@ -3,7 +3,7 @@
 {% load rules %}
 
 {% for message in chat_messages %}
-<div class="chat-message p-2 {% if not forloop.last or not chat_form %}border-t border-gray-400{% endif %} {% if chat_last_visited < message.sent_datetime %}bg-yellow-100 border-l-4 border-yellow-400{% endif %}" style="padding-left: {% if not chat_last_visited < message.sent_datetime %}10{% else %}8{% endif %}px;">
+<div class="chat-message p-2 {% if not forloop.last or not chat_form %}border-t border-gray-400{% endif %} {% if chat_last_visited < message.sent_datetime %}bg-border-left from-yellow-400 to-yellow-100{% endif %}">
     {% if message.sender.is_superuser or message.sender.is_staff %}
     <span class="inline-block h-5 w-5 align-text-top bg-icon bg-contain bg-center bg-no-repeat"></span>
     {% endif %}
