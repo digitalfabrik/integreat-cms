@@ -104,10 +104,10 @@
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
            target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="py-3 px-2">
-            <i data-feather="eye" class="inline-block text-gray-800"></i>
+            <i data-feather="eye" class="text-gray-800"></i>
         </a>
         <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="py-3 px-2">
-            <i data-feather="edit" class="inline-block text-gray-800"></i>
+            <i data-feather="edit" class="text-gray-800"></i>
         </a>
 
         <button title="{% trans 'Archive page' %}" class="confirmation-button py-3 px-2"
@@ -115,12 +115,12 @@
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ page.best_translation.title }}"
                 data-action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
-            <i data-feather="archive" class="inline-block text-gray-800"></i>
+            <i data-feather="archive" class="text-gray-800"></i>
         </button>
         {% if user.is_superuser or user.is_staff %}
             {% if page.children.all %}
                 <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="py-3 px-2">
-                    <i data-feather="trash-2" class="inline-block text-gray-400"></i>
+                    <i data-feather="trash-2" class="text-gray-400"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 px-2"
@@ -128,17 +128,17 @@
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ page.best_translation.title }}"
                         data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
-                    <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+                    <i data-feather="trash-2" class="text-gray-800"></i>
                 </button>
             {% endif %}
         {% endif %}
         {% if page_translation %}
         <a href="#" data-copy-to-clipboard="{{ page_translation.short_url }}" title="{% trans 'Copy short link' %}" class="py-3 px-2">
-            <i data-feather="copy" class="inline-block text-gray-800"></i>
+            <i data-feather="copy" class="text-gray-800"></i>
         </a>
         {% else %}
         <a title="{% trans 'You cannot copy a short link of a page which has no translation.' %}" class="py-3 px-2">
-            <i data-feather="copy" class="inline-block text-gray-400"></i>
+            <i data-feather="copy" class="text-gray-400"></i>
         </a>
         {% endif %}
     </td>

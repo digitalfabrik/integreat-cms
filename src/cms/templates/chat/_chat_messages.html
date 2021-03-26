@@ -19,7 +19,7 @@
             data-confirmation-text="{% trans 'Sender:' %} {{ message.sender.profile.full_user_name }}<br>{% trans 'Sent on:' %} {{ message.sent_datetime }}"
             data-confirmation-subject="{{ message.text }}"
             data-action="{% url 'delete_chat_message' message_id=message.id %}">
-        <i data-feather="trash-2" class="inline-block"></i>
+        <i data-feather="trash-2"></i>
     </button>
     <span class="text-gray-600 float-right">{{ message.sent_datetime }}</span>
     <p class="pt-2 whitespace-pre-line">{{ message.text|urlize }}</p>

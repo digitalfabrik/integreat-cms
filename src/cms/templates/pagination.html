@@ -11,7 +11,7 @@
         <!-- pagination always contains left and right buttons -->
         <!-- in case the left/right outer bounds are reached these links are disabled -->
         <a href="{% if chunk.has_previous %}{{ url }}?chunk={{ chunk.previous_page_number }}{% else %}#{% endif %}" class="arrow-link">
-            <i data-feather="chevron-left" class="inline"></i>
+            <i data-feather="chevron-left"></i>
         </a>
         <!-- pagination always allows to jump to start page -->
         <a href="{{ url }}?chunk=1" class="{% if chunk.number == 1 %}active{% endif %}">1</a>
@@ -34,7 +34,7 @@
         <!-- pagination always allows to jump to last page -->
         <a href="{{ url }}?chunk={{ num_pages }}" class="{% if chunk.number == num_pages %}active{% endif %}">{{ num_pages }}</a>
         <a href="{% if chunk.has_next %}{{ url }}?chunk={{ chunk.next_page_number }}{% else %}#{% endif %}" class="arrow-link">
-            <i data-feather="chevron-right" class="inline-block"></i>
+            <i data-feather="chevron-right"></i>
         </a>
     </div>
 </div>

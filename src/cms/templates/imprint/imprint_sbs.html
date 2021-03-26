@@ -36,15 +36,15 @@
                         <div class="border-b-4 border-white">
                             {% if source_imprint_translation.is_outdated %}
                                 <span title="{% trans 'Translation outdated' %}">
-                                    <i data-feather="alert-triangle" class="inline-block"></i>
+                                    <i data-feather="alert-triangle"></i>
                                 </span>
                             {% elif source_imprint_translation.currently_in_translation %}
                                 <span title="{% trans 'Currently in translation' %}">
-                                    <i data-feather="clock" class="inline-block"></i>
+                                    <i data-feather="clock"></i>
                                 </span>
                             {% else %}
                                 <span title="{% trans 'Translation up-to-date' %}">
-                                    <i data-feather="check" class="inline-block"></i>
+                                    <i data-feather="check"></i>
                                 </span>
                             {% endif %}
                             {{ source_imprint_translation.language.translated_name }}
@@ -60,12 +60,12 @@
                 <label class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</label>
                 <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.code }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}</a>
                 <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
-                    <i data-feather="copy" class="inline-block"></i>
+                    <i data-feather="copy"></i>
                 </a><br>
                 <label class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</label>
                 <a href="{{ source_imprint_translation.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ source_imprint_translation.short_url }}</a>
                 <a href="#" data-copy-to-clipboard="{{ source_imprint_translation.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
-                    <i data-feather="copy" class="inline-block"></i>
+                    <i data-feather="copy"></i>
                 </a>
                 <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
                 <input type="text" value="{{source_imprint_translation.title}}" class="appearance-none block w-full bg-gray-200 text-xl border border-gray-200 rounded py-3 px-4 leading-tight" disabled>
@@ -79,7 +79,7 @@
                     {% with source_language=source_imprint_translation.language.translated_name target_language_name=target_language.translated_name %}
                         {% blocktrans %}Copy content of {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
                     {% endwith %}
-                    <i data-feather="arrow-right-circle" class="inline-block mr-2"></i>
+                    <i data-feather="arrow-right-circle" class="mr-2"></i>
                 </button>
             </div>
         </div>
@@ -91,20 +91,20 @@
                             {% if imprint_translation_form.instance.id %}
                                 {% if imprint_translation_form.instance.is_outdated %}
                                     <span title="{% trans 'Translation outdated' %}">
-                                        <i data-feather="alert-triangle" class="inline-block"></i>
+                                        <i data-feather="alert-triangle"></i>
                                     </span>
                                 {% elif imprint_translation_form.instance.currently_in_translation %}
                                     <span title="{% trans 'Currently in translation' %}">
-                                        <i data-feather="clock" class="inline-block"></i>
+                                        <i data-feather="clock"></i>
                                     </span>
                                 {% else %}
                                     <span title="{% trans 'Translation up-to-date' %}">
-                                        <i data-feather="check" class="inline-block"></i>
+                                        <i data-feather="check"></i>
                                     </span>
                                 {% endif %}
                             {% else %}
                                 <span title="{% trans 'Create Translation' %}">
-                                    <i data-feather="plus" class="inline-block"></i>
+                                    <i data-feather="plus"></i>
                                 </span>
                             {% endif %}
                             {{ target_language.translated_name }}
@@ -123,12 +123,12 @@
                     <label class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</label>
                     <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}</a>
                     <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
-                        <i data-feather="copy" class="inline-block"></i>
+                        <i data-feather="copy"></i>
                     </a><br>
                     <label class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</label>
                     <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
                     <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
-                        <i data-feather="copy" class="inline-block"></i>
+                        <i data-feather="copy"></i>
                     </a>
                 {% else %}
                     <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>

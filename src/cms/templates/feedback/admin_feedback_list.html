@@ -58,18 +58,18 @@
             <td class="pr-2">{{ feedback.language.translated_name }}</td>
             <td class="pr-2 feedback-comment">
                 {% if not feedback.comment %}
-                    <i data-feather="minus" class="inline-block pr-1"></i>
+                    <i data-feather="minus" class="pr-1"></i>
                 {% elif feedback.comment.splitlines|length > 1 %}
                     <span>
-                        {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                        {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                     </span>
-                    <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i></span>
+                    <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i></span>
                 {% elif feedback.comment|words|length > 20 %}
                     <span>
-                        {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                        {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                     </span>
                     <span class="hidden">
-                        {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                        {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                     </span>
                 {% else %}
                     {{ feedback.comment }}
@@ -77,19 +77,19 @@
             </td>
             <td class="pr-2">
                 {% if feedback.rating == True %}
-                    <i data-feather="thumbs-up" class="inline-block pr-1"></i>
+                    <i data-feather="thumbs-up" class="pr-1"></i>
                 {% elif feedback.rating == False %}
-                    <i data-feather="thumbs-down" class="inline-block pr-1"></i>
+                    <i data-feather="thumbs-down" class="pr-1"></i>
                 {% elif feedback.rating == None %}
-                    <i data-feather="minus" class="inline-block pr-1"></i>
+                    <i data-feather="minus" class="pr-1"></i>
                 {% endif %}
             </td>
             <td class="pr-2">
                 <span class="{% if not feedback.rating_sum_positive %}invisible{% endif %}">
-                    <i data-feather="thumbs-up" class="inline-block pr-1"></i> {{ feedback.rating_sum_positive }}
+                    <i data-feather="thumbs-up" class="pr-1"></i> {{ feedback.rating_sum_positive }}
                 </span>
                 <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
-                    <i data-feather="thumbs-down" class="inline-block pl-1"></i> {{ feedback.rating_sum_negative }}
+                    <i data-feather="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
                 </span>
             </td>
             <td class="pr-2">

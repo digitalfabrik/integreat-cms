@@ -89,14 +89,14 @@
     <td class="pr-4 min text-right">
         <!-- TODO: add link to view poi in web app -->
         <a href="#" class="py-3">
-            <i data-feather="eye" class="inline-block"></i>
+            <i data-feather="eye"></i>
         </a>
         <button title="{% trans 'Archive location' %}" class="confirmation-button py-3 pl-2"
             data-confirmation-title="{{ archive_dialog_title }}"
             data-confirmation-text="{{ archive_dialog_text }}"
             data-confirmation-subject="{{ poi_translation.title }}"
             data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
-            <i data-feather="archive" class="inline-block"></i>
+            <i data-feather="archive"></i>
         </button>
         {% if user.is_superuser or user.is_staff %}
             <button title="{% trans 'Delete location' %}" class="confirmation-button py-3 pl-2"
@@ -104,7 +104,7 @@
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ poi_translation.title }}"
                 data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
-                <i data-feather="trash-2" class="inline-block"></i>
+                <i data-feather="trash-2"></i>
             </button>
         {% endif %}
     </td>

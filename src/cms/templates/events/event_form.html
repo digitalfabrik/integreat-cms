@@ -59,25 +59,25 @@
                                         {% if other_language in event_form.instance.languages %}
                                             {% if event_translation_form.instance.is_outdated %}
                                                 <span title="{% trans 'Translation outdated' %}">
-                                                    <i data-feather="alert-triangle" class="inline-block"></i>
+                                                    <i data-feather="alert-triangle"></i>
                                                 </span>
                                             {% elif event_translation_form.instance.currently_in_translation %}
                                                 <span title="{% trans 'Currently in translation' %}">
-                                                    <i data-feather="clock" class="inline-block"></i>
+                                                    <i data-feather="clock"></i>
                                                 </span>
                                             {% else %}
                                                 <span title="{% trans 'Translation up-to-date' %}">
-                                                    <i data-feather="check" class="inline-block"></i>
+                                                    <i data-feather="check"></i>
                                                 </span>
                                             {% endif %}
                                         {% else %}
                                             <span title="{% trans 'Translation missing' %}">
-                                                <i data-feather="x" class="inline-block"></i>
+                                                <i data-feather="x"></i>
                                             </span>
                                         {% endif %}
                                     {% else %}
                                         <span title="{% trans 'Create Translation' %}">
-                                            <i data-feather="plus" class="inline-block"></i>
+                                            <i data-feather="plus"></i>
                                         </span>
                                     {% endif %}
                                     {{ other_language.translated_name }}
@@ -88,20 +88,20 @@
                                         {% get_translation event_form.instance other_language.slug as other_event_translation %}
                                         {% if other_event_translation.is_outdated %}
                                             <span title="{% trans 'Translation outdated' %}">
-                                                <i data-feather="alert-triangle" class="inline-block"></i>
+                                                <i data-feather="alert-triangle"></i>
                                             </span>
                                         {% elif other_event_translation.currently_in_translation %}
                                             <span title="{% trans 'Currently in translation' %}">
-                                                <i data-feather="clock" class="inline-block"></i>
+                                                <i data-feather="clock"></i>
                                             </span>
                                         {% else %}
                                             <span title="{% trans 'Translation up-to-date' %}">
-                                                <i data-feather="check" class="inline-block"></i>
+                                                <i data-feather="check"></i>
                                             </span>
                                         {% endif %}
                                     {% else %}
                                         <span title="{% trans 'Translation missing' %}">
-                                            <i data-feather="x" class="inline-block"></i>
+                                            <i data-feather="x"></i>
                                         </span>
                                     {% endif %}
                                     {{ other_language.translated_name }}
@@ -149,7 +149,7 @@
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
                         <div class="border-b-4 border-white">
-                            <i data-feather="flag" class="inline-block"></i>
+                            <i data-feather="flag"></i>
                             {% trans 'Settings for all translations' %}
                         </div>
                     </div>
@@ -269,7 +269,7 @@
                                     data-confirmation-text="{{ restore_dialog_text}}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
                                     data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="refresh-ccw" class="inline-block mr-2"></i>
+                                    <i data-feather="refresh-ccw" class="mr-2"></i>
                                     {% trans 'Restore this event' %}
                                 </button>
                             {% else %}
@@ -279,7 +279,7 @@
                                     data-confirmation-text="{{ archive_dialog_text }}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
                                     data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="archive" class="inline-block mr-2"></i>
+                                    <i data-feather="archive" class="mr-2"></i>
                                     {% trans 'Archive this event' %}
                                 </button>
                             {% endif %}
@@ -292,7 +292,7 @@
                                     data-confirmation-text="{{ delete_dialog_text }}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
                                     data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="trash-2" class="inline-block mr-2"></i>
+                                    <i data-feather="trash-2" class="mr-2"></i>
                                     {% trans 'Delete this event' %}
                                 </button>
                             </div>

@@ -44,5 +44,5 @@ import "./js/mfa/add-key.ts";
 import "./js/mfa/login.ts";
 
 window.addEventListener('load',() => {
-    feather.replace();
+    feather.replace({ class: 'inline-block' });
 })
