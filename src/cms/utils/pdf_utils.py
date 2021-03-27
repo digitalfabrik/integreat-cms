@@ -9,6 +9,7 @@ from django.db.models import Min
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.utils.translation import ugettext as _
+from django.views.decorators.cache import never_cache
 
 from backend.settings import STATIC_URL, MEDIA_URL
 from ..constants import text_directions
@@ -17,6 +18,7 @@ from ..models import Language
 logger = logging.getLogger(__name__)
 
 
+@never_cache
 # pylint: disable=too-many-locals
 def generate_pdf(region, language_slug, pages):
     """

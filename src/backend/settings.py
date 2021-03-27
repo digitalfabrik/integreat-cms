@@ -455,6 +455,10 @@ LOGGING = {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
+        "xhtml2pdf": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
     },
 }
 
