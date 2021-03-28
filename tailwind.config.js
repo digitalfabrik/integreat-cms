@@ -18,6 +18,12 @@ module.exports = {
       green: colors.green,
       blue: colors.blue,
     },
+    fontFamily: {
+      'default': ["Raleway", "Lateef", "Noto Sans SC", "sans-serif"],
+      'content': ["Open Sans", "sans-serif"],
+      'content-rtl': ["Lateef", "sans-serif"],
+      'content-sc': ["Noto Sans SC", "sans-serif"],
+    },
     extend: {
       colors: {
         // generated from #fbda16 with https://javisperez.github.io/tailwindcolorshades/

@@ -2,35 +2,27 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "./upload_form.css";
-
-/* raleway-regular - latin */
-@font-face {
-  font-family: "Raleway";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/raleway-v12-latin-regular.eot"); /* IE9 Compat Modes */
-  src: local("Raleway"), local("Raleway-Regular"),
-    url("../fonts/raleway-v12-latin-regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/raleway-v12-latin-regular.woff2")
-      format("woff2"),
-    /* Super Modern Browsers */ url("../fonts/raleway-v12-latin-regular.woff")
-      format("woff"),
-    /* Modern Browsers */ url("../fonts/raleway-v12-latin-regular.ttf")
-      format("truetype"),
-    /* Safari, Android, iOS */
-      url("../fonts/raleway-v12-latin-regular.svg#Raleway") format("svg"); /* Legacy iOS */
+@layer utilities {
+  // Tailwind class: "font-default"
+  @import "../fonts/raleway/raleway.css";
+  // Tailwind class: "font-content"
+  @import "../fonts/open-sans/open-sans.css";
+  // Tailwind class: "font-content-rtl"
+  @import "../fonts/lateef/lateef.css";
+  // Tailwind class: "font-content-sc"
+  @import "../fonts/noto-sans-sc/noto-sans-sc.css";
 }
+
+@import "./upload_form.css";
 
 $list-bg-color: white;
 $list-border-color: lightgray;
 $hover-bg-color: darken($list-border-color, 20%);
 $active-bg-color: darken($list-border-color, 10%);
 
-html,
+/* Adjust font size to reduce size difference between fonts (currently poor browser support, but better than nothing) */
 body {
-  font-family: "Raleway", sans-serif;
+  font-size-adjust: 0.5;
 }
 
 header {

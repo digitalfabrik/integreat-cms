@@ -17,16 +17,24 @@
         for detailed information about the applied library concepts see
         the documentation of xhtml2pdf -->
         <link href="{% static 'pdf.css' %}" rel="stylesheet" type="text/css">
-        {% if language.slug not in prevent_italics %}
-            <!-- TODO In the moment the only font-family we could find that supports:
-            xhtml2pdf, arabic letters and italic style is DejaVu
-            but DejaVu has the drawback that it does not support for:
-            arabic and italic at the same time, so italic is not available for arabic -->
-            <style type="text/css">
-                em {font-family: DejaVu-Oblique;}
-                pdftoc.pdftoclevel2 {font-family: DejaVu-Oblique;}
-            </style>
-        {% endif %}
+        <style>
+            {% if language.slug == "zh-CN" %}
+                html, body {
+                    font-family: "Noto Sans SC", sans-serif;
+                }
+            {% elif right_to_left %}
+                html, body {
+                    font-family: "DejaVu", sans-serif;
+                }
+            {% else %}
+                html, body {
+                    font-family: "Open Sans", sans-serif;
+                }
+                pdftoc, h1 {
+                    font-family: "Raleway", sans-serif;
+                }
+            {% endif %}
+        </style>
     </head>
     <body>
         <div id="header">

@@ -6,7 +6,7 @@
 {% if language.slug == 'zh-CN' %}
     {% firstof "body { font-family: 'Noto Sans SC', sans-serif; }" as content_style %}
 {% elif right_to_left %}
-    {% firstof "body { font-family: 'Lateef', sans-serif; }" as content_style %}
+    {% firstof "body { font-family: 'Lateef', sans-serif; font-size: 1.2rem; }" as content_style %}
 {% else %}
     {% firstof "body { font-family: 'Open Sans', sans-serif; }" as content_style %}
 {% endif %}
@@ -14,6 +14,7 @@
 <div
         id="tinymce-config-options"
         data-language="{{ LANGUAGE_CODE|slice:'0:2' }}"
+        data-directionality="{% if right_to_left %}rtl{% else %}ltr{% endif %}"
         data-no-translate-tooltip="{% trans 'Do not translate the selected text.' %}"
         data-pin-icon-text="{% trans 'Location' %}"
         data-pin-icon-src="{% static 'svg/pin.svg' %}"
@@ -27,7 +28,9 @@
         data-clock-icon-src="{% static 'svg/clock.svg' %}"
         data-idea-icon-text="{% trans 'Hint' %}"
         data-idea-icon-src="{% static 'svg/idea.svg' %}"
-        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
+        data-custom-plugins="{% static 'editor_content.js' %}"
+        data-content-css="{% static 'editor_content.css' %}"
+        data-content-style="{{ content_style }}"
         {% if readonly %}
         data-readonly="1"
         {% endif %}

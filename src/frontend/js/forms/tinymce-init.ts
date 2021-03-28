@@ -91,7 +91,7 @@ window.addEventListener("load", () => {
       plugins:
         "code paste fullscreen autosave link preview media image lists directionality wordcount",
       external_plugins: {
-        autolink_tel: "tinymce-plugins/autolink_tel/plugin.js",
+        autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
       },
       link_default_protocol: "https",
       toolbar:
@@ -139,8 +139,10 @@ window.addEventListener("load", () => {
         },
       ],
       min_height: 400,
-      content_css: tinymceConfig.getAttribute("data-customcss-src"),
+      content_css: tinymceConfig.getAttribute("data-content-css"),
+      content_style: tinymceConfig.getAttribute("data-content-style"),
       language: tinymceConfig.getAttribute("data-language"),
+      directionality: tinymceConfig.getAttribute("data-directionality") as 'ltr' | 'rtl',
       setup: (editor: Editor) => {
         addIcon(editor, tinymceConfig, "pin");
         addIcon(editor, tinymceConfig, "www");
