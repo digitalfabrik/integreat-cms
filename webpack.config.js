@@ -75,6 +75,8 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
+        { from: "node_modules/tinymce/skins/ui/oxide/skin.min.css", to: "skins/ui/oxide/skin.min.css" },
+        { from: "node_modules/tinymce/skins/ui/oxide/content.min.css", to: "skins/ui/oxide/content.min.css" },
         { from: "src/frontend/tinymce-plugins", to: "tinymce-plugins" },
         { from: "src/frontend/svg", to: "svg" },
         { from: "src/frontend/images", to: "images" },

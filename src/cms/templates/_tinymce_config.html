@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load static %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if language.slug == 'zh-CN' %}
+    {% firstof "body { font-family: 'Noto Sans SC', sans-serif; }" as content_style %}
+{% elif right_to_left %}
+    {% firstof "body { font-family: 'Lateef', sans-serif; }" as content_style %}
+{% else %}
+    {% firstof "body { font-family: 'Open Sans', sans-serif; }" as content_style %}
+{% endif %}
+
+<div
+        id="tinymce-config-options"
+        data-language="{{ LANGUAGE_CODE|slice:'0:2' }}"
+        data-no-translate-tooltip="{% trans 'Do not translate the selected text.' %}"
+        data-pin-icon-text="{% trans 'Location' %}"
+        data-pin-icon-src="{% static 'svg/pin.svg' %}"
+        data-www-icon-text="{% trans 'Link' %}"
+        data-www-icon-src="{% static 'svg/www.svg' %}"
+        data-email-icon-text="{% trans 'Email' %}"
+        data-email-icon-src="{% static 'svg/email.svg' %}"
+        data-call-icon-text="{% trans 'Phone' %}"
+        data-call-icon-src="{% static 'svg/call.svg' %}"
+        data-clock-icon-text="{% trans 'Opening Hours' %}"
+        data-clock-icon-src="{% static 'svg/clock.svg' %}"
+        data-idea-icon-text="{% trans 'Hint' %}"
+        data-idea-icon-src="{% static 'svg/idea.svg' %}"
+        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
+        {% if readonly %}
+        data-readonly="1"
+        {% endif %}
+></div>

@@ -210,28 +210,11 @@
     </div>
 </form>
 
-{% get_current_language as LANGUAGE_CODE %}
-<div
-        id="tinymce-config-options"
-        data-language="{{ LANGUAGE_CODE|slice:'0:2' }}"
-        data-notranslate-tooltip="{% trans 'Do not translate the selected text.' %}"
-        data-pinicon-text="{% trans 'Location' %}"
-        data-pinicon-src="{% static 'svg/pin.svg' %}"
-        data-wwwicon-text="{% trans 'Link' %}"
-        data-wwwicon-src="{% static 'svg/world-wide-web.svg' %}"
-        data-callicon-text="{% trans 'Phone' %}"
-        data-callicon-src="{% static 'svg/call.svg' %}"
-        data-clockicon-text="{% trans 'Opening Hours' %}"
-        data-clockicon-src="{% static 'svg/clock.svg' %}"
-        data-aticon-text="{% trans 'Email' %}"
-        data-aticon-src="{% static 'svg/at.svg' %}"
-        data-ideaicon-text="{% trans 'Hint' %}"
-        data-ideaicon-src="{% static 'svg/idea.svg' %}"
-        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
-        {% if poi_form.instance.archived %}
-        data-readonly="1"
-        {% endif %}
-></div>
+{% if poi_form.instance.id and poi_form.instance.archived %}
+    {% include '../_tinymce_config.html' with readonly=1 %}
+{% else %}
+    {% include '../_tinymce_config.html' %}
+{% endif %}
 
 {% if poi_form.instance.id %}
     {% include '../generic_confirmation_dialog.html' %}
