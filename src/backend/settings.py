@@ -431,6 +431,10 @@ LOGGING = {
             "level": SYS_LOG_LEVEL,
         },
         # Loggers of dependencies
+        "aiohttp.client": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
         "django": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,

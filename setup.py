@@ -30,8 +30,9 @@ setup(
         ("etc/apache2/site-available", ["example-configs/apache2-integreat-vhost.conf"])
     ],
     install_requires=[
+        "aiohttp",
         "cffi",
-        "Django==3.1.7",
+        "Django==3.1.8",
         "django-cors-headers",
         "django-filer",
         "django-mptt",
