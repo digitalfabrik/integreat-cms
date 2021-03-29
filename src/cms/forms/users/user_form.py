@@ -25,6 +25,7 @@ class UserForm(CustomModelForm):
         widget=forms.PasswordInput,
         validators=[validate_password],
         help_text=password_validators_help_texts,
+        required=False,
     )
 
     class Meta:
@@ -61,8 +62,11 @@ class UserForm(CustomModelForm):
             self.fields["password"].widget.attrs.update(
                 {"placeholder": _("Leave empty to keep unchanged")}
             )
+        else:
+            self.fields["is_active"].initial = False
         # fix password label
         self.fields["password"].label = _("Password")
+        self.fields["email"].required = True
 
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):

@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td class="pl-2">
         <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 px-2 text-gray-800">
@@ -26,11 +28,14 @@
 			{% endif %}
         </a>
 	</td>
-	<td class="pl-2">
+	<td class="px-2 whitespace-nowrap">
 		{% if user.is_active %}
-		<i data-feather="check"></i>
+			<i data-feather="check"></i>
 		{% else %}
-		<i data-feather="x"></i>
+			<i data-feather="x"></i>
+			<a href="{% url 'resend_activation_link' user_id=user.pk %}" class="hover:underline text-blue-500 hover:text-blue-600">
+				{% trans 'Resend activation link' %}
+			</a>
 		{% endif %}
 	</td>
 	<td class="pl-2">

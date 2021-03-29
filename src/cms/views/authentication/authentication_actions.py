@@ -17,6 +17,7 @@ from django.http import JsonResponse
 from backend import settings
 
 from ...utils.mfa_utils import generate_challenge
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
@@ -270,9 +271,30 @@ def password_reset_complete(request):
     logger.info("Password of %r was reset", request.user.profile)
     messages.success(
         request,
-        (
-            _("Your password has been successfully changed.")
-            / _("You can now log in with your new password.")
+        __(
+            _("Your password has been successfully changed."),
+            _("You can now log in with your new password."),
+        ),
+    )
+    return HttpResponseRedirect(reverse("login"))
+
+
+def account_activation_complete(request):
+    """
+    View to indicate that the account was successfully activated
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :return: Redirect to login page after activation
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
+    messages.success(
+        request,
+        __(
+            _("Your account has been successfully activated."),
+            _("You can now log in with your new password."),
         ),
     )
     return HttpResponseRedirect(reverse("login"))

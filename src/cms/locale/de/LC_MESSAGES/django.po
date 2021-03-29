@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-10 13:25+0000\n"
+"POT-Creation-Date: 2021-04-15 15:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -511,13 +511,13 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
-#: forms/users/user_form.py:62
+#: forms/users/user_form.py:63
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
 
-#: forms/users/user_form.py:65
-#: templates/authentication/password_reset_confirm.html:22
-#: templates/authentication/password_reset_confirm.html:24
+#: forms/users/user_form.py:68
+#: templates/authentication/generic_set_password_form.html:24
+#: templates/authentication/generic_set_password_form.html:26
 #: templates/settings/mfa/authenticate.html:26
 #: templates/settings/mfa/authenticate.html:28 templates/settings/user.html:27
 msgid "Password"
@@ -542,6 +542,26 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 #: forms/users/user_password_form.py:92
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
+
+#: forms/users/user_profile_form.py:24
+msgid "Send activation link"
+msgstr "Aktivierungslink versenden"
+
+#: forms/users/user_profile_form.py:27
+msgid ""
+"Select this option to create an inactive user account and send an activation "
+"link per email to the user."
+msgstr ""
+"Wählen Sie diese Option, um ein inaktives Nutzerkonto zu erstellen und einen "
+"Link zu dessen Aktivierung per Email an den Nutzer zu senden."
+
+#: forms/users/user_profile_form.py:30
+msgid ""
+"This link allows the user to choose a password and activates the account "
+"after confirmation."
+msgstr ""
+"Dieser Link erlaubt es dem Nutzer ein Passwort auszuwählen und aktiviert das "
+"Konto nach Bestätigung."
 
 #: models/chat/chat_message.py:42
 msgid "sender"
@@ -1821,6 +1841,56 @@ msgstr "Veraltete Übersetzungen"
 msgid "Translations missing"
 msgstr "Fehlende Übersetzungen"
 
+#: templates/authentication/account_activation_form.html:5
+msgid "Activate your account"
+msgstr "Benutzerkonto aktivieren"
+
+#: templates/authentication/account_activation_form.html:8
+msgid "The account activation link is invalid."
+msgstr "Der Link zum Aktivieren Ihres Nutzkontos ist ungültig."
+
+#: templates/authentication/account_activation_form.html:9
+#: templates/authentication/password_reset_confirm.html:9
+msgid "Maybe it's already been used."
+msgstr "Vielleicht wurde er schon genutzt."
+
+#: templates/authentication/account_activation_form.html:10
+msgid "Please contact the Integreat team to get a new link."
+msgstr "Bitte kontaktieren Sie das Integreat Team für einen neuen Link."
+
+#: templates/authentication/activation_email.html:3
+msgid "Welcome"
+msgstr "Willkommen"
+
+#: templates/authentication/activation_email.html:4
+msgid ""
+"You are receiving this e-mail, because an inactive Integreat-account was "
+"created for you."
+msgstr ""
+"Sie erhalten diese E-Mail, weil für Sie ein inaktives Integreat-"
+"Benutzerkonto erstellt wurde."
+
+#: templates/authentication/activation_email.html:5
+msgid ""
+"Please click the link below to set a password and activate your account."
+msgstr ""
+"Bitten klicken Sie auf folgenden Link, um ein Passwort auszuwählen und Ihr "
+"Konto zu aktivieren."
+
+#: templates/authentication/generic_set_password_form.html:31
+#: templates/authentication/generic_set_password_form.html:33
+msgid "Repeat password"
+msgstr "Passwort wiederholen"
+
+#: templates/authentication/generic_set_password_form.html:38
+msgid "Set new password"
+msgstr "Neues Passwort setzen"
+
+#: templates/authentication/generic_set_password_form.html:51
+#: templates/authentication/password_reset_form.html:44
+msgid "&larr; Back to log in"
+msgstr "&larr; zurück zur Anmeldung"
+
 #: templates/authentication/login.html:12
 #: templates/authentication/login_mfa.html:10
 #: templates/settings/mfa/add_key.html:10
@@ -1866,37 +1936,19 @@ msgstr ""
 "Bitte authentifizieren Sie sich mit ihrem zweiten Faktor, folgen Sie dazu "
 "den Instruktionen die im Browser angezeigt werden"
 
-#: templates/authentication/password_reset_confirm.html:9
+#: templates/authentication/password_reset_confirm.html:5
 msgid "Choose new password"
 msgstr "Neues Passwort festlegen"
 
-#: templates/authentication/password_reset_confirm.html:29
-#: templates/authentication/password_reset_confirm.html:31
-msgid "Repeat password"
-msgstr "Passwort wiederholen"
-
-#: templates/authentication/password_reset_confirm.html:36
-msgid "Set new password"
-msgstr "Neues Passwort setzen"
-
-#: templates/authentication/password_reset_confirm.html:43
+#: templates/authentication/password_reset_confirm.html:8
 msgid "The password reset link is invalid."
 msgstr "Der Link zum Zurücksetzen des Passworts ist ungültig."
 
-#: templates/authentication/password_reset_confirm.html:44
-msgid "Maybe it's already been used."
-msgstr "Vielleicht wurde er schon genutzt."
-
-#: templates/authentication/password_reset_confirm.html:46
+#: templates/authentication/password_reset_confirm.html:11
 #, python-format
 msgid "Please generate <a href=\"%(password_reset_url)s\">a new link</a>."
 msgstr ""
 "Bitte erzeugen Sie <a href=\"%(password_reset_url)s\">einen neuen Link</a>."
-
-#: templates/authentication/password_reset_confirm.html:52
-#: templates/authentication/password_reset_form.html:44
-msgid "&larr; Back to log in"
-msgstr "&larr; zurück zur Anmeldung"
 
 #: templates/authentication/password_reset_email.html:3
 msgid ""
@@ -2745,8 +2797,8 @@ msgstr "Allgemeine Einstellungen"
 
 #: templates/offer_templates/offer_template_form.html:59
 #: templates/organizations/organization_form.html:48
-#: templates/regions/region_form.html:108 templates/users/admin/user.html:62
-#: templates/users/region/user.html:65
+#: templates/regions/region_form.html:108 templates/users/admin/user.html:63
+#: templates/users/region/user.html:67
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
@@ -3577,6 +3629,11 @@ msgstr "Super-Administrator"
 msgid "No users available yet."
 msgstr "Noch keine Benutzer vorhanden."
 
+#: templates/users/admin/list_row.html:37
+#: templates/users/region/list_row.html:37
+msgid "Resend activation link"
+msgstr "Aktivierungslink erneut versenden"
+
 #: templates/users/admin/user.html:13 templates/users/region/user.html:16
 #, python-format
 msgid "Edit user \"%(user_name)s\""
@@ -3586,28 +3643,28 @@ msgstr "Benutzer \"%(user_name)s\" bearbeiten"
 msgid "Create new user"
 msgstr "Neuen Benutzer erstellen"
 
-#: templates/users/admin/user.html:113 templates/users/region/user.html:107
+#: templates/users/admin/user.html:120 templates/users/region/user.html:115
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: templates/users/admin/user.html:114 templates/users/region/user.html:102
+#: templates/users/admin/user.html:121 templates/users/region/user.html:110
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
-#: templates/users/admin/user.html:115 templates/users/region/user.html:103
+#: templates/users/admin/user.html:122 templates/users/region/user.html:111
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/users/admin/user.html:119 templates/users/region/user.html:101
+#: templates/users/admin/user.html:126 templates/users/region/user.html:109
 msgid "Delete this user"
 msgstr "Diesen Benutzer löschen"
 
-#: templates/users/region/user.html:112
+#: templates/users/region/user.html:120
 #, python-format
 msgid "Remove this user from region %(region)s"
 msgstr "Diesen Benutzer von Region %(region)s entfernen"
 
-#: templates/users/region/user.html:113
+#: templates/users/region/user.html:121
 #, python-format
 msgid ""
 "Please confirm that you really want to remove this user from region "
@@ -3616,13 +3673,18 @@ msgstr ""
 "Bitte bestätigen Sie, dass dieser Benutzer von der Region %(region)s "
 "entfernt werden soll."
 
-#: templates/users/region/user.html:114
+#: templates/users/region/user.html:122
 msgid "The user will keep access to the following regions:"
 msgstr "Der Benutzer wird den Zugang zu folgenden Regionen behalten:"
 
-#: templates/users/region/user.html:118
+#: templates/users/region/user.html:126
 msgid "Remove user from region"
 msgstr "Benutzer von Region entfernen"
+
+#: utils/account_activation_utils.py:41
+#, python-brace-format
+msgid "Activation link was successfully send to user: {username}."
+msgstr "Aktivierungslink wurde erfolgreich an den Nutzer: {username} gesendet."
 
 #: utils/matomo_api_manager.py:387 utils/matomo_api_manager.py:392
 msgid "CW"
@@ -3642,20 +3704,20 @@ msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 msgid "Cannot generate slug from %(fallback)s."
 msgstr "Slug kann nicht aus dem %(fallback)s abgeleitet werden."
 
-#: views/authentication/authentication_actions.py:131
-#: views/authentication/authentication_actions.py:162
+#: views/authentication/authentication_actions.py:132
+#: views/authentication/authentication_actions.py:163
 msgid "You need to log in first"
 msgstr "Sie müssen sich zunächst einloggen"
 
-#: views/authentication/authentication_actions.py:134
+#: views/authentication/authentication_actions.py:135
 msgid "You are already logged in"
 msgstr "Sie sind bereits eingeloggt"
 
-#: views/authentication/authentication_actions.py:214
+#: views/authentication/authentication_actions.py:215
 msgid "You have been successfully logged off."
 msgstr "Sie wurden erfolgreich abgemeldet."
 
-#: views/authentication/authentication_actions.py:236
+#: views/authentication/authentication_actions.py:237
 msgid ""
 "A message with instructions for resetting your password has been sent to the "
 "e-mail address provided."
@@ -3663,13 +3725,18 @@ msgstr ""
 "Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an die "
 "angegebene E-Mail Adresse geschickt."
 
-#: views/authentication/authentication_actions.py:274
-msgid "Your password has been successfully changed."
-msgstr "Ihr Passwort wurde erfolgreich geändert."
-
 #: views/authentication/authentication_actions.py:275
+msgid "Your password has been successfully changed."
+msgstr "Passwort wurde erfolgreich geändert"
+
+#: views/authentication/authentication_actions.py:276
+#: views/authentication/authentication_actions.py:297
 msgid "You can now log in with your new password."
 msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
+
+#: views/authentication/authentication_actions.py:296
+msgid "Your account has been successfully activated."
+msgstr "Ihr Nutzerkonto wurde erfolgreich aktiviert"
 
 #: views/error_handler/error_handler.py:40
 msgid "Bad request"
@@ -3776,8 +3843,8 @@ msgstr ""
 #: views/organizations/organization_view.py:82 views/pages/page_sbs_view.py:193
 #: views/pages/page_view.py:252 views/regions/region_view.py:85
 #: views/settings/user_settings_view.py:89
-#: views/settings/user_settings_view.py:106 views/users/region_user_view.py:116
-#: views/users/user_view.py:119
+#: views/settings/user_settings_view.py:106 views/users/region_user_view.py:130
+#: views/users/user_view.py:132
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
@@ -3880,7 +3947,7 @@ msgstr ""
 #: views/offer_templates/offer_template_view.py:84
 #: views/organizations/organization_view.py:76 views/pages/page_sbs_view.py:191
 #: views/pages/page_view.py:232 views/regions/region_view.py:79
-#: views/users/region_user_view.py:119 views/users/user_view.py:129
+#: views/users/region_user_view.py:140 views/users/user_view.py:149
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
 
@@ -4327,33 +4394,54 @@ msgstr "Passwort wurde erfolgreich geändert"
 msgid "Statistics are not enabled for this region."
 msgstr "Statistiken sind für diese Region nicht aktiviert."
 
-#: views/users/region_user_actions.py:45
+#: views/users/region_user_actions.py:46
 msgid "User {} was successfully deleted."
 msgstr "Benutzer {} wurde erfolgreich gelöscht."
 
-#: views/users/region_user_actions.py:57
+#: views/users/region_user_actions.py:58
 msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
-#: views/users/region_user_view.py:105 views/users/user_view.py:109
+#: views/users/region_user_view.py:58 views/users/region_user_view.py:143
+#: views/users/user_view.py:57 views/users/user_view.py:152
+msgid "Pending account activation"
+msgstr "Aktivierung des Benutzerkontos noch ausstehend"
+
+#: views/users/region_user_view.py:119 views/users/user_view.py:120
 msgid "User was successfully saved"
 msgstr "Benutzer wurde erfolgreich gespeichert"
 
-#: views/users/region_user_view.py:107 views/users/user_view.py:111
+#: views/users/region_user_view.py:121 views/users/user_view.py:123
 msgid "User was successfully created"
 msgstr "Benutzer wurde erfolgreich erstellt"
 
-#: views/users/user_actions.py:39
+#: views/users/region_user_view.py:135 views/users/user_view.py:137
+msgid "Please choose either to send an activation link or set a password."
+msgstr ""
+"Bitte wählen Sie entweder ein Passwort aus oder wählen die Option zum Senden "
+"eines Aktivierungslinks."
+
+#: views/users/user_actions.py:40
 msgid "User was successfully deleted"
 msgstr "Benutzer wurde erfolgreich gelöscht"
 
-#: views/users/user_view.py:124
+#: views/users/user_view.py:144
 msgid ""
 "A user has to be either staff/superuser or needs to be restricted to at "
 "least one region."
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid ""
+#~ "Either pending account activation or account is deactivated on purpose"
+#~ msgstr ""
+#~ "Entweder steht die Aktivierung des Nutzerkontos noch aus oder dieses "
+#~ "Konto wurde stillgelegt"
+
+#~ msgid "You cannot send activation links to active users"
+#~ msgstr ""
+#~ "Sie können keinen Aktivierungslink an bereits aktive Nutzer versenden."
 
 #~ msgid "Author Chat"
 #~ msgstr "Autoren-Chat"
@@ -4628,9 +4716,6 @@ msgstr ""
 
 #~ msgid "Enter push notification channels here"
 #~ msgstr "Push-Benachrichtigungskanäle hier eingeben"
-
-#~ msgid "Activate author chat"
-#~ msgstr "Author-Chat aktivieren"
 
 #~ msgid "Activate statistics"
 #~ msgstr "Statistiken aktivieren"

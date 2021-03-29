@@ -1,0 +1,11 @@
+{% extends 'authentication/generic_set_password_form.html' %}
+{% load i18n %}
+
+{% block title %}
+{% trans 'Activate your account' %}
+{% endblock %}
+{% block invalid_link %}
+{% trans 'The account activation link is invalid.' %}
+{% trans "Maybe it's already been used." %}
+{% trans 'Please contact the Integreat team to get a new link.' %}
+{% endblock %}

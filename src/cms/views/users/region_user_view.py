@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 from ...decorators import region_permission_required
 from ...forms import RegionUserForm, RegionUserProfileForm
 from ...models import Region
+from ...utils.account_activation_utils import send_activation_link
 
 
 @method_decorator(login_required, name="dispatch")
@@ -52,6 +53,9 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
 
         region_user_form = RegionUserForm(instance=user)
         user_profile_form = RegionUserProfileForm(instance=user_profile)
+
+        if user and not user.is_active:
+            messages.info(request, _("Pending account activation"))
 
         return render(
             request,
@@ -97,26 +101,46 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
         # TODO: error handling
         if region_user_form.is_valid() and user_profile_form.is_valid():
 
-            user = region_user_form.save()
-            user_profile_form.save(user=user, region=region)
+            # check if either activation link is set or password is set or user already exists
+            if (
+                user_profile_form.cleaned_data["send_activation_link"]
+                or region_user_form.cleaned_data["password"]
+                or user_instance
+            ):
 
-            if region_user_form.has_changed() or user_profile_form.has_changed():
-                if user_instance:
-                    messages.success(request, _("User was successfully saved"))
+                user = region_user_form.save()
+                user_profile_form.save(user=user, region=region)
+
+                if user_profile_form.cleaned_data["send_activation_link"]:
+                    send_activation_link(request, user)
+
+                if region_user_form.has_changed() or user_profile_form.has_changed():
+                    if user_instance:
+                        messages.success(request, _("User was successfully saved"))
+                    else:
+                        messages.success(request, _("User was successfully created"))
+                        return redirect(
+                            "edit_region_user",
+                            **{
+                                "region_slug": region.slug,
+                                "user_id": user.id,
+                            }
+                        )
                 else:
-                    messages.success(request, _("User was successfully created"))
-                    return redirect(
-                        "edit_region_user",
-                        **{
-                            "region_slug": region.slug,
-                            "user_id": user.id,
-                        }
-                    )
+                    messages.info(request, _("No changes detected."))
             else:
-                messages.info(request, _("No changes detected."))
+                messages.error(
+                    request,
+                    _(
+                        "Please choose either to send an activation link or set a password."
+                    ),
+                )
         else:
             # TODO: improve messages for region users
             messages.error(request, _("Errors have occurred."))
+
+        if not region_user_form.cleaned_data["is_active"]:
+            messages.info(request, _("Pending account activation"))
 
         return render(
             request,

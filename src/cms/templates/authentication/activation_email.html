@@ -1,0 +1,7 @@
+{% load i18n %}
+{% autoescape off %}
+  {% trans 'Welcome' %} {{ user }},
+  {% trans 'You are receiving this e-mail, because an inactive Integreat-account was created for you.' %}
+  {% trans 'Please click the link below to set a password and activate your account.' %}
+  {{ base_url }}{% url 'activate_account' uidb64=uid token=token %}
+{% endautoescape %}

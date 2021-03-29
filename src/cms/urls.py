@@ -9,7 +9,10 @@ from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
-from .forms import PasswordResetConfirmForm
+
+from django.urls import reverse_lazy
+
+from .forms import PasswordResetConfirmForm, ActivationForm
 from .views import (
     authentication,
     analytics,
@@ -121,6 +124,11 @@ urlpatterns = [
                         [
                             url(r"^edit$", users.UserView.as_view(), name="edit_user"),
                             url(r"^delete$", users.delete_user, name="delete_user"),
+                            url(
+                                r"^resend_activation_link$",
+                                users.resend_activation_link,
+                                name="resend_activation_link",
+                            ),
                         ]
                     ),
                 ),
@@ -299,6 +307,27 @@ urlpatterns = [
                     r"^complete/$",
                     authentication.password_reset_complete,
                     name="password_reset_complete",
+                ),
+            ]
+        ),
+    ),
+    url(
+        r"^activation/",
+        include(
+            [
+                url(
+                    r"^(?P<uidb64>[0-9A-Za-z]+)/(?P<token>.+)/$",
+                    auth_views.PasswordResetConfirmView.as_view(
+                        template_name="authentication/account_activation_form.html",
+                        success_url=reverse_lazy("activation_complete"),
+                        form_class=ActivationForm,
+                    ),
+                    name="activate_account",
+                ),
+                url(
+                    r"^complete/$",
+                    authentication.account_activation_complete,
+                    name="activation_complete",
                 ),
             ]
         ),
@@ -884,6 +913,11 @@ urlpatterns = [
                                             r"^delete$",
                                             users.delete_region_user,
                                             name="delete_region_user",
+                                        ),
+                                        url(
+                                            r"^resend_activation_link$",
+                                            users.resend_activation_link_region,
+                                            name="resend_activation_link_region",
                                         ),
                                     ]
                                 ),

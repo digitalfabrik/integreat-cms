@@ -45,14 +45,15 @@
                     <label for="{{ user_form.email.id_for_label }}" class="font-bold block p-2 mb-1 mt-5 cursor-pointer">{{ user_form.email.label }}</label>
                     {% render_field user_form.email class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
-                    <label for="{{ user_form.password.id_for_label }}" class="font-bold block p-2 mt-5 cursor-pointer">{{ user_form.password.label }}</label>
-                    <ul>
-                        {% for item in user_form.password.help_text %}
-                            <li class="px-2 text-s text-gray-600">{{ item }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% render_field user_form.password class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-
+                    <div>
+                        <label for="{{ user_form.password.id_for_label }}" class="font-bold block p-2 mt-5 cursor-pointer">{{ user_form.password.label }}</label>
+                        <ul>
+                            {% for item in user_form.password.help_text %}
+                                <li class="px-2 text-s text-gray-600">{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% render_field user_form.password class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -83,7 +84,13 @@
                     <label for="{{ user_profile_form.expert_mode.id_for_label }}" class="font-bold mr-2 p-2 cursor-pointer">{{ user_profile_form.expert_mode.label }}</label>
                     <div class="my-2 text-s text-gray-600">{{ user_profile_form.expert_mode.help_text }}</div>
                 </div>
-                
+                {% if not user_form.instance.id %}
+                <div class="py-4 border-b solid border-gray-200">
+                    {% render_field user_profile_form.send_activation_link %}
+                    <label for="{{ user_profile_form.send_activation_link.id_for_label }}" class="font-bold mr-2 p-2 cursor-pointer">{{ user_profile_form.send_activation_link.label }}</label>
+                    <div class="my-2 text-s text-gray-600">{{ user_profile_form.send_activation_link.help_text }}</div>
+                </div>
+                {% endif %}
                 <div class="py-4 border-b solid border-gray-200">
                     <label for="{{ user_form.roles.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ user_form.roles.label }}</label>
                     {% render_field user_form.roles class+="w-full" %}
