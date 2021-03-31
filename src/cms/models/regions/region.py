@@ -14,6 +14,7 @@ from django.shortcuts import get_object_or_404
 
 from ...constants import region_status, administrative_division
 from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.matomo_api_manager import MatomoApiManager
 from ..languages.language import Language
 
 
@@ -117,8 +118,14 @@ class Region(models.Model):
         verbose_name=_("activate statistics"),
         help_text=_("Whether or not statistics are enabled for the region"),
     )
-    matomo_url = models.CharField(
-        max_length=150, blank=True, default="", verbose_name=_("Matomo URL")
+    matomo_id = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Matomo ID"),
+        help_text=__(
+            _("The Matomo ID of this region."),
+            _("Will be automatically derived from the Matomo access token."),
+        ),
     )
     matomo_token = models.CharField(
         max_length=150,
@@ -127,13 +134,6 @@ class Region(models.Model):
         verbose_name=_("Matomo authentication token"),
         help_text=_(
             "The secret Matomo access token of the region is used to authenticate in API requests"
-        ),
-    )
-    matomo_ssl_verify = models.BooleanField(
-        default=True,
-        verbose_name=_("activate SSL verification for Matomo"),
-        help_text=_(
-            "Don't allow invalid SSL-certificates when interacting with Matomo API"
         ),
     )
 
@@ -237,6 +237,16 @@ class Region(models.Model):
             is_superuser=False,
             is_staff=False,
         )
+
+    @property
+    def statistics(self):
+        """
+        This property returns the MatomoApiManager of the current region.
+
+        :return: The statistics manager
+        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
+        """
+        return MatomoApiManager(self)
 
     @classmethod
     def get_current_region(cls, request):

@@ -1,0 +1,23 @@
+{% extends "dashboard/_dashboard_widget.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block dashboard_widget_title %}
+    <i data-feather="trending-up" class="pb-1"></i> {% trans 'Statistics' %}
+{% endblock %}
+
+{% block dashboard_widget_content %}
+    <div class="flex justify-between">
+        <p class="py-3">{% trans 'Number of online accesses over the last 14 days.' %}</p>
+        <a href="{% url 'statistics' region_slug=region.slug %}" id="statistics_details" type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded text-center">
+            {% trans "Details" %}
+        </a>
+    </div>
+    <div class="p-3 w-full text-center">
+        <div id="chart-network-error" class="text-red-500 px-4 hidden"><i data-feather="alert-triangle"></i> {% trans 'A network error has occurred.' %} {% trans 'Please try again later.' %}</div>
+        <div id="chart-server-error" class="text-red-500 px-4 hidden"><i data-feather="alert-triangle"></i> {% trans 'A server error has occurred.' %} {% trans 'Please contact the administrator.' %}</div>
+        <div id="chart-loading" class="px-4 hidden"><i data-feather="loader" class="animate-spin"></i> {% trans 'Loading...' %}</div>
+        <canvas id="statistics" data-statistics-url="{% url 'statistics_total_visits' region_slug=region.slug %}"></canvas>
+    </div>
+{% endblock %}

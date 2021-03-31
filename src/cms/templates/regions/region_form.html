@@ -145,18 +145,13 @@
                     </div>
 
                     <div id="statistics-toggle-div" {% if not form.instance.statistics_enabled %} class="hidden" {% endif %}>
-                        <div class="p-2">
-                            {% render_field form.matomo_ssl_verify %}
-                            <label for="{{ form.matomo_ssl_verify.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.matomo_ssl_verify.label }}</label>
-                            <div class="my-2 text-s text-gray-600">{{ form.matomo_ssl_verify.help_text }}</div>
-                        </div>
-
-                        <label for="{{ form.matomo_url.id_for_label }}" class="font-bold cursor-pointer block p-2 my-2">{{ form.matomo_url.label }}</label>
-                        {% render_field form.matomo_url class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-
                         <label for="{{ form.matomo_token.id_for_label }}" class="font-bold cursor-pointer block p-2 my-2">{{ form.matomo_token.label }}</label>
                         <div class="px-2 my-2 text-s text-gray-600">{{ form.matomo_token.help_text }}</div>
                         {% render_field form.matomo_token class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+
+                        <label for="{{ form.matomo_id.id_for_label }}" class="font-bold cursor-pointer block p-2 my-2">{{ form.matomo_id.label }}</label>
+                        <div class="px-2 my-2 text-s text-gray-600">{{ form.matomo_id.help_text }}</div>
+                        {% render_field form.matomo_id disabled="true" class="appearance-none block w-full bg-gray-200 text-xl text-gray-400 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     </div>
                 </div>
 

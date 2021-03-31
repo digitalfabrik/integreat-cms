@@ -7,6 +7,7 @@ from django.apps import apps
 from gvz_api.utils import GvzRegion
 
 from ...models import Region, PageTranslation, LanguageTreeNode
+from ...utils.matomo_api_manager import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
 from ..icon_widget import IconWidget
 from ..custom_model_form import CustomModelForm
@@ -47,9 +48,8 @@ class RegionForm(CustomModelForm):
             "postal_code",
             "admin_mail",
             "statistics_enabled",
-            "matomo_url",
+            "matomo_id",
             "matomo_token",
-            "matomo_ssl_verify",
             "status",
             "page_permissions_enabled",
             "administrative_division",
@@ -106,6 +106,29 @@ class RegionForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
+        # Check wether statistics can be enabled
+        if cleaned_data["statistics_enabled"] and not cleaned_data["matomo_token"]:
+            self.add_error(
+                "statistics_enabled",
+                _(
+                    "Statistics can only be enabled when a valid access token is supplied."
+                ),
+            )
+        # Automatically set the Matomo ID
+        if cleaned_data["matomo_token"]:
+            try:
+                cleaned_data["matomo_id"] = self.instance.statistics.get_matomo_id(
+                    token_auth=cleaned_data["matomo_token"]
+                )
+            except MatomoException as e:
+                logger.exception(e)
+                self.add_error(
+                    "matomo_token", _("The provided access token is invalid.")
+                )
+        else:
+            cleaned_data["matomo_id"] = None
+
+        # Get additional data from GVZ API
         if apps.get_app_config("gvz_api").api_available:
             gvz_region = GvzRegion(
                 region_name=cleaned_data["name"],

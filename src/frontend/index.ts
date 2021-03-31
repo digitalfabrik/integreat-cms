@@ -43,6 +43,8 @@ import "./js/pages/unset-translation-state.ts";
 import "./js/mfa/add-key.ts";
 import "./js/mfa/login.ts";
 
+import "./js/analytics/statistics-charts.ts";
+
 window.addEventListener('load',() => {
     feather.replace({ class: 'inline-block' });
 })
