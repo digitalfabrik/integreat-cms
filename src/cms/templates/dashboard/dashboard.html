@@ -1,43 +1,32 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
-{% load parse_struct_time %}
 
 {% block content %}
     <div class="dashboard">
-        <h1 class="font-bold">Dashboard</h1>
-        <div class="flex items-start">
-            <div class="flex flex-col w-1/2 ">
-                <div class="bg-white p-4 my-3 mr-3 shadow">
-                    <h2 class="font-bold">{% trans 'At a glance' %}</h2>
-                </div>
-                {% if chat_form %}
-                    {% include "chat/_chat.html" %}
+        <h1 class="text-2xl mb-3">{% trans 'My Dashboard' %}</h1>
+        <div class="xl:flex gap-3">
+            <div class="xl:w-1/2">
+                <!-- Statistic Widget -->
+                {% if region.statistics_enabled %}
+                    {% include "statistics/_statistics_widget.html" %}
                 {% endif %}
+                <!-- Broken Link Widget -->
+                {% include "analytics/_broken_links_widget.html" %}
+                <!-- Translation Status Widget -->
+                {% include "analytics/_translation_overview_widget.html" %}
+                <!-- App Size Widget -->
+                {% include "analytics/_website_size_widget.html" %}
             </div>
-            <div class="flex flex-col bg-white w-1/2 px-4 mt-3 ml-3 shadow">
-                <button type="button" class="collapsible font-bold py-4 text-left relative focus:outline-none">
-                    <span class="font-bold">Tür an Tür - Digitalfabrik News</span>
-                    <i data-feather="chevron-up" class="up-arrow absolute right-0"></i>
-                    <i data-feather="chevron-down" class="down-arrow hidden absolute right-0"></i>
-                </button>
-                <div class="collapsible-content flex flex-col active">
-                    <div class="flex">
-                        <img src="{% static 'images/integreat-icon.png' %}" class="h-10"/>
-                        <div class="flex flex-col mx-auto">
-                            <h3 class="text-gray-700 font-bold">Tür an Tür - Digitalfabrik</h2>
-                            <a href="{{ home_page }}" class="font-bold text-blue-500 hover:text-blue-700">{{ domain }}</a>
-                        </div>
-                    </div>
-                    {% for entry in feed.entries %}
-                        <div class="py-4 border-b border-gray-400">
-                            <a href="{{ entry.link }}" class="block py-2 font-bold text-blue-500 hover:text-blue-700">{{ entry.title }}</a>
-                            <div class="text-gray-600 py-2">{{ entry.published_parsed|parse_struct_time }}</div>
-                            <p class="py-2">{{ entry.summary|striptags|truncatewords:35 }}</p>
-                        </div>
-                    {% endfor %}
-                    </div>
+            <div class="xl:w-1/2">
+                <!-- Chat Widget -->
+                {% if chat_form %}
+                    {% include "chat/_chat_widget.html" %}
+                {% endif %}
+                <!-- News Widget -->
+                {% include "dashboard/_news_widget.html" %}
             </div>
         </div>
     </div>

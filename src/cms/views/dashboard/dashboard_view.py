@@ -1,5 +1,4 @@
 import html
-from urllib.parse import urlparse
 import feedparser
 
 from django.contrib.auth.decorators import login_required
@@ -8,7 +7,7 @@ from django.utils import translation
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from backend.settings import RSS_FEED_URLS
+from backend.settings import RSS_FEED_URLS, BLOG_URLS
 from ...decorators import region_permission_required
 from ..chat.chat_context_mixin import ChatContextMixin
 
@@ -46,18 +45,16 @@ class DashboardView(TemplateView, ChatContextMixin):
         language_slug = translation.get_language()
         feed = feedparser.parse(RSS_FEED_URLS[language_slug])
         # select five most recent feeds
-        feed["entries"] = feed["entries"][:5]
+        feed["entries"] = feed["entries"][:3]
         # decode html entities like dash and split after line break
         for entry in feed["entries"]:
             entry["summary"] = html.unescape(entry["summary"]).split("\n")[0]
-        domain = urlparse(RSS_FEED_URLS["home-page"]).netloc
         return render(
             request,
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
                 "feed": feed,
-                "home_page": RSS_FEED_URLS["home-page"],
-                "domain": domain,
+                "blog_url": BLOG_URLS[language_slug],
             },
         )

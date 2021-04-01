@@ -47,6 +47,10 @@ module.exports = {
         'logo-yellow': "url('/src/frontend/images/integreat-logo-yellow.png')",
         'border-left': 'linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-from) 4px, var(--tw-gradient-to, rgba(0, 0, 0, 0)) 4px)',
       },
+      maxHeight: {
+        '116': '29rem',
+        '160': '40rem',
+      },
     },
   },
   variants: {

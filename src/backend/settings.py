@@ -70,7 +70,7 @@ TEST_BLOG_ID = 154
 #: URL to the Integreat Website
 WEBSITE_URL = "https://integreat-app.de"
 
-#: RSS feed URLs to the Integreat blog
+#: URLs to the Integreat blog
 BLOG_URLS = {
     "en": f"{WEBSITE_URL}/en/blog/",
     "de": f"{WEBSITE_URL}/blog/",
