@@ -53,26 +53,26 @@ window.addEventListener("load", () => {
     linkContainer.querySelector("a").innerHTML = updatedLink.concat(currentSlug);
   }
 
-  document.getElementById("edit-slug-btn").addEventListener("click", function(e){
+  document.getElementById("edit-slug-btn")?.addEventListener("click", function(e){
     // buffer the current slug field and toggle to editable
     currentSlug = slugField.value;
     toggleSlugMode();
   });
 
 
-  document.getElementById("save-slug-btn").addEventListener("click", function(e){
+  document.getElementById("save-slug-btn")?.addEventListener("click", function(e){
     updatePermalink(slugField.value);
     toggleSlugMode();
   });
 
 
-  document.getElementById("copy-slug-btn").addEventListener("click", function(e){
+  document.getElementById("copy-slug-btn")?.addEventListener("click", function(e){
     // copy whole permalink to clipboard
     copyToClipboard(linkContainer.querySelector("a").innerHTML);
   });
 
 
-  document.getElementById("restore-slug-btn").addEventListener("click", function(e){
+  document.getElementById("restore-slug-btn")?.addEventListener("click", function(e){
     // hide slug field and restore slug value
     slugField.value = currentSlug;
     toggleSlugMode();
