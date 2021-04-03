@@ -46,11 +46,11 @@ window.addEventListener("load", () => {
 
   function updatePermalink(currentSlug: string){
     // get complete permalink string
-    let currentLink = linkContainer.querySelector("a").innerHTML;
+    let currentLink = linkContainer.querySelector("a").textContent;
     // remove trailing slug from link
     let updatedLink = currentLink.substr(0, currentLink.lastIndexOf("/")+1);
     // update only inner html and keep href until form submission
-    linkContainer.querySelector("a").innerHTML = updatedLink.concat(currentSlug);
+    linkContainer.querySelector("a").textContent = updatedLink.concat(currentSlug);
   }
 
   document.getElementById("edit-slug-btn")?.addEventListener("click", function(e){
@@ -68,7 +68,7 @@ window.addEventListener("load", () => {
 
   document.getElementById("copy-slug-btn")?.addEventListener("click", function(e){
     // copy whole permalink to clipboard
-    copyToClipboard(linkContainer.querySelector("a").innerHTML);
+    copyToClipboard(linkContainer.querySelector("a").textContent);
   });
 
 

@@ -3,9 +3,10 @@
  */
 
 function toggle_sbs_button({ target }: Event) {
+  const link_target = (target as HTMLInputElement).value;
   const sideBySideLink = document.getElementById("side-by-side-link");
-  if ((target as HTMLInputElement).value !== "") {
-    sideBySideLink.setAttribute("href", (target as HTMLInputElement).value);
+  if (link_target !== "") {
+    sideBySideLink.setAttribute("href", encodeURI(link_target));
     sideBySideLink.classList.remove("bg-gray-400");
     sideBySideLink.classList.remove("pointer-events-none");
     document.getElementById("side-by-side-link").classList.add("bg-blue-500");
