@@ -97,8 +97,14 @@ sed -i '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' ${SPHINX_DIR}/${SPHINX_AP
 # Set verbose reference as orphans to suppress warnings about toctree
 grep -rL ":orphan:" ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/*.rst | xargs -r sed -i '1s/^/:orphan:\n\n/'
 
-# Compile .rst files to html documentation
-pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+# Check if script is running in CircleCI context
+if [[ -n "$CIRCLECI" ]]; then
+    # Compile .rst files to html documentation (deactivate parallel build due to EOFError - see https://github.com/sphinx-doc/sphinx/issues/8973)
+    pipenv run sphinx-build -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+else
+    # Compile .rst files to html documentation
+    pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+fi
 
 # Get exit status of sphinx-build
 status=$?
