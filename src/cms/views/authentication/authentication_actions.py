@@ -187,7 +187,7 @@ def mfaVerify(request):
         sign_count = webauthn_assertion_response.verify()
     except webauthn.webauthn.AuthenticationRejectedException as e:
         logger.exception(e)
-        return JsonResponse({"success": False, "error": str(e)})
+        return JsonResponse({"success": False, "error": "Authentication rejected"})
 
     # Update counter.
     key.sign_count = sign_count

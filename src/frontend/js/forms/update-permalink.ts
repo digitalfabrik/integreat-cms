@@ -46,33 +46,33 @@ window.addEventListener("load", () => {
 
   function updatePermalink(currentSlug: string){
     // get complete permalink string
-    let currentLink = linkContainer.querySelector("a").innerHTML;
+    let currentLink = linkContainer.querySelector("a").textContent;
     // remove trailing slug from link
     let updatedLink = currentLink.substr(0, currentLink.lastIndexOf("/")+1);
     // update only inner html and keep href until form submission
-    linkContainer.querySelector("a").innerHTML = updatedLink.concat(currentSlug);
+    linkContainer.querySelector("a").textContent = updatedLink.concat(currentSlug);
   }
 
-  document.getElementById("edit-slug-btn").addEventListener("click", function(e){
+  document.getElementById("edit-slug-btn")?.addEventListener("click", function(e){
     // buffer the current slug field and toggle to editable
     currentSlug = slugField.value;
     toggleSlugMode();
   });
 
 
-  document.getElementById("save-slug-btn").addEventListener("click", function(e){
+  document.getElementById("save-slug-btn")?.addEventListener("click", function(e){
     updatePermalink(slugField.value);
     toggleSlugMode();
   });
 
 
-  document.getElementById("copy-slug-btn").addEventListener("click", function(e){
+  document.getElementById("copy-slug-btn")?.addEventListener("click", function(e){
     // copy whole permalink to clipboard
-    copyToClipboard(linkContainer.querySelector("a").innerHTML);
+    copyToClipboard(linkContainer.querySelector("a").textContent);
   });
 
 
-  document.getElementById("restore-slug-btn").addEventListener("click", function(e){
+  document.getElementById("restore-slug-btn")?.addEventListener("click", function(e){
     // hide slug field and restore slug value
     slugField.value = currentSlug;
     toggleSlugMode();
