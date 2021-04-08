@@ -31,7 +31,7 @@ setup(
     ],
     install_requires=[
         "cffi",
-        "Django==3.1.7",
+        "Django==3.1.8",
         "django-cors-headers",
         "django-filer",
         "django-mptt",
