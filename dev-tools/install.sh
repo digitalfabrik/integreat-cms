@@ -36,6 +36,22 @@ if [ "${npm_version%%.*}" -lt 7 ]; then
     echo "npm version 7 or higher is required, but version $npm_version is installed. Please install a recent version manually (e.g. with 'npm install -g npm') and run this script again." >&2
     exit 1
 fi
+# Check if nodejs is installed
+if [ ! -x "$(command -v node)" ]; then
+    echo "The package nodejs is not installed. Please install nodejs version 12 or version 14 or higher manually and run this script again." >&2
+    exit 1
+fi
+# Get the node version (the format is vXX.YY.ZZ)
+node_version=$(node -v)
+# Strip leading "v" of the version
+node_numeric_version="${node_version:1}"
+# Strip trailing minor and patch version
+node_major_version="${node_numeric_version%%.*}"
+# Check node version requirements (12 or higher but not 13)
+if [ "${node_major_version}" -lt 12 ] || [ "${node_major_version}" -eq 13 ]; then
+    echo "nodejs version 12 or version 14 or higher is required, but version $node_version is installed. Please install a recent version manually and run this script again." >&2
+    exit 1
+fi
 
 # Check if script is running as root
 if [ $(id -u) = 0 ]; then

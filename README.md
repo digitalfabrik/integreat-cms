@@ -15,7 +15,8 @@ This content management system helps local integration experts to provide multil
 
 Following packages are required before installing the project (install them with your package manager):
 
-* npm
+* npm version 7 or higher
+* nodejs version 12 or version 14 or higher
 * python3.7 (Debian-based distributions) / python37 (Arch-based distributions)
 * python3.7-dev (only on Ubuntu)
 * python3-pip (Debian-based distributions) / python-pip (Arch-based distributions)
