@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-09T20:34:15+00:00" />
+    <meta property="article:modified_time" content="2021-03-28T00:59:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Frontend Bundling (Webpack) &mdash; integreat-cms 0.0.14 documentation</title>
@@ -17,7 +17,7 @@
 
   
   
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="shortcut icon" href="_static/integreat-icon.png"/>
   
 
   
@@ -146,6 +146,7 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Frontend Bundling (Webpack)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#compatible-browsers">Compatible Browsers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fonts">Fonts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation (Sphinx)</a><ul>
@@ -1156,12 +1157,17 @@
 <h1>Frontend Bundling (Webpack)<a class="headerlink" href="#frontend-bundling-webpack" title="Permalink to this headline">¶</a></h1>
 <p>Webpack is being used to generate frontend bundles based on TypeScript code that is compiled to JavaScript as well as SCSS code which is being transpiled to CSS. The following bundles are defined:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">editor.js</span></code>/<code class="docutils literal notranslate"><span class="pre">editor.css</span></code>: Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">main.js</span></code>/<code class="docutils literal notranslate"><span class="pre">main.css</span></code>: Contains everything else</p></li>
+<li><p><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/frontend/index.ts">src/frontend/index.ts</a> (<code class="docutils literal notranslate"><span class="pre">main.js</span></code>/<code class="docutils literal notranslate"><span class="pre">main.css</span></code>): All main assets which should be available on all pages</p></li>
+<li><p><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/frontend/editor.ts">src/frontend/editor.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor.js</span></code>): Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets</p></li>
+<li><p><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/frontend/editor_content.ts">src/frontend/editor_content.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor_content.js</span></code>/<code class="docutils literal notranslate"><span class="pre">editor_content.css</span></code>): Contains assets for the TinyMCE content iframe which cannot be passed via the global context</p></li>
+<li><p><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/frontend/pdf.ts">src/frontend/pdf.ts</a> (<code class="docutils literal notranslate"><span class="pre">pdf.js</span></code>/<code class="docutils literal notranslate"><span class="pre">pdf.css</span></code>): Contains assets for the PDF rendering</p></li>
 </ol>
-<p>To get started with adding new code go to <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/frontend">src/frontend</a> and open <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/frontend/index.ts">src/frontend/index.ts</a> or <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/frontend/editor.ts">src/frontend/editor.ts</a> (depending on the bundle that should be changed).
+<p>To get started with adding new code go to <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/frontend">src/frontend</a> and open the bundle you want to edit.
 In this file you can import any TypeScript or JavaScript file or library that is needed for the application.
-Generated assets will be stored in <code class="docutils literal notranslate"><span class="pre">src/cms/static</span></code>. When running <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/run.sh">dev-tools/run.sh</a>, <cite>webpack-dev-server</cite> is being used to generate JavaScript that includes CSS as well as SourceMaps to help debugging the output. For a production build one should run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">prod</span></code>. This will generate minified js and css files in the same target directory.</p>
+Generated assets will be stored in <code class="docutils literal notranslate"><span class="pre">src/cms/static</span></code>.
+When running <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/run.sh">dev-tools/run.sh</a>, <code class="docutils literal notranslate"><span class="pre">webpack-dev-server</span></code> is being used to generate JavaScript that includes CSS as well as SourceMaps to help debugging the output.
+For a production build one should run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">prod</span></code>.
+This will generate minified js and css files in the same target directory.</p>
 <div class="section" id="compatible-browsers">
 <h2>Compatible Browsers<a class="headerlink" href="#compatible-browsers" title="Permalink to this headline">¶</a></h2>
 <p>We use <code class="docutils literal notranslate"><span class="pre">babel-preset-env</span></code> as well als <code class="docutils literal notranslate"><span class="pre">postcss-preset-env</span></code> to transpile or polyfill css and js features for supported browsers. <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/.browserslistrc">.browserslistrc</a> contains a list of supported browsers (mostly selected by looking at their usage stats and support status).</p>
@@ -1169,6 +1175,17 @@ Generated assets will be stored in <code class="docutils literal notranslate"><s
 <p class="admonition-title">Note</p>
 <p>At some point IE 11 will probably be removed from that list.</p>
 </div>
+</div>
+<div class="section" id="fonts">
+<h2>Fonts<a class="headerlink" href="#fonts" title="Permalink to this headline">¶</a></h2>
+<p>For the conventions of fonts to be used for different content languages, see <a class="reference external" href="https://wiki.tuerantuer.org/integreat-languages">https://wiki.tuerantuer.org/integreat-languages</a>:</p>
+<ul class="simple">
+<li><p>UI/headings: <code class="docutils literal notranslate"><span class="pre">Raleway</span></code></p></li>
+<li><p>Latin content: <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Sans</span></code></p></li>
+<li><p>Right-to-left alphabets: <code class="docutils literal notranslate"><span class="pre">Lateef</span></code></p></li>
+<li><p>Chinese alphabet: <code class="docutils literal notranslate"><span class="pre">Noto</span> <span class="pre">Sans</span> <span class="pre">SC</span></code></p></li>
+</ul>
+<p>Unfortunately, xhtml2pdf does not support <code class="docutils literal notranslate"><span class="pre">Lateef</span></code> (yet), so at the moment we have to rely on <code class="docutils literal notranslate"><span class="pre">DejaVu</span> <span class="pre">Sans</span></code> as fallback for the PDF rendering of right-to-left alphabets.</p>
 </div>
 </div>
 
@@ -1191,7 +1208,7 @@ Generated assets will be stored in <code class="docutils literal notranslate"><s
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 09, 2021.
+        Last updated on Mar 28, 2021.
       </span>
 
     </p>
