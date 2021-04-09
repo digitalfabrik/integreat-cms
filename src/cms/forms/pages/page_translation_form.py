@@ -59,7 +59,7 @@ class PageTranslationForm(CustomModelForm):
                 post.update({"status": status.PUBLIC})
             # Set the args to POST again
             args = (post,)
-            logger.debug("Changed POST arg status manually to %r", post["status"])
+            logger.debug("Changed POST arg status manually to %r", post.get("status"))
 
         super().__init__(*args, **kwargs)
 

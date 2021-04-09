@@ -3,9 +3,9 @@
 {% load rules %}
 
 {% for message in chat_messages %}
-<div class="chat-message p-2 {% if not forloop.last or not chat_form %}border-t border-gray-400{% endif %} {% if chat_last_visited < message.sent_datetime %}bg-yellow-100 border-l-4 border-yellow-400{% endif %}" style="padding-left: {% if not chat_last_visited < message.sent_datetime %}10{% else %}8{% endif %}px;">
+<div class="chat-message p-2 {% if not forloop.last or not chat_form %}border-t border-gray-400{% endif %} {% if chat_last_visited < message.sent_datetime %}bg-border-left from-yellow-400 to-yellow-100{% endif %}">
     {% if message.sender.is_superuser or message.sender.is_staff %}
-    <img class="inline-block h-5 pt-1 align-top" src="{% static 'images/favicon.ico' %}"/>
+    <span class="inline-block h-5 w-5 align-text-top bg-icon bg-contain bg-center bg-no-repeat"></span>
     {% endif %}
     <span class="font-bold">
         {{ message.sender.profile.full_user_name }}
@@ -19,7 +19,7 @@
             data-confirmation-text="{% trans 'Sender:' %} {{ message.sender.profile.full_user_name }}<br>{% trans 'Sent on:' %} {{ message.sent_datetime }}"
             data-confirmation-subject="{{ message.text }}"
             data-action="{% url 'delete_chat_message' message_id=message.id %}">
-        <i data-feather="trash-2" class="inline-block"></i>
+        <i data-feather="trash-2"></i>
     </button>
     <span class="text-gray-600 float-right">{{ message.sent_datetime }}</span>
     <p class="pt-2 whitespace-pre-line">{{ message.text|urlize }}</p>

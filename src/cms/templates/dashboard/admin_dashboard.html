@@ -19,8 +19,8 @@
         <div class="flex flex-col bg-white w-1/2 px-4 mt-3 ml-3 shadow">
             <button type="button" class="collapsible font-bold py-4 text-left relative focus:outline-none">
                 <span class="font-bold">{% trans 'Unread technical feedback' %}</span>
-                <i data-feather="chevron-up" class="up-arrow inline absolute right-0"></i>
-                <i data-feather="chevron-down" class="down-arrow inline hidden absolute right-0"></i>
+                <i data-feather="chevron-up" class="up-arrow absolute right-0"></i>
+                <i data-feather="chevron-down" class="down-arrow hidden absolute right-0"></i>
             </button>
             <div class="collapsible-content flex flex-col active pb-4">
                 <div class="mb-1 text-s text-gray-600">{% trans 'The five most recent entries are listed.' %}</div>
@@ -46,15 +46,15 @@
                         <td class="pr-2 feedback-comment">
                             {% if feedback.comment.splitlines|length > 1 %}
                                 <span>
-                                    {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                                    {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                                 </span>
-                                <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i></span>
+                                <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i></span>
                             {% elif feedback.comment|words|length > 20 %}
                                 <span>
-                                    {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                                    {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                                 </span>
                                 <span class="hidden">
-                                    {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment inline-block transform cursor-pointer hover:scale-125"></i>
+                                    {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                                 </span>
                             {% else %}
                                 {{ feedback.comment }}
@@ -62,9 +62,9 @@
                         </td>
                         <td class="pr-2">
                             {% if feedback.rating == True %}
-                                <i data-feather="thumbs-up" class="inline-block"></i>
+                                <i data-feather="thumbs-up"></i>
                             {% elif feedback.rating == False %}
-                                <i data-feather="thumbs-down" class="inline-block"></i>
+                                <i data-feather="thumbs-down"></i>
                             {% endif %}
                         </td>
                         <td class="pr-2">

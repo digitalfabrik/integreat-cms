@@ -43,15 +43,15 @@
                         <div class="border-b-4 border-white">
                             {% if source_page_translation.is_outdated %}
                                 <span title="{% trans 'Translation outdated' %}">
-                                    <i data-feather="alert-triangle" class="inline-block"></i>
+                                    <i data-feather="alert-triangle"></i>
                                 </span>
                             {% elif source_page_translation.currently_in_translation %}
                                 <span title="{% trans 'Currently in translation' %}">
-                                    <i data-feather="clock" class="inline-block"></i>
+                                    <i data-feather="clock"></i>
                                 </span>
                             {% else %}
                                 <span title="{% trans 'Translation up-to-date' %}">
-                                    <i data-feather="check" class="inline-block"></i>
+                                    <i data-feather="check"></i>
                                 </span>
                             {% endif %}
                             {{ source_page_translation.language.translated_name }}
@@ -90,7 +90,7 @@
                     {% with source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
                         {% blocktrans %}Copy content of {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
                     {% endwith %}
-                    <i data-feather="arrow-right-circle" class="inline-block mr-2"></i>
+                    <i data-feather="arrow-right-circle" class="mr-2"></i>
                 </button>
             </div>
         </div>
@@ -102,20 +102,20 @@
                             {% if page_translation_form.instance.id %}
                                 {% if page_translation_form.instance.is_outdated %}
                                     <span title="{% trans 'Translation outdated' %}">
-                                        <i data-feather="alert-triangle" class="inline-block"></i>
+                                        <i data-feather="alert-triangle"></i>
                                     </span>
                                 {% elif page_translation_form.instance.currently_in_translation %}
                                     <span title="{% trans 'Currently in translation' %}">
-                                        <i data-feather="clock" class="inline-block"></i>
+                                        <i data-feather="clock"></i>
                                     </span>
                                 {% else %}
                                     <span title="{% trans 'Translation up-to-date' %}">
-                                        <i data-feather="check" class="inline-block"></i>
+                                        <i data-feather="check"></i>
                                     </span>
                                 {% endif %}
                             {% else %}
                                 <span title="{% trans 'Create Translation' %}">
-                                    <i data-feather="plus" class="inline-block"></i>
+                                    <i data-feather="plus"></i>
                                 </span>
                             {% endif %}
                             {{ target_language.translated_name }}
@@ -164,32 +164,14 @@
 </div>
 </form>
 
-{% get_current_language as LANGUAGE_CODE %}
-{% has_perm 'cms.edit_events' request.user as can_edit_event %}
-<div
-        id="tinymce-config-options"
-        data-language="{{ LANGUAGE_CODE|slice:'0:2' }}"
-        data-notranslate-tooltip="{% trans 'Do not translate the selected text.' %}"
-        data-pinicon-text="{% trans 'Location' %}"
-        data-pinicon-src="{% static 'svg/pin.svg' %}"
-        data-wwwicon-text="{% trans 'Link' %}"
-        data-wwwicon-src="{% static 'svg/world-wide-web.svg' %}"
-        data-callicon-text="{% trans 'Phone' %}"
-        data-callicon-src="{% static 'svg/call.svg' %}"
-        data-clockicon-text="{% trans 'Opening Hours' %}"
-        data-clockicon-src="{% static 'svg/clock.svg' %}"
-        data-aticon-text="{% trans 'Email' %}"
-        data-aticon-src="{% static 'svg/at.svg' %}"
-        data-ideaicon-text="{% trans 'Hint' %}"
-        data-ideaicon-src="{% static 'svg/idea.svg' %}"
-        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
-        {% if imprint_translation_form.instance.id and imprint_translation_form.instance.page.archived %}
-        data-readonly="1"
-        {% endif %}
-></div>
+{% if not can_edit_page or page_translation_form.instance.id and page_translation_form.instance.page.archived %}
+    {% include '../_tinymce_config.html' with readonly=1 %}
+{% else %}
+    {% include '../_tinymce_config.html' %}
+{% endif %}
+
 {% endblock %}
 
 {% block javascript %}
 <script src="{% static 'editor.js' %}"></script>
-<link href="{% static 'editor.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}

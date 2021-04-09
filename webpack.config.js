@@ -7,7 +7,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: {
     main: "./src/frontend/index.ts",
-    editor: "./src/frontend/editor.ts",
+    editor: "./src/frontend/editor.ts", // This contains resources required for the editor UI
+    editor_content: "./src/frontend/editor_content.ts", // This contains resources for the editor content iframe
     pdf: "./src/frontend/pdf.ts"
   },
   output: {
@@ -75,7 +76,8 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: "src/frontend/tinymce-plugins", to: "tinymce-plugins" },
+        { from: "node_modules/tinymce/skins/ui/oxide/skin.min.css", to: "skins/ui/oxide/skin.min.css" },
+        { from: "node_modules/tinymce/skins/ui/oxide/content.min.css", to: "skins/ui/oxide/content.min.css" },
         { from: "src/frontend/svg", to: "svg" },
         { from: "src/frontend/images", to: "images" },
       ],

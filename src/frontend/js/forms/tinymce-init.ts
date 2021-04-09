@@ -3,9 +3,6 @@ import tinymce from "tinymce";
 import "tinymce/icons/default";
 
 import "tinymce/themes/silver";
-import "tinymce/skins/ui/oxide/skin.css";
-import "tinymce/skins/ui/oxide/content.css";
-import "tinymce/skins/content/default/content.css";
 
 import "tinymce/plugins/paste";
 import "tinymce/plugins/fullscreen";
@@ -20,10 +17,51 @@ import "tinymce/plugins/directionality";
 import "tinymce/plugins/wordcount";
 import "tinymce-i18n/langs/de.js";
 
+import { Editor } from "tinymce";
+
 import { autosaveEditor } from "./autosave";
 
 function parseSvg(svgUrl: string): string {
   return atob(svgUrl.replace("data:image/svg+xml;base64,", ""));
+}
+
+/* This function adds an icon which can be inserted in the content */
+function addIcon(editor: Editor, tinymceConfig: HTMLElement, name: string): void {
+  editor.ui.registry.addIcon(
+      name,
+      parseSvg(require(`../../svg/${name}.svg`).default)
+  );
+  editor.ui.registry.addMenuItem(name, {
+    text: tinymceConfig.getAttribute(`data-${name}-icon-text`),
+    icon: name,
+    onAction: () => {
+      let src = tinymceConfig.getAttribute(`data-${name}-icon-src`);
+      editor.insertContent(`<img src="${src}" style="width:15px; height:15px">`);
+    },
+  });
+}
+
+/* This function toggles the no-translate attribute of a selected text */
+function toggleNoTranslate(editor: Editor) {
+  editor.focus();
+  const val = tinymce.activeEditor.dom.getAttrib(
+      tinymce.activeEditor.selection.getNode(),
+      "translate",
+      "yes"
+  );
+  if (val == "no") {
+    tinymce.activeEditor.dom.setAttrib(
+        tinymce.activeEditor.selection.getNode(),
+        "translate",
+        null
+    );
+  } else if (editor.selection.getContent().length > 0) {
+    editor.selection.setContent(
+        '<span class="notranslate" translate="no">' +
+        editor.selection.getContent() +
+        "</span>"
+    );
+  }
 }
 
 /**
@@ -35,12 +73,11 @@ window.addEventListener("load", () => {
   if (tinymceConfig) {
     tinymce.init({
       selector: ".tinymce_textarea",
-      skin: false,
       menubar: "edit view insert format icon",
       menu: {
         icon: {
           title: "Icons",
-          items: "pinicon wwwicon callicon clockicon aticon ideaicon",
+          items: "pin www email call clock idea",
         },
         format: {
           title: "Format",
@@ -54,7 +91,7 @@ window.addEventListener("load", () => {
       plugins:
         "code paste fullscreen autosave link preview media image lists directionality wordcount",
       external_plugins: {
-        autolink_tel: "tinymce-plugins/autolink_tel/plugin.js",
+        autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
       },
       link_default_protocol: "https",
       toolbar:
@@ -102,131 +139,29 @@ window.addEventListener("load", () => {
         },
       ],
       min_height: 400,
-      content_css: tinymceConfig.getAttribute("data-customcss-src"),
+      content_css: tinymceConfig.getAttribute("data-content-css"),
+      content_style: tinymceConfig.getAttribute("data-content-style"),
       language: tinymceConfig.getAttribute("data-language"),
-      setup: (editor) => {
-        editor.ui.registry.addButton("notranslate", {
-          tooltip: tinymceConfig.getAttribute("data-notranslate-tooltip"),
-          icon: "no_translate",
-          onAction: () => {
-            editor.focus();
-            const val = tinymce.activeEditor.dom.getAttrib(
-              tinymce.activeEditor.selection.getNode(),
-              "translate",
-              "yes"
-            );
-            if (val == "no") {
-              tinymce.activeEditor.dom.setAttrib(
-                tinymce.activeEditor.selection.getNode(),
-                "translate",
-                null
-              );
-            } else if (editor.selection.getContent().length > 0) {
-              editor.selection.setContent(
-                '<span class="notranslate" translate="no">' +
-                  editor.selection.getContent() +
-                  "</span>"
-              );
-            }
-          },
-        });
-        editor.ui.registry.addIcon(
-          "pin_icon",
-          parseSvg(require("../../svg/pin.svg").default)
-        );
-        editor.ui.registry.addIcon(
-          "www_icon",
-          parseSvg(require("../../svg/world-wide-web.svg").default)
-        );
-        editor.ui.registry.addIcon(
-          "call_icon",
-          parseSvg(require("../../svg/call.svg").default)
-        );
-        editor.ui.registry.addIcon(
-          "clock_icon",
-          parseSvg(require("../../svg/clock.svg").default)
-        );
-        editor.ui.registry.addIcon(
-          "email_icon",
-          parseSvg(require("../../svg/at.svg").default)
-        );
-        editor.ui.registry.addIcon(
-          "idea_icon",
-          parseSvg(require("../../svg/idea.svg").default)
-        );
+      directionality: tinymceConfig.getAttribute("data-directionality") as 'ltr' | 'rtl',
+      setup: (editor: Editor) => {
+        addIcon(editor, tinymceConfig, "pin");
+        addIcon(editor, tinymceConfig, "www");
+        addIcon(editor, tinymceConfig, "email");
+        addIcon(editor, tinymceConfig, "call");
+        addIcon(editor, tinymceConfig, "clock");
+        addIcon(editor, tinymceConfig, "idea");
         editor.ui.registry.addIcon(
           "no_translate",
           parseSvg(require("../../svg/no_translate.svg").default)
         );
-        editor.ui.registry.addMenuItem("pinicon", {
-          text: tinymceConfig.getAttribute("data-pinicon-text"),
-          icon: "pin_icon",
-          onAction: function () {
-            editor.insertContent(
-              '<img src="' +
-                tinymceConfig.getAttribute("data-pinicon-src") +
-                '" style="width:15px; height:15px">'
-            );
-          },
-        });
-        editor.ui.registry.addMenuItem("wwwicon", {
-          text: tinymceConfig.getAttribute("data-wwwicon-text"),
-          icon: "www_icon",
-          onAction: function () {
-            editor.insertContent(
-              '<img src="' +
-                tinymceConfig.getAttribute("data-wwwicon-src") +
-                '" style="width:15px; height:15px">'
-            );
-          },
-        });
-        editor.ui.registry.addMenuItem("callicon", {
-          text: tinymceConfig.getAttribute("data-callicon-text"),
-          icon: "call_icon",
-          onAction: function () {
-            editor.insertContent(
-              '<img src="' +
-                tinymceConfig.getAttribute("data-callicon-src") +
-                '" style="width:15px; height:15px">'
-            );
-          },
-        });
-        editor.ui.registry.addMenuItem("clockicon", {
-          text: tinymceConfig.getAttribute("data-clockicon-text"),
-          icon: "clock_icon",
-          onAction: function () {
-            editor.insertContent(
-              '<img src="' +
-                tinymceConfig.getAttribute("data-clockicon-src") +
-                '" style="width:15px; height:15px">'
-            );
-          },
-        });
-        editor.ui.registry.addMenuItem("aticon", {
-          text: tinymceConfig.getAttribute("data-aticon-text"),
-          icon: "email_icon",
-          onAction: function () {
-            editor.insertContent(
-              '<img src="' +
-                tinymceConfig.getAttribute("data-aticon-src") +
-                '" style="width:15px; height:15px">'
-            );
-          },
-        });
-        editor.ui.registry.addMenuItem("ideaicon", {
-          text: tinymceConfig.getAttribute("data-ideaicon-text"),
-          icon: "idea_icon",
-          onAction: function () {
-            editor.insertContent(
-              '<img src="' +
-                tinymceConfig.getAttribute("data-ideaicon-src") +
-                '" style="width:15px; height:15px">'
-            );
-          },
+        editor.ui.registry.addButton("notranslate", {
+          tooltip: tinymceConfig.getAttribute("data-no-translate-tooltip"),
+          icon: "no_translate",
+          onAction: () => toggleNoTranslate(editor),
         });
       },
       readonly: !!tinymceConfig.getAttribute("data-readonly"),
-      init_instance_callback: function (editor) {
+      init_instance_callback: function (editor: Editor) {
         editor.on("StoreDraft", autosaveEditor);
       },
     });

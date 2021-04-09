@@ -78,15 +78,15 @@
         {% endif %}
     </td>
     <td>
-        <i data-feather="calendar" class="inline-block"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+        <i data-feather="calendar"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
     </td>
     <td>
-        <i data-feather="calendar" class="inline-block"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="inline-block ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+        <i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
     <td class="pl-2 pr-4 flex min">
         <!-- TODO: add link to view event in web app -->
         <a href="" class="py-3 px-2">
-            <i data-feather="eye" class="inline-block text-gray-800"></i>
+            <i data-feather="eye" class="text-gray-800"></i>
         </a>
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if can_edit_event %}
@@ -95,7 +95,7 @@
                 data-confirmation-text="{{ restore_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'restore_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}">
-                <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
+                <i data-feather="refresh-ccw" class="text-gray-800"></i>
             </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
@@ -104,7 +104,7 @@
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}">
-                <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+                <i data-feather="trash-2" class="text-gray-800"></i>
             </button>
         {% endif %}
     </td>

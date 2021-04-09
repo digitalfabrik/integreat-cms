@@ -74,7 +74,7 @@
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
            target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="py-3">
-            <i data-feather="eye" class="inline-block text-gray-800"></i>
+            <i data-feather="eye" class="text-gray-800"></i>
         </a>
         {% if page.explicitly_archived %}
             <button title="{% trans 'Restore page' %}" class="confirmation-button py-3 pl-2"
@@ -82,17 +82,17 @@
                     data-confirmation-text="{{ restore_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
                     data-action="{% url 'restore_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
-                <i data-feather="refresh-ccw" class="inline-block text-gray-800"></i>
+                <i data-feather="refresh-ccw" class="text-gray-800"></i>
             </button>
         {% else %}
             <button title="{% trans 'To restore this page, you have to restore its archived parent page.' %}" class="py-3 pl-2">
-                <i data-feather="refresh-ccw" class="inline-block text-gray-400"></i>
+                <i data-feather="refresh-ccw" class="text-gray-400"></i>
             </button>
         {% endif %}
         {% if user.is_superuser or user.is_staff %}
             {% if page.children.all %}
                 <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves non-archived subpages.' %}" class="py-3 pl-2">
-                    <i data-feather="trash-2" class="inline-block text-gray-400"></i>
+                    <i data-feather="trash-2" class="text-gray-400"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 pl-2"
@@ -100,7 +100,7 @@
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
                     data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
-                    <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+                    <i data-feather="trash-2" class="text-gray-800"></i>
                 </button>
             {% endif %}
         {% endif %}

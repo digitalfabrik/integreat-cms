@@ -20,6 +20,7 @@ from django.views.static import serve
 from django.views.decorators.http import require_POST
 
 from backend.settings import WEBAPP_URL
+from ...constants import text_directions
 from ...decorators import region_permission_required, staff_required
 from ...forms import PageForm
 from ...models import Page, Language, Region, PageTranslation
@@ -182,6 +183,8 @@ def view_page(request, page_id, region_slug, language_slug):
             "page_translation": page_translation,
             "mirrored_translation": mirrored_translation,
             "mirrored_page_first": page.mirrored_page_first,
+            "right_to_left": page_translation.language.text_direction
+            == text_directions.RIGHT_TO_LEFT,
         },
     )
 

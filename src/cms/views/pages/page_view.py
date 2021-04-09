@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 
 from backend.settings import WEBAPP_URL
 
-from ...constants import status
+from ...constants import status, text_directions
 from ...decorators import region_permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation, Region
@@ -155,6 +155,8 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                 "languages": region.languages if page else [language],
                 "side_by_side_language_options": side_by_side_language_options,
                 "page_link": page_link,
+                "right_to_left": language.text_direction
+                == text_directions.RIGHT_TO_LEFT,
             },
         )
 
@@ -241,6 +243,8 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                     # Languages for tab view
                     "languages": region.languages if page_instance else [language],
                     "side_by_side_language_options": side_by_side_language_options,
+                    "right_to_left": language.text_direction
+                    == text_directions.RIGHT_TO_LEFT,
                 },
             )
 
@@ -259,6 +263,8 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                     # Languages for tab view
                     "languages": region.languages if page_instance else [language],
                     "side_by_side_language_options": side_by_side_language_options,
+                    "right_to_left": language.text_direction
+                    == text_directions.RIGHT_TO_LEFT,
                 },
             )
 

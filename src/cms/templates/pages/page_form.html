@@ -65,25 +65,25 @@
                                             {% if other_language in page.languages %}
                                                 {% if page_translation_form.instance.is_outdated %}
                                                     <span title="{% trans 'Translation outdated' %}">
-                                                        <i data-feather="alert-triangle" class="inline-block"></i>
+                                                        <i data-feather="alert-triangle"></i>
                                                     </span>
                                                 {% elif page_translation_form.instance.currently_in_translation %}
                                                     <span title="{% trans 'Currently in translation' %}">
-                                                        <i data-feather="clock" class="inline-block"></i>
+                                                        <i data-feather="clock"></i>
                                                     </span>
                                                 {% else %}
                                                     <span title="{% trans 'Translation up-to-date' %}">
-                                                        <i data-feather="check" class="inline-block"></i>
+                                                        <i data-feather="check"></i>
                                                     </span>
                                                 {% endif %}
                                             {% else %}
                                                 <span title="{% trans 'Translation missing' %}">
-                                                    <i data-feather="x" class="inline-block"></i>
+                                                    <i data-feather="x"></i>
                                                 </span>
                                             {% endif %}
                                         {% else %}
                                             <span title="{% trans 'Create Translation' %}">
-                                                <i data-feather="plus" class="inline-block"></i>
+                                                <i data-feather="plus"></i>
                                             </span>
                                         {% endif %}
                                         {{ other_language.translated_name }}
@@ -91,11 +91,11 @@
                                     <div class="hidden ajax p-4">
                                         {% if page_translation_form.instance.is_outdated_helper %}
                                             <span title="{% trans 'Translation outdated' %}">
-                                                <i data-feather="alert-triangle" class="inline-block"></i>
+                                                <i data-feather="alert-triangle"></i>
                                             </span>
                                         {% else %}
                                             <span title="{% trans 'Translation up-to-date' %}">
-                                                <i data-feather="check" class="inline-block"></i>
+                                                <i data-feather="check"></i>
                                             </span>
                                         {% endif %}
                                         {{ other_language.translated_name }}
@@ -106,20 +106,20 @@
                                     {% get_translation page_form.instance other_language.slug as other_page_translation %}
                                     {% if other_page_translation.is_outdated %}
                                         <span title="{% trans 'Translation outdated' %}">
-                                            <i data-feather="alert-triangle" class="inline-block"></i>
+                                            <i data-feather="alert-triangle"></i>
                                         </span>
                                     {% elif other_page_translation.currently_in_translation %}
                                         <span title="{% trans 'Currently in translation' %}">
-                                            <i data-feather="clock" class="inline-block"></i>
+                                            <i data-feather="clock"></i>
                                         </span>
                                     {% else %}
                                         <span title="{% trans 'Translation up-to-date' %}">
-                                            <i data-feather="check" class="inline-block"></i>
+                                            <i data-feather="check"></i>
                                         </span>
                                     {% endif %}
                                 {% else %}
                                     <span title="{% trans 'Translation missing' %}">
-                                        <i data-feather="x" class="inline-block"></i>
+                                        <i data-feather="x"></i>
                                     </span>
                                 {% endif %}
                                 {{ other_language.translated_name }}
@@ -163,11 +163,11 @@
                         <span class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</span>
                         <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
                         <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
-                            <i data-feather="copy" class="inline-block"></i>
+                            <i data-feather="copy"></i>
                         </a><br>
                         {% if page_translation_form.instance.currently_in_translation %}
                             <div id="trans-warn">
-                                <i data-feather="alert-triangle" class="inline-block text-red-800"></i>
+                                <i data-feather="alert-triangle" class="text-red-800"></i>
                                 <label class="inline-block mb-2 font-bold">{% trans 'Warning' %}:</label>
                                 {% trans 'Translation in progress' %}
                                 <a href="#"
@@ -216,7 +216,7 @@
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
                         <div class="border-b-4 border-white">
-                            <i data-feather="feather" class="inline-block"></i>
+                            <i data-feather="feather"></i>
                             {% trans 'Minor edit' %}
                         </div>
                     </div>
@@ -232,7 +232,7 @@
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
                         <div class="border-b-4 border-white">
-                            <i data-feather="settings" class="inline-block"></i>
+                            <i data-feather="settings"></i>
                             {% trans 'Settings of the page' %}
                         </div>
                     </div>
@@ -302,7 +302,7 @@
                         <li class="z-10" style="margin-bottom: -2px">
                             <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
                                 <div class="border-b-4 border-white">
-                                    <i data-feather="tool" class="inline-block"></i>
+                                    <i data-feather="tool"></i>
                                     {% trans 'Actions' %}
                                 </div>
                             </div>
@@ -317,7 +317,7 @@
                                     data-confirmation-text="{{ restore_dialog_text }}"
                                     data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                     data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="refresh-ccw" class="inline-block mr-2"></i> {% trans 'Restore this page' %}
+                                    <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
                                 </button>
                             {% elif page.implicitly_archived %}
                                 <span class="block font-bold mb-4">{% trans 'Restore page' %}</span>
@@ -332,7 +332,7 @@
                                 </div>
                                 {% for ancestor in page.explicitly_archived_ancestors %}
                                     <a href="{% url 'edit_page' page_id=ancestor.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="inline-block mr-2"></i> {{ ancestor.best_translation.title }}
+                                        <i data-feather="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
                                     </a>
                                 {% endfor %}
                             {% else %}
@@ -342,7 +342,7 @@
                                     data-confirmation-text="{{ archive_dialog_text }}"
                                     data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                     data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="archive" class="inline-block mr-2"></i>
+                                    <i data-feather="archive" class="mr-2"></i>
                                     {% trans 'Archive this page' %}
                                 </button>
                             {% endif %}
@@ -363,7 +363,7 @@
                                     </div>
                                     {% for descendant in page.get_descendants %}
                                     <a href="{% url 'edit_page' page_id=descendant.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="inline-block mr-2"></i> {{ descendant.best_translation.title }}
+                                        <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
                                     </a>
                                     {% endfor %}
                                 {% else %}
@@ -372,7 +372,7 @@
                                         data-confirmation-text="{{ delete_dialog_text }}"
                                         data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                         data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                        <i data-feather="trash-2" class="inline-block mr-2"></i>
+                                        <i data-feather="trash-2" class="mr-2"></i>
                                         {% trans 'Delete this page' %}
                                     </button>
                                 {% endif %}
@@ -385,7 +385,7 @@
                     <li class="z-10" style="margin-bottom: -2px">
                         <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
                             <div class="border-b-4 border-white">
-                                <i data-feather="columns" class="inline-block"></i>
+                                <i data-feather="columns"></i>
                                 {% trans 'Translator view' %}
                             </div>
                         </div>
@@ -406,7 +406,7 @@
                             </div>
                         </div>
                         <a id="side-by-side-link" class="block pointer-events-none w-full bg-gray-400 text-white text-center font-bold py-2 px-4 mt-2 rounded">
-                            <i data-feather="external-link" class="inline-block mr-2"></i>
+                            <i data-feather="external-link" class="mr-2"></i>
                             {% trans 'Show translator view' %}
                         </a>
                     </div>
@@ -416,33 +416,15 @@
     </div>
 </form>
 
-{% get_current_language as LANGUAGE_CODE %}
-<div
-        id="tinymce-config-options"
-        data-language="{{ LANGUAGE_CODE|slice:'0:2' }}"
-        data-notranslate-tooltip="{% trans 'Do not translate the selected text.' %}"
-        data-pinicon-text="{% trans 'Location' %}"
-        data-pinicon-src="{% static 'svg/pin.svg' %}"
-        data-wwwicon-text="{% trans 'Link' %}"
-        data-wwwicon-src="{% static 'svg/world-wide-web.svg' %}"
-        data-callicon-text="{% trans 'Phone' %}"
-        data-callicon-src="{% static 'svg/call.svg' %}"
-        data-clockicon-text="{% trans 'Opening Hours' %}"
-        data-clockicon-src="{% static 'svg/clock.svg' %}"
-        data-aticon-text="{% trans 'Email' %}"
-        data-aticon-src="{% static 'svg/at.svg' %}"
-        data-ideaicon-text="{% trans 'Hint' %}"
-        data-ideaicon-src="{% static 'svg/idea.svg' %}"
-        data-customcss-src="{% static 'tinymce-plugins/tinymce_custom.css' %}"
-        {% if not can_edit_page or page_form.instance.id and page_form.instance.archived %}
-        data-readonly="1"
-        {% endif %}
-></div>
+{% if not can_edit_page or page_form.instance.id and page_form.instance.archived %}
+    {% include '../_tinymce_config.html' with readonly=1 %}
+{% else %}
+    {% include '../_tinymce_config.html' %}
+{% endif %}
 
 {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}
 
 {% block javascript %}
 <script src="{% static 'editor.js' %}"></script>
-<link href="{% static 'editor.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
