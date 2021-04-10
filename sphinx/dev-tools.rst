@@ -104,4 +104,8 @@ Documentation
 
 Generate this documentation with :github-source:`dev-tools/generate_documentation.sh`::
 
-    ./dev-tools/generate_documentation.sh
+    ./dev-tools/generate_documentation.sh [--clean]
+
+If the ``--clean`` parameter is provided, the script will clean all temporary documentation files in the ``sphinx/ref/``
+and ``sphinx/ref-ext/`` directories as well as the compiled html output in ``docs``. Existing outdated documentation
+files can cause the generation script to fail if e.g. source files were added or deleted.

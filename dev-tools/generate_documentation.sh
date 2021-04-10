@@ -121,6 +121,9 @@ if [[ -n "$CIRCLECI" ]]; then
     rm -r docs/.doctrees
     rm -r docs/_sources
     rm docs/.buildinfo
+elif [ $status -ne 0 ] && [ "$1" != "--clean" ]; then
+    # If the script is neither running on CircleCI, nor a clean build and failing anyway, suggest the --clean parameter
+    echo -e "\n\e[1;34mIf you think the above error is not your fault, try a clean documentation build with:\e[0;39m\n\n\t${0} --clean\n" >&2
 fi
 
 # Exit with status of sphinx-build
