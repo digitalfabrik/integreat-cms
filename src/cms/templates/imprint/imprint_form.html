@@ -12,7 +12,7 @@
     {% csrf_token %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
-            <h2 class="heading font-normal">
+            <h1 class="heading">
                 {% if imprint %}
                     {% if imprint_translation_form.instance.id %}
                         {% trans 'Edit imprint' %}
@@ -22,7 +22,7 @@
                 {% else %}
                     {% trans 'Create imprint' %}
                 {% endif %}
-            </h2>
+            </h1>
         </div>
         <div class="w-1/5 flex justify-end mb-6">
         {% if not imprint.id or not imprint.archived %}

@@ -2,6 +2,9 @@
 {% load i18n %}
 {% block content %}
 {% load static %}
+    <div class="w-1/3 flex flex-wrap">
+        <h1 class="heading">{% trans 'Upload File' %}</h1>
+    </div>
     <div class="w-full max-w-full">
         <form id="upload_form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" enctype="multipart/form-data">
             {% csrf_token %}

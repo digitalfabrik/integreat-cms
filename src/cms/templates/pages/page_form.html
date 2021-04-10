@@ -14,7 +14,7 @@
     {% csrf_token %}
     <div class="flex flex-wrap items-start">
         <div class="w-4/5 mb-6">
-            <h2 class="heading font-normal">
+            <h1 class="heading">
                 {% if page %}
                     {% if page_translation_form.instance.id %}
                         {% with page_translation_form.instance.title as page_title %}
@@ -31,7 +31,7 @@
                 {% else %}
                     {% trans 'Create new page' %}
                 {% endif %}
-            </h2>
+            </h1>
         </div>
         <div class="w-1/5 flex justify-end mb-6">
         {% if not page_form.instance.id or not page_form.instance.archived %}
