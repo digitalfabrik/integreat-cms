@@ -10,6 +10,7 @@ For production use, the following settings can be set with environment variables
 * :attr:`~backend.settings.DEBUG`
 * :attr:`~backend.settings.ALLOWED_HOSTS` via :attr:`~backend.settings.BASE_URL`
 * :attr:`~backend.settings.WEBAPP_URL`
+* :attr:`~backend.settings.MATOMO_URL`
 * :attr:`~backend.settings.BASE_URL`
 * :attr:`~backend.settings.WEBAPP_URL`
 * :attr:`~backend.settings.STATIC_ROOT`
@@ -53,6 +54,12 @@ else:
     #: The URL to our webapp. This is used for urls in the ``sitemap.xml`` (see :mod:`sitemap` for more information).
     WEBAPP_URL = "https://integreat.app"
 
+if "DJANGO_MATOMO_URL" in os.environ:
+    MATOMO_URL = os.environ["DJANGO_MATOMO_URL"]
+else:
+    #: The URL to the Matomo statistics server.
+    MATOMO_URL = "https://statistics.integreat-app.de"
+
 #: The slug for the legal notice (see e.g. :class:`~cms.models.pages.imprint_page_translation.ImprintPageTranslation`)
 IMPRINT_SLUG = "imprint"
 
@@ -60,11 +67,19 @@ IMPRINT_SLUG = "imprint"
 #: :func:`~cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn`
 TEST_BLOG_ID = 154
 
+#: URL to the Integreat Website
+WEBSITE_URL = "https://integreat-app.de"
+
+#: URLs to the Integreat blog
+BLOG_URLS = {
+    "en": f"{WEBSITE_URL}/en/blog/",
+    "de": f"{WEBSITE_URL}/blog/",
+}
+
 #: RSS feed URLs to the Integreat blog
 RSS_FEED_URLS = {
-    "en": "https://integreat-app.de/en/feed/",
-    "de": "https://integreat-app.de/feed/",
-    "home-page": "https://integreat-app.de/",
+    "en": f"{WEBSITE_URL}/en/feed/",
+    "de": f"{WEBSITE_URL}/feed/",
 }
 
 #: How many days of chat history should be shown
@@ -431,6 +446,10 @@ LOGGING = {
             "level": SYS_LOG_LEVEL,
         },
         # Loggers of dependencies
+        "aiohttp.client": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
         "django": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,

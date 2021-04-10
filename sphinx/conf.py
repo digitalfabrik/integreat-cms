@@ -61,6 +61,7 @@ extensions = [
 ]
 #: Enable cross-references to other documentations
 intersphinx_mapping = {
+    "aiohttp": ("https://docs.aiohttp.org/en/stable/", None),
     "python": (
         f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}/",
         None,

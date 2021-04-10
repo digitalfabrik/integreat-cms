@@ -2,88 +2,22 @@
 
 {% load i18n %}
 {% load static %}
-{% load text_filters %}
 
 {% block content %}
 <div class="dashboard">
-    <h1 class="font-bold">Dashboard</h1>
-    <div class="flex items-start">
-        <div class="flex flex-col w-1/2 ">
-            <div class="bg-white p-4 my-3 mr-3 shadow">
-                <h2 class="font-bold">{% trans 'At a glance' %}</h2>
-            </div>
+    <h1 class="text-2xl mb-3">{% trans 'Admin Dashboard' %}</h1>
+    <div class="xl:flex gap-3">
+        <div class="xl:w-1/2">
+            <!-- Dumy Widget -->
+            {% include "dashboard/_dummy_widget.html" %}
+            <!-- Chat Widget -->
             {% if chat_form %}
-            {% include "chat/_chat.html" %}
+                {% include "chat/_chat_widget.html" %}
             {% endif %}
         </div>
-        <div class="flex flex-col bg-white w-1/2 px-4 mt-3 ml-3 shadow">
-            <button type="button" class="collapsible font-bold py-4 text-left relative focus:outline-none">
-                <span class="font-bold">{% trans 'Unread technical feedback' %}</span>
-                <i data-feather="chevron-up" class="up-arrow absolute right-0"></i>
-                <i data-feather="chevron-down" class="down-arrow hidden absolute right-0"></i>
-            </button>
-            <div class="collapsible-content flex flex-col active pb-4">
-                <div class="mb-1 text-s text-gray-600">{% trans 'The five most recent entries are listed.' %}</div>
-                <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
-                    <tr class="border-b border-solid border-gray-200">
-                        <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Feedback on' %}</th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Comment' %}</th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Rating' %}</th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Region' %}</th>
-                        <th class="text-sm text-right uppercase py-3 pr-2">{% trans 'Date' %}</th>
-                    </tr>
-                    {% for feedback in admin_feedback %}
-                    <tr class="border-t border-solid border-yellow-200 bg-yellow-100">
-                        <td class="px-2 py-3 border-l-4 border-yellow-400">
-                            {% if feedback.object_url %}
-                            <a href="{{ feedback.object_url }}">
-                                {{ feedback.object_name }}
-                            </a>
-                            {% else %}
-                                {{ feedback.object_name }}
-                            {% endif %}
-                        </td>
-                        <td class="pr-2 feedback-comment">
-                            {% if feedback.comment.splitlines|length > 1 %}
-                                <span>
-                                    {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
-                                </span>
-                                <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i></span>
-                            {% elif feedback.comment|words|length > 20 %}
-                                <span>
-                                    {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
-                                </span>
-                                <span class="hidden">
-                                    {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
-                                </span>
-                            {% else %}
-                                {{ feedback.comment }}
-                            {% endif %}
-                        </td>
-                        <td class="pr-2">
-                            {% if feedback.rating == True %}
-                                <i data-feather="thumbs-up"></i>
-                            {% elif feedback.rating == False %}
-                                <i data-feather="thumbs-down"></i>
-                            {% endif %}
-                        </td>
-                        <td class="pr-2">
-                            <a href="{% url 'dashboard' region_slug=feedback.region.slug %}">
-                                {{ feedback.region.name }}
-                            </a>
-                        </td>
-                        <td class="pr-2 text-right">{{ feedback.created_date }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr><td colspan="6" class="px-2 py-3">{% trans 'No Feedback available yet.' %} </td></tr>
-                    {% endfor %}
-                </table>
-                <span>
-                    <a href="{% url 'admin_feedback'%}" class="inline-block bg-blue-500 hover:bg-blue-600 cursor-pointer text-white font-bold py-3 px-4 mt-2 rounded">
-                        {% trans 'Open feedback list' %}
-                    </a>
-                </span>
-            </div>
+        <div class="xl:w-1/2">
+            <!-- Feedback Widget -->
+            {% include "feedback/_feedback_widget.html" %}
         </div>
     </div>
 </div>

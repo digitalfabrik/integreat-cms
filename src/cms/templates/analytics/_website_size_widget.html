@@ -1,0 +1,20 @@
+{% extends "dashboard/_dashboard_widget.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block dashboard_widget_title %}
+    <i data-feather="package" class="pb-1"></i> {% trans 'Size of the App' %}
+{% endblock %}
+
+{% block dashboard_widget_content %}
+    <div class="flex justify-between">
+        <p class="py-3">{% trans 'The chart below shows the current size of the Integreat app.' %}</p>
+        <a href="{% url 'dashboard' region_slug=region.slug %}" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded text-center">
+            {% trans "Details" %}
+        </a>
+    </div>
+    <div class="p-3 w-full">
+        <!-- TODO -->
+    </div>
+{% endblock %}

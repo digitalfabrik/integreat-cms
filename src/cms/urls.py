@@ -337,6 +337,23 @@ urlpatterns = [
                     ),
                 ),
                 url(
+                    r"^(?P<region_slug>[-\w]+)/statistics/",
+                    include(
+                        [
+                            url(
+                                r"total_views/?$",
+                                statistics.get_total_visits_ajax,
+                                name="statistics_total_visits",
+                            ),
+                            url(
+                                r"update_chart/?$",
+                                statistics.get_visits_per_language_ajax,
+                                name="statistics_visits_per_language",
+                            ),
+                        ]
+                    ),
+                ),
+                url(
                     r"^grant_page_permission$",
                     pages.grant_page_permission_ajax,
                     name="grant_page_permission_ajax",

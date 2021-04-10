@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-28 21:27+0000\n"
+"POT-Creation-Date: 2021-04-10 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -33,7 +33,7 @@ msgstr "Landkreis"
 
 #: constants/administrative_division.py:41
 #: forms/feedback/admin_feedback_filter_form.py:15
-#: templates/dashboard/admin_dashboard.html:32
+#: templates/feedback/_feedback_widget.html:18
 #: templates/feedback/admin_feedback_list.html:36
 msgid "Region"
 msgstr "Region"
@@ -106,19 +106,19 @@ msgstr "Gelesen"
 msgid "Unread"
 msgstr "Ungelesen"
 
-#: constants/frequency.py:19
+#: constants/frequency.py:19 constants/matomo_periods.py:19
 msgid "Daily"
 msgstr "Täglich"
 
-#: constants/frequency.py:20
+#: constants/frequency.py:20 constants/matomo_periods.py:20
 msgid "Weekly"
 msgstr "Wöchentlich"
 
-#: constants/frequency.py:21
+#: constants/frequency.py:21 constants/matomo_periods.py:21
 msgid "Monthly"
 msgstr "Monatlich"
 
-#: constants/frequency.py:22
+#: constants/frequency.py:22 constants/matomo_periods.py:22
 msgid "Yearly"
 msgstr "Jährlich"
 
@@ -227,12 +227,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: constants/region_status.py:17 models/regions/region.py:359
+#: constants/region_status.py:17 models/regions/region.py:369
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: constants/region_status.py:18 models/pages/page.py:190
-#: models/pages/page_translation.py:256 models/regions/region.py:362
+#: models/pages/page_translation.py:256 models/regions/region.py:372
 #: templates/pages/page_form.html:152
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
@@ -423,10 +423,12 @@ msgstr "Alle Regionen"
 #: templates/feedback/region_feedback_list.html:32
 #: templates/language_tree/language_tree.html:31
 #: templates/settings/user.html:90
+#: templates/statistics/statistics_overview.html:53
 msgid "Language"
 msgstr "Sprache"
 
 #: forms/feedback/region_feedback_filter_form.py:17
+#: utils/matomo_api_manager.py:208 utils/matomo_api_manager.py:338
 msgid "All languages"
 msgstr "Alle Sprachen"
 
@@ -457,7 +459,7 @@ msgid "Status"
 msgstr "Status"
 
 #: forms/feedback/region_feedback_filter_form.py:37
-#: templates/dashboard/admin_dashboard.html:31
+#: templates/feedback/_feedback_widget.html:17
 #: templates/feedback/admin_feedback_list.html:34
 #: templates/feedback/admin_feedback_list.html:35
 #: templates/feedback/region_feedback_list.html:34
@@ -466,10 +468,12 @@ msgid "Rating"
 msgstr "Bewertung"
 
 #: forms/feedback/region_feedback_filter_form.py:44
+#: forms/statistics/statistics_filter_form.py:26
 msgid "From"
 msgstr "Von"
 
 #: forms/feedback/region_feedback_filter_form.py:52
+#: forms/statistics/statistics_filter_form.py:35
 msgid "To"
 msgstr "Bis"
 
@@ -481,9 +485,31 @@ msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
 
-#: forms/regions/region_form.py:24
+#: forms/regions/region_form.py:25
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
+
+#: forms/regions/region_form.py:114
+msgid "Statistics can only be enabled when a valid access token is supplied."
+msgstr ""
+"Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
+"eingegeben wurde."
+
+#: forms/regions/region_form.py:126
+msgid "The provided access token is invalid."
+msgstr "Das eingegebene Zugangstoken ist ungültig."
+
+#: forms/statistics/statistics_filter_form.py:41
+msgid "Evaluation"
+msgstr "Auswertung"
+
+#: forms/statistics/statistics_filter_form.py:58
+msgid "The start date can't be after the end date"
+msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
+
+#: forms/statistics/statistics_filter_form.py:65
+msgid "The end date can't be before the start date"
+msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
 #: forms/users/user_form.py:62
 msgid "Leave empty to keep unchanged"
@@ -555,7 +581,7 @@ msgstr "Wert"
 #: models/pois/poi_translation.py:71
 #: models/push_notifications/push_notification.py:42
 #: models/push_notifications/push_notification_translation.py:38
-#: models/regions/region.py:108 models/users/organization.py:28
+#: models/regions/region.py:109 models/users/organization.py:28
 #: models/users/user_mfa.py:37
 msgid "creation date"
 msgstr "Erstellungsdatum"
@@ -568,7 +594,7 @@ msgstr "Erstellungsdatum"
 #: models/pois/poi_translation.py:75
 #: models/push_notifications/push_notification.py:46
 #: models/push_notifications/push_notification_translation.py:42
-#: models/regions/region.py:112 models/users/organization.py:32
+#: models/regions/region.py:113 models/users/organization.py:32
 msgid "modification date"
 msgstr "Änderungsdatum"
 
@@ -584,7 +610,7 @@ msgstr "Einstellungen"
 #: models/languages/language_tree_node.py:37 models/offers/offer.py:24
 #: models/pages/imprint_page.py:21 models/pages/page.py:43
 #: models/pois/poi.py:18 models/push_notifications/push_notification.py:18
-#: models/regions/region.py:378
+#: models/regions/region.py:388
 msgid "region"
 msgstr "Region"
 
@@ -630,7 +656,7 @@ msgid "events"
 msgstr "Veranstaltungen"
 
 #: models/events/event_translation.py:29 models/pois/poi_translation.py:24
-#: models/regions/region.py:41
+#: models/regions/region.py:42
 msgid "URL parameter"
 msgstr "URL-Parameter"
 
@@ -653,7 +679,7 @@ msgstr ""
 
 #: models/events/event_translation.py:41
 #: models/pages/abstract_base_page_translation.py:27
-#: models/pois/poi_translation.py:42 models/regions/region.py:52
+#: models/pois/poi_translation.py:42 models/regions/region.py:53
 msgid "status"
 msgstr "Status"
 
@@ -1025,7 +1051,7 @@ msgstr "Angebote"
 
 #: models/offers/offer_template.py:16
 #: models/push_notifications/push_notification_channel.py:10
-#: models/regions/region.py:25 models/users/organization.py:11
+#: models/regions/region.py:26 models/users/organization.py:11
 #: models/users/user_mfa.py:17
 msgid "name"
 msgstr "Name"
@@ -1034,7 +1060,7 @@ msgstr "Name"
 msgid "slug"
 msgstr "URL-Parameter"
 
-#: models/offers/offer_template.py:25 models/regions/region.py:44
+#: models/offers/offer_template.py:25 models/regions/region.py:45
 msgid "Leave blank to generate unique parameter from name"
 msgstr ""
 "Dieses Feld freilassen, um einen eindeutigen Alias aus dem Namen zu "
@@ -1061,7 +1087,7 @@ msgstr "POST-Parameter"
 msgid "Additional POST data for retrieving the URL."
 msgstr "Zusätzliche POST-Daten zum Abrufen der URL."
 
-#: models/offers/offer_template.py:40 models/regions/region.py:69
+#: models/offers/offer_template.py:40 models/regions/region.py:70
 msgid "Specify as JSON."
 msgstr "Als JSON angeben."
 
@@ -1217,7 +1243,7 @@ msgstr "Seitenlink"
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: models/pois/poi.py:23 models/regions/region.py:100
+#: models/pois/poi.py:23 models/regions/region.py:101
 msgid "postal code"
 msgstr "Postleitzahl"
 
@@ -1229,7 +1255,7 @@ msgstr "Stadt"
 msgid "country"
 msgstr "Land"
 
-#: models/pois/poi.py:27 models/regions/region.py:92
+#: models/pois/poi.py:27 models/regions/region.py:93
 msgid "latitude"
 msgstr "Geographische Breite"
 
@@ -1237,7 +1263,7 @@ msgstr "Geographische Breite"
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: models/pois/poi.py:30 models/regions/region.py:97
+#: models/pois/poi.py:30 models/regions/region.py:98
 msgid "longitude"
 msgstr "Geographische Länge"
 
@@ -1312,7 +1338,7 @@ msgid "push notification channel"
 msgstr "Push-Benachrichtigungskanal"
 
 #: models/push_notifications/push_notification_channel.py:36
-#: models/regions/region.py:86
+#: models/regions/region.py:87
 msgid "push notification channels"
 msgstr "Push-Benachrichtigungskanäle"
 
@@ -1324,101 +1350,99 @@ msgstr "Push-Benachrichtigungs-Übersetzung"
 msgid "push notification translations"
 msgstr "Push-Benachrichtigungs-Übersetzungen"
 
-#: models/regions/region.py:31
+#: models/regions/region.py:32
 msgid "community identification number"
 msgstr "Amtlicher Gemeindeschlüssel"
 
-#: models/regions/region.py:33
+#: models/regions/region.py:34
 msgid ""
 "Number sequence for identifying politically independent administrative units"
 msgstr ""
 "Ziffernfolge zur Identifizierung politisch selbständiger Verwaltungseinheiten"
 
-#: models/regions/region.py:43 models/users/organization.py:17
+#: models/regions/region.py:44 models/users/organization.py:17
 msgid "Unique string identifier without spaces and special characters."
 msgstr "Eindeutiger Bezeichner ohne Leerzeichen und Sonderzeichen."
 
-#: models/regions/region.py:61
+#: models/regions/region.py:62
 msgid "administrative division"
 msgstr "Verwaltungseinheit"
 
-#: models/regions/region.py:65
+#: models/regions/region.py:66
 msgid "aliases"
 msgstr "Aliasnamen"
 
-#: models/regions/region.py:67
+#: models/regions/region.py:68
 msgid "E.g. smaller municipalities in that area."
 msgstr "Z.B. kleinere Gemeinden in der Region."
 
-#: models/regions/region.py:68
+#: models/regions/region.py:69
 msgid "If empty, the CMS will try to fill this automatically."
 msgstr "Wird, wenn leer, automatisch vom CMS befüllt."
 
-#: models/regions/region.py:75
+#: models/regions/region.py:76
 msgid "activate events"
 msgstr "Veranstaltungen aktivieren"
 
-#: models/regions/region.py:76
+#: models/regions/region.py:77
 msgid "Whether or not events are enabled in the region"
 msgstr "Ob Ereignisse in der Region aktiviert sind oder nicht"
 
-#: models/regions/region.py:80
+#: models/regions/region.py:81
 msgid "activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
-#: models/regions/region.py:81
+#: models/regions/region.py:82
 msgid "Whether or not push notifications are enabled in the region"
 msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
 
-#: models/regions/region.py:87
+#: models/regions/region.py:88
 msgid "Enter multiple channels separated by commas."
 msgstr "Mehrere Kanäle mit Kommata getrennt eingeben."
 
-#: models/regions/region.py:93
+#: models/regions/region.py:94
 msgid "The latitude coordinate of an approximate center of the region"
 msgstr "Die Breitengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: models/regions/region.py:98
+#: models/regions/region.py:99
 msgid "The longitude coordinate of an approximate center of the region"
 msgstr "Die Längengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: models/regions/region.py:103
+#: models/regions/region.py:104
 msgid "email address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: models/regions/region.py:117
+#: models/regions/region.py:118
 msgid "activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: models/regions/region.py:118
+#: models/regions/region.py:119
 msgid "Whether or not statistics are enabled for the region"
 msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
 
-#: models/regions/region.py:121
-msgid "Matomo URL"
-msgstr "Matomo-URL"
+#: models/regions/region.py:124
+msgid "Matomo ID"
+msgstr "Matomo ID"
+
+#: models/regions/region.py:126
+msgid "The Matomo ID of this region."
+msgstr "Die Matomo ID dieser region."
 
 #: models/regions/region.py:127
+msgid "Will be automatically derived from the Matomo access token."
+msgstr "Wird automatisch vom Matomo Zugangstoken abgeleitet."
+
+#: models/regions/region.py:134
 msgid "Matomo authentication token"
 msgstr "Matomo Authentifizierungs-Token"
 
-#: models/regions/region.py:129
+#: models/regions/region.py:136
 msgid ""
 "The secret Matomo access token of the region is used to authenticate in API "
 "requests"
 msgstr ""
 "Das geheime Matomo-Zugangs-Token der Region wird zur Authentifizierung bei "
 "API-Anfragen verwendet"
-
-#: models/regions/region.py:134
-msgid "activate SSL verification for Matomo"
-msgstr "SSL-Verifikation für Matomo aktivieren"
-
-#: models/regions/region.py:136
-msgid "Don't allow invalid SSL-certificates when interacting with Matomo API"
-msgstr ""
-"Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der Matomo "
-"API"
 
 #: models/regions/region.py:142
 msgid "activate page-specific permissions"
@@ -1467,7 +1491,7 @@ msgstr ""
 "Sortierungen werden immer auf Grundlage der Namen vorgenommen, unabhängig "
 "von der Verwaltungseinheit."
 
-#: models/regions/region.py:380 models/users/user_profile.py:30
+#: models/regions/region.py:390 models/users/user_profile.py:30
 msgid "regions"
 msgstr "Regionen"
 
@@ -1564,7 +1588,7 @@ msgstr "Benutzereinstellungen"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: templates/_base.html:82
+#: templates/_base.html:82 templates/dashboard/dashboard.html:9
 msgid "My Dashboard"
 msgstr "Mein Dashboard"
 
@@ -1573,7 +1597,9 @@ msgid "Translation Report"
 msgstr "Übersetzungs-Bericht"
 
 #: templates/_base.html:91 templates/regions/region_form.html:140
-#: templates/statistics/statistics_dashboard.html:7
+#: templates/statistics/_statistics_widget.html:7
+#: templates/statistics/statistics_overview.html:10
+#: templates/statistics/statistics_overview.html:53
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -1672,11 +1698,10 @@ msgstr "Sprach-Knoten hinzufügen"
 
 #: templates/_base.html:232 templates/_base.html:283
 #: templates/push_notifications/push_notification_form.html:75
-#: templates/statistics/statistics_dashboard.html:59
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: templates/_base.html:237
+#: templates/_base.html:237 templates/dashboard/admin_dashboard.html:8
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
@@ -1732,6 +1757,37 @@ msgstr "Öffnungszeiten"
 #: templates/_tinymce_config.html:29
 msgid "Hint"
 msgstr "Tipp"
+
+#: templates/analytics/_broken_links_widget.html:7
+msgid "Broken Link Checker"
+msgstr "Broken Link Checker"
+
+#: templates/analytics/_broken_links_widget.html:12
+msgid "The list below shows all detected errors related to links."
+msgstr "Hier kannst du eine Übersicht über fehlerhalte Links sehen."
+
+#: templates/analytics/_broken_links_widget.html:14
+#: templates/analytics/_translation_overview_widget.html:14
+#: templates/analytics/_website_size_widget.html:14
+#: templates/statistics/_statistics_widget.html:14
+msgid "Details"
+msgstr "Detailansicht"
+
+#: templates/analytics/_translation_overview_widget.html:7
+msgid "Translation Status"
+msgstr "Status der Übersetzungen"
+
+#: templates/analytics/_translation_overview_widget.html:12
+msgid "The list below shows the current status of the translations."
+msgstr "Hier kannst du den Status der Übersetzungen sehen."
+
+#: templates/analytics/_website_size_widget.html:7
+msgid "Size of the App"
+msgstr "Größe der App"
+
+#: templates/analytics/_website_size_widget.html:12
+msgid "The chart below shows the current size of the Integreat app."
+msgstr "Hier siehst du die aktuelle Größe deiner Integreat App."
 
 #: templates/analytics/translation_coverage.html:18
 msgid "Translation Coverage"
@@ -1886,30 +1942,6 @@ msgstr "Womöglich ist diese E-Mail Adresse nicht im System vorhanden."
 msgid "E-mail address"
 msgstr "E-Mail Adresse"
 
-#: templates/chat/_chat.html:6
-msgid "Author Chat"
-msgstr "Autoren-Chat"
-
-#: templates/chat/_chat.html:19
-msgid "Send message"
-msgstr "Nachricht abschicken"
-
-#: templates/chat/_chat.html:22
-msgid "A network error has occurred."
-msgstr "Ein Netzwerkfehler ist aufgetreten."
-
-#: templates/chat/_chat.html:22
-msgid "Please try again later."
-msgstr "Bitte versuchen Sie es später erneut."
-
-#: templates/chat/_chat.html:23
-msgid "A server error has occurred."
-msgstr "Ein Serverfehler ist aufgetreten."
-
-#: templates/chat/_chat.html:23
-msgid "Please contact the administrator."
-msgstr "Bitte kontaktieren Sie einen Administrator."
-
 #: templates/chat/_chat_messages.html:17
 msgid "Delete chat message"
 msgstr "Chat-Nachricht löschen"
@@ -1926,45 +1958,49 @@ msgstr "Absender:"
 msgid "Sent on:"
 msgstr "Gesendet am:"
 
-#: templates/dashboard/admin_dashboard.html:13
-#: templates/dashboard/dashboard.html:13
+#: templates/chat/_chat_widget.html:8
+msgid "Chat"
+msgstr "Chat"
+
+#: templates/chat/_chat_widget.html:20
+msgid "Send message"
+msgstr "Nachricht abschicken"
+
+#: templates/chat/_chat_widget.html:23
+#: templates/statistics/_statistics_widget.html:18
+#: templates/statistics/statistics_overview.html:18
+msgid "A network error has occurred."
+msgstr "Ein Netzwerkfehler ist aufgetreten."
+
+#: templates/chat/_chat_widget.html:23
+#: templates/statistics/_statistics_widget.html:18
+#: templates/statistics/statistics_overview.html:18
+msgid "Please try again later."
+msgstr "Bitte versuchen Sie es später erneut."
+
+#: templates/chat/_chat_widget.html:24
+#: templates/statistics/_statistics_widget.html:19
+#: templates/statistics/statistics_overview.html:19
+msgid "A server error has occurred."
+msgstr "Ein Serverfehler ist aufgetreten."
+
+#: templates/chat/_chat_widget.html:24
+#: templates/statistics/_statistics_widget.html:19
+#: templates/statistics/statistics_overview.html:19
+msgid "Please contact the administrator."
+msgstr "Bitte kontaktieren Sie einen Administrator."
+
+#: templates/dashboard/_dummy_widget.html:7
 msgid "At a glance"
 msgstr "Auf einen Blick"
 
-#: templates/dashboard/admin_dashboard.html:21
-msgid "Unread technical feedback"
-msgstr "Ungelesenes technisches Feedback"
+#: templates/dashboard/_news_widget.html:8
+msgid "Integreat News"
+msgstr "Integreat Neuigkeiten"
 
-#: templates/dashboard/admin_dashboard.html:26
-msgid "The five most recent entries are listed."
-msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
-
-#: templates/dashboard/admin_dashboard.html:29
-#: templates/feedback/admin_feedback_list.html:31
-#: templates/feedback/region_feedback_list.html:31
-msgid "Feedback on"
-msgstr "Feedback zu"
-
-#: templates/dashboard/admin_dashboard.html:30
-#: templates/feedback/admin_feedback_list.html:33
-#: templates/feedback/region_feedback_list.html:33
-msgid "Comment"
-msgstr "Kommentar"
-
-#: templates/dashboard/admin_dashboard.html:33
-#: templates/feedback/admin_feedback_list.html:38
-#: templates/feedback/region_feedback_list.html:37
-#: templates/media/media_list.html:23
-msgid "Date"
-msgstr "Datum"
-
-#: templates/dashboard/admin_dashboard.html:78
-msgid "No Feedback available yet."
-msgstr "Noch kein Feedback vorhanden."
-
-#: templates/dashboard/admin_dashboard.html:83
-msgid "Open feedback list"
-msgstr "Feedback-Liste öffnen"
+#: templates/dashboard/_news_widget.html:21
+msgid "Continue reading"
+msgstr "Weiterlesen"
 
 #: templates/error_handler/http_error.html:6
 msgid "Error"
@@ -2242,6 +2278,41 @@ msgstr "Veranstaltung bearbeiten"
 #: templates/feedback/_region_feedback_filter_form.html:29
 msgid "Time range"
 msgstr "Zeitraum"
+
+#: templates/feedback/_feedback_widget.html:8
+msgid "Unread technical feedback"
+msgstr "Ungelesenes technisches Feedback"
+
+#: templates/feedback/_feedback_widget.html:12
+msgid "The five most recent entries are listed."
+msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
+
+#: templates/feedback/_feedback_widget.html:15
+#: templates/feedback/admin_feedback_list.html:31
+#: templates/feedback/region_feedback_list.html:31
+msgid "Feedback on"
+msgstr "Feedback zu"
+
+#: templates/feedback/_feedback_widget.html:16
+#: templates/feedback/admin_feedback_list.html:33
+#: templates/feedback/region_feedback_list.html:33
+msgid "Comment"
+msgstr "Kommentar"
+
+#: templates/feedback/_feedback_widget.html:19
+#: templates/feedback/admin_feedback_list.html:38
+#: templates/feedback/region_feedback_list.html:37
+#: templates/media/media_list.html:23
+msgid "Date"
+msgstr "Datum"
+
+#: templates/feedback/_feedback_widget.html:64
+msgid "No Feedback available yet."
+msgstr "Noch kein Feedback vorhanden."
+
+#: templates/feedback/_feedback_widget.html:69
+msgid "Open feedback list"
+msgstr "Feedback-Liste öffnen"
 
 #: templates/feedback/admin_feedback_list.html:11
 msgid "Technical Feedback"
@@ -3199,42 +3270,42 @@ msgstr "Autoren-Chat"
 msgid "Push notifications"
 msgstr "Push-Benachrichtigungen"
 
-#: templates/regions/region_form.html:164
+#: templates/regions/region_form.html:159
 msgid "Page permissions"
 msgstr "Seiten-Berechtigungen"
 
-#: templates/regions/region_form.html:177
+#: templates/regions/region_form.html:172
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: templates/regions/region_form.html:180
+#: templates/regions/region_form.html:175
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: templates/regions/region_form.html:193
+#: templates/regions/region_form.html:188
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: templates/regions/region_form.html:194
+#: templates/regions/region_form.html:189
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: templates/regions/region_form.html:195
+#: templates/regions/region_form.html:190
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/regions/region_form.html:195
+#: templates/regions/region_form.html:190
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: templates/regions/region_form.html:195
+#: templates/regions/region_form.html:190
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: templates/regions/region_form.html:199
+#: templates/regions/region_form.html:194
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
@@ -3430,48 +3501,51 @@ msgstr "Diese Einstellung gilt nur für dieses Gerät."
 msgid "Change language"
 msgstr "Sprache ändern"
 
-#: templates/statistics/statistics_dashboard.html:13
-msgid "Page views"
-msgstr "Seitenaufrufe"
+#: templates/statistics/_statistics_widget.html:12
+msgid "Number of online accesses over the last 14 days."
+msgstr "Anzahl der Online-Zugriffe der letzten 14 Tage."
 
-#: templates/statistics/statistics_dashboard.html:62
-msgid "Select start time"
-msgstr "Startzeitpunkt auswählen"
+#: templates/statistics/_statistics_widget.html:20
+#: templates/statistics/statistics_overview.html:20
+msgid "Loading..."
+msgstr "Laden..."
 
-#: templates/statistics/statistics_dashboard.html:64
-msgid "Select end time"
-msgstr "Endzeitpunkt auswählen"
+#: templates/statistics/statistics_overview.html:15
+msgid "Number of online accesses"
+msgstr "Anzahl der Online-Zugriffe"
 
-#: templates/statistics/statistics_dashboard.html:69
-msgid "Month view"
-msgstr "Monatsansicht"
+#: templates/statistics/statistics_overview.html:21
+msgid "Individual languages can be hidden by clicking on the labels."
+msgstr ""
+"Einzelne Sprachen können durch Anklicken der Beschriftungen ausgeblendet "
+"werden."
 
-#: templates/statistics/statistics_dashboard.html:73
-msgid "Year view"
-msgstr "Jahresansicht"
+#: templates/statistics/statistics_overview.html:27
+msgid "Adjust time period"
+msgstr "Zeitraum anpassen"
 
-#: templates/statistics/statistics_dashboard.html:76
+#: templates/statistics/statistics_overview.html:43
 msgid "Customize view"
 msgstr "Ansicht anpassen"
 
-#: templates/statistics/statistics_dashboard.html:81
-#: templates/statistics/statistics_dashboard.html:90
+#: templates/statistics/statistics_overview.html:48
+#: templates/statistics/statistics_overview.html:60
 msgid "Export"
 msgstr "Exportieren"
 
-#: templates/statistics/statistics_dashboard.html:84
+#: templates/statistics/statistics_overview.html:51
 msgid "Choose format"
 msgstr "Format auswählen"
 
-#: templates/statistics/statistics_dashboard.html:86
+#: templates/statistics/statistics_overview.html:54
 msgid "please select"
 msgstr "bitte auswählen"
 
-#: templates/statistics/statistics_dashboard.html:87
+#: templates/statistics/statistics_overview.html:55
 msgid "Image/PNG"
 msgstr "Bild/PNG"
 
-#: templates/statistics/statistics_dashboard.html:88
+#: templates/statistics/statistics_overview.html:56
 msgid "Table Document/CSV"
 msgstr "Tabellendokument/CSV"
 
@@ -3549,6 +3623,10 @@ msgstr "Der Benutzer wird den Zugang zu folgenden Regionen behalten:"
 #: templates/users/region/user.html:118
 msgid "Remove user from region"
 msgstr "Benutzer von Region entfernen"
+
+#: utils/matomo_api_manager.py:387 utils/matomo_api_manager.py:392
+msgid "CW"
+msgstr "KW"
 
 #: utils/pdf_utils.py:68
 msgid "No valid pages selected for PDF generation."
@@ -4245,28 +4323,9 @@ msgstr "E-Mail-Adresse wurde erfolgreich geändert"
 msgid "Password was successfully saved"
 msgstr "Passwort wurde erfolgreich geändert"
 
-#: views/statistics/analytics_view.py:89
-msgid "Please enter a correct start and end date"
-msgstr "Bitte fügen sie ein gültiges Start- und Enddatum ein"
-
-#: views/statistics/analytics_view.py:116
-msgid "Connection to Matomo could not be established"
-msgstr "Es konnte keine Verbindung zum Matomo hergestellt werden"
-
-#: views/statistics/analytics_view.py:123
-msgid ""
-"The url you have entered is invalid. Please check the corresponding settings."
-msgstr ""
-"Die URL, die Sie eingegeben haben, ist inkorrekt. Bitte prüfen Sie die "
-"Einstellungen."
-
-#: views/statistics/analytics_view.py:131
-msgid ""
-"There was an error during the establishment of a connection. Please check "
-"the region and the entered key."
-msgstr ""
-"Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen Sie "
-"Ihre Einstellungen."
+#: views/statistics/statistics_view.py:47
+msgid "Statistics are not enabled for this region."
+msgstr "Statistiken sind für diese Region nicht aktiviert."
 
 #: views/users/region_user_actions.py:45
 msgid "User {} was successfully deleted."
@@ -4296,8 +4355,53 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
+#~ msgid "Author Chat"
+#~ msgstr "Autoren-Chat"
+
 #~ msgid "Push Notifications"
 #~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "Read Blog"
+#~ msgstr "Blog lesen"
+
+#~ msgid "Website Hits"
+#~ msgstr "Aufrufe der App"
+
+#~ msgid "Page views"
+#~ msgstr "Seitenaufrufe"
+
+#~ msgid "Calendar week"
+#~ msgstr "Kalenderwoche"
+
+#~ msgid "Month view"
+#~ msgstr "Monatsansicht"
+
+#~ msgid "Year view"
+#~ msgstr "Jahresansicht"
+
+#~ msgid "Please enter a correct start date."
+#~ msgstr "Bitte fügen sie ein gültiges Startdatum ein"
+
+#~ msgid "Select start time"
+#~ msgstr "Startzeitpunkt auswählen"
+
+#~ msgid "Select end time"
+#~ msgstr "Endzeitpunkt auswählen"
+
+#~ msgid "Please enter a correct end date."
+#~ msgstr "Bitte fügen sie ein gültiges Enddatum ein"
+
+#~ msgid "Matomo URL"
+#~ msgstr "Matomo-URL"
+
+#~ msgid "activate SSL verification for Matomo"
+#~ msgstr "SSL-Verifikation für Matomo aktivieren"
+
+#~ msgid ""
+#~ "Don't allow invalid SSL-certificates when interacting with Matomo API"
+#~ msgstr ""
+#~ "Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der "
+#~ "Matomo API"
 
 #~ msgid "Administrative division"
 #~ msgstr "Verwaltungseinheit"
@@ -4320,18 +4424,34 @@ msgstr ""
 #~ msgid "Code"
 #~ msgstr "Code"
 
+#~ msgid "Total hits"
+#~ msgstr "Aufrufe (absolut)"
+
+#~ msgid "Hits (total)"
+#~ msgstr "Aufrufe (absolut)"
+
+#~ msgid "Connection to Matomo could not be established"
+#~ msgstr "Es konnte keine Verbindung zum Matomo hergestellt werden"
+
 #~ msgid ""
-#~ "Whether or not it should be possible to create new pages in this language "
-#~ "and content of this language should be delivered via the API"
+#~ "There was an error during the establishment of a connection. Please check "
+#~ "the region and the entered key."
 #~ msgstr ""
-#~ "Ob es möglich sein soll, neue Seiten in dieser Sprache zu erstellen, und "
-#~ "ob Inhalte dieser Sprache über die API geliefert werden sollen"
+#~ "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen "
+#~ "Sie Ihre Einstellungen."
 
-#~ msgid "Public"
-#~ msgstr "Öffentlich"
+#~ msgid ""
+#~ "The url you have entered is invalid. Please check the corresponding "
+#~ "settings."
+#~ msgstr ""
+#~ "Die URL, die Sie eingegeben haben, ist inkorrekt. Bitte prüfen Sie die "
+#~ "Einstellungen."
 
-#~ msgid "Icon"
-#~ msgstr "Icon"
+#~ msgid "What do you want to do?"
+#~ msgstr "Was möchten Sie tun?"
+
+#~ msgid "thumbnail icon"
+#~ msgstr "Vorschaubild"
 
 #~ msgid "Name of the Role"
 #~ msgstr "Name der Rolle"
@@ -4360,8 +4480,8 @@ msgstr ""
 #~ msgid "thumbnail image"
 #~ msgstr "Vorschaubild"
 
-#~ msgid "thumbnail icon"
-#~ msgstr "Vorschaubild"
+#~ msgid "Icon"
+#~ msgstr "Icon"
 
 #~ msgid "No icon selected"
 #~ msgstr "Kein Icon ausgewählt"
@@ -5087,6 +5207,3 @@ msgstr ""
 
 #~ msgid "Turkish"
 #~ msgstr "Türkisch"
-
-#~ msgid "Integreat CMS"
-#~ msgstr "Integreat CMS"
