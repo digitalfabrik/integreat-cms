@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-25T14:08:15+00:00" />
+    <meta property="article:modified_time" content="2021-03-29T23:24:59+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Documentation (Sphinx) &mdash; integreat-cms 0.0.14 documentation</title>
@@ -253,9 +253,11 @@
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#matomo-periods">Matomo Periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#position">Position</a></li>
@@ -338,6 +340,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.roles.html">Roles</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.roles.html#role-form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.statistics.html#statistics-filter-form">Statistics Filter Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.users.html">Users</a><ul>
@@ -463,6 +469,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -589,8 +596,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.statistics.html">Statistics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.statistics.html#analytics-view">Analytics View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.statistics.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.statistics.html#statistics-actions">Statistics Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.statistics.html#statistics-view">Statistics View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.users.html">Users</a><ul>
@@ -675,9 +682,11 @@
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.matomo_periods">Matomo Periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.mirrored_page_first">Mirrored Page First</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.position">Position</a></li>
@@ -760,6 +769,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.roles.html">Roles</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.statistics.html#module-cms.forms.statistics.statistics_filter_form">Statistics Filter Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.users.html">Users</a><ul>
@@ -885,6 +898,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1011,8 +1025,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.statistics.html">Statistics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.statistics.html#module-cms.views.statistics.analytics_view">Analytics View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.statistics.html#module-cms.views.statistics.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.statistics.html#module-cms.views.statistics.statistics_actions">Statistics Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.statistics.html#module-cms.views.statistics.statistics_view">Statistics View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.users.html">Users</a><ul>
@@ -1440,9 +1454,10 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py data">
 <dt id="conf.intersphinx_mapping">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">intersphinx_mapping</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'django':</span> <span class="pre">('https://docs.djangoproject.com/en/3.1/',</span> <span class="pre">'https://docs.djangoproject.com/en/3.1/_objects/'),</span> <span class="pre">'django-filer':</span> <span class="pre">('https://django-filer.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'django-mptt':</span> <span class="pre">('https://django-mptt.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'easy-thumbnails':</span> <span class="pre">('https://easy-thumbnails.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'pipenv':</span> <span class="pre">('https://pipenv.pypa.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'python':</span> <span class="pre">('https://docs.python.org/3.7/',</span> <span class="pre">None),</span> <span class="pre">'requests':</span> <span class="pre">('https://requests.readthedocs.io/en/master/',</span> <span class="pre">None),</span> <span class="pre">'sphinx':</span> <span class="pre">('https://www.sphinx-doc.org/en/master/',</span> <span class="pre">None),</span> <span class="pre">'sphinx-rtd-theme':</span> <span class="pre">('https://sphinx-rtd-theme.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'sphinx-rtd-tutorial':</span> <span class="pre">('https://sphinx-rtd-tutorial.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'sphinxcontrib-django2':</span> <span class="pre">('https://sphinxcontrib-django2.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'wsgi':</span> <span class="pre">('https://wsgi.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">('https://xhtml2pdf.readthedocs.io/en/latest/',</span> <span class="pre">None)}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.intersphinx_mapping" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">intersphinx_mapping</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'aiohttp':</span> <span class="pre">('https://docs.aiohttp.org/en/stable/',</span> <span class="pre">None),</span> <span class="pre">'django':</span> <span class="pre">('https://docs.djangoproject.com/en/3.1/',</span> <span class="pre">'https://docs.djangoproject.com/en/3.1/_objects/'),</span> <span class="pre">'django-filer':</span> <span class="pre">('https://django-filer.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'django-mptt':</span> <span class="pre">('https://django-mptt.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'easy-thumbnails':</span> <span class="pre">('https://easy-thumbnails.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'pipenv':</span> <span class="pre">('https://pipenv.pypa.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'python':</span> <span class="pre">('https://docs.python.org/3.7/',</span> <span class="pre">None),</span> <span class="pre">'requests':</span> <span class="pre">('https://requests.readthedocs.io/en/master/',</span> <span class="pre">None),</span> <span class="pre">'sphinx':</span> <span class="pre">('https://www.sphinx-doc.org/en/master/',</span> <span class="pre">None),</span> <span class="pre">'sphinx-rtd-theme':</span> <span class="pre">('https://sphinx-rtd-theme.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'sphinx-rtd-tutorial':</span> <span class="pre">('https://sphinx-rtd-tutorial.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'sphinxcontrib-django2':</span> <span class="pre">('https://sphinxcontrib-django2.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'wsgi':</span> <span class="pre">('https://wsgi.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">('https://xhtml2pdf.readthedocs.io/en/latest/',</span> <span class="pre">None)}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.intersphinx_mapping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable cross-references to other documentations</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;aiohttp&#39;</span><span class="o">:</span> <span class="p">(</span><span class="s1">&#39;https://docs.aiohttp.org/en/stable/&#39;</span><span class="p">,</span> <span class="nx">None</span><span class="p">),</span>
     <span class="s1">&#39;django&#39;</span><span class="o">:</span> <span class="p">(</span>
         <span class="s1">&#39;https://docs.djangoproject.com/en/3.1/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;https://docs.djangoproject.com/en/3.1/_objects/&#39;</span><span class="p">,</span>
@@ -1478,7 +1493,7 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py function">
 <dt id="conf.linkcode_resolve">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">linkcode_resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">linkcode_resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L164"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v4.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
 It links all classes and functions to their source files on GitHub including line numbers.</p>
 <dl class="field-list simple">
@@ -1593,7 +1608,7 @@ It links all classes and functions to their source files on GitHub including lin
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 25, 2021.
+        Last updated on Mar 29, 2021.
       </span>
 
     </p>

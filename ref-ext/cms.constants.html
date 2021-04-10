@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-20T08:53:35+00:00" />
+    <meta property="article:modified_time" content="2021-03-31T21:13:50+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Constants &mdash; integreat-cms 0.0.14 documentation</title>
@@ -253,9 +253,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#matomo-periods">Matomo Periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#position">Position</a></li>
@@ -338,6 +340,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.roles.html">Roles</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.roles.html#role-form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.statistics.html#statistics-filter-form">Statistics Filter Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.users.html">Users</a><ul>
@@ -463,6 +469,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -589,8 +596,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.statistics.html">Statistics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.statistics.html#analytics-view">Analytics View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.statistics.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.statistics.html#statistics-actions">Statistics Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.statistics.html#statistics-view">Statistics View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.users.html">Users</a><ul>
@@ -675,9 +682,11 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.matomo_periods">Matomo Periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.mirrored_page_first">Mirrored Page First</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.months">Months</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.constants.position">Position</a></li>
@@ -760,6 +769,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.statistics.html">Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.statistics.html#module-cms.forms.statistics.statistics_filter_form">Statistics Filter Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
@@ -885,6 +898,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1011,8 +1025,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.statistics.html">Statistics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.analytics_view">Analytics View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.statistics_actions">Statistics Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.statistics.html#module-cms.views.statistics.statistics_view">Statistics View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.users.html">Users</a><ul>
@@ -1313,6 +1327,47 @@ instances in <a class="reference internal" href="cms.forms.events.html#cms.forms
 </dd></dl>
 
 </div>
+<div class="section" id="module-cms.constants.colors">
+<span id="colors"></span><h2>Colors<a class="headerlink" href="#module-cms.constants.colors" title="Permalink to this headline">¶</a></h2>
+<p>This module contains colors which aim to be good distinguishable by humnans.
+They are used to display graphs with overlapping lines (e.g. statistics).</p>
+<dl class="py data">
+<dt id="cms.constants.colors.CHOICES">
+<code class="sig-prename descclassname"><span class="pre">cms.constants.colors.</span></code><code class="sig-name descname"><span class="pre">CHOICES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['#e6194b',</span> <span class="pre">'#000075',</span> <span class="pre">'#ffe119',</span> <span class="pre">'#f58231',</span> <span class="pre">'#3cb44b',</span> <span class="pre">'#46f0f0',</span> <span class="pre">'#f032e6',</span> <span class="pre">'#800000',</span> <span class="pre">'#fffac8',</span> <span class="pre">'#aaffc3',</span> <span class="pre">'#bcf60c',</span> <span class="pre">'#4363d8',</span> <span class="pre">'#008080',</span> <span class="pre">'#9a6324',</span> <span class="pre">'#911eb4',</span> <span class="pre">'#808000',</span> <span class="pre">'#e6beff',</span> <span class="pre">'#808080',</span> <span class="pre">'#fabebe',</span> <span class="pre">'#ffd8b1']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/colors.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.colors.CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of 20 distinguishable colors (taken from <a class="reference external" href="https://sashamaps.net/docs/resources/20-colors/">https://sashamaps.net/docs/resources/20-colors/</a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s1">&#39;#e6194b&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#000075&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#ffe119&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#f58231&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#3cb44b&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#46f0f0&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#f032e6&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#800000&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#fffac8&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#aaffc3&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#bcf60c&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#4363d8&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#008080&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#9a6324&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#911eb4&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#808000&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#e6beff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#808080&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#fabebe&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#ffd8b1&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="cms.constants.colors.DEFAULT">
+<code class="sig-prename descclassname"><span class="pre">cms.constants.colors.</span></code><code class="sig-name descname"><span class="pre">DEFAULT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'#3b82f6'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/colors.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.colors.DEFAULT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default color (blue-500 from tailwind css).</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.constants.feedback_ratings">
 <span id="feedback-ratings"></span><h2>Feedback Ratings<a class="headerlink" href="#module-cms.constants.feedback_ratings" title="Permalink to this headline">¶</a></h2>
 <p>This module contains all constants representing the rating of the <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a> model.</p>
@@ -1436,6 +1491,49 @@ instances in <a class="reference internal" href="cms.forms.events.html#cms.forms
 <dl class="py data">
 <dt id="cms.constants.frequency.YEARLY">
 <code class="sig-prename descclassname"><span class="pre">cms.constants.frequency.</span></code><code class="sig-name descname"><span class="pre">YEARLY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'YEARLY'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/frequency.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.frequency.YEARLY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yearly</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.constants.matomo_periods">
+<span id="matomo-periods"></span><h2>Matomo Periods<a class="headerlink" href="#module-cms.constants.matomo_periods" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all constants representing the period choices for the Matomo API
+(See <a class="reference external" href="https://developer.matomo.org/api-reference/reporting-api">https://developer.matomo.org/api-reference/reporting-api</a>).</p>
+<dl class="py data">
+<dt id="cms.constants.matomo_periods.CHOICES">
+<code class="sig-prename descclassname"><span class="pre">cms.constants.matomo_periods.</span></code><code class="sig-name descname"><span class="pre">CHOICES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">(('day',</span> <span class="pre">'Daily'),</span> <span class="pre">('week',</span> <span class="pre">'Weekly'),</span> <span class="pre">('month',</span> <span class="pre">'Monthly'),</span> <span class="pre">('year',</span> <span class="pre">'Yearly'))</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/matomo_periods.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.matomo_periods.CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choices to use these constants in a database field</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="s1">&#39;Weekly&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;Monthly&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;Yearly&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="cms.constants.matomo_periods.DAY">
+<code class="sig-prename descclassname"><span class="pre">cms.constants.matomo_periods.</span></code><code class="sig-name descname"><span class="pre">DAY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'day'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/matomo_periods.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.matomo_periods.DAY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Daily</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="cms.constants.matomo_periods.MONTH">
+<code class="sig-prename descclassname"><span class="pre">cms.constants.matomo_periods.</span></code><code class="sig-name descname"><span class="pre">MONTH</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'month'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/matomo_periods.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.matomo_periods.MONTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monthly</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="cms.constants.matomo_periods.WEEK">
+<code class="sig-prename descclassname"><span class="pre">cms.constants.matomo_periods.</span></code><code class="sig-name descname"><span class="pre">WEEK</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'week'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/matomo_periods.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.matomo_periods.WEEK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weekly</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="cms.constants.matomo_periods.YEAR">
+<code class="sig-prename descclassname"><span class="pre">cms.constants.matomo_periods.</span></code><code class="sig-name descname"><span class="pre">YEAR</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'year'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/matomo_periods.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.matomo_periods.YEAR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yearly</p>
 </dd></dl>
 
@@ -1894,7 +1992,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 20, 2021.
+        Last updated on Mar 31, 2021.
       </span>
 
     </p>
