@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2020-11-10T19:18:36+00:00" />
+    <meta property="article:modified_time" content="2021-03-17T17:26:06+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Troubleshooting &mdash; integreat-cms 0.0.14 documentation</title>
@@ -120,6 +120,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#not-a-git-repository">Not a git repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#macos-on-m1">MacOS on M1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#webpack-compilation-errors">Webpack Compilation Errors</a></li>
 </ul>
 </li>
 </ul>
@@ -1169,6 +1170,15 @@
             
   <div class="section" id="troubleshooting">
 <h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-general-advice admonition">
+<p class="admonition-title">General Advice</p>
+<p>If you are experiencing problems of any kind, make sure you have a clean working environment by executing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh --clean
+./dev-tools/prune_database.sh
+</pre></div>
+</div>
+<p>before trying anything else.</p>
+</div>
 <div class="section" id="pipenv-not-found">
 <h2>Pipenv not found<a class="headerlink" href="#pipenv-not-found" title="Permalink to this headline">¶</a></h2>
 <div class="two-columns docutils container">
@@ -1303,6 +1313,22 @@ pipenv run pip install psycopg2-binary --no-cache-dir
 </div>
 </div>
 </div>
+<div class="section" id="webpack-compilation-errors">
+<h2>Webpack Compilation Errors<a class="headerlink" href="#webpack-compilation-errors" title="Permalink to this headline">¶</a></h2>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ERROR in /path/to/integreat-cms/src/cms/static/@nodelib/...
+...
+[tsl] ERROR in ...
+TSXXXX: ...
+</pre></div>
+</div>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Solution</p>
+<p>There may be remnants of old JavaScript libraries in your installation. Run <code class="docutils literal notranslate"><span class="pre">./dev-tools/install</span> <span class="pre">--clean</span></code> to remove <code class="docutils literal notranslate"><span class="pre">node_modules/</span></code> and <code class="docutils literal notranslate"><span class="pre">src/cms/static/</span></code> or clean these directories manually.</p>
+</div>
+</div>
 </div>
 
 
@@ -1324,7 +1350,7 @@ pipenv run pip install psycopg2-binary --no-cache-dir
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Nov 10, 2020.
+        Last updated on Mar 17, 2021.
       </span>
 
     </p>
