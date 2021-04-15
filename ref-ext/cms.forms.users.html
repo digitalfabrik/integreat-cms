@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-06T01:02:13+00:00" />
+    <meta property="article:modified_time" content="2021-03-29T16:14:29+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Users &mdash; integreat-cms 0.0.14 documentation</title>
@@ -275,6 +275,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#activation-form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -469,6 +470,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
@@ -704,6 +706,7 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="cms.forms.html">Forms</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -898,6 +901,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
@@ -1196,7 +1200,7 @@
 </ul>
 <dl class="py method">
 <dt id="cms.forms.users.region_user_form.RegionUserForm.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_form.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.region_user_form.RegionUserForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_form.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.region_user_form.RegionUserForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize placeholder model form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1367,7 +1371,7 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt id="cms.forms.users.region_user_form.RegionUserForm.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_form.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.region_user_form.RegionUserForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_form.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.region_user_form.RegionUserForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -1419,6 +1423,7 @@ The opposite of the hidden_fields() method.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">organization</span></code>: Organization (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expert_mode</span></code>: Expert mode (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">send_activation_link</span></code>: Send activation link (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt id="cms.forms.users.region_user_profile_form.RegionUserProfileForm.__init__">
@@ -1880,7 +1885,7 @@ The opposite of the hidden_fields() method.</p>
 </ul>
 <dl class="py method">
 <dt id="cms.forms.users.user_form.UserForm.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_form.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_form.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize placeholder model form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2051,7 +2056,7 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt id="cms.forms.users.user_form.UserForm.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_form.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_form.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_form.UserForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -2329,7 +2334,7 @@ The opposite of the hidden_fields() method.</p>
 <p>Form for creating a user object</p>
 <dl class="py class">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.users.user_profile_form.</span></code><code class="sig-name descname"><span class="pre">UserProfileForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.users.user_profile_form.</span></code><code class="sig-name descname"><span class="pre">UserProfileForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
 <p>Form for creating and modifying user profile objects</p>
 <p><strong>Form fields:</strong></p>
@@ -2337,6 +2342,7 @@ The opposite of the hidden_fields() method.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">regions</span></code>: Regions (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">organization</span></code>: Organization (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expert_mode</span></code>: Expert mode (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">send_activation_link</span></code>: Send activation link (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.__init__">
@@ -2406,7 +2412,7 @@ prefix set.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.changed_data">
-<code class="sig-name descname"><span class="pre">changed_data</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">changed_data</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.changed_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2420,18 +2426,18 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.default_renderer">
-<code class="sig-name descname"><span class="pre">default_renderer</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.default_renderer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">default_renderer</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.default_renderer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.errors">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">errors</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.errors" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">errors</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an ErrorDict for the data provided for the form.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.field_order">
-<code class="sig-name descname"><span class="pre">field_order</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.field_order" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">field_order</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.field_order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2480,7 +2486,7 @@ FileInput, or False otherwise.</p>
 
 <dl class="py method">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.media">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">media</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.media" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">media</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.media" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
@@ -2506,12 +2512,12 @@ without redefining ordering.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.prefix">
-<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -2532,7 +2538,7 @@ which are not directly determined by input fields.</p>
 
 <dl class="py attribute">
 <dt id="cms.forms.users.user_profile_form.UserProfileForm.use_required_attribute">
-<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/user_profile_form.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.users.user_profile_form.UserProfileForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2573,7 +2579,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 06, 2021.
+        Last updated on Mar 29, 2021.
       </span>
 
     </p>

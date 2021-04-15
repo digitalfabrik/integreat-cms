@@ -272,6 +272,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.authentication.html#activation-form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -466,6 +467,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
@@ -701,6 +703,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -895,6 +898,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
@@ -1206,6 +1210,8 @@
         <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.__init__">(backend.logging_formatter.ColorFormatter method)</a>
 </li>
         <li><a href="ref-ext/cms.html#cms.apps.CmsConfig.__init__">(cms.apps.CmsConfig method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.__init__">(cms.forms.authentication.activation_form.ActivationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.__init__">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
 </li>
@@ -1662,7 +1668,11 @@
 </li>
       <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation">AbstractBasePageTranslation (class in cms.models.pages.abstract_base_page_translation)</a>
 </li>
+      <li><a href="ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.account_activation_complete">account_activation_complete() (in module cms.views.authentication.authentication_actions)</a>
+</li>
       <li><a href="ref-ext/cms.views.offers.html#cms.views.offers.offer_actions.activate">activate() (in module cms.views.offers.offer_actions)</a>
+</li>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm">ActivationForm (class in cms.forms.authentication.activation_form)</a>
 </li>
       <li><a href="ref-ext/cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode.active">active (cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
 </li>
@@ -1670,9 +1680,11 @@
 </li>
       <li><a href="ref-ext/cms.templatetags.html#cms.templatetags.offer_filters.active_since">active_since() (in module cms.templatetags.offer_filters)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.add_error">add_error() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.add_error">add_error() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.add_error">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.add_error">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.add_error">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -1740,9 +1752,11 @@
       </ul></li>
       <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.parent_field_widget.ParentFieldWidget.add_id_index">add_id_index (cms.forms.pages.parent_field_widget.ParentFieldWidget attribute)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.add_initial_prefix">add_initial_prefix() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.add_initial_prefix">add_initial_prefix() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.add_initial_prefix">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.add_initial_prefix">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.add_initial_prefix">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -1812,9 +1826,11 @@
 </li>
       <li><a href="ref-ext/cms.html#cms.page_xliff_converter.TranslationXliffConverter.add_notes">add_notes() (cms.page_xliff_converter.TranslationXliffConverter method)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.add_prefix">add_prefix() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.add_prefix">add_prefix() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.add_prefix">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.add_prefix">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.add_prefix">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -2305,9 +2321,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/gvz_api.html#gvz_api.utils.GvzRegion.as_dict">as_dict() (gvz_api.utils.GvzRegion method)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.as_p">as_p() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.as_p">as_p() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.as_p">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.as_p">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.as_p">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -2373,9 +2391,11 @@
         <li><a href="ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.AuthenticationForm.as_p">(cms.views.settings.mfa.mfa.AuthenticationForm method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.as_table">as_table() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.as_table">as_table() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.as_table">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.as_table">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.as_table">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -2441,9 +2461,11 @@
         <li><a href="ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.AuthenticationForm.as_table">(cms.views.settings.mfa.mfa.AuthenticationForm method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.as_ul">as_ul() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.as_ul">as_ul() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.as_ul">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.as_ul">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.as_ul">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -2857,9 +2879,11 @@
         <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.search_result_feedback.SearchResultFeedback.category">(cms.models.feedback.search_result_feedback.SearchResultFeedback property)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.changed_data">changed_data (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.changed_data">changed_data (cms.forms.authentication.activation_form.ActivationForm attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.changed_data">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.changed_data">(cms.forms.chat.chat_message_form.ChatMessageForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.changed_data">(cms.forms.custom_model_form.CustomModelForm attribute)</a>
@@ -3083,9 +3107,11 @@
 </li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.administrative_division.CITY_STATE">CITY_STATE (in module cms.constants.administrative_division)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.clean">clean() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.clean">clean() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.clean">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.clean">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.clean">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -3303,8 +3329,12 @@
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.clean_fields">(cms.models.users.user_profile.UserProfile method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.clean_new_password2">clean_new_password2() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.clean_new_password2">clean_new_password2() (cms.forms.authentication.activation_form.ActivationForm method)</a>
+
+      <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.clean_new_password2">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/cms.forms.offer_templates.html#cms.forms.offer_templates.offer_template_form.OfferTemplateForm.clean_post_data">clean_post_data() (cms.forms.offer_templates.offer_template_form.OfferTemplateForm method)</a>
 </li>
       <li><a href="ref-ext/cms.forms.events.html#cms.forms.events.event_translation_form.EventTranslationForm.clean_slug">clean_slug() (cms.forms.events.event_translation_form.EventTranslationForm method)</a>
@@ -3511,6 +3541,13 @@
 
       <ul>
         <li><a href="ref-ext/cms.forms.authentication.html#module-cms.forms.authentication">module</a>
+</li>
+      </ul></li>
+      <li>
+    cms.forms.authentication.activation_form
+
+      <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.activation_form">module</a>
 </li>
       </ul></li>
       <li>
@@ -4388,6 +4425,13 @@
 
       <ul>
         <li><a href="ref-ext/cms.utils.html#module-cms.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    cms.utils.account_activation_utils
+
+      <ul>
+        <li><a href="ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">module</a>
 </li>
       </ul></li>
       <li>
@@ -5471,9 +5515,11 @@
 </li>
       <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.default_msec_format">default_msec_format (backend.logging_formatter.ColorFormatter attribute)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.default_renderer">default_renderer (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.default_renderer">default_renderer (cms.forms.authentication.activation_form.ActivationForm attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.default_renderer">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.default_renderer">(cms.forms.chat.chat_message_form.ChatMessageForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.default_renderer">(cms.forms.custom_model_form.CustomModelForm attribute)</a>
@@ -5827,11 +5873,17 @@
 </li>
       <li><a href="ref-ext/cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode.english_name">english_name() (cms.models.languages.language_tree_node.LanguageTreeNode property)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.error_messages">error_messages (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
-</li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.errors">errors() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm property)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.error_messages">error_messages (cms.forms.authentication.activation_form.ActivationForm attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.error_messages">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.errors">errors() (cms.forms.authentication.activation_form.ActivationForm property)</a>
+
+      <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.errors">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm property)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.errors">(cms.forms.chat.chat_message_form.ChatMessageForm property)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.errors">(cms.forms.custom_model_form.CustomModelForm property)</a>
@@ -6227,9 +6279,11 @@
       </ul></li>
       <li><a href="ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.fetch">fetch() (cms.utils.matomo_api_manager.MatomoApiManager method)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.field_order">field_order (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.field_order">field_order (cms.forms.authentication.activation_form.ActivationForm attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.field_order">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.field_order">(cms.forms.chat.chat_message_form.ChatMessageForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.field_order">(cms.forms.custom_model_form.CustomModelForm attribute)</a>
@@ -6457,9 +6511,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatHistoryManager.from_queryset">from_queryset() (cms.models.chat.chat_message.ChatHistoryManager class method)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.full_clean">full_clean() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.full_clean">full_clean() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.full_clean">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.full_clean">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.full_clean">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -7011,9 +7067,11 @@
         <li><a href="ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.AuthenticateModifyMfaView.get_initial">(cms.views.settings.mfa.mfa.AuthenticateModifyMfaView method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.get_initial_for_field">get_initial_for_field() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.get_initial_for_field">get_initial_for_field() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.get_initial_for_field">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.get_initial_for_field">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.get_initial_for_field">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -7998,9 +8056,11 @@
 </li>
       <li><a href="ref-ext/cms.views.error_handler.html#cms.views.error_handler.error_handler.handler500">handler500() (in module cms.views.error_handler.error_handler)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.has_changed">has_changed() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.has_changed">has_changed() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.has_changed">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.has_changed">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.has_changed">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -8066,9 +8126,11 @@
         <li><a href="ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.AuthenticationForm.has_changed">(cms.views.settings.mfa.mfa.AuthenticationForm method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.has_error">has_error() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.has_error">has_error() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.has_error">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.has_error">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.has_error">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -8204,9 +8266,11 @@
       </ul></li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.region_status.HIDDEN">HIDDEN (in module cms.constants.region_status)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.hidden_fields">hidden_fields() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.hidden_fields">hidden_fields() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.hidden_fields">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.hidden_fields">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.hidden_fields">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -8752,9 +8816,11 @@
         <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.parent_field_widget.ParentFieldWidget.is_localized">(cms.forms.pages.parent_field_widget.ParentFieldWidget attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.is_multipart">is_multipart() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.is_multipart">is_multipart() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.is_multipart">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.is_multipart">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.is_multipart">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -8894,9 +8960,11 @@
         <li><a href="ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation.is_up_to_date">(cms.models.pois.poi_translation.POITranslation property)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.is_valid">is_valid() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.is_valid">is_valid() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.is_valid">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.is_valid">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.is_valid">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -9452,9 +9520,11 @@
 </li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.months.MAY">MAY (in module cms.constants.months)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.media">media() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm property)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.media">media() (cms.forms.authentication.activation_form.ActivationForm property)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.media">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm property)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.media">(cms.forms.chat.chat_message_form.ChatMessageForm property)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.media">(cms.forms.custom_model_form.CustomModelForm property)</a>
@@ -9695,6 +9765,8 @@
         <li><a href="ref-ext/cms.forms.html#module-cms.forms">cms.forms</a>
 </li>
         <li><a href="ref-ext/cms.forms.authentication.html#module-cms.forms.authentication">cms.forms.authentication</a>
+</li>
+        <li><a href="ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.activation_form">cms.forms.authentication.activation_form</a>
 </li>
         <li><a href="ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">cms.forms.authentication.password_reset_form</a>
 </li>
@@ -9945,6 +10017,8 @@
         <li><a href="ref-ext/cms.html#module-cms.urls">cms.urls</a>
 </li>
         <li><a href="ref-ext/cms.utils.html#module-cms.utils">cms.utils</a>
+</li>
+        <li><a href="ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">cms.utils.account_activation_utils</a>
 </li>
         <li><a href="ref-ext/cms.utils.html#module-cms.utils.file_utils">cms.utils.file_utils</a>
 </li>
@@ -10225,9 +10299,11 @@
 </li>
       <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.non_archived_pages">non_archived_pages() (cms.models.regions.region.Region property)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.non_field_errors">non_field_errors() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.non_field_errors">non_field_errors() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.non_field_errors">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.non_field_errors">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.non_field_errors">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -10645,9 +10721,11 @@
       </ul></li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatHistoryManager.order_by">order_by() (cms.models.chat.chat_message.ChatHistoryManager method)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.order_fields">order_fields() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.order_fields">order_fields() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.order_fields">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.order_fields">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.order_fields">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -11253,9 +11331,11 @@
 </li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatHistoryManager.prefetch_related">prefetch_related() (cms.models.chat.chat_message.ChatHistoryManager method)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.prefix">prefix (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.prefix">prefix (cms.forms.authentication.activation_form.ActivationForm attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.prefix">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.prefix">(cms.forms.chat.chat_message_form.ChatMessageForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.prefix">(cms.forms.custom_model_form.CustomModelForm attribute)</a>
@@ -12197,6 +12277,10 @@
         <li><a href="ref-ext/sitemap.html#sitemap.views.SitemapView.render_to_response">(sitemap.views.SitemapView method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_actions.resend_activation_link">resend_activation_link() (in module cms.views.users.user_actions)</a>
+</li>
+      <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_actions.resend_activation_link_region">resend_activation_link_region() (in module cms.views.users.region_user_actions)</a>
+</li>
       <li><a href="ref-ext/cms.views.analytics.html#cms.views.analytics.translation_coverage_view.TranslationCoverageView.response_class">response_class (cms.views.analytics.translation_coverage_view.TranslationCoverageView attribute)</a>
 
       <ul>
@@ -12343,9 +12427,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.constants.html#cms.constants.weekdays.SATURDAY">SATURDAY (in module cms.constants.weekdays)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.save">save() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.save">save() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.save">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.save">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.save">(cms.forms.custom_model_form.CustomModelForm method)</a>
@@ -12595,6 +12681,8 @@
 </li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatHistoryManager.select_related">select_related() (cms.models.chat.chat_message.ChatHistoryManager method)</a>
 </li>
+      <li><a href="ref-ext/cms.utils.html#cms.utils.account_activation_utils.send_activation_link">send_activation_link() (in module cms.utils.account_activation_utils)</a>
+</li>
       <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_all">send_all() (cms.views.push_notifications.push_notification_sender.PushNotificationSender method)</a>
 </li>
       <li><a href="ref-ext/cms.views.chat.html#cms.views.chat.chat_actions.send_chat_message">send_chat_message() (in module cms.views.chat.chat_actions)</a>
@@ -12691,6 +12779,8 @@
 </li>
       <li><a href="ref-ext/cms.views.settings.html#cms.views.settings.settings_view.SettingsView">SettingsView (class in cms.views.settings.settings_view)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.tests.pages.html#cms.tests.pages.models.PageTest.setUp">setUp() (cms.tests.pages.models.PageTest method)</a>
 
       <ul>
@@ -12701,8 +12791,6 @@
         <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.region_view_test.RegionViewTest.setUp">(cms.tests.views.region_view_test.RegionViewTest method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.views.analytics.html#cms.views.analytics.translation_coverage_view.TranslationCoverageView.setup">setup() (cms.views.analytics.translation_coverage_view.TranslationCoverageView method)</a>
 
       <ul>
@@ -13631,9 +13719,11 @@
 </li>
       <li><a href="ref-ext/cms.models.offers.html#cms.models.offers.offer_template.OfferTemplate.use_postal_code">use_postal_code (cms.models.offers.offer_template.OfferTemplate attribute)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.use_required_attribute">use_required_attribute (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.use_required_attribute">use_required_attribute (cms.forms.authentication.activation_form.ActivationForm attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.use_required_attribute">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm attribute)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.use_required_attribute">(cms.forms.chat.chat_message_form.ChatMessageForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.use_required_attribute">(cms.forms.custom_model_form.CustomModelForm attribute)</a>
@@ -13937,9 +14027,11 @@
 </li>
       <li><a href="ref-ext/cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode.visible">visible (cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
 </li>
-      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.visible_fields">visible_fields() (cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+      <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.activation_form.ActivationForm.visible_fields">visible_fields() (cms.forms.authentication.activation_form.ActivationForm method)</a>
 
       <ul>
+        <li><a href="ref-ext/cms.forms.authentication.html#cms.forms.authentication.password_reset_form.PasswordResetConfirmForm.visible_fields">(cms.forms.authentication.password_reset_form.PasswordResetConfirmForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.visible_fields">(cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.visible_fields">(cms.forms.custom_model_form.CustomModelForm method)</a>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-07T13:16:58+00:00" />
+    <meta property="article:modified_time" content="2021-03-29T16:14:29+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Authentication &mdash; integreat-cms 0.0.14 documentation</title>
@@ -275,6 +275,7 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="cms.forms.html">Forms</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#activation-form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#password-reset-form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -469,6 +470,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
@@ -704,6 +706,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -898,6 +901,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
@@ -1177,6 +1181,35 @@
   <div class="section" id="authentication">
 <h1>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h1>
 <p>Forms related to the user and password management</p>
+<div class="section" id="activation-form">
+<h2>Activation Form<a class="headerlink" href="#activation-form" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.authentication.activation_form.</span></code><code class="sig-name descname"><span class="pre">ActivationForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/authentication/activation_form.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.SetPasswordForm</span></code></a></p>
+<p>Form for setting password and activating account</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">new_password1</span></code>: New password (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.CharField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">new_password2</span></code>: New password confirmation (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.CharField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+</ul>
+<dl class="py method">
+<dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/authentication/activation_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Overrides save method to additionally activate inactive accounts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the user instance that was saved</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)">User</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="password-reset-form">
 <h2>Password Reset Form<a class="headerlink" href="#password-reset-form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
@@ -1213,7 +1246,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 07, 2021.
+        Last updated on Mar 29, 2021.
       </span>
 
     </p>

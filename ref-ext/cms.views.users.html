@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-06T01:02:13+00:00" />
+    <meta property="article:modified_time" content="2021-03-31T21:13:50+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Users &mdash; integreat-cms 0.0.14 documentation</title>
@@ -275,6 +275,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#activation-form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -469,6 +470,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
@@ -704,6 +706,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -898,6 +901,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
@@ -1182,7 +1186,7 @@
 <p>This module contains view actions for region user objects.</p>
 <dl class="py function">
 <dt id="cms.views.users.region_user_actions.delete_region_user">
-<code class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_actions.</span></code><code class="sig-name descname"><span class="pre">delete_region_user</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_actions.delete_region_user" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_actions.</span></code><code class="sig-name descname"><span class="pre">delete_region_user</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_actions.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_actions.delete_region_user" title="Permalink to this definition">¶</a></dt>
 <dd><p>This view deletes a region user</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1190,6 +1194,27 @@
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 <li><p><strong>user_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the user which should be deleted</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to region user list</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.views.users.region_user_actions.resend_activation_link_region">
+<code class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_actions.</span></code><code class="sig-name descname"><span class="pre">resend_activation_link_region</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_actions.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_actions.resend_activation_link_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resends an activation link to a region user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
+<li><p><strong>user_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – users id to send the activation link</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1393,7 +1418,7 @@ template rendered with the given context.</p>
 <span id="region-user-view"></span><h2>Region User View<a class="headerlink" href="#module-cms.views.users.region_user_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.views.users.region_user_view.RegionUserView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_view.</span></code><code class="sig-name descname"><span class="pre">RegionUserView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_view.</span></code><code class="sig-name descname"><span class="pre">RegionUserView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for the user form and user profile form of region users</p>
 <dl class="py method">
@@ -1411,13 +1436,13 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.base_context">
-<code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'region_users_form'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.base_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'region_users_form'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.base_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.content_type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1427,12 +1452,12 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.extra_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> for region users</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1501,7 +1526,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1511,7 +1536,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.login_url">
-<code class="sig-name descname"><span class="pre">login_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">login_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.login_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1522,18 +1547,18 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.permission_denied_message">
-<code class="sig-name descname"><span class="pre">permission_denied_message</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">permission_denied_message</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.permission_required">
-<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_region_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_region_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.post" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and
 <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
 and <a class="reference internal" href="cms.models.users.html#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a> objects for region users</p>
@@ -1556,13 +1581,13 @@ and <a class="reference internal" href="cms.models.users.html#cms.models.users.u
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.raise_exception">
-<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.raise_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.redirect_field_name">
-<code class="sig-name descname"><span class="pre">redirect_field_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">redirect_field_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1587,12 +1612,12 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_engine" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'users/region/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'users/region/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1604,7 +1629,7 @@ template rendered with the given context.</p>
 <p>This module contains view actions for user objects.</p>
 <dl class="py function">
 <dt id="cms.views.users.user_actions.delete_user">
-<code class="sig-prename descclassname"><span class="pre">cms.views.users.user_actions.</span></code><code class="sig-name descname"><span class="pre">delete_user</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_actions.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_actions.delete_user" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.views.users.user_actions.</span></code><code class="sig-name descname"><span class="pre">delete_user</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_actions.delete_user" title="Permalink to this definition">¶</a></dt>
 <dd><p>This view deletes a user</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1615,6 +1640,26 @@ template rendered with the given context.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A redirection to user list</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cms.views.users.user_actions.resend_activation_link">
+<code class="sig-prename descclassname"><span class="pre">cms.views.users.user_actions.</span></code><code class="sig-name descname"><span class="pre">resend_activation_link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_actions.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_actions.resend_activation_link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resends an activation link to an user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>user_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – users id to send the activation link</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to region user list</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
@@ -1814,7 +1859,7 @@ template rendered with the given context.</p>
 <span id="user-view"></span><h2>User View<a class="headerlink" href="#module-cms.views.users.user_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.views.users.user_view.UserView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.users.user_view.</span></code><code class="sig-name descname"><span class="pre">UserView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.users.user_view.</span></code><code class="sig-name descname"><span class="pre">UserView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for the user form and user profile form</p>
 <dl class="py method">
@@ -1832,13 +1877,13 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.base_context">
-<code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.base_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.base_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.content_type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1848,12 +1893,12 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.extra_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and
 <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a></p>
 <dl class="field-list simple">
@@ -1923,7 +1968,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1933,7 +1978,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.login_url">
-<code class="sig-name descname"><span class="pre">login_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">login_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.login_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1944,18 +1989,18 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.permission_denied_message">
-<code class="sig-name descname"><span class="pre">permission_denied_message</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">permission_denied_message</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.permission_required">
-<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_admin_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_admin_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.post" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and
 <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
 and <a class="reference internal" href="cms.models.users.html#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a> objects</p>
@@ -1978,13 +2023,13 @@ and <a class="reference internal" href="cms.models.users.html#cms.models.users.u
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.raise_exception">
-<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.raise_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.redirect_field_name">
-<code class="sig-name descname"><span class="pre">redirect_field_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">redirect_field_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2009,12 +2054,12 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_engine" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'users/admin/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'users/admin/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -2042,7 +2087,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 06, 2021.
+        Last updated on Mar 31, 2021.
       </span>
 
     </p>

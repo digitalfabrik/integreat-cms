@@ -275,6 +275,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#activation-form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -469,6 +470,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#account-activation-utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mfa-utils">MFA Utils</a></li>
@@ -704,6 +706,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
 </ul>
 </li>
@@ -898,6 +901,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
@@ -1175,6 +1179,26 @@
   <div class="section" id="utils">
 <h1>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h1>
 <p>This package contains utilities which faciliate specific tasks and can be re-used and imported from different locations.</p>
+<div class="section" id="account-activation-utils">
+<h2>Account Activation Utils<a class="headerlink" href="#account-activation-utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">cms.utils.account_activation_utils.</span></code><code class="sig-name descname"><span class="pre">send_activation_link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Sends activation link to user with inactive account</p>
+<p>Making use of ~django.core.mail.send_mail to prevent malicious header injections
+by raising an ~django.core.mail.BadHeaderError exception
+if a newline character is detected in subject, recipient_list, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current http request</p></li>
+<li><p><strong>user_instance</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user to whom the e-mail is to be sent</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="file-utils">
 <h2>File Utils<a class="headerlink" href="#file-utils" title="Permalink to this headline">¶</a></h2>
 <p>This module contains helpers for file handling.</p>
