@@ -92,7 +92,10 @@ class UserForm(CustomModelForm):
         # assign all selected roles which the user does not have already
         for role in set(self.cleaned_data["roles"]) - set(user.groups.all()):
             role.user_set.add(user)
-            logger.info("%r was assigned to %r", role, user.profile)
+            if hasattr(user, "profile"):
+                logger.info("%r was assigned to %r", role, user.profile)
+            else:
+                logger.info("%r was assigned to %r", role, user)
 
         # remove all unselected roles which the user had before
         for role in set(user.groups.all()) - set(self.cleaned_data["roles"]):
