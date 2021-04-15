@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-08T23:17:36+00:00" />
+    <meta property="article:modified_time" content="2021-04-15T15:42:02+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1646,12 +1646,11 @@ Used in the following views:</p>
 
 <dl class="py data">
 <dt id="backend.settings.INSTALLED_APPS">
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">INSTALLED_APPS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.admin',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'easy_thumbnails',</span> <span class="pre">'filer',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.INSTALLED_APPS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">INSTALLED_APPS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'easy_thumbnails',</span> <span class="pre">'filer',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'django.contrib.admin']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.INSTALLED_APPS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;cms.apps.CmsConfig&#39;</span><span class="p">,</span>
     <span class="s1">&#39;gvz_api.apps.GvzApiConfig&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
@@ -1664,6 +1663,7 @@ Used in the following views:</p>
     <span class="s1">&#39;filer&#39;</span><span class="p">,</span>
     <span class="s1">&#39;mptt&#39;</span><span class="p">,</span>
     <span class="s1">&#39;rules.apps.AutodiscoverRulesConfig&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -2037,6 +2037,12 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/re
 </dd></dl>
 
 <dl class="py data">
+<dt id="backend.settings.WIKI_URL">
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">WIKI_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://wiki.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.WIKI_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL to the Integreat wiki</p>
+</dd></dl>
+
+<dl class="py data">
 <dt id="backend.settings.WSGI_APPLICATION">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">WSGI_APPLICATION</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'backend.wsgi.application'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.WSGI_APPLICATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>WSGI (Web Server Gateway Interface) config (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-WSGI_APPLICATION" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">WSGI_APPLICATION</span></code></a>)</p>
@@ -2121,7 +2127,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 08, 2021.
+        Last updated on Apr 15, 2021.
       </span>
 
     </p>
