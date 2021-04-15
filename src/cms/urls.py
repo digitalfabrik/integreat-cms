@@ -56,6 +56,11 @@ urlpatterns = [
             ]
         ),
     ),
+    url(
+        r"^wiki",
+        RedirectView.as_view(url=django_settings.WIKI_URL),
+        name="wiki_redirect",
+    ),
     url(r"^$", dashboard.RedirectView.as_view(), name="redirect"),
     url(
         r"^admin_dashboard/$",

@@ -76,6 +76,9 @@ BLOG_URLS = {
     "de": f"{WEBSITE_URL}/blog/",
 }
 
+#: URL to the Integreat wiki
+WIKI_URL = "https://wiki.integreat-app.de"
+
 #: RSS feed URLs to the Integreat blog
 RSS_FEED_URLS = {
     "en": f"{WEBSITE_URL}/en/feed/",
