@@ -3,7 +3,11 @@ Form for creating a user object
 """
 import logging
 
+from django import forms
+from django.utils.translation import ugettext_lazy as _
+
 from ...models import UserProfile
+from ...utils.translation_utils import ugettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
@@ -13,6 +17,20 @@ class UserProfileForm(CustomModelForm):
     """
     Form for creating and modifying user profile objects
     """
+
+    send_activation_link = forms.BooleanField(
+        initial=True,
+        required=False,
+        label=_("Send activation link"),
+        help_text=__(
+            _(
+                "Select this option to create an inactive user account and send an activation link per email to the user."
+            ),
+            _(
+                "This link allows the user to choose a password and activates the account after confirmation."
+            ),
+        ),
+    )
 
     class Meta:
         """

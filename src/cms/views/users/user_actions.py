@@ -10,6 +10,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import staff_required
+from ...utils.account_activation_utils import send_activation_link
 
 logger = logging.getLogger(__name__)
 
@@ -38,4 +39,21 @@ def delete_user(request, user_id):
 
     messages.success(request, _("User was successfully deleted"))
 
+    return redirect("users")
+
+
+def resend_activation_link(request, user_id):
+    """Resends an activation link to an user
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param user_id: users id to send the activation link
+    :type user_id: int
+
+    :return: A redirection to region user list
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+    user = get_object_or_404(get_user_model(), id=user_id)
+    send_activation_link(request, user)
     return redirect("users")

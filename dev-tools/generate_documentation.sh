@@ -31,6 +31,12 @@ fi
 
 cd $(dirname "${BASH_SOURCE}")/..
 
+# remove stale doc files
+if [ "$1" == "--clean" ]; then
+    echo "Removing temporary documentation files."
+    rm -rf ./docs ./sphinx/ref ./sphinx/ref-ext
+fi
+
 # Copy original footer file
 cp $(pipenv --venv)/lib/python3.7/site-packages/sphinx_rtd_theme/footer.html ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information

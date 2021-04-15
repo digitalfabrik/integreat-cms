@@ -2,6 +2,7 @@
 Forms for creating and modifying database objects.
 Please refer to :mod:`django.forms` for general information about Django forms (see also: :doc:`topics/forms/index`).
 """
+from .authentication.activation_form import ActivationForm
 from .authentication.password_reset_form import PasswordResetConfirmForm
 
 from .chat.chat_message_form import ChatMessageForm

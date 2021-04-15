@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required
 from ...models import Region
+from ...utils.account_activation_utils import send_activation_link
 
 logger = logging.getLogger(__name__)
 
@@ -57,4 +58,26 @@ def delete_region_user(request, region_slug, user_id):
             _("User {} was successfully removed from this region.").format(user),
         )
 
+    return redirect("region_users", region_slug=region.slug)
+
+
+# pylint: disable=unused-argument
+def resend_activation_link_region(request, region_slug, user_id):
+    """Resends an activation link to a region user
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param user_id: users id to send the activation link
+    :type user_id: int
+
+    :return: A redirection to region user list
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+    region = Region.get_current_region(request)
+    user = get_object_or_404(region.users, id=user_id)
+    send_activation_link(request, user)
     return redirect("region_users", region_slug=region.slug)

@@ -10,6 +10,7 @@ from django.views.generic import TemplateView
 from ...decorators import staff_required
 from ...forms import UserForm, UserProfileForm
 from ...models import UserProfile
+from ...utils.account_activation_utils import send_activation_link
 
 
 @method_decorator(login_required, name="dispatch")
@@ -52,6 +53,9 @@ class UserView(PermissionRequiredMixin, TemplateView):
         user_form = UserForm(instance=user)
         user_profile_form = UserProfileForm(instance=user_profile)
 
+        if user and not user.is_active:
+            messages.info(request, _("Pending account activation"))
+
         return render(
             request,
             self.template_name,
@@ -81,7 +85,6 @@ class UserView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-
         user_instance = (
             get_user_model().objects.filter(id=kwargs.get("user_id")).first()
         )
@@ -91,7 +94,6 @@ class UserView(PermissionRequiredMixin, TemplateView):
         user_profile_form = UserProfileForm(
             request.POST, instance=user_profile_instance
         )
-
         # TODO: error handling
         if user_form.is_valid() and user_profile_form.is_valid():
 
@@ -101,22 +103,40 @@ class UserView(PermissionRequiredMixin, TemplateView):
                 or user_form.cleaned_data["is_staff"]
                 or user_profile_form.cleaned_data["regions"]
             ):
-                user = user_form.save()
-                user_profile_form.save(user=user)
+                # check if either activation link is set or password is set or user already exists
+                if (
+                    user_profile_form.cleaned_data["send_activation_link"]
+                    or user_form.cleaned_data["password"]
+                    or user_instance
+                ):
+                    user = user_form.save()
+                    user_profile_form.save(user=user)
 
-                if user_form.has_changed() or user_profile_form.has_changed():
-                    if user_instance:
-                        messages.success(request, _("User was successfully saved"))
+                    if user_profile_form.cleaned_data["send_activation_link"]:
+                        send_activation_link(request, user)
+
+                    if user_form.has_changed() or user_profile_form.has_changed():
+                        if user_instance:
+                            messages.success(request, _("User was successfully saved"))
+                        else:
+                            messages.success(
+                                request, _("User was successfully created")
+                            )
+                            return redirect(
+                                "edit_user",
+                                **{
+                                    "user_id": user.id,
+                                }
+                            )
                     else:
-                        messages.success(request, _("User was successfully created"))
-                        return redirect(
-                            "edit_user",
-                            **{
-                                "user_id": user.id,
-                            }
-                        )
+                        messages.info(request, _("No changes detected."))
                 else:
-                    messages.info(request, _("No changes detected."))
+                    messages.error(
+                        request,
+                        _(
+                            "Please choose either to send an activation link or set a password."
+                        ),
+                    )
             else:
                 messages.error(
                     request,
@@ -127,6 +147,9 @@ class UserView(PermissionRequiredMixin, TemplateView):
         else:
             # TODO: improve messages
             messages.error(request, _("Errors have occurred."))
+
+        if not user_form.cleaned_data["is_active"]:
+            messages.info(request, _("Pending account activation"))
 
         return render(
             request,
