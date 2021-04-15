@@ -17,13 +17,21 @@ Additionally, the error handlers in :mod:`cms.views.error_handler` are reference
 For more information on this file, see :doc:`topics/http/urls`.
 """
 from django.conf.urls import include, url
+from django.conf import settings
 from django.contrib import admin
 
 
 urlpatterns = [
     url(r"^api/", include("api.urls")),
-    url(r"^admin/", admin.site.urls),
     url(r"^i18n/", include("django.conf.urls.i18n")),
+]
+
+# The admin/endpoint is only activated if the system is in debug mode.
+if settings.DEBUG:
+    urlpatterns.append(url(r"^admin/", admin.site.urls))
+
+# Unfortunatly we need to do this in such way, as the admin endpoint needs to be added before the endpoints of the other apps.
+urlpatterns += [
     url(r"^", include("sitemap.urls")),
     url(r"^", include("cms.urls")),
 ]

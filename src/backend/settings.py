@@ -76,6 +76,9 @@ BLOG_URLS = {
     "de": f"{WEBSITE_URL}/blog/",
 }
 
+#: URL to the Integreat wiki
+WIKI_URL = "https://wiki.integreat-app.de"
+
 #: RSS feed URLs to the Integreat blog
 RSS_FEED_URLS = {
     "en": f"{WEBSITE_URL}/en/feed/",
@@ -140,7 +143,6 @@ else:
 INSTALLED_APPS = [
     "cms.apps.CmsConfig",
     "gvz_api.apps.GvzApiConfig",
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.messages",
@@ -154,6 +156,10 @@ INSTALLED_APPS = [
     "mptt",
     "rules.apps.AutodiscoverRulesConfig",
 ]
+
+#: The default Django Admin application will only be activated if the system is in debug mode.
+if DEBUG:
+    INSTALLED_APPS.append("django.contrib.admin")
 
 #: Activated middlewares (see :setting:`django:MIDDLEWARE`)
 MIDDLEWARE = [
