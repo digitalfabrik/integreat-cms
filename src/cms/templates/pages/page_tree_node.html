@@ -33,6 +33,13 @@
             {{ page_translation.get_status_display }}
         </a>
     </td>
+    <td class="whitespace-nowrap">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+            {% for tag in page_translation.tags %}
+                <span class="bg-orange-400 text-white rounded px-2 py-1">{{ tag }}</span>
+            {% endfor %}
+        </a>
+    </td>
     <td>
         <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
             {% if page_translation %}
