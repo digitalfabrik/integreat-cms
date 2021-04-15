@@ -245,6 +245,8 @@ else:
     #: server configurations (see :setting:`django:ALLOWED_HOSTS` and :ref:`django:host-headers-virtual-hosting`)
     ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 
+#: A list of IP addresses, as strings, that allow the :func:`~django.template.context_processors.debug` context processor
+INTERNAL_IPS = ["localhost", "127.0.0.1"]
 
 if "DJANGO_SECRET_KEY" in os.environ:
     SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
@@ -335,13 +337,16 @@ SYS_LOG_LEVEL = "INFO"
 #: The log level for dependencies
 DEPS_LOG_LEVEL = "INFO" if DEBUG else "WARN"
 
-if "DJANGO_LOGFILE" in os.environ:
+#: The default location of the logfile
+DEFAULT_LOGFILE = "/var/log/integreat-cms.log"
+
+if "DJANGO_LOGFILE" in os.environ and os.access(os.environ["DJANGO_LOGFILE"], os.W_OK):
     LOGFILE = os.environ["DJANGO_LOGFILE"]
-elif DEBUG:
+elif DEBUG or not os.access(DEFAULT_LOGFILE, os.W_OK):
     #: The file path of the logfile. Needs to be writeble by the application.
     LOGFILE = os.path.join(BASE_DIR, "integreat-cms.log")
 else:
-    LOGFILE = "/var/log/integreat-cms.log"
+    LOGFILE = DEFAULT_LOGFILE
 
 #: Logging configuration dictionary (see :setting:`django:LOGGING`)
 LOGGING = {
