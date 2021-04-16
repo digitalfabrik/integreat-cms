@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-15 18:47+0000\n"
+"POT-Creation-Date: 2021-04-16 12:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -232,7 +232,7 @@ msgid "Hidden"
 msgstr "Versteckt"
 
 #: constants/region_status.py:18 models/pages/page.py:190
-#: models/pages/page_translation.py:256 models/regions/region.py:372
+#: models/pages/page_translation.py:277 models/regions/region.py:372
 #: templates/pages/page_form.html:152
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
@@ -268,7 +268,7 @@ msgstr "Rechts nach Links"
 #: templates/pages/page_form.html:97 templates/pages/page_form.html:116
 #: templates/pages/page_sbs.html:53 templates/pages/page_sbs.html:112
 #: templates/pages/page_tree_archived_node.html:59
-#: templates/pages/page_tree_node.html:78 templates/pois/poi_form.html:58
+#: templates/pages/page_tree_node.html:85 templates/pois/poi_form.html:58
 #: templates/pois/poi_form.html:87 templates/pois/poi_list_row.html:57
 msgid "Translation up-to-date"
 msgstr "Übersetzung ist aktuell"
@@ -281,7 +281,7 @@ msgstr "Übersetzung ist aktuell"
 #: templates/imprint/imprint_form.html:87 templates/pages/page_form.html:80
 #: templates/pages/page_form.html:121
 #: templates/pages/page_tree_archived_node.html:64
-#: templates/pages/page_tree_node.html:83 templates/pois/poi_form.html:63
+#: templates/pages/page_tree_node.html:90 templates/pois/poi_form.html:63
 #: templates/pois/poi_form.html:92 templates/pois/poi_list_row.html:62
 msgid "Translation missing"
 msgstr "Übersetzung fehlt"
@@ -296,7 +296,7 @@ msgstr "Übersetzung fehlt"
 #: templates/pages/page_form.html:93 templates/pages/page_form.html:108
 #: templates/pages/page_sbs.html:45 templates/pages/page_sbs.html:104
 #: templates/pages/page_tree_archived_node.html:55
-#: templates/pages/page_tree_node.html:74 templates/pois/poi_form.html:50
+#: templates/pages/page_tree_node.html:81 templates/pois/poi_form.html:50
 #: templates/pois/poi_form.html:79 templates/pois/poi_list_row.html:53
 msgid "Translation outdated"
 msgstr "Übersetzung ist veraltet"
@@ -926,7 +926,7 @@ msgstr "Angebotslisten-Feedback"
 
 #: models/feedback/page_feedback.py:18
 #: models/pages/abstract_base_page_translation.py:330
-#: models/pages/page_translation.py:262
+#: models/pages/page_translation.py:283
 msgid "page translation"
 msgstr "Seiten-Übersetzung"
 
@@ -1161,7 +1161,7 @@ msgid "version"
 msgstr "Version"
 
 #: models/pages/abstract_base_page_translation.py:332
-#: models/pages/page_translation.py:264
+#: models/pages/page_translation.py:285
 msgid "page translations"
 msgstr "Seiten-Übersetzungen"
 
@@ -1258,6 +1258,14 @@ msgstr ""
 #: models/pages/page_translation.py:30
 msgid "Page link"
 msgstr "Seitenlink"
+
+#: models/pages/page_translation.py:161
+msgid "Live content"
+msgstr "Live-Inhalt"
+
+#: models/pages/page_translation.py:164
+msgid "Empty"
+msgstr "Leer"
 
 #: models/pois/poi.py:21
 msgid "street and house number"
@@ -1827,8 +1835,8 @@ msgstr "Aktuelle Übersetzungen"
 #: templates/pages/page_form.html:112 templates/pages/page_sbs.html:49
 #: templates/pages/page_sbs.html:108
 #: templates/pages/page_tree_archived_node.html:51
-#: templates/pages/page_tree_node.html:70
-#: templates/pages/page_tree_node.html:89 templates/pois/poi_form.html:54
+#: templates/pages/page_tree_node.html:77
+#: templates/pages/page_tree_node.html:96 templates/pois/poi_form.html:54
 #: templates/pois/poi_form.html:83 templates/pois/poi_list_row.html:49
 msgid "Currently in translation"
 msgstr "Wird derzeit übersetzt"
@@ -2129,8 +2137,8 @@ msgstr "Event \"%(event_title)s\" bearbeiten"
 #: templates/events/event_list.html:55
 #: templates/events/event_list_archived.html:36
 #: templates/events/event_list_archived.html:40
-#: templates/pages/page_form.html:25 templates/pages/page_tree.html:68
-#: templates/pages/page_tree.html:72 templates/pages/page_tree_archived.html:27
+#: templates/pages/page_form.html:25 templates/pages/page_tree.html:69
+#: templates/pages/page_tree.html:73 templates/pages/page_tree_archived.html:27
 #: templates/pages/page_tree_archived.html:31 templates/pois/poi_form.html:26
 #: templates/pois/poi_list.html:46 templates/pois/poi_list.html:50
 #: templates/pois/poi_list_archived.html:29
@@ -2279,7 +2287,7 @@ msgstr "Ende"
 #: templates/languages/language_list.html:32
 #: templates/offer_templates/offer_template_list.html:29
 #: templates/organizations/organization_list.html:27
-#: templates/pages/page_tree.html:84 templates/pages/page_tree_archived.html:42
+#: templates/pages/page_tree.html:85 templates/pages/page_tree_archived.html:42
 #: templates/pois/poi_list.html:65 templates/pois/poi_list_archived.html:39
 #: templates/roles/list.html:25
 msgid "Options"
@@ -2309,8 +2317,8 @@ msgstr "Noch keine Veranstaltungen archiviert."
 #: templates/events/event_list_row.html:29
 #: templates/pages/page_tree_archived_node.html:26
 #: templates/pages/page_tree_archived_node.html:38
-#: templates/pages/page_tree_node.html:41
-#: templates/pages/page_tree_node.html:54
+#: templates/pages/page_tree_node.html:48
+#: templates/pages/page_tree_node.html:61
 #: templates/pois/poi_list_archived_row.html:26
 #: templates/pois/poi_list_archived_row.html:38
 #: templates/pois/poi_list_row.html:26 templates/pois/poi_list_row.html:38
@@ -2407,7 +2415,7 @@ msgstr "Noch kein technisches Feedback vorhanden."
 
 #: templates/feedback/admin_feedback_list.html:128
 #: templates/feedback/region_feedback_list.html:122
-#: templates/pages/page_tree.html:114
+#: templates/pages/page_tree.html:115
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -2429,7 +2437,7 @@ msgstr "Löschen"
 
 #: templates/feedback/admin_feedback_list.html:139
 #: templates/feedback/region_feedback_list.html:133
-#: templates/pages/page_tree.html:130
+#: templates/pages/page_tree.html:131
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -2743,7 +2751,7 @@ msgstr "Erstellt"
 
 #: templates/languages/language_list.html:31
 #: templates/offer_templates/offer_template_list.html:27
-#: templates/pages/page_tree.html:83 templates/regions/region_list.html:30
+#: templates/pages/page_tree.html:84 templates/regions/region_list.html:30
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
@@ -2991,7 +2999,7 @@ msgstr[1] ""
 "übergeordneten Seiten wiederherstellen:"
 
 #: templates/pages/page_form.html:339 templates/pages/page_form.html:340
-#: templates/pages/page_tree_node.html:113
+#: templates/pages/page_tree_node.html:120
 msgid "Archive page"
 msgstr "Seite archivieren"
 
@@ -3001,13 +3009,13 @@ msgstr "Diese Seite archivieren"
 
 #: templates/pages/page_form.html:352 templates/pages/page_form.html:370
 #: templates/pages/page_tree_archived_node.html:98
-#: templates/pages/page_tree_node.html:126
+#: templates/pages/page_tree_node.html:133
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: templates/pages/page_form.html:356
 #: templates/pages/page_tree_archived_node.html:94
-#: templates/pages/page_tree_node.html:122 views/pages/page_actions.py:219
+#: templates/pages/page_tree_node.html:129 views/pages/page_actions.py:219
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -3074,27 +3082,31 @@ msgstr "Sie können Seiten nur in der Standard-Sprache anlegen"
 msgid "Hierarchy"
 msgstr "Hierarchie"
 
-#: templates/pages/page_tree.html:104
+#: templates/pages/page_tree.html:68
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/pages/page_tree.html:105
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
-#: templates/pages/page_tree.html:115
+#: templates/pages/page_tree.html:116
 msgid "Archive pages"
 msgstr "Seiten archivieren"
 
-#: templates/pages/page_tree.html:117
+#: templates/pages/page_tree.html:118
 msgid "Export as PDF"
 msgstr "Als PDF Exportieren"
 
-#: templates/pages/page_tree.html:121
+#: templates/pages/page_tree.html:122
 msgid "Export XLIFF for translation to"
 msgstr "Exportiere XLIFF für Übersetzung nach"
 
-#: templates/pages/page_tree.html:136
+#: templates/pages/page_tree.html:137
 msgid "Upload XLIFF File"
 msgstr "XLIFF-Datei hochladen"
 
-#: templates/pages/page_tree.html:146
+#: templates/pages/page_tree.html:147
 msgid "Upload"
 msgstr "Hochladen"
 
@@ -3122,7 +3134,7 @@ msgstr ""
 "ist."
 
 #: templates/pages/page_tree_archived_node.html:76
-#: templates/pages/page_tree_node.html:106
+#: templates/pages/page_tree_node.html:113
 msgid "View page"
 msgstr "Seite ansehen"
 
@@ -3148,19 +3160,19 @@ msgstr "Drag & drop nicht möglich, wenn Filter aktiv sind"
 msgid "Collapse all subpages"
 msgstr "Alle Unterseiten einklappen"
 
-#: templates/pages/page_tree_node.html:109
+#: templates/pages/page_tree_node.html:116
 msgid "Edit page"
 msgstr "Seite bearbeiten"
 
-#: templates/pages/page_tree_node.html:122
+#: templates/pages/page_tree_node.html:129
 msgid "This also involves archived subpages."
 msgstr "Dies betrifft auch archivierte Unterseiten."
 
-#: templates/pages/page_tree_node.html:136
+#: templates/pages/page_tree_node.html:143
 msgid "Copy short link"
 msgstr "Kurz-URL kopieren"
 
-#: templates/pages/page_tree_node.html:140
+#: templates/pages/page_tree_node.html:147
 msgid "You cannot copy a short link of a page which has no translation."
 msgstr "Sie können keine Kurz-URL zu einer fehlenden Übersetzung kopieren."
 

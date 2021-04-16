@@ -144,6 +144,27 @@ class PageTranslation(AbstractBasePageTranslation):
             return mirrored_page_translation.last_updated
         return self.last_updated
 
+    @property
+    def tags(self):
+        """
+        This functions returns a list of translated tags which apply to this function.
+        Supported tags:
+        * Live content: if the page of this translation has live content
+        * Empty: if the page contains no text
+
+        :return: A list of tags which apply to this translation
+        :rtype: list [ str ]
+        """
+        tags = []
+
+        if self.page.mirrored_page:
+            tags.append(_("Live content"))
+
+        if not self.combined_text.strip():
+            tags.append(_("Empty"))
+
+        return tags
+
     @classmethod
     def get_translations(cls, region, language):
         """
