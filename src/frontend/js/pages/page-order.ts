@@ -2,7 +2,7 @@ import feather from "feather-icons";
 import { off, on } from "../utils/wrapped-events";
 
 let initialPageTitle: string;
-window.addEventListener("change", () => {
+window.addEventListener("load", () => {
   // Event handler for changing the parent page option
   const parentEl = document.getElementById("parent");
   if (parentEl) {
