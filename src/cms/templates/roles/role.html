@@ -7,7 +7,7 @@
     {% csrf_token %}
     <div class="flex flex-wrap mb-4">
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
-            <h2 class="heading font-normal">
+            <h1 class="heading">
 	            {% if form.initial %}
 		            {% with form.name.value as role_name %}
 			            {% blocktrans %}Edit role "{{ role_name }}"{% endblocktrans %}
@@ -15,7 +15,7 @@
 	            {% else %}
 		            {% trans 'Create new role' %}
 	            {% endif %}
-            </h2>
+            </h1>
         </div>
         <div class="w-3/5 flex justify-end">
             <input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />

@@ -14,7 +14,7 @@
     {% get_language LANGUAGE_CODE as current_language %}
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center mb-6">
-            <h2 class="heading font-normal">
+            <h1 class="heading">
                 {% if event_form.instance.id %}
                     {% if event_translation_form.instance.id %}
                         {% with event_translation_form.instance.title as event_title %}
@@ -31,7 +31,7 @@
                 {% else %}
                     {% trans 'Create new event' %}
                 {% endif %}
-            </h2>
+            </h1>
         </div>
         {% has_perm 'cms.edit_events' request.user as can_edit_event %}
         {% if not event_form.instance.id or not event_form.instance.archived %}
