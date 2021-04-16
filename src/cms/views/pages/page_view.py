@@ -138,7 +138,7 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
             siblings = page.parent.children.all()
         context = self.get_context_data(**kwargs)
         page_link = f"{WEBAPP_URL}/{region.slug}/{language.slug}/"
-        if page and page_translation.ancestor_path:
+        if page_translation and page_translation.ancestor_path:
             page_link += f"{page_translation.ancestor_path}/"
         return render(
             request,
