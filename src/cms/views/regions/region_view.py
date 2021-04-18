@@ -9,11 +9,12 @@ from django.views.generic import TemplateView
 from ...decorators import staff_required
 from ...forms import RegionForm
 from ...models import Region
+from ..media.content_media_mixin import ContentMediaMixin
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class RegionView(PermissionRequiredMixin, TemplateView):
+class RegionView(PermissionRequiredMixin, TemplateView, ContentMediaMixin):
     """
     View for the region form
     """
@@ -46,10 +47,12 @@ class RegionView(PermissionRequiredMixin, TemplateView):
         """
 
         region_instance = Region.objects.filter(slug=kwargs.get("region_slug")).first()
-
+        context = self.get_context_data(**kwargs)
         form = RegionForm(instance=region_instance)
 
-        return render(request, self.template_name, {"form": form, **self.base_context})
+        return render(
+            request, self.template_name, {**self.base_context, **context, "form": form}
+        )
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):

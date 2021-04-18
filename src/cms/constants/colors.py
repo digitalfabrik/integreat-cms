@@ -1,5 +1,5 @@
 """
-This module contains colors which aim to be good distinguishable by humnans.
+This module contains colors which aim to be good distinguishable by humans.
 They are used to display graphs with overlapping lines (e.g. statistics).
 """
 

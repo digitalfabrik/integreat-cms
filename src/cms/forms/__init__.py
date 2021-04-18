@@ -18,8 +18,6 @@ from .imprint.imprint_translation_form import ImprintTranslationForm
 from .languages.language_form import LanguageForm
 from .language_tree.language_tree_node_form import LanguageTreeNodeForm
 
-from .media.document_form import DocumentForm
-
 from .offer_templates.offer_template_form import OfferTemplateForm
 
 from .organizations.organization_form import OrganizationForm

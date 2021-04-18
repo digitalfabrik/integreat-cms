@@ -1,11 +1,13 @@
 import logging
 
+import lxml.html as LH
+
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from ..custom_model_form import CustomModelForm
 from ...constants import status
-from ...models import PageTranslation
+from ...models import PageTranslation, Document
 from ...utils.slug_utils import generate_unique_slug_helper
 
 
@@ -121,7 +123,7 @@ class PageTranslationForm(CustomModelForm):
         """
         Validate the text field (see :ref:`overriding-modelform-clean-method`)
 
-        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
+        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content and applies changes to <img>- and <a>-Tags to match the guidelines.
 
         :return: The valid text
         :rtype: str
@@ -134,4 +136,15 @@ class PageTranslationForm(CustomModelForm):
                 code="no-heading-1",
             )
 
-        return text
+        content = LH.fromstring(text)
+
+        for image in content.iter("img"):
+            media_data = Document.objects.filter(physical_path=image.attrib["src"])
+
+            if media_data:
+                image.attrib["alt"] = media_data[0].description
+
+        for link in content.iter("a"):
+            link.attrib["target"] = ""
+
+        return LH.tostring(content, with_tail=False, pretty_print=True).decode("utf-8")

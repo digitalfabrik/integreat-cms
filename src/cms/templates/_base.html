@@ -127,22 +127,10 @@
             <div class="min-h-3 pl-2">
                 <p class="font-bold"> {% trans "Contents" %} </p>
             </div>
-            <div class="{% if current_menu_item|in_list:'media,media_upload' %} active {% endif %}">
-                <a href="{% url 'media' region_slug=region.slug %}">
-                    <i data-feather='file'></i>
-                    {% trans 'Media Library' %}
-                </a>
-                <div class="dropdown-container">
-                    <a href="{% url 'media' region_slug=region.slug %}"
-                       class="{% if current_menu_item == 'media' %} active {% endif %}">
-                        {% trans 'All media files' %}
-                    </a>
-                    <a href="{% url 'new_upload_file' document_id='0' region_slug=region.slug %}"
-                       class="{% if current_menu_item == 'media_upload' %} active {% endif %}">
-                        {% trans 'Upload new media file' %}
-                    </a>
-                </div>
-            </div>
+            <a href="{% url 'media' region_slug=region.slug %}" class="{% if current_menu_item == 'media' %} active {% endif %}">
+                <i data-feather='file'></i>
+                {% trans 'Media Library' %}
+            </a>
             {% if perms.cms.view_pages %}
                 <div class="{% if current_menu_item|in_list:'pages,new_page' %} active {% endif %}">
                     <a href="{% url 'pages' region_slug=region.slug %}">
@@ -286,6 +274,12 @@
                     <i data-feather="map"></i>
                     {% trans 'Regions' %}
                 </a>
+            {% endif %}
+            {% if perms.cms.manage_media %}
+            <a href="{% url 'media_admin' %}" class="{% if current_menu_item == 'media' %} active {% endif %}">
+                <i data-feather='file'></i>
+                {% trans 'Media Library' %}
+            </a>
             {% endif %}
             {% if perms.cms.manage_languages %}
                 <a href="{% url 'languages' %}" class="{% if current_menu_item == 'languages' %} active {% endif %}">

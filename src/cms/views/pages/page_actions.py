@@ -352,12 +352,15 @@ def download_xliff(request, region_slug, language_slug):
 @login_required
 # pylint: disable=unused-argument
 def post_translation_state_ajax(request, region_slug):
-    """This view is called for manually unseting the translation process
+    """
+    This view is called for manually unseting the translation process
 
     :param request: ajax request
     :type request: ~django.http.HttpRequest
+
     :param region_slug: The slug of the current region
     :type region_slug: str
+
     :return: on success returns language of updated translation
     :rtype: ~django.http.JsonResponse
     """

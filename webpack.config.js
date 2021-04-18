@@ -9,7 +9,7 @@ module.exports = {
     main: "./src/frontend/index.ts",
     editor: "./src/frontend/editor.ts", // This contains resources required for the editor UI
     editor_content: "./src/frontend/editor_content.ts", // This contains resources for the editor content iframe
-    pdf: "./src/frontend/pdf.ts"
+    pdf: "./src/frontend/pdf.ts",
   },
   output: {
     filename: "[name].js",
@@ -30,11 +30,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.tsx?$/,
@@ -43,11 +39,20 @@ module.exports = {
             loader: "babel-loader",
             options: {
               presets: ["@babel/preset-env"],
+              plugins: [
+                [
+                  "@babel/plugin-transform-react-jsx",
+                  {
+                    pragma: "h",
+                    pragmaFrag: "Fragment",
+                  },
+                ],
+              ],
             },
           },
           "ts-loader",
         ],
-        exclude:  /node_modules/,
+        exclude: /node_modules/,
       },
       {
         test: /\.jsx?$/,
@@ -56,8 +61,17 @@ module.exports = {
             loader: "babel-loader",
             options: {
               presets: ["@babel/preset-env"],
+              plugins: [
+                [
+                  "@babel/plugin-transform-react-jsx",
+                  {
+                    pragma: "h",
+                    pragmaFrag: "Fragment",
+                  },
+                ],
+              ],
             },
-          }
+          },
         ],
         exclude: /node_modules\/(?!chart\.js|htmldiff-js)/,
       },
@@ -88,8 +102,14 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: "node_modules/tinymce/skins/ui/oxide/skin.min.css", to: "skins/ui/oxide/skin.min.css" },
-        { from: "node_modules/tinymce/skins/ui/oxide/content.min.css", to: "skins/ui/oxide/content.min.css" },
+        {
+          from: "node_modules/tinymce/skins/ui/oxide/skin.min.css",
+          to: "skins/ui/oxide/skin.min.css",
+        },
+        {
+          from: "node_modules/tinymce/skins/ui/oxide/content.min.css",
+          to: "skins/ui/oxide/content.min.css",
+        },
         { from: "src/frontend/svg", to: "svg" },
         { from: "src/frontend/images", to: "images" },
       ],

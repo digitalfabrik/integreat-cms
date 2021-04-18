@@ -1,10 +1,14 @@
 /*
  * This file contains all functions used for the icon field
  */
+import { render } from 'preact';
+import SelectMedia from '../media-management/select-media';
+
 
 // Set event handlers
 window.addEventListener("load", () => {
   const iconField = document.getElementById("id_icon");
+  const setIconButton = document.getElementById("set-icon-button");
   const removeButton = document.getElementById("remove-icon");
   const restoreButton = document.getElementById("restore-icon");
 
@@ -16,6 +20,9 @@ window.addEventListener("load", () => {
   }
   if (restoreButton) {
     restoreButton.addEventListener("click", setIcon);
+  }
+  if (setIconButton) {
+    setIconButton.addEventListener("click", setIconwithMediaLibrary);
   }
 });
 
@@ -68,4 +75,22 @@ function setIcon() {
   (document.getElementById(
     "icon-clear_id"
   ) as HTMLInputElement).checked = false;
+}
+
+
+
+function setIconwithMediaLibrary() {
+  const el: HTMLElement = document.createElement("div");
+  document.body.append(el);
+  const mediaConfigData = JSON.parse(
+    document.getElementById("media_config_data").textContent
+  );
+  render(SelectMedia, {
+    ...mediaConfigData,
+    cancel: () => el.remove(),
+    selectMedia: () => {
+      alert();
+    },
+  el
+  });
 }

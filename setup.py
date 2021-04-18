@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Setup.py """
 
-from backend.settings import VERSION
 import os
 import sys
 
@@ -10,6 +9,7 @@ from setuptools import find_packages, setup
 # Add source directory to PATH variable to enable import of version number
 sys.path.append(os.path.abspath("src"))
 # pylint: disable=wrong-import-position
+from backend.settings import VERSION
 
 setup(
     name="integreat-cms",
@@ -27,8 +27,7 @@ setup(
         for root, _, files in os.walk("src/cms/static/")
     ]
     + [
-        ("etc/apache2/site-available",
-         ["example-configs/apache2-integreat-vhost.conf"])
+        ("etc/apache2/site-available", ["example-configs/apache2-integreat-vhost.conf"])
     ],
     install_requires=[
         "aiohttp",
@@ -49,7 +48,6 @@ setup(
         "six",
         "webauthn",
         "xhtml2pdf",
-        "PIL",
         "Pillow",
     ],
     author="Integreat App Project",

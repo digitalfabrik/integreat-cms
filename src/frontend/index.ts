@@ -18,7 +18,6 @@ import "./js/revisions.ts";
 import "./js/tablesort.ts";
 
 import "./js/forms/slug-error.ts";
-import "./js/forms/icon-field.ts";
 import "./js/forms/update-permalink.ts";
 
 import "./js/languages/country-flag-fields.ts";
@@ -50,6 +49,11 @@ import "./js/user/user-creation-workflow.ts";
 import "./js/analytics/translation_coverage.ts";
 
 import "./js/charCounter.ts";
+
+import "./js/media-management/index.tsx";
+import "./js/media-management/select-media.tsx";
+import "./js/forms/icon-field.tsx";
+
 
 window.addEventListener('load',() => {
     feather.replace({ class: 'inline-block' });

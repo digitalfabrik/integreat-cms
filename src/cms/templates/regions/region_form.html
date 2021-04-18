@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <!-- Option for including/excluding administrative devision from region name -->
+                    <!-- Option for including/excluding administrative division from region name -->
                     <div class="p-2 mt-1">
                         {% render_field form.administrative_division_included %}
                         <label for="{{ form.administrative_division_included.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.administrative_division_included.label }}</label>
@@ -61,7 +61,7 @@
                     {% render_field form.aliases class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
 
                     <label for="{{ form.slug.id_for_label }}" class="block p-2 mb-1 mt-5 font-bold cursor-pointer">{{ form.slug.label }}</label>
-                    <div class="px-2 mb-2 mb-2 text-s text-gray-600">{{ form.slug.help_text }}</div>
+                    <div class="px-2 mb-2 text-s text-gray-600">{{ form.slug.help_text }}</div>
                     <div class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                         {% spaceless %}
                             <div style="display: table; white-space: nowrap;">
@@ -209,6 +209,7 @@
 {% endif %}
 </div>
 </form>
+{{ media_config_data|json_script:"media_config_data" }}
 
 {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}

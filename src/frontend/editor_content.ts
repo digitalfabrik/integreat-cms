@@ -5,6 +5,7 @@
 
 /* Custom tincymce plugins */
 import './js/tinymce-plugins/autolink_tel/plugin.js';
+import './js/tinymce-plugins/mediacenter/plugin.js';
 
 /* Custom tinymce content css */
 import './css/tinymce_custom.css';

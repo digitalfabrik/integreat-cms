@@ -84,6 +84,10 @@ window.addEventListener("load", () => {
           items:
             "bold italic underline strikethrough superscript | formats | forecolor backcolor",
         },
+        insert: {
+          title: "Insert",
+          items: "openmediacenter link image media "
+        }
       },
       contextmenu: "paste link",
       autosave_interval: "120s",
@@ -92,10 +96,14 @@ window.addEventListener("load", () => {
         "code paste fullscreen autosave link preview media image lists directionality wordcount",
       external_plugins: {
         autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
+        mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
       },
       link_default_protocol: "https",
+      target_list: false,
+      default_link_target: '',
+      branding: false,
       toolbar:
-        "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link image",
+        "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export",
       style_formats: [
         {
           title: "Headings",

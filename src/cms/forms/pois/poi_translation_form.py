@@ -1,11 +1,13 @@
 import logging
 
+import lxml.html as LH
+
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from ..custom_model_form import CustomModelForm
 from ...constants import status
-from ...models import POITranslation
+from ...models import POITranslation, Document
 from ...utils.slug_utils import generate_unique_slug_helper
 
 
@@ -125,7 +127,7 @@ class POITranslationForm(CustomModelForm):
 
     def clean_description(self):
         """
-        Validate the description field (see :ref:`overriding-modelform-clean-method`)
+        Validate the description field (see :ref:`overriding-modelform-clean-method`) and applies changes to <img>- and <a>-Tags to match the guidelines.
 
         :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the description
 
@@ -140,4 +142,15 @@ class POITranslationForm(CustomModelForm):
                 code="no-heading-1",
             )
 
-        return description
+        content = LH.fromstring(description)
+
+        for image in content.iter("img"):
+            media_data = Document.objects.filter(physical_path=image.attrib["src"])
+
+            if media_data:
+                image.attrib["alt"] = media_data[0].description
+
+        for link in content.iter("a"):
+            link.attrib["target"] = ""
+
+        return LH.tostring(content, with_tail=False, pretty_print=True).decode("utf-8")
