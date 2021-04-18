@@ -41,26 +41,6 @@ cd integreat-cms
 * Go to your browser and open the URL `http://localhost:8000`
 * Default user is "root" with password "root1234".
 
-### Run production server
-1. Set up an [Apache2 server with mod_wsgi](https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/modwsgi/). You can use the `example-configs/apache2-integreat-vhost.conf`.
-2. Set the following environment variables in the Apache2 config to ensure a safe service:
-  * DJANGO_SECRET_KEY
-  * DJANGO_DEBUG
-  * DJANGO_WEBAPP_URL
-  * DJANGO_BASE_URL
-  * DJANGO_DB_HOST
-  * DJANGO_DB_PORT
-  * DJANGO_DB_USER
-  * DJANGO_DB_NAME
-  * DJANGO_DB_PASSWORD
-  * DJANGO_STATIC_ROOT
-  * DJANGO_MEDIA_ROOT
-3. Clone this repo into `/opt/`. Edit the `settings.py`.
-4. Create a virtual environment: `cd /opt/integreat-cms && python3 -m venv .venv && source .venv/bin/activate`
-5. Use setuptools to install: `python3 setup.py develop`. It is also possible to use the `install` parameter, but this requires changes to the `wsgi.py` path in the Apache2 config.
-6. Set up a PostgreSQL database and run the migrations: `integreat-cms-cli migrate`
-7. Collect static files: `integreat-cms-cli collectstatic`
-
 ## Documentation
 
 For detailed instructions, tutorials and the source code reference have a look at our great documentation:

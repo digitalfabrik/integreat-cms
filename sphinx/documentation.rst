@@ -18,7 +18,7 @@ Developer Tools
 
 Generate this documentation with :github-source:`dev-tools/generate_documentation.sh`::
 
-    ./dev-tools/generate_documentation.sh
+    ./dev-tools/generate_documentation.sh [--clean]
 
 Apart from the two steps above, this tool also performs the additional tasks:
 
@@ -39,6 +39,10 @@ Apart from the two steps above, this tool also performs the additional tasks:
   view to the extended view and vice versa
 
 * Remove all temporary build files when running in CircleCI context to exclude them from the contents hosted on GitHub Pages.
+
+If the ``--clean`` parameter is provided, the script will clean all temporary documentation files in the ``sphinx/ref/``
+and ``sphinx/ref-ext/`` directories as well as the compiled html output in ``docs``. Existing outdated documentation
+files can cause the generation script to fail if e.g. source files were added or deleted.
 
 .. include:: _docstrings.rst
 

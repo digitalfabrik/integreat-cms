@@ -6,17 +6,16 @@ For the full list of settings and their values, see :doc:`django:ref/settings`.
 
 For production use, the following settings can be set with environment variables (use the prefix ``DJANGO_``):
 
-* :attr:`~backend.settings.SECRET_KEY`
-* :attr:`~backend.settings.DEBUG`
-* :attr:`~backend.settings.ALLOWED_HOSTS` via :attr:`~backend.settings.BASE_URL`
-* :attr:`~backend.settings.WEBAPP_URL`
-* :attr:`~backend.settings.MATOMO_URL`
-* :attr:`~backend.settings.BASE_URL`
-* :attr:`~backend.settings.WEBAPP_URL`
-* :attr:`~backend.settings.STATIC_ROOT`
-* :attr:`~backend.settings.MEDIA_ROOT`
-* :attr:`~backend.settings.LOGFILE`
-* :attr:`~backend.settings.DATABASES` settings:
+    * ``DJANGO_SECRET_KEY``: :attr:`~backend.settings.SECRET_KEY`
+    * ``DJANGO_DEBUG``: :attr:`~backend.settings.DEBUG`
+    * ``DJANGO_LOGFILE``: :attr:`~backend.settings.LOGFILE`
+    * ``DJANGO_WEBAPP_URL``: :attr:`~backend.settings.WEBAPP_URL`
+    * ``DJANGO_MATOMO_URL``: :attr:`~backend.settings.MATOMO_URL`
+    * ``DJANGO_BASE_URL``: :attr:`~backend.settings.BASE_URL`
+    * ``DJANGO_STATIC_ROOT``: :attr:`~backend.settings.STATIC_ROOT`
+    * ``DJANGO_MEDIA_ROOT``: :attr:`~backend.settings.MEDIA_ROOT`
+
+Database settings: :attr:`~backend.settings.DATABASES`
 
     * ``DJANGO_DB_HOST``
     * ``DJANGO_DB_NAME``
@@ -24,12 +23,12 @@ For production use, the following settings can be set with environment variables
     * ``DJANGO_DB_USER``
     * ``DJANGO_DB_PORT``
 
-* Email settings:
+Email settings:
 
-    * ``DJANGO_EMAIL_HOST``
-    * ``DJANGO_EMAIL_HOST_PASSWORD``
-    * ``DJANGO_EMAIL_HOST_USER``
-    * ``DJANGO_EMAIL_PORT``
+    * ``DJANGO_EMAIL_HOST``: :attr:`~backend.settings.EMAIL_HOST`
+    * ``DJANGO_EMAIL_HOST_PASSWORD``: :attr:`~backend.settings.EMAIL_HOST_PASSWORD`
+    * ``DJANGO_EMAIL_HOST_USER``: :attr:`~backend.settings.EMAIL_HOST_USER`
+    * ``DJANGO_EMAIL_PORT``: :attr:`~backend.settings.EMAIL_PORT`
 
 """
 import os
@@ -110,13 +109,15 @@ if "DJANGO_BASE_URL" in os.environ:
     HOSTNAME = urllib.parse.urlparse(os.environ["DJANGO_BASE_URL"]).netloc
     BASE_URL = os.environ["DJANGO_BASE_URL"]
 else:
-    #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__ (this is a setting in case the application runs behind a proxy).
+    #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__
+    #: (this is a setting in case the application runs behind a proxy).
     #: Used in the following views:
     #:
     #: - :func:`~cms.views.settings.mfa.mfa.register_mfa_key`
     #: - :func:`~cms.views.authentication.authentication_actions.mfaVerify`
     BASE_URL = "http://localhost:8000"
-    #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__ (this is a setting in case the application runs behind a proxy).
+    #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__
+    #: (this is a setting in case the application runs behind a proxy).
     #: Used in the following views:
     #:
     #: - :class:`~cms.views.settings.mfa.mfa.GetChallengeView`
@@ -157,7 +158,7 @@ INSTALLED_APPS = [
     "rules.apps.AutodiscoverRulesConfig",
 ]
 
-#: The default Django Admin application will only be activated if the system is in debug mode.
+# The default Django Admin application will only be activated if the system is in debug mode.
 if DEBUG:
     INSTALLED_APPS.append("django.contrib.admin")
 
@@ -247,11 +248,12 @@ FIXTURE_DIRS = (os.path.join(BASE_DIR, "cms/fixtures/"),)
 if "DJANGO_BASE_URL" in os.environ:
     ALLOWED_HOSTS = [urllib.parse.urlparse(os.environ["DJANGO_BASE_URL"]).netloc]
 else:
-    #: This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe web
-    #: server configurations (see :setting:`django:ALLOWED_HOSTS` and :ref:`django:host-headers-virtual-hosting`)
+    #: This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe
+    #: web server configurations (see :setting:`django:ALLOWED_HOSTS` and :ref:`django:host-headers-virtual-hosting`)
     ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 
-#: A list of IP addresses, as strings, that allow the :func:`~django.template.context_processors.debug` context processor
+#: A list of IP addresses, as strings, that allow the :func:`~django.template.context_processors.debug` context
+#: processor to add some variables to the template context.
 INTERNAL_IPS = ["localhost", "127.0.0.1"]
 
 if "DJANGO_SECRET_KEY" in os.environ:
@@ -349,7 +351,8 @@ DEFAULT_LOGFILE = "/var/log/integreat-cms.log"
 if "DJANGO_LOGFILE" in os.environ and os.access(os.environ["DJANGO_LOGFILE"], os.W_OK):
     LOGFILE = os.environ["DJANGO_LOGFILE"]
 elif DEBUG or not os.access(DEFAULT_LOGFILE, os.W_OK):
-    #: The file path of the logfile. Needs to be writeble by the application.
+    #: The file path of the logfile. Needs to be writable by the application.
+    #: Defaults to :attr:`~backend.settings.DEFAULT_LOGFILE`.
     LOGFILE = os.path.join(BASE_DIR, "integreat-cms.log")
 else:
     LOGFILE = DEFAULT_LOGFILE
@@ -511,27 +514,35 @@ DEFAULT_FROM_EMAIL = "keineantwort@integreat-app.de"
 #: (see :setting:`django:SERVER_EMAIL`)
 SERVER_EMAIL = "keineantwort@integreat-app.de"
 
-#: A list of all the people who get code error notifications.
-#: When :attr:`~backend.settings.DEBUG` is ``False``, Django emails these people the details of exceptions raised in the request/response cycle.
+#: A list of all the people who get code error notifications. When :attr:`~backend.settings.DEBUG` is ``False``,
+#: Django emails these people the details of exceptions raised in the request/response cycle.
 ADMINS = [("Integreat Helpdesk", "tech@integreat-app.de")]
 
 if "DJANGO_EMAIL_HOST" in os.environ:
-    #: The host to use for sending email.
     EMAIL_HOST = os.environ["DJANGO_EMAIL_HOST"]
+else:
+    #: The host to use for sending email.
+    EMAIL_HOST = "localhost"
 
 if "DJANGO_EMAIL_HOST_PASSWORD" in os.environ:
-    #: Password to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`.
-    #: This setting is used in conjunction with :attr:`~backend.settings.EMAIL_HOST_USER` when authenticating to the SMTP server.
-    #: If either of these settings is empty, Django won’t attempt authentication.
     EMAIL_HOST_PASSWORD = os.environ["DJANGO_EMAIL_HOST_PASSWORD"]
+else:
+    #: Password to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`.
+    #: If empty, Django won’t attempt authentication.
+    EMAIL_HOST_PASSWORD = ""
 
 if "DJANGO_EMAIL_HOST_USER" in os.environ:
-    #: Username to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`. If empty, Django won’t attempt authentication.
     EMAIL_HOST_USER = os.environ["DJANGO_EMAIL_HOST_USER"]
+else:
+    #: Username to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`.
+    #: If empty, Django won’t attempt authentication.
+    EMAIL_HOST_USER = ""
 
 if "DJANGO_EMAIL_PORT" in os.environ:
-    #: Port to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`.
     EMAIL_PORT = os.environ["DJANGO_EMAIL_PORT"]
+else:
+    #: Port to use for the SMTP server defined in :attr:`~backend.settings.EMAIL_HOST`.
+    EMAIL_PORT = 25
 
 
 ########################
@@ -579,8 +590,8 @@ USE_TZ = True
 if "DJANGO_STATIC_PARENT" in os.environ:
     STATIC_ROOT = os.environ["DJANGO_STATIC_ROOT"]
 else:
-    #: The absolute path to the directory where :mod:`django.contrib.staticfiles` will collect static files for deployment
-    #: (see :setting:`django:STATIC_ROOT` and :doc:`Managing static files <django:howto/static-files/index>`)
+    #: The absolute path to the directory where :mod:`django.contrib.staticfiles` will collect static files for
+    #: deployment (see :setting:`django:STATIC_ROOT` and :doc:`Managing static files <django:howto/static-files/index>`)
     STATIC_ROOT = os.path.join(BASE_DIR, "cms/static/")
 
 #: URL to use when referring to static files located in :setting:`STATIC_ROOT`
@@ -604,7 +615,7 @@ STATICFILES_FINDERS = (
 MEDIA_URL = "/media/"
 
 
-if "DJANGO_MEDIA_PARENT" in os.environ:
+if "DJANGO_MEDIA_ROOT" in os.environ:
     MEDIA_ROOT = os.environ["DJANGO_MEDIA_ROOT"]
 else:
     #: Absolute filesystem path to the directory that will hold user-uploaded files (see :setting:`django:MEDIA_ROOT`)

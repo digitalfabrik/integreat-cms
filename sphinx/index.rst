@@ -47,6 +47,20 @@ Basic Concepts
 * :doc:`continuous-integration`: Continuous Integration and Delivery with CircleCI
 
 
+Deployment
+==========
+
+.. toctree::
+    :caption: Deployment
+    :hidden:
+
+    packaging
+    prod-server
+
+* :doc:`packaging`: Create an easy installable package
+* :doc:`prod-server`: Run the production server
+
+
 Contributing
 ============
 
