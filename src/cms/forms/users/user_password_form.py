@@ -21,20 +21,20 @@ class UserPasswordForm(CustomModelForm):
 
     old_password = forms.CharField(
         widget=forms.PasswordInput,
-        label=_("Your old password"),
+        label=_("My old password"),
         help_text=password_validators_help_texts,
     )
 
     new_password = forms.CharField(
         widget=forms.PasswordInput,
         validators=[validate_password],
-        label=_("Your new password"),
+        label=_("My new password"),
         help_text=password_validators_help_texts,
     )
 
     new_password_confirm = forms.CharField(
         widget=forms.PasswordInput,
-        label=_("Confirm your new password"),
+        label=_("Confirm my new password"),
         help_text=password_validators_help_texts,
     )
 

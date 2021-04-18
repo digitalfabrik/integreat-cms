@@ -1,29 +1,20 @@
-{% extends "_raw.html" %}
+{% extends "authentication/_base.html" %}
+
 {% load i18n %}
-{% block raw_content %}
 {% load static %}
 {% load widget_tweaks %}
-<div id="no-session" class="flex flex-wrap flex-col justify-center px-3 py-10" data-mfa-login data-mfa-login-assert-url="{% url 'login_mfa_assert' %}" data-mfa-login-verify-url="{% url 'login_mfa_verify' %}">
-    <div class="mx-auto w-full max-w-xs">
-        <div class="mb-3" style="padding: 0 50px;">
-            <a href="/">
-                <img src="{% static 'images/integreat-logo.png' %}" alt="{% trans 'Integreat Logo' %}" class="w-full" />
-            </a>
+
+{% block heading %}
+    {% trans 'Authentication' %}
+{% endblock %}
+
+{% block content %}
+    <div data-mfa-login data-mfa-login-assert-url="{% url 'login_mfa_assert' %}" data-mfa-login-verify-url="{% url 'login_mfa_verify' %}">
+        <div class="auth-error bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5 hidden" role="alert">
+            <p>{% trans 'Unable to verify your 2FA key, please try again.' %}</p>
         </div>
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div class="auth-error bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5 hidden" role="alert">
-                <p>{% trans 'Unable to verify your 2FA key, please try again.' %}</p>
-            </div>
-            <div class="mb-3">
-                {% include "messages.html" %}
-            </div>
-            <div class="mb-3">
-                {% trans 'Please authenticate using your 2FA key by following your browser instructions' %}
-            </div>
+        <div class="mb-3">
+            {% trans 'Please authenticate using your 2FA key by following your browser instructions' %}
         </div>
-        <p class="text-center text-gray-400 text-xs">
-	        &copy;2018 Tür an Tür - Digital Factory gGmbH
-        </p>
     </div>
-</div>
 {% endblock %}

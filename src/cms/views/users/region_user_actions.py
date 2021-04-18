@@ -61,6 +61,10 @@ def delete_region_user(request, region_slug, user_id):
     return redirect("region_users", region_slug=region.slug)
 
 
+@require_POST
+@login_required
+@region_permission_required
+@permission_required("cms.manage_region_users", raise_exception=True)
 # pylint: disable=unused-argument
 def resend_activation_link_region(request, region_slug, user_id):
     """Resends an activation link to a region user

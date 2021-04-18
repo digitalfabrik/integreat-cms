@@ -3,13 +3,11 @@ import { b64enc, transformCredentialCreateOptions } from "../utils/mfa-utils";
 
 // Based on https://github.com/duo-labs/py_webauthn/blob/master/flask_demo/static/js/webauthn.js
 window.addEventListener("load", () => {
-  const addMfaForm = document.querySelector('form[data-action="add2FaKey"]');
-  const nicknameField = document.querySelector(
-    'input[name="nickname"]'
-  ) as HTMLInputElement;
-  if (!addMfaForm || !nicknameField) {
+  const addMfaForm = document.getElementById("add-mfa-key") as HTMLFormElement;
+  if (!addMfaForm) {
     return;
   }
+  const nameField = document.getElementById("id_name") as HTMLInputElement;
 
   if (!navigator.credentials.create) {
     document.querySelector(".add-mfa").classList.add("hidden");
@@ -23,7 +21,7 @@ window.addEventListener("load", () => {
       document.querySelector(".add-mfa-error").classList.add("hidden");
       document.querySelector(".add-mfa-error-msg").textContent = "";
       const webauthnConfiguration = await (
-        await fetch("/user_settings/mfa/get_challenge/")
+        await fetch(addMfaForm.getAttribute("data-mfa-challenge-url"))
       ).json();
 
       const newAssertion = (await navigator.credentials.create({
@@ -51,7 +49,7 @@ window.addEventListener("load", () => {
         ),
       };
 
-      const result = await fetch(document.querySelector("[data-add-mfa-key-url]").getAttribute("data-add-mfa-key-url"), {
+      const result = await fetch(addMfaForm.action, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,12 +57,12 @@ window.addEventListener("load", () => {
         },
         body: JSON.stringify({
           assertion: formData,
-          nickname: nicknameField.value,
+          name: nameField.value,
         }),
       });
       const data = await result.json();
       if (data.success) {
-        location.href = document.querySelector("[data-mfa-user-settings-url]").getAttribute("data-mfa-user-settings-url");
+        location.href = data.successUrl;
       } else {
         document.querySelector(".add-mfa-error").classList.remove("hidden");
         document.querySelector(".add-mfa-error-msg").textContent = data.error;

@@ -9,10 +9,6 @@ admin_views = [
     "admin_dashboard",
     "admin_settings",
     "languages",
-    "login",
-    "login_mfa",
-    "login_mfa_assert",
-    "login_mfa_verify",
     "new_language",
     "new_offer_template",
     "new_organization",
@@ -27,7 +23,7 @@ admin_views = [
     "regions",
     "roles",
     "user_settings",
-    "user_settings_auth_modify_mfa",
+    "authenticate_modify_mfa",
     "users",
 ]
 
