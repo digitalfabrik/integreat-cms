@@ -285,11 +285,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#activation-form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
 </ul>
@@ -360,6 +355,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-email-form">User Email Form</a></li>
@@ -445,7 +441,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
 </li>
@@ -473,6 +469,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#admin-view-test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#api-view-test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#no-session-view-test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#region-view-test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#view-test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#view-test-utils">View Test Utils</a></li>
@@ -497,7 +494,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#authentication-actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#account-activation-view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#login-view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#logout-view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#password-reset-confirm-view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#password-reset-view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.chat.html">Chat</a><ul>
@@ -716,11 +718,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
 </ul>
@@ -791,6 +788,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
@@ -876,7 +874,7 @@
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.users.organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
@@ -904,6 +902,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.admin_view_test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.api_view_test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.no_session_view_test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.region_view_test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.view_test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#module-cms.tests.views.view_test_utils">View Test Utils</a></li>
@@ -928,7 +927,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.account_activation_view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.login_view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.logout_view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.password_reset_confirm_view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.password_reset_view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
@@ -1194,7 +1198,7 @@
 <p>This package contains all user-related data models:
 <a class="reference internal" href="#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a>,
 <a class="reference internal" href="#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a> and
-<a class="reference internal" href="#cms.models.users.user_mfa.UserMfa" title="cms.models.users.user_mfa.UserMfa"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfa</span></code></a>
+<a class="reference internal" href="#cms.models.users.user_mfa_key.UserMfaKey" title="cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a>
 (see also <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></a> for Django’s base user model)</p>
 <div class="section" id="module-cms.models.users.organization">
 <span id="organization"></span><h2>Organization<a class="headerlink" href="#module-cms.models.users.organization" title="Permalink to this headline">¶</a></h2>
@@ -1489,18 +1493,18 @@ failed.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cms.models.users.user_mfa">
-<span id="user-mfa"></span><h2>User MFA<a class="headerlink" href="#module-cms.models.users.user_mfa" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cms.models.users.user_mfa_key">
+<span id="user-mfa-key"></span><h2>User MFA Key<a class="headerlink" href="#module-cms.models.users.user_mfa_key" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.models.users.user_mfa.UserMfa">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.users.user_mfa.</span></code><code class="sig-name descname"><span class="pre">UserMfa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.users.user_mfa_key.</span></code><code class="sig-name descname"><span class="pre">UserMfaKey</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>Data model representing a user’s multi-factor-authentication (MFA) key</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.AutoField" title="(in Django v3.1)"><em>AutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.CharField" title="(in Django v3.1)"><em>CharField</em></a>) – Name</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.CharField" title="(in Django v3.1)"><em>CharField</em></a>) – Key name</p></li>
 <li><p><strong>key_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BinaryField" title="(in Django v3.1)"><em>BinaryField</em></a>) – WebAuthn ID</p></li>
 <li><p><strong>public_key</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BinaryField" title="(in Django v3.1)"><em>BinaryField</em></a>) – Multi-factor-authentication public key</p></li>
 <li><p><strong>sign_count</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.IntegerField" title="(in Django v3.1)"><em>IntegerField</em></a>) – Sign count. Token to prevent replay attacks.</p></li>
@@ -1516,28 +1520,28 @@ failed.</p>
 </dd>
 </dl>
 <dl class="py exception">
-<dt id="cms.models.users.user_mfa.UserMfa.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.DoesNotExist.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.DoesNotExist.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.DoesNotExist.args">
-<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.DoesNotExist.args" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.args">
+<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.DoesNotExist.silent_variable_failure">
-<code class="sig-name descname"><span class="pre">silent_variable_failure</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.DoesNotExist.silent_variable_failure" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.silent_variable_failure">
+<code class="sig-name descname"><span class="pre">silent_variable_failure</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.silent_variable_failure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.DoesNotExist.with_traceback">
-<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.DoesNotExist.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.with_traceback">
+<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.with_traceback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -1545,23 +1549,23 @@ set self.__traceback__ to tb and return self.</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="cms.models.users.user_mfa.UserMfa.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.MultipleObjectsReturned.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.MultipleObjectsReturned.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.MultipleObjectsReturned.args">
-<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.MultipleObjectsReturned.args" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned.args">
+<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned.args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.MultipleObjectsReturned.with_traceback">
-<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.MultipleObjectsReturned.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned.with_traceback">
+<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned.with_traceback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -1569,19 +1573,19 @@ set self.__traceback__ to tb and return self.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.check">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.check" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.check">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.check" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L993"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.clean" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.clean">
+<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L993"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra model-wide validation after clean() has been
 called on every field by self.clean_fields. Any ValidationError raised
 by this method will not be associated with a particular field; it will
@@ -1589,112 +1593,112 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.clean_fields">
-<code class="sig-name descname"><span class="pre">clean_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.clean_fields" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.clean_fields">
+<code class="sig-name descname"><span class="pre">clean_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.clean_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean all fields and raise a ValidationError containing a dict
 of all validation errors if any occur.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.created_at">
-<code class="sig-name descname"><span class="pre">created_at</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.created_at" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.created_at">
+<code class="sig-name descname"><span class="pre">created_at</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.created_at" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
 <p>Creation date</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.date_error_message">
-<code class="sig-name descname"><span class="pre">date_error_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.date_error_message" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.date_error_message">
+<code class="sig-name descname"><span class="pre">date_error_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.date_error_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.delete">
-<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L938"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.delete" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.delete">
+<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L938"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.delete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.from_db">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.from_db" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.from_db">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.from_db" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.full_clean">
-<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.full_clean" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.full_clean">
+<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.full_clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call clean_fields(), clean(), and validate_unique() on the model.
 Raise a ValidationError for any errors that occur.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.get_deferred_fields">
-<code class="sig-name descname"><span class="pre">get_deferred_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L583"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.get_deferred_fields" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.get_deferred_fields">
+<code class="sig-name descname"><span class="pre">get_deferred_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L583"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.get_deferred_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a set containing names of deferred fields for this instance.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.get_next_by_created_at">
-<code class="sig-name descname"><span class="pre">get_next_by_created_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">created_at&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.get_next_by_created_at" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds next instance based on <a class="reference internal" href="#cms.models.users.user_mfa.UserMfa.created_at" title="cms.models.users.user_mfa.UserMfa.created_at"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_at</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model.get_next_by_FOO" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_by_FOO()</span></code></a> for more information.</p>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.get_next_by_created_at">
+<code class="sig-name descname"><span class="pre">get_next_by_created_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">created_at&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.get_next_by_created_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds next instance based on <a class="reference internal" href="#cms.models.users.user_mfa_key.UserMfaKey.created_at" title="cms.models.users.user_mfa_key.UserMfaKey.created_at"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_at</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model.get_next_by_FOO" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_by_FOO()</span></code></a> for more information.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.get_previous_by_created_at">
-<code class="sig-name descname"><span class="pre">get_previous_by_created_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">created_at&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.get_previous_by_created_at" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds previous instance based on <a class="reference internal" href="#cms.models.users.user_mfa.UserMfa.created_at" title="cms.models.users.user_mfa.UserMfa.created_at"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_at</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model.get_previous_by_FOO" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_previous_by_FOO()</span></code></a> for more information.</p>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.get_previous_by_created_at">
+<code class="sig-name descname"><span class="pre">get_previous_by_created_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">created_at&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.get_previous_by_created_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds previous instance based on <a class="reference internal" href="#cms.models.users.user_mfa_key.UserMfaKey.created_at" title="cms.models.users.user_mfa_key.UserMfaKey.created_at"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_at</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model.get_previous_by_FOO" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_previous_by_FOO()</span></code></a> for more information.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.id">
-<code class="sig-name descname"><span class="pre">id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.id" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.id">
+<code class="sig-name descname"><span class="pre">id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.AutoField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoField</span></code></a></p>
 <p>Primary key: ID</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.key_id">
-<code class="sig-name descname"><span class="pre">key_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.key_id" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.key_id">
+<code class="sig-name descname"><span class="pre">key_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.key_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BinaryField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryField</span></code></a></p>
 <p>WebAuthn ID</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.last_usage">
-<code class="sig-name descname"><span class="pre">last_usage</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.last_usage" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.last_usage">
+<code class="sig-name descname"><span class="pre">last_usage</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.last_usage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
 <p>Last date of use</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.name">
-<code class="sig-name descname"><span class="pre">name</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.name" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.name">
+<code class="sig-name descname"><span class="pre">name</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.CharField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Name</p>
+<p>Key name</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.objects">
-<code class="sig-name descname"><span class="pre">objects</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.objects" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.objects">
+<code class="sig-name descname"><span class="pre">objects</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.objects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.pk">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">pk</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.pk" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.pk">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">pk</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.pk" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.prepare_database_save">
-<code class="sig-name descname"><span class="pre">prepare_database_save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L988"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.prepare_database_save" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.prepare_database_save">
+<code class="sig-name descname"><span class="pre">prepare_database_save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L988"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.prepare_database_save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.public_key">
-<code class="sig-name descname"><span class="pre">public_key</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.public_key" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.public_key">
+<code class="sig-name descname"><span class="pre">public_key</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.public_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BinaryField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryField</span></code></a></p>
 <p>Multi-factor-authentication public key</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.refresh_from_db">
-<code class="sig-name descname"><span class="pre">refresh_from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L592"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.refresh_from_db" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.refresh_from_db">
+<code class="sig-name descname"><span class="pre">refresh_from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L592"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.refresh_from_db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reload field values from the database.</p>
 <p>By default, the reloading happens from the database this instance was
 loaded from, or by the read router if this instance wasn’t loaded from
@@ -1707,8 +1711,8 @@ of the field will call this method.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L670"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.save" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L670"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the current instance. Override this in a subclass if you want to
 control the saving process.</p>
 <p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
@@ -1717,8 +1721,8 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.save_base">
-<code class="sig-name descname"><span class="pre">save_base</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L757"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.save_base" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.save_base">
+<code class="sig-name descname"><span class="pre">save_base</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L757"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.save_base" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle the parts of saving which should be done only once per save,
 yet need to be done in raw saves, too. This includes some sanity
 checks and signal sending.</p>
@@ -1728,8 +1732,8 @@ is used by fixture loading.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.serializable_value">
-<code class="sig-name descname"><span class="pre">serializable_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L653"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.serializable_value" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.serializable_value">
+<code class="sig-name descname"><span class="pre">serializable_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L653"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.serializable_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the value of the field name for this instance. If the field is
 a foreign key, return the id value instead of the object. If there’s
 no Field object with this name on the model, return the model
@@ -1740,33 +1744,33 @@ and not use this method.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.sign_count">
-<code class="sig-name descname"><span class="pre">sign_count</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.sign_count" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.sign_count">
+<code class="sig-name descname"><span class="pre">sign_count</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.sign_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.IntegerField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
 <p>Sign count. Token to prevent replay attacks.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.unique_error_message">
-<code class="sig-name descname"><span class="pre">unique_error_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1167"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.unique_error_message" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.unique_error_message">
+<code class="sig-name descname"><span class="pre">unique_error_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1167"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.unique_error_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.user">
-<code class="sig-name descname"><span class="pre">user</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.user" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.user">
+<code class="sig-name descname"><span class="pre">user</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.user" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
 <p>User (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">mfa_keys</span></code>)</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.users.user_mfa.UserMfa.user_id">
-<code class="sig-name descname"><span class="pre">user_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.user_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal field, use <a class="reference internal" href="#cms.models.users.user_mfa.UserMfa.user" title="cms.models.users.user_mfa.UserMfa.user"><code class="xref py py-class docutils literal notranslate"><span class="pre">user</span></code></a> instead.</p>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.user_id">
+<code class="sig-name descname"><span class="pre">user_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#cms.models.users.user_mfa_key.UserMfaKey.user" title="cms.models.users.user_mfa_key.UserMfaKey.user"><code class="xref py py-class docutils literal notranslate"><span class="pre">user</span></code></a> instead.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.users.user_mfa.UserMfa.validate_unique">
-<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1002"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa.UserMfa.validate_unique" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.models.users.user_mfa_key.UserMfaKey.validate_unique">
+<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1002"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.users.user_mfa_key.UserMfaKey.validate_unique" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check unique constraints on the model and raise ValidationError if any
 failed.</p>
 </dd></dl>

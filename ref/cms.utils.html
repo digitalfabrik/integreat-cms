@@ -285,11 +285,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#activation-form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
 </ul>
@@ -360,6 +355,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-email-form">User Email Form</a></li>
@@ -445,7 +441,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
 </li>
@@ -473,6 +469,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#admin-view-test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#api-view-test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#no-session-view-test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#region-view-test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#view-test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#view-test-utils">View Test Utils</a></li>
@@ -497,7 +494,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#authentication-actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#account-activation-view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#login-view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#logout-view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#password-reset-confirm-view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#password-reset-view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
@@ -716,11 +718,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
 </ul>
@@ -791,6 +788,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
@@ -876,7 +874,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
@@ -904,6 +902,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.admin_view_test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.api_view_test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.no_session_view_test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.region_view_test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.view_test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.view_test_utils">View Test Utils</a></li>
@@ -928,7 +927,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.account_activation_view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.login_view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.logout_view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.password_reset_confirm_view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.password_reset_view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.chat.html">Chat</a><ul>
@@ -1192,18 +1196,42 @@
 <p>This package contains utilities which faciliate specific tasks and can be re-used and imported from different locations.</p>
 <div class="section" id="account-activation-utils">
 <h2>Account Activation Utils<a class="headerlink" href="#account-activation-utils" title="Permalink to this headline">¶</a></h2>
+<p>This module contains helpers for the account activation process
+(also see <a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.account_activation_view.AccountActivationView" title="cms.views.authentication.account_activation_view.AccountActivationView"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountActivationView</span></code></a>).</p>
+<dl class="py class">
+<dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.utils.account_activation_utils.</span></code><code class="sig-name descname"><span class="pre">AccountActivationTokenGenerator</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.tokens.PasswordResetTokenGenerator</span></code></p>
+<p>This token generator is identical to the default password reset token generator of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/#module-django.contrib.auth" title="(in Django v3.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.auth</span></code></a> with
+the exception of the used HMAC salt.
+This means password reset tokens are no longer accepted for the account activation and vice versa.</p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">key_salt</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.utils.account_activation_utils.AccountActivationTokenGenerator'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The key salt which is passed to the HMAC function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">cms.utils.account_activation_utils.</span></code><code class="sig-name descname"><span class="pre">account_activation_token_generator</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;cms.utils.account_activation_utils.AccountActivationTokenGenerator</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The token generator for the account activation process
+(an instance of <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.account_activation_utils.AccountActivationTokenGenerator" title="cms.utils.account_activation_utils.AccountActivationTokenGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountActivationTokenGenerator</span></code></a>)</p>
+</dd></dl>
+
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.utils.account_activation_utils.</span></code><code class="sig-name descname"><span class="pre">send_activation_link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.utils.account_activation_utils.</span></code><code class="sig-name descname"><span class="pre">send_activation_link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Sends activation link to user with inactive account</p>
-<p>Making use of ~django.core.mail.send_mail to prevent malicious header injections
-by raising an ~django.core.mail.BadHeaderError exception
-if a newline character is detected in subject, recipient_list, etc.</p>
+<p>Making use of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/email/#django.core.mail.send_mail" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">send_mail()</span></code></a> to prevent malicious header injections by raising an
+<code class="docutils literal notranslate"><span class="pre">BadHeaderError</span></code> exception if a newline character is detected in <code class="docutils literal notranslate"><span class="pre">subject</span></code>,
+<code class="docutils literal notranslate"><span class="pre">recipient_list</span></code>, etc. (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/email/" title="(in Django v3.1)"><span>Sending email</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current http request</p></li>
-<li><p><strong>user_instance</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user to whom the e-mail is to be sent</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user to whom the e-mail is to be sent</p></li>
 </ul>
 </dd>
 </dl>
@@ -1485,7 +1513,7 @@ Matomo API request</p>
 <dt>
 <code class="sig-prename descclassname"><span class="pre">cms.utils.mfa_utils.</span></code><code class="sig-name descname"><span class="pre">generate_challenge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">challenge_len</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/mfa_utils.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function generates a random challenge of the given length. It consists of ascii letters and digits.</p>
-<p>Example usage: <a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.GetChallengeView" title="cms.views.settings.mfa.mfa.GetChallengeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.settings.mfa.mfa.GetChallengeView</span></code></a></p>
+<p>Example usage: <a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView" title="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>challenge_len</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The desired length of the challenge</p>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-29T16:14:29+00:00" />
+    <meta property="article:modified_time" content="2021-02-05T00:15:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Authentication &mdash; integreat-cms 0.0.14 documentation</title>
@@ -42,7 +42,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chat" href="cms.views.chat.html" />
+    <link rel="next" title="MFA" href="cms.views.authentication.mfa.html" />
     <link rel="prev" title="Analytics" href="cms.views.analytics.html" /> 
 </head>
 
@@ -285,11 +285,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#activation-form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
 </ul>
@@ -360,6 +355,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-email-form">User Email Form</a></li>
@@ -445,7 +441,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
 </li>
@@ -473,6 +469,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#admin-view-test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#api-view-test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#no-session-view-test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#region-view-test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#view-test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#view-test-utils">View Test Utils</a></li>
@@ -497,7 +494,12 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#authentication-actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#account-activation-view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#login-view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logout-view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#password-reset-confirm-view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#password-reset-view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
@@ -716,11 +718,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
 </ul>
@@ -791,6 +788,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
@@ -876,7 +874,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
@@ -904,6 +902,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.admin_view_test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.api_view_test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.no_session_view_test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.region_view_test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.view_test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.view_test_utils">View Test Utils</a></li>
@@ -928,7 +927,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.account_activation_view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.login_view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.logout_view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.password_reset_confirm_view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.password_reset_view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.chat.html">Chat</a><ul>
@@ -1191,21 +1195,87 @@
             
   <div class="section" id="authentication">
 <h1>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h1>
-<p>This package contains views related to login, logout and password reset functionality</p>
-<div class="section" id="authentication-actions">
-<h2>Authentication Actions<a class="headerlink" href="#authentication-actions" title="Permalink to this headline">¶</a></h2>
+<p>This package contains views related to login, logout and password reset functionality as well as 2FA authentication:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cms.views.authentication.mfa.html">MFA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.authentication.mfa.html#mfa-assert-view">MFA Assert View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.authentication.mfa.html#mfa-login-view">MFA Login View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.views.authentication.mfa.html#mfa-verify-view">MFA Verify View</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="account-activation-view">
+<h2>Account Activation View<a class="headerlink" href="#account-activation-view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">MfaEnableAuthentication</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.account_activation_view.</span></code><code class="sig-name descname"><span class="pre">AccountActivationView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetConfirmView</span></code></a></p>
+<p>View to set a new password and activate and account.</p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The view part of the view. Handles all HTTP methods equally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response or a redirection to the login page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a> or <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>If the form is valid, show a success message.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">success_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/login/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>If the password was successfully reset, redirect to the login</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/account_activation_form.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The template which should be rendered</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">token_generator</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;cms.utils.account_activation_utils.AccountActivationTokenGenerator</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The generator for activation tokens
+(use <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.account_activation_utils.AccountActivationTokenGenerator" title="cms.utils.account_activation_utils.AccountActivationTokenGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountActivationTokenGenerator</span></code></a> instead of the default one to
+make sure password reset tokens are not accepted for account activation and vice versa)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="login-view">
+<h2>Login View<a class="headerlink" href="#login-view" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.login_view.</span></code><code class="sig-name descname"><span class="pre">LoginView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/login_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LoginView</span></code></a></p>
 <p>View to extend the default login behaviour from <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
 multi-factor-authentication.</p>
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/login_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the login
 form is valid. In case the user has mfa-keys configured, the login is delegated to
-<a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.mfa" title="cms.views.authentication.authentication_actions.mfa"><code class="xref py py-func docutils literal notranslate"><span class="pre">mfa()</span></code></a>. Else, the default method
+<a class="reference internal" href="../ref-ext/cms.views.authentication.mfa.html#cms.views.authentication.mfa.mfa_login_view.MfaLoginView" title="cms.views.authentication.mfa.mfa_login_view.MfaLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaLoginView</span></code></a>. Else, the default method
 <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.login" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">login()</span></code></a> is used to log the user in. After that, the user is redirected to
 <a class="reference internal" href="../ref-ext/backend.html#backend.settings.LOGIN_REDIRECT_URL" title="backend.settings.LOGIN_REDIRECT_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1221,181 +1291,138 @@ form is valid. In case the user has mfa-keys configured, the login is delegated 
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">redirect_authenticated_user</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/login_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A boolean that controls whether or not authenticated users accessing the login page will be redirected as if they
+had just successfully logged in.</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="py attribute">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">account_activation_complete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L282"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>View to indicate that the account was successfully activated</p>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/login.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/login_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="logout-view">
+<h2>Logout View<a class="headerlink" href="#logout-view" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.logout_view.</span></code><code class="sig-name descname"><span class="pre">LogoutView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/logout_view.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.LogoutView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LogoutView</span></code></a></p>
+<p>View to log off a user</p>
+</dd></dl>
+
+</div>
+<div class="section" id="password-reset-confirm-view">
+<h2>Password Reset Confirm View<a class="headerlink" href="#password-reset-confirm-view" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.password_reset_confirm_view.</span></code><code class="sig-name descname"><span class="pre">PasswordResetConfirmView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_confirm_view.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetConfirmView</span></code></a></p>
+<p>View to confirm that the password should be reset</p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_confirm_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The view part of the view. Handles all HTTP methods equally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Redirect to login page after activation</p>
+<dd class="field-even"><p>The rendered template response or a redirection to the password reset page</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a> or <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="py method">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>View for the login. Aliased to <a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.MfaEnableAuthentication" title="cms.views.authentication.authentication_actions.MfaEnableAuthentication"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaEnableAuthentication</span></code></a></p>
+<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_confirm_view.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>If the form is valid, show a success message.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">success_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/login/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_confirm_view.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>If the password was successfully reset, redirect to the login</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/password_reset_confirm.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_confirm_view.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The template which should be rendered</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="password-reset-view">
+<h2>Password Reset View<a class="headerlink" href="#password-reset-view" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.password_reset_view.</span></code><code class="sig-name descname"><span class="pre">PasswordResetView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.PasswordResetView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetView</span></code></a></p>
+<p>View to extend the default login behaviour from <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
+multi-factor-authentication.</p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The view part of the view. Handles all HTTP methods equally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The login form</p>
+<dd class="field-even"><p>The rendered template response or a redirection</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a> or <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="py attribute">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">logout</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>View to log off a user</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>HttpResponseRedirect: Redirect to the login page after logout</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
-</dd>
-</dl>
+<code class="sig-name descname"><span class="pre">email_template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/password_reset_email.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The full name of a template to use for generating the email with the reset password link.</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="py method">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">makeWebauthnUsers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Create WebAuthnUser objects for each mfa key of the user (see <a class="reference external" href="https://pypi.org/project/webauthn/">webauthn</a> for
-more information)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user object of this webauthn assertion</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The list ob webauthn user objects</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ WebAuthnUser ]</p>
-</dd>
-</dl>
+<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_view.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>If the form is valid, show a success message.</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="py attribute">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">mfa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>View to check 2FA authentication. Aliased to <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with a custom template.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The second factor form</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
-</dd>
-</dl>
+<code class="sig-name descname"><span class="pre">subject_template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/password_reset_email_subject.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The full name of a template to use for the subject of the email with the reset password link.</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="py attribute">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">mfaAssert</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Generate challenge for multi factor authentication.
-If the user did not provide the first factor (password) or already authenticated with multiple factors, an error is
-returned.
-This AJAX view is called asynchronously by JavaScript.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Error message or challenge for multi factor authentication</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
-</dd>
-</dl>
+<code class="sig-name descname"><span class="pre">success_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/reset-password/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>If the password reset process was successfully initialized, stay on the password reset page</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="py attribute">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">mfaVerify</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Verify the response to the challenge generated in <a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.mfaAssert" title="cms.views.authentication.authentication_actions.mfaAssert"><code class="xref py py-func docutils literal notranslate"><span class="pre">mfaAssert()</span></code></a>.
-After a successful verification, the user is logged in.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Whether or not the verification was successful</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
-</dd>
-</dl>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/password_reset_form.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The template which should be rendered</p>
 </dd></dl>
 
-<dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">password_reset_complete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L260"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>View to indicate that the password was successfully reset</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Redirect to login page after password is reseted</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">password_reset_confirm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>View to confirm that the password should be reset</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>PasswordChangeDoneView: Linked to Template to build view for user</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.views.PasswordChangeDoneView" title="(in Django v3.1)">PasswordChangeDoneView</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.authentication.authentication_actions.</span></code><code class="sig-name descname"><span class="pre">password_reset_done</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/authentication_actions.py#L219"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>View to indicate that the password reset process has been initiated</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Redirect after password reset</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
@@ -1407,7 +1434,7 @@ After a successful verification, the user is logged in.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="cms.views.chat.html" class="btn btn-neutral float-right" title="Chat" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cms.views.authentication.mfa.html" class="btn btn-neutral float-right" title="MFA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="cms.views.analytics.html" class="btn btn-neutral float-left" title="Analytics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
@@ -1420,7 +1447,7 @@ After a successful verification, the user is logged in.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 29, 2021.
+        Last updated on Feb 05, 2021.
       </span>
 
     </p>

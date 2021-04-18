@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-15T15:42:02+00:00" />
+    <meta property="article:modified_time" content="2021-04-18T21:30:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
@@ -285,11 +285,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#activation-form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
 </ul>
@@ -360,6 +355,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-email-form">User Email Form</a></li>
@@ -445,7 +441,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
 </li>
@@ -473,6 +469,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#admin-view-test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#api-view-test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#no-session-view-test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#region-view-test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#view-test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.tests.views.html#view-test-utils">View Test Utils</a></li>
@@ -497,7 +494,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#authentication-actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#account-activation-view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#login-view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#logout-view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#password-reset-confirm-view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#password-reset-view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
@@ -716,11 +718,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
 </ul>
@@ -791,6 +788,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
@@ -876,7 +874,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
@@ -904,6 +902,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.admin_view_test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.api_view_test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.no_session_view_test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.region_view_test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.view_test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.tests.views.html#module-cms.tests.views.view_test_utils">View Test Utils</a></li>
@@ -928,7 +927,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.account_activation_view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.login_view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.logout_view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.password_reset_confirm_view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.authentication.html#module-cms.views.authentication.password_reset_view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.chat.html">Chat</a><ul>
@@ -1382,8 +1386,8 @@ web server configurations (see <a class="reference external" href="https://docs.
 (this is a setting in case the application runs behind a proxy).
 Used in the following views:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.register_mfa_key" title="cms.views.settings.mfa.mfa.register_mfa_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_mfa_key()</span></code></a></p></li>
-<li><p><a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.mfaVerify" title="cms.views.authentication.authentication_actions.mfaVerify"><code class="xref py py-func docutils literal notranslate"><span class="pre">mfaVerify()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView" title="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView"><code class="xref py py-class docutils literal notranslate"><span class="pre">RegisterUserMfaKeyView</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.views.authentication.mfa.html#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView" title="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaVerifyView</span></code></a></p></li>
 </ul>
 </dd></dl>
 
@@ -1582,10 +1586,10 @@ region aliases (see <a class="reference internal" href="../ref-ext/gvz_api.html#
 (this is a setting in case the application runs behind a proxy).
 Used in the following views:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.GetChallengeView" title="cms.views.settings.mfa.mfa.GetChallengeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">GetChallengeView</span></code></a></p></li>
-<li><p><a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.mfa.register_mfa_key" title="cms.views.settings.mfa.mfa.register_mfa_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_mfa_key()</span></code></a></p></li>
-<li><p><a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.makeWebauthnUsers" title="cms.views.authentication.authentication_actions.makeWebauthnUsers"><code class="xref py py-func docutils literal notranslate"><span class="pre">makeWebauthnUsers()</span></code></a></p></li>
-<li><p><a class="reference internal" href="../ref-ext/cms.views.authentication.html#cms.views.authentication.authentication_actions.mfaVerify" title="cms.views.authentication.authentication_actions.mfaVerify"><code class="xref py py-func docutils literal notranslate"><span class="pre">mfaVerify()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView" title="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">GetMfaChallengeView</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.views.settings.mfa.html#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView" title="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView"><code class="xref py py-class docutils literal notranslate"><span class="pre">RegisterUserMfaKeyView</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.views.authentication.mfa.html#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView" title="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaAssertView</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/cms.views.authentication.mfa.html#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView" title="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaVerifyView</span></code></a></p></li>
 </ul>
 </dd></dl>
 
@@ -2080,7 +2084,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 15, 2021.
+        Last updated on Apr 18, 2021.
       </span>
 
     </p>

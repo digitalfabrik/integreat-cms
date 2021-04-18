@@ -285,11 +285,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#activation-form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.authentication.html#password-reset-form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
 </ul>
@@ -360,6 +355,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-email-form">User Email Form</a></li>
@@ -445,7 +441,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
 </li>
@@ -473,6 +469,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.tests.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#admin-view-test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#api-view-test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#no-session-view-test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#region-view-test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#view-test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.tests.views.html#view-test-utils">View Test Utils</a></li>
@@ -497,7 +494,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#authentication-actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#account-activation-view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#login-view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#logout-view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#password-reset-confirm-view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.authentication.html#password-reset-view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.chat.html">Chat</a><ul>
@@ -716,11 +718,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.activation_form">Activation Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.authentication.html#module-cms.forms.authentication.password_reset_form">Password Reset Form</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
 </ul>
@@ -791,6 +788,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
@@ -876,7 +874,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa">User MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
@@ -904,6 +902,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.tests.views.admin_view_test">Admin View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.tests.views.api_view_test">API View Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.tests.views.no_session_view_test">No Session View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.tests.views.region_view_test">Region View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.tests.views.view_test">View Test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.tests.views.view_test_utils">View Test Utils</a></li>
@@ -928,7 +927,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.authentication_actions">Authentication Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.mfa.html">MFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.account_activation_view">Account Activation View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.login_view">Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.logout_view">Logout View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.password_reset_confirm_view">Password Reset Confirm View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.password_reset_view">Password Reset View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.chat.html">Chat</a><ul>
@@ -1198,12 +1202,12 @@ does not check whether the response content is valid in any way.</p>
 <span id="admin-view-test"></span><h2>Admin View Test<a class="headerlink" href="#module-cms.tests.views.admin_view_test" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.tests.views.admin_view_test.AdminViewTest">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.tests.views.admin_view_test.</span></code><code class="sig-name descname"><span class="pre">AdminViewTest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/admin_view_test.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.tests.views.admin_view_test.</span></code><code class="sig-name descname"><span class="pre">AdminViewTest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/admin_view_test.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.tests.views.view_test.ViewTest" title="cms.tests.views.view_test.ViewTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.tests.views.view_test.ViewTest</span></code></a></p>
 <p>This test checks whether all admin views return status code 200.</p>
 <dl class="py method">
 <dt id="cms.tests.views.admin_view_test.AdminViewTest.setUp">
-<code class="sig-name descname"><span class="pre">setUp</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/admin_view_test.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.setUp" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">setUp</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/admin_view_test.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.setUp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook method for setting up the test fixture before exercising it.</p>
 </dd></dl>
 
@@ -1220,33 +1224,15 @@ does not check whether the response content is valid in any way.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.tests.views.admin_view_test.AdminViewTest.test_authenticate_modify_mfa">
+<code class="sig-name descname"><span class="pre">test_authenticate_modify_mfa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/user_settings/mfa/authenticate/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.test_authenticate_modify_mfa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">authenticate_modify_mfa</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.tests.views.admin_view_test.AdminViewTest.test_languages">
 <code class="sig-name descname"><span class="pre">test_languages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/languages/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.test_languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">languages</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.tests.views.admin_view_test.AdminViewTest.test_login">
-<code class="sig-name descname"><span class="pre">test_login</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.test_login" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.tests.views.admin_view_test.AdminViewTest.test_login_mfa">
-<code class="sig-name descname"><span class="pre">test_login_mfa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/mfa/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.test_login_mfa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login_mfa</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.tests.views.admin_view_test.AdminViewTest.test_login_mfa_assert">
-<code class="sig-name descname"><span class="pre">test_login_mfa_assert</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/mfa/assert'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.test_login_mfa_assert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login_mfa_assert</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.tests.views.admin_view_test.AdminViewTest.test_login_mfa_verify">
-<code class="sig-name descname"><span class="pre">test_login_mfa_verify</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/mfa/verify'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.test_login_mfa_verify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login_mfa_verify</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1316,12 +1302,6 @@ does not check whether the response content is valid in any way.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.tests.views.admin_view_test.AdminViewTest.test_user_settings_auth_modify_mfa">
-<code class="sig-name descname"><span class="pre">test_user_settings_auth_modify_mfa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/user_settings/authenticate_modify_mfa/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.test_user_settings_auth_modify_mfa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">user_settings_auth_modify_mfa</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
-</dd></dl>
-
-<dl class="py method">
 <dt id="cms.tests.views.admin_view_test.AdminViewTest.test_users">
 <code class="sig-name descname"><span class="pre">test_users</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/users/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.admin_view_test.AdminViewTest.test_users" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">users</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
@@ -1382,6 +1362,40 @@ does not check whether the response content is valid in any way.</p>
 <dt id="cms.tests.views.api_view_test.APIViewTest.test_api_sent_push_notifications">
 <code class="sig-name descname"><span class="pre">test_api_sent_push_notifications</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/augsburg/de/sent_push_notifications'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.api_view_test.APIViewTest.test_api_sent_push_notifications" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_sent_push_notifications</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.tests.views.no_session_view_test">
+<span id="no-session-view-test"></span><h2>No Session View Test<a class="headerlink" href="#module-cms.tests.views.no_session_view_test" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="cms.tests.views.no_session_view_test.NoSessionViewTest">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.tests.views.no_session_view_test.</span></code><code class="sig-name descname"><span class="pre">NoSessionViewTest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/no_session_view_test.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.no_session_view_test.NoSessionViewTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cms.tests.views.view_test.ViewTest" title="cms.tests.views.view_test.ViewTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.tests.views.view_test.ViewTest</span></code></a></p>
+<p>This test checks whether all no-session views return status code 200.</p>
+<dl class="py method">
+<dt id="cms.tests.views.no_session_view_test.NoSessionViewTest.test_login">
+<code class="sig-name descname"><span class="pre">test_login</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.no_session_view_test.NoSessionViewTest.test_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.tests.views.no_session_view_test.NoSessionViewTest.test_login_mfa">
+<code class="sig-name descname"><span class="pre">test_login_mfa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/mfa/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.no_session_view_test.NoSessionViewTest.test_login_mfa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login_mfa</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.tests.views.no_session_view_test.NoSessionViewTest.test_login_mfa_assert">
+<code class="sig-name descname"><span class="pre">test_login_mfa_assert</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/mfa/assert'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.no_session_view_test.NoSessionViewTest.test_login_mfa_assert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login_mfa_assert</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.tests.views.no_session_view_test.NoSessionViewTest.test_password_reset">
+<code class="sig-name descname"><span class="pre">test_password_reset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/reset-password/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.tests.views.no_session_view_test.NoSessionViewTest.test_password_reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">password_reset</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
 </dd></dl>
 
 </dd></dl>
