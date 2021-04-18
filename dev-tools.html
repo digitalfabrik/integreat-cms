@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-15T11:31:42+00:00" />
+    <meta property="article:modified_time" content="2021-04-10T19:21:34+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Developer Tools &mdash; integreat-cms 0.0.14 documentation</title>
@@ -91,7 +91,6 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#download-sources">Download sources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-dependencies-and-local-package">Install dependencies and local package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#create-debian-package">Create debian package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dev-server.html">Development Server</a><ul>
@@ -181,6 +180,18 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#custom-docker-images">Custom Docker Images</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Deployment</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#create-debian-package">Create debian package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#webserver">Webserver</a></li>
 </ul>
 </li>
 </ul>
@@ -1264,9 +1275,12 @@ files in these directories can cause compilation failures for the <a class="refe
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <p>Generate this documentation with <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/generate_documentation.sh">dev-tools/generate_documentation.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">generate_documentation</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">generate_documentation</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">clean</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>If the <code class="docutils literal notranslate"><span class="pre">--clean</span></code> parameter is provided, the script will clean all temporary documentation files in the <code class="docutils literal notranslate"><span class="pre">sphinx/ref/</span></code>
+and <code class="docutils literal notranslate"><span class="pre">sphinx/ref-ext/</span></code> directories as well as the compiled html output in <code class="docutils literal notranslate"><span class="pre">docs</span></code>. Existing outdated documentation
+files can cause the generation script to fail if e.g. source files were added or deleted.</p>
 </div>
 </div>
 
@@ -1289,7 +1303,7 @@ files in these directories can cause compilation failures for the <a class="refe
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 15, 2021.
+        Last updated on Apr 10, 2021.
       </span>
 
     </p>

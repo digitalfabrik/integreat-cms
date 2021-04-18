@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-15T11:31:42+00:00" />
+    <meta property="article:modified_time" content="2021-02-06T00:31:34+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Installation &mdash; integreat-cms 0.0.14 documentation</title>
@@ -91,7 +91,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#download-sources">Download sources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-dependencies-and-local-package">Install dependencies and local package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#create-debian-package">Create debian package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dev-server.html">Development Server</a><ul>
@@ -181,6 +180,18 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#custom-docker-images">Custom Docker Images</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Deployment</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#create-debian-package">Create debian package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#webserver">Webserver</a></li>
 </ul>
 </li>
 </ul>
@@ -1252,35 +1263,6 @@ cd integreat-cms</pre>
 If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> or <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">--dev</span></code> directly.</p>
 </div>
 </div>
-<div class="section" id="create-debian-package">
-<h2>Create debian package<a class="headerlink" href="#create-debian-package" title="Permalink to this headline">¶</a></h2>
-<p>Packaging for Debian can be done with setuptools:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install stdeb --user
-python3 setup.py --command-packages<span class="o">=</span>stdeb.command bdist_deb
-</pre></div>
-</div>
-<p>The project requires the package python3-django-widget-tweaks which has to be built manually:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:jazzband/django-widget-tweaks.git
-<span class="nb">cd</span> django-widget-tweaks
-pip3 install stdeb
-python3 setup.py --command-packages<span class="o">=</span>stdeb.command bdist_deb
-</pre></div>
-</div>
-<p>Then install both packages with gdebi:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt install gdebi postgresql
-gdebi django-widget-tweaks/deb_dist/python3-django-widget-tweaks_1.4.3-1_all.deb
-gdebi <span class="p">|</span>github-repository<span class="p">|</span>/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
-</pre></div>
-</div>
-<p>In the end, create a PostgreSQL user and database and adjust the <code class="docutils literal notranslate"><span class="pre">/usr/lib/python3/dist-packages/backend/settings.py</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In some cases, you can just use the developer tool <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/package.sh">dev-tools/package.sh</a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/package.sh
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 
 
@@ -1302,7 +1284,7 @@ gdebi <span class="p">|</span>github-repository<span class="p">|</span>/deb_dist
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 15, 2021.
+        Last updated on Feb 06, 2021.
       </span>
 
     </p>
