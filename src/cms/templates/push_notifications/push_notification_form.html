@@ -6,14 +6,12 @@
 {% load push_notification_filters %}
 {% load page_filters %}
 {% load rules %}
+{% load charCounter}
 
 <head>
-<script>
-    function ShowLength( str ) {
-        document.getElementById("inputlength").innerHTML = str.length + "/250";
-     }
-</script>
+<script src="{% static 'charCounter.js' %}"></script>
 </head>
+
 
 <form method="post">
     {% csrf_token %}
@@ -57,11 +55,14 @@
                 <div id="tab-{{ form.language.value }}" class="language-tab-content w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto {% if form.language.value|add:0 != language.id|add:0 %}hidden{% endif %}">
                     <div class="w-full p-4">
                         {{push_notification_translation_form.errors}}
+                        
                         <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
                             <label for="{{ form.title.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ form.title.label }}</label>
                             {% render_field form.title class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                         </div>
+                        
                         <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+                            
                             <label for="{{ form.text.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ form.text.label }}</label>
                             {% render_field form.text onkeyup="ShowLength(value);" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             <p id="inputlength">/250</p>
