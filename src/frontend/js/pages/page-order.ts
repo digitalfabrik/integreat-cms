@@ -3,19 +3,19 @@ import { off, on } from "../utils/wrapped-events";
 
 let initialPageTitle: string;
 window.addEventListener("load", () => {
+
+  // Only activate event listeners if explicitly enabled
+  if (!document.querySelector("[data-activate-page-order]")) return;
+
   // Event handler for changing the parent page option
   const parentEl = document.getElementById("parent");
-  if (parentEl) {
-    parentEl.addEventListener("change", getPageOrderTable);
-  }
+  parentEl.addEventListener("change", getPageOrderTable);
 
   // Event handler for updating the page title
   const pageTitleEl = document.getElementById("id_title") as HTMLInputElement;
-  if (pageTitleEl) {
-    pageTitleEl.addEventListener("input", updatePageTitle);
-    // save initial page title
-    initialPageTitle = pageTitleEl.value;
-  }
+  pageTitleEl.addEventListener("input", updatePageTitle);
+  // save initial page title
+  initialPageTitle = pageTitleEl.value;
 
   // Register all handlers once initially
   registerEventHandlers();
