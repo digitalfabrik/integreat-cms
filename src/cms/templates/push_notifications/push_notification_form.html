@@ -6,7 +6,6 @@
 {% load push_notification_filters %}
 {% load page_filters %}
 {% load rules %}
-{% load charCounter}
 
 <head>
 <script src="{% static 'charCounter.js' %}"></script>
@@ -62,7 +61,6 @@
                         </div>
                         
                         <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-                            
                             <label for="{{ form.text.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ form.text.label }}</label>
                             {% render_field form.text onkeyup="ShowLength(value);" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                             <p id="inputlength">/250</p>
