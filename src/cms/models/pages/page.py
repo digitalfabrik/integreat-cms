@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from .abstract_base_page import AbstractBasePage
+from ..languages.language import Language
 from ..regions.region import Region
 from ..users.organization import Organization
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -128,6 +129,17 @@ class Page(MPTTModel, AbstractBasePage):
         :rtype: bool
         """
         return self.explicitly_archived or self.implicitly_archived
+
+    @property
+    def languages(self):
+        """
+        This property returns a list of all :class:`~cms.models.languages.language.Language` objects, to which a page
+        translation exists.
+
+        :return: list of all :class:`~cms.models.languages.language.Language` a page is translated into
+        :rtype: list [ ~cms.models.languages.language.Language ]
+        """
+        return Language.objects.filter(page_translations__page=self)
 
     @property
     def depth(self):
