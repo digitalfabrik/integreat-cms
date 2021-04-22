@@ -43,7 +43,7 @@ if nc -w1 localhost 5432; then
     ./dev-tools/migrate.sh
 
     # Start Integreat CMS
-    pipenv run integreat-cms-cli runserver localhost:8000
+    pipenv --python 3.7 run integreat-cms-cli runserver localhost:8000
 
 else
 
@@ -109,7 +109,7 @@ else
     fi
 
     # Start Integreat CMS
-    sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
+    sudo -u $SUDO_USER env PATH="$PATH" pipenv --python 3.7 run integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
 
     # Stop the postgres database docker container
     docker stop integreat_django_postgres > /dev/null

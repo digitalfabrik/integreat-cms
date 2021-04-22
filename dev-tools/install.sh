@@ -85,7 +85,7 @@ else
 fi
 
 # Install pip dependencies
-pipenv install --dev
+pipenv --python 3.7 install --dev
 
 # Install pre-commit hook for black code style
-pipenv run pre-commit install
+pipenv --python 3.7 run pre-commit install

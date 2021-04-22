@@ -10,7 +10,7 @@ fi
 cd $(dirname "$BASH_SOURCE")/..
 
 # Run black
-pipenv run black .
+pipenv --python 3.7 run black .
 
 # Update translations (because changed formatting affects line numbers)
 ./translate.sh

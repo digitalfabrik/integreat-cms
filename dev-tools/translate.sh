@@ -31,7 +31,7 @@ fi
 cd $(dirname "$BASH_SOURCE")/../src/cms
 
 # Re-generating translation file
-pipenv run integreat-cms-cli makemessages -l de
+pipenv --python 3.7 run integreat-cms-cli makemessages -l de
 
 # Ignore POT-Creation-Date of otherwise unchanged translation file
 if git diff --shortstat locale/de/LC_MESSAGES/django.po | grep -q "1 file changed, 1 insertion(+), 1 deletion(-)"; then
@@ -39,4 +39,4 @@ if git diff --shortstat locale/de/LC_MESSAGES/django.po | grep -q "1 file change
 fi
 
 # Compile translation file
-pipenv run integreat-cms-cli compilemessages
+pipenv --python 3.7 run integreat-cms-cli compilemessages

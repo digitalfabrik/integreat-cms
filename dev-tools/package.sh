@@ -25,10 +25,10 @@ fi
 cd $(dirname "$BASH_SOURCE")/..
 
 # Compile CSS file
-pipenv run npm run prod
+pipenv --python 3.7 run npm run prod
 
 # Compile translation file
-pipenv run integreat-cms-cli compilemessages
+pipenv --python 3.7 run integreat-cms-cli compilemessages
 
 # Create debian package
 python3 setup.py --command-packages=stdeb.command bdist_deb

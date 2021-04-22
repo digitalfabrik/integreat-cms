@@ -25,7 +25,7 @@ if nc -w1 localhost 5432; then
 
     cd $(dirname "$BASH_SOURCE")/..
 
-    pipenv run integreat-cms-cli loaddata src/cms/fixtures/test_data.json
+    pipenv --python 3.7 run integreat-cms-cli loaddata src/cms/fixtures/test_data.json
 
 else
 
@@ -56,7 +56,7 @@ else
 
     # Check if postgres database container is already running
     if [ "$(docker ps -q -f name=integreat_django_postgres)" ]; then
-        sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli loaddata src/cms/fixtures/test_data.json --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH="$PATH" pipenv --python 3.7 run integreat-cms-cli loaddata src/cms/fixtures/test_data.json --settings=backend.docker_settings
     else
         # Check if stopped container is available
         if [ "$(docker ps -aq -f status=exited -f name=integreat_django_postgres)" ]; then
@@ -75,7 +75,7 @@ else
             done
             echo ""
         fi
-        sudo -u $SUDO_USER env PATH="$PATH" pipenv run integreat-cms-cli loaddata src/cms/fixtures/test_data.json --settings=backend.docker_settings
+        sudo -u $SUDO_USER env PATH="$PATH" pipenv --python 3.7 run integreat-cms-cli loaddata src/cms/fixtures/test_data.json --settings=backend.docker_settings
         # Stop the postgres database docker container
         docker stop integreat_django_postgres > /dev/null
     fi

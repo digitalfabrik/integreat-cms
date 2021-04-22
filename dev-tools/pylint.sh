@@ -10,4 +10,4 @@ fi
 cd $(dirname "$BASH_SOURCE")/..
 
 # Run pylint
-pipenv run pylint_runner
+pipenv --python 3.7 run pylint_runner

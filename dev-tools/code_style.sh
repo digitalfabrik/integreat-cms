@@ -10,7 +10,7 @@ fi
 cd $(dirname "$BASH_SOURCE")/..
 
 # Run black
-pipenv run black .
+pipenv --python 3.7 run black .
 
 # Run pylint
-pipenv run pylint_runner
+pipenv --python 3.7 run pylint_runner

@@ -30,4 +30,4 @@ npx npm-check --update-all --skip-unused
 npm audit fix
 
 # Check if pip dependencies are up to date
-pipenv update --dev
+pipenv --python 3.7 update --dev

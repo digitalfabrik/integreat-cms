@@ -38,7 +38,7 @@ if [ "$1" == "--clean" ]; then
 fi
 
 # Copy original footer file
-cp $(pipenv --venv)/lib/python3.7/site-packages/sphinx_rtd_theme/footer.html ${SPHINX_DIR}/templates
+cp $(pipenv --python 3.7 --venv)/lib/python3.7/site-packages/sphinx_rtd_theme/footer.html ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information
 if ! patch ${SPHINX_DIR}/templates/footer.html ${SPHINX_DIR}/patches/footer.diff; then
     echo -e "\nThe patch for the footer template could not be applied correctly." >&2
@@ -48,7 +48,7 @@ if ! patch ${SPHINX_DIR}/templates/footer.html ${SPHINX_DIR}/patches/footer.diff
 fi
 
 # Copy original breadcrumbs file
-cp $(pipenv --venv)/lib/python3.7/site-packages/sphinx_rtd_theme/breadcrumbs.html ${SPHINX_DIR}/templates
+cp $(pipenv --python 3.7 --venv)/lib/python3.7/site-packages/sphinx_rtd_theme/breadcrumbs.html ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information
 if ! patch ${SPHINX_DIR}/templates/breadcrumbs.html ${SPHINX_DIR}/patches/breadcrumbs.diff; then
     echo -e "\nThe patch for the breadcrumbs template could not be applied correctly." >&2
@@ -59,7 +59,7 @@ fi
 
 # Generate new .rst files from source code for maximum verbosity
 export SPHINX_APIDOC_OPTIONS="members,undoc-members,inherited-members,show-inheritance"
-pipenv run sphinx-apidoc --no-toc --module-first -o ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} ${SRC_DIR} ${SRC_DIR}/cms/migrations ${SRC_DIR}/gvz_api/migrations
+pipenv --python 3.7 run sphinx-apidoc --no-toc --module-first -o ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} ${SRC_DIR} ${SRC_DIR}/cms/migrations ${SRC_DIR}/gvz_api/migrations
 
 # Modify .rst files to remove unnecessary submodule- & subpackage-titles
 # Example: "cms.models.push_notifications.push_notification_translation module" becomes "Push Notification Translation"
@@ -106,10 +106,10 @@ grep -rL ":orphan:" ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/*.rst | xargs -r sed 
 # Check if script is running in CircleCI context
 if [[ -n "$CIRCLECI" ]]; then
     # Compile .rst files to html documentation (deactivate parallel build due to EOFError - see https://github.com/sphinx-doc/sphinx/issues/8973)
-    pipenv run sphinx-build -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+    pipenv --python 3.7 run sphinx-build -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
 else
     # Compile .rst files to html documentation
-    pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+    pipenv --python 3.7 run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
 fi
 
 # Get exit status of sphinx-build

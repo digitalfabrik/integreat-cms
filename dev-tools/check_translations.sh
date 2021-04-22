@@ -58,7 +58,7 @@ cd $(dirname "$BASH_SOURCE")/../src/cms || exit 1
 TRANSLATION_FILE="locale/de/LC_MESSAGES/django.po"
 
 # Re-generating translation file
-pipenv run integreat-cms-cli makemessages -l de > /dev/null || exit 1
+pipenv --python 3.7 run integreat-cms-cli makemessages -l de > /dev/null || exit 1
 
 # Check if translation file is up to date
 TRANSLATION_DIFF=$(git diff --shortstat $TRANSLATION_FILE)
