@@ -48,8 +48,8 @@ node_numeric_version="${node_version:1}"
 # Strip trailing minor and patch version
 node_major_version="${node_numeric_version%%.*}"
 # Check node version requirements (12 or higher but not 13)
-if [ "${node_major_version}" -lt 12 ] || [ "${node_major_version}" -eq 13 ]; then
-    echo "nodejs version 12 or version 14 or higher is required, but version $node_version is installed. Please install a recent version manually and run this script again." >&2
+if ! [[ "${node_major_version}" =~ ^(12|14|15)$ ]] ; then
+    echo "nodejs version 12 or version 14 or 15 is required, but version $node_version is installed. Please install a supported version manually and run this script again." >&2
     exit 1
 fi
 
