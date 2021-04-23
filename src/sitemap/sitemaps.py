@@ -8,7 +8,7 @@ import logging
 from django.contrib.sitemaps import Sitemap
 
 from backend.settings import WEBAPP_URL
-from cms.models import PageTranslation, EventTranslation, POITranslation, Offer
+from cms.models import PageTranslation, EventTranslation, POITranslation, OfferTemplate
 from cms.constants import status
 
 logger = logging.getLogger(__name__)
@@ -223,8 +223,8 @@ class OfferSitemap(WebappSitemap):
 
     #: The priority of this sitemap's urls (``1.0``)
     priority = 1.0
-    #: The :class:`~cms.models.offers.offer.Offer` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
-    queryset = Offer.objects.all()
+    #: The :class:`~cms.models.offers.offer_template.OfferTemplate` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
+    queryset = OfferTemplate.objects.all()
 
     def __init__(self, region, language):
         """
@@ -239,26 +239,28 @@ class OfferSitemap(WebappSitemap):
         # Instantiate WebappSitemap
         super().__init__(region, language)
         # Filter queryset based on region
-        self.queryset = self.queryset.filter(region=self.region)
+        self.queryset = self.queryset.filter(regions=self.region)
 
     def location(self, obj):
         """
         This location function returns the absolute path for a given object returned by items().
 
         :param obj: Objects passed from items() method
-        :type obj: ~cms.models.offers.offer.Offer
+        :type obj: ~cms.models.offers.offer_template.OfferTemplate
 
         :return: The absolute path of the given offer object
         :rtype: str
         """
-        return "/" + "/".join([obj.region.slug, self.language.slug, "offers", obj.slug])
+        return "/" + "/".join(
+            [self.region.slug, self.language.slug, "offers", obj.slug]
+        )
 
     def sitemap_alternates(self, obj):
         """
         This sitemap_alternates function returns the language alternatives of offers for the use in sitemaps.
 
         :param obj: Objects passed from items() method
-        :type obj: ~cms.models.offers.offer.Offer
+        :type obj: ~cms.models.offers.offer_template.OfferTemplate
 
         :return: A list of dictionaries containing the alternative translations of offers
         :rtype: list [ dict ]

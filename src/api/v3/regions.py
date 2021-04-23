@@ -1,10 +1,9 @@
 """
 Views to return JSON representations of regions
 """
-from django.db.models import Exists, OuterRef
 from django.http import JsonResponse
 
-from cms.models import Region, Offer, Language
+from cms.models import Region, Language
 from cms.constants import region_status
 
 from ..decorators import json_response
@@ -28,7 +27,7 @@ def transform_region(region):
         "prefix": region.prefix,
         "name_without_prefix": region.name,
         "plz": region.postal_code,
-        "extras": region.offers_enabled,
+        "extras": region.offers.exists(),
         "events": region.events_enabled,
         "push-notifications": region.push_notifications_enabled,
         "longitude": region.longitude,
@@ -62,12 +61,7 @@ def regions(_):
     :rtype: ~django.http.JsonResponse
     """
     result = list(
-        map(
-            transform_region,
-            Region.objects.exclude(status=region_status.ARCHIVED).annotate(
-                offers_enabled=Exists(Offer.objects.filter(region=OuterRef("pk")))
-            ),
-        )
+        map(transform_region, Region.objects.exclude(status=region_status.ARCHIVED))
     )
     return JsonResponse(
         result, safe=False
@@ -85,9 +79,7 @@ def liveregions(_):
     result = list(
         map(
             transform_region_by_status,
-            Region.objects.filter(status=region_status.ACTIVE).annotate(
-                offers_enabled=Exists(Offer.objects.filter(region=OuterRef("pk")))
-            ),
+            Region.objects.filter(status=region_status.ACTIVE),
         )
     )
     return JsonResponse(
@@ -106,9 +98,7 @@ def hiddenregions(_):
     result = list(
         map(
             transform_region_by_status,
-            Region.objects.filter(status=region_status.HIDDEN).annotate(
-                offers_enabled=Exists(Offer.objects.filter(region=OuterRef("pk")))
-            ),
+            Region.objects.filter(status=region_status.HIDDEN),
         )
     )
     return JsonResponse(

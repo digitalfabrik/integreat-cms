@@ -28,10 +28,7 @@ class OfferListFeedback(Feedback):
         :rtype: str
         """
         return reverse(
-            "offers",
-            kwargs={
-                "region_slug": self.region.slug,
-            },
+            "offer_templates",
         )
 
     @property

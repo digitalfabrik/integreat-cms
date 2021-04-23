@@ -15,7 +15,6 @@ from .views import (
     chat,
     dashboard,
     events,
-    offers,
     offer_templates,
     language_tree,
     languages,
@@ -788,31 +787,6 @@ urlpatterns = [
                                                     ),
                                                 ]
                                             ),
-                                        ),
-                                    ]
-                                ),
-                            ),
-                        ]
-                    ),
-                ),
-                url(
-                    r"^offers/",
-                    include(
-                        [
-                            url(r"^$", offers.OfferListView.as_view(), name="offers"),
-                            url(
-                                r"^(?P<offer_template_slug>[-\w]+)/",
-                                include(
-                                    [
-                                        url(
-                                            r"^activate$",
-                                            offers.activate,
-                                            name="activate_offer",
-                                        ),
-                                        url(
-                                            r"^deactivate$",
-                                            offers.deactivate,
-                                            name="deactivate_offer",
                                         ),
                                     ]
                                 ),
