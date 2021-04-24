@@ -14,7 +14,7 @@ Following packages are required before installing the project (install them with
 
 * `git <https://git-scm.com/>`_
 * `npm <https://www.npmjs.com/>`_ version 7 or higher
-* `nodejs <https://nodejs.org/>`_ version 12 or version 14 or higher
+* `nodejs <https://nodejs.org/>`_ version 12, 14 or 15
 * `python3.7 <https://packages.ubuntu.com/search?keywords=python3.7>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__ [#ppa]_) / `python37 <https://aur.archlinux.org/packages/python37/>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
 * `python3.7-dev <https://packages.ubuntu.com/search?keywords=python3.7-dev>`_ (only required on `Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__)
 * `python3-pip <https://packages.ubuntu.com/search?keywords=python3-pip>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__) / `python-pip <https://www.archlinux.de/packages/extra/x86_64/python-pip>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
