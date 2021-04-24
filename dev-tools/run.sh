@@ -8,12 +8,6 @@ then
   export PIPENV_VERBOSITY=-1
 fi
 
-# Check if nc (netcat) is installed
-if [ ! -x "$(command -v nc)" ]; then
-    echo "Netcat is not installed. Please install it manually and run this script again." >&2
-    exit 1
-fi
-
 # Check if local postgres server is running
 if nc -w1 localhost 5432; then
 

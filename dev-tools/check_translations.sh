@@ -45,12 +45,6 @@ if [[ -n "$VIRTUAL_ENV" ]]; then
     export PIPENV_VERBOSITY=-1
 fi
 
-# Check if pcregrep is installed
-if [ ! -x "$(command -v pcregrep)" ]; then
-    echo "PCRE grep is not installed. Please install pcregrep manually and run this script again." | print_error
-    exit 1
-fi
-
 # Change directory to make sure to ignore files in the venv
 cd $(dirname "$BASH_SOURCE")/../src/cms || exit 1
 
