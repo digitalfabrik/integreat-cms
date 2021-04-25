@@ -3,17 +3,8 @@
 # This script installs the CMS in a local virtual environment without the need for docker or any other virtualization technology.
 # A Postgres SQL server is needed to run the CMS (optionally inside a docker container).
 
-# This function prints the major version of a string in the format XX.YY.ZZ
-function major {
-    # Split by "." and take the first element for the major version
-    echo "$1" | cut -d. -f1
-}
-
-# This function prints the minor version of a string in the format XX.YY.ZZ
-function minor {
-    # Split by "." and take the second element for the minor version
-    echo "$1" | cut -d. -f2
-}
+# Import utility functions
+source $(dirname "$BASH_SOURCE")/_functions.sh
 
 if [[ "$VIRTUAL_ENV" != "" ]]
 then

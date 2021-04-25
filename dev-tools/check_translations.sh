@@ -2,29 +2,8 @@
 
 # This script can be used to check the translation file for missing or empty entries.
 
-# This function prints the given input lines in red color
-function print_error {
-    while read -r line; do
-        echo -e "\e[1;31m$line\e[0;39m" >&2
-    done
-}
-
-# This function prints the given input lines in green color
-function print_success {
-    while read -r line; do
-        echo -e "\e[1;32m$line\e[0;39m"
-    done
-}
-
-# This function prints the given input lines with a nice little border to separate it from the rest of the content.
-# Pipe your content to this function.
-function print_with_borders {
-    echo "┌──────────────────────────────────────"
-    while read -r line; do
-        echo "│ $line"
-    done
-    echo -e "└──────────────────────────────────────\n"
-}
+# Import utility functions
+source $(dirname "$BASH_SOURCE")/_functions.sh
 
 # This function applies different sed replacements to make sure the matched lines from grep are aligned and colored
 # sed doesn't understand \e, therefore \x1b has to be used as escape sequence.
