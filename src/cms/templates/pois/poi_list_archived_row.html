@@ -3,6 +3,7 @@
 {% load content_filters %}
 
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
+    <!---
 	<td class="py-3 pl-4 pr-2 min">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
             {{ poi.id }}
@@ -13,6 +14,7 @@
             {{ poi_translation.version }}
         </a>
     </td>
+-->
     <td class="pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
             {{ poi_translation.get_status_display }}

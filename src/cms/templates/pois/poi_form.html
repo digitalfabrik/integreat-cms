@@ -109,14 +109,17 @@
                         <span class="inline-block mb-2 font-bold">{% trans 'Status' %}:</span>
                         {{ poi_translation_form.instance.get_status_display }}
                     {% endif %}
-                    <label for="{{ poi_translation_form.title.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ poi_translation_form.title.label }}</label>
+                    <label for="{{ poi_translation_form.title.id_for_label }}" 
+                    data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug %}{% if poi_form.instance.id %}?page={{ poi_form.instance.id }}{% endif %}"
+                    class="block mb-2 mt-4 font-bold">{{ poi_translation_form.title.label }}
+                    </label>
                     {% render_field poi_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     <label for="{{ poi_translation_form.slug.id_for_label }}" class="block my-2 font-bold">{{ poi_translation_form.slug.label }}</label>
                     <div class="my-2 text-s text-gray-600">{{ poi_translation_form.slug.help_text }}</div>
                     <div id="slug-div" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
                         {% spaceless %}
                             <div style="display: table; white-space: nowrap;">
-                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.slug }}/</span>
+                                <span style="display: table-cell;">https://integreat.app/{{ region.slug }}/{{ language.slug }}/{{ poi_translation_form.instance.slug }}</span>
                                 <span style="display: table-cell; width: 100%;">{% render_field poi_translation_form.slug|add_error_class:"slug-error" class="w-full rounded" %}</span>
                             </div>
                         {% endspaceless %}
@@ -129,6 +132,13 @@
                     {% render_field poi_translation_form.minor_edit id="minor_edit" %}
                     <label for="{{ poi_translation_form.minor_edit.id_for_label }}" class="text-s p-2">{{ poi_translation_form.minor_edit.label }}</label>
                     <div class="my-2 text-s text-gray-600">{{ poi_translation_form.minor_edit.help_text }}</div>
+                    
+                    <span class="block mb-2 mt-4 font-bold">{% trans 'Location on the map' %}</span>
+                    {% render_field poi_translation_form.location_not_on_map id="location_not_on_map" %}
+                    <label for="{{ poi_translation_form.location_not_on_map.id_for_label }}" class="text-s p-2">{{ poi_translation_form.location_not_on_map.label }}</label>
+                    <div class="my-2 text-s text-gray-600">{{ poi_translation_form.location_not_on_map.help_text }}</div>
+
+
                 </div>
             </div>
         </div>

@@ -33,6 +33,7 @@ class POITranslationForm(CustomModelForm):
             "description",
             "slug",
             "minor_edit",
+            "location_not_on_map",
         ]
 
     # pylint: disable=too-many-arguments

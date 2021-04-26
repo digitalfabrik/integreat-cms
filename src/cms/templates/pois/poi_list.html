@@ -38,9 +38,9 @@
     <table data-enable-table-sort class="sort w-full mt-4 rounded border border-gray-200 shadow bg-white table-fixed">
         <thead>
             <tr class="border-b border-gray-200">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'ID' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2 min">{% trans 'Version' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
+                <!--<th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'ID' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 min">{% trans 'Version' %}</th>-->
+                <th class="text-sm text-left uppercase py-3 pr-2" >{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2" data-sort-default>{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
                 {% get_language LANGUAGE_CODE as backend_language %}
@@ -56,10 +56,10 @@
                         {% endfor %}
                     </div>
                 </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Street' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Postal Code' %}</th>
-	            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'City' %}</th>
-	            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Country' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2" >{% trans 'Street' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2" >{% trans 'Postal Code' %}</th>
+	            <th class="text-sm text-left uppercase py-3 pr-2" >{% trans 'City' %}</th>
+	            <th class="text-sm text-left uppercase py-3 pr-2" >{% trans 'Country' %}</th>
                 <th class="text-sm text-right uppercase py-3 pr-4 min no-sort" data-sort-method="none">{% trans 'Options' %}</th>
             </tr>
         </thead>

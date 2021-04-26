@@ -81,6 +81,11 @@ class POITranslation(models.Model):
         related_name="poi_translations",
         verbose_name=_("creator"),
     )
+    location_not_on_map = models.BooleanField(
+        default=True,
+        verbose_name=_("Do not show location on map"),
+        help_text=_("Tick if you do not want this location to be shown on the map."),
+    )
 
     @property
     def foreign_object(self):
