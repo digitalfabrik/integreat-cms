@@ -5,7 +5,7 @@ import logging
 import json
 import requests
 from django.conf import settings
-from cms.constants import administrative_division
+from cms.constants import administrative_division as ad
 
 logger = logging.getLogger(__name__)
 
@@ -20,116 +20,131 @@ class GvzApiWrapper:
     The URL to the external GVZ API
     """
 
-    def search(self, region_name):
+    def search(self, region_name, division_category):
         """
         Search for a region and return candidates
 
         :param region_name: name of a region (city name, county name, etc)
         :type region_name: str
 
+        :param division_category: GVZ category of division (state, district, county, municipality)
+        :type division_category: int
+
         :return: JSON search results defined in the GVZ API
         :rtype: str
         """
-
         logger.debug("Searching for %r", region_name)
-        response = requests.get(f"{self.api_url}/search/{region_name}")
-        regions = json.loads(response.text)
+        regions = requests.get(
+            f"{self.api_url}/api/administrative_divisions/?search={region_name}&division_category={division_category}"
+        ).json()["results"]
         return regions
 
-    def get_details(self, region_key):
+    def get_details(self, ags):
         """
-        Get details for a region key (i.e. Gemeindeschlüssel)
+        Get details for a region id (i.e. Gemeindeschlüssel)
 
-        :param region_key: official ID for a region, i.e. Gemeindeschlüssel
-        :type region_key: str
+        :param ags: Gemeindeschlüssel
+        :type ags: str
 
-        :return: dictionary containing longitude, latitude, type, key, name
+        :return: dictionary containing longitude, latitude, type, id, name
         :rtype: dict
         """
-        logger.debug("GVZ API: Details for %r", region_key)
-        response = requests.get(f"{self.api_url}/details/{region_key}")
-        region = json.loads(response.text)
-        if len(region) != 1:
+        logger.debug("GVZ API: Details for %r", ags)
+        result = requests.get(
+            f"{self.api_url}/api/administrative_divisions/?ags={ags}"
+        ).json()
+        if result["count"] != 1:
             return None
-        region = region[0]
+        region = result["results"][0]
         if "," in region["name"]:
             region["name"] = region["name"].split(",")[0]
         return {
-            "key": region["key"],
+            "id": region["id"],
+            "ags": region["ags"],
             "name": region["name"],
             "longitude": region["longitude"],
             "latitude": region["latitude"],
-            "type": region["type"],
+            "type": region["division_type"],
+            "children": region["children"],
         }
 
-    def get_children(self, region_key):
+    def get_child_coordinates(self, child_urls):
         """
-        Get keys of children of a region
+        Recursively get coordinates for list of children
 
-        :param region_key: official ID for a region, i.e. Gemeindeschlüssel
-        :type region_key: str
+        :param child_urls: URLs to REST API children
+        :type child_urls: list
 
-        :return: list of children dictionaries
-        :rtype: list
+        :return: dictionary of cooridnates
+        :rtype: dict
         """
-        response = requests.get(f"{self.api_url}/searchcounty/{region_key}")
-        content = json.loads(response.text)
-        if content:
-            return content[0]["children"]
-        return []
+        result = {}
+        for url in child_urls:
+            response = requests.get(url).json()
+            result[response["name"]] = {
+                "longitude": response["longitude"],
+                "latitude": response["latitude"],
+            }
+            result.update(self.get_child_coordinates(response["children"]))
+        return result
 
     @staticmethod
-    def translate_type(region_type):
+    def translate_division_category(division_type):
         """
-        Map Integreat CMS region types to Gemeindeverzeichnis region types.
+        Map Integreat CMS division types to Gemeindeverzeichnis division categories.
 
-        :param region_type: type of a region
-        :type region_type: str
+        :param division_type: type of a region
+        :type division_type: str
 
-        :return: administrative division of the region (choices: :mod:`cms.constants.administrative_division`)
-        :rtype: str
+        :return: division categorey identifier
+        :rtype: int
         """
-        if region_type in ("Stadt", "Kreisfreie Stadt"):
-            return administrative_division.CITY
-        if region_type in ("Landkreis", "Kreis"):
-            return administrative_division.RURAL_DISTRICT
-        return None
+        result = None
+        if division_type in [
+            ad.FEDERAL_STATE,
+            ad.AREA_STATE,
+            ad.FREE_STATE,
+            ad.CITY_STATE,
+        ]:
+            result = 10
+        elif division_type in [ad.GOVERNMENTAL_DISTRICT]:
+            result = 20
+        elif division_type in [ad.REGION]:
+            result = 30
+        elif division_type in [ad.RURAL_DISTRICT, ad.DISTRICT, ad.CITY_AND_DISTRICT]:
+            result = 40
+        elif division_type in [ad.COLLECTIVE_MUNICIPALITY]:
+            result = 50
+        elif division_type in [
+            ad.CITY,
+            ad.URBAN_DISTRICT,
+            ad.MUNICIPALITY,
+            ad.INITIAL_RECEPTION_CENTER,
+        ]:
+            result = 60
+        return result
 
-    @classmethod
-    def filter_region_types(cls, region_details):
+    def best_match(self, region_name, division_type):
         """
-        Special filters for certain region types. For example, Kreisfreie
-        Städte exist multiple times on different levels. We want the lower
-        level that contain the coordinates.
-
-        :param region_details: dictionary with region details
-        :type region_details: dict
-
-        :return: indicates if a region is not interesting
-        :rtype: bool
-        """
-        if cls.translate_type(region_details["type"]) == administrative_division.CITY:
-            if len(region_details["key"]) <= 5:
-                return False
-        return True
-
-    def best_match(self, region_name, region_type=None):
-        """
-        Tries to find the correct region key (single search hit)
+        Tries to find the correct region id (single search hit)
 
         :param region_name: name of a region (city name, county name, etc)
         :type region_name: str
 
-        :param region_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to ``None``
-        :type region_type: str
+        :param division_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`)
+        :type division_type: str
 
         :return: JSON search results defined in the GVZ API
         :rtype: str
         """
         # First: let's try normal search. If there is only one result, then
         # everything is good.
-        results = self.search(region_name)
+        results = self.search(
+            region_name, self.translate_division_category(division_type)
+        )
+
         if len(results) == 1:
+            logger.debug("GVZ API matching region for %r.", region_name)
             return results[0]
         # Second: drop all that are not literal matches:
         logger.debug("GVZ API found more than one region for %r.", region_name)
@@ -141,21 +156,6 @@ class GvzApiWrapper:
                 results_literal.append(region)
         if len(results_literal) == 1:
             return results_literal[0]
-        logger.debug("GVZ API did not find literal match for %r.", region_name)
-        # Third: match type
-        if region_type is None:
-            return None
-        results_type = []
-        for region in results_literal:
-            region_details = self.get_details(region["key"])
-            if region_details is None:
-                continue
-            if self.filter_region_types(region_details):
-                if self.translate_type(region_details["type"]) == region_type:
-                    results_type.append(region)
-        if len(results_type) == 1:
-            return results_type[0]
-        print(results_type)
         logger.debug("GVZ API did not find type match for %r", region_name)
         return None
 
@@ -165,48 +165,48 @@ class GvzRegion:
     Represents a region in the GVZ, initial values will be retrieved
     from API on initialization.
 
-    :param region_key: official ID for a region, i.e. Gemeindeschlüssel, defaults to ``None``
-    :type region_key: str
+    :param region_ags: official ID for a region, i.e. Gemeindeschlüssel, defaults to ``None``
+    :type region_ags: str
 
     :param region_name: name of a region (city name, county name, etc), defaults to ``None``
     :type region_name: str
 
-    :param region_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to ``None``
-    :type region_type: str
+    :param division_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to ``None``
+    :type division_type: str
     """
 
-    def __init__(self, region_key=None, region_name=None, region_type=None):
+    def __init__(self, region_ags=None, region_name=None, region_type=None):
         """
         Load initial values for region from GVZ API
         """
-        if region_key is None and region_name is None:
+        if region_ags is None and region_name is None:
             return
 
         api = GvzApiWrapper()
-        self.key = region_key
-        if region_name is not None and region_key == "":
+        self.ags = region_ags
+        if region_name is not None and region_ags == "":
             best_match = api.best_match(region_name, region_type)
             if best_match is not None:
-                self.key = best_match["key"]
+                self.ags = best_match["ags"]
 
         self.name = None
         self.longitude = None
         self.latitude = None
-        self.children = []
+        self.child_coordinates = {}
 
-        if self.key is None or self.key == "":
+        if self.ags is None or self.ags == "":
             return
 
-        details = api.get_details(self.key)
+        details = api.get_details(self.ags)
         if details is None:
             return
+        self.id = details["id"]
+        self.ags = details["ags"]
         self.name = details["name"]
         self.longitude = details["longitude"]
         self.latitude = details["latitude"]
 
-        children = api.get_children(self.key)
-        for child in children:
-            self.children.append(GvzRegion(region_key=child["key"]))
+        self.child_coordinates = api.get_child_coordinates(details["children"])
 
     def as_dict(self):
         """
@@ -219,7 +219,7 @@ class GvzRegion:
             "name": str(self),
             "longitude": self.longitude,
             "latitude": self.latitude,
-            "children": [child.as_dict() for child in self.children],
+            "children": self.child_coordinates,
         }
 
     def __str__(self):
@@ -239,12 +239,4 @@ class GvzRegion:
         :return: aliases of region according to Integreat APIv3 definition
         :rtype: str
         """
-        aliases = {}
-        if self.children is None:
-            return ""
-        for child in self.children:
-            aliases[child.name] = {
-                "longitude": child.longitude,
-                "latitude": child.latitude,
-            }
-        return json.dumps(aliases)
+        return json.dumps(self.child_coordinates)

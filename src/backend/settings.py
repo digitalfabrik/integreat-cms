@@ -98,7 +98,7 @@ GVZ_API_ENABLED = True
 
 #: The URL to our GVZ (Gemeindeverzeichnis) API. This is used to automatically import coordinates and region aliases
 #: (see :mod:`gvz_api` for more information).
-GVZ_API_URL = "https://gvz.integreat-app.de/api"
+GVZ_API_URL = "https://gvz.integreat-app.de"
 
 
 ############
