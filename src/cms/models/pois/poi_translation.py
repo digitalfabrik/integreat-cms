@@ -131,8 +131,7 @@ class POITranslation(models.Model):
         :return: A dictionary containing the available languages of a POI translation
         :rtype: dict
         """
-        languages = self.poi.languages
-        languages.remove(self.language)
+        languages = self.poi.languages.exclude(id=self.language.id)
         available_languages = {}
         for language in languages:
             other_translation = self.poi.get_public_translation(language.slug)
@@ -153,8 +152,7 @@ class POITranslation(models.Model):
         :return: A list of dictionaries containing the alternative translations of a POI translation
         :rtype: list [ dict ]
         """
-        languages = self.poi.languages
-        languages.remove(self.language)
+        languages = self.poi.languages.exclude(id=self.language.id)
         available_languages = []
         for language in languages:
             other_translation = self.poi.get_public_translation(language.slug)

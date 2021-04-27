@@ -130,8 +130,7 @@ class EventTranslation(models.Model):
         :return: A dictionary containing the available languages of an event translation
         :rtype: dict
         """
-        languages = self.event.languages
-        languages.remove(self.language)
+        languages = self.event.languages.exclude(id=self.language.id)
         available_languages = {}
         for language in languages:
             other_translation = self.event.get_public_translation(language.slug)
@@ -152,8 +151,7 @@ class EventTranslation(models.Model):
         :return: A list of dictionaries containing the alternative translations of a event translation
         :rtype: list [ dict ]
         """
-        languages = self.event.languages
-        languages.remove(self.language)
+        languages = self.event.languages.exclude(id=self.language.id)
         available_languages = []
         for language in languages:
             other_translation = self.event.get_public_translation(language.slug)

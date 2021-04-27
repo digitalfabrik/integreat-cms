@@ -34,28 +34,25 @@ class AbstractBasePage(models.Model):
         return self.explicitly_archived
 
     @property
-    def region(self):
-        """
-        The region to which the page belongs (related name: ``pages``)
-        To be implemented in the inheriting model.
-        """
-        raise NotImplementedError
-
-    @property
     def languages(self):
         """
         This property returns a list of all :class:`~cms.models.languages.language.Language` objects, to which a page
         translation exists.
+        To be implemented in the inheriting model.
 
-        :return: list of all :class:`~cms.models.languages.language.Language` a page is translated into
-        :rtype: list [ ~cms.models.languages.language.Language ]
+        :raises NotImplementedError: If the property is not implemented in the subclass
         """
-        page_translations = self.translations.prefetch_related("language").all()
-        languages = []
-        for page_translation in page_translations:
-            if page_translation.language not in languages:
-                languages.append(page_translation.language)
-        return languages
+        raise NotImplementedError
+
+    @property
+    def region(self):
+        """
+        The region to which the page belongs (related name: ``pages``)
+        To be implemented in the inheriting model.
+
+        :raises NotImplementedError: If the property is not implemented in the subclass
+        """
+        raise NotImplementedError
 
     def get_translation(self, language_slug):
         """

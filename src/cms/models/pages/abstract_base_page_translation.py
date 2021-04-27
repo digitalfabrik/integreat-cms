@@ -134,8 +134,7 @@ class AbstractBasePageTranslation(models.Model):
         :return: A dictionary containing the available languages of a page translation
         :rtype: dict
         """
-        languages = self.page.languages
-        languages.remove(self.language)
+        languages = self.page.languages.exclude(id=self.language.id)
         available_languages = {}
         for language in languages:
             other_translation = self.page.get_public_translation(language.slug)
@@ -156,8 +155,7 @@ class AbstractBasePageTranslation(models.Model):
         :return: A list of dictionaries containing the alternative translations of a page translation
         :rtype: list [ dict ]
         """
-        languages = self.page.languages
-        languages.remove(self.language)
+        languages = self.page.languages.exclude(id=self.language.id)
         available_languages = []
         for language in languages:
             other_translation = self.page.get_public_translation(language.slug)
