@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-31T21:13:50+00:00" />
+    <meta property="article:modified_time" content="2021-04-23T10:12:19+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Offers &mdash; integreat-cms 0.0.14 documentation</title>
@@ -411,7 +411,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.offers.html">Offers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.offers.html#offer">Offer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.offers.html#offer-template">Offer Template</a></li>
 </ul>
 </li>
@@ -451,7 +450,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#arithmetic">Arithmetic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#content-filters">Content Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#offer-filters">Offer Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#page-filters">Page Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#poi-filters">POI Filters</a></li>
@@ -559,11 +557,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.offer_templates.html">Offer Templates</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.offer_templates.html#offer-template-list-view">Offer Template List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.offer_templates.html#offer-template-view">Offer Template View</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.offers.html">Offers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.offers.html#offer-actions">Offer Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.offers.html#offer-list-view">Offer List View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.organizations.html">Organizations</a><ul>
@@ -844,7 +837,6 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Offers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.offers.offer">Offer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cms.models.offers.offer_template">Offer Template</a></li>
 </ul>
 </li>
@@ -884,7 +876,6 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.arithmetic">Arithmetic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.content_filters">Content Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.offer_filters">Offer Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.page_filters">Page Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
@@ -992,11 +983,6 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.views.offer_templates.html">Offer Templates</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_list_view">Offer Template List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.offer_templates.html#module-cms.views.offer_templates.offer_template_view">Offer Template View</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="cms.views.offers.html">Offers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_actions">Offer Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.offers.html#module-cms.views.offers.offer_list_view">Offer List View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
@@ -1195,386 +1181,7 @@
             
   <div class="section" id="module-cms.models.offers">
 <span id="offers"></span><h1>Offers<a class="headerlink" href="#module-cms.models.offers" title="Permalink to this headline">¶</a></h1>
-<p>This package contains both offer-related data models: <a class="reference internal" href="#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a> and
-<a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a></p>
-<div class="section" id="module-cms.models.offers.offer">
-<span id="offer"></span><h2>Offer<a class="headerlink" href="#module-cms.models.offers.offer" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="cms.models.offers.offer.Offer">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.offers.offer.</span></code><code class="sig-name descname"><span class="pre">Offer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
-<p>The offer model is used to activate an <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a> for a specific
-<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>. Integreat offers are extended features apart from pages and events and
-are usually offered by a third party. In most cases, the url is an external API endpoint which the frontend apps can
-query and render the results inside the Integreat app.
-The sole existence of an offer object instance means that it is activated, and if there is no object for a
-region/template-combination, it is deactivated.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.AutoField" title="(in Django v3.1)"><em>AutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.1)"><em>DateTimeField</em></a>) – Creation date</p></li>
-<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.1)"><em>DateTimeField</em></a>) – Modification date</p></li>
-</ul>
-</dd>
-</dl>
-<p>Relationship fields:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.offers" title="cms.models.regions.region.Region.offers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offers</span></code></a>)</p></li>
-<li><p><strong>template</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a>) – Template (related name: <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate.offers" title="cms.models.offers.offer_template.OfferTemplate.offers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offers</span></code></a>)</p></li>
-</ul>
-</dd>
-</dl>
-<p>Reverse relationships:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>feedback</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback" title="cms.models.feedback.offer_feedback.OfferFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferFeedback</span></code></a>) – All feedback of this offer (related name of <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback.offer" title="cms.models.feedback.offer_feedback.OfferFeedback.offer"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offer</span></code></a>)</p>
-</dd>
-</dl>
-<dl class="py exception">
-<dt id="cms.models.offers.offer.Offer.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.DoesNotExist.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.DoesNotExist.args">
-<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist.args" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.DoesNotExist.silent_variable_failure">
-<code class="sig-name descname"><span class="pre">silent_variable_failure</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist.silent_variable_failure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.DoesNotExist.with_traceback">
-<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.DoesNotExist.with_traceback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exception.with_traceback(tb) –
-set self.__traceback__ to tb and return self.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py exception">
-<dt id="cms.models.offers.offer.Offer.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.MultipleObjectsReturned.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.MultipleObjectsReturned.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.MultipleObjectsReturned.args">
-<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.MultipleObjectsReturned.args" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.MultipleObjectsReturned.with_traceback">
-<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.MultipleObjectsReturned.with_traceback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exception.with_traceback(tb) –
-set self.__traceback__ to tb and return self.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.check">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.check" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L993"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.clean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook for doing any extra model-wide validation after clean() has been
-called on every field by self.clean_fields. Any ValidationError raised
-by this method will not be associated with a particular field; it will
-have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.clean_fields">
-<code class="sig-name descname"><span class="pre">clean_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.clean_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clean all fields and raise a ValidationError containing a dict
-of all validation errors if any occur.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.created_date">
-<code class="sig-name descname"><span class="pre">created_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.created_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
-<p>Creation date</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.date_error_message">
-<code class="sig-name descname"><span class="pre">date_error_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.date_error_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.delete">
-<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L938"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.delete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.feedback">
-<code class="sig-name descname"><span class="pre">feedback</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.feedback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback" title="cms.models.feedback.offer_feedback.OfferFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferFeedback</span></code></a></p>
-<p>All feedback of this offer (related name of <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback.offer" title="cms.models.feedback.offer_feedback.OfferFeedback.offer"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offer</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.from_db">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.from_db" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.full_clean">
-<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.full_clean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call clean_fields(), clean(), and validate_unique() on the model.
-Raise a ValidationError for any errors that occur.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.get_deferred_fields">
-<code class="sig-name descname"><span class="pre">get_deferred_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L583"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.get_deferred_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a set containing names of deferred fields for this instance.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.get_next_by_created_date">
-<code class="sig-name descname"><span class="pre">get_next_by_created_date</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">created_date&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.get_next_by_created_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds next instance based on <a class="reference internal" href="#cms.models.offers.offer.Offer.created_date" title="cms.models.offers.offer.Offer.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model.get_next_by_FOO" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_by_FOO()</span></code></a> for more information.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.get_next_by_last_updated">
-<code class="sig-name descname"><span class="pre">get_next_by_last_updated</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">last_updated&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.get_next_by_last_updated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds next instance based on <a class="reference internal" href="#cms.models.offers.offer.Offer.last_updated" title="cms.models.offers.offer.Offer.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model.get_next_by_FOO" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_by_FOO()</span></code></a> for more information.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.get_previous_by_created_date">
-<code class="sig-name descname"><span class="pre">get_previous_by_created_date</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">created_date&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.get_previous_by_created_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds previous instance based on <a class="reference internal" href="#cms.models.offers.offer.Offer.created_date" title="cms.models.offers.offer.Offer.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model.get_previous_by_FOO" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_previous_by_FOO()</span></code></a> for more information.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.get_previous_by_last_updated">
-<code class="sig-name descname"><span class="pre">get_previous_by_last_updated</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">last_updated&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.get_previous_by_last_updated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds previous instance based on <a class="reference internal" href="#cms.models.offers.offer.Offer.last_updated" title="cms.models.offers.offer.Offer.last_updated"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_updated</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model.get_previous_by_FOO" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_previous_by_FOO()</span></code></a> for more information.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.id">
-<code class="sig-name descname"><span class="pre">id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.AutoField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoField</span></code></a></p>
-<p>Primary key: ID</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.last_updated">
-<code class="sig-name descname"><span class="pre">last_updated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.last_updated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
-<p>Modification date</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.name">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">name</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The offer should inherit the name property from its template</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The name of an offer</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.objects">
-<code class="sig-name descname"><span class="pre">objects</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.objects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.pk">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">pk</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.pk" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.post_data">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">post_data</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.post_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>In case the url expects additional post data, it is stored inside the <code class="docutils literal notranslate"><span class="pre">post_data</span></code>-dict. Some offers depend on
-the location which is realized by adding the postal code of the current region to the request. If the offer
-template indicates that the postal code should be used as <code class="docutils literal notranslate"><span class="pre">GET</span></code>-parameter, the class attribute
-<code class="docutils literal notranslate"><span class="pre">use_postal_code</span></code> has to be set to <code class="docutils literal notranslate"><span class="pre">postal_code.POST</span></code> (see <a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code" title="cms.constants.postal_code"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.postal_code</span></code></a>) and then the
-key <code class="docutils literal notranslate"><span class="pre">search-plz</span></code> is automatically added to the post data. In case a third party service needs a different
-format, it has to be hard-coded here or we need other changes to the offer model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The post data of the offer’s url</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.prepare_database_save">
-<code class="sig-name descname"><span class="pre">prepare_database_save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L988"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.prepare_database_save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.refresh_from_db">
-<code class="sig-name descname"><span class="pre">refresh_from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L592"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.refresh_from_db" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reload field values from the database.</p>
-<p>By default, the reloading happens from the database this instance was
-loaded from, or by the read router if this instance wasn’t loaded from
-any database. The using parameter will override the default.</p>
-<p>Fields can be used to specify which fields to reload. The fields
-should be an iterable of field attnames. If fields is None, then
-all non-deferred fields are reloaded.</p>
-<p>When accessing deferred fields of an instance, the deferred loading
-of the field will call this method.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.region">
-<code class="sig-name descname"><span class="pre">region</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
-<p>Region (related name: <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.offers" title="cms.models.regions.region.Region.offers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offers</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.region_id">
-<code class="sig-name descname"><span class="pre">region_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.region_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal field, use <a class="reference internal" href="#cms.models.offers.offer.Offer.region" title="cms.models.offers.offer.Offer.region"><code class="xref py py-class docutils literal notranslate"><span class="pre">region</span></code></a> instead.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L670"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save the current instance. Override this in a subclass if you want to
-control the saving process.</p>
-<p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
-that the “save” must be an SQL insert or update (or equivalent for
-non-SQL backends), respectively. Normally, they should not be set.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.save_base">
-<code class="sig-name descname"><span class="pre">save_base</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L757"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.save_base" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle the parts of saving which should be done only once per save,
-yet need to be done in raw saves, too. This includes some sanity
-checks and signal sending.</p>
-<p>The ‘raw’ argument is telling save_base not to save any parent
-models and not to do any changes to the values before save. This
-is used by fixture loading.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.serializable_value">
-<code class="sig-name descname"><span class="pre">serializable_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L653"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.serializable_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the value of the field name for this instance. If the field is
-a foreign key, return the id value instead of the object. If there’s
-no Field object with this name on the model, return the model
-attribute’s value.</p>
-<p>Used to serialize a field’s value (in the serializer, or form output,
-for example). Normally, you would just access the attribute directly
-and not use this method.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.slug">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">slug</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.slug" title="Permalink to this definition">¶</a></dt>
-<dd><p>The offer should inherit the slug property from its template</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The slug of an offer</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.template">
-<code class="sig-name descname"><span class="pre">template</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.template" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a></p>
-<p>Template (related name: <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate.offers" title="cms.models.offers.offer_template.OfferTemplate.offers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offers</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.offers.offer.Offer.template_id">
-<code class="sig-name descname"><span class="pre">template_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.template_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal field, use <a class="reference internal" href="#cms.models.offers.offer.Offer.template" title="cms.models.offers.offer.Offer.template"><code class="xref py py-class docutils literal notranslate"><span class="pre">template</span></code></a> instead.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.thumbnail">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">thumbnail</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.thumbnail" title="Permalink to this definition">¶</a></dt>
-<dd><p>The offer should inherit the thumbnail property from its template</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The thumbnail url of an offer</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.unique_error_message">
-<code class="sig-name descname"><span class="pre">unique_error_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1167"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.unique_error_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.url">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">url</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.url" title="Permalink to this definition">¶</a></dt>
-<dd><p>The offer should inherit the slug property from its template. This is the url to an API endpoint in most cases.
-Some offers depend on the location which is realized by adding the postal code of the current region to the
-request. If the offer template indicates that the postal code should be used as <code class="docutils literal notranslate"><span class="pre">GET</span></code>-parameter, the class
-attribute <code class="docutils literal notranslate"><span class="pre">use_postal_code</span></code> has to be set to <code class="docutils literal notranslate"><span class="pre">postal_code.GET</span></code> (see <a class="reference internal" href="cms.constants.html#module-cms.constants.postal_code" title="cms.constants.postal_code"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.postal_code</span></code></a>) and
-the url has to end with the name of the required parameter-name, e.g. <code class="docutils literal notranslate"><span class="pre">https://example.com/api?location=</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The url of an offer</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.offers.offer.Offer.validate_unique">
-<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1002"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer.Offer.validate_unique" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check unique constraints on the model and raise ValidationError if any
-failed.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
+<p>This package contains <a class="reference internal" href="#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a></p>
 <div class="section" id="module-cms.models.offers.offer_template">
 <span id="offer-template"></span><h2>Offer Template<a class="headerlink" href="#module-cms.models.offers.offer_template" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
@@ -1583,7 +1190,7 @@ failed.</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>The OfferTemplate model is used to store templates of offers which can be activated for specific regions. The
 information stored in an offer template is global, so if you need parameters, which depend on local information
-of a region, it has to be added to the <a class="reference internal" href="#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a> model.</p>
+of a region, it has to be added to the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1602,7 +1209,10 @@ of a region, it has to be added to the <a class="reference internal" href="#cms.
 <p>Reverse relationships:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>offers</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a>) – All offers of this offer template (related name of <a class="reference internal" href="#cms.models.offers.offer.Offer.template" title="cms.models.offers.offer.Offer.template"><code class="xref py py-attr docutils literal notranslate"><span class="pre">template</span></code></a>)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>regions</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – All regions of this offer template (related name of <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.offers" title="cms.models.regions.region.Region.offers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offers</span></code></a>)</p></li>
+<li><p><strong>feedback</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback" title="cms.models.feedback.offer_feedback.OfferFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferFeedback</span></code></a>) – All feedback of this offer template (related name of <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback.offer" title="cms.models.feedback.offer_feedback.OfferFeedback.offer"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offer</span></code></a>)</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py exception">
@@ -1702,6 +1312,13 @@ of all validation errors if any occur.</p>
 <code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L938"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.delete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt id="cms.models.offers.offer_template.OfferTemplate.feedback">
+<code class="sig-name descname"><span class="pre">feedback</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer_template.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.feedback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback" title="cms.models.feedback.offer_feedback.OfferFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferFeedback</span></code></a></p>
+<p>All feedback of this offer template (related name of <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.offer_feedback.OfferFeedback.offer" title="cms.models.feedback.offer_feedback.OfferFeedback.offer"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offer</span></code></a>)</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="cms.models.offers.offer_template.OfferTemplate.from_db">
 <em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.from_db" title="Permalink to this definition">¶</a></dt>
@@ -1776,13 +1393,6 @@ Raise a ValidationError for any errors that occur.</p>
 <code class="sig-name descname"><span class="pre">objects</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer_template.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.objects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="cms.models.offers.offer_template.OfferTemplate.offers">
-<code class="sig-name descname"><span class="pre">offers</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer_template.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.offers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#cms.models.offers.offer.Offer" title="cms.models.offers.offer.Offer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Offer</span></code></a></p>
-<p>All offers of this offer template (related name of <a class="reference internal" href="#cms.models.offers.offer.Offer.template" title="cms.models.offers.offer.Offer.template"><code class="xref py py-attr docutils literal notranslate"><span class="pre">template</span></code></a>)</p>
-</dd></dl>
-
 <dl class="py method">
 <dt id="cms.models.offers.offer_template.OfferTemplate.pk">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">pk</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer_template.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.pk" title="Permalink to this definition">¶</a></dt>
@@ -1812,6 +1422,13 @@ should be an iterable of field attnames. If fields is None, then
 all non-deferred fields are reloaded.</p>
 <p>When accessing deferred fields of an instance, the deferred loading
 of the field will call this method.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.offers.offer_template.OfferTemplate.regions">
+<code class="sig-name descname"><span class="pre">regions</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/offers/offer_template.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.offers.offer_template.OfferTemplate.regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+<p>All regions of this offer template (related name of <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.offers" title="cms.models.regions.region.Region.offers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offers</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1918,7 +1535,7 @@ failed.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 31, 2021.
+        Last updated on Apr 23, 2021.
       </span>
 
     </p>
