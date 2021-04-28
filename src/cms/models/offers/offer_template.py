@@ -10,7 +10,7 @@ class OfferTemplate(models.Model):
     """
     The OfferTemplate model is used to store templates of offers which can be activated for specific regions. The
     information stored in an offer template is global, so if you need parameters, which depend on local information
-    of a region, it has to be added to the :class:`~cms.models.offers.offer.Offer` model.
+    of a region, it has to be added to the :class:`~cms.models.regions.region.Region` model.
     """
 
     name = models.CharField(max_length=250, verbose_name=_("name"))

@@ -201,12 +201,6 @@
 					</div>
 				</div>
 			{% endif %}
-			{% if perms.cms.manage_offers %}
-				<a href="{% url 'offers' region_slug=region.slug %}" {% if current_menu_item == 'offers' %}class="active"{% endif %}>
-					<i data-feather="star"></i>
-					{% trans 'Offers' %}
-				</a>
-			{% endif %}
 			{% if perms.cms.manage_imprint %}
 				<a href="{% url 'edit_imprint' region_slug=region.slug %}" {% if current_menu_item == 'imprint' %}class="active"{% endif %}>
 					<i data-feather="file-text"></i>

@@ -12,7 +12,6 @@ region_views = [
     "media",
     "new_language_tree_node",
     "new_region_user",
-    "offers",
     "region_users",
     "settings",
     "translation_coverage",

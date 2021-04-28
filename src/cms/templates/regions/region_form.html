@@ -157,10 +157,16 @@
 
                 <!-- Options related to page-instance-specific permissions -->
                 <span class="block p-2 mt-2 text-xl font-bold">{% trans 'Page permissions' %}</span>
-                <div class="p-2">
+                <div class="p-2 border-b solid border-gray-400">
                     {% render_field form.page_permissions_enabled %}
                     <label for="{{ form.page_permissions_enabled.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.page_permissions_enabled.label }}</label>
                     <div class="my-2 text-s text-gray-600">{{ form.page_permissions_enabled.help_text }}</div>
+                </div>
+
+                <div class="p-2">
+                    <label for="{{ form.offers.id_for_offers }}" class="block font-bold py-2 text-xl">{{ form.offers.label }}</label>
+                    {% render_field form.offers %}
+                    <div class="my-2 text-s text-gray-600">{{ form.offers.help_text }}</div>
                 </div>
 
             </div>

@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from .feedback import Feedback
-from ..offers.offer import Offer
+from ..offers.offer_template import OfferTemplate
 
 
 class OfferFeedback(Feedback):
@@ -12,7 +12,7 @@ class OfferFeedback(Feedback):
     """
 
     offer = models.ForeignKey(
-        Offer,
+        OfferTemplate,
         on_delete=models.CASCADE,
         related_name="feedback",
         verbose_name=_("offer"),
@@ -37,10 +37,7 @@ class OfferFeedback(Feedback):
         :rtype: str
         """
         return reverse(
-            "offers",
-            kwargs={
-                "region_slug": self.region.slug,
-            },
+            "edit_offer_template", kwargs={"offer_template_id": self.offer.id}
         )
 
     @property

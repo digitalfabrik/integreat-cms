@@ -10,7 +10,6 @@ from .events.event import Event
 from .events.event_translation import EventTranslation
 from .events.recurrence_rule import RecurrenceRule
 
-from .offers.offer import Offer
 from .offers.offer_template import OfferTemplate
 
 from .feedback.event_feedback import EventFeedback

@@ -3,17 +3,67 @@ Provides an endpoint for delivering a JSON with all active offers.
 """
 from django.http import JsonResponse
 
+from cms.constants import postal_code
 from cms.models import Region
 
 from ..decorators import json_response
 
 
-def transform_offer(offer):
+def get_url(offer, region):
+    """
+    The offer should inherit the slug property from its template. This is the url to an API endpoint in most cases.
+    Some offers depend on the location which is realized by adding the postal code of the current region to the
+    request. If the offer template indicates that the postal code should be used as ``GET``-parameter, the class
+    attribute ``use_postal_code`` has to be set to ``postal_code.GET`` (see :mod:`cms.constants.postal_code`) and
+    the url has to end with the name of the required parameter-name, e.g. ``https://example.com/api?location=``.
+
+    :param offer: one offer (formerly extra)
+    :type offer: ~cms.models.offers.offer_template.OfferTemplate
+
+    :param region: current region object
+    :type region: ~cms.models.regions.region.Region
+
+    :return: The url of an offer
+    :rtype: str
+    """
+    if offer.use_postal_code == postal_code.GET:
+        return offer.url + region.postal_code
+    return offer.url
+
+
+def get_post_data(offer, region):
+    """
+    In case the url expects additional post data, it is stored inside the ``post_data``-dict. Some offers depend on
+    the location which is realized by adding the postal code of the current region to the request. If the offer
+    template indicates that the postal code should be used as ``GET``-parameter, the class attribute
+    ``use_postal_code`` has to be set to ``postal_code.POST`` (see :mod:`cms.constants.postal_code`) and then the
+    key ``search-plz`` is automatically added to the post data. In case a third party service needs a different
+    format, it has to be hard-coded here or we need other changes to the offer model.
+
+    :param offer: one offer (formerly extra)
+    :type offer: ~cms.models.offers.offer_template.OfferTemplate
+
+    :param region: current region object
+    :type region: ~cms.models.regions.region.Region
+
+    :return: The post data of the offer's url
+    :rtype: dict
+    """
+    post_data = offer.post_data
+    if offer.use_postal_code == postal_code.POST:
+        post_data.update({"search-plz": region.postal_code})
+    return post_data
+
+
+def transform_offer(offer, region):
     """
     Function to create a JSON from a single offer Object.
 
     :param offer: one offer (formerly extra)
-    :type offer: ~cms.models.offers.offer.Offer
+    :type offer: ~cms.models.offers.offer_template.OfferTemplate
+
+    :param region: current region object
+    :type region: ~cms.models.regions.region.Region
 
     :return: return data necessary for API
     :rtype: dict
@@ -21,8 +71,8 @@ def transform_offer(offer):
     return {
         "name": offer.name,
         "alias": offer.slug,
-        "url": offer.url,
-        "post": offer.post_data,
+        "url": get_url(offer, region),
+        "post": get_post_data(offer, region),
         "thumbnail": offer.thumbnail,
     }
 
@@ -44,9 +94,7 @@ def offers(request, region_slug, language_slug=None):
     :rtype: ~django.http.JsonResponse
     """
     region = Region.get_current_region(request)
-    result = []
-    for offer in region.offers.all():
-        result.append(transform_offer(offer))
+    result = [transform_offer(offer, region) for offer in region.offers.all()]
     return JsonResponse(
         result, safe=False
     )  # Turn off Safe-Mode to allow serializing arrays

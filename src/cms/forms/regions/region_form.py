@@ -56,10 +56,12 @@ class RegionForm(CustomModelForm):
             "aliases",
             "icon",
             "administrative_division_included",
+            "offers",
         ]
         #: The widgets which are used in this form
         widgets = {
             "icon": IconWidget(),
+            "offers": forms.CheckboxSelectMultiple(),
         }
 
     # pylint: disable=signature-differs

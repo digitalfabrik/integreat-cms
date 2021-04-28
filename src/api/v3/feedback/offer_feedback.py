@@ -4,7 +4,7 @@ APIv3 feedback endpoint for feedback about single offer
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
-from cms.models import OfferFeedback, Offer
+from cms.models import OfferFeedback
 
 from ...decorators import json_response, feedback_handler
 
@@ -37,7 +37,7 @@ def offer_feedback(data, region, language, comment, rating, is_technical):
     :return: JSON object according to APIv3 offer feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    offer = get_object_or_404(Offer, region=region, template__slug=data.get("slug"))
+    offer = get_object_or_404(region.offers, slug=data.get("slug"))
 
     OfferFeedback.objects.create(
         offer=offer,

@@ -16,6 +16,7 @@ from ...constants import region_status, administrative_division
 from ...utils.translation_utils import ugettext_many_lazy as __
 from ...utils.matomo_api_manager import MatomoApiManager
 from ..languages.language import Language
+from ..offers.offer_template import OfferTemplate
 
 
 class Region(models.Model):
@@ -169,6 +170,21 @@ class Region(models.Model):
             ),
             _(
                 "Sorting is always based on the name, independently from the administrative division."
+            ),
+        ),
+    )
+
+    offers = models.ManyToManyField(
+        OfferTemplate,
+        related_name="regions",
+        blank=True,
+        verbose_name=_("offers"),
+        help_text=__(
+            _(
+                "Integreat offers are extended features apart from pages and events and are usually offered by a third party."
+            ),
+            _(
+                "In most cases, the url is an external API endpoint which the frontend apps can query and render the results inside the Integreat app."
             ),
         ),
     )
