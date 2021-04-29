@@ -144,6 +144,22 @@ function ensure_root {
     fi
 }
 
+# This function makes sure the script has the permission to interact with the docker daemon
+function ensure_docker_permission {
+    if [[ $(id -u) == 0 ]]; then
+        # If script runs with root, check the groups of the user who invoked sudo
+        USER_GROUPS=$(groups "$SUDO_USER")
+    else
+        USER_GROUPS=$(groups)
+    fi
+    # Require sudo permissions if user is not in docker group
+    if [[ " $USER_GROUPS " =~ ' docker ' ]]; then
+        ensure_not_root
+    else
+        ensure_root
+    fi
+}
+
 # This function migrates the database
 function migrate_database {
     # Check for the variable DATABASE_MIGRATED to prevent multiple subsequent migration commands
@@ -237,7 +253,9 @@ function require_database {
         # Migrate database
         migrate_database
     else
-        ensure_root
+        # Make sure script has the permission to run docker
+        ensure_docker_permission
+
         # Check if docker socket is not available
         if ! docker ps > /dev/null; then
             echo "Please start either a local PostgreSQL database server or start the docker daemon so a database docker container can be created." | print_error

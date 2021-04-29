@@ -20,10 +20,11 @@ if nc -w1 localhost 5432; then
 
 else
 
-    ensure_root
-
     # Check if docker is installed
     if command -v docker > /dev/null; then
+
+        # Make sure script has the permission to remove the .postgres directory owned by root (even if user is in docker group)
+        ensure_root
 
         # Check if docker socket is available
         if docker ps > /dev/null; then
