@@ -2,15 +2,13 @@
 
 # This script can be used to run both our code style tools black and pylint.
 
-if [[ "$VIRTUAL_ENV" != "" ]]
-then
-  export PIPENV_VERBOSITY=-1
-fi
+# Import utility functions
+source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
-cd $(dirname "$BASH_SOURCE")/..
+ensure_not_root
 
 # Run black
-pipenv run black .
+bash "${DEV_TOOL_DIR}/black.sh"
 
 # Run pylint
-pipenv run pylint_runner
+bash "${DEV_TOOL_DIR}/pylint.sh"

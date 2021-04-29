@@ -2,15 +2,13 @@
 
 # This script can be used to format the python code according to the black code style.
 
-if [[ "$VIRTUAL_ENV" != "" ]]
-then
-  export PIPENV_VERBOSITY=-1
-fi
-
-cd $(dirname "$BASH_SOURCE")/..
+# Import utility functions
+source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Run black
-pipenv run black .
+echo "Starting code formatting with black..." | print_info
+pipenv run black "${BASE_DIR}"
+echo "✔ Code formatting finished" | print_success
 
 # Update translations (because changed formatting affects line numbers)
-./translate.sh
+bash "${DEV_TOOL_DIR}/translate.sh"

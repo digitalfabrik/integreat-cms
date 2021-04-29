@@ -2,7 +2,12 @@
 
 # This script can be used to resolve git merge/rebase conflicts of the translation file
 
-cd $(dirname "$BASH_SOURCE")/../src/cms/locale/de/LC_MESSAGES
+# Import utility functions
+source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
+
+ensure_not_root
+
+cd "${BASE_DIR}/src/cms/locale/de/LC_MESSAGES" || exit 1
 
 # Replace git conflict markers
 sed -i -E -e 's/<<<<<<< HEAD//g' django.po
@@ -17,6 +22,5 @@ if grep -q "#-#-#-#-#" django.po; then
     echo "Not all conflicts could be solved automatically. Please resolve remaining conflicts manually (marked with \"#-#-#-#-#\")."
 else
     # Fix line numbers and empty lines
-    cd ../../../../../dev-tools
-    ./translate.sh
+    bash "${DEV_TOOL_DIR}/translate.sh"
 fi

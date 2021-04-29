@@ -79,3 +79,47 @@ You have many small commits which clutter the git history, or want to combine re
 
         git fetch --all
         git reset --hard origin/feature
+
+
+.. _pre-commit-hooks:
+
+Pre-commit Hooks
+================
+
+`Pre-commit <https://pre-commit.com/>`_ hooks are commands which are run every time a commit is created to check whether the committed changes comply
+with the repository's standards.
+All hooks for this repository are defined in :github-source:`.pre-commit-config.yaml`.
+At the moment, the following hooks are configured:
+
+* ``black``: A formatter which applies automatic code formatting to Python files (see :ref:`black-code-style`)
+* ``translations`` A script which checks whether the translation file is up-to-date (see: :doc:`internationalization` and :ref:`translations`)
+
+
+Activation
+----------
+
+To activate the pre-commit hooks, either install the CMS with the command::
+
+    ./dev-tools/install.sh --pre-commit
+
+or execute::
+
+    pipenv run pre-commit install
+
+manually after installing.
+
+
+Deactivation
+------------
+
+To deactivate a specific hook (in this example the ``translations``-hook), use::
+
+    SKIP=translations git commit
+
+To deactivate all pre-commit hooks for a specific commit, use::
+
+    git commit --no-verify
+
+If you want to deactivate pre-commit hooks for this repository entirely, use::
+
+    pipenv run pre-commit uninstall
