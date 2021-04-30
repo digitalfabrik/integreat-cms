@@ -9,6 +9,7 @@ trap "kill 0" EXIT
 KILL_TRAP=1
 
 # Import utility functions
+# shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Require that a database server is up and running. Place this command at the beginning because it might require the restart of the script with higher privileges.

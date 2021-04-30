@@ -4,6 +4,7 @@
 # It stops and removes the docker container and removes all database-related directories.
 
 # Import utility functions
+# shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Check if local postgres server is running

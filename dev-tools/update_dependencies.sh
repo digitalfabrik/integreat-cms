@@ -3,6 +3,7 @@
 # This script checks if all dependencies in the lock files are up to date and increments the version numbers if necessary.
 
 # Import utility functions
+# shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 ensure_not_root

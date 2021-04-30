@@ -44,3 +44,20 @@ When you think a warning is a false positive, add a comment before the specific 
         ./dev-tools/code_style.sh
 
 .. include:: _docstrings.rst
+
+
+.. _shellcheck:
+
+Shellcheck
+----------
+
+All developer tools in the :github-source:`dev-tools` directory have to comply to the standards of shellcheck (see
+`ShellCheck wiki <https://github.com/koalaman/shellcheck/wiki>`_).
+Shellcheck is run both in the CI-pipeline of CircleCI (see :ref:`circleci-shellcheck`) and as pre-commit hook (see
+:ref:`pre-commit-hooks`) and can be run locally with::
+
+    shellcheck -x dev-tools/*
+
+False positives can be `ignored <https://github.com/koalaman/shellcheck/wiki/Ignore>`_ with the syntax::
+
+    # shellcheck disable=SC2059

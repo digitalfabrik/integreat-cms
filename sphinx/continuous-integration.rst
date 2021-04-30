@@ -109,6 +109,15 @@ permissions to access the Docker Hub credentials.
 
     If you get an ``Unauthorized`` error on this job, see :ref:`circleci-unauthorized`.
 
+.. _circleci-shellcheck:
+
+shellcheck/check
+----------------
+
+This job makes use of the `ShellCheck CircleCI Orb <https://circleci.com/developer/orbs/orb/circleci/shellcheck>`_ and
+executes the pre-defined job ``shellcheck/check``. It is configured to check the directory :github-source:`dev-tools`
+and to allow external sources because all dev tools source one common function script. Also see :ref:`shellcheck`.
+
 
 Debugging with SSH
 ==================

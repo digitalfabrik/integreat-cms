@@ -4,6 +4,7 @@
 # It requires that the cms and its dependencies are already installed locally.
 
 # Import utility functions
+# shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 ensure_not_root

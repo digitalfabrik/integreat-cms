@@ -3,6 +3,7 @@
 # This script can be used to format the python code according to the black code style.
 
 # Import utility functions
+# shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Run black

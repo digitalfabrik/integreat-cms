@@ -10,6 +10,7 @@ SPHINX_APIDOC_DIR="ref"
 SPHINX_APIDOC_EXT_DIR="ref-ext"
 
 # Import utility functions
+# shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 ensure_not_root
@@ -74,6 +75,7 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "*.rst" -print0 | xarg
 find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "cms.tests*.rst" -print0 | xargs -0 --no-run-if-empty sed --in-place '/:inherited-members:/d'
 
 # Include _urls in sitemap automodule
+# shellcheck disable=SC2251
 ! grep --recursive --files-without-match ":private-members:" ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/sitemap.rst --null | xargs --null --no-run-if-empty sed --in-place '/^\.\. automodule:: sitemap\.sitemaps/a \ \ \ :private-members:'
 
 # Patch cms.rst to add the decorated functions
@@ -100,6 +102,7 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_DIR} -type f -name "*.rst" -print0 | xargs -0
 sed --in-place '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' ${SPHINX_DIR}/${SPHINX_APIDOC_DIR}/cms.rst
 
 # Set verbose reference as orphans to suppress warnings about toctree
+# shellcheck disable=SC2251
 ! grep --recursive --files-without-match ":orphan:" ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/*.rst --null | xargs --null --no-run-if-empty sed --in-place '1s/^/:orphan:\n\n/'
 
 echo -e "Compiling reStructuredText files to HTML documentation..." | print_info

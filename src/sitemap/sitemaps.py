@@ -241,18 +241,18 @@ class OfferSitemap(WebappSitemap):
         # Filter queryset based on region
         self.queryset = self.queryset.filter(regions=self.region)
 
-    def location(self, obj):
+    def location(self, item):
         """
         This location function returns the absolute path for a given object returned by items().
 
-        :param obj: Objects passed from items() method
-        :type obj: ~cms.models.offers.offer_template.OfferTemplate
+        :param item: Objects passed from items() method
+        :type item: ~cms.models.offers.offer_template.OfferTemplate
 
         :return: The absolute path of the given offer object
         :rtype: str
         """
         return "/" + "/".join(
-            [self.region.slug, self.language.slug, "offers", obj.slug]
+            [self.region.slug, self.language.slug, "offers", item.slug]
         )
 
     def sitemap_alternates(self, obj):

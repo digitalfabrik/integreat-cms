@@ -3,6 +3,7 @@
 # This script can be used to check the translation file for missing or empty entries.
 
 # Import utility functions
+# shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # This function applies different sed replacements to make sure the matched lines from grep are aligned and colored

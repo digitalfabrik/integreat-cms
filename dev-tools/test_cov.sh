@@ -3,6 +3,7 @@
 # This script executes the tests and starts the database docker container if necessary.
 
 # Import utility functions
+# shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Delete outdated code coverage
