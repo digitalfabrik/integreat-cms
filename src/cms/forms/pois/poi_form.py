@@ -29,6 +29,7 @@ class POIForm(CustomModelForm):
             "country",
             "latitude",
             "longitude",
+            "location_not_on_map",
             "icon",
         ]
         #: The widgets which are used in this form

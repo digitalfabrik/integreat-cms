@@ -29,6 +29,11 @@ class POI(models.Model):
     longitude = models.FloatField(
         verbose_name=_("longitude"), help_text=_("The longitude coordinate")
     )
+    location_not_on_map = models.BooleanField(
+        default=False,
+        verbose_name=_("Do not show this location on map"),
+        help_text=_("Tick if you do not show this location on map"),
+    )
     icon = models.ImageField(
         null=True,
         blank=True,

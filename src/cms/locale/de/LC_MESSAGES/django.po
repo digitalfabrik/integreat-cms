@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 08:41+0000\n"
+"POT-Creation-Date: 2021-05-03 10:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: constants/administrative_division.py:38 templates/events/event_form.html:252
-#: templates/pois/poi_list.html:61 templates/pois/poi_list_archived.html:37
+#: templates/pois/poi_list.html:59 templates/pois/poi_list_archived.html:35
 msgid "City"
 msgstr "Stadt"
 
@@ -270,7 +270,7 @@ msgstr "Rechts nach Links"
 #: templates/pages/page_sbs.html:53 templates/pages/page_sbs.html:112
 #: templates/pages/page_tree_archived_node.html:59
 #: templates/pages/page_tree_node.html:85 templates/pois/poi_form.html:58
-#: templates/pois/poi_form.html:87 templates/pois/poi_list_row.html:57
+#: templates/pois/poi_form.html:87 templates/pois/poi_list_row.html:47
 msgid "Translation up-to-date"
 msgstr "Übersetzung ist aktuell"
 
@@ -283,7 +283,7 @@ msgstr "Übersetzung ist aktuell"
 #: templates/pages/page_form.html:121
 #: templates/pages/page_tree_archived_node.html:64
 #: templates/pages/page_tree_node.html:90 templates/pois/poi_form.html:63
-#: templates/pois/poi_form.html:92 templates/pois/poi_list_row.html:62
+#: templates/pois/poi_form.html:92 templates/pois/poi_list_row.html:52
 msgid "Translation missing"
 msgstr "Übersetzung fehlt"
 
@@ -298,7 +298,7 @@ msgstr "Übersetzung fehlt"
 #: templates/pages/page_sbs.html:45 templates/pages/page_sbs.html:104
 #: templates/pages/page_tree_archived_node.html:55
 #: templates/pages/page_tree_node.html:81 templates/pois/poi_form.html:50
-#: templates/pois/poi_form.html:79 templates/pois/poi_list_row.html:53
+#: templates/pois/poi_form.html:79 templates/pois/poi_list_row.html:43
 msgid "Translation outdated"
 msgstr "Übersetzung ist veraltet"
 
@@ -448,8 +448,8 @@ msgstr "Kategorie"
 #: templates/pages/page_revisions.html:44 templates/pages/page_sbs.html:65
 #: templates/pages/page_sbs.html:132 templates/pages/page_sbs.html:137
 #: templates/pages/page_tree.html:63 templates/pages/page_tree_archived.html:26
-#: templates/pois/poi_form.html:109 templates/pois/poi_list.html:43
-#: templates/pois/poi_list_archived.html:28
+#: templates/pois/poi_form.html:109 templates/pois/poi_list.html:41
+#: templates/pois/poi_list_archived.html:26
 #: templates/regions/region_list.html:29
 msgid "Status"
 msgstr "Status"
@@ -626,7 +626,7 @@ msgstr "Einstellungen"
 msgid "region"
 msgstr "Region"
 
-#: models/events/event.py:31 models/pois/poi.py:139
+#: models/events/event.py:31 models/pois/poi.py:144
 #: models/pois/poi_translation.py:35
 msgid "location"
 msgstr "Ort"
@@ -651,11 +651,11 @@ msgstr "End-Datum"
 msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
-#: models/events/event.py:49 models/pages/page.py:38 models/pois/poi.py:36
+#: models/events/event.py:49 models/pages/page.py:38 models/pois/poi.py:41
 msgid "icon"
 msgstr "Icon"
 
-#: models/events/event.py:51 models/pois/poi.py:40
+#: models/events/event.py:51 models/pois/poi.py:45
 msgid "archived"
 msgstr "archiviert"
 
@@ -1282,11 +1282,20 @@ msgstr "Geographische Länge"
 msgid "The longitude coordinate"
 msgstr "Die Längengrad-Koordinate"
 
-#: models/pois/poi.py:41
+#: models/pois/poi.py:34
+msgid "Do not show this location on map"
+msgstr "Diesen Ort nicht auf Karte zeigen"
+
+#: models/pois/poi.py:35
+msgid "Tick if you do not show this location on map"
+msgstr ""
+"Kreuzen Sie an, wenn dieser Ort nicht auf der Karte gezeigt werden soll."
+
+#: models/pois/poi.py:46
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
-#: models/pois/poi.py:141
+#: models/pois/poi.py:146
 msgid "locations"
 msgstr "Orte"
 
@@ -1842,7 +1851,7 @@ msgstr "Aktuelle Übersetzungen"
 #: templates/pages/page_tree_archived_node.html:51
 #: templates/pages/page_tree_node.html:77
 #: templates/pages/page_tree_node.html:96 templates/pois/poi_form.html:54
-#: templates/pois/poi_form.html:83 templates/pois/poi_list_row.html:49
+#: templates/pois/poi_form.html:83 templates/pois/poi_list_row.html:39
 msgid "Currently in translation"
 msgstr "Wird derzeit übersetzt"
 
@@ -2128,9 +2137,9 @@ msgstr "Event \"%(event_title)s\" bearbeiten"
 #: templates/pages/page_form.html:25 templates/pages/page_tree.html:65
 #: templates/pages/page_tree.html:69 templates/pages/page_tree_archived.html:27
 #: templates/pages/page_tree_archived.html:31 templates/pois/poi_form.html:26
-#: templates/pois/poi_list.html:44 templates/pois/poi_list.html:48
-#: templates/pois/poi_list_archived.html:29
-#: templates/pois/poi_list_archived.html:33
+#: templates/pois/poi_list.html:42 templates/pois/poi_list.html:46
+#: templates/pois/poi_list_archived.html:27
+#: templates/pois/poi_list_archived.html:31
 msgid "Title in"
 msgstr "Titel auf"
 
@@ -2171,18 +2180,17 @@ msgstr "Übersetzung erstellen"
 #: templates/imprint/imprint_sbs.html:134 templates/pages/page_form.html:134
 #: templates/pages/page_sbs.html:63 templates/pages/page_sbs.html:130
 #: templates/pages/page_sbs.html:135 templates/pois/poi_form.html:107
-#: templates/pois/poi_list.html:42 templates/pois/poi_list_archived.html:27
 msgid "Version"
 msgstr "Version"
 
 #: templates/events/event_form.html:140 templates/imprint/imprint_form.html:122
 #: templates/imprint/imprint_sbs.html:147 templates/pages/page_form.html:226
-#: templates/pages/page_sbs.html:157 templates/pois/poi_form.html:128
+#: templates/pages/page_sbs.html:157 templates/pois/poi_form.html:148
 msgid "Implications on other translations"
 msgstr "Auswirkungen auf andere Übersetzungen"
 
 #: templates/events/event_form.html:153 templates/imprint/imprint_form.html:167
-#: templates/pois/poi_form.html:141
+#: templates/pois/poi_form.html:161
 msgid "Settings for all translations"
 msgstr "Einstellungen für alle Übersetzungen"
 
@@ -2209,13 +2217,13 @@ msgstr ""
 "Erstelle einen Veranstaltungsort oder beginne den Namen eines bestehenden "
 "Veranstaltungsortes einzutippen"
 
-#: templates/events/event_form.html:250 templates/pois/poi_list.html:59
-#: templates/pois/poi_list_archived.html:35
+#: templates/events/event_form.html:250 templates/pois/poi_list.html:57
+#: templates/pois/poi_list_archived.html:33
 msgid "Street"
 msgstr "Straße"
 
-#: templates/events/event_form.html:254 templates/pois/poi_list.html:62
-#: templates/pois/poi_list_archived.html:38
+#: templates/events/event_form.html:254 templates/pois/poi_list.html:60
+#: templates/pois/poi_list_archived.html:36
 msgid "Country"
 msgstr "Land"
 
@@ -2276,7 +2284,7 @@ msgstr "Ende"
 #: templates/offer_templates/offer_template_list.html:27
 #: templates/organizations/organization_list.html:25
 #: templates/pages/page_tree.html:81 templates/pages/page_tree_archived.html:42
-#: templates/pois/poi_list.html:63 templates/pois/poi_list_archived.html:39
+#: templates/pois/poi_list.html:61 templates/pois/poi_list_archived.html:37
 #: templates/roles/list.html:23
 msgid "Options"
 msgstr "Optionen"
@@ -2290,8 +2298,7 @@ msgstr "Keine Veranstaltungen mit diesem Filter gefunden."
 msgid "No events available yet."
 msgstr "Noch keine Veranstaltungen vorhanden."
 
-#: templates/events/event_list_archived.html:33 templates/pois/poi_list.html:41
-#: templates/pois/poi_list_archived.html:26
+#: templates/events/event_list_archived.html:33
 msgid "ID"
 msgstr "ID"
 
@@ -2307,9 +2314,9 @@ msgstr "Noch keine Veranstaltungen archiviert."
 #: templates/pages/page_tree_archived_node.html:38
 #: templates/pages/page_tree_node.html:48
 #: templates/pages/page_tree_node.html:61
-#: templates/pois/poi_list_archived_row.html:26
-#: templates/pois/poi_list_archived_row.html:38
-#: templates/pois/poi_list_row.html:26 templates/pois/poi_list_row.html:38
+#: templates/pois/poi_list_archived_row.html:16
+#: templates/pois/poi_list_archived_row.html:28
+#: templates/pois/poi_list_row.html:16 templates/pois/poi_list_row.html:28
 msgid "Translation not available"
 msgstr "Übersetzung nicht verfügbar"
 
@@ -3203,39 +3210,43 @@ msgstr "Neue Übersetzung des Ortes erstellen"
 msgid "Create new location"
 msgstr "Neuen Ort erstellen"
 
-#: templates/pois/poi_form.html:149
+#: templates/pois/poi_form.html:169
 msgid "Address"
 msgstr "Adresse"
 
-#: templates/pois/poi_form.html:160
+#: templates/pois/poi_form.html:178
+msgid "Location on map"
+msgstr "Ort auf Karte"
+
+#: templates/pois/poi_form.html:184
 msgid "Position"
 msgstr "Position"
 
-#: templates/pois/poi_form.html:175 templates/pois/poi_form.html:176
-#: templates/pois/poi_list_archived_row.html:64
+#: templates/pois/poi_form.html:199 templates/pois/poi_form.html:200
+#: templates/pois/poi_list_archived_row.html:54
 msgid "Restore location"
 msgstr "Ort wiederherstellen"
 
-#: templates/pois/poi_form.html:181
+#: templates/pois/poi_form.html:205
 msgid "Restore this location"
 msgstr "Diesen Ort wiederherstellen"
 
-#: templates/pois/poi_form.html:184 templates/pois/poi_form.html:185
-#: templates/pois/poi_list_row.html:94
+#: templates/pois/poi_form.html:208 templates/pois/poi_form.html:209
+#: templates/pois/poi_list_row.html:84
 msgid "Archive location"
 msgstr "Ort archivieren"
 
-#: templates/pois/poi_form.html:190
+#: templates/pois/poi_form.html:214
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
-#: templates/pois/poi_form.html:196 templates/pois/poi_form.html:197
-#: templates/pois/poi_list_archived_row.html:72
-#: templates/pois/poi_list_row.html:102
+#: templates/pois/poi_form.html:220 templates/pois/poi_form.html:221
+#: templates/pois/poi_list_archived_row.html:62
+#: templates/pois/poi_list_row.html:92
 msgid "Delete location"
 msgstr "Ort löschen"
 
-#: templates/pois/poi_form.html:202
+#: templates/pois/poi_form.html:226
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
@@ -3243,15 +3254,15 @@ msgstr "Diesen Ort löschen"
 msgid "Archived locations"
 msgstr "Archivierte Orte"
 
-#: templates/pois/poi_list.html:60 templates/pois/poi_list_archived.html:36
+#: templates/pois/poi_list.html:58 templates/pois/poi_list_archived.html:34
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: templates/pois/poi_list.html:73
+#: templates/pois/poi_list.html:71
 msgid "No locations available yet."
 msgstr "Noch keine Orte vorhanden."
 
-#: templates/pois/poi_list_archived.html:49
+#: templates/pois/poi_list_archived.html:47
 msgid "No locations archived yet."
 msgstr "Noch keine Orte archiviert."
 
