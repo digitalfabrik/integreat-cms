@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-21T15:52:15+00:00" />
+    <meta property="article:modified_time" content="2021-04-30T15:33:56+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>POIs &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1197,11 +1197,12 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">country</span></code>: Country (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.CharField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">latitude</span></code>: Latitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">longitude</span></code>: Longitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">location_not_on_map</span></code>: Do not show this location on map (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Icon (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ImageField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt id="cms.forms.pois.poi_form.POIForm.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_form.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pois.poi_form.POIForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_form.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pois.poi_form.POIForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize POI form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1369,7 +1370,7 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pois.poi_form.POIForm.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_form.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pois.poi_form.POIForm.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_form.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pois.poi_form.POIForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -1688,7 +1689,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 21, 2021.
+        Last updated on Apr 30, 2021.
       </span>
 
     </p>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-23T10:12:19+00:00" />
+    <meta property="article:modified_time" content="2021-04-30T15:33:56+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>POIs &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1204,6 +1204,7 @@ coordinates.</p>
 <li><p><strong>country</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.CharField" title="(in Django v3.1)"><em>CharField</em></a>) – Country</p></li>
 <li><p><strong>latitude</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.FloatField" title="(in Django v3.1)"><em>FloatField</em></a>) – Latitude. The latitude coordinate</p></li>
 <li><p><strong>longitude</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.FloatField" title="(in Django v3.1)"><em>FloatField</em></a>) – Longitude. The longitude coordinate</p></li>
+<li><p><strong>location_not_on_map</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.1)"><em>BooleanField</em></a>) – Do not show this location on map. Tick if you do not show this location on map</p></li>
 <li><p><strong>icon</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.ImageField" title="(in Django v3.1)"><em>ImageField</em></a>) – Icon</p></li>
 <li><p><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.1)"><em>BooleanField</em></a>) – Archived. Whether or not the location is read-only and hidden in the API.</p></li>
 </ul>
@@ -1283,7 +1284,7 @@ a POI translation.</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_public_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_public_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi.py#L74"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function retrieves the newest public translation of a POI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1300,7 +1301,7 @@ a POI translation.</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
 and filters them to the requested <a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> slug.</p>
 <dl class="field-list simple">
@@ -1627,7 +1628,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 23, 2021.
+        Last updated on Apr 30, 2021.
       </span>
 
     </p>
