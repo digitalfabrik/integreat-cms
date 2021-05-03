@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-09T20:09:09+00:00" />
+    <meta property="article:modified_time" content="2021-04-30T22:44:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Continuous Integration (CircleCI) &mdash; integreat-cms 0.0.14 documentation</title>
@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1257,6 +1266,12 @@ permissions to access the Docker Hub credentials.</p>
 <p>If you get an <code class="docutils literal notranslate"><span class="pre">Unauthorized</span></code> error on this job, see <a class="reference internal" href="troubleshooting.html#circleci-unauthorized"><span class="std std-ref">⚠ Unauthorized (CircleCI)</span></a>.</p>
 </div>
 </div>
+<div class="section" id="shellcheck-check">
+<span id="circleci-shellcheck"></span><h3>shellcheck/check<a class="headerlink" href="#shellcheck-check" title="Permalink to this headline">¶</a></h3>
+<p>This job makes use of the <a class="reference external" href="https://circleci.com/developer/orbs/orb/circleci/shellcheck">ShellCheck CircleCI Orb</a> and
+executes the pre-defined job <code class="docutils literal notranslate"><span class="pre">shellcheck/check</span></code>. It is configured to check the directory <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools">dev-tools</a>
+and to allow external sources because all dev tools source one common function script. Also see <a class="reference internal" href="code-style.html#shellcheck"><span class="std std-ref">Shellcheck</span></a>.</p>
+</div>
 </div>
 <div class="section" id="debugging-with-ssh">
 <h2>Debugging with SSH<a class="headerlink" href="#debugging-with-ssh" title="Permalink to this headline">¶</a></h2>
@@ -1310,7 +1325,7 @@ Don’t forget to change the image tag in <a class="reference external" href="ht
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 09, 2021.
+        Last updated on Apr 30, 2021.
       </span>
 
     </p>

@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1189,21 +1198,21 @@
 <dl class="py class">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.pages.page_filter_form.</span></code><code class="sig-name descname"><span class="pre">PageFilterForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data=None</span></em>, <em class="sig-param"><span class="pre">files=None</span></em>, <em class="sig-param"><span class="pre">auto_id='id_%s'</span></em>, <em class="sig-param"><span class="pre">prefix=None</span></em>, <em class="sig-param"><span class="pre">initial=None</span></em>, <em class="sig-param"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></em>, <em class="sig-param"><span class="pre">label_suffix=None</span></em>, <em class="sig-param"><span class="pre">empty_permitted=False</span></em>, <em class="sig-param"><span class="pre">field_order=None</span></em>, <em class="sig-param"><span class="pre">use_required_attribute=None</span></em>, <em class="sig-param"><span class="pre">renderer=None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_filter_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/api/#django.forms.Form" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Form</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Form</span></code></a></p>
 <p>Form for filtering page objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">translation_status</span></code>: Translation Status (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.TypedMultipleChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedMultipleChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">translation_status</span></code>: Translation Status (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedMultipleChoiceField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data=None</span></em>, <em class="sig-param"><span class="pre">files=None</span></em>, <em class="sig-param"><span class="pre">auto_id='id_%s'</span></em>, <em class="sig-param"><span class="pre">prefix=None</span></em>, <em class="sig-param"><span class="pre">initial=None</span></em>, <em class="sig-param"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></em>, <em class="sig-param"><span class="pre">label_suffix=None</span></em>, <em class="sig-param"><span class="pre">empty_permitted=False</span></em>, <em class="sig-param"><span class="pre">field_order=None</span></em>, <em class="sig-param"><span class="pre">use_required_attribute=None</span></em>, <em class="sig-param"><span class="pre">renderer=None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data=None</span></em>, <em class="sig-param"><span class="pre">files=None</span></em>, <em class="sig-param"><span class="pre">auto_id='id_%s'</span></em>, <em class="sig-param"><span class="pre">prefix=None</span></em>, <em class="sig-param"><span class="pre">initial=None</span></em>, <em class="sig-param"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></em>, <em class="sig-param"><span class="pre">label_suffix=None</span></em>, <em class="sig-param"><span class="pre">empty_permitted=False</span></em>, <em class="sig-param"><span class="pre">field_order=None</span></em>, <em class="sig-param"><span class="pre">use_required_attribute=None</span></em>, <em class="sig-param"><span class="pre">renderer=None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.add_error">
-<code class="sig-name descname"><span class="pre">add_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.add_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.add_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the content of <cite>self._errors</cite>.</p>
 <p>The <cite>field</cite> argument is the name of the field to which the errors
 should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
@@ -1220,13 +1229,13 @@ dictionary.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.add_initial_prefix">
-<code class="sig-name descname"><span class="pre">add_initial_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_initial_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.add_prefix">
-<code class="sig-name descname"><span class="pre">add_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.add_prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.add_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the field name with a prefix appended, if this Form has a
 prefix set.</p>
 <p>Subclasses may wish to override.</p>
@@ -1234,19 +1243,19 @@ prefix set.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.as_p">
-<code class="sig-name descname"><span class="pre">as_p</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.as_p" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_p</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.as_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.as_table">
-<code class="sig-name descname"><span class="pre">as_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.as_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.as_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.as_ul">
-<code class="sig-name descname"><span class="pre">as_ul</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.as_ul" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_ul</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.as_ul" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
 </dd></dl>
 
@@ -1257,7 +1266,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L414"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -1282,45 +1291,45 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.full_clean">
-<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L361"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.full_clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.full_clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.get_initial_for_field">
-<code class="sig-name descname"><span class="pre">get_initial_for_field</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L482"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_initial_for_field</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return initial data for field on form. Use initial data from the form
 or the field, in that order. Evaluate callable values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.has_changed">
-<code class="sig-name descname"><span class="pre">has_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.has_changed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if data differs from initial.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.has_error">
-<code class="sig-name descname"><span class="pre">has_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.has_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.has_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.hidden_fields">
-<code class="sig-name descname"><span class="pre">hidden_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">hidden_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all the BoundField objects that are hidden fields.
 Useful for manual form layout in templates.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.is_multipart">
-<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L461"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.is_multipart" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.is_multipart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
 FileInput, or False otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.is_valid">
-<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.is_valid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.is_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if the form has no errors, or False otherwise.</p>
 </dd></dl>
 
@@ -1332,7 +1341,7 @@ FileInput, or False otherwise.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.non_field_errors">
-<code class="sig-name descname"><span class="pre">non_field_errors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">non_field_errors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an ErrorList of errors that aren’t associated with a particular
 field – i.e., from Form.clean(). Return an empty ErrorList if there
 are none.</p>
@@ -1340,7 +1349,7 @@ are none.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.order_fields">
-<code class="sig-name descname"><span class="pre">order_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.order_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">order_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.order_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rearrange the fields according to field_order.</p>
 <p>field_order is a list of field names specifying the order. Append fields
 not included in the list in the default order for backward compatibility
@@ -1362,7 +1371,7 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_filter_form.PageFilterForm.visible_fields">
-<code class="sig-name descname"><span class="pre">visible_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L475"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.visible_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">visible_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_filter_form.PageFilterForm.visible_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of BoundField objects that aren’t hidden fields.
 The opposite of the hidden_fields() method.</p>
 </dd></dl>
@@ -1379,16 +1388,16 @@ The opposite of the hidden_fields() method.</p>
 <p>Form for creating and modifying page objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Icon (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ImageField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mirrored_page</span></code>: Mirrored page (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mirrored_page_first</span></code>: Position of mirrored page (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.NullBooleanField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullBooleanField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">organization</span></code>: Responsible organization (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code>: Parent page (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">related_page</span></code>: Related Page (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code>: Position (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">editors</span></code>: Editors (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">publishers</span></code>: Publishers (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mirrored_page_region</span></code>: Mirrored Page Region (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Icon (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ImageField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mirrored_page</span></code>: Mirrored page (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mirrored_page_first</span></code>: Position of mirrored page (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.NullBooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullBooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">organization</span></code>: Responsible organization (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code>: Parent page (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">related_page</span></code>: Related Page (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code>: Position (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">editors</span></code>: Editors (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">publishers</span></code>: Publishers (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mirrored_page_region</span></code>: Mirrored Page Region (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.__init__">
@@ -1406,7 +1415,7 @@ The opposite of the hidden_fields() method.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.add_error">
-<code class="sig-name descname"><span class="pre">add_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.add_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.add_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the content of <cite>self._errors</cite>.</p>
 <p>The <cite>field</cite> argument is the name of the field to which the errors
 should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
@@ -1423,13 +1432,13 @@ dictionary.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.add_initial_prefix">
-<code class="sig-name descname"><span class="pre">add_initial_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_initial_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.add_prefix">
-<code class="sig-name descname"><span class="pre">add_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.add_prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.add_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the field name with a prefix appended, if this Form has a
 prefix set.</p>
 <p>Subclasses may wish to override.</p>
@@ -1437,19 +1446,19 @@ prefix set.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.as_p">
-<code class="sig-name descname"><span class="pre">as_p</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.as_p" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_p</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.as_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.as_table">
-<code class="sig-name descname"><span class="pre">as_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.as_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.as_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.as_ul">
-<code class="sig-name descname"><span class="pre">as_ul</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.as_ul" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_ul</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.as_ul" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
 </dd></dl>
 
@@ -1460,7 +1469,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -1485,7 +1494,7 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.full_clean">
-<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L361"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.full_clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.full_clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
 </dd></dl>
 
@@ -1499,14 +1508,14 @@ permission to edit this page.</p>
 <dd class="field-odd"><p>All potential page editors</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.1)">QuerySet</a> [ <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)">User</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)">User</a> ]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.get_initial_for_field">
-<code class="sig-name descname"><span class="pre">get_initial_for_field</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L482"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_initial_for_field</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return initial data for field on form. Use initial data from the form
 or the field, in that order. Evaluate callable values.</p>
 </dd></dl>
@@ -1521,39 +1530,39 @@ the permission to publish this page.</p>
 <dd class="field-odd"><p>All potential page publishers</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.1)">QuerySet</a> [ <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)">User</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)">User</a> ]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.has_changed">
-<code class="sig-name descname"><span class="pre">has_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.has_changed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if data differs from initial.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.has_error">
-<code class="sig-name descname"><span class="pre">has_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.has_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.has_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.hidden_fields">
-<code class="sig-name descname"><span class="pre">hidden_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">hidden_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all the BoundField objects that are hidden fields.
 Useful for manual form layout in templates.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.is_multipart">
-<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L461"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.is_multipart" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.is_multipart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
 FileInput, or False otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.is_valid">
-<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.is_valid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.is_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if the form has no errors, or False otherwise.</p>
 </dd></dl>
 
@@ -1565,7 +1574,7 @@ FileInput, or False otherwise.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.non_field_errors">
-<code class="sig-name descname"><span class="pre">non_field_errors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">non_field_errors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an ErrorList of errors that aren’t associated with a particular
 field – i.e., from Form.clean(). Return an empty ErrorList if there
 are none.</p>
@@ -1573,7 +1582,7 @@ are none.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.order_fields">
-<code class="sig-name descname"><span class="pre">order_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.order_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">order_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.order_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rearrange the fields according to field_order.</p>
 <p>field_order is a list of field names specifying the order. Append fields
 not included in the list in the default order for backward compatibility
@@ -1591,7 +1600,7 @@ without redefining ordering.</p>
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.save">
 <code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_form.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1616,14 +1625,14 @@ which are not directly determined by input fields.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.validate_unique">
-<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.validate_unique" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.validate_unique" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call the instance’s validate_unique() method and update the form’s
 validation errors if any were raised.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_form.PageForm.visible_fields">
-<code class="sig-name descname"><span class="pre">visible_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L475"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.visible_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">visible_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_form.PageForm.visible_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of BoundField objects that aren’t hidden fields.
 The opposite of the hidden_fields() method.</p>
 </dd></dl>
@@ -1640,11 +1649,11 @@ The opposite of the hidden_fields() method.</p>
 <p>Form for creating and modifying page translation objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: Title of the page (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.CharField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">slug</span></code>: Page link (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.SlugField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: Status (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code>: Content of the page (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.CharField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">minor_edit</span></code>: Minor edit (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: Title of the page (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slug</span></code>: Page link (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.SlugField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: Status (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code>: Content of the page (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minor_edit</span></code>: Minor edit (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.__init__">
@@ -1662,7 +1671,7 @@ The opposite of the hidden_fields() method.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.add_error">
-<code class="sig-name descname"><span class="pre">add_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.add_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.add_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the content of <cite>self._errors</cite>.</p>
 <p>The <cite>field</cite> argument is the name of the field to which the errors
 should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
@@ -1679,13 +1688,13 @@ dictionary.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.add_initial_prefix">
-<code class="sig-name descname"><span class="pre">add_initial_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_initial_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.add_prefix">
-<code class="sig-name descname"><span class="pre">add_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.add_prefix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.add_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the field name with a prefix appended, if this Form has a
 prefix set.</p>
 <p>Subclasses may wish to override.</p>
@@ -1693,19 +1702,19 @@ prefix set.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.as_p">
-<code class="sig-name descname"><span class="pre">as_p</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L290"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.as_p" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_p</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.as_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.as_table">
-<code class="sig-name descname"><span class="pre">as_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.as_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.as_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.as_ul">
-<code class="sig-name descname"><span class="pre">as_ul</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.as_ul" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_ul</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.as_ul" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
 </dd></dl>
 
@@ -1716,7 +1725,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -1726,7 +1735,7 @@ association with the field named ‘__all__’.</p>
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.clean_slug">
 <code class="sig-name descname"><span class="pre">clean_slug</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_translation_form.py#L108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.clean_slug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.1)"><span>Overriding the clean() method</span></a>)</p>
+<dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A unique slug based on the input value</p>
@@ -1740,10 +1749,10 @@ association with the field named ‘__all__’.</p>
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.clean_text">
 <code class="sig-name descname"><span class="pre">clean_text</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_translation_form.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.clean_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate the text field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.1)"><span>Overriding the clean() method</span></a>)</p>
+<dd><p>Validate the text field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.1)"><strong>ValidationError</strong></a> – When a heading 1 (<code class="docutils literal notranslate"><span class="pre">&lt;h1&gt;</span></code>) is used in the text content</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><strong>ValidationError</strong></a> – When a heading 1 (<code class="docutils literal notranslate"><span class="pre">&lt;h1&gt;</span></code>) is used in the text content</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The valid text</p>
@@ -1772,45 +1781,45 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.full_clean">
-<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L361"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.full_clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.full_clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.get_initial_for_field">
-<code class="sig-name descname"><span class="pre">get_initial_for_field</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L482"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_initial_for_field</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return initial data for field on form. Use initial data from the form
 or the field, in that order. Evaluate callable values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.has_changed">
-<code class="sig-name descname"><span class="pre">has_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.has_changed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if data differs from initial.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.has_error">
-<code class="sig-name descname"><span class="pre">has_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.has_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.has_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.hidden_fields">
-<code class="sig-name descname"><span class="pre">hidden_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">hidden_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all the BoundField objects that are hidden fields.
 Useful for manual form layout in templates.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.is_multipart">
-<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L461"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.is_multipart" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.is_multipart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
 FileInput, or False otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.is_valid">
-<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.is_valid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.is_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if the form has no errors, or False otherwise.</p>
 </dd></dl>
 
@@ -1822,7 +1831,7 @@ FileInput, or False otherwise.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.non_field_errors">
-<code class="sig-name descname"><span class="pre">non_field_errors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">non_field_errors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an ErrorList of errors that aren’t associated with a particular
 field – i.e., from Form.clean(). Return an empty ErrorList if there
 are none.</p>
@@ -1830,7 +1839,7 @@ are none.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.order_fields">
-<code class="sig-name descname"><span class="pre">order_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.order_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">order_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.order_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rearrange the fields according to field_order.</p>
 <p>field_order is a list of field names specifying the order. Append fields
 not included in the list in the default order for backward compatibility
@@ -1848,7 +1857,7 @@ without redefining ordering.</p>
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.save">
 <code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_translation_form.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1873,14 +1882,14 @@ which are not directly determined by input fields.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.validate_unique">
-<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.validate_unique" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.validate_unique" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call the instance’s validate_unique() method and update the form’s
 validation errors if any were raised.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.page_translation_form.PageTranslationForm.visible_fields">
-<code class="sig-name descname"><span class="pre">visible_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L475"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.visible_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">visible_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.page_translation_form.PageTranslationForm.visible_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of BoundField objects that aren’t hidden fields.
 The opposite of the hidden_fields() method.</p>
 </dd></dl>
@@ -1893,11 +1902,11 @@ The opposite of the hidden_fields() method.</p>
 <dl class="py class">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.pages.parent_field_widget.</span></code><code class="sig-name descname"><span class="pre">ParentFieldWidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/parent_field_widget.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/widgets/#django.forms.Select" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Select</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/widgets/#django.forms.Select" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Select</span></code></a></p>
 <p>This Widget class is used to append the url for retrieving the page order tables to the data attributes of the options</p>
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L560"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -1913,7 +1922,7 @@ The opposite of the hidden_fields() method.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.build_attrs">
-<code class="sig-name descname"><span class="pre">build_attrs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.build_attrs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">build_attrs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L254"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.build_attrs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build an attribute dictionary.</p>
 </dd></dl>
 
@@ -1955,18 +1964,18 @@ The opposite of the hidden_fields() method.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.format_value">
-<code class="sig-name descname"><span class="pre">format_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L660"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.format_value" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">format_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L665"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.format_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return selected values as a list.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.get_context">
-<code class="sig-name descname"><span class="pre">get_context</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L677"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.get_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_context</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L682"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.get_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.id_for_label">
-<code class="sig-name descname"><span class="pre">id_for_label</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L642"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.id_for_label" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">id_for_label</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L647"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.id_for_label" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use an incremented id for each option where the main widget
 references the zero index.</p>
 </dd></dl>
@@ -2003,7 +2012,7 @@ references the zero index.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.optgroups">
-<code class="sig-name descname"><span class="pre">optgroups</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L582"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.optgroups" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">optgroups</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.optgroups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of optgroups for this widget.</p>
 </dd></dl>
 
@@ -2019,19 +2028,19 @@ references the zero index.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L577"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.options" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L582"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yield a flat list of options for this widgets.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.render">
-<code class="sig-name descname"><span class="pre">render</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L239"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.render" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">render</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render the widget as an HTML string.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.subwidgets">
-<code class="sig-name descname"><span class="pre">subwidgets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L569"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.subwidgets" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">subwidgets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L574"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.subwidgets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yield all “subwidgets” of this widget. Used to enable iterating
 options from a BoundField for choice widgets.</p>
 </dd></dl>
@@ -2048,21 +2057,21 @@ options from a BoundField for choice widgets.</p>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.use_required_attribute">
-<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L689"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.use_required_attribute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Don’t render ‘required’ if the first &lt;option&gt; has a value, as that’s
 invalid HTML.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.value_from_datadict">
-<code class="sig-name descname"><span class="pre">value_from_datadict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.value_from_datadict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">value_from_datadict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L656"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.value_from_datadict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a dictionary of data and this widget’s name, return the value
 of this widget or None if it’s not provided.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.forms.pages.parent_field_widget.ParentFieldWidget.value_omitted_from_data">
-<code class="sig-name descname"><span class="pre">value_omitted_from_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L260"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.value_omitted_from_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">value_omitted_from_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/widgets.py#L265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.pages.parent_field_widget.ParentFieldWidget.value_omitted_from_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

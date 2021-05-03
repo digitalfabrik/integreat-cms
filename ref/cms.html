@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1562,9 +1571,9 @@
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.apps.</span></code><code class="sig-name descname"><span class="pre">CmsConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/applications/#django.apps.AppConfig" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
 <p>This class represents the Django-configuration of the backend.</p>
-<p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/applications/#django.apps.AppConfig" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the app</p>
@@ -1575,7 +1584,7 @@
 <code class="sig-name descname"><span class="pre">ready</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function gets executed exactly once each time the cms starts. We use it to check wether the secret key was
 not changed in production mode and show an error message if this is the case.</p>
-<p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/applications/#django.apps.AppConfig.ready" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.apps.AppConfig.ready()</span></code></a> for more information.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig.ready" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.apps.AppConfig.ready()</span></code></a> for more information.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1588,8 +1597,8 @@ not changed in production mode and show an error message if this is the case.</p
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#type" title="(in Python v3.7)"><em>type</em></a>) – The class of the user that just logged in.</p></li>
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p></li>
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user instance that just logged in.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user instance that just logged in.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
@@ -1604,8 +1613,8 @@ not changed in production mode and show an error message if this is the case.</p
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#type" title="(in Python v3.7)"><em>type</em></a>) – The class of the user that just logged out or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the user was not authenticated.</p></li>
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p></li>
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user instance that just logged out or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the user was not authenticated.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user instance that just logged out or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the user was not authenticated.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
@@ -1621,9 +1630,9 @@ not changed in production mode and show an error message if this is the case.</p
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the module used for authentication.</p></li>
 <li><p><strong>credentials</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – A dictionary of keyword arguments containing the user credentials that were passed to
-<a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.authenticate" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">authenticate()</span></code></a>. Credentials matching a set of ‘sensitive’ patterns,
+<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.authenticate" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">authenticate()</span></code></a>. Credentials matching a set of ‘sensitive’ patterns,
 (including password) will not be sent in the clear as part of the signal.</p></li>
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
@@ -1634,7 +1643,7 @@ not changed in production mode and show an error message if this is the case.</p
 <div class="section" id="decorators">
 <h2>Decorators<a class="headerlink" href="#decorators" title="Permalink to this headline">¶</a></h2>
 <p>Django view decorators can be used to restrict the execution of a view function on certain conditions.</p>
-<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/decorators/" title="(in Django v3.1)"><span>View decorators</span></a>.</p>
+<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/decorators/" title="(in Django v3.2)"><span>View decorators</span></a>.</p>
 <dl class="py function">
 <dt>
 <code class="sig-prename descclassname"><span class="pre">cms.decorators.</span></code><code class="sig-name descname"><span class="pre">modify_mfa_authenticated</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1856,7 +1865,7 @@ save to page translation.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trans_fields</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – translated fields extracted from XLIFF file</p></li>
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – author of translations</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – author of translations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -2057,7 +2066,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
 <li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
 </ul>
 </dd>
@@ -2077,7 +2086,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
 <li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
 </ul>
 </dd>
@@ -2097,7 +2106,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
 <li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The page parameter is used for the region check</p></li>
 </ul>
 </dd>
@@ -2117,7 +2126,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
 <li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The page parameter is used for the region check</p></li>
 </ul>
 </dd>
@@ -2136,7 +2145,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <dd><p>This predicate checks whether the given user can edit or publish at least some specific pages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user who’s permission should be checked</p>
+<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can edit or publish some pages</p>
@@ -2154,7 +2163,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
 <li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
 </ul>
 </dd>
@@ -2174,7 +2183,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
 <li><p><strong>chat_message</strong> (<a class="reference internal" href="../ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatMessage" title="cms.models.chat.chat_message.ChatMessage"><em>ChatMessage</em></a>) – The requested chat message</p></li>
 </ul>
 </dd>
@@ -2192,7 +2201,7 @@ across all regions, it can be used to import a XLIFF file.</p>
 <h2>Urls<a class="headerlink" href="#urls" title="Permalink to this headline">¶</a></h2>
 <p>Django URL dispatcher for the cms package.
 See <a class="reference internal" href="../ref-ext/backend.html#module-backend.urls" title="backend.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.urls</span></code></a> for the other namespaces of this application.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/urls/" title="(in Django v3.1)"><span>URL dispatcher</span></a>.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/urls/" title="(in Django v3.2)"><span>URL dispatcher</span></a>.</p>
 </div>
 </div>
 

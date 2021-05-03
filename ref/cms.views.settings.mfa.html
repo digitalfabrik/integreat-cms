@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1215,7 +1224,7 @@ the confirmation form and delete the key from the database</p></li>
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.authenticate_modify_mfa_view.</span></code><code class="sig-name descname"><span class="pre">AuthenticateModifyMfaView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/generic-editing/#django.views.generic.edit.FormView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.FormView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.FormView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.FormView</span></code></a></p>
 <p>View to authenticate a user before changing the mfa settings</p>
 <dl class="py attribute">
 <dt>
@@ -1226,7 +1235,7 @@ the confirmation form and delete the key from the database</p></li>
 <dl class="py method">
 <dt>
 <code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the
+<dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the
 <a class="reference internal" href="../ref-ext/cms.forms.users.html#cms.forms.users.authentication_form.AuthenticationForm" title="cms.forms.users.authentication_form.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a> is valid. In case the user provided correct credentials,
 the current time is saved in a session variable so a timeout of the authentication can be implemented.</p>
 <dl class="field-list simple">
@@ -1237,7 +1246,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dd class="field-even"><p>Redirect user to mfa login view or to <a class="reference internal" href="../ref-ext/backend.html#backend.settings.LOGIN_REDIRECT_URL" title="backend.settings.LOGIN_REDIRECT_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1245,13 +1254,13 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">success_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/user_settings/mfa/register/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The URL to redirect to when the form is successfully processed (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormMixin</span></code></a>)</p>
+<dd><p>The URL to redirect to when the form is successfully processed (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/authenticate.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1263,7 +1272,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.delete_user_mfa_key_view.</span></code><code class="sig-name descname"><span class="pre">DeleteUserMfaKeyView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View to delete a multi-factor-authentication key</p>
 <dl class="py method">
 <dt>
@@ -1272,7 +1281,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -1281,7 +1290,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1293,7 +1302,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
@@ -1301,7 +1310,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dd class="field-even"><p>A redirection to the user settings</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1309,7 +1318,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/delete.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1321,7 +1330,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.get_mfa_challenge_view.</span></code><code class="sig-name descname"><span class="pre">GetMfaChallengeView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/get_mfa_challenge_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
 <p>View to generate a challenge for multi-factor-authentication</p>
 <dl class="py method">
 <dt>
@@ -1329,13 +1338,13 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dd><p>Return MFA challenge</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The mfa challenge as JSON</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1348,7 +1357,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.register_user_mfa_key_view.</span></code><code class="sig-name descname"><span class="pre">RegisterUserMfaKeyView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
 <p>View to render a form for creating <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey" title="cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a> objects</p>
 <dl class="py attribute">
 <dt>
@@ -1370,7 +1379,7 @@ Called asynchroniously by JavaScript.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -1379,7 +1388,7 @@ Called asynchroniously by JavaScript.</p>
 <dd class="field-even"><p>The JSON response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1387,7 +1396,7 @@ Called asynchroniously by JavaScript.</p>
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/add_key.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>

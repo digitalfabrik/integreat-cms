@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1193,7 +1202,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
 <li><p><strong>reason</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Description of reason for CSRF failure</p></li>
 </ul>
 </dd>
@@ -1201,7 +1210,7 @@
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1213,7 +1222,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
 <li><p><strong>exception</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#BaseException" title="(in Python v3.7)"><em>BaseException</em></a>) – Exception (unused)</p></li>
 </ul>
 </dd>
@@ -1221,7 +1230,7 @@
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1233,7 +1242,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
 <li><p><strong>exception</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#BaseException" title="(in Python v3.7)"><em>BaseException</em></a>) – Exception (unused)</p></li>
 </ul>
 </dd>
@@ -1241,7 +1250,7 @@
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1253,7 +1262,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
 <li><p><strong>exception</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#BaseException" title="(in Python v3.7)"><em>BaseException</em></a>) – Exception (unused)</p></li>
 </ul>
 </dd>
@@ -1261,7 +1270,7 @@
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1272,13 +1281,13 @@
 <dd><p>Render a HTTP 500 Error code</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Object representing the user call</p>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1295,7 +1304,7 @@
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>

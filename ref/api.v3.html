@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1211,7 +1220,7 @@ default language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
 </ul>
@@ -1220,7 +1229,7 @@ default language.</p>
 <dd class="field-even"><p>JSON object according to APIv3 imprint endpoint definition</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1253,7 +1262,7 @@ default language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
 </ul>
 </dd>
@@ -1261,7 +1270,7 @@ default language.</p>
 <dd class="field-even"><p>JSON object according to APIv3 languages endpoint definition</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1326,7 +1335,7 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
 </ul>
@@ -1335,7 +1344,7 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 <dd class="field-even"><p>JSON object according to APIv3 offers endpoint definition</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1371,7 +1380,7 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
 </ul>
@@ -1380,7 +1389,7 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 <dd class="field-even"><p>JSON object according to APIv3 pages endpoint definition</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1417,7 +1426,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/cms.
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – request that was sent to the server</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – request that was sent to the server</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Slug defining the region</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current language slug</p></li>
 </ul>
@@ -1426,7 +1435,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/cms.
 <dd class="field-even"><p>The requested pages as PDF document (inline)</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)">HttpResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)">HttpResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1442,7 +1451,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/cms.
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Django request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Django request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – slug of a region</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
 </ul>
@@ -1451,7 +1460,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/cms.
 <dd class="field-even"><p>JSON object according to APIv3 push notifications definition</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1486,7 +1495,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/cms.
 <dd class="field-odd"><p>JSON object according to APIv3 hidden regions endpoint definition</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1500,7 +1509,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/cms.
 <dd class="field-odd"><p>JSON object according to APIv3 live regions endpoint definition</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1532,7 +1541,7 @@ problem.</p>
 <dd class="field-odd"><p>JSON object according to APIv3 regions endpoint definition</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1584,19 +1593,19 @@ requested page does not exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The request that has been sent to the Django server</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The request that has been sent to the Django server</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Slug defining the region</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Code to identify the desired language</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – HTTP status 404 if the request is malformed or no page with the given id or url exists.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – HTTP status 404 if the request is malformed or no page with the given id or url exists.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Return a JSON with the requested page and a HTTP status 200.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)">JsonResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
 </dd>
 </dl>
 </dd></dl>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-23T10:12:19+00:00" />
+    <meta property="article:modified_time" content="2021-04-30T22:44:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1182,7 +1191,7 @@
 <p>This package is the main entry point for the application and contains all configuration for the other packages.</p>
 <div class="section" id="module-backend.context_processors">
 <span id="context-processors"></span><h2>Context Processors<a class="headerlink" href="#module-backend.context_processors" title="Permalink to this headline">¶</a></h2>
-<p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/templates/api/#context-processors" title="(in Django v3.1)"><span>Built-in template context processors</span></a>).</p>
+<p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/api/#context-processors" title="(in Django v3.2)"><span>Built-in template context processors</span></a>).</p>
 <dl class="py function">
 <dt id="backend.context_processors.region_slug_processor">
 <code class="sig-prename descclassname"><span class="pre">backend.context_processors.</span></code><code class="sig-name descname"><span class="pre">region_slug_processor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/context_processors.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.context_processors.region_slug_processor" title="Permalink to this definition">¶</a></dt>
@@ -1192,7 +1201,7 @@ Usually, these are the regions configured in each user’s user profile, but if 
 available regions, ordered by the <code class="docutils literal notranslate"><span class="pre">last_updated</span></code> attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current http request</p>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current http request</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current region and other quick access regions</p>
@@ -1209,13 +1218,13 @@ available regions, ordered by the <code class="docutils literal notranslate"><sp
 <p>Django settings for different database configuration.
 The docker container started in <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/run.sh">dev-tools/run.sh</a> exposes the alternative port <code class="docutils literal notranslate"><span class="pre">5433</span></code>.</p>
 <p>All other settings are imported from <a class="reference internal" href="#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a>.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/settings/" title="(in Django v3.1)"><span>Django settings</span></a>.
-For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/" title="(in Django v3.1)"><span>Settings</span></a>.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/settings/" title="(in Django v3.2)"><span>Django settings</span></a>.
+For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/" title="(in Django v3.2)"><span>Settings</span></a>.</p>
 <dl class="py data">
 <dt id="backend.docker_settings.DATABASES">
 <code class="sig-prename descclassname"><span class="pre">backend.docker_settings.</span></code><code class="sig-name descname"><span class="pre">DATABASES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span> <span class="pre">'HOST':</span> <span class="pre">'localhost',</span> <span class="pre">'NAME':</span> <span class="pre">'integreat',</span> <span class="pre">'PASSWORD':</span> <span class="pre">'password',</span> <span class="pre">'PORT':</span> <span class="pre">'5433',</span> <span class="pre">'USER':</span> <span class="pre">'integreat'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/docker_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.docker_settings.DATABASES" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary containing the settings for all databases to be used with this Django installation
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DATABASES" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DATABASES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s1">&#39;ENGINE&#39;</span><span class="o">:</span> <span class="s1">&#39;django.db.backends.postgresql_psycopg2&#39;</span><span class="p">,</span>
@@ -1354,7 +1363,7 @@ set the ‘converter’ attribute in the Formatter class.</p>
 <span id="settings"></span><h2>Settings<a class="headerlink" href="#module-backend.settings" title="Permalink to this headline">¶</a></h2>
 <p>Django settings for <code class="docutils literal notranslate"><span class="pre">integreat-cms</span></code>.</p>
 <p>This file only contains the options which deviate from the default values.
-For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/" title="(in Django v3.1)"><span>Settings</span></a>.</p>
+For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/" title="(in Django v3.2)"><span>Settings</span></a>.</p>
 <p>For production use, the following settings can be set with environment variables (use the prefix <code class="docutils literal notranslate"><span class="pre">DJANGO_</span></code>):</p>
 <blockquote>
 <div><ul class="simple">
@@ -1401,7 +1410,7 @@ Django emails these people the details of exceptions raised in the request/respo
 <dt id="backend.settings.ALLOWED_HOSTS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">ALLOWED_HOSTS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['localhost',</span> <span class="pre">'127.0.0.1',</span> <span class="pre">'0.0.0.0']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.ALLOWED_HOSTS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe
-web server configurations (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-ALLOWED_HOSTS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/security/#host-headers-virtual-hosting" title="(in Django v3.1)"><span>Host header validation</span></a>)</p>
+web server configurations (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-ALLOWED_HOSTS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/security/#host-headers-virtual-hosting" title="(in Django v3.2)"><span>Host header validation</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1411,7 +1420,7 @@ web server configurations (see <a class="reference external" href="https://docs.
 <dt id="backend.settings.AUTHENTICATION_BACKENDS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">AUTHENTICATION_BACKENDS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('rules.permissions.ObjectPermissionBackend',</span> <span class="pre">'django.contrib.auth.backends.ModelBackend')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.AUTHENTICATION_BACKENDS" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of authentication backend classes (as strings) to use when attempting to authenticate a user
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-AUTHENTICATION_BACKENDS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#authentication-backends" title="(in Django v3.1)"><span>Other authentication sources</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-AUTHENTICATION_BACKENDS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#authentication-backends" title="(in Django v3.2)"><span>Other authentication sources</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
     <span class="s1">&#39;rules.permissions.ObjectPermissionBackend&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.auth.backends.ModelBackend&#39;</span><span class="p">,</span>
@@ -1430,7 +1439,7 @@ web server configurations (see <a class="reference external" href="https://docs.
 <dt id="backend.settings.AUTH_PASSWORD_VALIDATORS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.MinimumLengthValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.CommonPasswordValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.NumericPasswordValidator'}]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.AUTH_PASSWORD_VALIDATORS" title="Permalink to this definition">¶</a></dt>
 <dd><p>The list of validators that are used to check the strength of user’s passwords
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-AUTH_PASSWORD_VALIDATORS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/passwords/#password-validation" title="(in Django v3.1)"><span>Password validation</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-AUTH_PASSWORD_VALIDATORS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/passwords/#password-validation" title="(in Django v3.2)"><span>Password validation</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s1">&#39;NAME&#39;</span><span class="o">:</span> <span class="s1">&#39;django.contrib.auth.password_validation.UserAttributeSimilarityValidator&#39;</span><span class="p">,</span>
@@ -1480,7 +1489,7 @@ Used in the following views:</p>
 <dl class="py data">
 <dt id="backend.settings.CACHES">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CACHES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'BACKEND':</span> <span class="pre">'django.core.cache.backends.filebased.FileBasedCache',</span> <span class="pre">'LOCATION':</span> <span class="pre">'/home/circleci/project/src/cms/static/CACHE/django_cache'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.CACHES" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configuration for PDF cache (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-CACHES" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a>)</p>
+<dd><p>Configuration for PDF cache (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-CACHES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s1">&#39;BACKEND&#39;</span><span class="o">:</span> <span class="s1">&#39;django.core.cache.backends.filebased.FileBasedCache&#39;</span><span class="p">,</span>
@@ -1523,7 +1532,7 @@ Used in the following views:</p>
 <dt id="backend.settings.CSRF_FAILURE_VIEW">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CSRF_FAILURE_VIEW</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.views.error_handler.csrf_failure'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.CSRF_FAILURE_VIEW" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dotted path to the view function to be used when an incoming request is rejected by the CSRF protection
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-CSRF_FAILURE_VIEW" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">CSRF_FAILURE_VIEW</span></code></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-CSRF_FAILURE_VIEW" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">CSRF_FAILURE_VIEW</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1536,7 +1545,7 @@ Used in the following views:</p>
 <dt id="backend.settings.DATABASES">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DATABASES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'ATOMIC_REQUESTS':</span> <span class="pre">False,</span> <span class="pre">'AUTOCOMMIT':</span> <span class="pre">True,</span> <span class="pre">'CONN_MAX_AGE':</span> <span class="pre">0,</span> <span class="pre">'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span> <span class="pre">'HOST':</span> <span class="pre">'localhost',</span> <span class="pre">'NAME':</span> <span class="pre">'integreat',</span> <span class="pre">'OPTIONS':</span> <span class="pre">{},</span> <span class="pre">'PASSWORD':</span> <span class="pre">'password',</span> <span class="pre">'PORT':</span> <span class="pre">'5432',</span> <span class="pre">'TEST':</span> <span class="pre">{'CHARSET':</span> <span class="pre">None,</span> <span class="pre">'COLLATION':</span> <span class="pre">None,</span> <span class="pre">'MIGRATE':</span> <span class="pre">True,</span> <span class="pre">'MIRROR':</span> <span class="pre">None,</span> <span class="pre">'NAME':</span> <span class="pre">None},</span> <span class="pre">'TIME_ZONE':</span> <span class="pre">None,</span> <span class="pre">'USER':</span> <span class="pre">'integreat'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.DATABASES" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary containing the settings for all databases to be used with this Django installation
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DATABASES" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DATABASES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s1">&#39;ATOMIC_REQUESTS&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
@@ -1566,18 +1575,25 @@ Used in the following views:</p>
 <dl class="py data">
 <dt id="backend.settings.DEBUG">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEBUG</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.DEBUG" title="Permalink to this definition">¶</a></dt>
-<dd><p>A boolean that turns on/off debug mode (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DEBUG" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a>)</p>
+<dd><p>A boolean that turns on/off debug mode (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DEBUG" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a>)</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Never deploy a site into production with <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DEBUG" title="(in Django v3.1)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">DEBUG</span></code></a> turned on!</p>
+<p>Never deploy a site into production with <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DEBUG" title="(in Django v3.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">DEBUG</span></code></a> turned on!</p>
 </div>
+</dd></dl>
+
+<dl class="py data">
+<dt id="backend.settings.DEFAULT_AUTO_FIELD">
+<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEFAULT_AUTO_FIELD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'django.db.models.BigAutoField'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.DEFAULT_AUTO_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default primary key field type to use for models that don’t have a field with
+<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.Field.primary_key" title="(in Django v3.2)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">primary_key=True</span></code></a>. (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DEFAULT_AUTO_FIELD" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUTO_FIELD</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.DEFAULT_FROM_EMAIL">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEFAULT_FROM_EMAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'keineantwort&#64;integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.DEFAULT_FROM_EMAIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default email address to use for various automated correspondence from the site manager(s)
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DEFAULT_FROM_EMAIL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">DEFAULT_FROM_EMAIL</span></code></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DEFAULT_FROM_EMAIL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DEFAULT_FROM_EMAIL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1595,7 +1611,7 @@ Used in the following views:</p>
 <dl class="py data">
 <dt id="backend.settings.EMAIL_BACKEND">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">EMAIL_BACKEND</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'django.core.mail.backends.console.EmailBackend'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.EMAIL_BACKEND" title="Permalink to this definition">¶</a></dt>
-<dd><p>The backend to use for sending emails (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-EMAIL_BACKEND" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">EMAIL_BACKEND</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/email/" title="(in Django v3.1)"><span>Sending email</span></a>)</p>
+<dd><p>The backend to use for sending emails (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-EMAIL_BACKEND" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">EMAIL_BACKEND</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/email/" title="(in Django v3.2)"><span>Sending email</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1633,7 +1649,7 @@ If empty, Django won’t attempt authentication.</p>
 <dl class="py data">
 <dt id="backend.settings.FIXTURE_DIRS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">FIXTURE_DIRS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('/home/circleci/project/src/cms/fixtures/',)</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.FIXTURE_DIRS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directory for initial database contents (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-FIXTURE_DIRS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">FIXTURE_DIRS</span></code></a>)</p>
+<dd><p>Directory for initial database contents (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-FIXTURE_DIRS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">FIXTURE_DIRS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;/home/circleci/project/src/cms/fixtures/&#39;</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 </div>
@@ -1676,7 +1692,7 @@ Used in the following views:</p>
 <dl class="py data">
 <dt id="backend.settings.INSTALLED_APPS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">INSTALLED_APPS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'easy_thumbnails',</span> <span class="pre">'filer',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'django.contrib.admin']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.INSTALLED_APPS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
+<dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;cms.apps.CmsConfig&#39;</span><span class="p">,</span>
     <span class="s1">&#39;gvz_api.apps.GvzApiConfig&#39;</span><span class="p">,</span>
@@ -1701,7 +1717,7 @@ Used in the following views:</p>
 <dl class="py data">
 <dt id="backend.settings.INTERNAL_IPS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">INTERNAL_IPS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['localhost',</span> <span class="pre">'127.0.0.1']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.INTERNAL_IPS" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of IP addresses, as strings, that allow the <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/templates/api/#django.template.context_processors.debug" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">debug()</span></code></a> context
+<dd><p>A list of IP addresses, as strings, that allow the <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/api/#django.template.context_processors.debug" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">debug()</span></code></a> context
 processor to add some variables to the template context.</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">]</span>
 </pre></div>
@@ -1711,7 +1727,7 @@ processor to add some variables to the template context.</p>
 <dl class="py data">
 <dt id="backend.settings.LANGUAGES">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LANGUAGES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">(('en',</span> <span class="pre">'English'),</span> <span class="pre">('de',</span> <span class="pre">'Deutsch'))</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.LANGUAGES" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of all available languages (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LANGUAGES" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/" title="(in Django v3.1)"><span>Internationalization and localization</span></a>)</p>
+<dd><p>A list of all available languages (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LANGUAGES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;English&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;Deutsch&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1721,14 +1737,14 @@ processor to add some variables to the template context.</p>
 <dt id="backend.settings.LANGUAGE_CODE">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LANGUAGE_CODE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.LANGUAGE_CODE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A string representing the language slug for this installation
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LANGUAGE_CODE" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LANGUAGE_CODE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/" title="(in Django v3.1)"><span>Internationalization and localization</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LANGUAGE_CODE" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LANGUAGE_CODE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.LOCALE_PATHS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOCALE_PATHS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('/home/circleci/project/src/locale',)</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.LOCALE_PATHS" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of directories where Django looks for translation files
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LOCALE_PATHS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LOCALE_PATHS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/" title="(in Django v3.1)"><span>Internationalization and localization</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOCALE_PATHS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOCALE_PATHS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;/home/circleci/project/src/locale&#39;</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 </div>
@@ -1744,7 +1760,7 @@ Defaults to <a class="reference internal" href="#backend.settings.DEFAULT_LOGFIL
 <dl class="py data">
 <dt id="backend.settings.LOGGING">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGGING</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'disable_existing_loggers':</span> <span class="pre">False,</span> <span class="pre">'filters':</span> <span class="pre">{'require_debug_false':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugFalse'},</span> <span class="pre">'require_debug_true':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugTrue'}},</span> <span class="pre">'formatters':</span> <span class="pre">{'console':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">\x1b[1m{levelname}\x1b[0m</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'()':</span> <span class="pre">&lt;class</span> <span class="pre">'backend.logging_formatter.ColorFormatter'&gt;,</span> <span class="pre">'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'email':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%Y-%m-%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'Date</span> <span class="pre">and</span> <span class="pre">time:</span> <span class="pre">{asctime}\nSeverity:</span> <span class="pre">{levelname}\nLogger:</span> <span class="pre">{name}\nMessage:</span> <span class="pre">{message}\nFile:</span> <span class="pre">{funcName}()</span> <span class="pre">in</span> <span class="pre">{pathname}:{lineno}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'logfile':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname:7}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'syslog':</span> <span class="pre">{'format':</span> <span class="pre">'INTEGREAT</span> <span class="pre">CMS</span> <span class="pre">-</span> <span class="pre">{levelname}:</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'}},</span> <span class="pre">'handlers':</span> <span class="pre">{'authlog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'auth',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'syslog'},</span> <span class="pre">'console':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console-colored'},</span> <span class="pre">'logfile':</span> <span class="pre">{'class':</span> <span class="pre">'logging.FileHandler',</span> <span class="pre">'filename':</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log',</span> <span class="pre">'formatter':</span> <span class="pre">'logfile'},</span> <span class="pre">'mail_admins':</span> <span class="pre">{'class':</span> <span class="pre">'django.utils.log.AdminEmailHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'email',</span> <span class="pre">'level':</span> <span class="pre">'ERROR'},</span> <span class="pre">'syslog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'syslog',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false']}},</span> <span class="pre">'loggers':</span> <span class="pre">{'PIL':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'aiohttp.client':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'auth':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'authlog',</span> <span class="pre">'syslog'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'backend':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'cms':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'django':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'filer':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'gvz_api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'requests':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'rules':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'sitemap':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'urllib3':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'}},</span> <span class="pre">'version':</span> <span class="pre">1}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.LOGGING" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logging configuration dictionary (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LOGGING" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a>)</p>
+<dd><p>Logging configuration dictionary (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGGING" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
     <span class="s1">&#39;filters&#39;</span><span class="o">:</span> <span class="p">{</span>
@@ -1839,19 +1855,19 @@ Defaults to <a class="reference internal" href="#backend.settings.DEFAULT_LOGFIL
 <dl class="py data">
 <dt id="backend.settings.LOGIN_REDIRECT_URL">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGIN_REDIRECT_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.LOGIN_REDIRECT_URL" title="Permalink to this definition">¶</a></dt>
-<dd><p>The URL where requests are redirected after login (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LOGIN_REDIRECT_URL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a>)</p>
+<dd><p>The URL where requests are redirected after login (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGIN_REDIRECT_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.LOGIN_URL">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGIN_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.LOGIN_URL" title="Permalink to this definition">¶</a></dt>
-<dd><p>The URL where requests are redirected for login (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LOGIN_URL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LOGIN_URL</span></code></a>)</p>
+<dd><p>The URL where requests are redirected for login (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGIN_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGIN_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.LOGOUT_REDIRECT_URL">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGOUT_REDIRECT_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.LOGOUT_REDIRECT_URL" title="Permalink to this definition">¶</a></dt>
-<dd><p>The URL where requests are redirected after logout (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-LOGOUT_REDIRECT_URL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">LOGOUT_REDIRECT_URL</span></code></a>)</p>
+<dd><p>The URL where requests are redirected after logout (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGOUT_REDIRECT_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGOUT_REDIRECT_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1869,19 +1885,19 @@ Defaults to <a class="reference internal" href="#backend.settings.DEFAULT_LOGFIL
 <dl class="py data">
 <dt id="backend.settings.MEDIA_ROOT">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MEDIA_ROOT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/media'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.MEDIA_ROOT" title="Permalink to this definition">¶</a></dt>
-<dd><p>Absolute filesystem path to the directory that will hold user-uploaded files (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a>)</p>
+<dd><p>Absolute filesystem path to the directory that will hold user-uploaded files (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.MEDIA_URL">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MEDIA_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/media/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.MEDIA_URL" title="Permalink to this definition">¶</a></dt>
-<dd><p>URL that handles the media served from <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v3.1)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a> (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-MEDIA_URL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code></a>)</p>
+<dd><p>URL that handles the media served from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v3.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a> (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.MIDDLEWARE">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MIDDLEWARE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['corsheaders.middleware.CorsMiddleware',</span> <span class="pre">'django.middleware.security.SecurityMiddleware',</span> <span class="pre">'django.contrib.sessions.middleware.SessionMiddleware',</span> <span class="pre">'django.middleware.locale.LocaleMiddleware',</span> <span class="pre">'django.middleware.common.CommonMiddleware',</span> <span class="pre">'django.middleware.csrf.CsrfViewMiddleware',</span> <span class="pre">'django.contrib.auth.middleware.AuthenticationMiddleware',</span> <span class="pre">'django.contrib.messages.middleware.MessageMiddleware',</span> <span class="pre">'django.middleware.clickjacking.XFrameOptionsMiddleware',</span> <span class="pre">'cms.middleware.timezone_middleware.TimezoneMiddleware']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.MIDDLEWARE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Activated middlewares (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-MIDDLEWARE" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a>)</p>
+<dd><p>Activated middlewares (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MIDDLEWARE" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;corsheaders.middleware.CorsMiddleware&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.middleware.security.SecurityMiddleware&#39;</span><span class="p">,</span>
@@ -1902,13 +1918,13 @@ Defaults to <a class="reference internal" href="#backend.settings.DEFAULT_LOGFIL
 <dt id="backend.settings.PER_PAGE">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">PER_PAGE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.PER_PAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of entries displayed per pagination chunk
-see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
+see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.ROOT_URLCONF">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">ROOT_URLCONF</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'backend.urls'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.ROOT_URLCONF" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default URL dispatcher (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-ROOT_URLCONF" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a>)</p>
+<dd><p>Default URL dispatcher (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-ROOT_URLCONF" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1926,7 +1942,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/re
 <dl class="py data">
 <dt id="backend.settings.SECRET_KEY">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">SECRET_KEY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'-!v282$zj815_q&#64;htaxcubylo)(l%a+k*-xi78hw*#s2&#64;i86&#64;_'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.SECRET_KEY" title="Permalink to this definition">¶</a></dt>
-<dd><p>The secret key for this particular Django installation (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-SECRET_KEY" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a>)</p>
+<dd><p>The secret key for this particular Django installation (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-SECRET_KEY" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a>)</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Change the key in production and keep it secret!</p>
@@ -1937,14 +1953,14 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/re
 <dt id="backend.settings.SERVER_EMAIL">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">SERVER_EMAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'keineantwort&#64;integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.SERVER_EMAIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The email address that error messages come from, such as those sent to <a class="reference internal" href="#backend.settings.ADMINS" title="backend.settings.ADMINS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ADMINS</span></code></a>.
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-SERVER_EMAIL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">SERVER_EMAIL</span></code></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-SERVER_EMAIL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">SERVER_EMAIL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.STATICFILES_DIRS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATICFILES_DIRS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['/home/circleci/project/src/../node_modules']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.STATICFILES_DIRS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This setting defines the additional locations the staticfiles app will traverse
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATICFILES_DIRS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_DIRS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/howto/static-files/" title="(in Django v3.1)"><span class="xref std std-doc">Managing static files</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATICFILES_DIRS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_DIRS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/howto/static-files/" title="(in Django v3.2)"><span class="xref std std-doc">Managing static files</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;/home/circleci/project/src/../node_modules&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1954,7 +1970,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/re
 <dt id="backend.settings.STATICFILES_FINDERS">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATICFILES_FINDERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('django.contrib.staticfiles.finders.FileSystemFinder',</span> <span class="pre">'django.contrib.staticfiles.finders.AppDirectoriesFinder')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.STATICFILES_FINDERS" title="Permalink to this definition">¶</a></dt>
 <dd><p>The list of finder backends that know how to find static files in various locations
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATICFILES_FINDERS" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_FINDERS</span></code></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATICFILES_FINDERS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_FINDERS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
     <span class="s1">&#39;django.contrib.staticfiles.finders.FileSystemFinder&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.staticfiles.finders.AppDirectoriesFinder&#39;</span><span class="p">,</span>
@@ -1966,15 +1982,15 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/re
 <dl class="py data">
 <dt id="backend.settings.STATIC_ROOT">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATIC_ROOT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/cms/static/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.STATIC_ROOT" title="Permalink to this definition">¶</a></dt>
-<dd><p>The absolute path to the directory where <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/staticfiles/#module-django.contrib.staticfiles" title="(in Django v3.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.staticfiles</span></code></a> will collect static files for
-deployment (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/howto/static-files/" title="(in Django v3.1)"><span class="xref std std-doc">Managing static files</span></a>)</p>
+<dd><p>The absolute path to the directory where <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/staticfiles/#module-django.contrib.staticfiles" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.staticfiles</span></code></a> will collect static files for
+deployment (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/howto/static-files/" title="(in Django v3.2)"><span class="xref std std-doc">Managing static files</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.STATIC_URL">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATIC_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/static/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.STATIC_URL" title="Permalink to this definition">¶</a></dt>
-<dd><p>URL to use when referring to static files located in <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v3.1)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a>
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-STATIC_URL" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">STATIC_URL</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/howto/static-files/" title="(in Django v3.1)"><span class="xref std std-doc">Managing static files</span></a>)</p>
+<dd><p>URL to use when referring to static files located in <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v3.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATIC_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">STATIC_URL</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/howto/static-files/" title="(in Django v3.2)"><span class="xref std std-doc">Managing static files</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1986,7 +2002,7 @@ deployment (see <a class="reference external" href="https://docs.djangoproject.c
 <dl class="py data">
 <dt id="backend.settings.TEMPLATES">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">TEMPLATES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages',</span> <span class="pre">'backend.context_processors.region_slug_processor'],</span> <span class="pre">'debug':</span> <span class="pre">True}}]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.TEMPLATES" title="Permalink to this definition">¶</a></dt>
-<dd><p>Config for HTML templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-TEMPLATES" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a>)</p>
+<dd><p>Config for HTML templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-TEMPLATES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s1">&#39;APP_DIRS&#39;</span><span class="o">:</span> <span class="nx">True</span><span class="p">,</span>
@@ -2025,28 +2041,28 @@ deployment (see <a class="reference external" href="https://docs.djangoproject.c
 <dt id="backend.settings.TIME_ZONE">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">TIME_ZONE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'UTC'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.TIME_ZONE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A string representing the time zone for this installation
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-TIME_ZONE" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/" title="(in Django v3.1)"><span>Internationalization and localization</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-TIME_ZONE" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.USE_I18N">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">USE_I18N</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.USE_I18N" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean that specifies whether Django’s translation system should be enabled
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-USE_I18N" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/" title="(in Django v3.1)"><span>Internationalization and localization</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-USE_I18N" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.USE_L10N">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">USE_L10N</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.USE_L10N" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean that specifies if localized formatting of data will be enabled by default or not
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-USE_L10N" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/" title="(in Django v3.1)"><span>Internationalization and localization</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-USE_L10N" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt id="backend.settings.USE_TZ">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">USE_TZ</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.USE_TZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean that specifies if datetimes will be timezone-aware by default or not
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-USE_TZ" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/" title="(in Django v3.1)"><span>Internationalization and localization</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-USE_TZ" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -2076,7 +2092,7 @@ deployment (see <a class="reference external" href="https://docs.djangoproject.c
 <dl class="py data">
 <dt id="backend.settings.WSGI_APPLICATION">
 <code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">WSGI_APPLICATION</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'backend.wsgi.application'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.settings.WSGI_APPLICATION" title="Permalink to this definition">¶</a></dt>
-<dd><p>WSGI (Web Server Gateway Interface) config (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-WSGI_APPLICATION" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">WSGI_APPLICATION</span></code></a>)</p>
+<dd><p>WSGI (Web Server Gateway Interface) config (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-WSGI_APPLICATION" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">WSGI_APPLICATION</span></code></a>)</p>
 </dd></dl>
 
 </div>
@@ -2085,13 +2101,13 @@ deployment (see <a class="reference external" href="https://docs.djangoproject.c
 <p>Django settings for the Sphinx documentation builder.
 All configuration is imported from <a class="reference internal" href="#module-backend.settings" title="backend.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.settings</span></code></a> except it sets <a class="reference internal" href="#backend.sphinx_settings.USE_I18N" title="backend.sphinx_settings.USE_I18N"><code class="xref py py-attr docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> to <code class="docutils literal notranslate"><span class="pre">False</span></code> to make sure
 the documentation is not partially translated.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/settings/" title="(in Django v3.1)"><span>Django settings</span></a>.
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/settings/" title="(in Django v3.2)"><span>Django settings</span></a>.
 For the full list of settings and their values, see <a class="reference external" href="https://easy-thumbnails.readthedocs.io/en/latest/ref/settings/" title="(in easy-thumbnails v2.7)"><span>Settings</span></a>.</p>
 <dl class="py data">
 <dt id="backend.sphinx_settings.USE_I18N">
 <code class="sig-prename descclassname"><span class="pre">backend.sphinx_settings.</span></code><code class="sig-name descname"><span class="pre">USE_I18N</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/sphinx_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.sphinx_settings.USE_I18N" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean that specifies whether Django’s translation system should be enabled
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-USE_I18N" title="(in Django v3.1)"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/" title="(in Django v3.1)"><span>Internationalization and localization</span></a>)</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-USE_I18N" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 </div>
@@ -2101,13 +2117,13 @@ For the full list of settings and their values, see <a class="reference external
 Delegates the following namespaces:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">/api/</span></code> to <a class="reference internal" href="api.html#module-api.urls" title="api.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">api.urls</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/admin/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_urls" title="(in Django v3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.contrib.admin.ModelAdmin.get_urls()</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/i18n/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#module-django.conf.urls.i18n" title="(in Django v3.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.conf.urls.i18n</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/admin/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_urls" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.contrib.admin.ModelAdmin.get_urls()</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/i18n/</span></code> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/translation/#module-django.conf.urls.i18n" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.conf.urls.i18n</span></code></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">/sitemap.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">/&lt;region_slug&gt;/&lt;language_slug&gt;/sitemap.xml</span></code> to <a class="reference internal" href="sitemap.html#module-sitemap.urls" title="sitemap.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sitemap.urls</span></code></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">/</span></code> to <a class="reference internal" href="cms.html#module-cms.urls" title="cms.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.urls</span></code></a></p></li>
 </ul>
-<p>Additionally, the error handlers in <a class="reference internal" href="cms.views.error_handler.html#module-cms.views.error_handler" title="cms.views.error_handler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.views.error_handler</span></code></a> are referenced here (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/urls/" title="(in Django v3.1)"><span>django.urls functions for use in URLconfs</span></a>).</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/urls/" title="(in Django v3.1)"><span>URL dispatcher</span></a>.</p>
+<p>Additionally, the error handlers in <a class="reference internal" href="cms.views.error_handler.html#module-cms.views.error_handler" title="cms.views.error_handler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.views.error_handler</span></code></a> are referenced here (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/urls/" title="(in Django v3.2)"><span>django.urls functions for use in URLconfs</span></a>).</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/urls/" title="(in Django v3.2)"><span>URL dispatcher</span></a>.</p>
 </div>
 <div class="section" id="module-backend.wsgi">
 <span id="wsgi"></span><h2>Wsgi<a class="headerlink" href="#module-backend.wsgi" title="Permalink to this headline">¶</a></h2>
@@ -2115,7 +2131,7 @@ Delegates the following namespaces:</p>
 It exposes the WSGI callable as a module-level variable named <code class="docutils literal notranslate"><span class="pre">application</span></code>.</p>
 <p><a class="reference external" href="https://wsgi.readthedocs.io/en/latest/index.html" title="(in www.wsgi.org v0.9)"><span>WSGI</span></a> (Web Server Gateway Interface) is a simple calling convention for web servers to forward requests to
 python frameworks (in our case Django).</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/" title="(in Django v3.1)"><span>How to deploy with WSGI</span></a>.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/" title="(in Django v3.2)"><span>How to deploy with WSGI</span></a>.</p>
 <dl class="py function">
 <dt id="backend.wsgi.application">
 <code class="sig-prename descclassname"><span class="pre">backend.wsgi.</span></code><code class="sig-name descname"><span class="pre">application</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/wsgi.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.wsgi.application" title="Permalink to this definition">¶</a></dt>
@@ -2158,7 +2174,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 23, 2021.
+        Last updated on Apr 30, 2021.
       </span>
 
     </p>

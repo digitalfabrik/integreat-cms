@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1194,7 +1203,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 <li><p><strong>user_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the user which should be deleted</p></li>
 </ul>
@@ -1203,7 +1212,7 @@
 <dd class="field-even"><p>A redirection to region user list</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1215,7 +1224,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 <li><p><strong>user_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – users id to send the activation link</p></li>
 </ul>
@@ -1224,7 +1233,7 @@
 <dd class="field-even"><p>A redirection to region user list</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1235,7 +1244,7 @@
 <dl class="py class">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_list_view.</span></code><code class="sig-name descname"><span class="pre">RegionUserListView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for listing region users</p>
 <dl class="py method">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.__init__">
@@ -1253,7 +1262,7 @@ keyword arguments, and other things.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.base_context">
 <code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'region_users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.base_context" title="Permalink to this definition">¶</a></dt>
-<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1263,7 +1272,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.dispatch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1278,7 +1287,7 @@ keyword arguments, and other things.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -1287,7 +1296,7 @@ keyword arguments, and other things.</p>
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1299,26 +1308,26 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.get_login_url">
-<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_login_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the login_url attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.get_permission_denied_message">
-<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_denied_message attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.get_permission_required">
-<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_required attribute.
 Must return an iterable.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.get_redirect_field_name">
-<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the redirect_field_name attribute.</p>
 </dd></dl>
 
@@ -1331,12 +1340,12 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.handle_no_permission">
-<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.has_permission">
-<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.has_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.has_permission" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to customize the way permissions are checked.</p>
 </dd></dl>
 
@@ -1369,13 +1378,13 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.permission_required">
 <code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_region_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.raise_exception">
 <code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1394,7 +1403,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.response_class">
 <code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1411,7 +1420,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_list_view.RegionUserListView.template_name">
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'users/region/list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1422,7 +1431,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt id="cms.views.users.region_user_view.RegionUserView">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_view.</span></code><code class="sig-name descname"><span class="pre">RegionUserView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for the user form and user profile form of region users</p>
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.__init__">
@@ -1440,7 +1449,7 @@ keyword arguments, and other things.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.base_context">
 <code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'region_users_form'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.base_context" title="Permalink to this definition">¶</a></dt>
-<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1450,7 +1459,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.dispatch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1465,7 +1474,7 @@ keyword arguments, and other things.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -1474,7 +1483,7 @@ keyword arguments, and other things.</p>
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1486,26 +1495,26 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.get_login_url">
-<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_login_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the login_url attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.get_permission_denied_message">
-<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_denied_message attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.get_permission_required">
-<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_required attribute.
 Must return an iterable.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.get_redirect_field_name">
-<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the redirect_field_name attribute.</p>
 </dd></dl>
 
@@ -1518,12 +1527,12 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.handle_no_permission">
-<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.has_permission">
-<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.has_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.has_permission" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to customize the way permissions are checked.</p>
 </dd></dl>
 
@@ -1556,19 +1565,19 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.permission_required">
 <code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_region_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.region_user_view.RegionUserView.post">
 <code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and
-<a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
+<a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
 and <a class="reference internal" href="cms.models.users.html#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a> objects for region users</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -1577,7 +1586,7 @@ and <a class="reference internal" href="cms.models.users.html#cms.models.users.u
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1585,7 +1594,7 @@ and <a class="reference internal" href="cms.models.users.html#cms.models.users.u
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.raise_exception">
 <code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1604,7 +1613,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.response_class">
 <code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1621,7 +1630,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.region_user_view.RegionUserView.template_name">
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'users/region/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1637,7 +1646,7 @@ template rendered with the given context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>user_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the user which should be deleted</p></li>
 </ul>
 </dd>
@@ -1645,7 +1654,7 @@ template rendered with the given context.</p>
 <dd class="field-even"><p>A redirection to user list</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1657,7 +1666,7 @@ template rendered with the given context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>user_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – users id to send the activation link</p></li>
 </ul>
 </dd>
@@ -1665,7 +1674,7 @@ template rendered with the given context.</p>
 <dd class="field-even"><p>A redirection to region user list</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1676,7 +1685,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt id="cms.views.users.user_list_view.UserListView">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.users.user_list_view.</span></code><code class="sig-name descname"><span class="pre">UserListView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for listing all users (admin users and region users)</p>
 <dl class="py method">
 <dt id="cms.views.users.user_list_view.UserListView.__init__">
@@ -1694,7 +1703,7 @@ keyword arguments, and other things.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.user_list_view.UserListView.base_context">
 <code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.base_context" title="Permalink to this definition">¶</a></dt>
-<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1704,7 +1713,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.user_list_view.UserListView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.dispatch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1719,7 +1728,7 @@ keyword arguments, and other things.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -1728,7 +1737,7 @@ keyword arguments, and other things.</p>
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1740,26 +1749,26 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.user_list_view.UserListView.get_login_url">
-<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_login_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the login_url attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_list_view.UserListView.get_permission_denied_message">
-<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_denied_message attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_list_view.UserListView.get_permission_required">
-<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_required attribute.
 Must return an iterable.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_list_view.UserListView.get_redirect_field_name">
-<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the redirect_field_name attribute.</p>
 </dd></dl>
 
@@ -1772,12 +1781,12 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.user_list_view.UserListView.handle_no_permission">
-<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_list_view.UserListView.has_permission">
-<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.has_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.has_permission" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to customize the way permissions are checked.</p>
 </dd></dl>
 
@@ -1810,13 +1819,13 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.user_list_view.UserListView.permission_required">
 <code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_admin_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.users.user_list_view.UserListView.raise_exception">
 <code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1835,7 +1844,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.user_list_view.UserListView.response_class">
 <code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1852,7 +1861,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.user_list_view.UserListView.template_name">
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'users/admin/list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1863,7 +1872,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt id="cms.views.users.user_view.UserView">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.users.user_view.</span></code><code class="sig-name descname"><span class="pre">UserView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for the user form and user profile form</p>
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.__init__">
@@ -1881,7 +1890,7 @@ keyword arguments, and other things.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.base_context">
 <code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.base_context" title="Permalink to this definition">¶</a></dt>
-<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1891,7 +1900,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.dispatch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1907,7 +1916,7 @@ keyword arguments, and other things.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -1916,7 +1925,7 @@ keyword arguments, and other things.</p>
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1928,26 +1937,26 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.get_login_url">
-<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_login_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the login_url attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.get_permission_denied_message">
-<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_denied_message attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.get_permission_required">
-<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_required attribute.
 Must return an iterable.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.get_redirect_field_name">
-<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the redirect_field_name attribute.</p>
 </dd></dl>
 
@@ -1960,12 +1969,12 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.handle_no_permission">
-<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.has_permission">
-<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.has_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.has_permission" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to customize the way permissions are checked.</p>
 </dd></dl>
 
@@ -1998,19 +2007,19 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.permission_required">
 <code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_admin_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.users.user_view.UserView.post">
 <code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and
-<a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
+<a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
 and <a class="reference internal" href="cms.models.users.html#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a> objects</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -2019,7 +2028,7 @@ and <a class="reference internal" href="cms.models.users.html#cms.models.users.u
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2027,7 +2036,7 @@ and <a class="reference internal" href="cms.models.users.html#cms.models.users.u
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.raise_exception">
 <code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2046,7 +2055,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.response_class">
 <code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -2063,7 +2072,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.users.user_view.UserView.template_name">
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'users/admin/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>

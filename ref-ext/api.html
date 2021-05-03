@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1217,30 +1226,35 @@
 <dl class="py class">
 <dt id="api.apps.ApiConfig">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">api.apps.</span></code><code class="sig-name descname"><span class="pre">ApiConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/apps.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/applications/#django.apps.AppConfig" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
 <p>Configuration parameters for the API app</p>
 <dl class="py method">
 <dt id="api.apps.ApiConfig.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="api.apps.ApiConfig.create">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">create</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.create" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">create</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Factory that creates an app config from an entry in INSTALLED_APPS.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt id="api.apps.ApiConfig.default_auto_field">
+<code class="sig-name descname"><span class="pre">default_auto_field</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/apps.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.default_auto_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="api.apps.ApiConfig.get_model">
-<code class="sig-name descname"><span class="pre">get_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L167"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.get_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L257"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.get_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the model with the given case-insensitive model_name.</p>
 <p>Raise LookupError if no model exists with this name.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="api.apps.ApiConfig.get_models">
-<code class="sig-name descname"><span class="pre">get_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_auto_created</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_swapped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.get_models" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_auto_created</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_swapped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L273"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.get_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterable of models.</p>
 <p>By default, the following models aren’t included:</p>
 <ul class="simple">
@@ -1254,7 +1268,7 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 
 <dl class="py method">
 <dt id="api.apps.ApiConfig.import_models">
-<code class="sig-name descname"><span class="pre">import_models</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.import_models" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">import_models</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.import_models" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1264,7 +1278,7 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 
 <dl class="py method">
 <dt id="api.apps.ApiConfig.ready">
-<code class="sig-name descname"><span class="pre">ready</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.ready" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">ready</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.apps.ApiConfig.ready" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method in subclasses to run code when Django starts.</p>
 </dd></dl>
 
@@ -1293,8 +1307,8 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 <dl class="py function">
 <dt id="api.decorators.json_response">
 <code class="sig-prename descclassname"><span class="pre">api.decorators.</span></code><code class="sig-name descname"><span class="pre">json_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/decorators.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.decorators.json_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>This decorator can be used to catch <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Http404</span></code></a> exceptions and convert them to a <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.JsonResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">JsonResponse</span></code></a>.
-Without this decorator, the exceptions would be converted to <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HttpResponse</span></code></a>.</p>
+<dd><p>This decorator can be used to catch <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Http404</span></code></a> exceptions and convert them to a <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">JsonResponse</span></code></a>.
+Without this decorator, the exceptions would be converted to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HttpResponse</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should always return JSON</p>

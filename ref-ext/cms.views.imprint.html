@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1193,18 +1202,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A redirection to the <a class="reference internal" href="#cms.views.imprint.imprint_view.ImprintView" title="cms.views.imprint.imprint_view.ImprintView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintView</span></code></a></p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1216,18 +1225,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A redirection to the <a class="reference internal" href="#cms.views.imprint.imprint_view.ImprintView" title="cms.views.imprint.imprint_view.ImprintView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintView</span></code></a></p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1239,7 +1248,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>imprint_translation_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the requested imprint translation</p></li>
 </ul>
 </dd>
@@ -1247,7 +1256,7 @@
 <dd class="field-even"><p>A redirection to <a class="reference internal" href="backend.html#backend.settings.WEBAPP_URL" title="backend.settings.WEBAPP_URL"><code class="xref py py-class docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1259,18 +1268,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A redirection to the <a class="reference internal" href="#cms.views.imprint.imprint_view.ImprintView" title="cms.views.imprint.imprint_view.ImprintView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintView</span></code></a></p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1281,7 +1290,7 @@
 <dl class="py class">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_revision_view.</span></code><code class="sig-name descname"><span class="pre">ImprintRevisionView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_revision_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for browsing the imprint revisions and restoring old imprint revisions</p>
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.__init__">
@@ -1308,7 +1317,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.dispatch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1323,22 +1332,22 @@ keyword arguments, and other things.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.1)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p></li>
-<li><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – If no imprint exists for the region</p></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The rendered template response</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1350,26 +1359,26 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_login_url">
-<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_login_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the login_url attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_permission_denied_message">
-<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_denied_message attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_permission_required">
-<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_required attribute.
 Must return an iterable.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_redirect_field_name">
-<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the redirect_field_name attribute.</p>
 </dd></dl>
 
@@ -1382,12 +1391,12 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.handle_no_permission">
-<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.has_permission">
-<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.has_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.has_permission" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to customize the way permissions are checked.</p>
 </dd></dl>
 
@@ -1429,22 +1438,22 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.1)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p></li>
-<li><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – If no imprint exists for the region</p></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The rendered template response</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1470,7 +1479,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.imprint.imprint_revision_view.ImprintRevisionView.response_class">
 <code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_revision_view.ImprintRevisionView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1497,7 +1506,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_sbs_view.</span></code><code class="sig-name descname"><span class="pre">ImprintSideBySideView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_sbs_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for the imprint side by side form</p>
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.__init__">
@@ -1515,7 +1524,7 @@ keyword arguments, and other things.</p>
 <dl class="py attribute">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.base_context">
 <code class="sig-name descname"><span class="pre">base_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'IMPRINT_SLUG':</span> <span class="pre">'imprint',</span> <span class="pre">'WEBAPP_URL':</span> <span class="pre">'https://integreat.app',</span> <span class="pre">'current_menu_item':</span> <span class="pre">'imprint'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_sbs_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.base_context" title="Permalink to this definition">¶</a></dt>
-<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1525,7 +1534,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.dispatch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1540,19 +1549,19 @@ keyword arguments, and other things.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The rendered template response</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1564,26 +1573,26 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_login_url">
-<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_login_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the login_url attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_permission_denied_message">
-<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_denied_message attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_permission_required">
-<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_required attribute.
 Must return an iterable.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_redirect_field_name">
-<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the redirect_field_name attribute.</p>
 </dd></dl>
 
@@ -1596,12 +1605,12 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.handle_no_permission">
-<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.has_permission">
-<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.has_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.has_permission" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to customize the way permissions are checked.</p>
 </dd></dl>
 
@@ -1634,7 +1643,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dl class="py attribute">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.permission_required">
 <code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_imprint'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_sbs_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
+<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1645,19 +1654,19 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The rendered template response</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1665,7 +1674,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dl class="py attribute">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.raise_exception">
 <code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_sbs_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
+<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1684,7 +1693,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.response_class">
 <code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1701,7 +1710,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.template_name">
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'imprint/imprint_sbs.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_sbs_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1712,7 +1721,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt id="cms.views.imprint.imprint_view.ImprintView">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.imprint.imprint_view.</span></code><code class="sig-name descname"><span class="pre">ImprintView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for the imprint page form and imprint page translation form</p>
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_view.ImprintView.__init__">
@@ -1739,7 +1748,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_view.ImprintView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.dispatch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1754,19 +1763,19 @@ keyword arguments, and other things.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.1)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The rendered template response</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1778,26 +1787,26 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_view.ImprintView.get_login_url">
-<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.get_login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_login_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.get_login_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the login_url attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_view.ImprintView.get_permission_denied_message">
-<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_denied_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_denied_message attribute.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_view.ImprintView.get_permission_required">
-<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.get_permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_permission_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.get_permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the permission_required attribute.
 Must return an iterable.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_view.ImprintView.get_redirect_field_name">
-<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_redirect_field_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to override the redirect_field_name attribute.</p>
 </dd></dl>
 
@@ -1831,12 +1840,12 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_view.ImprintView.handle_no_permission">
-<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">handle_no_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.imprint.imprint_view.ImprintView.has_permission">
-<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.has_permission" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">has_permission</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.has_permission" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to customize the way permissions are checked.</p>
 </dd></dl>
 
@@ -1876,11 +1885,11 @@ a list. May not be called if render_to_response() is overridden.</p>
 <code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/imprint/imprint_view.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Binds the user input data to the imprint form and validates the input.
 Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
-see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/file-uploads/" title="(in Django v3.1)"><span>File Uploads</span></a></p>
+see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/file-uploads/" title="(in Django v3.2)"><span>File Uploads</span></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – Request submitted for saving imprint form</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Request submitted for saving imprint form</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
@@ -1889,7 +1898,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/to
 <dd class="field-even"><p>Redirection to the populated imprint form</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.1)">HttpResponseRedirect</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1915,7 +1924,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt id="cms.views.imprint.imprint_view.ImprintView.response_class">
 <code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.imprint.imprint_view.ImprintView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">

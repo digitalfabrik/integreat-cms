@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1190,7 +1199,7 @@
 <dt id="cms.utils.account_activation_utils.AccountActivationTokenGenerator">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.utils.account_activation_utils.</span></code><code class="sig-name descname"><span class="pre">AccountActivationTokenGenerator</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.account_activation_utils.AccountActivationTokenGenerator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.tokens.PasswordResetTokenGenerator</span></code></p>
-<p>This token generator is identical to the default password reset token generator of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/auth/#module-django.contrib.auth" title="(in Django v3.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.auth</span></code></a> with
+<p>This token generator is identical to the default password reset token generator of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/#module-django.contrib.auth" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.auth</span></code></a> with
 the exception of the used HMAC salt.
 This means password reset tokens are no longer accepted for the account activation and vice versa.</p>
 <dl class="py method">
@@ -1206,7 +1215,7 @@ This means password reset tokens are no longer accepted for the account activati
 
 <dl class="py method">
 <dt id="cms.utils.account_activation_utils.AccountActivationTokenGenerator.check_token">
-<code class="sig-name descname"><span class="pre">check_token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/tokens.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.account_activation_utils.AccountActivationTokenGenerator.check_token" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">check_token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/tokens.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.account_activation_utils.AccountActivationTokenGenerator.check_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check that a password reset token is correct for a given user.</p>
 </dd></dl>
 
@@ -1218,14 +1227,14 @@ This means password reset tokens are no longer accepted for the account activati
 
 <dl class="py method">
 <dt id="cms.utils.account_activation_utils.AccountActivationTokenGenerator.make_token">
-<code class="sig-name descname"><span class="pre">make_token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/tokens.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.account_activation_utils.AccountActivationTokenGenerator.make_token" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">make_token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/tokens.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.account_activation_utils.AccountActivationTokenGenerator.make_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a token that can be used once to do a password reset
 for the given user.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.utils.account_activation_utils.AccountActivationTokenGenerator.secret">
-<code class="sig-name descname"><span class="pre">secret</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'-!v282$zj815_q&#64;htaxcubylo)(l%a+k*-xi78hw*#s2&#64;i86&#64;_'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.account_activation_utils.AccountActivationTokenGenerator.secret" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">secret</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.account_activation_utils.AccountActivationTokenGenerator.secret" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1241,14 +1250,14 @@ for the given user.</p>
 <dt id="cms.utils.account_activation_utils.send_activation_link">
 <code class="sig-prename descclassname"><span class="pre">cms.utils.account_activation_utils.</span></code><code class="sig-name descname"><span class="pre">send_activation_link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.account_activation_utils.send_activation_link" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends activation link to user with inactive account</p>
-<p>Making use of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/email/#django.core.mail.send_mail" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">send_mail()</span></code></a> to prevent malicious header injections by raising an
+<p>Making use of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/email/#django.core.mail.send_mail" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">send_mail()</span></code></a> to prevent malicious header injections by raising an
 <code class="docutils literal notranslate"><span class="pre">BadHeaderError</span></code> exception if a newline character is detected in <code class="docutils literal notranslate"><span class="pre">subject</span></code>,
-<code class="docutils literal notranslate"><span class="pre">recipient_list</span></code>, etc. (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/email/" title="(in Django v3.1)"><span>Sending email</span></a>).</p>
+<code class="docutils literal notranslate"><span class="pre">recipient_list</span></code>, etc. (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/email/" title="(in Django v3.2)"><span>Sending email</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current http request</p></li>
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.1)"><em>User</em></a>) – The user to whom the e-mail is to be sent</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current http request</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user to whom the e-mail is to be sent</p></li>
 </ul>
 </dd>
 </dl>
@@ -1266,7 +1275,7 @@ for the given user.</p>
 <p>Example usage: <a class="reference internal" href="cms.views.media.html#cms.views.media.media_edit_view.MediaEditView" title="cms.views.media.media_edit_view.MediaEditView"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.media.media_edit_view.MediaEditView</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request submitting the file(s)</p>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request submitting the file(s)</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A dictionary containing the <a class="reference internal" href="cms.forms.media.html#cms.forms.media.document_form.DocumentForm" title="cms.forms.media.document_form.DocumentForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentForm</span></code></a> object and the boolean return status</p>
@@ -1581,13 +1590,13 @@ For more information on xhtml2pdf, see <a class="reference external" href="https
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.1)"><strong>PermissionDenied</strong></a> – User login and permissions required</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – User login and permissions required</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>PDF document wrapped in a HtmlResponse</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpResponse" title="(in Django v3.1)">HttpResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)">HttpResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1637,7 +1646,7 @@ In case the slug exists already, it appends a counter which is increased until t
 <dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.1)"><strong>ValidationError</strong></a> – When no slug is given and there is also no field which can be used
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><strong>ValidationError</strong></a> – When no slug is given and there is also no field which can be used
 as fallback (either <code class="docutils literal notranslate"><span class="pre">title</span></code> or <code class="docutils literal notranslate"><span class="pre">name</span></code>).</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1657,13 +1666,13 @@ the unique slug, so that unique slug generation can be performed without any cle
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>form_object</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/forms/api/#django.forms.Form" title="(in Django v3.1)"><em>Form</em></a>) – The form which contains the slug field</p></li>
-<li><p><strong>foreign_model</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/instances/#django.db.models.Model" title="(in Django v3.1)"><em>Model</em></a>) – If the form instance has a foreign key to another model (e.g. because it is a translation of
+<li><p><strong>form_object</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><em>Form</em></a>) – The form which contains the slug field</p></li>
+<li><p><strong>foreign_model</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><em>Model</em></a>) – If the form instance has a foreign key to another model (e.g. because it is a translation of
 a content-object), this paramaeter contains the model of the foreign related object.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.1)"><strong>ValidationError</strong></a> – When no slug is given and there is also no field which can be used
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><strong>ValidationError</strong></a> – When no slug is given and there is also no field which can be used
 as fallback (either <code class="docutils literal notranslate"><span class="pre">title</span></code> or <code class="docutils literal notranslate"><span class="pre">name</span></code>).</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1683,7 +1692,7 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 <dt id="cms.utils.text_utils.lowfirst">
 <code class="sig-prename descclassname"><span class="pre">cms.utils.text_utils.</span></code><code class="sig-name descname"><span class="pre">lowfirst</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/text_utils.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.text_utils.lowfirst" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make the first letter of a string lowercase (counterpart of <code class="xref py py-func docutils literal notranslate"><span class="pre">capfirst()</span></code>, see also
-<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#std:templatefilter-capfirst" title="(in Django v3.1)"><code class="xref std std-templatefilter docutils literal notranslate"><span class="pre">capfirst</span></code></a>).</p>
+<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#std:templatefilter-capfirst" title="(in Django v3.2)"><code class="xref std std-templatefilter docutils literal notranslate"><span class="pre">capfirst</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The input text</p>
@@ -1704,7 +1713,7 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 <dl class="py function">
 <dt id="cms.utils.translation_utils.ugettext_many_lazy">
 <code class="sig-prename descclassname"><span class="pre">cms.utils.translation_utils.</span></code><code class="sig-name descname"><span class="pre">ugettext_many_lazy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">strings</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/translation_utils.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.translation_utils.ugettext_many_lazy" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function is a wrapper for <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/utils/#django.utils.text.format_lazy" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.utils.text.format_lazy()</span></code></a> for the special case that the given strings
+<dd><p>This function is a wrapper for <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/utils/#django.utils.text.format_lazy" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.utils.text.format_lazy()</span></code></a> for the special case that the given strings
 should be concatenated with a space in between. This is useful for splitting lazy translated strings by sentences
 which improves the translation memory.</p>
 <dl class="field-list simple">

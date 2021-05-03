@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2020-06-25T18:02:29+00:00" />
+    <meta property="article:modified_time" content="2021-04-30T22:44:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>GitHub Workflow &mdash; integreat-cms 0.0.14 documentation</title>
@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1246,6 +1255,45 @@ git reset --hard origin/feature
 </div>
 </div>
 </div>
+<div class="section" id="pre-commit-hooks">
+<span id="id3"></span><h2>Pre-commit Hooks<a class="headerlink" href="#pre-commit-hooks" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pre-commit.com/">Pre-commit</a> hooks are commands which are run every time a commit is created to check whether the committed changes comply
+with the repository’s standards.
+All hooks for this repository are defined in <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/.pre-commit-config.yaml">.pre-commit-config.yaml</a>.
+At the moment, the following hooks are configured:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">shellcheck</span></code>: a static analysis tool for shell scripts  (see: <a class="reference internal" href="code-style.html#shellcheck"><span class="std std-ref">Shellcheck</span></a> and <a class="reference external" href="https://github.com/koalaman/shellcheck/wiki">ShellCheck wiki</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">black</span></code>: A formatter which applies automatic code formatting to Python files (see <a class="reference internal" href="code-style.html#black-code-style"><span class="std std-ref">Black</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">translations</span></code> A script which checks whether the translation file is up-to-date (see: <a class="reference internal" href="internationalization.html"><span class="doc">Internationalization (i18n)</span></a> and <a class="reference internal" href="dev-tools.html#translations"><span class="std std-ref">Translations</span></a>)</p></li>
+</ul>
+<div class="section" id="activation">
+<h3>Activation<a class="headerlink" href="#activation" title="Permalink to this headline">¶</a></h3>
+<p>To activate the pre-commit hooks, either install the CMS with the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh --pre-commit
+</pre></div>
+</div>
+<p>or execute:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv run pre-commit install
+</pre></div>
+</div>
+<p>manually after installing.</p>
+</div>
+<div class="section" id="deactivation">
+<h3>Deactivation<a class="headerlink" href="#deactivation" title="Permalink to this headline">¶</a></h3>
+<p>To deactivate a specific hook (in this example the <code class="docutils literal notranslate"><span class="pre">translations</span></code>-hook), use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SKIP</span><span class="o">=</span>translations git commit
+</pre></div>
+</div>
+<p>To deactivate all pre-commit hooks for a specific commit, use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git commit --no-verify
+</pre></div>
+</div>
+<p>If you want to deactivate pre-commit hooks for this repository entirely, use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv run pre-commit uninstall
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -1267,7 +1315,7 @@ git reset --hard origin/feature
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 25, 2020.
+        Last updated on Apr 30, 2021.
       </span>
 
     </p>

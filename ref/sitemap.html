@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-23T10:12:19+00:00" />
+    <meta property="article:modified_time" content="2021-04-30T22:44:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Sitemap &mdash; integreat-cms 0.0.14 documentation</title>
@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1180,20 +1189,20 @@
   <div class="section" id="sitemap">
 <h1>Sitemap<a class="headerlink" href="#sitemap" title="Permalink to this headline">¶</a></h1>
 <p>This package contains all classes for building the webapp’s sitemap dynamically.
-It makes use of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/" title="(in Django v3.1)"><span>The sitemap framework</span></a>, an inbuilt Django package.</p>
+It makes use of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/" title="(in Django v3.2)"><span>The sitemap framework</span></a>, an inbuilt Django package.</p>
 <div class="section" id="apps">
 <h2>Apps<a class="headerlink" href="#apps" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sitemap.apps.</span></code><code class="sig-name descname"><span class="pre">SitemapConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/apps.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/applications/#django.apps.AppConfig" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
 <p>This is the basic configuration for the sitemap app</p>
 </dd></dl>
 
 </div>
 <div class="section" id="sitemaps">
 <h2>Sitemaps<a class="headerlink" href="#sitemaps" title="Permalink to this headline">¶</a></h2>
-<p>This module contains all sitemap classes which are all based on <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap</span></code></a>.</p>
+<p>This module contains all sitemap classes which are all based on <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap</span></code></a>.</p>
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sitemap.sitemaps.</span></code><code class="sig-name descname"><span class="pre">EventSitemap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/sitemaps.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1228,7 +1237,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">queryset</span></code><em class="property"> <span class="pre">=</span> <span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/sitemaps.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The <a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of this sitemap</p>
+<dd><p>The <a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of this sitemap</p>
 </dd></dl>
 
 </dd></dl>
@@ -1260,11 +1269,11 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">location</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/sitemaps.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">location</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/sitemaps.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This location function returns the absolute path for a given object returned by items().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>obj</strong> (<a class="reference internal" href="../ref-ext/cms.models.offers.html#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><em>OfferTemplate</em></a>) – Objects passed from items() method</p>
+<dd class="field-odd"><p><strong>item</strong> (<a class="reference internal" href="../ref-ext/cms.models.offers.html#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><em>OfferTemplate</em></a>) – Objects passed from items() method</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The absolute path of the given offer object</p>
@@ -1284,7 +1293,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">queryset</span></code><em class="property"> <span class="pre">=</span> <span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/sitemaps.py#L215"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The <a class="reference internal" href="../ref-ext/cms.models.offers.html#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> queryset of this sitemap</p>
+<dd><p>The <a class="reference internal" href="../ref-ext/cms.models.offers.html#cms.models.offers.offer_template.OfferTemplate" title="cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> queryset of this sitemap</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1337,7 +1346,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">queryset</span></code><em class="property"> <span class="pre">=</span> <span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/sitemaps.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> queryset of this sitemap</p>
+<dd><p>The <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> queryset of this sitemap</p>
 </dd></dl>
 
 </dd></dl>
@@ -1376,7 +1385,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">queryset</span></code><em class="property"> <span class="pre">=</span> <span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/sitemaps.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of this sitemap</p>
+<dd><p>The <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of this sitemap</p>
 </dd></dl>
 
 </dd></dl>
@@ -1384,7 +1393,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sitemap.sitemaps.</span></code><code class="sig-name descname"><span class="pre">WebappSitemap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/sitemaps.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABC" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABC" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap</span></code></a></p>
 <p>This is an abstract base class for all webapp sitemaps.</p>
 <dl class="py method">
 <dt>
@@ -1408,8 +1417,8 @@ to the list of urls.
 This patch is required because the inbuilt function can only deal with the i18n backend languages and not with
 our custom language model.
 Additionally, it overwrites the protocol and domain of the urls with <a class="reference internal" href="../ref-ext/backend.html#backend.settings.WEBAPP_URL" title="backend.settings.WEBAPP_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a> because
-out of the box, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/" title="(in Django v3.1)"><span>The sitemap framework</span></a> does only support this functionality when used together with
-<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sites/" title="(in Django v3.1)"><span>The “sites” framework</span></a>.</p>
+out of the box, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/" title="(in Django v3.2)"><span>The sitemap framework</span></a> does only support this functionality when used together with
+<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sites/" title="(in Django v3.2)"><span>The “sites” framework</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1442,7 +1451,7 @@ out of the box, <a class="reference external" href="https://docs.djangoproject.c
 <dd class="field-odd"><p>The queryset of translation objects</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.1)">QuerySet</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1507,7 +1516,7 @@ It contains the following routes:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">/&lt;region_slug&gt;/&lt;language_slug&gt;/sitemap.xml</span></code> is routed to <a class="reference internal" href="../ref-ext/sitemap.html#sitemap.views.SitemapView" title="sitemap.views.SitemapView"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SitemapView</span></code></a></p></li>
 </ul>
 <p>See <a class="reference internal" href="../ref-ext/backend.html#module-backend.urls" title="backend.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">backend.urls</span></code></a> for the other namespaces of this application.</p>
-<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/urls/" title="(in Django v3.1)"><span>URL dispatcher</span></a>.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/urls/" title="(in Django v3.2)"><span>URL dispatcher</span></a>.</p>
 </div>
 <div class="section" id="utils">
 <h2>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h2>
@@ -1537,14 +1546,14 @@ It is used in <a class="reference internal" href="../ref-ext/sitemap.html#sitema
 <div class="section" id="views">
 <h2>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h2>
 <p>This module contains views for generating the sitemap dynamically.
-The views are class-based patches of the inbuilt views <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/#django.contrib.sitemaps.views.index" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">index()</span></code></a> and
-<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/#django.contrib.sitemaps.views.sitemap" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sitemap()</span></code></a> of the <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/#module-django.contrib.sitemaps" title="(in Django v3.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.sitemaps</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/" title="(in Django v3.1)"><span>The sitemap framework</span></a>.</p>
+The views are class-based patches of the inbuilt views <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.views.index" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">index()</span></code></a> and
+<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.views.sitemap" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sitemap()</span></code></a> of the <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#module-django.contrib.sitemaps" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.sitemaps</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/" title="(in Django v3.2)"><span>The sitemap framework</span></a>.</p>
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sitemap.views.</span></code><code class="sig-name descname"><span class="pre">SitemapIndexView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/views.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
 <p>This view allows to generate a sitemap index dynamically.
-It is a patched version of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/#django.contrib.sitemaps.views.index" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.contrib.sitemaps.views.index()</span></code></a> with the following changes:</p>
+It is a patched version of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.views.index" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.contrib.sitemaps.views.index()</span></code></a> with the following changes:</p>
 <ul class="simple">
 <li><p>Sitemaps dynamically queried on each request, not on the application startup</p></li>
 <li><p><a class="reference internal" href="../ref-ext/backend.html#backend.settings.WEBAPP_URL" title="backend.settings.WEBAPP_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a> is used for the domain instead of the host of the sitemap</p></li>
@@ -1553,7 +1562,7 @@ It is a patched version of <a class="reference external" href="https://docs.djan
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'application/xml'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/views.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The content type to use for the response (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The content type to use for the response (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1563,7 +1572,7 @@ It is a patched version of <a class="reference external" href="https://docs.djan
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied args</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword args</p></li>
 </ul>
@@ -1572,7 +1581,7 @@ It is a patched version of <a class="reference external" href="https://docs.djan
 <dd class="field-even"><p>The rendered template response</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1580,7 +1589,7 @@ It is a patched version of <a class="reference external" href="https://docs.djan
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'sitemap_index.xml'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/views.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1588,10 +1597,10 @@ It is a patched version of <a class="reference external" href="https://docs.djan
 <dl class="py class">
 <dt>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sitemap.views.</span></code><code class="sig-name descname"><span class="pre">SitemapView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/views.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
 <p>This view allows to generate a sitemap dynamically.
 A sitemap contains the urls of multiple <a class="reference internal" href="../ref-ext/sitemap.html#sitemap.sitemaps.WebappSitemap" title="sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a> instances, one for each content type.
-It is a patched version of <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/contrib/sitemaps/#django.contrib.sitemaps.views.sitemap" title="(in Django v3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.contrib.sitemaps.views.sitemap()</span></code></a> with the following changes:</p>
+It is a patched version of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.views.sitemap" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.contrib.sitemaps.views.sitemap()</span></code></a> with the following changes:</p>
 <ul class="simple">
 <li><p>Sitemaps dynamically queried on each request, not on the application startup</p></li>
 <li><p>HTTP 404 returned if sitemap is empty</p></li>
@@ -1600,7 +1609,7 @@ It is a patched version of <a class="reference external" href="https://docs.djan
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'application/xml'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/views.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The content type to use for the response (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The content type to use for the response (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1610,20 +1619,20 @@ It is a patched version of <a class="reference external" href="https://docs.djan
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/request-response/#django.http.HttpRequest" title="(in Django v3.1)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
 <li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied args</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword args (should contain <code class="docutils literal notranslate"><span class="pre">region_slug</span></code> and <code class="docutils literal notranslate"><span class="pre">language_slug</span></code>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/topics/http/views/#django.http.Http404" title="(in Django v3.1)"><strong>Http404</strong></a> – Raises a HTTP 404 if the either the region or language does not exist or is invalid
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – Raises a HTTP 404 if the either the region or language does not exist or is invalid
 or if the sitemap is empty.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The rendered template response</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.1)">TemplateResponse</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1631,7 +1640,7 @@ or if the sitemap is empty.</p>
 <dl class="py attribute">
 <dt>
 <code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'sitemap.xml'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/sitemap/views.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.1/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1658,7 +1667,7 @@ or if the sitemap is empty.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 23, 2021.
+        Last updated on Apr 30, 2021.
       </span>
 
     </p>

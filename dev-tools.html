@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-10T19:21:34+00:00" />
+    <meta property="article:modified_time" content="2021-04-29T21:17:06+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Developer Tools &mdash; integreat-cms 0.0.14 documentation</title>
@@ -111,6 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
@@ -176,6 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#docker-images">docker-images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
@@ -220,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#black">Black</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git-flow.html">GitHub Workflow</a><ul>
@@ -228,6 +232,11 @@
 <li class="toctree-l2"><a class="reference internal" href="git-flow.html#rebasing">Rebasing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="git-flow.html#update-feature-branch">1. Update feature branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="git-flow.html#deactivation">Deactivation</a></li>
 </ul>
 </li>
 </ul>
@@ -1182,12 +1191,16 @@ They are targeted at as much platforms and configurations as possible, but there
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>Install all project dependencies and the local python package with <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/install.sh">dev-tools/install.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">clean</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">clean</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">pre</span><span class="o">-</span><span class="n">commit</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>If the <code class="docutils literal notranslate"><span class="pre">--clean</span></code> parameter is provided, the script will clean all installed dependencies in the <code class="docutils literal notranslate"><span class="pre">.venv/</span></code> and
-<code class="docutils literal notranslate"><span class="pre">node_modules/</span></code> directories as well as compiled static files in <code class="docutils literal notranslate"><span class="pre">src/cms/static/</span></code>. Existing outdated JavaScript
-files in these directories can cause compilation failures for the <a class="reference internal" href="frontend-bundling.html"><span class="doc">Frontend Bundling (Webpack)</span></a>.</p>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--clean</span></code>: Remove all installed dependencies in the <code class="docutils literal notranslate"><span class="pre">.venv/</span></code> and <code class="docutils literal notranslate"><span class="pre">node_modules/</span></code> directories as well as compiled
+static files in <code class="docutils literal notranslate"><span class="pre">src/cms/static/</span></code>. Existing outdated JavaScript files in these directories can cause compilation
+failures for the <a class="reference internal" href="frontend-bundling.html"><span class="doc">Frontend Bundling (Webpack)</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--pre-commit</span></code>: Install all <a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a> (can also be manually performed via <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">pre-commit</span> <span class="pre">install</span></code>)</p></li>
+</ul>
 <p>Update all project dependencies and fix security issues with <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/update_dependencies.sh">dev-tools/update_dependencies.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">update_dependencies</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
@@ -1200,9 +1213,13 @@ files in these directories can cause compilation failures for the <a class="refe
 <div class="section" id="development-server">
 <h2>Development Server<a class="headerlink" href="#development-server" title="Permalink to this headline">¶</a></h2>
 <p>Run the inbuilt local webserver with <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/run.sh">dev-tools/run.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">fast</span><span class="p">]</span>
 </pre></div>
 </div>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--fast</span></code>: Skip migrations and translation on startup and just start WebPack and Django</p></li>
+</ul>
 </div>
 <div class="section" id="database">
 <h2>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h2>
@@ -1224,7 +1241,7 @@ files in these directories can cause compilation failures for the <a class="refe
 </div>
 </div>
 <div class="section" id="translations">
-<h2>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">¶</a></h2>
 <p>Perform <code class="docutils literal notranslate"><span class="pre">makemessages</span></code> and <code class="docutils literal notranslate"><span class="pre">compilemessages</span></code> in one step with <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/translate.sh">dev-tools/translate.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">translate</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
@@ -1270,9 +1287,21 @@ files in these directories can cause compilation failures for the <a class="refe
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">generate_documentation</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">clean</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>If the <code class="docutils literal notranslate"><span class="pre">--clean</span></code> parameter is provided, the script will clean all temporary documentation files in the <code class="docutils literal notranslate"><span class="pre">sphinx/ref/</span></code>
-and <code class="docutils literal notranslate"><span class="pre">sphinx/ref-ext/</span></code> directories as well as the compiled html output in <code class="docutils literal notranslate"><span class="pre">docs</span></code>. Existing outdated documentation
-files can cause the generation script to fail if e.g. source files were added or deleted.</p>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--clean</span></code>: Remove all temporary documentation files in the <code class="docutils literal notranslate"><span class="pre">sphinx/ref/</span></code> and <code class="docutils literal notranslate"><span class="pre">sphinx/ref-ext/</span></code>
+directories as well as the compiled html output in <code class="docutils literal notranslate"><span class="pre">docs</span></code>. Existing outdated documentation files can cause the
+generation script to fail if e.g. source files were added or deleted.</p></li>
+</ul>
+</div>
+<div class="section" id="included-functions">
+<h2>Included Functions<a class="headerlink" href="#included-functions" title="Permalink to this headline">¶</a></h2>
+<p>All scripts <code class="docutils literal notranslate"><span class="pre">source</span></code> the file <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools/_functions.sh">dev-tools/_functions.sh</a> which defines re-usable functions and variables.</p>
+</div>
+<div class="section" id="debugging">
+<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h2>
+<p>To get verbose diagnostic output from all bash scripts, you can pass the parameter <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> to all scripts.
+This will activate both the bash options <code class="docutils literal notranslate"><span class="pre">verbose</span></code> and <code class="docutils literal notranslate"><span class="pre">xtrace</span></code> (see <a class="reference external" href="https://man7.org/linux/man-pages/man1/set.1p.html">set — Linux manual page</a>)</p>
 </div>
 </div>
 
@@ -1295,7 +1324,7 @@ files can cause the generation script to fail if e.g. source files were added or
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 10, 2021.
+        Last updated on Apr 29, 2021.
       </span>
 
     </p>
