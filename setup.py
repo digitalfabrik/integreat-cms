@@ -32,7 +32,7 @@ setup(
     install_requires=[
         "aiohttp",
         "cffi",
-        "Django==3.1.8",
+        "Django>=3.2,<4.0",
         "django-cors-headers",
         "django-filer",
         "django-mptt",

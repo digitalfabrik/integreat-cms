@@ -1,5 +1,7 @@
 version: 2.1
 
+orbs:
+  shellcheck: circleci/shellcheck@2.2.3
 jobs:
   pipenv-install:
     docker:
@@ -262,3 +264,6 @@ workflows:
           filters:
             branches:
               ignore: /^dependabot\/.*/
+      - shellcheck/check:
+          dir: ./dev-tools
+          external_sources: true

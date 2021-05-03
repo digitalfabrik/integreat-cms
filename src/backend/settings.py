@@ -240,6 +240,10 @@ else:
 #: Directory for initial database contents (see :setting:`django:FIXTURE_DIRS`)
 FIXTURE_DIRS = (os.path.join(BASE_DIR, "cms/fixtures/"),)
 
+#: Default primary key field type to use for models that don’t have a field with
+#: :attr:`primary_key=True <django.db.models.Field.primary_key>`. (see :setting:`django:DEFAULT_AUTO_FIELD`)
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 ############
 # SECURITY #

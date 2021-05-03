@@ -11,12 +11,14 @@ Installation
 
 Install all project dependencies and the local python package with :github-source:`dev-tools/install.sh`::
 
-    ./dev-tools/install.sh [--clean]
+    ./dev-tools/install.sh [--clean] [--pre-commit]
 
-If the ``--clean`` parameter is provided, the script will clean all installed dependencies in the ``.venv/`` and
-``node_modules/`` directories as well as compiled static files in ``src/cms/static/``. Existing outdated JavaScript
-files in these directories can cause compilation failures for the :doc:`frontend-bundling`.
+**Options:**
 
+* ``--clean``: Remove all installed dependencies in the ``.venv/`` and ``node_modules/`` directories as well as compiled
+  static files in ``src/cms/static/``. Existing outdated JavaScript files in these directories can cause compilation
+  failures for the :doc:`frontend-bundling`.
+* ``--pre-commit``: Install all :ref:`pre-commit-hooks` (can also be manually performed via ``pipenv run pre-commit install``)
 
 Update all project dependencies and fix security issues with :github-source:`dev-tools/update_dependencies.sh`::
 
@@ -32,7 +34,11 @@ Development Server
 
 Run the inbuilt local webserver with :github-source:`dev-tools/run.sh`::
 
-    ./dev-tools/run.sh
+    ./dev-tools/run.sh [--fast]
+
+**Options:**
+
+* ``--fast``: Skip migrations and translation on startup and just start WebPack and Django
 
 
 Database
@@ -54,6 +60,8 @@ Delete all database content with :github-source:`dev-tools/prune_database.sh`::
 
     ./dev-tools/prune_database.sh
 
+
+.. _translations:
 
 Translations
 ============
@@ -106,6 +114,21 @@ Generate this documentation with :github-source:`dev-tools/generate_documentatio
 
     ./dev-tools/generate_documentation.sh [--clean]
 
-If the ``--clean`` parameter is provided, the script will clean all temporary documentation files in the ``sphinx/ref/``
-and ``sphinx/ref-ext/`` directories as well as the compiled html output in ``docs``. Existing outdated documentation
-files can cause the generation script to fail if e.g. source files were added or deleted.
+**Options:**
+
+* ``--clean``: Remove all temporary documentation files in the ``sphinx/ref/`` and ``sphinx/ref-ext/``
+  directories as well as the compiled html output in ``docs``. Existing outdated documentation files can cause the
+  generation script to fail if e.g. source files were added or deleted.
+
+
+Included Functions
+==================
+
+All scripts ``source`` the file :github-source:`dev-tools/_functions.sh` which defines re-usable functions and variables.
+
+
+Debugging
+=========
+
+To get verbose diagnostic output from all bash scripts, you can pass the parameter ``--verbose`` to all scripts.
+This will activate both the bash options ``verbose`` and ``xtrace`` (see `set — Linux manual page <https://man7.org/linux/man-pages/man1/set.1p.html>`_)
