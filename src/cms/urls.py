@@ -63,6 +63,11 @@ urlpatterns = [
         name="admin_dashboard",
     ),
     url(
+        r"^region_selection/$",
+        dashboard.RegionSelection.as_view(),
+        name="region_selection",
+    ),
+    url(
         r"^regions/",
         include(
             [
