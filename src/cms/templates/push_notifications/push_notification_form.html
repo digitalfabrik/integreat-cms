@@ -1,12 +1,13 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load widget_tweaks %}
 {% load push_notification_filters %}
 {% load page_filters %}
 {% load rules %}
 
+{% block content %}
 <form method="post">
     {% csrf_token %}
     <div class="flex flex-wrap">
@@ -56,6 +57,7 @@
                         <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
                             <label for="{{ form.text.id_for_label }}" class="block mb-2 font-bold cursor-pointer">{{ form.text.label }}</label>
                             {% render_field form.text class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <p><span class="input-length-counter"></span>/{{ form.fields.text.max_length }}</p>
                         </div>
                         <div class="hidden">
                             {% render_field form.id %}

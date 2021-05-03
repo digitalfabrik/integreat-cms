@@ -191,11 +191,11 @@
 					</a>
 					<div class="dropdown-container">
 						<a href="{% url 'push_notifications' region_slug=region.slug %}" {% if current_menu_item == 'push_notifications' %}class="active"{% endif %}>
-							{% trans 'All push notifications' %}
+							{% trans 'All news messages' %}
 						</a>
 						{% if language %}
 						<a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'push_notifications_form' and not push_notification %}class="active"{% endif %}>
-							{% trans 'Create push notification' %}
+							{% trans 'Create news message' %}
 						</a>
 						{% endif %}
 					</div>

@@ -46,6 +46,8 @@ import "./js/mfa/login.ts";
 import "./js/analytics/statistics-charts.ts";
 import "./js/user/user-creation-workflow.ts";
 
+import "./js/charCounter.ts";
+
 window.addEventListener('load',() => {
     feather.replace({ class: 'inline-block' });
 })
