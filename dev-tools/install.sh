@@ -14,7 +14,7 @@ echo "Checking system requirements..." | print_info
 if [[ ! -x "$(command -v python3.7)" ]]; then  echo "Python3.7 is not installed. Please install it manually and run this script again."  | print_error
     exit 1
 fi
-if python3.7 -m platform | grep -qi Ubuntu && ! dpkg -l | grep -qi python3.7-dev; then
+if python3.7 -m platform | grep -qi Ubuntu && ! dpkg -l | grep -i python3.7-dev > /dev/null; then
     echo "You are on Ubuntu and python3.7-dev is not installed. Please install python3.7-dev manually and run this script again."  | print_error
     exit 1
 fi
