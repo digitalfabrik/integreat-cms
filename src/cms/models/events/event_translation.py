@@ -1,8 +1,10 @@
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from linkcheck.models import Link
 from backend.settings import WEBAPP_URL
 
 from .event import Event
@@ -78,6 +80,7 @@ class EventTranslation(models.Model):
         auto_now=True,
         verbose_name=_("modification date"),
     )
+    links = GenericRelation(Link, related_query_name="event_translations")
 
     @property
     def foreign_object(self):

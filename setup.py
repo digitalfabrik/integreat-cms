@@ -35,6 +35,7 @@ setup(
         "Django>=3.2,<4.0",
         "django-cors-headers",
         "django-filer",
+        "django-linkcheck",
         "django-mptt",
         "django-widget-tweaks",
         "feedparser",

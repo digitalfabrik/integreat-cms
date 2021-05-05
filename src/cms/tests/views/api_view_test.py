@@ -1,3 +1,5 @@
+from linkcheck.listeners import disable_listeners
+
 from .view_test import ViewTest
 from .view_test_utils import generate_test_functions
 
@@ -25,6 +27,11 @@ class APIViewTest(ViewTest):
     """
 
     fixtures = ["src/cms/fixtures/test_data.json"]
+
+    @classmethod
+    def setUpClass(cls):
+        with disable_listeners():
+            super().setUpClass()
 
     generate_test_functions(
         class_variables=vars(),

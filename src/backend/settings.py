@@ -69,6 +69,9 @@ TEST_BLOG_ID = 154
 #: URL to the Integreat Website
 WEBSITE_URL = "https://integreat-app.de"
 
+#: An alias of :attr:`~backend.settings.WEBAPP_URL`. Used by django-linkcheck to determine whether a link is internal.
+SITE_DOMAIN = WEBAPP_URL
+
 #: URLs to the Integreat blog
 BLOG_URLS = {
     "en": f"{WEBSITE_URL}/en/blog/",
@@ -162,6 +165,7 @@ INSTALLED_APPS = [
     "filer",
     "mptt",
     "rules.apps.AutodiscoverRulesConfig",
+    "linkcheck",
 ]
 
 # The default Django Admin application will only be activated if the system is in debug mode.
@@ -658,9 +662,18 @@ THUMBNAIL_HIGH_RESOLUTION = True
 
 
 ##############
-# Pagination #
+# PAGINATION #
 ##############
 
 #: Number of entries displayed per pagination chunk
 #: see :class:`~django.core.paginator.Paginator`
 PER_PAGE = 16
+
+
+####################
+# DJANGO LINKCHECK #
+####################
+
+#: Disable linkcheck listeners e.g. when the fixtures are loaded
+if "LINKCHECK_DISABLE_LISTENERS" in os.environ:
+    LINKCHECK_DISABLE_LISTENERS = True
