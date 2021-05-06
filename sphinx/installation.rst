@@ -28,6 +28,87 @@ Following packages are required before installing the project (install them with
     .. [#pip] If no recent version of pipenv is packaged for your distro, use ``pip3 install pipenv --user``.
 
 
+Prerequisites on common distributions
+-------------------------------------
+
+In the following, we provide the commands to install all these prerequisites on popular distributions.
+
+.. raw:: html
+
+    <details>
+    <summary><a>Ubuntu 20.04 LTS (Focal Fossa)</a></summary>
+    <br>
+
+::
+
+    # Add PPA repository for Python3.7
+    sudo add-apt-repository -y ppa:deadsnakes/ppa
+    # Install basic requirements
+    sudo apt install -y apt-transport-https curl gettext git pcregrep python3.7 python3-pip
+    # Add PPA repository for NodeJS
+    curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+    # Add PPA repository for Docker
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+        | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    # Install Docker and NodeJS
+    sudo apt-get update && sudo apt install -y containerd.io docker-ce docker-ce-cli nodejs
+    # Install Pipenv
+    pip3 install pipenv --user
+
+
+.. raw:: html
+
+    </details><br>
+    <details>
+    <summary><a>Debian 10 (Buster)</a></summary><br>
+
+.. Note::
+
+    If you're on a completely fresh installation, you need to add your user to the sudoers with::
+
+        su
+        /sbin/adduser $USER sudo
+        exit
+
+    And then log off and log on again.
+
+::
+
+    # Install basic requirements
+    sudo apt install -y apt-transport-https curl gettext git netcat pcregrep python3-pip
+    # Add PPA repository for NodeJS
+    curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+    # Add PPA repository for Docker
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
+        | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    # Install Docker and NodeJS
+    sudo apt-get update && sudo apt install -y containerd.io docker-ce docker-ce-cli nodejs
+    # Install Pipenv
+    pip3 install pipenv --user
+
+
+.. raw:: html
+
+    </details><br>
+    <details>
+    <summary><a>Arch Linux</a></summary><br>
+
+.. Note::
+
+    This assumes you have completed a basic system installation including a web browser etc. and a helper for the `AUR <https://aur.archlinux.org/>`_, e.g. `yay <https://github.com/Jguer/yay>`_.
+
+::
+
+    # Install requirements
+    yay -S docker gettext git netcat nodejs-lts-fermium npm pcre python-pip python-pipenv python37
+
+.. raw:: html
+
+    </details><br>
+
+
 Download sources
 ================
 
