@@ -13,6 +13,7 @@ SPHINX_APIDOC_EXT_DIR="ref-ext"
 # shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+require_installed
 ensure_not_root
 
 # This function suggests the clean parameter

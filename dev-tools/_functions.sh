@@ -11,6 +11,8 @@ if [[ "$*" == *"--verbose"* ]]; then
     set -vx
 fi
 
+# The Port on which the Integreat CMS development server should be started (do not use 9000 since this is used for webpack)
+INTEGREAT_CMS_PORT=8000
 # The name of the used database docker container
 DOCKER_CONTAINER_NAME="integreat_django_postgres"
 # Change to dev tools directory
@@ -93,6 +95,38 @@ if [[ "$*" == *"--help"* ]] || [[ "$*" == *"-h"* ]]; then
     exit
 fi
 
+# This function checks if the integreat cms is installed
+function require_installed {
+    if [[ -z "$INTEGREAT_CMS_INSTALLED" ]]; then
+        echo "Checking if Integreat CMS is installed..." | print_info
+        # Check if script was invoked with sudo
+        if [[ $(id -u) == 0 ]] && [[ -n "$SUDO_USER" ]]; then
+            # overwrite $HOME directory in case script was called with sudo but without the -E flag
+            HOME="$(bash -c "cd ~${SUDO_USER} && pwd")"
+        fi
+        # Check if pipenv is installed
+        if [[ ! -x "$(command -v pipenv)" ]]; then
+            # Check if pipenv is installed in the pip user directory
+            if [[ -x $HOME/.local/bin/pipenv ]]; then
+                # Enable the execution of a user-installed pipenv by adding the user's pip directory to the $PATH variable
+                PATH="${PATH}:${HOME}/.local/bin"
+            else
+                echo "Pipenv for Python3 is not installed. Please install it manually (e.g. with 'pip3 install pipenv --user') and run this script again."  | print_error
+                exit 1
+            fi
+        fi
+        # Check if integreat-cms-cli is available in virtual environment
+        if [[ ! -x "$(env pipenv run bash -c "command -v integreat-cms-cli")" ]]; then
+            echo -e "The Integreat CMS is not installed. Please install it with:\n"  | print_error
+            echo -e "\t$(dirname "${BASH_SOURCE[0]}")/install.sh\n" | print_bold
+            exit 1
+        fi
+        echo "✔ Integreat CMS is installed" | print_success
+        INTEGREAT_CMS_INSTALLED=1
+        export INTEGREAT_CMS_INSTALLED
+    fi
+}
+
 # This function executes the given command with the user who invoked sudo
 function deescalate_privileges {
     # Check if command is running as root
@@ -103,11 +137,11 @@ function deescalate_privileges {
             exit 1
         else
             # Call this command again as the user who executed sudo
-            sudo -u "$SUDO_USER" PATH="$PATH" DJANGO_SETTINGS_MODULE="$DJANGO_SETTINGS_MODULE" "$@"
+            sudo -u "$SUDO_USER" -E --preserve-env=PATH env "$@"
         fi
     else
         # If user already has low privileges, just call the given command(s)
-        "$@"
+        env "$@"
     fi
 }
 
@@ -135,7 +169,7 @@ function ensure_root {
     if ! [[ $(id -u) == 0 ]]; then
         echo "The script ${SCRIPT_NAME} needs root privileges to connect to the docker deamon. It is be automatically restarted with sudo." | print_warning
         # Call this script again as root (pass -E because we want the user's environment, not root's)
-        sudo -E PATH="$PATH" "${SCRIPT_PATH}" "${SCRIPT_ARGS[@]}"
+        sudo --preserve-env=HOME,PATH env "${SCRIPT_PATH}" "${SCRIPT_ARGS[@]}"
         # Exit with code of subprocess
         exit $?
     elif [[ -z "$SUDO_USER" ]]; then
@@ -146,14 +180,14 @@ function ensure_root {
 
 # This function makes sure the script has the permission to interact with the docker daemon
 function ensure_docker_permission {
-    if [[ $(id -u) == 0 ]]; then
+    if [[ $(id -u) == 0 ]] && [[ -n "$SUDO_USER" ]]; then
         # If script runs with root, check the groups of the user who invoked sudo
         USER_GROUPS=$(groups "$SUDO_USER")
     else
         USER_GROUPS=$(groups)
     fi
     # Require sudo permissions if user is not in docker group
-    if [[ " $USER_GROUPS " =~ ' docker ' ]]; then
+    if [[ " $USER_GROUPS " =~ " docker " ]]; then
         ensure_not_root
     else
         ensure_root
@@ -165,11 +199,12 @@ function migrate_database {
     # Check for the variable DATABASE_MIGRATED to prevent multiple subsequent migration commands
     if [[ -z "$DATABASE_MIGRATED" ]]; then
         echo "Migrating database..." | print_info
-        # Make migrations for all inbuilt apps (in case they are not included in the packages)
+        # Make sure the migrations directory exists
+        mkdir -pv "${BASE_DIR}/src/cms/migrations"
+        touch "${BASE_DIR}/src/cms/migrations/__init__.py"
+        # Generate migration files
         deescalate_privileges pipenv run integreat-cms-cli makemigrations
-        # Make migrations for cms app
-        deescalate_privileges pipenv run integreat-cms-cli makemigrations cms
-        # Executing migrations
+        # Execute migrations
         deescalate_privileges pipenv run integreat-cms-cli migrate
         # Load the role fixtures
         deescalate_privileges pipenv run integreat-cms-cli loaddata src/cms/fixtures/roles.json
@@ -178,29 +213,31 @@ function migrate_database {
     fi
 }
 
+# This function waits for the docker database container
+function wait_for_docker_container {
+    # Wait until container is ready and accepts database connections
+    until docker exec -it "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
+        sleep 0.1
+    done
+}
+
 # This function creates a new postgres database docker container
 function create_docker_container {
-    echo "Create new database container..." | print_info
+    echo "Creating new PostgreSQL database docker container..." | print_info
     # Run new container
     docker run -d --name "${DOCKER_CONTAINER_NAME}" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "${BASE_DIR}/.postgres:/var/lib/postgresql" -p 5433:5432 postgres > /dev/null
-    echo -n "Waiting for postgres database container to be ready..."
-    until docker exec -it "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
-      sleep 0.1
-      echo -n "."
-    done
-    echo -e "\n✔ Created database container" | print_success
+    wait_for_docker_container
+    echo "✔ Created database container" | print_success
     # Set up exit trap to stop docker container when script ends
     cleanup_docker_container
 }
 
 # This function starts an existing postgres database docker container
 function start_docker_container {
+    echo "Starting existing PostgreSQL database Docker container..." | print_info
     # Start the existing container
     docker start "${DOCKER_CONTAINER_NAME}" > /dev/null
-    # Wait until container is ready and accepts database connections
-    until docker exec -it "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
-      sleep 0.1
-    done
+    wait_for_docker_container
     echo "✔ Started database container" | print_success
     # Set up exit trap to stop docker container when script ends
     cleanup_docker_container
@@ -247,7 +284,7 @@ function ensure_docker_container_running {
 # This function makes sure a database is available
 function require_database {
     # Check if local postgres server is running
-    if nc -w1 localhost 5432; then
+    if nc -z localhost 5432; then
         ensure_not_root
         echo "✔ Running PostgreSQL database detected" | print_success
         # Migrate database
@@ -267,6 +304,12 @@ function require_database {
         # Make sure a docker container is up and running
         ensure_docker_container_running
     fi
+}
+
+# This function shows a success message once the Integreat development server is running
+function listen_for_devserver {
+    until nc -z localhost "$INTEGREAT_CMS_PORT"; do sleep 0.1; done
+    echo "✔ Started Integreat CMS at http://localhost:${INTEGREAT_CMS_PORT}" | print_success
 }
 
 # This function prints the major version of a string in the format XX.YY.ZZ

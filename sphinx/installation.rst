@@ -16,7 +16,6 @@ Following packages are required before installing the project (install them with
 * `npm <https://www.npmjs.com/>`_ version 7 or higher
 * `nodejs <https://nodejs.org/>`_ version 12, 14 or 15
 * `python3.7 <https://packages.ubuntu.com/search?keywords=python3.7>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__ [#ppa]_) / `python37 <https://aur.archlinux.org/packages/python37/>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
-* `python3.7-dev <https://packages.ubuntu.com/search?keywords=python3.7-dev>`_ (only required on `Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__)
 * `python3-pip <https://packages.ubuntu.com/search?keywords=python3-pip>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__) / `python-pip <https://www.archlinux.de/packages/extra/x86_64/python-pip>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
 * `pipenv <https://pipenv.pypa.io/en/latest/>`_ for python3 [#pip]_
 * Either `postgresql <https://www.postgresql.org/>`_ **or** `docker <https://www.docker.com/>`_ to run a local database server
@@ -26,14 +25,7 @@ Following packages are required before installing the project (install them with
 
     .. [#ppa] If your distro does not contain python3.7, you first have to add a ppa repository, e.g. ``sudo add-apt-repository ppa:deadsnakes/ppa``.
 
-.. Note::
-
     .. [#pip] If no recent version of pipenv is packaged for your distro, use ``pip3 install pipenv --user``.
-
-        You might have to add ``export PATH=$PATH:~/.local/bin`` to your default shell config (e.g. ``~/.bashrc`` or ``~/.zshrc``).
-
-        .. include:: include/pipenv-path-environment-variable.rst
-
 
 
 Download sources

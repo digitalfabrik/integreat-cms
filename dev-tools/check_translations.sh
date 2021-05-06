@@ -6,6 +6,8 @@
 # shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+require_installed
+
 # This function applies different sed replacements to make sure the matched lines from grep are aligned and colored
 # sed doesn't understand \e, therefore \x1b has to be used as escape sequence.
 function format_grep_output {

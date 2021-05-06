@@ -6,6 +6,8 @@
 # shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+require_installed
+
 # Run black
 echo "Starting code formatting with black..." | print_info
 pipenv run black "${BASE_DIR}"

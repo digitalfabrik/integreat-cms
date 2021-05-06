@@ -7,5 +7,6 @@
 # shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+require_installed
 require_database
 migrate_database
