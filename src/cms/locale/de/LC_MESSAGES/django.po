@@ -274,18 +274,21 @@ msgstr "Rechts nach Links"
 msgid "Translation up-to-date"
 msgstr "Übersetzung ist aktuell"
 
-#: constants/translation_status.py:11 templates/events/event_form.html:74
-#: templates/events/event_form.html:103
-#: templates/events/event_list_archived_row.html:63
-#: templates/events/event_list_row.html:55
-#: templates/imprint/imprint_form.html:58
-#: templates/imprint/imprint_form.html:87 templates/pages/page_form.html:80
-#: templates/pages/page_form.html:121
-#: templates/pages/page_tree_archived_node.html:64
-#: templates/pages/page_tree_node.html:90 templates/pois/poi_form.html:63
-#: templates/pois/poi_form.html:92 templates/pois/poi_list_row.html:52
-msgid "Translation missing"
-msgstr "Übersetzung fehlt"
+#: constants/translation_status.py:11 templates/events/event_form.html:65
+#: templates/events/event_form.html:94
+#: templates/events/event_list_archived_row.html:50
+#: templates/events/event_list_row.html:42
+#: templates/imprint/imprint_form.html:49
+#: templates/imprint/imprint_form.html:78 templates/imprint/imprint_sbs.html:42
+#: templates/imprint/imprint_sbs.html:97 templates/pages/page_form.html:71
+#: templates/pages/page_form.html:112 templates/pages/page_sbs.html:49
+#: templates/pages/page_sbs.html:108
+#: templates/pages/page_tree_archived_node.html:51
+#: templates/pages/page_tree_node.html:77
+#: templates/pages/page_tree_node.html:96 templates/pois/poi_form.html:54
+#: templates/pois/poi_form.html:83 templates/pois/poi_list_row.html:39
+msgid "Currently in translation"
+msgstr "Wird derzeit übersetzt"
 
 #: constants/translation_status.py:12 templates/events/event_form.html:61
 #: templates/events/event_form.html:90
@@ -301,6 +304,19 @@ msgstr "Übersetzung fehlt"
 #: templates/pois/poi_form.html:79 templates/pois/poi_list_row.html:43
 msgid "Translation outdated"
 msgstr "Übersetzung ist veraltet"
+
+#: constants/translation_status.py:13 templates/events/event_form.html:74
+#: templates/events/event_form.html:103
+#: templates/events/event_list_archived_row.html:63
+#: templates/events/event_list_row.html:55
+#: templates/imprint/imprint_form.html:58
+#: templates/imprint/imprint_form.html:87 templates/pages/page_form.html:80
+#: templates/pages/page_form.html:121
+#: templates/pages/page_tree_archived_node.html:64
+#: templates/pages/page_tree_node.html:90 templates/pois/poi_form.html:63
+#: templates/pois/poi_form.html:92 templates/pois/poi_list_row.html:52
+msgid "Translation missing"
+msgstr "Übersetzung fehlt"
 
 #: constants/weekdays.py:24
 msgid "Monday"
@@ -416,6 +432,7 @@ msgid "All regions"
 msgstr "Alle Regionen"
 
 #: forms/feedback/region_feedback_filter_form.py:16
+#: templates/analytics/translation_coverage.html:27
 #: templates/feedback/admin_feedback_list.html:32
 #: templates/feedback/region_feedback_list.html:32
 #: templates/language_tree/language_tree.html:29
@@ -1630,7 +1647,7 @@ msgstr "Analyse"
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/_base.html:112 templates/analytics/translation_coverage.html:12
+#: templates/_base.html:112 templates/analytics/translation_coverage.html:8
 msgid "Translation Report"
 msgstr "Übersetzungs-Bericht"
 
@@ -1836,37 +1853,41 @@ msgstr ""
 "ihrer App zu überprüfen. Klicken Sie auf einen Detail-Button um weitere "
 "Informationen zu erhalten."
 
-#: templates/analytics/translation_coverage.html:18
-msgid "Translation Coverage"
-msgstr "Abdeckung der Übersetzungen"
+#: templates/analytics/translation_coverage.html:9
+msgid ""
+"Here you can get an overview of the current translation status of your page "
+"content."
+msgstr ""
+"Hier können Sie eine Übersicht über den aktuellen Übersetzungs-Status "
+"erhalten."
 
-#: templates/analytics/translation_coverage.html:37
-msgid "Translations up-to-date"
-msgstr "Aktuelle Übersetzungen"
+#: templates/analytics/translation_coverage.html:14
+msgid "Overview of the current translation status"
+msgstr "Hier können Sie den Status der Übersetzungen sehen."
 
-#: templates/analytics/translation_coverage.html:46
-#: templates/events/event_form.html:65 templates/events/event_form.html:94
-#: templates/events/event_list_archived_row.html:50
-#: templates/events/event_list_row.html:42
-#: templates/imprint/imprint_form.html:49
-#: templates/imprint/imprint_form.html:78 templates/imprint/imprint_sbs.html:42
-#: templates/imprint/imprint_sbs.html:97 templates/pages/page_form.html:71
-#: templates/pages/page_form.html:112 templates/pages/page_sbs.html:49
-#: templates/pages/page_sbs.html:108
-#: templates/pages/page_tree_archived_node.html:51
-#: templates/pages/page_tree_node.html:77
-#: templates/pages/page_tree_node.html:96 templates/pois/poi_form.html:54
-#: templates/pois/poi_form.html:83 templates/pois/poi_list_row.html:39
-msgid "Currently in translation"
-msgstr "Wird derzeit übersetzt"
-
-#: templates/analytics/translation_coverage.html:55
-msgid "Translations outdated"
+#: templates/analytics/translation_coverage.html:20
+msgid "Outdated Translations"
 msgstr "Veraltete Übersetzungen"
 
-#: templates/analytics/translation_coverage.html:64
-msgid "Translations missing"
-msgstr "Fehlende Übersetzungen"
+#: templates/analytics/translation_coverage.html:22
+msgid ""
+"This overview show the approximate number of words of all outdated "
+"translations."
+msgstr ""
+"Diese Übersicht zeigt die ungefähre Wörteranzahl aller veralteten "
+"Übersetzungen."
+
+#: templates/analytics/translation_coverage.html:28
+msgid "Words"
+msgstr "Wörter"
+
+#: templates/analytics/translation_coverage.html:44
+msgid "No Language available."
+msgstr "Noch keine Sprachen vorhanden."
+
+#: templates/analytics/translation_coverage.html:50
+msgid "Total"
+msgstr "Summe"
 
 #: templates/authentication/account_activation_form.html:6
 msgid "Activate your account"
@@ -4523,40 +4544,23 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
+#~ msgid "Translation Coverage"
+#~ msgstr "Abdeckung der Übersetzungen"
+
+#~ msgid "Translations up-to-date"
+#~ msgstr "Aktuelle Übersetzungen"
+
+#~ msgid "Translations outdated"
+#~ msgstr "Veraltete Übersetzungen"
+
+#~ msgid "Translations missing"
+#~ msgstr "Fehlende Übersetzungen"
+
 #~ msgid "Offer templates"
 #~ msgstr "Angebots-Vorlagen"
 
 #~ msgid "Admin Settings"
 #~ msgstr "Administrator-Einstellungen"
-
-#~ msgid ""
-#~ "Here you can get an overview of the current translation status of your "
-#~ "page content."
-#~ msgstr ""
-#~ "Hier können Sie eine Übersicht über den aktuellen Übersetzungs-Status "
-#~ "erhalten."
-
-#~ msgid "Overview of the current translation status"
-#~ msgstr "Hier können Sie den Status der Übersetzungen sehen."
-
-#~ msgid "Outdated Translations"
-#~ msgstr "Veraltete Übersetzungen"
-
-#~ msgid ""
-#~ "This overview show the approximate number of words of all outdated "
-#~ "translations."
-#~ msgstr ""
-#~ "Diese Übersicht zeigt die ungefähre Wörteranzahl aller veralteten "
-#~ "Übersetzungen."
-
-#~ msgid "Words"
-#~ msgstr "Wörter"
-
-#~ msgid "No Language available."
-#~ msgstr "Noch keine Sprachen vorhanden."
-
-#~ msgid "Total"
-#~ msgstr "Summe"
 
 #~ msgid "key"
 #~ msgstr "Schlüssel"
