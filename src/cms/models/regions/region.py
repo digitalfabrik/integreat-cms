@@ -198,7 +198,9 @@ class Region(models.Model):
         :return: A QuerySet of all :class:`~cms.models.languages.language.Language` object instances of a region
         :rtype: ~django.db.models.query.QuerySet [ ~cms.models.languages.language.Language ]
         """
-        return Language.objects.filter(language_tree_nodes__region=self)
+        return Language.objects.filter(language_tree_nodes__region=self).order_by(
+            "language_tree_nodes__level", "language_tree_nodes__lft"
+        )
 
     @property
     def default_language(self):

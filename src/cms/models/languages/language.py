@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
-from ...constants import text_directions
+from ...constants import countries, text_directions
 from ...utils.translation_utils import ugettext_many_lazy as __
 
 
@@ -39,10 +39,16 @@ class Language(models.Model):
         ),
     )
     native_name = models.CharField(
-        max_length=250, blank=False, verbose_name=_("native name")
+        max_length=250,
+        blank=False,
+        verbose_name=_("native name"),
+        help_text=_("The name of the language in this language."),
     )
     english_name = models.CharField(
-        max_length=250, blank=False, verbose_name=_("name in English")
+        max_length=250,
+        blank=False,
+        verbose_name=_("name in English"),
+        help_text=_("The name of the language in English."),
     )
     #: Manage choices in :mod:`cms.constants.text_directions`
     text_direction = models.CharField(
@@ -50,6 +56,27 @@ class Language(models.Model):
         choices=text_directions.CHOICES,
         max_length=13,
         verbose_name=_("text direction"),
+    )
+    #: Manage choices in :mod:`cms.constants.countries`
+    primary_country_code = models.CharField(
+        choices=countries.CHOICES,
+        max_length=2,
+        verbose_name=_("primary country flag"),
+        help_text=__(
+            _("The country with which this language is mainly associated."),
+            _("This flag is used to represent the language graphically."),
+        ),
+    )
+    #: Manage choices in :mod:`cms.constants.countries`
+    secondary_country_code = models.CharField(
+        choices=countries.CHOICES,
+        blank=True,
+        max_length=2,
+        verbose_name=_("secondary country flag"),
+        help_text=__(
+            _("Another country with which this language is also associated."),
+            _("This flag is used in the language switcher."),
+        ),
     )
     created_date = models.DateTimeField(
         default=timezone.now,
@@ -110,3 +137,5 @@ class Language(models.Model):
         default_permissions = ()
         #:  The custom permissions for this model
         permissions = (("manage_languages", "Can manage languages"),)
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["bcp47_tag"]
