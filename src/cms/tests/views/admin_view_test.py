@@ -7,7 +7,6 @@ from .view_test_utils import generate_test_functions
 
 admin_views = [
     "admin_dashboard",
-    "admin_settings",
     "languages",
     "new_language",
     "new_offer_template",

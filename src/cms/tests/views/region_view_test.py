@@ -13,7 +13,6 @@ region_views = [
     "new_language_tree_node",
     "new_region_user",
     "region_users",
-    "settings",
     "translation_coverage",
 ]
 

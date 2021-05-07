@@ -4,8 +4,6 @@ Please refer to :mod:`django.db.models` for general information about Django mod
 """
 from .chat.chat_message import ChatMessage
 
-from .config.configuration import Configuration
-
 from .events.event import Event
 from .events.event_translation import EventTranslation
 from .events.recurrence_rule import RecurrenceRule

@@ -257,7 +257,6 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^settings/$", settings.AdminSettingsView.as_view(), name="admin_settings"),
     url(
         r"^user_settings/",
         include(
@@ -839,12 +838,6 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(
-                    r"^statistics/$",
-                    statistics.AnalyticsView.as_view(),
-                    name="statistics",
-                ),
-                url(r"^settings/$", settings.SettingsView.as_view(), name="settings"),
                 url(
                     r"^media/",
                     include(
