@@ -23,4 +23,33 @@ class LanguageForm(CustomModelForm):
             "native_name",
             "text_direction",
             "table_of_contents",
+            "primary_country_code",
+            "secondary_country_code",
         ]
+
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize language form
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
+
+        # Instantiate ModelForm
+        super().__init__(*args, **kwargs)
+
+        # Sort countries by translated name
+        sorted_language_choices = sorted(
+            self.fields["primary_country_code"].choices, key=lambda x: x[1]
+        )
+        self.fields["primary_country_code"].choices = sorted_language_choices
+        self.fields["secondary_country_code"].choices = sorted_language_choices
+
+        # Make left border rounded if no flag is selected yet
+        if not self.fields["primary_country_code"].initial:
+            self.fields["primary_country_code"].widget.attrs["class"] = "rounded-l"
+        if not self.fields["secondary_country_code"].initial:
+            self.fields["secondary_country_code"].widget.attrs["class"] = "rounded-l"
