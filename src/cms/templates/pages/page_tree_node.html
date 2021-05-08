@@ -2,8 +2,8 @@
 {% load content_filters %}
 {% load page_filters %}
 {% load tree_filters %}
-<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
-<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child{% if page.depth > 0 %} level-{{page.depth}}{% endif %}">
+<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page.depth == 0 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child {% if page.depth > 0 %} hidden level-{{page.depth}}{% endif %}">
     <td class="pl-4">
         <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
     </td>
@@ -24,7 +24,7 @@
               title="{% trans 'Collapse all subpages' %}"
               data-page-id="{{ page.id }}"
               data-page-children="{{ page|get_children }}">
-                <i data-feather="chevron-down"></i>
+                <i data-feather="chevron-right"></i>
             </span>
         {% endif %}
     </td>
