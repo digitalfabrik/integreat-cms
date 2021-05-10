@@ -140,12 +140,8 @@
                     <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
                     <option id="pdf-export-option" data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
                         data-target="_blank" data-language-slug="{{ language.slug }}">{% trans 'Export as PDF' %}</option>
-                    {% if request.user.profile.expert_mode %}
-                        {% for target_language in languages %}
-                            {% if target_language != region.default_language %}
-                                <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=target_language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ target_language.translated_name }}</option>
-                            {% endif %}
-                        {% endfor %}
+                    {% if request.user.profile.expert_mode and language != region.default_language %}
+                        <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}</option>
                     {% endif %}
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
