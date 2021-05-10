@@ -2,89 +2,72 @@
 {% load static %}
 {% load i18n %}
 
-{% block javascript_head %}
-<script src="{% static 'chart.js/dist/Chart.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 <div class="row">
     <div class="col-sm-12">
         <h1 class="heading">{% trans 'Translation Report' %}</h1>
+        <p class="py-3 text-lg">
+            {% trans 'Here you can get an overview of the current translation status of your page content.' %}
+        </p>
     </div>
-    <div class="flex flex-row flex-wrap flex-grow mt-2">
-        <div class="md:w-3/4 p-3">
-            <div class="bg-gray-100 border border-gray-400 rounded shadow">
-                <div class="border-b border-gray-500 p-3">
-                    <h2 class="text-gray-800">{% trans 'Translation Coverage' %}</h2>
-                </div>
-                <div class="p-5 bg-white">
-                    <canvas id="visitor-chart" class="chartjs"></canvas>
-                    <script>
-                        var chart = document.getElementById("visitor-chart");
-                        Chart.plugins.register({
-                            beforeDraw: function(chartInstance) {
-                            var ctx = chartInstance.chart.ctx;
-                            ctx.fillStyle = "white";
-                            ctx.fillRect(0, 0, chartInstance.chart.width, chartInstance.chart.height);
-                            }
-                        });
-                        var graph = new Chart(chart, {
-                            "type": "bar",
-                            "data": {
-                                "labels": [{% for language in languages %}"{{language.translated_name}}",{% endfor %}],
-                                "datasets": [
-                                    {
-                                        "label": " {% trans 'Translations up-to-date' %}",
-                                        "lineTension": 0,
-                                        "data": [{% for language in languages %}"{{ language.num_page_translations_up_to_date }}",{% endfor %}],
-                                        "type": "bar",
-                                        "fill": true,
-                                        "borderColor": "#48bb78",
-                                        "backgroundColor": "#48bb78",
-                                    },
-                                    {
-                                        "label": " {% trans 'Currently in translation' %}",
-                                        "lineTension": 0,
-                                        "data": [{% for language in languages %}"{{ language.num_page_translations_currently_in_translation }}",{% endfor %}],
-                                        "type": "bar",
-                                        "fill": true,
-                                        "borderColor": "#4299e1",
-                                        "backgroundColor": "#4299e1",
-                                    },
-                                    {
-                                        "label": " {% trans 'Translations outdated' %}",
-                                        "lineTension": 0,
-                                        "data": [{% for language in languages %}"{{ language.num_page_translations_outdated }}",{% endfor %}],
-                                        "type": "bar",
-                                        "fill": true,
-                                        "borderColor": "#ed8936",
-                                        "backgroundColor": "#ed8936",
-                                    },
-                                    {
-                                        "label": " {% trans 'Translations missing' %}",
-                                        "lineTension": 0,
-                                        "data": [{% for language in languages %}"{{ language.num_page_translations_missing }}",{% endfor %}],
-                                        "type": "bar",
-                                        "fill": true,
-                                        "borderColor": "#f56565",
-                                        "backgroundColor": "#f56565",},
-
-                                    ]},
-                            "options": {
-                                "scales": {
-                                    "xAxes": [{
-							            "stacked": true,
-                                    }],
-                                    "yAxes": [{
-                                        "stacked": true,
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 2xl:grid-cols-4">
+        <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="rounded p-4 bg-blue-500">
+                <h3 class="heading font-bold text-white"><i data-feather="check-circle" class="pb-1"></i>
+                    {% trans 'Overview of the current translation status' %}
+                </h3>
+            </div>
+            <canvas id="translation_coverage_chart"></canvas>
+        </div>
+        <div class="rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="rounded p-4 bg-blue-500">
+                <h3 class="heading font-bold text-white">
+                    <i data-feather="shopping-bag" class="pb-1"></i>
+                    {% trans "Outdated Translations" %}
+                </h3>
+            </div>
+            <p class="p-2">
+                {% trans "This overview show the approximate number of words of all outdated translations." %}
+            </p>
+            <div class="table-listing w-full p-2">
+                <table class="w-full rounded bg-white">
+                    <thead>
+                        <tr class="border-b border-solid border-gray-200">
+                            <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Language' %}</th>
+                            <th class="text-sm text-left uppercase py-3 p2-4 pr-4">{% trans 'Words' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for language, word_count in outdated_word_count.items %}
+                            <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800"> {{ language.translated_name }} </p>
+                                </td>
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800"> {{ word_count }} </p>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="px-4 py-3">
+                                    {% trans 'No Language available.' %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr class="border-t-4 border-solid border-gray-900 hover:bg-gray-100">
+                            <td class="pl-2">
+                                <p class="block font-extrabold py-3 px-2 text-gray-900"> {% trans "Total" %} </p>
+                            </td>
+                            <td class="pl-2">
+                                <p class="block py-3 px-2 text-gray-800"> {{ total_outdated_words }} </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+
+{{ coverage_data|json_script:"translation_coverage_data" }}
 {% endblock %}

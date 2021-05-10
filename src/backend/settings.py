@@ -87,6 +87,12 @@ RSS_FEED_URLS = {
 #: How many days of chat history should be shown
 AUTHOR_CHAT_HISTORY_DAYS = 30
 
+###############################
+# Firebase Push Notifications #
+###############################
+
+#: Authentification Token for the Firebase API. This needs to be set for a correct usage of the Messages Feature.
+FCM_KEY = ""
 
 ###########
 # GVZ API #

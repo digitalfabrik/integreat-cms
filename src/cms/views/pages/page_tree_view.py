@@ -104,35 +104,20 @@ class PageTreeView(PermissionRequiredMixin, TemplateView, PageContextMixin):
             # Set data for filter form rendering
             filter_form = PageFilterForm(data=filter_data)
             if filter_form.is_valid():
+                selected_status = filter_form.cleaned_data["translation_status"]
                 # only filter if at least one checkbox but not all are checked
-                if (
-                    0
-                    < len(filter_form.cleaned_data["translation_status"])
-                    < len(translation_status.CHOICES)
-                ):
+                if 0 < len(selected_status) < len(translation_status.CHOICES):
                     enable_drag_and_drop = False
-                    up_to_date_filter = (
-                        translation_status.UP_TO_DATE
-                        in filter_form.cleaned_data["translation_status"]
-                    )
-                    missing_filter = (
-                        translation_status.MISSING
-                        in filter_form.cleaned_data["translation_status"]
-                    )
-                    outdated_filter = (
-                        translation_status.OUTDATED
-                        in filter_form.cleaned_data["translation_status"]
-                    )
 
                     def page_filter(page):
                         translation = page.get_translation(language_slug)
                         if not translation:
-                            return missing_filter
-                        return (
-                            outdated_filter
-                            if translation.is_outdated
-                            else up_to_date_filter
-                        )
+                            return translation_status.MISSING in selected_status
+                        if translation.currently_in_translation:
+                            return translation_status.IN_TRANSLATION in selected_status
+                        if translation.is_outdated:
+                            return translation_status.OUTDATED in selected_status
+                        return translation_status.UP_TO_DATE in selected_status
 
                     pages = list(filter(page_filter, pages))
         else:

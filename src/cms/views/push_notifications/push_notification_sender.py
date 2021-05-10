@@ -6,7 +6,6 @@ import requests
 
 from django.conf import settings
 
-from ...models import Configuration
 from ...models import PushNotificationTranslation
 from ...models import Region
 from ...constants import push_notifications as pnt_const
@@ -83,7 +82,7 @@ class PushNotificationSender:
         :rtype: str
         """
         fcm_auth_config_key = "fcm_auth_key"
-        auth_key = Configuration.objects.filter(key=fcm_auth_config_key)
+        auth_key = settings.FCM_KEY
         if auth_key.exists():
             logger.debug("Got fcm_auth_key from database")
             return auth_key.first().value

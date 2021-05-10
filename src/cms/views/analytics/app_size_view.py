@@ -8,22 +8,22 @@ from ...decorators import region_permission_required
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class SettingsView(TemplateView):
+class AppSizeView(TemplateView):
     """
-    View for the region settings available to region managers
+    View to calculate the current size of the content, that's been send via the API.
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "settings/settings.html"
+    template_name = "analytics/app_size.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "region_settings"}
+    base_context = {"current_menu_item": "app_size"}
 
     def get(self, request, *args, **kwargs):
         """
-        Render the region settings
+        Render the translation coverage
 
-        :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
 
         :param args: The supplied arguments
         :type args: list
@@ -34,8 +34,11 @@ class SettingsView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        settings = "to be defined"
+        # TODO: Implement correct calculation.
+        app_size_total = 0
 
         return render(
-            request, self.template_name, {**self.base_context, "settings": settings}
+            request,
+            self.template_name,
+            {**self.base_context, "app_size": app_size_total},
         )

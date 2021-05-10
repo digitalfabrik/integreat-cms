@@ -1,289 +1,334 @@
 {% extends "_raw.html" %}
+
 {% load i18n %}
 {% load static %}
+{% load base_filters %}
+
 {% block raw_content %}
 <div id="popup-overlay" class="fixed inset-0 opacity-75 bg-gray-800 hidden"></div>
 
 <header class="fixed h-14 pl-56 top-0 inset-x-0 flex flex-wrap z-50 bg-gray-300">
     <div class="flex-1 relative w-full"></div>
-	{% if debug %}
-		<a href="/admin" target="_blank" rel="noopener noreferrer" class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
-			<i data-feather="sliders"></i>
-			{% trans 'Django Admin' %}
-		</a>
-	{% endif %}
-	<a href="{% url 'wiki_redirect' %}" target="_blank" rel="noopener noreferrer" class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
-		<i data-feather="help-circle"></i>
-		{% trans 'Help' %}
-	</a>
+    {% if debug %}
+        <a href="/admin" target="_blank" rel="noopener noreferrer"
+           class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
+            <i data-feather="sliders"></i>
+            {% trans 'Django Admin' %}
+        </a>
+    {% endif %}
+    <a href="{% url 'wiki_redirect' %}" target="_blank" rel="noopener noreferrer"
+       class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
+        <i data-feather="help-circle"></i>
+        {% trans 'Help' %}
+    </a>
     <div id="region-selector" class="relative flex flex-col justify-center px-2 cursor-pointer text-gray-800 hover:bg-gray-200 border-r border-gray-400">
         <div class="flex flex-wrap">
-	        {% if region %}
-				<a href="{% url 'dashboard' region_slug=region.slug %}" class="block whitespace-nowrap">
-					<i data-feather="home"></i>
-					{{ region.full_name }}
-					{% if other_regions or user.is_superuser or user.is_staff %}
-						<i data-feather="chevron-down"></i>
-					{% endif %}
-				</a>
-	        {% else %}
-				<a href="{% url 'admin_dashboard' %}" class="block whitespace-nowrap">
-					<i data-feather="grid"></i>
-					{% trans 'Network Management' %}
-					{% if other_regions or user.is_superuser or user.is_staff %}
-						<i data-feather="chevron-down"></i>
-					{% endif %}
-				</a>
-	        {% endif %}
+            {% if region %}
+                <a href="{% url 'dashboard' region_slug=region.slug %}" class="block whitespace-nowrap">
+                    <i data-feather="home"></i>
+                    {{ region.full_name }}
+                    {% if other_regions or user.is_superuser or user.is_staff %}
+                        <i data-feather="chevron-down"></i>
+                    {% endif %}
+                </a>
+            {% else %}
+                <a href="{% url 'admin_dashboard' %}" class="block whitespace-nowrap">
+                    <i data-feather="grid"></i>
+                    {% trans 'Network Management' %}
+                    {% if other_regions or user.is_superuser or user.is_staff %}
+                        <i data-feather="chevron-down"></i>
+                    {% endif %}
+                </a>
+            {% endif %}
         </div>
         <div id="region-list" class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
-	        {% for other_region in other_regions %}
-				<a href="{% url 'dashboard' region_slug=other_region.slug %}" class="block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-300">
-					<i data-feather="home"></i>
-					{{ other_region.full_name }}
-				</a>
-	        {% endfor %}
-	        {% if user.is_superuser or user.is_staff %}
-		        {% if region %}
-			        <a href="{% url 'admin_dashboard' %}" class="block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-300 rounded-b">
-						<i data-feather="grid"></i>
-				        {% trans 'Network Management' %}
-			        </a>
-		        {% endif %}
-	        {% endif %}
+            {% for other_region in other_regions %}
+                <a href="{% url 'dashboard' region_slug=other_region.slug %}"
+                   class="block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-300">
+                    <i data-feather="home"></i>
+                    {{ other_region.full_name }}
+                </a>
+            {% endfor %}
+            {% if user.is_superuser or user.is_staff %}
+                {% if region %}
+                    <a href="{% url 'admin_dashboard' %}"
+                       class="block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-300 rounded-b">
+                        <i data-feather="grid"></i>
+                        {% trans 'Network Management' %}
+                    </a>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
     <div id="user-info" class="relative px-2 text-gray-800 flex flex-col justify-center cursor-pointer hover:bg-gray-200">
-		<a href="{% url 'user_settings' %}" class="relative block whitespace-nowrap">
-			<i data-feather="user"></i>
-			{{ request.user.profile.full_user_name }}
-			<i data-feather="chevron-down"></i>
-		</a>
+        <a href="{% url 'user_settings' %}" class="relative block whitespace-nowrap">
+            <i data-feather="user"></i>
+            {{ request.user.profile.full_user_name }}
+            <i data-feather="chevron-down"></i>
+        </a>
         <div id="user-menu" class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
-			<a href="{% url 'user_settings' %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400">
+            <a href="{% url 'user_settings' %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400">
                 <i data-feather="settings"></i>
-	            {% trans 'User Settings' %}
+                {% trans 'User Settings' %}
             </a>
             <a href="{% url 'logout' %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
                 <i data-feather="log-out" class="text-red-500"></i>
-	            {% trans 'Log out' %}
+                {% trans 'Log out' %}
             </a>
         </div>
     </div>
 </header>
 <nav id="primary-navigation" class="w-56 h-full fixed left-0 inset-y-0 text-gray-300 bg-gray-600 z-50">
     <div class="w-full p-1 h-14 bg-gray-700">
-		<a href="/">
-			<div class="h-full w-full bg-logo-white hover:bg-logo-yellow bg-contain bg-center bg-no-repeat"></div>
-		</a>
+        <a href="/">
+            <div class="h-full w-full bg-logo-white hover:bg-logo-yellow bg-contain bg-center bg-no-repeat"></div>
+        </a>
     </div>
     <div id="menu" class="pb-2 overflow-y-auto">
-	    {% if region %}
-	        <a href="{% url 'dashboard' region_slug=region.slug %}" {% if current_menu_item == 'region_dashboard' %}class="active"{% endif %}>
-	            <i data-feather="grid"></i>
-		        {% trans 'My Dashboard' %}
-	        </a>
-			<a href="{% url 'translation_coverage' region_slug=region.slug %}" {% if current_menu_item == 'translation_coverage' %}class="active"{% endif %}>
-	            <i data-feather="pie-chart"></i>
-		        {% trans 'Translation Report' %}
-	        </a>
-			{% if region.statistics_enabled %}
-	        <a href="{% url 'statistics' region_slug=region.slug %}" {% if current_menu_item == 'statistics' %}class="active"{% endif %}>
-	            <i data-feather="bar-chart"></i>
-		        {% trans 'Statistics' %}
-	        </a>
-			{% endif %}
-			<div {% if current_menu_item == 'media' or current_menu_item == 'media_upload' %}class="active"{% endif %}>
-				<a href="{% url 'media' region_slug=region.slug %}">
-					<i data-feather='file'></i>
-					{% trans 'Media Library' %}
-				</a>
-				<div class="dropdown-container">
-					<a href="{% url 'media' region_slug=region.slug %}" {% if current_menu_item == 'media' %}class="active"{% endif %}>
-						{% trans 'All media files' %}
-					</a>
-					<a href="{% url 'new_upload_file' document_id='0' region_slug=region.slug %}" {% if current_menu_item == 'media_upload' %}class="active"{% endif %}>
-						{% trans 'Upload new media file' %}
-					</a>
-				</div>
-			</div>
-			{% if perms.cms.view_pages %}
-				<div {% if current_menu_item == 'pages' or current_menu_item == 'new_page' %}class="active"{% endif %}>
-					<a href="{% url 'pages' region_slug=region.slug %}">
-						<i data-feather="layout"></i>
-						{% trans 'Pages' %}
-					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'pages' region_slug=region.slug %}" {% if current_menu_item == 'pages' %}class="active"{% endif %}>
-							{% trans 'All pages' %}
-						</a>
-						{% if region.default_language and region.default_language == language %}
-							<a href="{% url 'new_page' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'new_page' and not page %}class="active"{% endif %}>
-								{% trans 'Create page' %}
-							</a>
-						{% endif %}
-					</div>
-				</div>
-			{% endif %}
-			{% if perms.cms.view_events %}
-				<div {% if current_menu_item == 'events' or current_menu_item == 'events_form' %}class="active"{% endif %}>
-					<a href="{% url 'events' region_slug=region.slug %}">
-						<i data-feather="calendar"></i>
-						{% trans 'Events' %}
-					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'events' region_slug=region.slug %}" {% if current_menu_item == 'events' %}class="active"{% endif %}>
-							{% trans 'All events' %}
-						</a>
-						{% if language %}
-						<a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'events_form' and not event_form.instance.id %}class="active"{% endif %}>
-							{% trans 'Create event' %}
-						</a>
-						{% endif %}
-					</div>
-				</div>
-			{% endif %}
-			{% if perms.cms.manage_pois %}
-				<div {% if current_menu_item == 'pois' or current_menu_item == 'pois_form' %}class="active"{% endif %}>
-					<a href="{% url 'pois' region_slug=region.slug %}">
-						<i data-feather="map-pin"></i>
-						{% trans 'Locations on map' %}
-					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'pois' region_slug=region.slug %}" {% if current_menu_item == 'pois' %}class="active"{% endif %}>
-							{% trans 'All locations' %}
-						</a>
-						{% if language %}
-						<a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'pois_form' and not poi_form.instance.id %}class="active"{% endif %}>
-							{% trans 'Create location' %}
-						</a>
-						{% endif %}
-					</div>
-				</div>
-			{% endif %}
-			{% if perms.cms.manage_region_users %}
-				<div {% if current_menu_item == 'region_users' or current_menu_item == 'region_users_form' %}class="active"{% endif %}>
-					<a href="{% url 'region_users' region_slug=region.slug %}">
-						<i data-feather="users"></i>
-						{% trans 'Users' %}
-					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'region_users' region_slug=region.slug %}" {% if current_menu_item == 'region_users' %}class="active"{% endif %}>
-							{% trans 'All users' %}
-						</a>
-						<a href="{% url 'new_region_user' region_slug=region.slug %}" {% if current_menu_item == 'region_users_form' and not user_form.instance.id %}class="active"{% endif %}>
-							{% trans 'Create user' %}
-						</a>
-					</div>
-				</div>
-			{% endif %}
-			{% if perms.cms.manage_feedback %}
-				<a href="{% url 'region_feedback' region_slug=region.slug %}" {% if current_menu_item == 'region_feedback' %}class="active"{% endif %}>
-					<i data-feather="thumbs-up"></i>
-					{% trans 'Feedback' %}
-				</a>
-			{% endif %}
-			{% if perms.cms.view_push_notifications %}
-				<div {% if current_menu_item == 'push_notifications' or current_menu_item == 'push_notifications_form' %}class="active"{% endif %}>
-					<a href="{% url 'push_notifications' region_slug=region.slug %}">
-						<i data-feather="send"></i>
-						{% trans 'News' %}
-					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'push_notifications' region_slug=region.slug %}" {% if current_menu_item == 'push_notifications' %}class="active"{% endif %}>
-							{% trans 'All news messages' %}
-						</a>
-						{% if language %}
-						<a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'push_notifications_form' and not push_notification %}class="active"{% endif %}>
-							{% trans 'Create news message' %}
-						</a>
-						{% endif %}
-					</div>
-				</div>
-			{% endif %}
-			{% if perms.cms.manage_imprint %}
-				<a href="{% url 'edit_imprint' region_slug=region.slug %}" {% if current_menu_item == 'imprint' %}class="active"{% endif %}>
-					<i data-feather="file-text"></i>
-					{% trans 'Imprint' %}
-				</a>
-			{% endif %}
-			{% if perms.cms.manage_language_tree %}
-				<div {% if current_menu_item == 'language_tree' or current_menu_item == 'language_tree_form' %}class="active"{% endif %}>
-					<a href="{% url 'language_tree' region_slug=region.slug %}">
-						<i data-feather="flag"></i>
-						{% trans 'Language tree' %}
-					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'language_tree' region_slug=region.slug %}" {% if current_menu_item == 'language_tree' %}class="active"{% endif %}>
-							{% trans 'All language tree nodes' %}
-						</a>
-						<a href="{% url 'new_language_tree_node' region_slug=region.slug %}" {% if current_menu_item == 'language_tree_form' and not language_tree_node_form.instance.id %}class="active"{% endif %}>
-							{% trans 'Create language tree node' %}
-						</a>
-					</div>
-				</div>
-			{% endif %}
-	        <a href="{% url 'settings' region_slug=region.slug %}" {% if current_menu_item == 'region_settings' %}class="active"{% endif %}>
-	            <i data-feather="sliders"></i>
-		        {% trans 'Settings' %}
-	        </a>
-		{% else %}
-		    <a href="{% url 'admin_dashboard' %}" {% if current_menu_item == 'admin_dashboard' %}class="active"{% endif %}>
-			    <i data-feather="grid"></i>
-			    {% trans 'Admin Dashboard' %}
-			</a>
-			{% if perms.cms.manage_regions %}
-				<a href="{% url 'regions' %}" {% if current_menu_item == 'regions' %}class="active"{% endif %}>
-					<i data-feather="map"></i>
-					{% trans 'Regions' %}
-				</a>
-			{% endif %}
-			{% if perms.cms.manage_languages %}
-				<a href="{% url 'languages' %}" {% if current_menu_item == 'languages' %}class="active"{% endif %}>
-					<i data-feather="flag"></i>
-					{% trans 'Languages' %}
-				</a>
-			{% endif %}
-			{% if perms.cms.manage_admin_users %}
-				<a href="{% url 'users' %}" {% if current_menu_item == 'users' %}class="active"{% endif %}>
-					<i data-feather="users"></i>
-					{% trans 'Users' %}
-				</a>
-			{% endif %}
-			{% if perms.auth.view_group %}
-				<a href="{% url 'roles' %}" {% if current_menu_item == 'roles' %}class="active"{% endif %}>
-					<i data-feather="key"></i>
-					{% trans 'Roles' %}
-				</a>
-			{% endif %}
-			{% if perms.cms.manage_organizations %}
-				<a href="{% url 'organizations' %}" {% if current_menu_item == 'organizations' %}class="active"{% endif %}>
-					<i data-feather="umbrella"></i>
-					{% trans 'Organizations' %}
-				</a>
-			{% endif %}
-			{% if perms.cms.manage_offer_templates %}
-				<a href="{% url 'offer_templates' %}" {% if current_menu_item == 'offer_templates' %}class="active"{% endif %}>
-					<i data-feather="star"></i>
-					{% trans 'Offer templates' %}
-				</a>
-			{% endif %}
-			{% if perms.cms.manage_feedback %}
-				<a href="{% url 'admin_feedback'%}" {% if current_menu_item == 'admin_feedback' %}class="active"{% endif %}>
-					<i data-feather="thumbs-up"></i>
-					{% trans 'Feedback' %}
-				</a>
-			{% endif %}
-		    <a href="{% url 'admin_settings' %}" {% if current_menu_item == 'admin_settings' %}class="active"{% endif %}>
-			    <i data-feather="sliders"></i>
-			    {% trans 'Settings' %}
-		    </a>
+        {% if region %}
+            <a href="{% url 'dashboard' region_slug=region.slug %}"
+               class="{% if current_menu_item == 'region_dashboard' %} active {% endif %}">
+                <i data-feather="grid"></i>
+                {% trans 'My Dashboard' %}
+            </a>
+            <!-- Analysis Section -->
+            <div class="{% if current_menu_item|in_list:'analytics,statistics,translation_coverage,app_size,broken_link' %} active {% endif %}">
+                <a href="{% url 'analytics' region_slug=region.slug %}"
+                   class="{% if current_menu_item == 'analytics' %} active {% endif %}">
+                    <i data-feather="activity"></i>
+                    {% trans 'Analytics' %}
+                </a>
+                <div class="dropdown-container">
+                    {% if region.statistics_enabled %}
+                    <a href="{% url 'statistics' region_slug=region.slug %}"
+                       class="{% if current_menu_item == 'statistics' %} active {% endif %}">
+                        <i data-feather="bar-chart"></i>
+                        {% trans 'Statistics' %}
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'translation_coverage' region_slug=region.slug %}"
+                       class="{% if current_menu_item == 'translation_coverage' %} active {% endif %}">
+                        <i data-feather="check-circle"></i>
+                        {% trans 'Translation Report' %}
+                    </a>
+                    <a href="{% url 'app_size' region_slug=region.slug %}"
+                       class="{% if current_menu_item == 'app_size' %} active {% endif %}">
+                        <i data-feather="package"></i>
+                        {% trans 'Size of the App' %}
+                    </a>
+                    <a href="{% url 'broken_link' region_slug=region.slug %}"
+                       class="{% if current_menu_item == 'broken_link' %} active {% endif %}">
+                        <i data-feather="link"></i>
+                        {% trans 'Broken Link Checker' %}
+                    </a>
+                </div>
+            </div>
+            <!-- Content Section -->
+            <div class="min-h-3 pl-2">
+                <p class="font-bold"> {% trans "Contents" %} </p>
+            </div>
+            <div class="{% if current_menu_item|in_list:'media,media_upload' %} active {% endif %}">
+                <a href="{% url 'media' region_slug=region.slug %}">
+                    <i data-feather='file'></i>
+                    {% trans 'Media Library' %}
+                </a>
+                <div class="dropdown-container">
+                    <a href="{% url 'media' region_slug=region.slug %}"
+                       class="{% if current_menu_item == 'media' %} active {% endif %}">
+                        {% trans 'All media files' %}
+                    </a>
+                    <a href="{% url 'new_upload_file' document_id='0' region_slug=region.slug %}"
+                       class="{% if current_menu_item == 'media_upload' %} active {% endif %}">
+                        {% trans 'Upload new media file' %}
+                    </a>
+                </div>
+            </div>
+            {% if perms.cms.view_pages %}
+                <div class="{% if current_menu_item|in_list:'pages,new_page' %} active {% endif %}">
+                    <a href="{% url 'pages' region_slug=region.slug %}">
+                        <i data-feather="layout"></i>
+                        {% trans 'Pages' %}
+                    </a>
+                    <div class="dropdown-container">
+                        <a href="{% url 'pages' region_slug=region.slug %}"
+                           class="{% if current_menu_item == 'pages' %} active {% endif %}">
+                        {% trans 'All pages' %}
+                        </a>
+                        {% if region.default_language and region.default_language == language %}
+                        <a href="{% url 'new_page' region_slug=region.slug language_slug=language.slug %}"
+                           class="{% if current_menu_item == 'new_page' and not page %} active {% endif %}">
+                        {% trans 'Create page' %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if perms.cms.view_events %}
+                <div class="{% if current_menu_item|in_list:'events,events_form' %} active {% endif %}">
+                    <a href="{% url 'events' region_slug=region.slug %}">
+                        <i data-feather="calendar"></i>
+                        {% trans 'Events' %}
+                    </a>
+                    <div class="dropdown-container">
+                        <a href="{% url 'events' region_slug=region.slug %}"
+                           class="{% if current_menu_item == 'events' %} active {% endif %}">
+                        {% trans 'All events' %}
+                        </a>
+                        {% if language %}
+                        <a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}"
+                           class="{% if current_menu_item == 'events_form' and not event_form.instance.id %} active {% endif %}">
+                        {% trans 'Create event' %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if perms.cms.manage_pois %}
+                <div class="{% if current_menu_item|in_list:'pois,pois_form' %} active {% endif %}">
+                    <a href="{% url 'pois' region_slug=region.slug %}">
+                        <i data-feather="map-pin"></i>
+                        {% trans 'Locations on Map' %}
+                    </a>
+                    <div class="dropdown-container">
+                        <a href="{% url 'pois' region_slug=region.slug %}" class="{% if current_menu_item == 'pois' %} active {% endif %}">
+                        {% trans 'All locations' %}
+                        </a>
+                        {% if language %}
+                        <a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}"
+                           class="{% if current_menu_item == 'pois_form' and not poi_form.instance.id %} active {% endif %}">
+                        {% trans 'Create location' %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if perms.cms.manage_feedback %}
+                <a href="{% url 'region_feedback' region_slug=region.slug %}"
+                   class="{% if current_menu_item == 'region_feedback' %} active {% endif %}">
+                    <i data-feather="thumbs-up"></i>
+                    {% trans 'Feedback' %}
+                </a>
+            {% endif %}
+            {% if perms.cms.view_push_notifications %}
+                <div  class="{% if current_menu_item|in_list:'push_notifications,push_notifications_form' %} active {% endif %}">
+                    <a href="{% url 'push_notifications' region_slug=region.slug %}">
+                        <i data-feather="send"></i>
+                        {% trans 'News' %}
+                    </a>
+                    <div class="dropdown-container">
+                        <a href="{% url 'push_notifications' region_slug=region.slug %}"
+                           class="{% if current_menu_item == 'push_notifications' %} active {% endif %}">
+                        {% trans 'All news messages' %}
+                        </a>
+                        {% if language %}
+                        <a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}"
+                           class="{% if current_menu_item == 'push_notifications_form' and not push_notification %} active {% endif %}">
+                            {% trans 'Create news message' %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if perms.cms.manage_imprint %}
+                <a href="{% url 'edit_imprint' region_slug=region.slug %}"
+                   class="{% if current_menu_item == 'imprint' %} active {% endif %}">
+                    <i data-feather="file-text"></i>
+                    {% trans 'Imprint' %}
+                </a>
+            {% endif %}
+            <!-- Settings Section-->
+            <div class="min-h-3 pl-2">
+                <p class="font-bold"> {% trans "Settings" %} </p>
+            </div>
+            {% if perms.cms.manage_region_users %}
+                <div class="{% if current_menu_item|in_list:'region_users,region_users_form' %} active {% endif %}">
+                    <a href="{% url 'region_users' region_slug=region.slug %}">
+                        <i data-feather="users"></i>
+                        {% trans 'Users' %}
+                    </a>
+                    <div class="dropdown-container">
+                        <a href="{% url 'region_users' region_slug=region.slug %}"
+                           class="{% if current_menu_item == 'region_users' %} active {% endif %}">
+                        {% trans 'All users' %}
+                        </a>
+                        <a href="{% url 'new_region_user' region_slug=region.slug %}"
+                           class="{% if current_menu_item == 'region_users_form' and not user_form.instance.id %} active {% endif %}">
+                        {% trans 'Create user' %}
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+            {% if perms.cms.manage_language_tree %}
+                <div class="{% if current_menu_item|in_list:'language_tree,language_tree_form' %} active {% endif %}">
+                    <a href="{% url 'language_tree' region_slug=region.slug %}">
+                        <i data-feather="flag"></i>
+                        {% trans 'Language Tree' %}
+                    </a>
+                    <div class="dropdown-container">
+                        <a href="{% url 'language_tree' region_slug=region.slug %}"
+                           class="{% if current_menu_item == 'language_tree' %} active {% endif %}">
+                        {% trans 'All language tree nodes' %}
+                        </a>
+                        <a href="{% url 'new_language_tree_node' region_slug=region.slug %}"
+                           class="{% if current_menu_item == 'language_tree_form' and not language_tree_node_form.instance.id %} active {% endif %}">
+                        {% trans 'Create language tree node' %}
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'admin_dashboard' %}" class="{% if current_menu_item == 'admin_dashboard' %} active {% endif %}">
+                <i data-feather="grid"></i>
+                {% trans 'Admin Dashboard' %}
+            </a>
+            {% if perms.cms.manage_regions %}
+                <a href="{% url 'regions' %}" class="{% if current_menu_item == 'regions' %} active {% endif %}">
+                    <i data-feather="map"></i>
+                    {% trans 'Regions' %}
+                </a>
+            {% endif %}
+            {% if perms.cms.manage_languages %}
+                <a href="{% url 'languages' %}" class="{% if current_menu_item == 'languages' %} active {% endif %}">
+                    <i data-feather="flag"></i>
+                    {% trans 'Languages' %}
+                </a>
+            {% endif %}
+            {% if perms.cms.manage_admin_users %}
+                <a href="{% url 'users' %}" class="{% if current_menu_item == 'users' %} active {% endif %}">
+                    <i data-feather="users"></i>
+                    {% trans 'Users' %}
+                </a>
+            {% endif %}
+            {% if perms.auth.view_group %}
+                <a href="{% url 'roles' %}" class="{% if current_menu_item == 'roles' %} active {% endif %}">
+                    <i data-feather="key"></i>
+                    {% trans 'Roles' %}
+                </a>
+            {% endif %}
+            {% if perms.cms.manage_organizations %}
+                <a href="{% url 'organizations' %}" class="{% if current_menu_item == 'organizations' %} active {% endif %}">
+                    <i data-feather="umbrella"></i>
+                    {% trans 'Organizations' %}
+                </a>
+            {% endif %}
+            {% if perms.cms.manage_offer_templates %}
+                <a href="{% url 'offer_templates' %}" class="{% if current_menu_item == 'offer_templates' %} active {% endif %}">
+                    <i data-feather="star"></i>
+                    {% trans 'Offer Templates' %}
+                </a>
+            {% endif %}
+            {% if perms.cms.manage_feedback %}
+                <a href="{% url 'admin_feedback'%}" class="{% if current_menu_item == 'admin_feedback' %} active {% endif %}">
+                    <i data-feather="thumbs-up"></i>
+                    {% trans 'Feedback' %}
+                </a>
+            {% endif %}
         {% endif %}
     </div>
 </nav>
 <main class="relative min-h-screen pl-56 pt-14 bg-gray-100">
     <div class="p-6">
-        {% include "messages.html" %}   
+        {% include "messages.html" %}
         {% block content %}{% endblock content %}
     </div>
 </main>

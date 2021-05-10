@@ -257,7 +257,6 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^settings/$", settings.AdminSettingsView.as_view(), name="admin_settings"),
     url(
         r"^user_settings/",
         include(
@@ -436,9 +435,29 @@ urlpatterns = [
             [
                 url(r"^$", dashboard.DashboardView.as_view(), name="dashboard"),
                 url(
+                    r"^analytics/",
+                    analytics.AnalyticsView.as_view(),
+                    name="analytics",
+                ),
+                url(
+                    r"^statistics/$",
+                    statistics.AnalyticsView.as_view(),
+                    name="statistics",
+                ),
+                url(
                     r"^translation_coverage/",
                     analytics.TranslationCoverageView.as_view(),
                     name="translation_coverage",
+                ),
+                url(
+                    r"^app_size/",
+                    analytics.AppSizeView.as_view(),
+                    name="app_size",
+                ),
+                url(
+                    r"^broken_link_checker/",
+                    analytics.BrokenLinkCheckerView.as_view(),
+                    name="broken_link",
                 ),
                 url(
                     r"^pages/",
@@ -839,12 +858,6 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(
-                    r"^statistics/$",
-                    statistics.AnalyticsView.as_view(),
-                    name="statistics",
-                ),
-                url(r"^settings/$", settings.SettingsView.as_view(), name="settings"),
                 url(
                     r"^media/",
                     include(
