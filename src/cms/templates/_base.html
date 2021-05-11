@@ -92,7 +92,7 @@
                 {% trans 'My Dashboard' %}
             </a>
             <!-- Analysis Section -->
-            <div class="{% if current_menu_item|in_list:'analytics,statistics,translation_coverage,app_size,linkcheck_landing' %} active {% endif %}">
+            <div class="{% if current_menu_item|in_list:'analytics,statistics,translation_coverage,app_size,linkcheck' %} active {% endif %}">
                 <a href="{% url 'analytics' region_slug=region.slug %}"
                    class="{% if current_menu_item == 'analytics' %} active {% endif %}">
                     <i data-feather="activity"></i>
