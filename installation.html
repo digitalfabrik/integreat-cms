@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-22T16:14:07+00:00" />
+    <meta property="article:modified_time" content="2021-05-06T18:24:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Installation &mdash; integreat-cms 0.0.14 documentation</title>
@@ -88,7 +88,10 @@
               <p class="caption"><span class="caption-text">First Steps</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites-on-common-distributions">Prerequisites on common distributions</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#download-sources">Download sources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-dependencies-and-local-package">Install dependencies and local package</a></li>
 </ul>
@@ -1196,9 +1199,8 @@
 <li><p><a class="reference external" href="https://www.npmjs.com/">npm</a> version 7 or higher</p></li>
 <li><p><a class="reference external" href="https://nodejs.org/">nodejs</a> version 12, 14 or 15</p></li>
 <li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7">python3.7</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a> <a class="footnote-reference brackets" href="#ppa" id="id1">1</a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python37/">python37</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
-<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7-dev">python3.7-dev</a> (only required on <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>)</p></li>
 <li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
-<li><p><a class="reference external" href="https://pipenv.pypa.io/en/latest/">pipenv</a> for python3 <a class="footnote-reference brackets" href="#pip" id="id5">2</a></p></li>
+<li><p><a class="reference external" href="https://pipenv.pypa.io/en/latest/">pipenv</a> for python3 <a class="footnote-reference brackets" href="#pip" id="id4">2</a></p></li>
 <li><p>Either <a class="reference external" href="https://www.postgresql.org/">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/">docker</a> to run a local database server</p></li>
 <li><p><a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> and <a class="reference external" href="https://pcre.org/original/doc/html/pcregrep.html">pcregrep</a> to use the translation features</p></li>
 </ul>
@@ -1208,31 +1210,69 @@
 <dt class="label" id="ppa"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>If your distro does not contain python3.7, you first have to add a ppa repository, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:deadsnakes/ppa</span></code>.</p>
 </dd>
-</dl>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<dl class="footnote brackets">
-<dt class="label" id="pip"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
+<dt class="label" id="pip"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
 <dd><p>If no recent version of pipenv is packaged for your distro, use <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pipenv</span> <span class="pre">--user</span></code>.</p>
-<p>You might have to add <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=$PATH:~/.local/bin</span></code> to your default shell config (e.g. <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>).</p>
-<div class="two-columns docutils container">
-<div class="left-side docutils container">
-<p>Shortcut command for <a class="reference external" href="https://www.gnu.org/software/bash/">Bash</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
-</pre></div>
-</div>
-</div>
-<div class="right-side docutils container">
-<p>Shortcut command for <a class="reference external" href="https://www.zsh.org/">Zsh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">zshrc</span>
-</pre></div>
-</div>
-</div>
-</div>
 </dd>
 </dl>
 </div>
+<div class="section" id="prerequisites-on-common-distributions">
+<h3>Prerequisites on common distributions<a class="headerlink" href="#prerequisites-on-common-distributions" title="Permalink to this headline">¶</a></h3>
+<p>In the following, we provide the commands to install all these prerequisites on popular distributions.</p>
+<details>
+<summary><a>Ubuntu 20.04 LTS (Focal Fossa)</a></summary>
+<br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add PPA repository for Python3.7</span>
+<span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">deadsnakes</span><span class="o">/</span><span class="n">ppa</span>
+<span class="c1"># Install basic requirements</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="o">.</span><span class="mi">7</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<span class="c1"># Add PPA repository for NodeJS</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_15</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
+<span class="c1"># Add PPA repository for Docker</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span><span class="n">gpg</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span>
+<span class="n">echo</span> <span class="s2">&quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;</span> \
+    <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">list</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+<span class="c1"># Install Docker and NodeJS</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">nodejs</span>
+<span class="c1"># Install Pipenv</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">pipenv</span> <span class="o">--</span><span class="n">user</span>
+</pre></div>
+</div>
+</details><br>
+<details>
+<summary><a>Debian 10 (Buster)</a></summary><br><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re on a completely fresh installation, you need to add your user to the sudoers with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>su
+/sbin/adduser $USER sudo
+exit
+</pre></div>
+</div>
+<p>And then log off and log on again.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install basic requirements</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<span class="c1"># Add PPA repository for NodeJS</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_15</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
+<span class="c1"># Add PPA repository for Docker</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">gpg</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span>
+<span class="n">echo</span> <span class="s2">&quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable&quot;</span> \
+    <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">list</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+<span class="c1"># Install Docker and NodeJS</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">nodejs</span>
+<span class="c1"># Install Pipenv</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">pipenv</span> <span class="o">--</span><span class="n">user</span>
+</pre></div>
+</div>
+</details><br>
+<details>
+<summary><a>Arch Linux</a></summary><br><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This assumes you have completed a basic system installation including a web browser etc. and a helper for the <a class="reference external" href="https://aur.archlinux.org/">AUR</a>, e.g. <a class="reference external" href="https://github.com/Jguer/yay">yay</a>.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install requirements</span>
+<span class="n">yay</span> <span class="o">-</span><span class="n">S</span> <span class="n">docker</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">nodejs</span><span class="o">-</span><span class="n">lts</span><span class="o">-</span><span class="n">fermium</span> <span class="n">npm</span> <span class="n">pcre</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">python</span><span class="o">-</span><span class="n">pipenv</span> <span class="n">python37</span>
+</pre></div>
+</div>
+</details><br></div>
 </div>
 <div class="section" id="download-sources">
 <h2>Download sources<a class="headerlink" href="#download-sources" title="Permalink to this headline">¶</a></h2>
@@ -1283,7 +1323,7 @@ If only one of both dependency-managers should be invoked, run <code class="docu
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 22, 2021.
+        Last updated on May 06, 2021.
       </span>
 
     </p>
