@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-09T13:55:09+00:00" />
+    <meta property="article:modified_time" content="2021-04-27T20:20:59+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Gvz API &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1212,19 +1212,19 @@
 <p>Class that wraps around the GVZ (Gemeindeverzeichnis) API</p>
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">api_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://gvz.integreat-app.de/api'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">api_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://gvz.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The URL to the external GVZ API</p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">best_match</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Tries to find the correct region key (single search hit)</p>
+<code class="sig-name descname"><span class="pre">best_match</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">division_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Tries to find the correct region id (single search hit)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</p></li>
-<li><p><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – administrative division type of region (choices: <a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division" title="cms.constants.administrative_division"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.administrative_division</span></code></a>), defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p><strong>division_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – administrative division type of region (choices: <a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division" title="cms.constants.administrative_division"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.administrative_division</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1238,50 +1238,14 @@
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">filter_region_types</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_details</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Special filters for certain region types. For example, Kreisfreie
-Städte exist multiple times on different levels. We want the lower
-level that contain the coordinates.</p>
+<code class="sig-name descname"><span class="pre">get_child_coordinates</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child_urls</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Recursively get coordinates for list of children</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>region_details</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – dictionary with region details</p>
+<dd class="field-odd"><p><strong>child_urls</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – URLs to REST API children</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>indicates if a region is not interesting</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">get_children</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get keys of children of a region</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of children dictionaries</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">get_details</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get details for a region key (i.e. Gemeindeschlüssel)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dictionary containing longitude, latitude, type, key, name</p>
+<dd class="field-even"><p>dictionary of cooridnates</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
@@ -1291,11 +1255,31 @@ level that contain the coordinates.</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_details</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get details for a region id (i.e. Gemeindeschlüssel)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ags</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Gemeindeschlüssel</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary containing longitude, latitude, type, id, name</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname"><span class="pre">search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">division_category</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Search for a region and return candidates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc)</p></li>
+<li><p><strong>division_category</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – GVZ category of division (state, district, county, municipality)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>JSON search results defined in the GVZ API</p>
@@ -1308,17 +1292,17 @@ level that contain the coordinates.</p>
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">translate_type</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Map Integreat CMS region types to Gemeindeverzeichnis region types.</p>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">translate_division_category</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">division_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Map Integreat CMS division types to Gemeindeverzeichnis division categories.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – type of a region</p>
+<dd class="field-odd"><p><strong>division_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – type of a region</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>administrative division of the region (choices: <a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division" title="cms.constants.administrative_division"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.administrative_division</span></code></a>)</p>
+<dd class="field-even"><p>division categorey identifier</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1327,22 +1311,22 @@ level that contain the coordinates.</p>
 
 <dl class="py class">
 <dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gvz_api.utils.</span></code><code class="sig-name descname"><span class="pre">GvzRegion</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gvz_api.utils.</span></code><code class="sig-name descname"><span class="pre">GvzRegion</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_ags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a region in the GVZ, initial values will be retrieved
 from API on initialization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>region_key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p><strong>region_ags</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – official ID for a region, i.e. Gemeindeschlüssel, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
 <li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of a region (city name, county name, etc), defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
-<li><p><strong>region_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – administrative division type of region (choices: <a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division" title="cms.constants.administrative_division"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.administrative_division</span></code></a>), defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p><strong>division_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – administrative division type of region (choices: <a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division" title="cms.constants.administrative_division"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.administrative_division</span></code></a>), defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_ags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Load initial values for region from GVZ API</p>
 </dd></dl>
 
@@ -1398,7 +1382,7 @@ from API on initialization.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 09, 2021.
+        Last updated on Apr 27, 2021.
       </span>
 
     </p>
