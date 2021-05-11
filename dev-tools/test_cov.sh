@@ -9,6 +9,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 # Delete outdated code coverage
 rm -rf "${BASE_DIR}/htmlcov/"
 
+require_installed
 require_database
 
 deescalate_privileges pipenv run integreat-cms-cli test cms --set=COVERAGE

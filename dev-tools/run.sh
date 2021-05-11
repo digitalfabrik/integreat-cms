@@ -12,6 +12,9 @@ KILL_TRAP=1
 # shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+# Require that integreat-cms is installed
+require_installed
+
 # Require that a database server is up and running. Place this command at the beginning because it might require the restart of the script with higher privileges.
 require_database
 
@@ -30,10 +33,13 @@ fi
 
 # Starting WebPack dev server in background
 echo -e "Starting WebPack dev server in background..." | print_info | print_prefix "webpack" 36
-deescalate_privileges npm run dev | print_prefix "webpack" 36 &
+deescalate_privileges npm run dev 2>&1 | print_prefix "webpack" 36 &
 
 # Waiting for initial WebPack dev build
 while [[ ! -f "${BASE_DIR}/src/cms/static/main.js" ]]; do sleep 1; done
 
+# Show success message once dev server is up
+listen_for_devserver &
+
 # Start Integreat CMS development webserver
-deescalate_privileges pipenv run integreat-cms-cli runserver localhost:8000
+deescalate_privileges pipenv run integreat-cms-cli runserver "localhost:${INTEGREAT_CMS_PORT}"

@@ -14,10 +14,6 @@ echo "Checking system requirements..." | print_info
 if [[ ! -x "$(command -v python3.7)" ]]; then  echo "Python3.7 is not installed. Please install it manually and run this script again."  | print_error
     exit 1
 fi
-if python3.7 -m platform | grep -qi Ubuntu && ! dpkg -l | grep -i python3.7-dev > /dev/null; then
-    echo "You are on Ubuntu and python3.7-dev is not installed. Please install python3.7-dev manually and run this script again."  | print_error
-    exit 1
-fi
 if [[ ! -x "$(command -v pip3)" ]]; then
     echo "Pip for Python3 is not installed. Please install python3-pip manually and run this script again."  | print_error
     exit 1
@@ -28,11 +24,11 @@ required_pipenv_version="2018.10.9"
 if [[ ! -x "$(command -v pipenv)" ]]; then
     # Check if pipenv is installed in the pip user directory
     if [[ -x ~/.local/bin/pipenv ]]; then
-        echo "You have installed pipenv with pip, but the pip user directory is not contained in the \$PATH variable. Please add 'export PATH=\$PATH:~/.local/bin' to your default shell config (e.g. '~/.bashrc' or '~/.zshrc')."  | print_error
+        PATH="${PATH}:${HOME}/.local/bin"
     else
         echo "Pipenv for Python3 is not installed. Please install version ${required_pipenv_version} or later manually (e.g. with 'pip3 install pipenv --user') and run this script again."  | print_error
+        exit 1
     fi
-    exit 1
 fi
 # Get the pipenv version (the format is "pipenv, version XX.YY.ZZ" or "pipenv, version YYYY.MM.DD")
 pipenv_version=$(pipenv --version | cut -d" " -f3)

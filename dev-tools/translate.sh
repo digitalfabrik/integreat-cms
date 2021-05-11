@@ -6,6 +6,7 @@
 # shellcheck source=./dev-tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+require_installed
 ensure_not_root
 
 # Change directory to make sure to ignore files in the venv

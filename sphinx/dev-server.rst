@@ -12,7 +12,11 @@ Two different types of local database servers are supported:
 
   - Will be automatically created and started if you use the ``run.sh`` script without a local server running on port 5432
   - Uses the alternate port 5433 (configured at :mod:`backend.docker_settings`)
-  - Requires ``sudo`` to connect to the docker daemon (the dev server will still run as the user who invoked ``sudo``)
+  - Requires permissions to connect to the docker daemon:
+
+    + If the user is in the ``docker`` group, no ``sudo`` is required
+    + Otherwise, the server will restart itself with elevated permissions for all docker commands
+      (the dev server will still run as the user who invoked ``sudo``)
 
 * Native `PostgreSQL <https://www.postgresql.org/>`_ installation on your system
 
@@ -46,6 +50,10 @@ This is a convenience script which also performs the following actions:
 
 If you want to speed up this process and don't need the extra functionality, you might also use::
 
+    ./dev-tools/run.sh --fast
+
+or directly::
+
     pipenv run integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
 
 or::
@@ -58,4 +66,4 @@ After that, open your browser and navigate to http://localhost:8000/.
 
 .. Note::
 
-    If you want to use another port than ``8000``, start the server with ``integreat-cms-cli`` and choose another port, or edit :github-source:`dev-tools/run.sh`.
+    If you want to use another port than ``8000``, start the server with ``integreat-cms-cli`` and choose another port, or edit :github-source:`dev-tools/_functions.sh`.
