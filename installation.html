@@ -500,7 +500,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.analytics.html">Analytics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.analytics.html#analytics-overview">Analytics Overview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.analytics.html#app-size-view">App Size View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.analytics.html#broken-link-checker-view">Broken Link Checker View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.analytics.html#translation-coverage-view">Translation Coverage View</a></li>
 </ul>
 </li>
@@ -560,6 +559,10 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.languages.html">Languages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.languages.html#language-list-view">Language List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.languages.html#language-view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.views.linkcheck.html">Linkcheck</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.linkcheck.html#id1">Linkcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.media.html">Media</a><ul>
@@ -635,6 +638,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#apps">Apps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ref/cms.html#linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#page-xliff-converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#urls">Urls</a></li>
@@ -926,7 +930,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.analytics.html">Analytics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.analytics.html#module-cms.views.analytics.analytics_overview">Analytics Overview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.analytics.html#module-cms.views.analytics.app_size_view">App Size View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.analytics.html#module-cms.views.analytics.broken_link_checker_view">Broken Link Checker View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
 </ul>
 </li>
@@ -986,6 +989,10 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.languages.html">Languages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.languages.html#module-cms.views.languages.language_list_view">Language List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.languages.html#module-cms.views.languages.language_view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.linkcheck.html">Linkcheck</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.linkcheck.html#id1">Linkcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.media.html">Media</a><ul>
@@ -1061,6 +1068,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.apps">Apps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.urls">Urls</a></li>
@@ -1223,7 +1231,7 @@
 <br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add PPA repository for Python3.7</span>
 <span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">deadsnakes</span><span class="o">/</span><span class="n">ppa</span>
 <span class="c1"># Install basic requirements</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="o">.</span><span class="mi">7</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="mf">.7</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
 <span class="c1"># Add PPA repository for NodeJS</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_15</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
 <span class="c1"># Add PPA repository for Docker</span>

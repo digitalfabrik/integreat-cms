@@ -500,7 +500,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.analytics.html">Analytics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.analytics.html#analytics-overview">Analytics Overview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.analytics.html#app-size-view">App Size View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.analytics.html#broken-link-checker-view">Broken Link Checker View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.analytics.html#translation-coverage-view">Translation Coverage View</a></li>
 </ul>
 </li>
@@ -560,6 +559,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.languages.html">Languages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.languages.html#language-list-view">Language List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.languages.html#language-view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.linkcheck.html">Linkcheck</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.linkcheck.html#id1">Linkcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
@@ -635,6 +638,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#apps">Apps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#page-xliff-converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#urls">Urls</a></li>
@@ -926,7 +930,6 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.analytics_overview">Analytics Overview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.app_size_view">App Size View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.broken_link_checker_view">Broken Link Checker View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
 </ul>
 </li>
@@ -986,6 +989,10 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.views.languages.html">Languages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_list_view">Language List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.linkcheck.html">Linkcheck</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.linkcheck.html#id1">Linkcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
@@ -1061,6 +1068,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.apps">Apps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">Urls</a></li>
@@ -3733,7 +3741,7 @@ failed.</p>
 <span id="page-translation"></span><h2>Page Translation<a class="headerlink" href="#module-cms.models.pages.page_translation" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.models.pages.page_translation.PageTranslation">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.pages.page_translation.</span></code><code class="sig-name descname"><span class="pre">PageTranslation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.pages.page_translation.</span></code><code class="sig-name descname"><span class="pre">PageTranslation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation" title="cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation</span></code></a></p>
 <p>Data model representing a page translation</p>
 <dl class="field-list simple">
@@ -3759,6 +3767,7 @@ failed.</p>
 <li><p><strong>page</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Page (related name: <a class="reference internal" href="#cms.models.pages.page.Page.translations" title="cms.models.pages.page.Page.translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">translations</span></code></a>)</p></li>
 <li><p><strong>language</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language (related name: <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language.page_translations" title="cms.models.languages.language.Language.page_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translations</span></code></a>)</p></li>
 <li><p><strong>creator</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Creator (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translations</span></code>)</p></li>
+<li><p><strong>links</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericRelation" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericRelation</span></code></a> to <code class="xref py py-class docutils literal notranslate"><span class="pre">Link</span></code>) – Links (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translations</span></code>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -3770,27 +3779,27 @@ failed.</p>
 </dl>
 <dl class="py exception">
 <dt id="cms.models.pages.page_translation.PageTranslation.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.DoesNotExist.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.DoesNotExist.args">
-<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist.args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist.args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.DoesNotExist.silent_variable_failure">
-<code class="sig-name descname"><span class="pre">silent_variable_failure</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist.silent_variable_failure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">silent_variable_failure</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist.silent_variable_failure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.DoesNotExist.with_traceback">
-<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist.with_traceback" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.DoesNotExist.with_traceback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -3799,22 +3808,22 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py exception">
 <dt id="cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.args">
-<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.with_traceback">
-<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.with_traceback" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.MultipleObjectsReturned.with_traceback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -3829,7 +3838,7 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.ancestor_path">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">ancestor_path</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.ancestor_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">ancestor_path</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.ancestor_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property calculates the path of all parents of the page</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -3843,7 +3852,7 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.available_languages">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">available_languages</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.available_languages" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">available_languages</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.available_languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks in which <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the page is translated apart
 from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
 It only returns languages which have a public translation, so drafts are not included here.
@@ -3890,7 +3899,7 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.combined_last_updated">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">combined_last_updated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.combined_last_updated" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">combined_last_updated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.combined_last_updated" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function combines the last_updated date from this PageTranslation and from a mirrored page.
 If this translation has no content, then the date from the mirrored translation will be used. In
 other cases, the date from this translation will be used.</p>
@@ -3906,7 +3915,7 @@ other cases, the date from this translation will be used.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.combined_text">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">combined_text</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.combined_text" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">combined_text</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.combined_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function combines the text from this PageTranslation with the text from the mirrored page.
 Mirrored content always includes the live content from another page. This content needs to be added when
 delivering content to end users.</p>
@@ -3922,27 +3931,27 @@ delivering content to end users.</p>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.created_date">
-<code class="sig-name descname"><span class="pre">created_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.created_date" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">created_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.created_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
 <p>Creation date</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.creator">
-<code class="sig-name descname"><span class="pre">creator</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.creator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">creator</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.creator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
 <p>Creator (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translations</span></code>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.creator_id">
-<code class="sig-name descname"><span class="pre">creator_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.creator_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">creator_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.creator_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.creator" title="cms.models.pages.page_translation.PageTranslation.creator"><code class="xref py py-class docutils literal notranslate"><span class="pre">creator</span></code></a> instead.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.currently_in_translation">
-<code class="sig-name descname"><span class="pre">currently_in_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.currently_in_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">currently_in_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.currently_in_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
 <p>Currently in translation. Flag to indicate a translation is being updated by an external translator</p>
 </dd></dl>
@@ -3959,14 +3968,14 @@ delivering content to end users.</p>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.feedback">
-<code class="sig-name descname"><span class="pre">feedback</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.feedback" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">feedback</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.feedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.page_feedback.PageFeedback" title="cms.models.feedback.page_feedback.PageFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageFeedback</span></code></a></p>
 <p>All feedback of this page translation (related name of <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.page_feedback.PageFeedback.page_translation" title="cms.models.feedback.page_feedback.PageFeedback.page_translation"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translation</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.foreign_object">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">foreign_object</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">foreign_object</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.foreign_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is an alias of the page foreign key and is needed to generalize the <a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
 <dl class="field-list simple">
@@ -4007,7 +4016,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.get_current_translations">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_current_translations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_current_translations" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_current_translations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_current_translations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
 returns only page translations which are currently being translated by an external translator</p>
 <dl class="field-list simple">
@@ -4046,7 +4055,7 @@ returns only page translations which are currently being translated by an extern
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.get_outdated_translations">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_outdated_translations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_outdated_translations" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_outdated_translations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_outdated_translations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
 returns only page translations which are outdated</p>
 <dl class="field-list simple">
@@ -4085,7 +4094,7 @@ returns only page translations which are outdated</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.get_translations">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_translations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_translations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function retrieves the most recent versions of a all <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>
 objects of a <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> in a specific <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
 <dl class="field-list simple">
@@ -4106,7 +4115,7 @@ objects of a <a class="reference internal" href="cms.models.regions.html#cms.mod
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.get_up_to_date_translations">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_up_to_date_translations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L187"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_up_to_date_translations" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_up_to_date_translations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.get_up_to_date_translations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is similar to <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.get_translations" title="cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
 returns only page translations which are up to date</p>
 <dl class="field-list simple">
@@ -4127,14 +4136,14 @@ returns only page translations which are up to date</p>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.id">
-<code class="sig-name descname"><span class="pre">id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
 <p>Primary key: ID</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.is_outdated">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_outdated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_outdated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.is_outdated" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
 This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
 <ul class="simple">
@@ -4160,7 +4169,7 @@ source translation.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.is_outdated_helper">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_outdated_helper</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.is_outdated_helper" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_outdated_helper</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.is_outdated_helper" title="Permalink to this definition">¶</a></dt>
 <dd><p>See <a class="reference internal" href="#cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.is_outdated" title="cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.is_outdated"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_outdated()</span></code></a> with the
 difference that it does not return <code class="docutils literal notranslate"><span class="pre">False</span></code> when <code class="docutils literal notranslate"><span class="pre">currently_in_translation</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
@@ -4175,7 +4184,7 @@ difference that it does not return <code class="docutils literal notranslate"><s
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.is_up_to_date">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_up_to_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_up_to_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.is_up_to_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property checks whether a translation is up to date.
 A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
 <dl class="field-list simple">
@@ -4190,27 +4199,27 @@ A translation is considered up to date when it is not outdated and not being tra
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.language">
-<code class="sig-name descname"><span class="pre">language</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.language" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">language</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.language" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
 <p>Language (related name: <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language.page_translations" title="cms.models.languages.language.Language.page_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translations</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.language_id">
-<code class="sig-name descname"><span class="pre">language_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.language_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">language_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.language_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.language" title="cms.models.pages.page_translation.PageTranslation.language"><code class="xref py py-class docutils literal notranslate"><span class="pre">language</span></code></a> instead.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.last_updated">
-<code class="sig-name descname"><span class="pre">last_updated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.last_updated" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">last_updated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.last_updated" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
 <p>Modification date</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.latest_major_public_revision">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_major_public_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_major_public_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_major_public_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent major public version of this translation.
 This is used when translations, which are derived from this translation, check whether they are up to date.</p>
 <dl class="field-list simple">
@@ -4225,7 +4234,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.latest_major_revision">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_major_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_major_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_major_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent major version of this translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4239,7 +4248,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.latest_public_revision">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_public_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_public_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.latest_public_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a link to the most recent public version of this translation.
 If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <dl class="field-list simple">
@@ -4253,33 +4262,40 @@ If the translation itself is not public, this property can return a revision whi
 </dd></dl>
 
 <dl class="py attribute">
+<dt id="cms.models.pages.page_translation.PageTranslation.links">
+<code class="sig-name descname"><span class="pre">links</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.links" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericRelation" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericRelation</span></code></a> from <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a></p>
+<p>All page translations of this link (related name of <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.links" title="cms.models.pages.page_translation.PageTranslation.links"><code class="xref py py-attr docutils literal notranslate"><span class="pre">links</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.minor_edit">
-<code class="sig-name descname"><span class="pre">minor_edit</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.minor_edit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">minor_edit</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.minor_edit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
 <p>Minor edit. Tick if this change does not require an update of translations in other languages</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.objects">
-<code class="sig-name descname"><span class="pre">objects</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.objects" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">objects</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.objects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.page">
-<code class="sig-name descname"><span class="pre">page</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.page" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">page</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a></p>
 <p>Page (related name: <a class="reference internal" href="#cms.models.pages.page.Page.translations" title="cms.models.pages.page.Page.translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">translations</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.page_id">
-<code class="sig-name descname"><span class="pre">page_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.page_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">page_id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.page_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#cms.models.pages.page_translation.PageTranslation.page" title="cms.models.pages.page_translation.PageTranslation.page"><code class="xref py py-class docutils literal notranslate"><span class="pre">page</span></code></a> instead.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.permalink">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">permalink</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.permalink" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">permalink</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.permalink" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4293,7 +4309,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.pk">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">pk</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.pk" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">pk</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.pk" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -4303,7 +4319,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.previous_revision">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">previous_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">previous_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.previous_revision" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property is a shortcut to the previous revision of this translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4364,7 +4380,7 @@ and not use this method.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.short_url">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">short_url</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.short_url" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">short_url</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.short_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns the absolute short url to the page translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -4378,7 +4394,7 @@ and not use this method.</p>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.sitemap_alternates">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sitemap_alternates</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.sitemap_alternates" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sitemap_alternates</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.sitemap_alternates" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns the language alternatives of a page translation for the use in sitemaps.
 Similar to <a class="reference internal" href="#cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.available_languages" title="cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.available_languages"><code class="xref py py-func docutils literal notranslate"><span class="pre">cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.available_languages()</span></code></a>,
 but in a slightly different format.</p>
@@ -4394,14 +4410,14 @@ but in a slightly different format.</p>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.slug">
-<code class="sig-name descname"><span class="pre">slug</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.slug" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">slug</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.slug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a></p>
 <p>Page link. String identifier without spaces and special characters. Unique per region and language. Leave blank to generate unique parameter from title.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.source_translation">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">source_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.source_translation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">source_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.source_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
 It derives this information from the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
 <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
@@ -4419,7 +4435,7 @@ the translation is in the <a class="reference internal" href="cms.models.regions
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.status">
-<code class="sig-name descname"><span class="pre">status</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.status" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">status</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Status</p>
 <p>Choices:</p>
@@ -4433,7 +4449,7 @@ the translation is in the <a class="reference internal" href="cms.models.regions
 
 <dl class="py method">
 <dt id="cms.models.pages.page_translation.PageTranslation.tags">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">tags</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.tags" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">tags</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>This functions returns a list of translated tags which apply to this function.
 Supported tags:
 * Live content: if the page of this translation has live content
@@ -4450,14 +4466,14 @@ Supported tags:
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.text">
-<code class="sig-name descname"><span class="pre">text</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.text" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">text</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></p>
 <p>Content of the page</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.title">
-<code class="sig-name descname"><span class="pre">title</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">title</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Title of the page</p>
 </dd></dl>
@@ -4476,7 +4492,7 @@ failed.</p>
 
 <dl class="py attribute">
 <dt id="cms.models.pages.page_translation.PageTranslation.version">
-<code class="sig-name descname"><span class="pre">version</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.version" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">version</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.pages.page_translation.PageTranslation.version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PositiveIntegerField</span></code></a></p>
 <p>Version</p>
 </dd></dl>

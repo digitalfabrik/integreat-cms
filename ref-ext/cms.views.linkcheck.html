@@ -5,10 +5,10 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-11T06:58:56+00:00" />
+    <meta property="article:modified_time" content="2021-05-05T09:35:26+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Regions &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Linkcheck &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -24,7 +24,7 @@
   
 
   
-    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref-ext/cms.forms.regions.html" />
+    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref-ext/cms.views.linkcheck.html" />
 
   
   <!--[if lt IE 9]>
@@ -42,8 +42,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Roles" href="cms.forms.roles.html" />
-    <link rel="prev" title="Push Notifications" href="cms.forms.push_notifications.html" /> 
+    <link rel="next" title="Media" href="cms.views.media.html" />
+    <link rel="prev" title="Languages" href="cms.views.languages.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -727,7 +727,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.weeks">Weeks</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="cms.forms.html">Forms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.html">Forms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.chat.html">Chat</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.chat.html#module-cms.forms.chat.chat_message_form">Chat Message Form</a></li>
 </ul>
@@ -785,8 +785,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.push_notifications.html#module-cms.forms.push_notifications.push_notification_translation_form">Push Notification Translation Form</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Regions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.regions.region_form">Region Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.regions.html#module-cms.forms.regions.region_form">Region Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
@@ -926,7 +926,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="cms.views.html">Views</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="cms.views.html">Views</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="cms.views.analytics.html">Analytics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.analytics_overview">Analytics Overview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.app_size_view">App Size View</a></li>
@@ -991,8 +991,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.languages.html#module-cms.views.languages.language_view">Language View</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.views.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.linkcheck.html#id1">Linkcheck</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Linkcheck</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Linkcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
@@ -1178,15 +1178,15 @@
         
           <li><a href="cms.html">CMS</a> &raquo;</li>
         
-          <li><a href="cms.forms.html">Forms</a> &raquo;</li>
+          <li><a href="cms.views.html">Views</a> &raquo;</li>
         
-      <li>Regions</li>
+      <li>Linkcheck</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../ref/cms.forms.regions.html" class="fa fa-search-minus"> Open simplified view</a>
+            <a href="../ref/cms.views.linkcheck.html" class="fa fa-search-minus"> Open simplified view</a>
           
         
       </li>
@@ -1199,133 +1199,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cms.forms.regions">
-<span id="regions"></span><h1>Regions<a class="headerlink" href="#module-cms.forms.regions" title="Permalink to this headline">¶</a></h1>
-<p>Forms for creating and modifying region objects</p>
-<div class="section" id="module-cms.forms.regions.region_form">
-<span id="region-form"></span><h2>Region Form<a class="headerlink" href="#module-cms.forms.regions.region_form" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="cms.forms.regions.region_form.RegionForm">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">RegionForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
-<p>Form for creating and modifying region objects</p>
-<p><strong>Form fields:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">common_id</span></code>: Community identification number (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">slug</span></code>: URL parameter (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.SlugField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">events_enabled</span></code>: Activate events (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">chat_enabled</span></code>: Activate author chat (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">push_notifications_enabled</span></code>: Activate push notifications (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">push_notification_channels</span></code>: Push notification channels (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/forms/#django.contrib.postgres.forms.SimpleArrayField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleArrayField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">latitude</span></code>: Latitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">longitude</span></code>: Longitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">postal_code</span></code>: Postal code (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">admin_mail</span></code>: Email address of the administrator (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.EmailField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">statistics_enabled</span></code>: Activate statistics (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">matomo_id</span></code>: Matomo ID (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.IntegerField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">matomo_token</span></code>: Matomo authentication token (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: Status (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">page_permissions_enabled</span></code>: Activate page-specific permissions (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">administrative_division</span></code>: Administrative division (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">aliases</span></code>: Aliases (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Logo (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ImageField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">administrative_division_included</span></code>: Include administrative division into name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">offers</span></code>: Offers (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">duplicated_region</span></code>: Duplicated Region (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
-</ul>
+  <div class="section" id="module-cms.views.linkcheck">
+<span id="linkcheck"></span><h1>Linkcheck<a class="headerlink" href="#module-cms.views.linkcheck" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Linkcheck<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-cms.views.linkcheck.linkcheck"></span><dl class="py class">
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.linkcheck.linkcheck.</span></code><code class="sig-name descname"><span class="pre">LinkListRedirectView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
+<p>View for redirecting to main page of the broken link checker</p>
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize placeholder model form</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If form is instantiated directly without an inheriting subclass</p>
-</dd>
-</dl>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor. Called in the URLconf; can contain helpful extra
+keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.add_error">
-<code class="sig-name descname"><span class="pre">add_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.add_error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the content of <cite>self._errors</cite>.</p>
-<p>The <cite>field</cite> argument is the name of the field to which the errors
-should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
-<p>The <cite>error</cite> argument can be a single error, a list of errors, or a
-dictionary that maps field names to lists of errors. An “error” can be
-either a simple string or an instance of ValidationError with its
-message attribute set and a “list or dictionary” can be an actual
-<cite>list</cite> or <cite>dict</cite> or an instance of ValidationError with its
-<cite>error_list</cite> or <cite>error_dict</cite> attribute set.</p>
-<p>If <cite>error</cite> is a dictionary, the <cite>field</cite> argument <em>must</em> be None and
-errors will be added to the fields that correspond to the keys of the
-dictionary.</p>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.as_view">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.as_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main entry point for a request-response process.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.add_initial_prefix">
-<code class="sig-name descname"><span class="pre">add_initial_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.add_prefix">
-<code class="sig-name descname"><span class="pre">add_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.add_prefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the field name with a prefix appended, if this Form has a
-prefix set.</p>
-<p>Subclasses may wish to override.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.as_p">
-<code class="sig-name descname"><span class="pre">as_p</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.as_p" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.as_table">
-<code class="sig-name descname"><span class="pre">as_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.as_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.as_ul">
-<code class="sig-name descname"><span class="pre">as_ul</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.as_ul" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.forms.regions.region_form.RegionForm.changed_data">
-<code class="sig-name descname"><span class="pre">changed_data</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.delete">
+<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.delete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.clean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The cleaned form data</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
-</dd>
-</dl>
-</dd></dl>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.dispatch">
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.clean_slug">
-<code class="sig-name descname"><span class="pre">clean_slug</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.clean_slug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.get">
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.get_redirect_url">
+<code class="sig-name descname"><span class="pre">get_redirect_url</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.get_redirect_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve url for redirection</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A unique slug based on the input value</p>
+<dd class="field-odd"><p>url to redirect to</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
@@ -1333,182 +1250,278 @@ prefix set.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt id="cms.forms.regions.region_form.RegionForm.default_renderer">
-<code class="sig-name descname"><span class="pre">default_renderer</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.default_renderer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.errors">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">errors</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.errors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an ErrorDict for the data provided for the form.</p>
-</dd></dl>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.head">
+<code class="sig-name descname"><span class="pre">head</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.head" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.forms.regions.region_form.RegionForm.field_order">
-<code class="sig-name descname"><span class="pre">field_order</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.field_order" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.http_method_names">
+<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.full_clean">
-<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.full_clean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.get_initial_for_field">
-<code class="sig-name descname"><span class="pre">get_initial_for_field</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return initial data for field on form. Use initial data from the form
-or the field, in that order. Evaluate callable values.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.has_changed">
-<code class="sig-name descname"><span class="pre">has_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.has_changed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True if data differs from initial.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.has_error">
-<code class="sig-name descname"><span class="pre">has_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.has_error" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.http_method_not_allowed">
+<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.hidden_fields">
-<code class="sig-name descname"><span class="pre">hidden_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of all the BoundField objects that are hidden fields.
-Useful for manual form layout in templates.</p>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.options">
+<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.is_multipart">
-<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.is_multipart" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
-FileInput, or False otherwise.</p>
-</dd></dl>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.patch">
+<code class="sig-name descname"><span class="pre">patch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.patch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.pattern_name">
+<code class="sig-name descname"><span class="pre">pattern_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.pattern_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.permanent">
+<code class="sig-name descname"><span class="pre">permanent</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.permanent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.is_valid">
-<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.is_valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True if the form has no errors, or False otherwise.</p>
-</dd></dl>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.post">
+<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.media">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">media</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.media" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return all media required to render the widgets on this form.</p>
-</dd></dl>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.put">
+<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.query_string">
+<code class="sig-name descname"><span class="pre">query_string</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.query_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.non_field_errors">
-<code class="sig-name descname"><span class="pre">non_field_errors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an ErrorList of errors that aren’t associated with a particular
-field – i.e., from Form.clean(). Return an empty ErrorList if there
-are none.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.order_fields">
-<code class="sig-name descname"><span class="pre">order_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.order_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rearrange the fields according to field_order.</p>
-<p>field_order is a list of field names specifying the order. Append fields
-not included in the list in the default order for backward compatibility
-with subclasses not overriding field_order. If field_order is None,
-keep all fields in the order defined in the class. Ignore unknown
-fields in field_order to allow disabling fields in form subclasses
-without redefining ordering.</p>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.setup">
+<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize attributes shared by all view methods.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.forms.regions.region_form.RegionForm.prefix">
-<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.prefix" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.views.linkcheck.linkcheck.LinkListRedirectView.url">
+<code class="sig-name descname"><span class="pre">url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.linkcheck.linkcheck.</span></code><code class="sig-name descname"><span class="pre">LinkListView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-display/#django.views.generic.list.ListView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.list.ListView</span></code></a></p>
+<p>View for retrieving a list of links grouped by their state</p>
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor. Called in the URLconf; can contain helpful extra
+keyword arguments, and other things.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.allow_empty">
+<code class="sig-name descname"><span class="pre">allow_empty</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.allow_empty" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
-which are not directly determined by input fields.</p>
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.as_view">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.as_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main entry point for a request-response process.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.content_type">
+<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.content_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.context_object_name">
+<code class="sig-name descname"><span class="pre">context_object_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'filtered_links'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.context_object_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.dispatch">
+<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.extra_context">
+<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'linkcheck'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.extra_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get">
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_allow_empty">
+<code class="sig-name descname"><span class="pre">get_allow_empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_allow_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the view should display empty lists and <code class="docutils literal notranslate"><span class="pre">False</span></code>
+if a 404 should be raised instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_context_data">
+<code class="sig-name descname"><span class="pre">get_context_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the context for this view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_context_object_name">
+<code class="sig-name descname"><span class="pre">get_context_object_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_context_object_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of the item to be used in the context.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_ordering">
+<code class="sig-name descname"><span class="pre">get_ordering</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_ordering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the field or fields to use for ordering the queryset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_paginate_by">
+<code class="sig-name descname"><span class="pre">get_paginate_by</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_paginate_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of items to paginate by, or <code class="docutils literal notranslate"><span class="pre">None</span></code> for no pagination.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_paginate_orphans">
+<code class="sig-name descname"><span class="pre">get_paginate_orphans</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_paginate_orphans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the maximum number of orphans extend the last page by when
+paginating.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_paginator">
+<code class="sig-name descname"><span class="pre">get_paginator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orphans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty_first_page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_paginator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an instance of the paginator for this view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_queryset">
+<code class="sig-name descname"><span class="pre">get_queryset</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>First filters all links by region
+Next filters by links state and counts the number of links per group
+Finally annotates queryset by the content_type title</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The QuerySet of the filtered links</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The saved region object</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region">Region</a></p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a></p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.get_template_names">
+<code class="sig-name descname"><span class="pre">get_template_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_template_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of template names to be used for the request. Must return
+a list. May not be called if render_to_response is overridden.</p>
+</dd></dl>
+
 <dl class="py attribute">
-<dt id="cms.forms.regions.region_form.RegionForm.use_required_attribute">
-<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.http_method_names">
+<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.validate_unique">
-<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.validate_unique" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call the instance’s validate_unique() method and update the form’s
-validation errors if any were raised.</p>
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.http_method_not_allowed">
+<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.model">
+<code class="sig-name descname"><span class="pre">model</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.options">
+<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.ordering">
+<code class="sig-name descname"><span class="pre">ordering</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.page_kwarg">
+<code class="sig-name descname"><span class="pre">page_kwarg</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'page'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.page_kwarg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.paginate_by">
+<code class="sig-name descname"><span class="pre">paginate_by</span></code><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.paginate_by" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.paginate_orphans">
+<code class="sig-name descname"><span class="pre">paginate_orphans</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.paginate_orphans" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.paginate_queryset">
+<code class="sig-name descname"><span class="pre">paginate_queryset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/list.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.paginate_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paginate the queryset, if needed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.paginator_class">
+<code class="sig-name descname"><span class="pre">paginator_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/core/paginator.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.paginator_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.paginator.Paginator</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.queryset">
+<code class="sig-name descname"><span class="pre">queryset</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.render_to_response">
+<code class="sig-name descname"><span class="pre">render_to_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.render_to_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
+template rendered with the given context.</p>
+<p>Pass response_kwargs to the constructor of the response class.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.response_class">
+<code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.response_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.regions.region_form.RegionForm.visible_fields">
-<code class="sig-name descname"><span class="pre">visible_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.RegionForm.visible_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of BoundField objects that aren’t hidden fields.
-The opposite of the hidden_fields() method.</p>
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.setup">
+<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize attributes shared by all view methods.</p>
 </dd></dl>
 
-</dd></dl>
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.template_engine">
+<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_engine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="py function">
-<dt id="cms.forms.regions.region_form.duplicate_language_tree">
-<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_language_tree</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_language_tree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to duplicate the language tree of one region to another.</p>
-<p>Usage: duplicate_language_tree(source_region, target_region)</p>
-<p>This is a recursive function to walk the whole language tree. It starts at root level with the default parent None.
-The recursion is necessary because the new nodes need their correct (also duplicated) parent node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>source_region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The region from which the language tree should be duplicated</p></li>
-<li><p><strong>target_region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The region to which the language tree should be added</p></li>
-<li><p><strong>source_parent_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The current parent node id of the recursion</p></li>
-<li><p><strong>target_parent</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>cms.models.pages.page.Page</em></a>) – The node of the target region which is the duplicate of the source parent node</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.template_name">
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'linkcheck/links_by_filter.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="py function">
-<dt id="cms.forms.regions.region_form.duplicate_media">
-<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_media</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_media" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to duplicate all media of one region to another.</p>
-</dd></dl>
+<dl class="py attribute">
+<dt id="cms.views.linkcheck.linkcheck.LinkListView.template_name_suffix">
+<code class="sig-name descname"><span class="pre">template_name_suffix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'_list'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_name_suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="py function">
-<dt id="cms.forms.regions.region_form.duplicate_pages">
-<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.regions.region_form.duplicate_pages" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to duplicate all pages of one region to another.</p>
-<p>Usage: duplicate_pages(source_region, target_region)</p>
-<p>This is a recursive function to walk the whole page tree. It starts at root level with the default parent None.
-The recursion is necessary because the new pages need their correct (also duplicated) parent page.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>source_region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The region from which the pages should be duplicated</p></li>
-<li><p><strong>target_region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>cms.models.regions.region.Region</em></a>) – The region to which the pages should be added</p></li>
-<li><p><strong>source_parent_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The current parent page id of the recursion</p></li>
-<li><p><strong>target_parent</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>cms.models.pages.page.Page</em></a>) – The page of the target region which is the duplicate of the source parent page</p></li>
-<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – recursion level to get a pretty log output</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
@@ -1520,8 +1533,8 @@ The recursion is necessary because the new pages need their correct (also duplic
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="cms.forms.roles.html" class="btn btn-neutral float-right" title="Roles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="cms.forms.push_notifications.html" class="btn btn-neutral float-left" title="Push Notifications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cms.views.media.html" class="btn btn-neutral float-right" title="Media" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cms.views.languages.html" class="btn btn-neutral float-left" title="Languages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -1533,7 +1546,7 @@ The recursion is necessary because the new pages need their correct (also duplic
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 11, 2021.
+        Last updated on May 05, 2021.
       </span>
 
     </p>
