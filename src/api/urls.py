@@ -18,6 +18,7 @@ from .v3.feedback import (
 )
 from .v3.imprint import imprint
 from .v3.languages import languages
+from .v3.locations import locations
 from .v3.pages import pages
 from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
@@ -41,6 +42,7 @@ urlpatterns = [
                     include(
                         [
                             url(r"^pages/?$", pages, name="api_pages"),
+                            url(r"^locations/?$", locations, name="api_locations"),
                             url(
                                 r"^page/?$",
                                 single_page,
