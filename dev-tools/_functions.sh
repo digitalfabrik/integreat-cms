@@ -200,8 +200,8 @@ function migrate_database {
     if [[ -z "$DATABASE_MIGRATED" ]]; then
         echo "Migrating database..." | print_info
         # Make sure the migrations directory exists
-        mkdir -pv "${BASE_DIR}/src/cms/migrations"
-        touch "${BASE_DIR}/src/cms/migrations/__init__.py"
+        deescalate_privileges mkdir -pv "${BASE_DIR}/src/cms/migrations"
+        deescalate_privileges touch "${BASE_DIR}/src/cms/migrations/__init__.py"
         # Generate migration files
         deescalate_privileges pipenv run integreat-cms-cli makemigrations
         # Execute migrations
