@@ -28,11 +28,9 @@ class GvzApiConfig(AppConfig):
         if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
             if settings.GVZ_API_ENABLED:
                 try:
-                    response = requests.get(
-                        f"{settings.GVZ_API_URL}/search/expect_empty_json", timeout=3
-                    )
-                    # Require the response to be empty, otherwise it's probably an error
-                    assert not json.loads(response.text)
+                    response = requests.get(f"{settings.GVZ_API_URL}/api/", timeout=3)
+                    # Require the response to return a valid JSON, otherwise it's probably an error
+                    assert json.loads(response.text)
                 except (
                     json.decoder.JSONDecodeError,
                     requests.exceptions.RequestException,

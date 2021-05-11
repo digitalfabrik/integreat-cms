@@ -134,10 +134,10 @@ class RegionForm(CustomModelForm):
         if apps.get_app_config("gvz_api").api_available:
             gvz_region = GvzRegion(
                 region_name=cleaned_data["name"],
-                region_key=cleaned_data["common_id"],
+                region_ags=cleaned_data["common_id"],
                 region_type=cleaned_data["administrative_division"],
             )
-            if gvz_region.aliases and cleaned_data["aliases"] == "":
+            if gvz_region.aliases and cleaned_data["aliases"] in [{}, ""]:
                 cleaned_data["aliases"] = gvz_region.aliases
             if gvz_region.longitude and cleaned_data["longitude"] == 0.0:
                 cleaned_data["longitude"] = gvz_region.longitude
