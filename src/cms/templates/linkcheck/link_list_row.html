@@ -1,0 +1,14 @@
+{% load i18n %}
+{% load text_filters %}
+
+<tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
+  <td class="py-3 pl-4 pr-2 whitespace-nowrap">{{ link.display_url }}</td>
+  <td class="pr-2{% if link_filter == 'invalid' %} text-red-500{% elif link_filter == 'valid' %} text-green-500{% endif %}">
+    {{ link.url.message|linkcheck_status_filter }}
+  </td>
+  <td class="pr-2">{{ link.text }}</td>
+  <td class="pr-2">
+    {{ link.title }}
+  </td>
+  <td class="pr-4 min text-right">{{ link.content_type.name|title }}</td>
+</tr>

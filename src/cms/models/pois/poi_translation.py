@@ -1,8 +1,10 @@
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from linkcheck.models import Link
 from backend.settings import WEBAPP_URL
 
 from .poi import POI
@@ -81,6 +83,7 @@ class POITranslation(models.Model):
         related_name="poi_translations",
         verbose_name=_("creator"),
     )
+    links = GenericRelation(Link, related_query_name="poi_translations")
 
     @property
     def foreign_object(self):

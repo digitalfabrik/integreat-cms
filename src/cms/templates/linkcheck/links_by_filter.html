@@ -1,0 +1,59 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <h1 class="heading">
+    {% if link_filter == 'valid' %}
+      {% trans 'Valid links' %}
+    {% elif link_filter == 'invalid' %}
+      {% trans 'Invalid links' %}
+    {% elif link_filter == 'unchecked' %}
+      {% trans 'Unchecked links' %}
+    {% else %}
+      {% trans 'Ignored links' %}
+    {% endif %}
+  </h1>
+  <a href="{% if link_filter == 'valid' %}#{% else %}{% url 'linkcheck' region_slug=region.slug link_filter='valid' %}{% endif %}" 
+    class="pr-2 {% if link_filter == 'valid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+    {% trans 'Valid' %} <span class="{% if link_filter == 'valid' %}text-gray-500 font-normal{% endif %}">({{ number_valid }})</span>
+  </a> |
+  <a href="{% if link_filter == 'invalid' %}#{% else %}{% url 'linkcheck' region_slug=region.slug link_filter='invalid' %}{% endif %}"
+    class="pr-2 border-r-1 {% if link_filter == 'invalid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+    {% trans 'Invalid' %} <span class="{% if link_filter == 'invalid' %}text-gray-500 font-normal{% endif %}">({{ number_invalid }})</span>
+  </a> |
+  <a href="{% if link_filter == 'unchecked' %}#{% else %}{% url 'linkcheck' region_slug=region.slug link_filter='unchecked' %}{% endif %}"
+    class="pr-2 border-r-1 {% if link_filter == 'unchecked' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+    {% trans 'Unchecked' %} <span class="{% if link_filter == 'unchecked' %}text-gray-500 font-normal{% endif %}">({{ number_unchecked }})</span>
+  </a> |
+  <a href="{% if link_filter == 'ignored' %}#{% else %}{% url 'linkcheck' region_slug=region.slug link_filter='ignored' %}{% endif %}"
+    class="{% if link_filter == 'ignored' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+    {% trans 'Ignored' %} <span class="{% if link_filter == 'ignored' %}text-gray-500 font-normal{% endif %}">({{ number_ignored }})</span>
+  </a>
+  <div class="table-listing">
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+      <thead>
+        <tr class="border-b border-solid border-gray-200">
+          <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'URL' %}</th>
+          <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
+          <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Link text' %}</th>
+          <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Source' %}</th>
+          <th class="text-sm text-right uppercase py-3 pr-4 min">{% trans 'Content type' %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for link in filtered_links %}
+          {% include 'linkcheck/link_list_row.html' %}
+        {% empty %}
+        <tr>
+          <td colspan="7" class="px-4 py-3">
+            {% trans 'No links detected yet.' %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% url 'linkcheck' as url %}
+  {% include 'pagination.html' with url=url chunk=page_obj %}
+{% endblock %}

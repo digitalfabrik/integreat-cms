@@ -10,11 +10,11 @@
     <div class="step-links">
         <!-- pagination always contains left and right buttons -->
         <!-- in case the left/right outer bounds are reached these links are disabled -->
-        <a href="{% if chunk.has_previous %}{{ url }}?chunk={{ chunk.previous_page_number }}{% else %}#{% endif %}" class="arrow-link">
+        <a href="{% if chunk.has_previous %}{{ url }}?page={{ chunk.previous_page_number }}{% else %}#{% endif %}" class="arrow-link">
             <i data-feather="chevron-left"></i>
         </a>
         <!-- pagination always allows to jump to start page -->
-        <a href="{{ url }}?chunk=1" class="{% if chunk.number == 1 %}active{% endif %}">1</a>
+        <a href="{{ url }}?page=1" class="{% if chunk.number == 1 %}active{% endif %}">1</a>
         {% if chunk.number|diff:1 > 3 %}
             <!-- if current page is more than 2 pages after start, hide those pages -->
             <a href="#">...</a>
@@ -24,7 +24,7 @@
                 <a href="#" class="active">{{ i }}</a>
             {% elif i > chunk.number|diff:3 and i < chunk.number|add:3 %}
                 <!-- show only links to at most 2 previous/next pages -->
-                <a href="{{ url }}?chunk={{ i }}">{{ i }}</a>
+                <a href="{{ url }}?page={{ i }}">{{ i }}</a>
             {% endif %}
         {% endfor %}
         {% if num_pages|diff:chunk.number > 3 %}
@@ -32,8 +32,8 @@
             <a href="#">...</a>
         {% endif %}
         <!-- pagination always allows to jump to last page -->
-        <a href="{{ url }}?chunk={{ num_pages }}" class="{% if chunk.number == num_pages %}active{% endif %}">{{ num_pages }}</a>
-        <a href="{% if chunk.has_next %}{{ url }}?chunk={{ chunk.next_page_number }}{% else %}#{% endif %}" class="arrow-link">
+        <a href="{{ url }}?page={{ num_pages }}" class="{% if chunk.number == num_pages %}active{% endif %}">{{ num_pages }}</a>
+        <a href="{% if chunk.has_next %}{{ url }}?page={{ chunk.next_page_number }}{% else %}#{% endif %}" class="arrow-link">
             <i data-feather="chevron-right"></i>
         </a>
     </div>

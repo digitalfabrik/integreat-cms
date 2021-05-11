@@ -3,12 +3,15 @@ import logging
 from html import escape
 
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from linkcheck.models import Link
 from backend.settings import BASE_URL
+
 from .abstract_base_page_translation import AbstractBasePageTranslation
 from .page import Page
 from ..languages.language import Language
@@ -53,6 +56,7 @@ class PageTranslation(AbstractBasePageTranslation):
         related_name="page_translations",
         verbose_name=_("creator"),
     )
+    links = GenericRelation(Link, related_query_name="page_translations")
 
     @property
     def ancestor_path(self):

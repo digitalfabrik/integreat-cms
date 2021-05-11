@@ -18,6 +18,7 @@ from .views import (
     offer_templates,
     language_tree,
     languages,
+    linkcheck,
     media,
     organizations,
     imprint,
@@ -455,9 +456,14 @@ urlpatterns = [
                     name="app_size",
                 ),
                 url(
-                    r"^broken_link_checker/",
-                    analytics.BrokenLinkCheckerView.as_view(),
-                    name="broken_link",
+                    r"^linkcheck/$",
+                    linkcheck.LinkListRedirectView.as_view(),
+                    name="linkcheck_landing",
+                ),
+                url(
+                    r"^linkcheck/(?P<link_filter>[-\w]+)/$",
+                    linkcheck.LinkListView.as_view(),
+                    name="linkcheck",
                 ),
                 url(
                     r"^pages/",
