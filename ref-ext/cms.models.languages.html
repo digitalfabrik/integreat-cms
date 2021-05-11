@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-04-23T10:12:19+00:00" />
+    <meta property="article:modified_time" content="2021-05-07T09:45:21+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Languages &mdash; integreat-cms 0.0.14 documentation</title>
@@ -275,6 +275,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#colors">Colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#frequency">Frequency</a></li>
@@ -700,6 +701,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.colors">Colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.frequency">Frequency</a></li>
@@ -1203,9 +1205,11 @@
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
 <li><p><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.2)"><em>SlugField</em></a>) – Language Slug. Unique string identifier used in URLs without spaces and special characters.</p></li>
 <li><p><strong>bcp47_tag</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.2)"><em>SlugField</em></a>) – BCP47 Tag. Language identifier without spaces and special characters. This field usually contains a combination of subtags from the IANA Subtag Registry.</p></li>
-<li><p><strong>native_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Native name</p></li>
-<li><p><strong>english_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Name in English</p></li>
+<li><p><strong>native_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Native name. The name of the language in this language.</p></li>
+<li><p><strong>english_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Name in English. The name of the language in English.</p></li>
 <li><p><strong>text_direction</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Text direction</p></li>
+<li><p><strong>primary_country_code</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Primary country flag. The country with which this language is mainly associated. This flag is used to represent the language graphically.</p></li>
+<li><p><strong>secondary_country_code</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Secondary country flag. Another country with which this language is also associated. This flag is used in the language switcher.</p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
 <li><p><strong>table_of_contents</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – “Table of contents” in this language. The native name for “Table of contents” in this language. This is used in exported PDFs.</p></li>
@@ -1338,7 +1342,7 @@ of all validation errors if any occur.</p>
 <dt id="cms.models.languages.language.Language.english_name">
 <code class="sig-name descname"><span class="pre">english_name</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language.Language.english_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Name in English</p>
+<p>Name in English. The name of the language in English.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1398,6 +1402,18 @@ Raise a ValidationError for any errors that occur.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="cms.models.languages.language.Language.get_primary_country_code_display">
+<code class="sig-name descname"><span class="pre">get_primary_country_code_display</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.CharField:</span> <span class="pre">primary_country_code&gt;</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language.Language.get_primary_country_code_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the label of the <a class="reference internal" href="#cms.models.languages.language.Language.primary_country_code" title="cms.models.languages.language.Language.primary_country_code"><code class="xref py py-attr docutils literal notranslate"><span class="pre">primary_country_code</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_FOO_display" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_FOO_display()</span></code></a> for more information.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cms.models.languages.language.Language.get_secondary_country_code_display">
+<code class="sig-name descname"><span class="pre">get_secondary_country_code_display</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.CharField:</span> <span class="pre">secondary_country_code&gt;</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language.Language.get_secondary_country_code_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the label of the <a class="reference internal" href="#cms.models.languages.language.Language.secondary_country_code" title="cms.models.languages.language.Language.secondary_country_code"><code class="xref py py-attr docutils literal notranslate"><span class="pre">secondary_country_code</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_FOO_display" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_FOO_display()</span></code></a> for more information.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cms.models.languages.language.Language.get_text_direction_display">
 <code class="sig-name descname"><span class="pre">get_text_direction_display</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.CharField:</span> <span class="pre">text_direction&gt;</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language.Language.get_text_direction_display" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows the label of the <a class="reference internal" href="#cms.models.languages.language.Language.text_direction" title="cms.models.languages.language.Language.text_direction"><code class="xref py py-attr docutils literal notranslate"><span class="pre">text_direction</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_FOO_display" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_FOO_display()</span></code></a> for more information.</p>
@@ -1435,7 +1451,7 @@ Raise a ValidationError for any errors that occur.</p>
 <dt id="cms.models.languages.language.Language.native_name">
 <code class="sig-name descname"><span class="pre">native_name</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language.Language.native_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Native name</p>
+<p>Native name. The name of the language in this language.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1466,6 +1482,28 @@ Raise a ValidationError for any errors that occur.</p>
 <dt id="cms.models.languages.language.Language.prepare_database_save">
 <code class="sig-name descname"><span class="pre">prepare_database_save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language.Language.prepare_database_save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.primary_country_code">
+<code class="sig-name descname"><span class="pre">primary_country_code</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language.Language.primary_country_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Primary country flag. The country with which this language is mainly associated. This flag is used to represent the language graphically.</p>
+<p>Choices:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ad</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ae</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">af</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">al</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">am</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ao</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ar</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">at</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">au</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">az</span></code></p></li>
+<li><p>and 162 more</p></li>
+</ul>
+<p>Manage choices in <a class="reference internal" href="cms.constants.html#module-cms.constants.countries" title="cms.constants.countries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.countries</span></code></a></p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.models.languages.language.Language.push_notification_translations">
@@ -1507,6 +1545,28 @@ checks and signal sending.</p>
 <p>The ‘raw’ argument is telling save_base not to save any parent
 models and not to do any changes to the values before save. This
 is used by fixture loading.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cms.models.languages.language.Language.secondary_country_code">
+<code class="sig-name descname"><span class="pre">secondary_country_code</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/languages/language.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.languages.language.Language.secondary_country_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Secondary country flag. Another country with which this language is also associated. This flag is used in the language switcher.</p>
+<p>Choices:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ad</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ae</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">af</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">al</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">am</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ao</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ar</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">at</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">au</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">az</span></code></p></li>
+<li><p>and 162 more</p></li>
+</ul>
+<p>Manage choices in <a class="reference internal" href="cms.constants.html#module-cms.constants.countries" title="cms.constants.countries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cms.constants.countries</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -2197,7 +2257,7 @@ failed.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Apr 23, 2021.
+        Last updated on May 07, 2021.
       </span>
 
     </p>
