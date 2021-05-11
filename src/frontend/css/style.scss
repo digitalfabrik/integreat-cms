@@ -1,3 +1,9 @@
+// Country flags - define these before tailwind to make it possible to override
+$fp-prepend: true;
+$fp-enable-1x1: false;
+$fp-4x3-path: "flagpack/flags/4x3/";
+@import "flagpack/src/flagpack.scss";
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -153,6 +159,18 @@ h1.heading {
   }
 }
 
+#language-switcher:hover {
+  #language-switcher-list {
+    @apply block;
+  }
+  #language-switcher-current {
+    @apply rounded-b-none;
+  }
+  #language-switcher-chevron {
+    @apply hidden;
+  }
+}
+
 .password_toggle {
   .eye-icon {
     width: 42px;
@@ -172,23 +190,8 @@ h1.heading {
 .lang-grid {
   > a {
     text-align: center;
-    width: 18px;
+    width: 18.67px;
     display: inline-block;
-    padding-left: 2px;
-    padding-right: 2px;
-    &:first-child {
-      padding-left: 0;
-    }
-    &:last-child {
-      padding-right: 0;
-    }
-    svg {
-      width: 15px;
-      height: 15px;
-    }
-  }
-  &.flags {
-    padding-left: 2px;
   }
 }
 

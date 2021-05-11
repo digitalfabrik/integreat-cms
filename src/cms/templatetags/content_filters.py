@@ -80,6 +80,23 @@ def get_language(language_slug):
 
 
 @register.filter
+def remove(queryset, instance):
+    """
+    This tag removes an object instance from a QuerySet.
+
+    :param queryset: The given QuerySet
+    :type queryset: ~django.db.models.query.QuerySet
+
+    :param instance: The object instance to be removed
+    :type instance: object
+
+    :return: The QuerySet without the object instance
+    :rtype: ~django.db.models.query.QuerySet
+    """
+    return queryset.exclude(id=instance.id)
+
+
+@register.filter
 def get_int_list(data, list_name):
     """
     This filter returns the list data of a one-to-many field as ints.

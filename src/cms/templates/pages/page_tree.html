@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
 {% load static %}
 {% load mptt_tags %}
@@ -21,12 +22,39 @@
             </a>
         </div>
     </div>
-    <div class="flex flex-wrap">
-        <form class="table-search relative w-1/2">
-            <i data-feather="search" class="absolute"></i>
-            <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
-        </form>
-        <div class="w-1/2 flex flex-wrap justify-end">
+    <div class="flex flex-wrap justify-between">
+        <div class="flex flex-wrap">
+            <div id="language-switcher" class="flex flex-col z-10">
+                <a id="language-switcher-current" href="{% url 'pages' region_slug=region.slug language_slug=language.slug %}" class="font-bold block flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200">
+                    {{ language.translated_name }}
+                    <span>
+                        <span class="fp fp-rounded fp-{{ language.primary_country_code }} ml-2"></span>
+                        {% if language.secondary_country_code %}
+                            <span class="fp fp-rounded fp-{{ language.secondary_country_code }}"></span>
+                        {% endif %}
+                        <i id="language-switcher-chevron" class="-mr-2 h-5" data-feather="chevron-down"></i>
+                    </span>
+                </a>
+                <div id="language-switcher-list" class="h-0 hidden">
+                    {% for other_language in languages|remove:language %}
+                        <a href="{% url 'pages' region_slug=region.slug language_slug=other_language.slug %}" class="block flex justify-between whitespace-nowrap {% if forloop.last %} rounded-b {% endif %} shadow px-4 py-3 text-gray-800 hover:bg-gray-200 bg-white">
+                            {{ other_language.translated_name }}
+                            <span>
+                                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }} ml-2"></span>
+                                {% if other_language.secondary_country_code %}
+                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                {% endif %}
+                            </span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <form class="table-search relative ml-4">
+                <i data-feather="search" class="absolute"></i>
+                <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
+            </form>
+        </div>
+        <div class="flex flex-wrap">
             {% if request.user.profile.expert_mode %}
             <button id="filter-toggle"
                     class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
@@ -72,7 +100,7 @@
                     <div class="lang-grid flags whitespace-nowrap">
                         {% for lang in languages %}
                             <a href="{% url 'pages' region_slug=region.slug language_slug=lang.slug %}">
-                                <span title="{{ lang.translated_name }}"><img src="{% static '' %}images/flags/{{ lang.slug }}.png" /></span>
+                                <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
                             </a>
                         {% endfor %}
                     </div>
@@ -112,12 +140,8 @@
                     <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
                     <option id="pdf-export-option" data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
                         data-target="_blank" data-language-slug="{{ language.slug }}">{% trans 'Export as PDF' %}</option>
-                    {% if request.user.profile.expert_mode %}
-                        {% for target_language in languages %}
-                            {% if target_language != region.default_language %}
-                                <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=target_language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ target_language.translated_name }}</option>
-                            {% endif %}
-                        {% endfor %}
+                    {% if request.user.profile.expert_mode and language != region.default_language %}
+                        <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}</option>
                     {% endif %}
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">

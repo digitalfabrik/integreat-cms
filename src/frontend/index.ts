@@ -21,6 +21,8 @@ import "./js/forms/slug-error.ts";
 import "./js/forms/icon-field.ts";
 import "./js/forms/update-permalink.ts";
 
+import "./js/languages/country-flag-fields.ts";
+
 import "./js/regions/conditional-fields.ts";
 
 import "./js/feedback/toggle-feedback-comments.ts";

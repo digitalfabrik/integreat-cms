@@ -21,7 +21,13 @@
 			{{ language.bcp47_tag }}
 		</a>
 	</td>
-  <td>
+	<td>
+		<a href="{% url 'edit_language' language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+			<span class="fp fp-{{ language.primary_country_code }} fp-rounded " title="{{ language.get_primary_country_code_display }}"></span>
+			<span class="fp fp-{{ language.secondary_country_code }} fp-rounded " title="{{ language.get_secondary_country_code_display }}"></span>
+		</a>
+	</td>
+  	<td>
 		<a href="{% url 'edit_language' language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
 			{{ language.get_text_direction_display }}
 		</a>
