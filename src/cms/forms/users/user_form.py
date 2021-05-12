@@ -20,7 +20,7 @@ class UserForm(CustomModelForm):
     Form for creating and modifying user objects
     """
 
-    roles = forms.ModelMultipleChoiceField(queryset=Role.objects.all(), required=False)
+    roles = forms.ModelChoiceField(queryset=Role.objects.all(), required=True)
     password = forms.CharField(
         widget=forms.PasswordInput,
         validators=[validate_password],
@@ -66,6 +66,7 @@ class UserForm(CustomModelForm):
             self.fields["is_active"].initial = False
         # fix password label
         self.fields["password"].label = _("Password")
+        self.fields["roles"].label = _("Roles")
         self.fields["email"].required = True
 
     # pylint: disable=signature-differs

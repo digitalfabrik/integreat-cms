@@ -87,7 +87,11 @@
                     {% endif %}
                     <div class="py-4 border-b solid border-gray-200">
                         <label for="{{ user_form.roles.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ user_form.roles.label }}</label>
-                        {% render_field user_form.roles class+="w-full" %}
+                        <div class="relative">{% render_field user_form.roles class+="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+                            </div>
+                        </div>
                     </div>
 
                     <div class="pt-4 pb-2">

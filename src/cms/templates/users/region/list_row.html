@@ -29,6 +29,13 @@
         </a>
 	</td>
 	<td>
+        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+			{% if user.groups.first %}
+				{{ user.groups.first }}
+			{% endif %}
+        </a>
+	</td>
+	<td>
 		<a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 pr-2 text-gray-800 whitespace-nowrap">
 			{% if user.last_login %}
 				{{ user.last_login }}
