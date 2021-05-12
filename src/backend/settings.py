@@ -612,12 +612,6 @@ else:
 #: (see :setting:`django:STATIC_URL` and :doc:`Managing static files <django:howto/static-files/index>`)
 STATIC_URL = "/static/"
 
-#: This setting defines the additional locations the staticfiles app will traverse
-#: (see :setting:`django:STATICFILES_DIRS` and :doc:`Managing static files <django:howto/static-files/index>`)
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "../node_modules"),
-]
-
 #: The list of finder backends that know how to find static files in various locations
 #: (see :setting:`django:STATICFILES_FINDERS`)
 STATICFILES_FINDERS = (
