@@ -5,21 +5,26 @@
 {% load widget_tweaks %}
 {% load rules %}
 
-<div class="flex flex-wrap mb-4">
-    <div class="w-full flex flex-wrap flex-col justify-center">
-        <h1 class="heading">
-            {% with page_translations.first.title as page_title %}
-            {% blocktrans %}Page revisions of "{{ page_title }}"{% endblocktrans %}
-            {% endwith %}
-        </h1>
-    </div>
+<div class="mb-6">
+    <h1 class="heading">
+        {% with page_translations.first.title as page_title %}
+            {% blocktrans %}Page versions of "{{ page_title }}"{% endblocktrans %}
+        {% endwith %}
+    </h1>
+    <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold p-2 rounded">
+        <i data-feather="arrow-left-circle" class="align-top"></i> {% trans 'Go Back to Page Editor' %}
+    </a>
 </div>
 
 <form method="post" action="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
     {% csrf_token %}
-    <div class="w-full mb-20 relative">
+    <div class="w-3/5 m-auto mb-28 relative">
         <input type="range" name="revision" min="1" max="{{ page_translations.count }}" value="{{ selected_revision.version }}" id="revision-slider" list="steplist">
-        <output id="revision-info"></output>
+        <output id="revision-info" class="whitespace-nowrap">
+            <b>{% trans 'Version' %}:</b> <span id="revision-number"></span><br>
+            <b>{% trans 'Editor' %}:</b> <span id="revision-editor"></span><br>
+            <b>{% trans 'Date' %}:</b> <span id="revision-date"></span>
+        </output>
         <datalist id ="steplist" class="w-full flex font-mono">
             {% for page_translation in page_translations reversed %}
                 <option style="
@@ -40,13 +45,13 @@
     </div>
 
     {% for page_translation in page_translations %}
-    <div class="w-full hidden revision-wrapper" id="revision-{{ page_translation.version }}" data-date="{{ page_translation.last_updated }}">
+    <div class="w-full hidden revision-wrapper" id="revision-{{ page_translation.version }}" data-date="{{ page_translation.last_updated }}" data-editor="{{ page_translation.creator.profile.full_user_name }}">
         <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
         {{ page_translation.get_status_display }}
         {% if page_translation == api_revision %}
-            ({% trans 'This is the revision shown in the apps.' %})
+            ({% trans 'This is the version shown in the apps.' %})
         {% elif forloop.first %}
-            ({% trans 'This is <b>not</b> the revision shown in the apps.' %})
+            ({% trans 'This is <b>not</b> the version shown in the apps.' %})
         {% endif %}
         <span class="float-right">
             <label class="inline-block mb-2 font-bold">{% trans 'Editor' %}:</label>
@@ -82,18 +87,15 @@
         {% has_perm 'cms.edit_page' request.user page as can_edit_page %}
         {% if not page.archived %}
             {% if can_edit_page %}
-                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this revision as draft' %}" />
+                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this version as draft' %}" />
                 {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
                 {% if can_publish_page %}
-                    <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore and publish this revision' %}" />
+                    <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore and publish this version' %}" />
                 {% else %}
-                    <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this revision and submit for review' %}" />
+                    <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this version and submit for review' %}" />
                 {% endif %}
             {% endif %}
         {% endif %}
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
-            {% trans 'Go Back to Page Editor' %}
-        </a>
     </div>
 </form>
 {% endblock %}

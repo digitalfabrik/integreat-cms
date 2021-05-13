@@ -5,17 +5,22 @@
 {% load widget_tweaks %}
 {% load rules %}
 
-<div class="flex flex-wrap mb-4">
-    <div class="w-full flex flex-wrap flex-col justify-center">
-        <h1 class="heading">{% trans 'Imprint revisions' %}</h1>
-    </div>
+<div class="mb-6">
+    <h1 class="heading">{% trans 'Imprint versions' %}</h1>
+    <a href="{% url 'edit_imprint' region_slug=region.slug language_slug=language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold p-2 rounded">
+        <i data-feather="arrow-left-circle" class="align-top"></i> {% trans 'Go back to imprint editor' %}
+    </a>
 </div>
 
 <form method="post" action="{% url 'imprint_revisions' region_slug=region.slug language_slug=language.slug %}">
     {% csrf_token %}
-    <div class="w-full mb-20 relative">
+    <div class="w-3/5 m-auto mb-28 relative">
         <input type="range" name="revision" min="1" max="{{ imprint_translations.count }}" value="{{ selected_revision.version }}" id="revision-slider" list="steplist">
-        <output id="revision-info"></output>
+        <output id="revision-info" class="whitespace-nowrap">
+            <b>{% trans 'Version' %}:</b> <span id="revision-number"></span><br>
+            <b>{% trans 'Editor' %}:</b> <span id="revision-editor"></span><br>
+            <b>{% trans 'Date' %}:</b> <span id="revision-date"></span>
+        </output>
         <datalist id ="steplist" class="w-full flex font-mono">
             {% for imprint_translation in imprint_translations reversed %}
                 <option style="
@@ -36,13 +41,13 @@
     </div>
 
     {% for imprint_translation in imprint_translations %}
-    <div class="w-full hidden revision-wrapper" id="revision-{{ imprint_translation.version }}" data-date="{{ imprint_translation.last_updated }}">
+    <div class="w-full hidden revision-wrapper" id="revision-{{ imprint_translation.version }}" data-date="{{ imprint_translation.last_updated }}" data-editor="{{ imprint_translation.creator.profile.full_user_name }}">
         <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
         {{ imprint_translation.get_status_display }}
         {% if imprint_translation == api_revision %}
-            ({% trans 'This is the revision shown in the apps.' %})
+            ({% trans 'This is the version shown in the apps.' %})
         {% elif forloop.first %}
-            ({% trans 'This is <b>not</b> the revision shown in the apps.' %})
+            ({% trans 'This is <b>not</b> the version shown in the apps.' %})
         {% endif %}
         <span class="float-right">
             <label class="inline-block mb-2 font-bold">{% trans 'Editor' %}:</label>
@@ -76,12 +81,9 @@
     </div>
     <div class="w-full p-4 flex justify-end">
         {% if not imprint.archived %}
-            <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this revision as draft' %}" />
-            <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore and publish this revision' %}" />
+            <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this version as draft' %}" />
+            <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore and publish this version' %}" />
         {% endif %}
-        <a href="{% url 'edit_imprint' region_slug=region.slug language_slug=language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
-            {% trans 'Go back to imprint editor' %}
-        </a>
     </div>
 </form>
 {% endblock %}
