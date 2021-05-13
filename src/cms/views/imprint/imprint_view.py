@@ -220,8 +220,8 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
                 },
             )
 
-        if not imprint_instance:
-            imprint = ImprintPage.objects.create(region=region)
+        imprint = imprint_instance or ImprintPage.objects.create(region=region)
+
         imprint_translation = imprint_translation_form.save(
             imprint=imprint,
             user=request.user,
