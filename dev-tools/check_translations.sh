@@ -8,21 +8,6 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
 
-# This function applies different sed replacements to make sure the matched lines from grep are aligned and colored
-# sed doesn't understand \e, therefore \x1b has to be used as escape sequence.
-function format_grep_output {
-    while read -r line; do
-        echo "$line" | sed -E \
-            -e "s/^([0-9])([:-])(.*)/\1\2      \3/" `# Pad line numbers with 1 digit` \
-            -e "s/^([0-9]{2})([:-])(.*)/\1\2     \3/" `# Pad line numbers with 2 digits` \
-            -e "s/^([0-9]{3})([:-])(.*)/\1\2    \3/" `# Pad line numbers with 3 digits` \
-            -e "s/^([0-9]{4})([:-])(.*)/\1\2   \3/" `# Pad line numbers with 4 digits` \
-            -e "s/^([0-9]{5})([:-])(.*)/\1\2  \3/" `# Pad line numbers with 5 digits` \
-            -e "s/^([0-9]+):(.*)/\x1b[1;31m\1\2\x1b[0;39m/" `# Make matched line red` \
-            -e "s/^([0-9]+)-(.*)/\1\2/" `# Remove dash of unmatched line`
-    done
-}
-
 # Change directory to make sure to ignore files in the venv
 cd "${BASE_DIR}/src/cms"
 
