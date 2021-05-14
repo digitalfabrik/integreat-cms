@@ -45,7 +45,7 @@ class LanguageListView(PermissionRequiredMixin, TemplateView):
         languages = Language.objects.all()
         # for consistent pagination querysets should be ordered
         paginator = Paginator(languages.order_by("slug"), PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         language_chunk = paginator.get_page(chunk)
         return render(
             request,

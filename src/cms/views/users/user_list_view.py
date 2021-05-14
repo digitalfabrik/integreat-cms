@@ -46,7 +46,7 @@ class UserListView(PermissionRequiredMixin, TemplateView):
         users = get_user_model().objects.all()
         # for consistent pagination querysets should be ordered
         paginator = Paginator(users.order_by("username"), PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         user_chunk = paginator.get_page(chunk)
         return render(
             request, self.template_name, {**self.base_context, "users": user_chunk}

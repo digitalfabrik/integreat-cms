@@ -45,7 +45,7 @@ class OfferTemplateListView(PermissionRequiredMixin, TemplateView):
         offer_templates = OfferTemplate.objects.all()
         # for consistent pagination querysets should be ordered
         paginator = Paginator(offer_templates.order_by("slug"), PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         offer_templates_chunk = paginator.get_page(chunk)
         return render(
             request,

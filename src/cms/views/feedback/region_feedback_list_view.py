@@ -107,7 +107,7 @@ class RegionFeedbackListView(PermissionRequiredMixin, TemplateView):
             filter_form.changed_data.clear()
 
         paginator = Paginator(region_feedback, PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         region_feedback_chunk = paginator.get_page(chunk)
 
         return render(
