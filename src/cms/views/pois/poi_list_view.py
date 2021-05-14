@@ -102,7 +102,7 @@ class POIListView(PermissionRequiredMixin, TemplateView, POIContextMixin):
         pois = region.pois.filter(archived=self.archived)
         # for consistent pagination querysets should be ordered
         paginator = Paginator(pois.order_by("region__slug"), PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         poi_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
         return render(

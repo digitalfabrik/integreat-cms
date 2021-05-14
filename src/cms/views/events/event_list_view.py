@@ -167,7 +167,7 @@ class EventListView(
             poi = None
         # for consistent pagination querysets should be ordered
         paginator = Paginator(events.order_by("start_date", "start_time"), PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         event_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
         return render(

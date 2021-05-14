@@ -46,7 +46,7 @@ class RegionListView(PermissionRequiredMixin, TemplateView):
         regions = Region.objects.all()
         # for consistent pagination querysets should be ordered
         paginator = Paginator(regions.order_by("created_date"), PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         region_chunk = paginator.get_page(chunk)
         return render(
             request, self.template_name, {**self.base_context, "regions": region_chunk}

@@ -46,7 +46,7 @@ class RegionUserListView(PermissionRequiredMixin, TemplateView):
         region = Region.get_current_region(request)
         # for consistent pagination querysets should be ordered
         paginator = Paginator(region.users.order_by("username"), PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         user_chunk = paginator.get_page(chunk)
         return render(
             request, self.template_name, {**self.base_context, "users": user_chunk}

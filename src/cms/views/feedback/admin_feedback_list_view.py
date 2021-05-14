@@ -106,7 +106,7 @@ class AdminFeedbackListView(PermissionRequiredMixin, TemplateView):
             filter_form.changed_data.clear()
 
         paginator = Paginator(admin_feedback, PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         admin_feedback_chunk = paginator.get_page(chunk)
 
         return render(

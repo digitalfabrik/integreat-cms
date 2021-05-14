@@ -46,7 +46,7 @@ class RoleListView(PermissionRequiredMixin, TemplateView):
         roles = Role.objects.all()
         # for consistent pagination querysets should be ordered
         paginator = Paginator(roles.order_by("name"), PER_PAGE)
-        chunk = request.GET.get("chunk")
+        chunk = request.GET.get("page")
         role_chunk = paginator.get_page(chunk)
         return render(
             request, self.template_name, {**self.base_context, "roles": role_chunk}
