@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-07T09:45:21+00:00" />
+    <meta property="article:modified_time" content="2021-05-11T10:14:54+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>V3 &mdash; integreat-cms 0.0.14 documentation</title>
@@ -662,6 +662,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#imprint">Imprint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#languages">Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#locations">Locations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#offers">Offers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pages">Pages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pdf-export">PDF Export</a></li>
@@ -1092,6 +1093,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.imprint">Imprint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.languages">Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.locations">Locations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.offers">Offers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.pages">Pages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/api.v3.html#module-api.v3.pdf_export">PDF Export</a></li>
@@ -1280,6 +1282,47 @@ default language.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="locations">
+<h2>Locations<a class="headerlink" href="#locations" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">locations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>List all POIs of the region and transform result into JSON</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested region</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested language</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON object according to APIv3 locations endpoint definition</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">transform_poi_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Function to create a JSON from a single poi_translation object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>poi_translation</strong> (<a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a>) – The poi translation object which should be converted</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return data necessary for API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1641,7 +1684,7 @@ requested page does not exist.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 07, 2021.
+        Last updated on May 11, 2021.
       </span>
 
     </p>
