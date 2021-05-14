@@ -3,6 +3,7 @@ Expansion of API-Endpoints for the CMS
 """
 from django.conf.urls import include, url
 
+from .v3.events import events
 from .v3.feedback import (
     page_feedback,
     search_result_feedback,
@@ -43,6 +44,7 @@ urlpatterns = [
                         [
                             url(r"^pages/?$", pages, name="api_pages"),
                             url(r"^locations/?$", locations, name="api_locations"),
+                            url(r"^events/?$", events, name="api_events"),
                             url(
                                 r"^page/?$",
                                 single_page,
