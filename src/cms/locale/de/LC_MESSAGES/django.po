@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 08:44+0000\n"
+"POT-Creation-Date: 2021-05-13 20:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1463,11 +1463,11 @@ msgstr "Kategorie"
 #: templates/events/event_form.html:120 templates/events/event_list.html:48
 #: templates/events/event_list_archived.html:35
 #: templates/imprint/imprint_form.html:105
-#: templates/imprint/imprint_revisions.html:40
+#: templates/imprint/imprint_revisions.html:45
 #: templates/imprint/imprint_sbs.html:58 templates/imprint/imprint_sbs.html:121
 #: templates/imprint/imprint_sbs.html:136
 #: templates/linkcheck/links_by_filter.html:37
-#: templates/pages/page_form.html:150 templates/pages/page_revisions.html:44
+#: templates/pages/page_form.html:150 templates/pages/page_revisions.html:49
 #: templates/pages/page_sbs.html:65 templates/pages/page_sbs.html:132
 #: templates/pages/page_sbs.html:137 templates/pages/page_tree.html:91
 #: templates/pages/page_tree_archived.html:26 templates/pois/poi_form.html:109
@@ -3249,10 +3249,13 @@ msgstr "Übersetzung erstellen"
 
 #: templates/events/event_form.html:118
 #: templates/events/event_list_archived.html:34
+#: templates/imprint/imprint_form.html:102
+#: templates/imprint/imprint_revisions.html:20
 #: templates/imprint/imprint_sbs.html:56 templates/imprint/imprint_sbs.html:119
 #: templates/imprint/imprint_sbs.html:134 templates/pages/page_form.html:134
-#: templates/pages/page_sbs.html:63 templates/pages/page_sbs.html:130
-#: templates/pages/page_sbs.html:135 templates/pois/poi_form.html:107
+#: templates/pages/page_revisions.html:24 templates/pages/page_sbs.html:63
+#: templates/pages/page_sbs.html:130 templates/pages/page_sbs.html:135
+#: templates/pois/poi_form.html:107
 msgid "Version"
 msgstr "Version"
 
@@ -3430,7 +3433,8 @@ msgstr "Kommentar"
 #: templates/feedback/_feedback_widget.html:19
 #: templates/feedback/admin_feedback_list.html:38
 #: templates/feedback/region_feedback_list.html:37
-#: templates/media/media_list.html:26
+#: templates/imprint/imprint_revisions.html:22
+#: templates/media/media_list.html:26 templates/pages/page_revisions.html:26
 msgid "Date"
 msgstr "Datum"
 
@@ -3563,21 +3567,17 @@ msgstr "Neue Übersetzung des Impressums erstellen"
 msgid "Create imprint"
 msgstr "Impressum erstellen"
 
-#: templates/imprint/imprint_form.html:102
-msgid "Revision"
-msgstr "Revision"
-
-#: templates/imprint/imprint_form.html:104
-msgid "Show revisions"
-msgstr "Revisionen anzeigen"
+#: templates/imprint/imprint_form.html:104 templates/pages/page_form.html:137
+msgid "Show versions"
+msgstr "Versionen anzeigen"
 
 #: templates/imprint/imprint_form.html:107
-#: templates/imprint/imprint_revisions.html:58
-#: templates/imprint/imprint_revisions.html:72
+#: templates/imprint/imprint_revisions.html:63
+#: templates/imprint/imprint_revisions.html:77
 #: templates/imprint/imprint_sbs.html:60 templates/imprint/imprint_sbs.html:123
 #: templates/imprint/imprint_sbs.html:138
-#: templates/pages/page_revisions.html:62
-#: templates/pages/page_revisions.html:76 templates/pages/page_sbs.html:67
+#: templates/pages/page_revisions.html:67
+#: templates/pages/page_revisions.html:81 templates/pages/page_sbs.html:67
 #: templates/pages/page_sbs.html:140
 msgid "Permalink"
 msgstr "Permalink"
@@ -3659,57 +3659,59 @@ msgstr "Alle Übersetzungen des Impressums werden gelöscht."
 msgid "Delete the imprint"
 msgstr "Das Impressum löschen"
 
-#: templates/imprint/imprint_revisions.html:10
-msgid "Imprint revisions"
-msgstr "Revisionen des Impressums"
+#: templates/imprint/imprint_revisions.html:9
+msgid "Imprint versions"
+msgstr "Versionen des Impressums"
 
-#: templates/imprint/imprint_revisions.html:43
-#: templates/pages/page_revisions.html:47
-msgid "This is the revision shown in the apps."
-msgstr "Diese Revision wird in den Apps angezeigt."
+#: templates/imprint/imprint_revisions.html:11
+#: templates/imprint/imprint_sbs.html:22
+msgid "Go back to imprint editor"
+msgstr "Zurück zum Impressums-Editor"
 
-#: templates/imprint/imprint_revisions.html:45
-#: templates/pages/page_revisions.html:49
-msgid "This is <b>not</b> the revision shown in the apps."
-msgstr "Diese Revision wird <b>nicht</b> in den Apps angezeigt."
-
-#: templates/imprint/imprint_revisions.html:48
-#: templates/pages/page_revisions.html:52
+#: templates/imprint/imprint_revisions.html:21
+#: templates/imprint/imprint_revisions.html:53
+#: templates/pages/page_revisions.html:25
+#: templates/pages/page_revisions.html:57
 msgid "Editor"
 msgstr "Bearbeiter"
 
-#: templates/imprint/imprint_revisions.html:60
-#: templates/imprint/imprint_revisions.html:73
-#: templates/imprint/imprint_sbs.html:70 templates/pages/page_revisions.html:64
-#: templates/pages/page_revisions.html:77 templates/pages/page_sbs.html:81
+#: templates/imprint/imprint_revisions.html:48
+#: templates/pages/page_revisions.html:52
+msgid "This is the version shown in the apps."
+msgstr "Diese Version wird in den Apps angezeigt."
+
+#: templates/imprint/imprint_revisions.html:50
+#: templates/pages/page_revisions.html:54
+msgid "This is <b>not</b> the version shown in the apps."
+msgstr "Diese Version wird <b>nicht</b> in den Apps angezeigt."
+
+#: templates/imprint/imprint_revisions.html:65
+#: templates/imprint/imprint_revisions.html:78
+#: templates/imprint/imprint_sbs.html:70 templates/pages/page_revisions.html:69
+#: templates/pages/page_revisions.html:82 templates/pages/page_sbs.html:81
 #: templates/pages/page_xliff_confirm.html:41
 #: templates/pages/page_xliff_confirm.html:48
 #: templates/push_notifications/push_notification_list.html:29
 msgid "Title"
 msgstr "Titel"
 
-#: templates/imprint/imprint_revisions.html:62
-#: templates/imprint/imprint_revisions.html:74
-#: templates/imprint/imprint_sbs.html:73 templates/pages/page_revisions.html:66
-#: templates/pages/page_revisions.html:78 templates/pages/page_sbs.html:84
+#: templates/imprint/imprint_revisions.html:67
+#: templates/imprint/imprint_revisions.html:79
+#: templates/imprint/imprint_sbs.html:73 templates/pages/page_revisions.html:71
+#: templates/pages/page_revisions.html:83 templates/pages/page_sbs.html:84
 #: templates/pages/page_xliff_confirm.html:50
 msgid "Content"
 msgstr "Inhalt"
 
-#: templates/imprint/imprint_revisions.html:79
-#: templates/pages/page_revisions.html:85
-msgid "Restore this revision as draft"
-msgstr "Diese Revision als Entwurf wiederherstellen"
+#: templates/imprint/imprint_revisions.html:84
+#: templates/pages/page_revisions.html:90
+msgid "Restore this version as draft"
+msgstr "Diese Version als Entwurf wiederherstellen"
 
-#: templates/imprint/imprint_revisions.html:80
-#: templates/pages/page_revisions.html:88
-msgid "Restore and publish this revision"
-msgstr "Diese Revision wiederherstellen und veröffentlichen"
-
-#: templates/imprint/imprint_revisions.html:83
-#: templates/imprint/imprint_sbs.html:22
-msgid "Go back to imprint editor"
-msgstr "Zurück zum Impressums-Editor"
+#: templates/imprint/imprint_revisions.html:85
+#: templates/pages/page_revisions.html:93
+msgid "Restore and publish this version"
+msgstr "Diese Version wiederherstellen und veröffentlichen"
 
 #: templates/imprint/imprint_sbs.html:16
 #, python-format
@@ -4027,10 +4029,6 @@ msgstr "Neue Seite erstellen"
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: templates/pages/page_form.html:137
-msgid "Show versions"
-msgstr "Versionen anzeigen"
-
 #: templates/pages/page_form.html:154
 #: templates/pages/page_tree_archived_node.html:17
 msgid "Archived, because a parent page is archived"
@@ -4146,18 +4144,18 @@ msgstr "Übersetzeransicht"
 msgid "Show translator view"
 msgstr "Übersetzeransicht anzeigen"
 
-#: templates/pages/page_revisions.html:12
+#: templates/pages/page_revisions.html:11
 #, python-format
-msgid "Page revisions of \"%(page_title)s\""
-msgstr "Revisionen der Seite \"%(page_title)s\""
+msgid "Page versions of \"%(page_title)s\""
+msgstr "Versionen der Seite \"%(page_title)s\""
 
-#: templates/pages/page_revisions.html:90
-msgid "Restore this revision and submit for review"
-msgstr "Diese Revision wiederherstellen und zum Review vorlegen"
-
-#: templates/pages/page_revisions.html:95 templates/pages/page_sbs.html:21
+#: templates/pages/page_revisions.html:15 templates/pages/page_sbs.html:21
 msgid "Go Back to Page Editor"
 msgstr "Zurück zum Seiten-Editor"
+
+#: templates/pages/page_revisions.html:95
+msgid "Restore this version and submit for review"
+msgstr "Diese Revision wiederherstellen und zum Review vorlegen"
 
 #: templates/pages/page_sbs.html:15
 #, python-format
@@ -5679,6 +5677,9 @@ msgstr ""
 
 #~ msgid "Content type could not be recognized"
 #~ msgstr "Quelle des Links konnte nicht zugeordnet werden"
+
+#~ msgid "Show Versions"
+#~ msgstr "Versionen anzeigen"
 
 #~ msgid "template"
 #~ msgstr "Vorlage"

@@ -50,15 +50,14 @@ function handleRevisionSliderInput({ target }: Event) {
   // The percentage of the current slider position (left = 0%, right = 100%)
   // If numRevisions == 1, the division results in NaN and the part || 0 converts this case to 0%
   const position = ((currentRevision - 1) / (numRevisions - 1)) * 100 || 0;
-  // The last updated date of the revision
-  const revisionDate = document
-    .getElementById("revision-" + currentRevision)
-    .getAttribute("data-date");
+  // The revision element
+  const revisionElement = document.getElementById("revision-" + currentRevision)
   // Update the revision info box
-  revisionInfo.textContent =
-  `Revision: ${currentRevision}\r\n${revisionDate}`;
+  document.getElementById("revision-number").textContent = currentRevision.toString();
+  document.getElementById("revision-editor").textContent = revisionElement.getAttribute("data-editor");
+  document.getElementById("revision-date").textContent = revisionElement.getAttribute("data-date");
   // Calculate position of revision info box to make sure it stays within the area of the slider position
-  revisionInfo.style.left = `calc(${position}% + (${125 - position * 2.5}px))`;
+  revisionInfo.style.left = `calc(${position}% + (${revisionInfo.offsetWidth / 2 - position * revisionInfo.offsetWidth / 100}px))`;
   // Hide all other revisions
   document.querySelectorAll(".revision-wrapper").forEach((node) => {
     node.classList.add("hidden");

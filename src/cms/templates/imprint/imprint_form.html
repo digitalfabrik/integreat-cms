@@ -99,9 +99,9 @@
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
                     {% if imprint_translation_form.instance.id %}
-                        <span class="inline-block mt-4 mb-2 font-bold">{% trans 'Revision' %}:</span>
+                        <span class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</span>
                         {{ imprint_translation_form.instance.version }}
-                        (<a href="{% url 'imprint_revisions' region_slug=region.slug language_slug=language.slug %}" class="text-blue-500 hover:underline">{% trans 'Show revisions' %}</a>)<br>
+                        (<a href="{% url 'imprint_revisions' region_slug=region.slug language_slug=language.slug %}" class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)<br>
                         <span class="inline-block mb-2 font-bold">{% trans 'Status' %}:</span>
                         {{ imprint_translation_form.instance.get_status_display }}<br>
                         <span class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</span>
