@@ -49,17 +49,13 @@ class UserPasswordForm(CustomModelForm):
         #: The fields of the model which should be handled by this form
         fields = []
 
-    # pylint: disable=signature-differs
-    def save(self, *args, **kwargs):
+    def save(self, commit=True):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
-        :param args: The supplied arguments
-        :type args: list
-
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
 
         :return: The saved user object
         :rtype: ~django.contrib.auth.models.User
@@ -91,4 +87,7 @@ class UserPasswordForm(CustomModelForm):
         if new_password != new_password_confirm:
             self.add_error("new_password_confirm", _("The new passwords do not match."))
 
+        logger.debug(
+            "UserPasswordForm validated [2] with cleaned data %r", cleaned_data
+        )
         return cleaned_data

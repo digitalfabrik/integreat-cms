@@ -75,31 +75,35 @@ class RegionView(PermissionRequiredMixin, TemplateView, ContentMediaMixin):
 
         region_instance = Region.objects.filter(slug=kwargs.get("region_slug")).first()
 
-        form = RegionForm(request.POST, request.FILES, instance=region_instance)
-
-        # TODO: error handling
-        if not form.is_valid():
-            messages.error(request, _("Errors have occurred."))
-            return render(
-                request, self.template_name, {"form": form, **self.base_context}
-            )
-
-        if not form.has_changed():
-            messages.info(request, _("No changes detected."))
-            return render(
-                request, self.template_name, {"form": form, **self.base_context}
-            )
-
-        region = form.save()
-
-        if region_instance:
-            messages.success(request, _("Region was saved successfully"))
-        else:
-            messages.success(request, _("Region was created successfully"))
-
-        return redirect(
-            "edit_region",
-            **{
-                "region_slug": region.slug,
-            }
+        form = RegionForm(
+            data=request.POST, files=request.FILES, instance=region_instance
         )
+
+        if not form.is_valid():
+            # Add error messages
+            form.add_error_messages(request)
+        elif not form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
+        else:
+            # Save form
+            form.save()
+            # Add the success message and redirect to the edit page
+            if not region_instance:
+                messages.success(
+                    request,
+                    _('Region "{}" was successfully created').format(
+                        form.instance.name
+                    ),
+                )
+                return redirect(
+                    "edit_region",
+                    region_slug=form.instance.slug,
+                )
+            # Add the success message
+            messages.success(
+                request,
+                _('Region "{}" was successfully saved').format(form.instance.name),
+            )
+
+        return render(request, self.template_name, {"form": form, **self.base_context})

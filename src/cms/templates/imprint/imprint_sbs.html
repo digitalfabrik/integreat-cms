@@ -109,7 +109,6 @@
             </ul>
             <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                 {% csrf_token %}
-                {{ imprint_translation_form.errors }}
                 {% if imprint_translation_form.instance.id %}
                     <label class="inline-block">{% trans 'Version' %}:</label>
                     {{ imprint_translation_form.instance.version }}<br>

@@ -66,21 +66,36 @@ class OfferTemplateView(PermissionRequiredMixin, TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        if offer_template_id:
-            offer_template = OfferTemplate.objects.get(id=offer_template_id)
-            form = OfferTemplateForm(request.POST, instance=offer_template)
-            success_message = _("Offer template was successfully saved")
-        else:
-            form = OfferTemplateForm(request.POST)
-            success_message = _("Offer template was successfully created")
+        offer_template_instance = OfferTemplate.objects.filter(
+            id=offer_template_id
+        ).first()
 
-        if form.is_valid():
-            messages.success(request, success_message)
-            offer_template = form.save()
-            return redirect(
-                "edit_offer_template", **{"offer_template_id": offer_template.id}
+        form = OfferTemplateForm(data=request.POST, instance=offer_template_instance)
+
+        if not form.is_valid():
+            # Add error messages
+            form.add_error_messages(request)
+        elif not form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
+        else:
+            # Save form
+            form.save()
+            # Add the success message and redirect to the edit page
+            if offer_template_instance:
+                messages.success(
+                    request,
+                    _('Offer template "{}" was successfully created').format(
+                        form.instance
+                    ),
+                )
+                return redirect(
+                    "edit_offer_template", offer_template_id=form.instance.id
+                )
+            # Add the success message
+            messages.success(
+                request,
+                _('Offer template "{}" was successfully saved').format(form.instance),
             )
 
-        messages.error(request, _("Errors have occurred."))
-        # TODO: improve messages
         return render(request, self.template_name, {"form": form, **self.base_context})

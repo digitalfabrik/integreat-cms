@@ -30,19 +30,19 @@
                 <!-- General Options for user management -->
                 <div>
                     <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}</label>
-                    {% render_field user_form.username %}
+                    {% render_field user_form.username|add_error_class:"border-red-500" %}
                 </div>
                 <div>
                     <label for="{{ user_form.first_name.id_for_label }}">{{ user_form.first_name.label }}</label>
-                    {% render_field user_form.first_name %}
+                    {% render_field user_form.first_name|add_error_class:"border-red-500" %}
                 </div>
                 <div>
                     <label for="{{ user_form.last_name.id_for_label }}">{{ user_form.last_name.label }}</label>
-                    {% render_field user_form.last_name %}
+                    {% render_field user_form.last_name|add_error_class:"border-red-500" %}
                 </div>
                 <div>
                     <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}</label>
-                    {% render_field user_form.email %}
+                    {% render_field user_form.email|add_error_class:"border-red-500" %}
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         <li>{{ item }}</li>
                         {% endfor %}
                     </ul>
-                    {% render_field user_form.password %}
+                    {% render_field user_form.password|add_error_class:"border-red-500" %}
                 </div>
             </div>
         </div>
@@ -86,12 +86,12 @@
                 </div>
                 <div>
                     <label for="{{ user_form.role.id_for_label }}">{{ user_form.role.label }}</label>
-                    {% render_field user_form.role required="required" %}
+                    {% render_field user_form.role|add_error_class:"border-red-500" required="required" %}
                     <div class="help-text">{{ user_form.role.help_text }}</div>
                 </div>
                 <div>
                     <label for="{{ user_profile_form.organization.id_for_label }}">{{ user_profile_form.organization.label }}</label>
-                        {% render_field user_profile_form.organization %}
+                        {% render_field user_profile_form.organization|add_error_class:"border-red-500" %}
                     <div class="help-text">{{ user_profile_form.organization.help_text }}</div>
                 </div>
             </div>

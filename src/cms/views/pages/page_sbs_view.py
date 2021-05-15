@@ -7,7 +7,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import status
 from ...decorators import region_permission_required
 from ...forms import PageTranslationForm
 from ...models import Region, Language
@@ -181,34 +180,26 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
             )
 
         page_translation_form = PageTranslationForm(
-            request.POST,
+            data=request.POST,
             instance=page_translation_instance,
-            region=region,
-            language=target_language,
+            additional_instance_attributes={
+                "page": page,
+                "creator": request.user,
+                "language": target_language,
+            },
         )
 
         if not page_translation_form.is_valid():
-            messages.error(request, _("Errors have occurred."))
+            # Add error messages
+            page_translation_form.add_error_messages(request)
         elif not page_translation_form.has_changed():
-            messages.info(request, _("No changes detected."))
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
         else:
-            page_translation = page_translation_form.save(page=page, user=request.user)
-            published = page_translation.status == status.PUBLIC
-            if not page_translation_instance:
-                if published:
-                    messages.success(
-                        request,
-                        _("Translation was successfully created and published"),
-                    )
-                else:
-                    messages.success(request, _("Translation was successfully created"))
-            else:
-                if published:
-                    messages.success(
-                        request, _("Translation was successfully published")
-                    )
-                else:
-                    messages.success(request, _("Translation was successfully saved"))
+            # Save form
+            page_translation_form.save()
+            # Add the success message
+            page_translation_form.add_success_message(request)
 
         return render(
             request,

@@ -17,7 +17,6 @@
 		</h1>
 		<input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
     </div>
-	{{form.errors}}
     <div class="grid xl:grid-cols-2 gap-4">
 		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
 			<div class="p-4 rounded bg-blue-500">
@@ -26,10 +25,10 @@
 			<div class="px-4 pb-4">
 				<!-- General Options for organization management -->
 				<label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-				{% render_field form.name %}
+				{% render_field form.name|add_error_class:"border-red-500" %}
 				<label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
 				<div class="help-text">{{ form.slug.help_text }}</div>
-				{% render_field form.slug %}
+				{% render_field form.slug|add_error_class:"border-red-500" %}
 			</div>
 		</div>
 		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">

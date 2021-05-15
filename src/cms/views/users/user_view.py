@@ -90,65 +90,68 @@ class UserView(PermissionRequiredMixin, TemplateView):
         )
         user_profile_instance = UserProfile.objects.filter(user=user_instance).first()
 
-        user_form = UserForm(request.POST, instance=user_instance)
+        user_form = UserForm(data=request.POST, instance=user_instance)
         user_profile_form = UserProfileForm(
-            request.POST, instance=user_profile_instance
+            data=request.POST, instance=user_profile_instance
         )
-        # TODO: error handling
-        if user_form.is_valid() and user_profile_form.is_valid():
 
-            # Check if user is either superuser/staff or has assigned at least one region
-            if (
-                user_form.cleaned_data["is_superuser"]
-                or user_form.cleaned_data["is_staff"]
-                or user_profile_form.cleaned_data["regions"]
-            ):
-                # check if either activation link is set or password is set or user already exists
-                if (
-                    user_instance
-                    or user_profile_form.cleaned_data["send_activation_link"]
-                    or user_form.cleaned_data["password"]
-                ):
-                    user = user_form.save()
-                    user_profile_form.save(user=user)
-
-                    if user_profile_form.cleaned_data.get("send_activation_link"):
-                        send_activation_link(request, user)
-
-                    if user_form.has_changed() or user_profile_form.has_changed():
-                        if user_instance:
-                            messages.success(request, _("User was successfully saved"))
-                        else:
-                            messages.success(
-                                request, _("User was successfully created")
-                            )
-                            return redirect(
-                                "edit_user",
-                                **{
-                                    "user_id": user.id,
-                                }
-                            )
-                    else:
-                        messages.info(request, _("No changes detected."))
-                else:
-                    messages.error(
-                        request,
-                        _(
-                            "Please choose either to send an activation link or set a password."
-                        ),
-                    )
-            else:
-                messages.error(
+        if not user_form.is_valid() or not user_profile_form.is_valid():
+            # Add error messages
+            user_form.add_error_messages(request)
+            user_profile_form.add_error_messages(request)
+        elif not (
+            user_form.cleaned_data["is_superuser"]
+            or user_form.cleaned_data["is_staff"]
+            or user_profile_form.cleaned_data["regions"]
+        ):
+            # Add error message
+            messages.error(
+                request,
+                _(
+                    "A user has to be either staff/superuser or needs to be restricted to at least one region."
+                ),
+            )
+        elif not (
+            user_profile_form.cleaned_data.get("send_activation_link")
+            or user_form.cleaned_data["password"]
+            or user_instance
+        ):
+            # Add error message
+            messages.error(
+                request,
+                _("Please choose either to send an activation link or set a password."),
+            )
+        elif not user_form.has_changed() or not user_profile_form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
+        else:
+            # Save forms
+            user_profile_form.instance.user = user_form.save()
+            user_profile_form.save()
+            # Send activation link
+            if user_profile_form.cleaned_data.get("send_activation_link"):
+                send_activation_link(request, user_form.instance)
+            # Add the success message and redirect to the edit page
+            if not user_instance:
+                messages.success(
                     request,
-                    _(
-                        "A user has to be either staff/superuser or needs to be restricted to at least one region."
+                    _('User "{}" was successfully created').format(
+                        user_profile_form.instance.full_user_name
                     ),
                 )
-        else:
-            # TODO: improve messages
-            messages.error(request, _("Errors have occurred."))
+                return redirect(
+                    "edit_user",
+                    user_id=user_form.instance.id,
+                )
+            # Add the success message
+            messages.success(
+                request,
+                _('User "{}" was successfully saved').format(
+                    user_profile_form.instance.full_user_name
+                ),
+            )
 
-        if not user_form.cleaned_data["is_active"]:
+        if not user_form.instance.is_active:
             messages.info(request, _("Pending account activation"))
 
         return render(

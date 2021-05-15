@@ -29,13 +29,13 @@
             <form id="statistics-form" class="px-8 pt-6 pb-8">
                 {% csrf_token %}
                 <label for="{{ form.start_date.id_for_label }}">{{ form.start_date.label }}</label>
-                {% render_field form.start_date %}
+                {% render_field form.start_date|add_error_class:"border-red-500" %}
                 <div id="start_date_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i> <span></span></div>
                 <label for="{{ form.end_date.id_for_label }}">{{ form.end_date.label }}</label>
-                {% render_field form.end_date %}
+                {% render_field form.end_date|add_error_class:"border-red-500" %}
                 <div id="end_date_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i> <span></span></div>
                 <label for="{{ form.period.id_for_label }}">{{ form.period.label }}</label>
-                {% render_field form.period %}
+                {% render_field form.period|add_error_class:"border-red-500" %}
                 <div id="period_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i> <span></span></div>
                 <input type="submit" class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded" value="{% trans 'Customize view' %}" />
             </form>

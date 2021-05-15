@@ -20,7 +20,7 @@ class ChatMessageForm(CustomModelForm):
         model = ChatMessage
         fields = ["text"]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """
         Initialize chat message form
 
@@ -33,6 +33,6 @@ class ChatMessageForm(CustomModelForm):
         # pop kwarg to make sure the super class does not get this param
         sender = kwargs.pop("sender", None)
 
-        super().__init__(*args, **kwargs)
+        super().__init__(**kwargs)
 
         self.instance.sender = sender

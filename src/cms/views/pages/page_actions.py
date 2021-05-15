@@ -883,9 +883,11 @@ def render_mirrored_page_field(request):
     # Get the page in which the content should be embedded (to exclude it from the possible selections)
     page = Page.objects.filter(id=request.GET.get("page_id")).first()
     page_form = PageForm(
-        {"mirrored_page_region": region.id},
+        data={"mirrored_page_region": region.id},
         instance=page,
-        region=region,
+        additional_instance_attributes={
+            "region": region,
+        },
     )
     return render(
         request,

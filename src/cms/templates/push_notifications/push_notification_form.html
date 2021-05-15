@@ -13,14 +13,10 @@
     <div class="flex flex-wrap">
         <div class="w-4/5 flex flex-wrap flex-col justify-center">
             <h1 class="heading">
-                {% if push_notification %}
-                    {% if push_notification_translation_form.title.value %}
-                        {% with push_notification_translation_form.title.value as push_notification_title %}
+                {% if push_notification_form.instance.id %}
+                    {% with push_notification_form.instance as push_notification_title %}
                         {% blocktrans %}Edit push notification "{{ push_notification_title }}"{% endblocktrans %}
-                        {% endwith %}
-                    {% else %}
-                        {% trans 'Create new translation for news message' %}
-                    {% endif %}
+                    {% endwith %}
                 {% else %}
                     {% trans 'Create news message' %}
                 {% endif %}
@@ -31,8 +27,6 @@
              <input type="submit" name="submit_send" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save & Send' %}" />
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2 tabbed">
-            {{page_form.errors}}
-            {{page_translation_form.errors}}
             <ul class="flex flex-wrap pl-4">
                 {% for other_language in languages %}
                 <li id="li-{{ other_language.id }}" class="language-tab-header cursor-pointer mr-1 {% if other_language.id == language.id %}z-10{% endif %}" style="margin-bottom: -2px" data-switch-language="{{ other_language.id }}">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-29 14:09+0000\n"
+"POT-Creation-Date: 2021-06-29 15:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1250,7 +1250,7 @@ msgstr "Versteckt"
 
 #: constants/region_status.py:18 models/pages/page.py:205
 #: models/pages/page_translation.py:303 models/regions/region.py:390
-#: templates/pages/page_form.html:152
+#: templates/pages/page_form.html:150
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
 msgstr "Archiviert"
@@ -1310,10 +1310,10 @@ msgstr "Rechts nach Links"
 #: templates/events/event_form.html:98
 #: templates/events/event_list_archived_row.html:58
 #: templates/events/event_list_row.html:50
-#: templates/imprint/imprint_form.html:53
-#: templates/imprint/imprint_form.html:82 templates/imprint/imprint_sbs.html:46
-#: templates/imprint/imprint_sbs.html:96 templates/pages/page_form.html:75
-#: templates/pages/page_form.html:97 templates/pages/page_form.html:116
+#: templates/imprint/imprint_form.html:52
+#: templates/imprint/imprint_form.html:81 templates/imprint/imprint_sbs.html:46
+#: templates/imprint/imprint_sbs.html:96 templates/pages/page_form.html:73
+#: templates/pages/page_form.html:95 templates/pages/page_form.html:114
 #: templates/pages/page_sbs.html:53 templates/pages/page_sbs.html:103
 #: templates/pages/page_tree_archived_node.html:59
 #: templates/pages/page_tree_node.html:85 templates/pois/poi_form.html:58
@@ -1325,10 +1325,10 @@ msgstr "Übersetzung ist aktuell"
 #: templates/events/event_form.html:94
 #: templates/events/event_list_archived_row.html:50
 #: templates/events/event_list_row.html:42
-#: templates/imprint/imprint_form.html:49
-#: templates/imprint/imprint_form.html:78 templates/imprint/imprint_sbs.html:42
-#: templates/imprint/imprint_sbs.html:92 templates/pages/page_form.html:71
-#: templates/pages/page_form.html:112 templates/pages/page_sbs.html:49
+#: templates/imprint/imprint_form.html:48
+#: templates/imprint/imprint_form.html:77 templates/imprint/imprint_sbs.html:42
+#: templates/imprint/imprint_sbs.html:92 templates/pages/page_form.html:69
+#: templates/pages/page_form.html:110 templates/pages/page_sbs.html:49
 #: templates/pages/page_sbs.html:99
 #: templates/pages/page_tree_archived_node.html:51
 #: templates/pages/page_tree_node.html:77
@@ -1341,10 +1341,10 @@ msgstr "Wird derzeit übersetzt"
 #: templates/events/event_form.html:90
 #: templates/events/event_list_archived_row.html:54
 #: templates/events/event_list_row.html:46
-#: templates/imprint/imprint_form.html:45
-#: templates/imprint/imprint_form.html:74 templates/imprint/imprint_sbs.html:38
-#: templates/imprint/imprint_sbs.html:88 templates/pages/page_form.html:67
-#: templates/pages/page_form.html:93 templates/pages/page_form.html:108
+#: templates/imprint/imprint_form.html:44
+#: templates/imprint/imprint_form.html:73 templates/imprint/imprint_sbs.html:38
+#: templates/imprint/imprint_sbs.html:88 templates/pages/page_form.html:65
+#: templates/pages/page_form.html:91 templates/pages/page_form.html:106
 #: templates/pages/page_sbs.html:45 templates/pages/page_sbs.html:95
 #: templates/pages/page_tree_archived_node.html:55
 #: templates/pages/page_tree_node.html:81 templates/pois/poi_form.html:50
@@ -1356,9 +1356,9 @@ msgstr "Übersetzung ist veraltet"
 #: templates/events/event_form.html:103
 #: templates/events/event_list_archived_row.html:63
 #: templates/events/event_list_row.html:55
-#: templates/imprint/imprint_form.html:58
-#: templates/imprint/imprint_form.html:87 templates/pages/page_form.html:80
-#: templates/pages/page_form.html:121
+#: templates/imprint/imprint_form.html:57
+#: templates/imprint/imprint_form.html:86 templates/pages/page_form.html:78
+#: templates/pages/page_form.html:119
 #: templates/pages/page_tree_archived_node.html:64
 #: templates/pages/page_tree_node.html:90 templates/pois/poi_form.html:63
 #: templates/pois/poi_form.html:92 templates/pois/poi_list_row.html:52
@@ -1409,7 +1409,19 @@ msgstr "Dritte Woche"
 msgid "Fourth week"
 msgstr "Vierte Woche"
 
-#: forms/custom_model_form.py:79
+#: forms/custom_content_model_form.py:77
+msgid "{} \"{}\" was successfully saved as draft"
+msgstr "{} \"{}\" wurde erfolgreich als Entwurf gespeichert"
+
+#: forms/custom_content_model_form.py:84
+msgid "{} \"{}\" was successfully updated"
+msgstr "{} \"{}\" wurde erfolgreich aktualisiert"
+
+#: forms/custom_content_model_form.py:91
+msgid "{} \"{}\" was successfully published"
+msgstr "{} \"{}\" wurde erfolgreich veröffentlicht"
+
+#: forms/custom_model_form.py:92
 msgid "Enter {} here"
 msgstr "{} hier eingeben"
 
@@ -1426,19 +1438,19 @@ msgid "Determines whether the event is repeated at regular intervals."
 msgstr ""
 "Legt fest, ob die Veranstaltung in regelmäßigen Abständen wiederholt wird."
 
-#: forms/events/event_form.py:142
+#: forms/events/event_form.py:95
 msgid "If the event is not all-day, the start time is required"
 msgstr ""
 "Wenn die Veranstaltung nicht ganztägig ist, muss eine Start-Uhrzeit "
 "angegeben werden"
 
-#: forms/events/event_form.py:150
+#: forms/events/event_form.py:103
 msgid "If the event is not all-day, the end time is required"
 msgstr ""
 "Wenn die Veranstaltung nicht ganztägig ist, muss eine End-Uhrzeit angegeben "
 "werden"
 
-#: forms/events/event_form.py:166 forms/events/event_form.py:180
+#: forms/events/event_form.py:119 forms/events/event_form.py:133
 msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
 
@@ -1446,29 +1458,29 @@ msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
 msgid "Recurrence ends"
 msgstr "Wiederholung endet"
 
-#: forms/events/recurrence_rule_form.py:79
+#: forms/events/recurrence_rule_form.py:80
 msgid "No recurrence frequency selected"
 msgstr "Keine Häufigkeit der Wiederholung angegeben"
 
-#: forms/events/recurrence_rule_form.py:88
+#: forms/events/recurrence_rule_form.py:89
 msgid "No weekdays for weekly recurrence selected"
 msgstr "Keine Wochentage für die wöchentliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:96
+#: forms/events/recurrence_rule_form.py:97
 msgid "No weekday for monthly recurrence selected"
 msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:103
+#: forms/events/recurrence_rule_form.py:104
 msgid "No week for monthly recurrence selected"
 msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
 
-#: forms/events/recurrence_rule_form.py:113
+#: forms/events/recurrence_rule_form.py:114
 msgid "If the recurrence ends, the recurrence end date is required"
 msgstr ""
 "Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
 "erforderlich"
 
-#: forms/events/recurrence_rule_form.py:126
+#: forms/events/recurrence_rule_form.py:127
 msgid "The recurrence end date has to be after the event's start date"
 msgstr "Das Ende der Wiederholung muss nach dem Veranstaltungsbeginn sein"
 
@@ -1503,14 +1515,14 @@ msgstr "Kategorie"
 #: forms/feedback/region_feedback_filter_form.py:30
 #: templates/events/event_form.html:120 templates/events/event_list.html:47
 #: templates/events/event_list_archived.html:38
-#: templates/imprint/imprint_form.html:105
+#: templates/imprint/imprint_form.html:104
 #: templates/imprint/imprint_revisions.html:45
-#: templates/imprint/imprint_sbs.html:58 templates/imprint/imprint_sbs.html:116
-#: templates/imprint/imprint_sbs.html:125
+#: templates/imprint/imprint_sbs.html:58 templates/imprint/imprint_sbs.html:115
+#: templates/imprint/imprint_sbs.html:124
 #: templates/linkcheck/links_by_filter.html:40
-#: templates/pages/page_form.html:150 templates/pages/page_revisions.html:49
-#: templates/pages/page_sbs.html:65 templates/pages/page_sbs.html:123
-#: templates/pages/page_sbs.html:128 templates/pages/page_tree.html:67
+#: templates/pages/page_form.html:148 templates/pages/page_revisions.html:49
+#: templates/pages/page_sbs.html:65 templates/pages/page_sbs.html:122
+#: templates/pages/page_sbs.html:127 templates/pages/page_tree.html:67
 #: templates/pages/page_tree_archived.html:30 templates/pois/poi_form.html:109
 #: templates/pois/poi_list.html:38 templates/pois/poi_list_archived.html:29
 #: templates/regions/region_list.html:25
@@ -1536,7 +1548,7 @@ msgstr "Von"
 msgid "To"
 msgstr "Bis"
 
-#: forms/language_tree/language_tree_node_form.py:79
+#: forms/language_tree/language_tree_node_form.py:82
 msgid ""
 "This region has already a default language.Please specify a source language "
 "for this language."
@@ -1544,25 +1556,25 @@ msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
 
-#: forms/media/create_directory_form.py:42
+#: forms/media/create_directory_form.py:41
 msgid "The directory cannot be created in a directory of another region."
 msgstr ""
 "Das Verzeichnis kann nicht in einem Verzeichnis einer anderen Region "
 "erstellt werden."
 
-#: forms/media/create_directory_form.py:61
+#: forms/media/create_directory_form.py:60
 msgid "A directory with the name \"{}\" already exists."
 msgstr "Ein Ordner mit diesem Namen existiert bereits"
 
-#: forms/media/upload_media_file_form.py:84
+#: forms/media/upload_media_file_form.py:83
 msgid "The file type {} is not allowed."
 msgstr "Der Dateityp {} ist nicht erlaubt."
 
-#: forms/media/upload_media_file_form.py:88
+#: forms/media/upload_media_file_form.py:87
 msgid "Allowed file types"
 msgstr "Erlaubte Dateitypen"
 
-#: forms/media/upload_media_file_form.py:109
+#: forms/media/upload_media_file_form.py:108
 msgid "The file cannot be uploaded to a directory of another region."
 msgstr ""
 "Die Datei kann nicht in einem Verzeichnis einner anderen Region hochgeladen "
@@ -1593,13 +1605,13 @@ msgstr "Diese Benutzer können die Seite bearbeiten und veröffentlichen"
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
 
-#: forms/regions/region_form.py:130
+#: forms/regions/region_form.py:126
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
 "eingegeben wurde."
 
-#: forms/regions/region_form.py:142
+#: forms/regions/region_form.py:138
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
@@ -1607,15 +1619,15 @@ msgstr "Das eingegebene Zugangstoken ist ungültig."
 msgid "Evaluation"
 msgstr "Auswertung"
 
-#: forms/statistics/statistics_filter_form.py:58
+#: forms/statistics/statistics_filter_form.py:57
 msgid "The start date can't be after the end date"
 msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 
-#: forms/statistics/statistics_filter_form.py:65
+#: forms/statistics/statistics_filter_form.py:64
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
-#: forms/users/authentication_form.py:11 forms/users/user_form.py:82
+#: forms/users/authentication_form.py:11 forms/users/user_form.py:88
 #: templates/authentication/password_reset_confirm.html:25
 msgid "Password"
 msgstr "Passwort"
@@ -1637,31 +1649,31 @@ msgstr "Team"
 msgid "This grants the user all permissions of the selected team"
 msgstr "Dies gewährt dem Benutzer alle Berechtigungen des ausgewählten Teams"
 
-#: forms/users/user_form.py:76
+#: forms/users/user_form.py:82
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
 
-#: forms/users/user_form.py:84
+#: forms/users/user_form.py:90
 msgid "Integreat team member"
 msgstr "Integreat-Teammitglied"
 
-#: forms/users/user_form.py:147
+#: forms/users/user_form.py:148
 msgid "Only staff members can be superusers"
 msgstr "Nur Mitarbeiter können Administratoren sein"
 
-#: forms/users/user_form.py:160
+#: forms/users/user_form.py:161
 msgid "Staff members can only have staff roles"
 msgstr "Mitarbeiter können nur Mitarbeiterrollen haben"
 
-#: forms/users/user_form.py:169
+#: forms/users/user_form.py:170
 msgid "Staff members have to be member of a team"
 msgstr "Mitarbeiter müssen Mitglied eines Teams sein"
 
-#: forms/users/user_form.py:181
+#: forms/users/user_form.py:182
 msgid "Only staff members can be member of a team"
 msgstr "Nur Mitarbeiter können Mitglied eines Teams sein"
 
-#: forms/users/user_form.py:190
+#: forms/users/user_form.py:191
 msgid "Please select a role"
 msgstr "Bitte wählen Sie eine Rolle aus"
 
@@ -1677,11 +1689,11 @@ msgstr "Mein neues Passwort"
 msgid "Confirm my new password"
 msgstr "Mein neues Passwort bestätigen"
 
-#: forms/users/user_password_form.py:89
+#: forms/users/user_password_form.py:85
 msgid "Your old password is not correct."
 msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 
-#: forms/users/user_password_form.py:92
+#: forms/users/user_password_form.py:88
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
@@ -1715,7 +1727,7 @@ msgid "content"
 msgstr "Inhalt"
 
 #: models/chat/chat_message.py:47
-#: models/push_notifications/push_notification.py:35
+#: models/push_notifications/push_notification.py:36
 msgid "sent date"
 msgstr "Sendedatum"
 
@@ -1731,7 +1743,7 @@ msgstr "Chat-Nachrichten"
 #: models/languages/language_tree_node.py:37 models/media/directory.py:22
 #: models/media/media_file.py:48 models/pages/imprint_page.py:22
 #: models/pages/page.py:47 models/pois/poi.py:19
-#: models/push_notifications/push_notification.py:17
+#: models/push_notifications/push_notification.py:18
 #: models/regions/region.py:406
 msgid "region"
 msgstr "Region"
@@ -2003,7 +2015,7 @@ msgstr "Wenn das Feedback ungelesen ist, ist dieses Feld leer."
 #: models/feedback/feedback.py:58 models/languages/language.py:83
 #: models/languages/language_tree_node.py:51 models/media/directory.py:34
 #: models/offers/offer_template.py:55 models/pages/abstract_base_page.py:19
-#: models/push_notifications/push_notification.py:40
+#: models/push_notifications/push_notification.py:41
 #: models/regions/region.py:102 models/users/organization.py:28
 #: models/users/user_mfa_key.py:37
 msgid "creation date"
@@ -2507,41 +2519,41 @@ msgstr ""
 msgid "location translations"
 msgstr "Orts-Übersetzungen"
 
-#: models/push_notifications/push_notification.py:22
+#: models/push_notifications/push_notification.py:23
 msgid "channel"
 msgstr "Kanal"
 
-#: models/push_notifications/push_notification.py:26
+#: models/push_notifications/push_notification.py:27
 msgid "draft"
 msgstr "Entwurf"
 
-#: models/push_notifications/push_notification.py:28
+#: models/push_notifications/push_notification.py:29
 msgid "Whether or not the push notification is a draft (drafts cannot be sent)"
 msgstr ""
 "Ob die Push-Benachrichtigung ein Entwurf ist oder nicht (Entwürfe können "
 "nicht gesendet werden)"
 
-#: models/push_notifications/push_notification.py:36
+#: models/push_notifications/push_notification.py:37
 msgid "The date and time when the push notification was sent."
 msgstr "Datum und Uhrzeit, als die Push-Benachrichtigung gesendet wurde"
 
-#: models/push_notifications/push_notification.py:46
+#: models/push_notifications/push_notification.py:47
 msgid "mode"
 msgstr "Modus"
 
-#: models/push_notifications/push_notification.py:48
+#: models/push_notifications/push_notification.py:49
 msgid ""
 "Sets behavior for dealing with not existing push notification translations"
 msgstr ""
 "Legt das Verhalten für den Umgang mit nicht vorhandenen Übersetzungen von "
 "Push-Benachrichtigungen fest"
 
-#: models/push_notifications/push_notification.py:79
+#: models/push_notifications/push_notification.py:108
 #: models/push_notifications/push_notification_translation.py:33
 msgid "push notification"
 msgstr "Push-Benachrichtigung"
 
-#: models/push_notifications/push_notification.py:81
+#: models/push_notifications/push_notification.py:110
 msgid "push notifications"
 msgstr "Push-Benachrichtigungen"
 
@@ -2824,11 +2836,11 @@ msgstr ""
 "seitenbasierte Berechtigungen, Nicht-Übersetzen-Tag und wiederkehrende "
 "Veranstaltungen"
 
-#: models/users/user_profile.py:141
+#: models/users/user_profile.py:143
 msgid "user profile"
 msgstr "Benutzerprofil"
 
-#: models/users/user_profile.py:143
+#: models/users/user_profile.py:145
 msgid "user profiles"
 msgstr "Benutzerprofile"
 
@@ -2860,7 +2872,7 @@ msgstr "Mein Dashboard"
 msgid "Analytics"
 msgstr "Analyse"
 
-#: templates/_base.html:106 templates/regions/region_form.html:119
+#: templates/_base.html:106 templates/regions/region_form.html:118
 #: templates/statistics/_statistics_widget.html:7
 #: templates/statistics/statistics_overview.html:10
 #: templates/statistics/statistics_overview.html:49
@@ -2940,13 +2952,13 @@ msgid "All news messages"
 msgstr "Alle Nachrichten"
 
 #: templates/_base.html:214
-#: templates/push_notifications/push_notification_form.html:25
+#: templates/push_notifications/push_notification_form.html:21
 #: templates/push_notifications/push_notification_list.html:18
 msgid "Create news message"
 msgstr "Neue Nachricht verfassen"
 
 #: templates/_base.html:229
-#: templates/push_notifications/push_notification_form.html:77
+#: templates/push_notifications/push_notification_form.html:71
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -3444,25 +3456,25 @@ msgstr "Veröffentlichen"
 msgid "Submit for review"
 msgstr "Zur Überprüfung vorlegen"
 
-#: templates/events/event_form.html:79 templates/imprint/imprint_form.html:63
-#: templates/imprint/imprint_sbs.html:101 templates/pages/page_form.html:85
+#: templates/events/event_form.html:79 templates/imprint/imprint_form.html:62
+#: templates/imprint/imprint_sbs.html:101 templates/pages/page_form.html:83
 #: templates/pages/page_sbs.html:108 templates/pois/poi_form.html:68
 msgid "Create Translation"
 msgstr "Übersetzung erstellen"
 
 #: templates/events/event_form.html:118
 #: templates/events/event_list_archived.html:37
-#: templates/imprint/imprint_form.html:102
+#: templates/imprint/imprint_form.html:101
 #: templates/imprint/imprint_revisions.html:20
-#: templates/imprint/imprint_sbs.html:56 templates/imprint/imprint_sbs.html:114
-#: templates/imprint/imprint_sbs.html:124 templates/pages/page_form.html:134
+#: templates/imprint/imprint_sbs.html:56 templates/imprint/imprint_sbs.html:113
+#: templates/imprint/imprint_sbs.html:123 templates/pages/page_form.html:132
 #: templates/pages/page_revisions.html:24 templates/pages/page_sbs.html:63
-#: templates/pages/page_sbs.html:121 templates/pages/page_sbs.html:126
+#: templates/pages/page_sbs.html:120 templates/pages/page_sbs.html:125
 #: templates/pois/poi_form.html:107
 msgid "Version"
 msgstr "Version"
 
-#: templates/events/event_form.html:161 templates/imprint/imprint_form.html:163
+#: templates/events/event_form.html:161 templates/imprint/imprint_form.html:162
 #: templates/pois/poi_form.html:156
 msgid "Settings for all translations"
 msgstr "Einstellungen für alle Übersetzungen"
@@ -3721,7 +3733,7 @@ msgid "No feedback available yet."
 msgstr "Noch kein Feedback vorhanden."
 
 #: templates/generic_confirmation_dialog.html:11
-#: templates/pages/page_form.html:173
+#: templates/pages/page_form.html:171
 msgid "Warning"
 msgstr "Warnung"
 
@@ -3766,88 +3778,88 @@ msgstr "Neue Übersetzung des Impressums erstellen"
 msgid "Create imprint"
 msgstr "Impressum erstellen"
 
-#: templates/imprint/imprint_form.html:104 templates/pages/page_form.html:137
+#: templates/imprint/imprint_form.html:103 templates/pages/page_form.html:135
 msgid "Show versions"
 msgstr "Versionen anzeigen"
 
-#: templates/imprint/imprint_form.html:107
-#: templates/imprint/imprint_sbs.html:60 templates/imprint/imprint_sbs.html:118
-#: templates/imprint/imprint_sbs.html:126
+#: templates/imprint/imprint_form.html:106
+#: templates/imprint/imprint_sbs.html:60 templates/imprint/imprint_sbs.html:117
+#: templates/imprint/imprint_sbs.html:125
 msgid "Link to the imprint"
 msgstr "Link zum Impressum"
 
-#: templates/imprint/imprint_form.html:109
-#: templates/imprint/imprint_form.html:115
-#: templates/imprint/imprint_sbs.html:62 templates/imprint/imprint_sbs.html:120
-#: templates/pages/page_form.html:166
+#: templates/imprint/imprint_form.html:108
+#: templates/imprint/imprint_form.html:114
+#: templates/imprint/imprint_sbs.html:62 templates/imprint/imprint_sbs.html:119
+#: templates/pages/page_form.html:164
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
-#: templates/imprint/imprint_form.html:113
-#: templates/imprint/imprint_sbs.html:127 templates/pages/page_form.html:164
+#: templates/imprint/imprint_form.html:112
+#: templates/imprint/imprint_sbs.html:126 templates/pages/page_form.html:162
 msgid "Short URL"
 msgstr "Kurz-URL"
 
-#: templates/imprint/imprint_form.html:137
+#: templates/imprint/imprint_form.html:136
 msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
-#: templates/imprint/imprint_form.html:144 templates/pages/page_form.html:380
+#: templates/imprint/imprint_form.html:143 templates/pages/page_form.html:378
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
-#: templates/imprint/imprint_form.html:153
+#: templates/imprint/imprint_form.html:152
 msgid "Show translations side by side"
 msgstr "Übersetzungen nebeneinander anzeigen"
 
+#: templates/imprint/imprint_form.html:171
 #: templates/imprint/imprint_form.html:172
-#: templates/imprint/imprint_form.html:173
 msgid "Restore imprint"
 msgstr "Impressum wiederherstellen"
 
-#: templates/imprint/imprint_form.html:174
+#: templates/imprint/imprint_form.html:173
 msgid "Please confirm that you really want to restore the imprint"
 msgstr "Bitte bestätigen Sie, dass das Impressum wiederhergestellt werden soll"
 
-#: templates/imprint/imprint_form.html:175
+#: templates/imprint/imprint_form.html:174
 msgid "All translations of the imprint will also be restored."
 msgstr "Alle Übersetzungen des Impressums werden wiederhergestellt."
 
-#: templates/imprint/imprint_form.html:179
+#: templates/imprint/imprint_form.html:178
 msgid "Restore the imprint"
 msgstr "Das Impressum wiederherstellen"
 
+#: templates/imprint/imprint_form.html:181
 #: templates/imprint/imprint_form.html:182
-#: templates/imprint/imprint_form.html:183
 msgid "Archive imprint"
 msgstr "Impressum archivieren"
 
-#: templates/imprint/imprint_form.html:184
+#: templates/imprint/imprint_form.html:183
 msgid "Please confirm that you really want to archive the imprint"
 msgstr "Bitte bestätigen Sie, dass das Impressum archiviert werden soll."
 
-#: templates/imprint/imprint_form.html:185
+#: templates/imprint/imprint_form.html:184
 msgid "All translations of the imprint will also be archived."
 msgstr "Es werden auch alle Übersetzungen des Impressums archiviert."
 
-#: templates/imprint/imprint_form.html:189
+#: templates/imprint/imprint_form.html:188
 msgid "Archive the imprint"
 msgstr "Das Impressum archivieren"
 
+#: templates/imprint/imprint_form.html:194
 #: templates/imprint/imprint_form.html:195
-#: templates/imprint/imprint_form.html:196
 msgid "Delete imprint"
 msgstr "Impressum löschen"
 
-#: templates/imprint/imprint_form.html:197
+#: templates/imprint/imprint_form.html:196
 msgid "Please confirm that you really want to delete the imprint"
 msgstr "Bitte bestätigen Sie, dass das Impressum gelöscht werden soll"
 
-#: templates/imprint/imprint_form.html:198
+#: templates/imprint/imprint_form.html:197
 msgid "All translations of the imprint will also be deleted."
 msgstr "Alle Übersetzungen des Impressums werden gelöscht."
 
-#: templates/imprint/imprint_form.html:202
+#: templates/imprint/imprint_form.html:201
 msgid "Delete the imprint"
 msgstr "Das Impressum löschen"
 
@@ -3922,18 +3934,18 @@ msgstr "Inhalt kopieren"
 msgid "Copy content of %(source_language)s to %(target_language_name)s"
 msgstr "Inhalt von %(source_language)s nach %(target_language_name)s kopieren"
 
-#: templates/imprint/imprint_sbs.html:124 templates/pages/page_sbs.html:127
+#: templates/imprint/imprint_sbs.html:123 templates/pages/page_sbs.html:126
 msgid "New"
 msgstr "Neu"
 
+#: templates/imprint/imprint_sbs.html:124
 #: templates/imprint/imprint_sbs.html:125
-#: templates/imprint/imprint_sbs.html:126
-#: templates/imprint/imprint_sbs.html:127 templates/pages/page_sbs.html:129
+#: templates/imprint/imprint_sbs.html:126 templates/pages/page_sbs.html:128
 msgid "Not saved yet"
 msgstr "Noch nicht gespeichert"
 
-#: templates/imprint/imprint_sbs.html:133 templates/pages/page_form.html:226
-#: templates/pages/page_sbs.html:143
+#: templates/imprint/imprint_sbs.html:132 templates/pages/page_form.html:224
+#: templates/pages/page_sbs.html:142
 msgid "Implications on other translations"
 msgstr "Auswirkungen auf andere Übersetzungen"
 
@@ -3991,7 +4003,7 @@ msgstr "Sprache hinzufügen"
 #: templates/languages/language_form.html:18
 #: templates/offer_templates/offer_template_form.html:19
 #: templates/organizations/organization_form.html:18
-#: templates/push_notifications/push_notification_form.html:30
+#: templates/push_notifications/push_notification_form.html:26
 #: templates/regions/region_form.html:23 templates/roles/role.html:19
 #: templates/users/admin/user.html:18 templates/users/region/user.html:21
 msgid "Save"
@@ -4010,29 +4022,29 @@ msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
 msgid "Create new language"
 msgstr "Neue Sprache erstellen"
 
-#: templates/languages/language_form.html:26
+#: templates/languages/language_form.html:25
 #: templates/offer_templates/offer_template_list.html:22
 #: templates/organizations/organization_list.html:22
 #: templates/regions/region_list.html:22 templates/roles/list.html:22
 msgid "Name"
 msgstr "Name"
 
-#: templates/languages/language_form.html:39
+#: templates/languages/language_form.html:38
 msgid "Identifier"
 msgstr "Bezeichner"
 
-#: templates/languages/language_form.html:44
+#: templates/languages/language_form.html:43
 msgid "This is in many cases a single (macro-)language tag, according to the"
 msgstr "Das ist in vielen Fällen ein einzelner (Makro-)Sprachen-Tag aus der"
 
-#: templates/languages/language_form.html:44
+#: templates/languages/language_form.html:43
 msgid "or"
 msgstr "oder"
 
-#: templates/languages/language_form.html:54
-#: templates/offer_templates/offer_template_form.html:56
-#: templates/organizations/organization_form.html:37
-#: templates/regions/region_form.html:96
+#: templates/languages/language_form.html:53
+#: templates/offer_templates/offer_template_form.html:55
+#: templates/organizations/organization_form.html:36
+#: templates/regions/region_form.html:95
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
@@ -4130,9 +4142,9 @@ msgstr "Neue Angebots-Vorlage erstellen"
 msgid "Create"
 msgstr "Erstellen"
 
-#: templates/offer_templates/offer_template_form.html:29
-#: templates/organizations/organization_form.html:24
-#: templates/regions/region_form.html:32 templates/users/admin/user.html:24
+#: templates/offer_templates/offer_template_form.html:28
+#: templates/organizations/organization_form.html:23
+#: templates/regions/region_form.html:31 templates/users/admin/user.html:24
 #: templates/users/region/user.html:27
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
@@ -4203,44 +4215,44 @@ msgstr "Neue Seite erstellen"
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: templates/pages/page_form.html:154
+#: templates/pages/page_form.html:152
 #: templates/pages/page_tree_archived_node.html:17
 msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
-#: templates/pages/page_form.html:174
+#: templates/pages/page_form.html:172
 msgid "Translation in progress"
 msgstr "Übersetzung wird durchgeführt"
 
-#: templates/pages/page_form.html:182
+#: templates/pages/page_form.html:180
 msgid "Abort translation process"
 msgstr "Übersetzungsprozess abbrechen"
 
-#: templates/pages/page_form.html:220
+#: templates/pages/page_form.html:218
 msgid "Minor edit"
 msgstr "Geringfügige Änderung"
 
-#: templates/pages/page_form.html:236
+#: templates/pages/page_form.html:234
 msgid "Settings of the page"
 msgstr "Einstellungen der Seite"
 
-#: templates/pages/page_form.html:243
+#: templates/pages/page_form.html:241
 msgid "Positioning"
 msgstr "Anordnung"
 
-#: templates/pages/page_form.html:248
+#: templates/pages/page_form.html:246
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: templates/pages/page_form.html:254
+#: templates/pages/page_form.html:252
 msgid "Embed live content"
 msgstr "Live-Inhalte einbinden"
 
-#: templates/pages/page_form.html:266
+#: templates/pages/page_form.html:264
 msgid "Additional permissions for this page"
 msgstr "Zusätzliche Berechtigungen für diese Seite"
 
-#: templates/pages/page_form.html:267
+#: templates/pages/page_form.html:265
 msgid ""
 "This affects only users, who don't have the permission to change arbitrary "
 "pages anyway."
@@ -4248,22 +4260,22 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: templates/pages/page_form.html:290 templates/regions/region_list.html:26
+#: templates/pages/page_form.html:288 templates/regions/region_list.html:26
 #: templates/settings/user.html:93
 msgid "Actions"
 msgstr "Aktionen"
 
-#: templates/pages/page_form.html:298 templates/pages/page_form.html:299
-#: templates/pages/page_form.html:307
+#: templates/pages/page_form.html:296 templates/pages/page_form.html:297
+#: templates/pages/page_form.html:305
 #: templates/pages/page_tree_archived_node.html:80
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: templates/pages/page_form.html:304
+#: templates/pages/page_form.html:302
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: templates/pages/page_form.html:310
+#: templates/pages/page_form.html:308
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -4274,28 +4286,28 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: templates/pages/page_form.html:323 templates/pages/page_form.html:324
+#: templates/pages/page_form.html:321 templates/pages/page_form.html:322
 #: templates/pages/page_tree_node.html:120
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: templates/pages/page_form.html:330
+#: templates/pages/page_form.html:328
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: templates/pages/page_form.html:336 templates/pages/page_form.html:354
+#: templates/pages/page_form.html:334 templates/pages/page_form.html:352
 #: templates/pages/page_tree_archived_node.html:98
 #: templates/pages/page_tree_node.html:133
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: templates/pages/page_form.html:340
+#: templates/pages/page_form.html:338
 #: templates/pages/page_tree_archived_node.html:94
 #: templates/pages/page_tree_node.html:129 views/pages/page_actions.py:217
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: templates/pages/page_form.html:341
+#: templates/pages/page_form.html:339
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -4306,15 +4318,15 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: templates/pages/page_form.html:360
+#: templates/pages/page_form.html:358
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
-#: templates/pages/page_form.html:373
+#: templates/pages/page_form.html:371
 msgid "Translator view"
 msgstr "Übersetzeransicht"
 
-#: templates/pages/page_form.html:389
+#: templates/pages/page_form.html:387
 msgid "Show translator view"
 msgstr "Übersetzeransicht anzeigen"
 
@@ -4340,7 +4352,7 @@ msgstr ""
 "Übersetze \"%(page_title)s\" von %(source_language)s nach "
 "%(target_language_name)s"
 
-#: templates/pages/page_sbs.html:136
+#: templates/pages/page_sbs.html:135
 msgid " Leave blank to generate unique permalink from title"
 msgstr ""
 " Dieses Feld freilassen, um eine eindeutigen Permalink aus dem Titel zu "
@@ -4488,8 +4500,17 @@ msgstr ""
 
 #: templates/pages/page_xliff_confirm.html:49
 #: templates/pages/page_xliff_confirm.html:51
-msgid "No change"
-msgstr "Keine Änderungen vorgenommen."
+#: views/imprint/imprint_sbs_view.py:201
+#: views/language_tree/language_tree_node_view.py:106
+#: views/languages/language_view.py:80
+#: views/offer_templates/offer_template_view.py:80
+#: views/organizations/organization_view.py:78 views/pages/page_sbs_view.py:197
+#: views/regions/region_view.py:87 views/roles/role_view.py:85
+#: views/settings/user_settings_view.py:89
+#: views/settings/user_settings_view.py:106 views/users/region_user_view.py:118
+#: views/users/user_view.py:126
+msgid "No changes made"
+msgstr "Keine Änderungen vorgenommen"
 
 #: templates/pois/poi_form.html:19
 #, python-format
@@ -4552,16 +4573,12 @@ msgstr "Noch keine Orte vorhanden."
 msgid "No locations archived yet."
 msgstr "Noch keine Orte archiviert."
 
-#: templates/push_notifications/push_notification_form.html:19
+#: templates/push_notifications/push_notification_form.html:18
 #, python-format
 msgid "Edit push notification \"%(push_notification_title)s\""
 msgstr "Push Benachrichtigung \"%(push_notification_title)s\" bearbeiten"
 
-#: templates/push_notifications/push_notification_form.html:22
-msgid "Create new translation for news message"
-msgstr "Neue Übersetzung für Nachricht erstellen"
-
-#: templates/push_notifications/push_notification_form.html:31
+#: templates/push_notifications/push_notification_form.html:27
 msgid "Save & Send"
 msgstr "Speichern & Senden"
 
@@ -4590,42 +4607,42 @@ msgstr "Region \"%(region_name)s\" bearbeiten"
 msgid "Create new region"
 msgstr "Neue Region erstellen"
 
-#: templates/regions/region_form.html:77
+#: templates/regions/region_form.html:76
 msgid "Center of the region"
 msgstr "Mittelpunkt der Region"
 
-#: templates/regions/region_form.html:156
+#: templates/regions/region_form.html:155
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: templates/regions/region_form.html:159
+#: templates/regions/region_form.html:158
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: templates/regions/region_form.html:168
+#: templates/regions/region_form.html:167
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: templates/regions/region_form.html:169
+#: templates/regions/region_form.html:168
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: templates/regions/region_form.html:170
+#: templates/regions/region_form.html:169
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/regions/region_form.html:170
+#: templates/regions/region_form.html:169
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: templates/regions/region_form.html:170
+#: templates/regions/region_form.html:169
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: templates/regions/region_form.html:174
+#: templates/regions/region_form.html:173
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
@@ -4674,7 +4691,7 @@ msgstr "Rolle \"%(role_name)s\" bearbeiten"
 msgid "Create new role"
 msgstr "Neue Rolle erstellen"
 
-#: templates/roles/role.html:28
+#: templates/roles/role.html:26
 msgid "Role settings"
 msgstr "Rollen-Einstellungen"
 
@@ -5192,49 +5209,18 @@ msgstr ""
 "oder zu erstellen."
 
 #: views/events/event_view.py:76
-msgid "You don't have the permission to edit this event."
-msgstr ""
-"Sie haben nicht die nötige Berechtigung, um diese Veranstaltung zu "
-"bearbeiten."
-
-#: views/events/event_view.py:81
 msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
 
-#: views/events/event_view.py:205 views/imprint/imprint_sbs_view.py:197
-#: views/imprint/imprint_view.py:208
-#: views/organizations/organization_view.py:82 views/pages/page_sbs_view.py:193
-#: views/regions/region_view.py:88 views/settings/user_settings_view.py:89
-#: views/settings/user_settings_view.py:106 views/users/region_user_view.py:130
-#: views/users/user_view.py:132
-msgid "No changes detected."
-msgstr "Keine Änderungen vorgenommen."
-
-#: views/events/event_view.py:240
-msgid "Event was successfully created and published"
-msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht"
-
-#: views/events/event_view.py:243
-msgid "Event was successfully created"
-msgstr "Veranstaltung wurde erfolgreich erstellt"
-
-#: views/events/event_view.py:249
-msgid "Event translation was successfully created and published"
+#: views/events/event_view.py:81
+msgid "You don't have the permission to edit events."
 msgstr ""
-"Veranstaltungsübersetzung wurde erfolgreich erstellt und veröffentlicht"
+"Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten."
 
-#: views/events/event_view.py:253
-msgid "Event translation was successfully created"
-msgstr "Veranstaltungsübersetzung wurde erfolgreich erstellt"
-
-#: views/events/event_view.py:257
-msgid "Event was successfully published"
-msgstr "Veranstaltung wurde erfolgreich veröffentlicht"
-
-#: views/events/event_view.py:259
-msgid "Event was successfully saved"
-msgstr "Veranstaltung wurde erfolgreich gespeichert"
+#: views/events/event_view.py:194
+msgid "Event \"{}\" was successfully created"
+msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
 #: views/feedback/admin_feedback_actions.py:46
 #: views/feedback/region_feedback_actions.py:53
@@ -5286,8 +5272,8 @@ msgstr ""
 msgid "The revision was successfully restored"
 msgstr "Die Revision wurde erfolgreich wiederhergestellt"
 
-#: views/imprint/imprint_sbs_view.py:74 views/imprint/imprint_sbs_view.py:159
-#: views/pages/page_sbs_view.py:63 views/pages/page_sbs_view.py:153
+#: views/imprint/imprint_sbs_view.py:73 views/imprint/imprint_sbs_view.py:158
+#: views/pages/page_sbs_view.py:62 views/pages/page_sbs_view.py:152
 #, python-brace-format
 msgid ""
 "You cannot use the side-by-side-view for the region's default language (in "
@@ -5296,8 +5282,8 @@ msgstr ""
 "Sie können die Side-by-Side-Ansicht nicht für die Standard-Sprache (in "
 "diesem Fall {default_language}) verwenden."
 
-#: views/imprint/imprint_sbs_view.py:92 views/imprint/imprint_sbs_view.py:176
-#: views/pages/page_sbs_view.py:82 views/pages/page_sbs_view.py:171
+#: views/imprint/imprint_sbs_view.py:91 views/imprint/imprint_sbs_view.py:175
+#: views/pages/page_sbs_view.py:81 views/pages/page_sbs_view.py:170
 #, python-brace-format
 msgid ""
 "You cannot use the side-by-side-view if the source translation (in this case "
@@ -5306,45 +5292,17 @@ msgstr ""
 "Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
 "Übersetzung (in diesem Fall {source_language}) nicht existiert."
 
-#: views/imprint/imprint_sbs_view.py:195 views/imprint/imprint_view.py:192
-#: views/offer_templates/offer_template_view.py:84
-#: views/organizations/organization_view.py:76 views/pages/page_sbs_view.py:191
-#: views/pages/page_view.py:229 views/regions/region_view.py:82
-#: views/users/region_user_view.py:140 views/users/user_view.py:149
-msgid "Errors have occurred."
-msgstr "Es sind Fehler aufgetreten."
-
-#: views/imprint/imprint_sbs_view.py:207 views/imprint/imprint_view.py:241
-#: views/pages/page_sbs_view.py:201 views/pages/page_view.py:268
-msgid "Translation was successfully created and published"
-msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht"
-
-#: views/imprint/imprint_sbs_view.py:210 views/imprint/imprint_view.py:244
-#: views/pages/page_sbs_view.py:204 views/pages/page_view.py:271
-msgid "Translation was successfully created"
-msgstr "Übersetzung wurde erfolgreich erstellt"
-
-#: views/imprint/imprint_sbs_view.py:214 views/imprint/imprint_view.py:247
-#: views/pages/page_sbs_view.py:208 views/pages/page_view.py:275
-msgid "Translation was successfully published"
-msgstr "Übersetzung wurde erfolgreich veröffentlicht"
-
-#: views/imprint/imprint_sbs_view.py:217 views/imprint/imprint_view.py:249
-#: views/pages/page_sbs_view.py:211 views/pages/page_view.py:278
-msgid "Translation was successfully saved"
-msgstr "Übersetzung wurde erfolgreich gespeichert"
-
-#: views/imprint/imprint_view.py:75 views/pages/page_tree_view.py:84
+#: views/imprint/imprint_view.py:74 views/pages/page_tree_view.py:84
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie das Impressum "
 "verwalten."
 
-#: views/imprint/imprint_view.py:101
+#: views/imprint/imprint_view.py:100
 msgid "You cannot manage the imprint because it is archived."
 msgstr "Sie können das Impressum nicht bearbeiten, weil es archiviert ist."
 
-#: views/imprint/imprint_view.py:108
+#: views/imprint/imprint_view.py:107
 #, python-format
 msgid ""
 "This is <b>not</b> the most recent public revision of this translation. "
@@ -5355,15 +5313,11 @@ msgstr ""
 "Stattdessen wird die <a href='%(revision_url)s' class='underline hover:no-"
 "underline'>Revision %(revision)s</a> in den Apps angezeigt."
 
-#: views/imprint/imprint_view.py:234
-msgid "imprint was successfully created and published"
-msgstr "Impressum wurde erfolgreich erstellt und veröffentlicht"
-
-#: views/imprint/imprint_view.py:237
-msgid "imprint was successfully created"
+#: views/imprint/imprint_view.py:199
+msgid "Imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
-#: views/imprint/imprint_view.py:286 views/pages/page_view.py:317
+#: views/imprint/imprint_view.py:253 views/pages/page_view.py:305
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
@@ -5400,31 +5354,21 @@ msgstr ""
 "Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
 "Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
 
-#: views/language_tree/language_tree_node_view.py:102
-#: views/media/media_actions.py:189 views/media/media_actions.py:347
-#: views/pois/poi_view.py:171
-msgid "No changes detected"
-msgstr "Keine Änderungen vorgenommen"
+#: views/language_tree/language_tree_node_view.py:114
+msgid "Language tree node for \"{}\" was successfully saved"
+msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"
 
-#: views/language_tree/language_tree_node_view.py:108
-msgid "Language tree node was successfully saved"
-msgstr "Sprach-Baum wurde erfolgreich gespeichert"
+#: views/language_tree/language_tree_node_view.py:128
+msgid "Language tree node for \"{}\" was successfully created"
+msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
 
-#: views/language_tree/language_tree_node_view.py:112
-msgid "Language tree node was successfully created"
-msgstr "Sprach-Baum wurde erfolgreich erstellt"
+#: views/languages/language_view.py:88
+msgid "Language \"{}\" was successfully created"
+msgstr "Sprache \"{}\" wurde erfolgreich erstellt"
 
-#: views/languages/language_view.py:73
-msgid "Language was successfully saved"
-msgstr "Sprache wurde erfolgreich gespeichert"
-
-#: views/languages/language_view.py:75
-msgid "Language was successfully created"
-msgstr "Sprache wurde erfolgreich erstellt"
-
-#: views/languages/language_view.py:79 views/media/content_media_mixin.py:74
-msgid "An error has occurred."
-msgstr "Es ist ein Fehler aufgetreten."
+#: views/languages/language_view.py:93
+msgid "Language \"{}\" was successfully saved"
+msgstr "Sprache \"{}\" wurde erfolgreich gespeichert"
 
 #: views/linkcheck/linkcheck.py:93
 msgid "Links were successfully ignored"
@@ -5559,9 +5503,17 @@ msgstr "Bitte bestätigen Sie, dass diese Datei gelöscht werden soll"
 msgid "Please confirm that you really want to delete this directory"
 msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
 
+#: views/media/content_media_mixin.py:74
+msgid "An error has occurred."
+msgstr "Es ist ein Fehler aufgetreten."
+
 #: views/media/media_actions.py:139
 msgid "File \"{}\" was uploaded successfully"
 msgstr "Datei \"{}\"wurde erfolgreich hochgeladen"
+
+#: views/media/media_actions.py:189 views/media/media_actions.py:347
+msgid "No changes detected"
+msgstr "Keine Änderungen vorgenommen"
 
 #: views/media/media_actions.py:204
 msgid "File \"{}\" was saved successfully"
@@ -5587,21 +5539,21 @@ msgstr "Verzeichnis \"{}\" kann nicht gelöscht werden, da es nicht leer ist"
 msgid "Directory \"{}\" was successfully deleted"
 msgstr "Verzeichnis \"{}\" wurde erfolgreich gelöscht"
 
-#: views/offer_templates/offer_template_view.py:72
-msgid "Offer template was successfully saved"
-msgstr "Angebots-Vorlage wurde erfolgreich gespeichert"
+#: views/offer_templates/offer_template_view.py:88
+msgid "Offer template \"{}\" was successfully created"
+msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich erstellt"
 
-#: views/offer_templates/offer_template_view.py:75
-msgid "Offer template was successfully created"
-msgstr "Angebots-Vorlage wurde erfolgreich erstellt"
+#: views/offer_templates/offer_template_view.py:98
+msgid "Offer template \"{}\" was successfully saved"
+msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich gespeichert"
 
-#: views/organizations/organization_view.py:90
-msgid "Organization was successfully created"
-msgstr "Organisation wurde erfolgreich erstellt"
+#: views/organizations/organization_view.py:86
+msgid "Organization \"{}\" was successfully created"
+msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
 
-#: views/organizations/organization_view.py:92
-msgid "Organization was successfully saved"
-msgstr "Organisation wurde erfolgreich gespeichert"
+#: views/organizations/organization_view.py:97
+msgid "Organization \"{}\" was successfully saved"
+msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
 
 #: views/pages/page_actions.py:67
 msgid "Page was successfully archived"
@@ -5725,7 +5677,7 @@ msgid "You cannot restore revisions of this page because it is archived."
 msgstr ""
 "Sie können Revisionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: views/pages/page_sbs_view.py:136
+#: views/pages/page_sbs_view.py:135
 msgid "You don't have the permission to edit this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
 
@@ -5766,17 +5718,13 @@ msgstr ""
 "Version <a href='%(revision_url)s' class='underline hover:no-"
 "underline'>Version %(revision)s</a> dieser Seite in der App angezeigt."
 
-#: views/pages/page_view.py:256
+#: views/pages/page_view.py:237
+msgid "Page \"{}\" was successfully created"
+msgstr "Seite \"{}\" wurde erfolgreich erstellt"
+
+#: views/pages/page_view.py:251
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
-
-#: views/pages/page_view.py:261
-msgid "Page was successfully created and published"
-msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
-
-#: views/pages/page_view.py:264
-msgid "Page was successfully created"
-msgstr "Seite wurde erfolgreich erstellt"
 
 #: views/pois/poi_actions.py:48
 msgid "Location was successfully archived"
@@ -5828,21 +5776,9 @@ msgstr "Sie können Orte nur in der Standard-Sprache (%(language)s) anlegen"
 msgid "You cannot edit this location because it is archived."
 msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
 
-#: views/pois/poi_view.py:194
-msgid "Location was successfully created and published"
-msgstr "Ort wurde erfolgreich erstellt und veröffentlicht"
-
-#: views/pois/poi_view.py:197
-msgid "Location was successfully created"
-msgstr "Ort wurde erfolgreich erstellt"
-
-#: views/pois/poi_view.py:200
-msgid "Location was successfully published"
-msgstr "Ort wurde erfolgreich veröffentlicht"
-
-#: views/pois/poi_view.py:202
-msgid "Location was successfully saved"
-msgstr "Ort wurde erfolgreich gespeichert"
+#: views/pois/poi_view.py:166
+msgid "Location \"{}\" was successfully created"
+msgstr "Ort \"{}\" wurde erfolgreich erstellt"
 
 #: views/push_notifications/push_notification_list_view.py:69
 msgid ""
@@ -5851,49 +5787,45 @@ msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
 "Benachrichtigungen verwalten."
 
-#: views/push_notifications/push_notification_view.py:163
-msgid "Push Notification saved"
-msgstr "Push-Benachrichtigung gespeichert"
+#: views/push_notifications/push_notification_view.py:188
+msgid "News message \"{}\" was successfully created"
+msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
 
-#: views/push_notifications/push_notification_view.py:166
-msgid "Error while saving Push Notification"
-msgstr "Fehler während des Speicherns der Push-Benachrichtigung"
+#: views/push_notifications/push_notification_view.py:195
+msgid "News message \"{}\" was successfully saved"
+msgstr "Nachricht \"{}\" wurde erfolgreich gespeichert"
 
-#: views/push_notifications/push_notification_view.py:179
-msgid "Push Notification send successfully"
-msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
+#: views/push_notifications/push_notification_view.py:213
+msgid "News message cannot be sent because required texts are missing"
+msgstr "Nachricht konnte nicht gesendet werden, da erforderliche Texte fehlen"
 
-#: views/push_notifications/push_notification_view.py:183
-msgid "Error while sending Push Notification"
-msgstr "Fehler während des Sendens der Push-Benachrichtigung"
+#: views/push_notifications/push_notification_view.py:219
+msgid "News message was successfully sent"
+msgstr "Nachricht wurde erfolgreich gesendet"
 
-#: views/push_notifications/push_notification_view.py:186
-msgid "Required Push Notification texts are missing"
-msgstr "Benötigte Texte für die Push-Benachrichtigung fehlen"
+#: views/push_notifications/push_notification_view.py:224
+msgid "News message could not be sent"
+msgstr "Nachricht konnte nicht gesendet werden"
 
 #: views/regions/region_actions.py:70
 msgid "Region was successfully deleted"
 msgstr "Region wurde erfolgreich gelöscht"
 
-#: views/regions/region_view.py:96
-msgid "Region was saved successfully"
-msgstr "Region wurde erfolgreich gespeichert"
+#: views/regions/region_view.py:95
+msgid "Region \"{}\" was successfully created"
+msgstr "Region \"{}\" wurde erfolgreich erstellt"
 
-#: views/regions/region_view.py:98
-msgid "Region was created successfully"
-msgstr "Region wurde erfolgreich erstellt"
+#: views/regions/region_view.py:106
+msgid "Region \"{}\" was successfully saved"
+msgstr "Region \"{}\" wurde erfolgreich gespeichert"
 
-#: views/roles/role_view.py:87
-msgid "Role \"{}\" was successfully saved"
-msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
-
-#: views/roles/role_view.py:91
+#: views/roles/role_view.py:94
 msgid "Role \"{}\" was successfully created"
 msgstr "Rolle \"{}\" wurde erfolgreich erstellt"
 
-#: views/roles/role_view.py:95
-msgid "Errors have occurred"
-msgstr "Es sind Fehler aufgetreten"
+#: views/roles/role_view.py:103
+msgid "Role \"{}\" was successfully saved"
+msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
 #: views/settings/mfa/authenticate_modify_mfa_view.py:47
 msgid "The provided password is not correct"
@@ -5962,30 +5894,30 @@ msgstr "Benutzer {} wurde erfolgreich gelöscht."
 msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
-#: views/users/region_user_view.py:58 views/users/region_user_view.py:143
-#: views/users/user_view.py:57 views/users/user_view.py:152
+#: views/users/region_user_view.py:58 views/users/region_user_view.py:149
+#: views/users/user_view.py:57 views/users/user_view.py:155
 msgid "Pending account activation"
 msgstr "Aktivierung des Benutzerkontos noch ausstehend"
 
-#: views/users/region_user_view.py:119 views/users/user_view.py:120
-msgid "User was successfully saved"
-msgstr "Benutzer wurde erfolgreich gespeichert"
-
-#: views/users/region_user_view.py:121 views/users/user_view.py:123
-msgid "User was successfully created"
-msgstr "Benutzer wurde erfolgreich erstellt"
-
-#: views/users/region_user_view.py:135 views/users/user_view.py:137
+#: views/users/region_user_view.py:114 views/users/user_view.py:122
 msgid "Please choose either to send an activation link or set a password."
 msgstr ""
 "Bitte wählen Sie entweder ein Passwort aus oder wählen die Option zum Senden "
 "eines Aktivierungslinks."
 
+#: views/users/region_user_view.py:131 views/users/user_view.py:138
+msgid "User \"{}\" was successfully created"
+msgstr "Benutzer \"{}\" wurde erfolgreich erstellt"
+
+#: views/users/region_user_view.py:143 views/users/user_view.py:149
+msgid "User \"{}\" was successfully saved"
+msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
+
 #: views/users/user_actions.py:40
 msgid "User was successfully deleted"
 msgstr "Benutzer wurde erfolgreich gelöscht"
 
-#: views/users/user_view.py:144
+#: views/users/user_view.py:111
 msgid ""
 "A user has to be either staff/superuser or needs to be restricted to at "
 "least one region."
@@ -5993,14 +5925,35 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
+#~ msgid "Errors have occurred."
+#~ msgstr "Es sind Fehler aufgetreten."
+
+#~ msgid "Translation was successfully created and published"
+#~ msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Translation was successfully created"
+#~ msgstr "Übersetzung wurde erfolgreich erstellt"
+
+#~ msgid "Translation was successfully published"
+#~ msgstr "Übersetzung wurde erfolgreich veröffentlicht"
+
+#~ msgid "Translation was successfully saved"
+#~ msgstr "Übersetzung wurde erfolgreich gespeichert"
+
+#~ msgid "Page was successfully created and published"
+#~ msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Page was successfully created"
+#~ msgstr "Seite wurde erfolgreich erstellt"
+
+#~ msgid "Only staff members can have staff roles"
+#~ msgstr "Nur Mitarbeiter können Mitarbeiterrollen haben"
+
 #~ msgid "enable expert mode"
 #~ msgstr "Expertenmodus aktivieren"
 
 #~ msgid "expert mode"
 #~ msgstr "Expertenmodus"
-
-#~ msgid "Only staff members can have staff roles"
-#~ msgstr "Nur Mitarbeiter können Mitarbeiterrollen haben"
 
 #~ msgid "Staff"
 #~ msgstr "Mitarbeiter"
@@ -6013,6 +5966,57 @@ msgstr ""
 
 #~ msgid "Use of Heading 1 style not allowed."
 #~ msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
+
+#~ msgid "You don't have the permission to edit this event."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um diese Veranstaltung zu "
+#~ "bearbeiten."
+
+#~ msgid "No changes detected."
+#~ msgstr "Keine Änderungen vorgenommen."
+
+#~ msgid "Event was successfully created and published"
+#~ msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Event was successfully created"
+#~ msgstr "Veranstaltung wurde erfolgreich erstellt"
+
+#~ msgid "Event translation was successfully created and published"
+#~ msgstr ""
+#~ "Veranstaltungsübersetzung wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Event translation was successfully created"
+#~ msgstr "Veranstaltungsübersetzung wurde erfolgreich erstellt"
+
+#~ msgid "Event was successfully published"
+#~ msgstr "Veranstaltung wurde erfolgreich veröffentlicht"
+
+#~ msgid "Event was successfully saved"
+#~ msgstr "Veranstaltung wurde erfolgreich gespeichert"
+
+#~ msgid "Language tree node was successfully saved"
+#~ msgstr "Sprach-Baum wurde erfolgreich gespeichert"
+
+#~ msgid "Offer template was successfully saved"
+#~ msgstr "Angebots-Vorlage wurde erfolgreich gespeichert"
+
+#~ msgid "Location was successfully created and published"
+#~ msgstr "Ort wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Location was successfully created"
+#~ msgstr "Ort wurde erfolgreich erstellt"
+
+#~ msgid "Location was successfully published"
+#~ msgstr "Ort wurde erfolgreich veröffentlicht"
+
+#~ msgid "Location was successfully saved"
+#~ msgstr "Ort wurde erfolgreich gespeichert"
+
+#~ msgid "Region was saved successfully"
+#~ msgstr "Region wurde erfolgreich gespeichert"
+
+#~ msgid "Region was created successfully"
+#~ msgstr "Region wurde erfolgreich erstellt"
 
 #~ msgid "Recurrence"
 #~ msgstr "Wiederholung"
@@ -6106,6 +6110,18 @@ msgstr ""
 #~ msgid "Author chat"
 #~ msgstr "Autoren-Chat"
 
+#~ msgid "Create new translation for news message"
+#~ msgstr "Neue Übersetzung für Nachricht erstellen"
+
+#~ msgid "Organization was successfully created"
+#~ msgstr "Organisation wurde erfolgreich erstellt"
+
+#~ msgid "Offer {} was successfully activated"
+#~ msgstr "Angebot {} wurde erfolgreich aktiviert."
+
+#~ msgid "Offer {} was successfully deactivated"
+#~ msgstr "Angebot {} wurde erfolgreich deaktiviert."
+
 #~ msgid "key"
 #~ msgstr "Schlüssel"
 
@@ -6169,11 +6185,49 @@ msgstr ""
 #~ msgid "Activate"
 #~ msgstr "Aktivieren"
 
-#~ msgid "Offer {} was successfully activated"
-#~ msgstr "Angebot {} wurde erfolgreich aktiviert."
+#~ msgid "You don't have the permission to edit the imprint."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um das Impressum zu bearbeiten."
 
-#~ msgid "Offer {} was successfully deactivated"
-#~ msgstr "Angebot {} wurde erfolgreich deaktiviert."
+#~ msgid ""
+#~ "You don't have the permission to publish events, but you can propose "
+#~ "changes and submit them for review instead."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu "
+#~ "veröffentlichen, aber Sie können Änderungen vornehmen und diese zur "
+#~ "Überprüfung vorlegen."
+
+#~ msgid ""
+#~ "You don't have the permission to publish this page, but you can propose "
+#~ "changes and submit them for review instead."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um diese Seite zu "
+#~ "veröffentlichen, aber Sie können Änderungen vornehmen und diese zur "
+#~ "Überprüfung vorlegen."
+
+#~ msgid "Push Notification saved"
+#~ msgstr "Push-Benachrichtigung gespeichert"
+
+#~ msgid "Required Push Notification texts are missing"
+#~ msgstr "Benötigte Texte für die Push-Benachrichtigung fehlen"
+
+#~ msgid "Push Notification was successfully sent"
+#~ msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
+
+#~ msgid "Error while sending Push Notification"
+#~ msgstr "Fehler während des Sendens der Push-Benachrichtigung"
+
+#~ msgid "Error while saving Push Notification"
+#~ msgstr "Fehler während des Speicherns der Push-Benachrichtigung"
+
+#~ msgid "imprint was successfully created and published"
+#~ msgstr "Impressum wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Push Notification send successfully"
+#~ msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
+
+#~ msgid "Errors have occurred"
+#~ msgstr "Es sind Fehler aufgetreten"
 
 #~ msgid "Superuser"
 #~ msgstr "Super-Administrator"
@@ -6850,9 +6904,6 @@ msgstr ""
 #~ msgid "Push notification was successfully created"
 #~ msgstr "Push-Benachrichtigung wurde erfolgreich erstellt"
 
-#~ msgid "Push notification was successfully sent"
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
-
 #~ msgid "All POIs"
 #~ msgstr "Alle POIs"
 
@@ -6941,9 +6992,6 @@ msgstr ""
 
 #~ msgid "POI was successfully created."
 #~ msgstr "POI wurde erfolgreich erstellt."
-
-#~ msgid "POI was successfully published."
-#~ msgstr "POI wurde erfolgreich veröffentlicht."
 
 #~ msgid "POI was successfully saved."
 #~ msgstr "POI wurde erfolgreich gespeichert."

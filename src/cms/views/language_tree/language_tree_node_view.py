@@ -53,7 +53,10 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
         ).first()
 
         language_tree_node_form = LanguageTreeNodeForm(
-            instance=language_tree_node, region=region
+            instance=language_tree_node,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
         return render(
             request,
@@ -88,35 +91,43 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
             id=kwargs.get("language_tree_node_id")
         ).first()
         language_tree_node_form = LanguageTreeNodeForm(
-            data=request.POST, instance=language_tree_node_instance, region=region
+            data=request.POST,
+            instance=language_tree_node_instance,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
 
         if not language_tree_node_form.is_valid():
-            for field in language_tree_node_form:
-                for error in field.errors:
-                    messages.error(request, _(error))
-            for error in language_tree_node_form.non_field_errors():
-                messages.error(request, _(error))
-
+            # Add error messages
+            language_tree_node_form.add_error_messages(request)
         elif not language_tree_node_form.has_changed():
-            messages.info(request, _("No changes detected"))
-
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
         else:
-            language_tree_node = language_tree_node_form.save()
-            if language_tree_node_instance:
+            # Save form
+            language_tree_node_form.save()
+            # Add the success message and redirect to the edit page
+            if not language_tree_node_instance:
                 messages.success(
-                    request, _("Language tree node was successfully saved")
+                    request,
+                    _('Language tree node for "{}" was successfully saved').format(
+                        language_tree_node_form.instance
+                    ),
                 )
-            else:
-                messages.success(
-                    request, _("Language tree node was successfully created")
+                return redirect(
+                    "edit_language_tree_node",
+                    **{
+                        "language_tree_node_id": language_tree_node_form.instance.id,
+                        "region_slug": region.slug,
+                    }
                 )
-            return redirect(
-                "edit_language_tree_node",
-                **{
-                    "language_tree_node_id": language_tree_node.id,
-                    "region_slug": region.slug,
-                }
+            # Add the success message
+            messages.success(
+                request,
+                _('Language tree node for "{}" was successfully created').format(
+                    language_tree_node_form.instance
+                ),
             )
         return render(
             request,

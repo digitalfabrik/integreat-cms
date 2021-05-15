@@ -57,10 +57,16 @@ class UserForm(CustomModelForm):
             "is_superuser",
         ]
 
-    def __init__(self, data=None, instance=None):
+    def __init__(self, **kwargs):
+        """
+        Initialize user form
 
-        # instantiate ModelForm
-        super().__init__(data=data, instance=instance)
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
+
+        # Instantiate CustomModelForm
+        super().__init__(**kwargs)
 
         # check if user instance already exists
         if self.instance.id:
@@ -84,24 +90,20 @@ class UserForm(CustomModelForm):
             self.fields["is_staff"].label = _("Integreat team member")
         self.fields["email"].required = True
 
-    # pylint: disable=signature-differs
-    def save(self, *args, **kwargs):
+    def save(self, commit=True):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
-        :param args: The supplied arguments
-        :type args: list
-
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
 
         :return: The saved user object
         :rtype: ~django.contrib.auth.models.User
         """
 
-        # save ModelForm
-        user = super().save(*args, **kwargs)
+        # Save CustomModelForm
+        user = super().save(commit=commit)
 
         # check if password field was changed
         if self.cleaned_data["password"]:
@@ -137,7 +139,6 @@ class UserForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
-        logger.debug("UserForm cleaned [1/2] with cleaned data %r", cleaned_data)
 
         if cleaned_data.get("is_superuser") and not cleaned_data.get("is_staff"):
             logger.warning("Superuser %r is not a staff member", self.instance)
@@ -192,6 +193,5 @@ class UserForm(CustomModelForm):
                     ),
                 )
 
-        logger.debug("UserForm cleaned [2/2] with cleaned data %r", cleaned_data)
-
+        logger.debug("UserForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data

@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import Group
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -74,25 +74,34 @@ class RoleView(PermissionRequiredMixin, TemplateView):
         """
         role_instance = Role.objects.filter(id=kwargs.get("role_id")).first()
         group_instance = Group.objects.filter(role=role_instance).first()
-        role_form = RoleForm(request.POST, instance=role_instance)
-        group_form = GroupForm(request.POST, instance=group_instance)
+        role_form = RoleForm(data=request.POST, instance=role_instance)
+        group_form = GroupForm(data=request.POST, instance=group_instance)
 
-        if role_form.is_valid() and group_form.is_valid():
-            group = group_form.save()
-            role_form.instance.group = group
-            role = role_form.save()
-
-            if role_instance:
-                messages.success(
-                    request, _('Role "{}" was successfully saved').format(role)
-                )
-            else:
-                messages.success(
-                    request, _('Role "{}" was successfully created').format(role)
-                )
+        if not role_form.is_valid() or not group_form.is_valid():
+            # Add error messages
+            role_form.add_error_messages(request)
+        elif not role_form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
         else:
-            # TODO: improve messages
-            messages.error(request, _("Errors have occurred"))
+            # Save forms
+            role_form.instance.group = group_form.save()
+            role_form.save()
+            # Add the success message and redirect to the edit page
+            if not role_instance:
+                messages.success(
+                    request,
+                    _('Role "{}" was successfully created').format(role_form.instance),
+                )
+                return redirect(
+                    "edit_role",
+                    role_id=role_form.instance.id,
+                )
+            # Add the success message
+            messages.success(
+                request,
+                _('Role "{}" was successfully saved').format(role_form.instance),
+            )
 
         return render(
             request,

@@ -85,14 +85,17 @@ h1.heading {
 
 [type="text"], [type="email"], [type="url"], [type="password"], [type="number"], [type="date"], [type="datetime-local"],
 [type="month"], [type="search"], [type="tel"], [type="time"], [type="week"], [multiple], textarea, select, .slug-field {
-  @apply w-full rounded text-xl text-gray-800 bg-gray-200 border-gray-200;
+  @apply w-full rounded text-xl text-gray-800 bg-gray-200 border-gray-200 border-2;
   &:focus {
     @apply bg-white border-blue-500 ring-blue-500;
+  }
+  &.border-red-500 {
+    border-color: rgb(239, 68, 68);
   }
 }
 
 .slug-field {
-  @apply flex px-3 py-2 whitespace-nowrap border;
+  @apply flex px-3 py-2 whitespace-nowrap;
   &:focus-within {
     @apply bg-white border-blue-500 ring-1 ring-blue-500 outline-none;
   }

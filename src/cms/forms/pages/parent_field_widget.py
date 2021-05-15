@@ -50,7 +50,7 @@ class ParentFieldWidget(forms.widgets.Select):
             option_dict["attrs"]["data-url"] = reverse(
                 "get_page_order_table_ajax",
                 kwargs={
-                    "region_slug": self.form.region.slug,
+                    "region_slug": self.form.instance.region.slug,
                     "page_id": self.form.instance.id,
                     "parent_id": value,
                 },
@@ -59,7 +59,7 @@ class ParentFieldWidget(forms.widgets.Select):
             option_dict["attrs"]["data-url"] = reverse(
                 "get_new_page_order_table_ajax",
                 kwargs={
-                    "region_slug": self.form.region.slug,
+                    "region_slug": self.form.instance.region.slug,
                     "parent_id": value,
                 },
             )

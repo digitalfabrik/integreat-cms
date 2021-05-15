@@ -78,7 +78,7 @@ def get_visits_per_language_ajax(request, region_slug):
             {"error": "Statistics are not enabled for this region."}, status=500
         )
 
-    statistics_form = StatisticsFilterForm(request.POST)
+    statistics_form = StatisticsFilterForm(data=request.POST)
 
     if not statistics_form.is_valid():
         return JsonResponse(

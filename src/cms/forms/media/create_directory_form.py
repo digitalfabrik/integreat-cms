@@ -31,7 +31,6 @@ class CreateDirectoryForm(CustomModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        logger.debug("CreateDirectoryForm cleaned with cleaned data %r", cleaned_data)
 
         if cleaned_data.get("parent"):
             if cleaned_data.get("parent").region != self.instance.region:
@@ -64,3 +63,8 @@ class CreateDirectoryForm(CustomModelForm):
                     code="invalid",
                 ),
             )
+
+        logger.debug(
+            "CreateDirectoryForm validated [2] with cleaned data %r", cleaned_data
+        )
+        return cleaned_data

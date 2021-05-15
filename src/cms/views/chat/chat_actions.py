@@ -23,7 +23,7 @@ def send_chat_message(request):
     :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
-    chat_form = ChatMessageForm(request.POST, sender=request.user)
+    chat_form = ChatMessageForm(data=request.POST, sender=request.user)
 
     if not chat_form.is_valid():
         logger.debug(

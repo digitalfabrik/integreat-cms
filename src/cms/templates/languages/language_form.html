@@ -20,17 +20,16 @@
 
     <div class="flex flex-wrap">
       <div class="w-full xl:w-1/2">
-        {{form.errors}}
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
             <div class="w-full p-4 rounded bg-blue-500">
                 <h3 class="font-bold text-white"><i data-feather="flag" class="mr-2"></i> {% trans 'Name' %}</h3>
             </div>
             <div class="w-full p-4">
                 <label for="{{ form.native_name.id_for_label }}" class="block mb-2">{{ form.native_name.label }}</label>
-                {% render_field form.native_name %}
+                {% render_field form.native_name|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.native_name.help_text }}</div>
                 <label for="{{ form.english_name.id_for_label }}" class="block mb-2">{{ form.english_name.label }}</label>
-                {% render_field form.english_name %}
+                {% render_field form.english_name|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.english_name.help_text }}</div>
             </div>
         </div>
@@ -40,10 +39,10 @@
             </div>
             <div class="w-full p-4">
                 <label for="{{ form.slug.id_for_label }}" class="block mb-2">{{ form.slug.label }}</label>
-                {% render_field form.slug %}
+                {% render_field form.slug|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.slug.help_text }} {% trans 'This is in many cases a single (macro-)language tag, according to the' %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" class="underline">IANA Subtag Registry</a> {% trans 'or'%} <a href="https://iso639-3.sil.org/code_tables/639/data" class="underline" target="_blank">ISO 639</a>.</div>
                 <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">{{ form.bcp47_tag.label }}</label>
-                {% render_field form.bcp47_tag %}
+                {% render_field form.bcp47_tag|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.bcp47_tag.help_text }}</div>
             </div>
         </div>
@@ -55,9 +54,9 @@
             </div>
             <div class="w-full p-4">
                 <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">{{ form.text_direction.label }}</label>
-                {% render_field form.text_direction %}
+                {% render_field form.text_direction|add_error_class:"border-red-500" %}
                 <label for="{{ form.table_of_contents.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.table_of_contents.label }}</label>
-                {% render_field form.table_of_contents %}
+                {% render_field form.table_of_contents|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.table_of_contents.help_text }}</div>
                 <label for="{{ form.primary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.primary_country_code.label }}</label>
                 <div class="flex my-2">

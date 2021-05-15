@@ -120,9 +120,7 @@ class PageView(
             if not request.user.has_perm("cms.edit_pages"):
                 raise PermissionDenied
 
-        page_form = PageForm(
-            instance=page, region=region, language=language, disabled=disabled
-        )
+        page_form = PageForm(instance=page, disabled=disabled)
         page_translation_form = PageTranslationForm(
             instance=page_translation, disabled=disabled
         )
@@ -152,8 +150,9 @@ class PageView(
                 # Languages for tab view
                 "languages": region.languages if page else [language],
                 "side_by_side_language_options": side_by_side_language_options,
-                "right_to_left": language.text_direction
-                == text_directions.RIGHT_TO_LEFT,
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
             },
         )
 
@@ -200,17 +199,20 @@ class PageView(
             raise PermissionDenied
 
         page_form = PageForm(
-            request.POST,
-            request.FILES,
+            data=request.POST,
+            files=request.FILES,
             instance=page_instance,
-            region=region,
-            language=language,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
         page_translation_form = PageTranslationForm(
-            request.POST,
+            data=request.POST,
             instance=page_translation_instance,
-            region=region,
-            language=language,
+            additional_instance_attributes={
+                "creator": request.user,
+                "language": language,
+            },
         )
 
         if (
@@ -220,69 +222,55 @@ class PageView(
             if not request.user.has_perm("cms.publish_page", page_instance):
                 raise PermissionDenied
 
-        side_by_side_language_options = self.get_side_by_side_language_options(
-            region, language, page_instance
-        )
-
-        # TODO: error handling
         if not page_form.is_valid() or not page_translation_form.is_valid():
-            messages.error(request, _("Errors have occurred."))
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.base_context,
-                    "page_form": page_form,
-                    "page_translation_form": page_translation_form,
-                    "page": page_instance,
-                    "siblings": siblings,
-                    "language": language,
-                    # Languages for tab view
-                    "languages": region.languages if page_instance else [language],
-                    "side_by_side_language_options": side_by_side_language_options,
-                    "right_to_left": language.text_direction
-                    == text_directions.RIGHT_TO_LEFT,
-                },
-            )
-
-        page = page_form.save()
-        page_translation = page_translation_form.save(
-            page=page,
-            user=request.user,
-        )
-
-        published = page_translation.status == status.PUBLIC
-        if not page_form.has_changed() and not page_translation_form.has_changed():
-            messages.info(request, _("No changes detected, but date refreshed"))
+            # Add error messages
+            page_form.add_error_messages(request)
+            page_translation_form.add_error_messages(request)
         else:
+            # Save forms
+            page_translation_form.instance.page = page_form.save()
+            page_translation_form.save()
+            # Add the success message and redirect to the edit page
             if not page_instance:
-                if published:
-                    messages.success(
-                        request, _("Page was successfully created and published")
-                    )
-                else:
-                    messages.success(request, _("Page was successfully created"))
-            elif not page_translation_instance:
-                if published:
-                    messages.success(
-                        request, _("Translation was successfully created and published")
-                    )
-                else:
-                    messages.success(request, _("Translation was successfully created"))
-            else:
-                if published:
-                    messages.success(
-                        request, _("Translation was successfully published")
-                    )
-                else:
-                    messages.success(request, _("Translation was successfully saved"))
+                messages.success(
+                    request,
+                    _('Page "{}" was successfully created').format(
+                        page_translation_form.instance.title
+                    ),
+                )
+                return redirect(
+                    "edit_page",
+                    **{
+                        "page_id": page_form.instance.id,
+                        "region_slug": region.slug,
+                        "language_slug": language.slug,
+                    },
+                )
 
-        return redirect(
-            "edit_page",
-            **{
-                "page_id": page.id,
-                "region_slug": region.slug,
-                "language_slug": language.slug,
+            if not page_form.has_changed() and not page_translation_form.has_changed():
+                messages.info(request, _("No changes detected, but date refreshed"))
+            else:
+                # Add the success message
+                page_translation_form.add_success_message(request)
+
+        return render(
+            request,
+            self.template_name,
+            {
+                **self.base_context,
+                "page_form": page_form,
+                "page_translation_form": page_translation_form,
+                "page": page_instance,
+                "siblings": siblings,
+                "language": language,
+                # Languages for tab view
+                "languages": region.languages if page_instance else [language],
+                "side_by_side_language_options": self.get_side_by_side_language_options(
+                    region, language, page_instance
+                ),
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
             },
         )
 

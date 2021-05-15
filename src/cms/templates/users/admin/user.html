@@ -27,19 +27,19 @@
                 <!-- General Options for user management -->
                 <div>
                     <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}</label>
-                    {% render_field user_form.username %}
+                    {% render_field user_form.username|add_error_class:"border-red-500" %}
                 </div>
                 <div>
                     <label for="{{ user_form.first_name.id_for_label }}">{{ user_form.first_name.label }}</label>
-                    {% render_field user_form.first_name %}
+                    {% render_field user_form.first_name|add_error_class:"border-red-500" %}
                 </div>
                 <div>
                     <label for="{{ user_form.last_name.id_for_label }}">{{ user_form.last_name.label }}</label>
-                    {% render_field user_form.last_name %}
+                    {% render_field user_form.last_name|add_error_class:"border-red-500" %}
                 </div>
                 <div>
                     <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}</label>
-                    {% render_field user_form.email %}
+                    {% render_field user_form.email|add_error_class:"border-red-500" %}
                 </div>
 			</div>
 		</div>
@@ -63,7 +63,7 @@
                 {% endif %}
                 <div>
                     <label for="{{ user_form.password.id_for_label }}">{{ user_form.password.label }}</label>
-                    {% render_field user_form.password %}
+                    {% render_field user_form.password|add_error_class:"border-red-500" %}
                     <ul class="help-text mt-2">
                         {% for item in user_form.password.help_text %}
                         <li>{{ item }}</li>
@@ -110,7 +110,7 @@
                 <div>
                     <label for="{{ user_profile_form.regions.id_for_label }}" class="show-for-non-staff">{{ user_profile_form.regions.label }}</label>
                     <label for="{{ user_profile_form.regions.id_for_label }}" class="show-for-staff">{% trans 'Preferred regions' %}</label>
-                    {% render_field user_profile_form.regions %}
+                    {% render_field user_profile_form.regions|add_error_class:"border-red-500" %}
                     <div class="help-text show-for-non-staff">{{ user_profile_form.regions.help_text }}</div>
                     <div class="help-text show-for-staff">{% trans 'The regions to which the user has quick access' %}</div>
                 </div>

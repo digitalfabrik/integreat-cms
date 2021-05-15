@@ -11,7 +11,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import status
 from ...decorators import region_permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Region, Language
@@ -70,12 +69,17 @@ class POIView(
         ).first()
 
         if poi and poi.archived:
+            disabled = True
             messages.warning(
                 request, _("You cannot edit this location because it is archived.")
             )
+        else:
+            disabled = False
 
-        poi_form = POIForm(instance=poi)
-        poi_translation_form = POITranslationForm(instance=poi_translation)
+        poi_form = POIForm(instance=poi, disabled=disabled)
+        poi_translation_form = POITranslationForm(
+            instance=poi_translation, disabled=disabled
+        )
         context = self.get_context_data(**kwargs)
         return render(
             request,
@@ -134,77 +138,56 @@ class POIView(
             data=request.POST,
             files=request.FILES,
             instance=poi_instance,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
         poi_translation_form = POITranslationForm(
-            request.POST,
+            data=request.POST,
             instance=poi_translation_instance,
-            region=region,
-            language=language,
+            additional_instance_attributes={
+                "creator": request.user,
+                "language": language,
+            },
         )
 
         if not poi_form.is_valid() or not poi_translation_form.is_valid():
-
             # Add error messages
-            for form in [poi_form, poi_translation_form]:
-                for field in form:
-                    for error in field.errors:
-                        messages.error(request, _(field.label) + ": " + _(error))
-                for error in form.non_field_errors():
-                    messages.error(request, _(error))
-
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.base_context,
-                    **self.get_context_data(**kwargs),
-                    "poi_form": poi_form,
-                    "poi_translation_form": poi_translation_form,
-                    "language": language,
-                    # Languages for tab view
-                    "languages": region.languages if poi_instance else [language],
-                },
-            )
-
-        if not poi_form.has_changed() and not poi_translation_form.has_changed():
-
-            messages.info(request, _("No changes detected"))
-
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.base_context,
-                    **self.get_context_data(**kwargs),
-                    "poi_form": poi_form,
-                    "poi_translation_form": poi_translation_form,
-                    "language": language,
-                    # Languages for tab view
-                    "languages": region.languages if poi_instance else [language],
-                },
-            )
-
-        poi = poi_form.save(region=region)
-        poi_translation_form.save(poi=poi, user=request.user)
-
-        published = poi_translation_form.instance.status == status.PUBLIC
-        if not poi_instance:
-            if published:
-                messages.success(
-                    request, _("Location was successfully created and published")
-                )
-            else:
-                messages.success(request, _("Location was successfully created"))
+            poi_form.add_error_messages(request)
+            poi_translation_form.add_error_messages(request)
         else:
-            if published:
-                messages.success(request, _("Location was successfully published"))
-            else:
-                messages.success(request, _("Location was successfully saved"))
-        return redirect(
-            "edit_poi",
-            **{
-                "poi_id": poi.id,
-                "region_slug": region.slug,
-                "language_slug": language.slug,
-            }
+            # Save forms
+            poi_translation_form.instance.poi = poi_form.save()
+            poi_translation_form.save()
+            # Add the success message and redirect to the edit page
+            if not poi_instance:
+                messages.success(
+                    request,
+                    _('Location "{}" was successfully created').format(
+                        poi_translation_form.instance
+                    ),
+                )
+                return redirect(
+                    "edit_poi",
+                    **{
+                        "poi_id": poi_form.instance.id,
+                        "region_slug": region.slug,
+                        "language_slug": language.slug,
+                    }
+                )
+            # Add the success message
+            poi_translation_form.add_success_message(request)
+
+        return render(
+            request,
+            self.template_name,
+            {
+                **self.base_context,
+                **self.get_context_data(**kwargs),
+                "poi_form": poi_form,
+                "poi_translation_form": poi_translation_form,
+                "language": language,
+                # Languages for tab view
+                "languages": region.languages if poi_instance else [language],
+            },
         )

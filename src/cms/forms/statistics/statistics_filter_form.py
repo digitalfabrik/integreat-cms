@@ -46,7 +46,6 @@ class StatisticsFilterForm(forms.Form):
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
         """
         cleaned_data = super().clean()
-        logger.debug("StatisticsFilterForm cleaned with cleaned data %r", cleaned_data)
 
         start_date = cleaned_data.get("start_date")
         end_date = cleaned_data.get("end_date")
@@ -66,3 +65,8 @@ class StatisticsFilterForm(forms.Form):
                     code="invalid",
                 ),
             )
+
+        logger.debug(
+            "StatisticsFilterForm validated [2] with cleaned data %r", cleaned_data
+        )
+        return cleaned_data

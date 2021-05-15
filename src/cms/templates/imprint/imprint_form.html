@@ -31,7 +31,6 @@
         {% endif %}
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
-            {{imprint_translation_form.errors}}
             <ul class="flex flex-wrap pl-4">
                 {% for other_language in languages %}
                     <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
@@ -118,7 +117,7 @@
                         {% endif %}
                     {% endif %}
                     <label for="{{ imprint_translation_form.title.id_for_label }}">{{ imprint_translation_form.title.label }}</label>
-                    {% render_field imprint_translation_form.title %}
+                    {% render_field imprint_translation_form.title|add_error_class:"border-red-500" %}
                     <label for="{{ imprint_translation_form.text.id_for_label }}">{{ imprint_translation_form.text.label }}</label>
                     {% render_field imprint_translation_form.text class="tinymce_textarea" %}
                     {% render_field imprint_translation_form.minor_edit %}

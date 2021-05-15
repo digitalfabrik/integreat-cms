@@ -8,7 +8,6 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from backend.settings import IMPRINT_SLUG, WEBAPP_URL
-from ...constants import status
 from ...decorators import region_permission_required
 from ...forms import ImprintTranslationForm
 from ...models import Region, Language, ImprintPage
@@ -185,36 +184,26 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
             )
 
         imprint_translation_form = ImprintTranslationForm(
-            request.POST,
+            data=request.POST,
             instance=imprint_translation_instance,
-            region=region,
-            language=target_language,
+            additional_instance_attributes={
+                "page": imprint,
+                "creator": request.user,
+                "language": target_language,
+            },
         )
 
         if not imprint_translation_form.is_valid():
-            messages.error(request, _("Errors have occurred."))
+            # Add error messages
+            imprint_translation_form.add_error_messages(request)
         elif not imprint_translation_form.has_changed():
-            messages.info(request, _("No changes detected."))
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
         else:
-            imprint_translation = imprint_translation_form.save(
-                imprint=imprint, user=request.user
-            )
-            published = imprint_translation.status == status.PUBLIC
-            if not imprint_translation_instance:
-                if published:
-                    messages.success(
-                        request,
-                        _("Translation was successfully created and published"),
-                    )
-                else:
-                    messages.success(request, _("Translation was successfully created"))
-            else:
-                if published:
-                    messages.success(
-                        request, _("Translation was successfully published")
-                    )
-                else:
-                    messages.success(request, _("Translation was successfully saved"))
+            # Save form
+            imprint_translation_form.save()
+            # Add the success message
+            imprint_translation_form.add_success_message(request)
 
         return render(
             request,

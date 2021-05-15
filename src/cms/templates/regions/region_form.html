@@ -26,7 +26,6 @@
 
     <div class="flex flex-wrap">
         <div class="w-1/2 pr-2">
-            {{form.errors}}
             <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
                 <div class="p-4 rounded bg-blue-500">
                     <h3 class="heading font-bold text-white"><i data-feather="map" class="mr-2"></i> {% trans 'General Settings' %}</h3>
@@ -35,7 +34,7 @@
                     <div>
                         <!-- Options related to the region's administrative division -->
                         <label for="{{ form.administrative_division.id_for_label }}">{{ form.administrative_division.label }}</label>
-                        {% render_field form.administrative_division %}
+                        {% render_field form.administrative_division|add_error_class:"border-red-500" %}
                         <!-- Option for including/excluding administrative division from region name -->
                         {% render_field form.administrative_division_included %}
                         <label for="{{ form.administrative_division_included.id_for_label }}" class="secondary">{{ form.administrative_division_included.label }}</label>
@@ -44,17 +43,17 @@
                     <div>
                         <!-- General Options for region management -->
                         <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-                        {% render_field form.name %}
+                        {% render_field form.name|add_error_class:"border-red-500" %}
                     </div>
                     <div>
                         <label for="{{ form.common_id.id_for_label }}">{{ form.common_id.label }}</label>
                         <div class="help-text">{{ form.common_id.help_text }}</div>
-                        {% render_field form.common_id %}
+                        {% render_field form.common_id|add_error_class:"border-red-500" %}
                     </div>
                     <div>
                         <label for="{{ form.aliases.id_for_label }}">{{ form.aliases.label }}</label>
                         <div class="help-text">{{ form.aliases.help_text }}</div>
-                        {% render_field form.aliases %}
+                        {% render_field form.aliases|add_error_class:"border-red-500" %}
                     </div>
                     <div>
                         <label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
@@ -66,26 +65,26 @@
                     </div>
                     <div>
                         <label for="{{ form.admin_mail.id_for_label }}">{{ form.admin_mail.label }}</label>
-                        {% render_field form.admin_mail %}
+                        {% render_field form.admin_mail|add_error_class:"border-red-500" %}
                     </div>
                     <div>
                         <!-- Options related to coordinates for localization -->
                         <label for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
-                        {% render_field form.postal_code %}
+                        {% render_field form.postal_code|add_error_class:"border-red-500" %}
                     </div>
                     <div>
                         <label>{% trans 'Center of the region' %}</label>
                         <label for="{{ form.latitude.id_for_label }}" class="secondary">{{ form.latitude.label }}</label>
-                        {% render_field form.latitude %}
+                        {% render_field form.latitude|add_error_class:"border-red-500" %}
                         <div class="help-text">{{ form.latitude.help_text }}</div>
                         <label for="{{ form.longitude.id_for_label }}" class="secondary">{{ form.longitude.label }}</label>
-                        {% render_field form.longitude %}
+                        {% render_field form.longitude|add_error_class:"border-red-500" %}
                         <div class="help-text">{{ form.longitude.help_text }}</div>
                     </div>
                     <div>
                         <!-- Options related to region status -->
                         <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
-                        {% render_field form.status %}
+                        {% render_field form.status|add_error_class:"border-red-500" %}
                     </div>
                 </div>
             </div>

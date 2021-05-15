@@ -78,17 +78,13 @@ class RegionForm(CustomModelForm):
 
         self.fields["slug"].required = False
 
-    # pylint: disable=signature-differs
-    def save(self, *args, **kwargs):
+    def save(self, commit=True):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
-        :param args: The supplied arguments
-        :type args: list
-
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
 
         :return: The saved region object
         :rtype: ~cms.models.regions.region.Region
@@ -99,8 +95,8 @@ class RegionForm(CustomModelForm):
             not self.instance.id and self.cleaned_data["duplicated_region"]
         )
 
-        # Save region with the default method from ModelForm
-        region = super().save(*args, **kwargs)
+        # Save CustomModelForm
+        region = super().save(commit=commit)
 
         if duplicate_region:
             source_region = self.cleaned_data["duplicated_region"]
@@ -157,6 +153,8 @@ class RegionForm(CustomModelForm):
                 cleaned_data["longitude"] = gvz_region.longitude
             if gvz_region.latitude and cleaned_data["latitude"] == 0.0:
                 cleaned_data["latitude"] = gvz_region.latitude
+
+        logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data
 
     def clean_slug(self):

@@ -29,71 +29,58 @@ class EventTranslationForm(CustomContentModelForm):
             "status",
         ]
 
-    # pylint: disable=too-many-arguments
-    def __init__(
-        self, data=None, instance=None, disabled=False, region=None, language=None
-    ):
+    def __init__(self, **kwargs):
+        """
+        Initialize event translation form
 
-        self.region = region
-        self.language = language
-
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
         # To set the status value through the submit button, we have to overwrite the field value for status.
         # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
         # Check if POST data was submitted
-        if data:
+        if "data" in kwargs:
             # Copy QueryDict because it is immutable
-            data = data.copy()
+            data = kwargs.pop("data").copy()
             # Update the POST field with the status corresponding to the submitted button
             if "submit_draft" in data:
-                data.update({"status": status.DRAFT})
+                data["status"] = status.DRAFT
             elif "submit_review" in data:
-                data.update({"status": status.REVIEW})
+                data["status"] = status.REVIEW
             elif "submit_public" in data:
-                data.update({"status": status.PUBLIC})
+                data["status"] = status.PUBLIC
+            # Set the kwargs to updated POST data again
+            kwargs["data"] = data
+            logger.debug(
+                "Changed POST data 'status' manually to %r", data.get("status")
+            )
 
-        # Instantiate ModelForm
-        super().__init__(data=data, instance=instance)
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
+        # Instantiate CustomModelForm
+        super().__init__(**kwargs)
 
         # The slug is not rquired because it will be auto-generated if left blank
         self.fields["slug"].required = False
 
     # pylint: disable=arguments-differ
-    def save(self, event=None, user=None):
+    def save(self, commit=True):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
-        :param event: The event of this form's event translation instance
-        :type event: ~cms.models.events.event.Event
-
-        :param user: The author of this form's event instance
-        :type user: ~django.contrib.auth.models.User
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
 
         :return: The saved event object
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
 
-        # Disable instant commit on saving because missing information would cause error
-        event_translation = super().save(commit=False)
-
-        if not self.instance.id:
-            # set initial values for new events
-            event_translation.event = event
-            event_translation.language = self.language
-            event_translation.creator = user
-
-        # Only create new version if content changed
+        # Create new version if content changed
         if not {"slug", "title", "description"}.isdisjoint(self.changed_data):
-            event_translation.version = event_translation.version + 1
-            event_translation.pk = None
+            self.instance.version += 1
+            self.instance.pk = None
 
-        event_translation.save()
-        return event_translation
+        # Save CustomModelForm
+        return super().save(commit=commit)
 
     def clean_slug(self):
         """

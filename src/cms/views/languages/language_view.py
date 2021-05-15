@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -43,8 +43,10 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        language = Language.objects.filter(slug=kwargs.get("language_slug")).first()
-        form = LanguageForm(instance=language)
+        language_instance = Language.objects.filter(
+            slug=kwargs.get("language_slug")
+        ).first()
+        form = LanguageForm(instance=language_instance)
         return render(request, self.template_name, {"form": form, **self.base_context})
 
     # pylint: disable=unused-argument
@@ -64,18 +66,31 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        language_slug = kwargs.get("language_slug")
-        language = Language.objects.filter(slug=language_slug).first()
-        form = LanguageForm(request.POST, instance=language)
-        if form.is_valid():
-            form.save()
-            if language_slug:
-                messages.success(request, _("Language was successfully saved"))
-            else:
-                messages.success(request, _("Language was successfully created"))
+
+        language_instance = Language.objects.filter(
+            slug=kwargs.get("language_slug")
+        ).first()
+        form = LanguageForm(data=request.POST, instance=language_instance)
+
+        if not form.is_valid():
+            # Add error messages
+            form.add_error_messages(request)
+        elif not form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
         else:
-            # TODO: error handling
-            # TODO: improve messages
-            messages.error(request, _("An error has occurred."))
+            # Save form
+            form.save()
+            # Add the success message and redirect to the edit page
+            if not language_instance:
+                messages.success(
+                    request,
+                    _('Language "{}" was successfully created').format(form.instance),
+                )
+                return redirect("edit_language", language_slug=form.instance.slug)
+            # Add the success message
+            messages.success(
+                request, _('Language "{}" was successfully saved').format(form.instance)
+            )
 
         return render(request, self.template_name, {"form": form, **self.base_context})

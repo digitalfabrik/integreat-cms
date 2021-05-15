@@ -31,81 +31,60 @@ class POITranslationForm(CustomContentModelForm):
             "slug",
         ]
 
-    # pylint: disable=too-many-arguments
-    def __init__(self, data=None, instance=None, region=None, language=None):
+    def __init__(self, **kwargs):
         """
         Initialize POI translation form
 
-        :param data: submitted POST data
-        :type data: dict
-
-        :param instance: This form's instance
-        :type instance: ~cms.models.pois.poi_translation.POITranslation
-
-        :param region: The region of this form's instance
-        :type region: ~cms.models.regions.region.Region
-
-        :param language: The language of this form's instance
-        :type language: ~cms.models.languages.language.Language
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
         """
 
-        self.region = region
-        self.language = language
+        self.region = kwargs.pop("region", None)
+        self.language = kwargs.pop("language", None)
 
         # To set the status value through the submit button, we have to overwrite the field value for status.
         # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
         # Check if POST data was submitted
-        if data:
+        if "data" in kwargs:
             # Copy QueryDict because it is immutable
-            data = data.copy()
+            data = kwargs.pop("data").copy()
             # Update the POST field with the status corresponding to the submitted button
             if "submit_draft" in data:
-                data.update({"status": status.DRAFT})
+                data["status"] = status.DRAFT
             elif "submit_public" in data:
-                data.update({"status": status.PUBLIC})
+                data["status"] = status.PUBLIC
+            # Set the kwargs to updated POST data again
+            kwargs["data"] = data
+            logger.debug(
+                "Changed POST data 'status' manually to %r", data.get("status")
+            )
 
-        super().__init__(data=data, instance=instance)
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if instance and instance.poi.archived:
-            for _, field in self.fields.items():
-                field.disabled = True
+        # Instantiate CustomModelForm
+        super().__init__(**kwargs)
 
         self.fields["slug"].required = False
 
-    # pylint: disable=arguments-differ
-    def save(self, poi=None, user=None):
+    def save(self, commit=True):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
-        :param poi: The POI translation instance of this form
-        :type poi: ~cms.models.pois.poi_translation.POITranslation
-
-        :param user: The author of the POI translation instance
-        :type user: ~django.contrib.auth.models.User
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
 
         :return: The saved POI translation object
         :rtype: ~cms.models.pois.poi_translation.POITranslation
         """
 
-        poi_translation = super().save(commit=False)
-
-        if not self.instance.id:
-            # only update these values when poi translation is created
-            poi_translation.poi = poi
-            poi_translation.creator = user
-            poi_translation.language = self.language
-
-        # Only create new version if content changed
+        # Create new version if content changed
         if not {"slug", "title", "short_description", "description"}.isdisjoint(
             self.changed_data
         ):
-            poi_translation.version = poi_translation.version + 1
-            poi_translation.pk = None
-        poi_translation.save()
+            self.instance.version += 1
+            self.instance.pk = None
 
-        return poi_translation
+        # Save CustomModelForm
+        return super().save(commit=commit)
 
     def clean_slug(self):
         """
