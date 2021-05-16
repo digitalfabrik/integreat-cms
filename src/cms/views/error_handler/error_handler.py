@@ -1,3 +1,5 @@
+import logging
+
 from django.http import (
     HttpResponseBadRequest,
     HttpResponseForbidden,
@@ -6,6 +8,8 @@ from django.http import (
 )
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
+
+logger = logging.getLogger(__name__)
 
 
 def render_error_template(context):
@@ -40,6 +44,7 @@ def handler400(request, exception):
         "title": _("Bad request"),
         "message": _("There was an error in your request."),
     }
+    logger.debug(exception)
     return HttpResponseBadRequest(render_error_template(context))
 
 
@@ -62,6 +67,7 @@ def handler403(request, exception):
         "title": _("Forbidden"),
         "message": _("You don't have the permission to access this page."),
     }
+    logger.debug(exception)
     return HttpResponseForbidden(render_error_template(context))
 
 
@@ -84,6 +90,7 @@ def handler404(request, exception):
         "title": _("Page not found"),
         "message": _("The page you requested could not be found."),
     }
+    logger.debug(exception)
     return HttpResponseNotFound(render_error_template(context))
 
 
@@ -124,4 +131,5 @@ def csrf_failure(request, reason):
         "title": _("CSRF Error"),
         "message": _("Please try to reload the page."),
     }
+    logger.debug(reason)
     return HttpResponseForbidden(render_error_template(context))

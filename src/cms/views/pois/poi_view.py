@@ -5,17 +5,16 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Region, Language
 from .poi_context_mixin import POIContextMixin
-from ..media.content_media_mixin import ContentMediaMixin
+from ..media.media_context_mixin import MediaContextMixin
 
 
 logger = logging.getLogger(__name__)
@@ -23,18 +22,12 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class POIView(
-    PermissionRequiredMixin, TemplateView, POIContextMixin, ContentMediaMixin
-):
+@method_decorator(permission_required("cms.view_poi"), name="dispatch")
+@method_decorator(permission_required("cms.change_poi"), name="post")
+class POIView(TemplateView, POIContextMixin, MediaContextMixin):
     """
     View for editing POIs
     """
-
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_pois"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pois/poi_form.html"

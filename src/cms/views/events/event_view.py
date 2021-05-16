@@ -2,7 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -12,11 +11,11 @@ from django.views.generic import TemplateView
 from backend.settings import WEBAPP_URL
 
 from ...constants import status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
 from .event_context_mixin import EventContextMixin
-from ..media.content_media_mixin import ContentMediaMixin
+from ..media.media_context_mixin import MediaContextMixin
 
 
 logger = logging.getLogger(__name__)
@@ -24,18 +23,13 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class EventView(
-    PermissionRequiredMixin, TemplateView, EventContextMixin, ContentMediaMixin
-):
+@method_decorator(permission_required("cms.view_event"), name="dispatch")
+@method_decorator(permission_required("cms.change_event"), name="post")
+class EventView(TemplateView, EventContextMixin, MediaContextMixin):
     """
     Class for rendering the events form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_events"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "events/event_form.html"
 
@@ -75,13 +69,21 @@ class EventView(
             messages.warning(
                 request, _("You cannot edit this event because it is archived.")
             )
-        elif not request.user.has_perm("cms.edit_events"):
+        elif not request.user.has_perm("cms.change_event"):
             disabled = True
             messages.warning(
                 request, _("You don't have the permission to edit events.")
             )
         else:
             disabled = False
+
+        if not request.user.has_perm("cms.publish_event"):
+            messages.warning(
+                request,
+                _(
+                    "You don't have the permission to publish events, but you can propose changes and submit them for review instead."
+                ),
+            )
 
         event_form = EventForm(instance=event_instance, disabled=disabled)
         event_translation_form = EventTranslationForm(
@@ -119,7 +121,7 @@ class EventView(
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
 
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to publish events
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -135,9 +137,6 @@ class EventView(
         event_translation_instance = EventTranslation.objects.filter(
             event=event_instance, language=language
         ).first()
-
-        if not request.user.has_perm("cms.edit_events"):
-            raise PermissionDenied
 
         event_form = EventForm(
             data=request.POST,
@@ -176,8 +175,10 @@ class EventView(
         else:
             # Check publish permissions
             if event_translation_form.instance.status == status.PUBLIC:
-                if not request.user.has_perm("cms.publish_events"):
-                    raise PermissionDenied
+                if not request.user.has_perm("cms.publish_event"):
+                    raise PermissionDenied(
+                        f"{request.user.profile!r} does not have the permission 'cms.publish_event'"
+                    )
             # Save forms
             if event_form.cleaned_data.get("is_recurring"):
                 # If event is recurring, save recurrence rule

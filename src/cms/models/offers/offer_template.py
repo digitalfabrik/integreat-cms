@@ -85,6 +85,4 @@ class OfferTemplate(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("offer templates")
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (("manage_offer_templates", "Can manage offer templates"),)
+        default_permissions = ("change", "delete", "view")

@@ -5,12 +5,11 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...models import Feedback
 
 logger = logging.getLogger(__name__)
@@ -19,6 +18,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @staff_required
+@permission_required("cms.change_feedback")
 def mark_admin_feedback_as_read(request):
     """
     Set read flag for a list of feedback items
@@ -26,14 +26,9 @@ def mark_admin_feedback_as_read(request):
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to manage feedback
-
     :return: A redirection to the admin feedback list
     :rtype: ~django.http.HttpResponseRedirect
     """
-
-    if not request.user.has_perm("cms.manage_feedback"):
-        raise PermissionDenied
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(
@@ -51,6 +46,7 @@ def mark_admin_feedback_as_read(request):
 @require_POST
 @login_required
 @staff_required
+@permission_required("cms.change_feedback")
 def mark_admin_feedback_as_unread(request):
     """
     Unset read flag for a list of feedback items
@@ -58,14 +54,9 @@ def mark_admin_feedback_as_unread(request):
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to manage feedback
-
     :return: A redirection to the admin feedback list
     :rtype: ~django.http.HttpResponseRedirect
     """
-
-    if not request.user.has_perm("cms.manage_feedback"):
-        raise PermissionDenied
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(read_by=None)
@@ -81,6 +72,7 @@ def mark_admin_feedback_as_unread(request):
 @require_POST
 @login_required
 @staff_required
+@permission_required("cms.delete_feedback")
 def delete_admin_feedback(request):
     """
     Delete a list of feedback items
@@ -88,14 +80,9 @@ def delete_admin_feedback(request):
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to manage feedback
-
     :return: A redirection to the admin feedback list
     :rtype: ~django.http.HttpResponseRedirect
     """
-
-    if not request.user.has_perm("cms.manage_feedback"):
-        raise PermissionDenied
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(id__in=selected_ids, is_technical=True).delete()

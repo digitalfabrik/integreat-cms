@@ -1,33 +1,34 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...forms import UserForm, UserProfileForm
 from ...models import UserProfile
 from ...utils.account_activation_utils import send_activation_link
 
+logger = logging.getLogger(__name__)
+
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class UserView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("auth.view_user"), name="dispatch")
+@method_decorator(permission_required("auth.change_user"), name="post")
+class UserView(TemplateView):
     """
     View for the user form and user profile form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_admin_users"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "users/admin/user.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "users"}
+    base_context = {"current_menu_item": "user_form"}
 
     def get(self, request, *args, **kwargs):
         """
@@ -66,7 +67,7 @@ class UserView(PermissionRequiredMixin, TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
+    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         """
         Submit :class:`~cms.forms.users.user_form.UserForm` and
@@ -121,7 +122,7 @@ class UserView(PermissionRequiredMixin, TemplateView):
                 request,
                 _("Please choose either to send an activation link or set a password."),
             )
-        elif not user_form.has_changed() or not user_profile_form.has_changed():
+        elif not user_form.has_changed() and not user_profile_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))
         else:

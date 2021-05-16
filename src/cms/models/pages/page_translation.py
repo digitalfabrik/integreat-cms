@@ -48,6 +48,14 @@ class PageTranslation(AbstractBasePageTranslation):
         related_name="page_translations",
         verbose_name=_("language"),
     )
+    title = models.CharField(
+        max_length=250,
+        verbose_name=_("title of the page"),
+    )
+    text = models.TextField(
+        blank=True,
+        verbose_name=_("content of the page"),
+    )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,

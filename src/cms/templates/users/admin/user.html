@@ -15,7 +15,9 @@
                 {% trans 'Create new user' %}
             {% endif %}
         </h1>
-        <input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        {% if perms.auth.change_user %}
+            <input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        {% endif %}
     </div>
 
     <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
@@ -122,7 +124,7 @@
 			</div>
         </div>
     </div>
-    {% if user_form.instance.id %}
+    {% if user_form.instance.id and perms.auth.delete_user %}
         <div class="pt-2 pb-4">
             <button title="{% trans 'Delete user' %}" class="confirmation-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                     data-confirmation-title="{% trans 'Please confirm that you really want to delete this user' %}"

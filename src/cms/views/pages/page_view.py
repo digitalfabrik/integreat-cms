@@ -2,7 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -11,29 +10,23 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status, text_directions
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation, Region
 from .page_context_mixin import PageContextMixin
-from ..media.content_media_mixin import ContentMediaMixin
+from ..media.media_context_mixin import MediaContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class PageView(
-    PermissionRequiredMixin, TemplateView, PageContextMixin, ContentMediaMixin
-):
+@method_decorator(permission_required("cms.view_page"), name="dispatch")
+class PageView(TemplateView, PageContextMixin, MediaContextMixin):
     """
     View for the page form and page translation form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_pages"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
@@ -72,9 +65,9 @@ class PageView(
             language=language,
         ).first()
 
-        # Make form disabled if user has no permission to edit the page
         disabled = False
         if page:
+            # Make form disabled if page is archived
             if page.explicitly_archived:
                 disabled = True
                 messages.warning(
@@ -88,14 +81,7 @@ class PageView(
                         "You cannot edit this page, because one of its parent pages is archived and therefore, this page is archived as well."
                     ),
                 )
-            elif not request.user.has_perm("cms.edit_page", page):
-                disabled = True
-                messages.warning(
-                    request,
-                    _(
-                        "You don't have the permission to edit this page, but you can propose changes and submit them for review instead."
-                    ),
-                )
+            # Show information if latest changes are only saved as draft
             public_translation = page.get_public_translation(language.slug)
             if public_translation and page_translation != public_translation:
                 messages.info(
@@ -116,11 +102,30 @@ class PageView(
                         "revision": public_translation.version,
                     },
                 )
-        else:
-            if not request.user.has_perm("cms.edit_pages"):
-                raise PermissionDenied
 
-        page_form = PageForm(instance=page, disabled=disabled)
+        # Make form disabled if user has no permission to edit the page
+        if not request.user.has_perm("cms.change_page_object", page):
+            disabled = True
+            messages.warning(
+                request,
+                _("You don't have the permission to edit this page."),
+            )
+        # Show warning if user has no permission to publish the page
+        if not request.user.has_perm("cms.publish_page_object", page):
+            messages.warning(
+                request,
+                _(
+                    "You don't have the permission to publish this page, but you can propose changes and submit them for review instead."
+                ),
+            )
+
+        page_form = PageForm(
+            instance=page,
+            disabled=disabled,
+            additional_instance_attributes={
+                "region": region,
+            },
+        )
         page_translation_form = PageTranslationForm(
             instance=page_translation, disabled=disabled
         )
@@ -184,6 +189,12 @@ class PageView(
         language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
 
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
+
+        if not request.user.has_perm("cms.change_page_object", page_instance):
+            raise PermissionDenied(
+                f"{request.user.profile!r} does not have the permission to edit {page_instance!r}"
+            )
+
         page_translation_instance = PageTranslation.objects.filter(
             page=page_instance,
             language=language,
@@ -194,9 +205,6 @@ class PageView(
             siblings = region.pages.filter(level=0)
         else:
             siblings = page_instance.parent.children.all()
-
-        if not request.user.has_perm("cms.edit_page", page_instance):
-            raise PermissionDenied
 
         page_form = PageForm(
             data=request.POST,
@@ -215,17 +223,18 @@ class PageView(
             },
         )
 
-        if (
-            page_translation_form.data.get("public")
-            and "public" in page_translation_form.changed_data
-        ):
-            if not request.user.has_perm("cms.publish_page", page_instance):
-                raise PermissionDenied
-
         if not page_form.is_valid() or not page_translation_form.is_valid():
             # Add error messages
             page_form.add_error_messages(request)
             page_translation_form.add_error_messages(request)
+        elif (
+            not request.user.has_perm("cms.publish_page_object", page_form.instance)
+            and page_translation_form.cleaned_data.get("status") == status.PUBLIC
+        ):
+            # Raise PermissionDenied if user wants to publish page but doesn't have the permission
+            raise PermissionDenied(
+                f"{request.user.profile!r} does not have the permission to publish {page_form.instance!r}"
+            )
         else:
             # Save forms
             page_translation_form.instance.page = page_form.save()

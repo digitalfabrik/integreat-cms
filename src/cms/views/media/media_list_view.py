@@ -7,14 +7,20 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from .content_media_mixin import ContentMediaMixin
+from .media_context_mixin import MediaContextMixin
 
-from ...decorators import region_permission_required, staff_required
+from ...decorators import (
+    region_permission_required,
+    staff_required,
+    permission_required,
+)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class MediaListView(TemplateView, ContentMediaMixin):
+@method_decorator(permission_required("cms.view_directory"), name="dispatch")
+@method_decorator(permission_required("cms.view_mediafile"), name="dispatch")
+class MediaListView(TemplateView, MediaContextMixin):
     """
     Class representing the media management and renders the dynamic data into the HTML template.
     """
@@ -26,7 +32,9 @@ class MediaListView(TemplateView, ContentMediaMixin):
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class AdminMediaListView(TemplateView, ContentMediaMixin):
+@method_decorator(permission_required("cms.view_directory"), name="dispatch")
+@method_decorator(permission_required("cms.view_mediafile"), name="dispatch")
+class AdminMediaListView(TemplateView, MediaContextMixin):
     """
     Class representing the media management and renders the dynamic data into the HTML template.
     """

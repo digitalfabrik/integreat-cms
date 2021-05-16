@@ -1,28 +1,28 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...forms import RoleForm, GroupForm
 from ...models import Role
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class RoleView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_group"), name="dispatch")
+@method_decorator(permission_required("cms.change_group"), name="post")
+class RoleView(TemplateView):
     """
     View for the role form
     """
-
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "auth.change_group"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "roles/role.html"

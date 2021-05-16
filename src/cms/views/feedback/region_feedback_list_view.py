@@ -1,7 +1,8 @@
+import logging
+
 from datetime import date
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -9,22 +10,21 @@ from django.views.generic import TemplateView
 
 from backend.settings import PER_PAGE
 from ...constants import feedback_ratings, feedback_read_status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import RegionFeedbackFilterForm
 from ...models import Feedback, Region
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class RegionFeedbackListView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_feedback"), name="dispatch")
+class RegionFeedbackListView(TemplateView):
     """
     View to list all region feedback (content feedback)
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_feedback"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "feedback/region_feedback_list.html"
 

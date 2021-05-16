@@ -9,7 +9,7 @@
 
 {% block content %}
 {% get_current_language as LANGUAGE_CODE %}
-{% has_perm 'cms.edit_page' request.user page as can_edit_page %}
+{% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
 <form enctype="multipart/form-data" method="post" id="content_form">
     {% csrf_token %}
     <div class="flex flex-wrap items-start">
@@ -38,7 +38,7 @@
             {% if can_edit_page %}
                 <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
             {% endif %}
-            {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
+            {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
             {% if can_publish_page %}
                 <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2 whitespace-nowrap"
                     value="{% if page_translation_form.instance.status == PUBLIC %}
@@ -47,7 +47,7 @@
                             {% trans 'Publish' %}
                         {% endif %}"/>
             {% else %}
-                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Submit for review' %}" />
+                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-60 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Submit for review' %}" />
             {% endif %}
         {% endif %}
         </div>
@@ -251,7 +251,7 @@
                 <div {% if not request.user.profile.expert_mode %}hidden{% endif %}>
                     <label for="mirrored_page_region">{% trans 'Embed live content' %}</label>
                     {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
-                    <div class="relative my-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
+                    <div class="relative my-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' region_slug=region.slug %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
                         {% include "pages/_mirrored_page_field.html" %}
                     </div>
                     <div class="my-2 pb-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_first_div">
@@ -329,7 +329,7 @@
                                 </button>
                             {% endif %}
                         </div>
-                        {% if user.is_superuser or user.is_staff %}
+                        {% if perms.cms.delete_page %}
                             <div class="pt-2 pb-4">
                                 <label>{% trans 'Delete page' %}</label>
                                 {% if page.children.exists %}

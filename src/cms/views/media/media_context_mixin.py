@@ -7,7 +7,7 @@ from ...constants import allowed_media
 from ...models import Region
 
 # pylint: disable=too-few-public-methods
-class ContentMediaMixin(ContextMixin):
+class MediaContextMixin(ContextMixin):
     """
     This mixin provides context data required by the the media library.
     """

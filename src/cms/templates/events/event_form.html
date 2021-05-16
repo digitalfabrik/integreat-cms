@@ -33,19 +33,17 @@
                 {% endif %}
             </h1>
         </div>
-        {% has_perm 'cms.edit_events' request.user as can_edit_event %}
-        {% if not event_form.instance.id or not event_form.instance.archived %}
-            <div class="w-1/5 flex justify-end mb-6">
-            {% if can_edit_event %}
-                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
-            {% has_perm 'cms.publish_events' request.user as can_publish_event %}
-            {% if can_publish_event %}
-                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
-            {% else %}
-                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+        {% if perms.cms.change_event %}
+            {% if not event_form.instance.id or not event_form.instance.archived %}
+                <div class="w-1/5 flex justify-end mb-6">
+                    <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+                    {% if perms.cms.publish_event  %}
+                        <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+                    {% else %}
+                        <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Submit for review' %}" />
+                    {% endif %}
+                </div>
             {% endif %}
-        {% endif %}
-        </div>
         {% endif %}
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
             <ul class="flex flex-wrap pl-4">
@@ -165,142 +163,139 @@
             </ul>
             <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
-                        <div>
-                            <div class="flex flex-wrap">
-                                <div class="w-1/2 pr-2">
-                                    <label for="{{ event_form.start_date.id_for_label }}">{{ event_form.start_date.label }}</label>
-                                    {% render_field event_form.start_date|add_error_class:"border-red-500" %}
-                                </div>
-                                <div class="w-1/2">
-                                    <label for="{{ event_form.end_date.id_for_label }}">{{ event_form.end_date.label }}</label>
-                                    {% render_field event_form.end_date|add_error_class:"border-red-500" %}
-                                </div>
+                    <div>
+                        <div class="flex flex-wrap">
+                            <div class="w-1/2 pr-2">
+                                <label for="{{ event_form.start_date.id_for_label }}">{{ event_form.start_date.label }}</label>
+                                {% render_field event_form.start_date|add_error_class:"border-red-500" %}
                             </div>
-                            <div class="flex flex-wrap my-3">
-                                <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                                    <label for="{{ event_form.start_time.id_for_label }}">{{ event_form.start_time.label }}</label>
-                                    {% render_field event_form.start_time|add_error_class:"border-red-500" %}
-                                </div>
-                                <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                                    <label for="{{ event_form.end_time.id_for_label }}">{{ event_form.end_time.label }}</label>
-                                    {% render_field event_form.end_time|add_error_class:"border-red-500" %}
-                                </div>
-                            </div>
-                            {% render_field event_form.is_all_day %}
-                            <label for="{{ event_form.is_all_day.id_for_label }}">{{ event_form.is_all_day.label }}</label>
-                        </div>
-                        <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
-                            {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
-                            <label for="recurrence-rule-checkbox">{{ event_form.is_recurring.label }}</label>
-                            <div class="help-text">{{ event_form.is_recurring.help_text }}</div>
-                            <div id="recurrence-rule"{% if not event_form.is_recurring.value %} class="hidden"{% endif %}>
-                                <label for="{{ recurrence_rule_form.frequency.id_for_label }}" class="secondary">{{ recurrence_rule_form.frequency.label }}</label>
-                                {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" %}
-                                <div id="recurrence-weekly"{% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %} class="hidden"{% endif %}>
-                                    <label for="{{ recurrence_rule_form.weekdays_for_weekly.id_for_label }}" class="secondary">{{ recurrence_rule_form.weekdays_for_weekly.label }}</label>
-                                    <select name="weekdays_for_weekly" id="id_weekdays_for_weekly" multiple="multiple" class="{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}">
-                                        {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
-                                        <option value="{{ choice_value }}"{% if not recurrence_rule_form.data|is_empty %}
-                                            {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %} selected="selected"{% endif %}
-                                        {% else %}
-                                            {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %} selected="selected"{% endif %}
-                                        {% endif %}>{{ choice_label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div id="recurrence-monthly"{% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %} class="hidden"{% endif %}>
-                                    <label for="{{ recurrence_rule_form.week_for_monthly.id_for_label }}" class="secondary">{{ recurrence_rule_form.week_for_monthly.label }}</label>
-                                    {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" %}
-                                    <label for="{{ recurrence_rule_form.weekday_for_monthly.id_for_label }}" class="secondary">{{ recurrence_rule_form.weekday_for_monthly.label }}</label>
-                                    {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" %}
-                                </div>
-                                <label for="{{ recurrence_rule_form.interval.id_for_label }}" class="secondary">{{ recurrence_rule_form.interval.label }}</label>
-                                {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" %}
-                                {% render_field recurrence_rule_form.has_recurrence_end_date %}
-                                <label for="{{ recurrence_rule_form.has_recurrence_end_date.id_for_label }}" class="secondary">{{ recurrence_rule_form.has_recurrence_end_date.label }}</label>
-                                <div id="recurrence-end"{% if not recurrence_rule_form.data|is_empty %}
-                                    {% if not recurrence_rule_form.data.has_recurrence_end_date %} class="hidden"{% endif %}
-                                {% else %}
-                                    {% if not recurrence_rule_form.instance.recurrence_end_date %} class="hidden"{% endif %}
-                                {% endif %}>
-                                    <label for="{{ recurrence_rule_form.recurrence_end_date.id_for_label }}" class="secondary">{{ recurrence_rule_form.recurrence_end_date.label }}</label>
-                                    {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" %}
-                                </div>
+                            <div class="w-1/2">
+                                <label for="{{ event_form.end_date.id_for_label }}">{{ event_form.end_date.label }}</label>
+                                {% render_field event_form.end_date|add_error_class:"border-red-500" %}
                             </div>
                         </div>
-                        <div>
-                            <label for="{{ event_form.location.id_for_label }}">{{ event_form.location.label }}</label>
-                            {% trans 'Name of event location' as poi_title_placeholder %}
-                            <div class="relative my-2">
-                                <input id="poi-query-input" type="search" autocomplete="off" class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"{% if event_form.disabled %} disabled{% endif %} placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' %}" data-region-slug="{{ region.slug }}" data-default-placeholder="{{ poi_title_placeholder }}">
-                                <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                    <button id="poi-remove" title="{% trans 'Remove location from event' %}"{% if event_form.disabled %} disabled{% endif %}>
-                                        <i data-feather="trash-2" class="h-5 w-5"></i>
-                                    </button>
-                                </div>
+                        <div class="flex flex-wrap my-3">
+                            <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
+                                <label for="{{ event_form.start_time.id_for_label }}">{{ event_form.start_time.label }}</label>
+                                {% render_field event_form.start_time|add_error_class:"border-red-500" %}
                             </div>
-                            <div class="relative" id="poi-query-result">
-                                {% include 'events/_poi_query_result.html' %}
+                            <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
+                                <label for="{{ event_form.end_time.id_for_label }}">{{ event_form.end_time.label }}</label>
+                                {% render_field event_form.end_time|add_error_class:"border-red-500" %}
                             </div>
-                            <p class="text-sm italic block mt-2 mb-2">
-                                {% trans 'Create an event location or start typing the name of an existing location' %}.
-                            </p>
-                            <label class="secondary">{% trans 'Address' %}</label>
-                            <input name="poi_id" id="poi-id" class="hidden" value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}" readonly>
-                            {% trans 'Street' as street_placeholder %}
-                            <input id="poi-address" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ street_placeholder }}" value="{% if poi %}{{ poi.address }}{% endif %}" />
-                            {% trans 'City' as city_placeholder %}
-                            <input id="poi-city" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ city_placeholder }}" value="{% if poi %}{{ poi.city }}{% endif %}" />
-                            {% trans 'Country' as country_placeholder %}
-                            <input id="poi-country" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ country_placeholder }}" value="{% if poi %}{{ poi.country }}{% endif %}" />
-                            <label class="secondary">{% trans 'Map' %}</label>
-                            <i class="text-teal-500">Google Map vs. OSM</i>
                         </div>
-                        <div>
-                            <label for="{{ event_form.icon.id_for_label }}">{{ event_form.icon.label }}</label>
-                            {% render_field event_form.icon label=event_form.icon.label %}
-                        </div>
-                        {% if event_form.instance.id and can_edit_event %}
-                            <div>
-                                {% if event_form.instance.archived %}
-                                    <label>{% trans 'Restore event' %}</label>
-                                    <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                        data-confirmation-title="{{ restore_dialog_title }}"
-                                        data-confirmation-text="{{ restore_dialog_text}}"
-                                        data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                        data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                        <i data-feather="refresh-ccw" class="mr-2"></i>
-                                        {% trans 'Restore this event' %}
-                                    </button>
-                                {% else %}
-                                    <label>{% trans 'Archive event' %}</label>
-                                    <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                        data-confirmation-title="{{ archive_dialog_title }}"
-                                        data-confirmation-text="{{ archive_dialog_text }}"
-                                        data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                        data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                        <i data-feather="archive" class="mr-2"></i>
-                                        {% trans 'Archive this event' %}
-                                    </button>
-                                {% endif %}
+                        {% render_field event_form.is_all_day %}
+                        <label for="{{ event_form.is_all_day.id_for_label }}">{{ event_form.is_all_day.label }}</label>
+                    </div>
+                    <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
+                        {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
+                        <label for="recurrence-rule-checkbox">{{ event_form.is_recurring.label }}</label>
+                        <div class="help-text">{{ event_form.is_recurring.help_text }}</div>
+                        <div id="recurrence-rule"{% if not event_form.is_recurring.value %} class="hidden"{% endif %}>
+                            <label for="{{ recurrence_rule_form.frequency.id_for_label }}" class="secondary">{{ recurrence_rule_form.frequency.label }}</label>
+                            {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" %}
+                            <div id="recurrence-weekly"{% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %} class="hidden"{% endif %}>
+                                <label for="{{ recurrence_rule_form.weekdays_for_weekly.id_for_label }}" class="secondary">{{ recurrence_rule_form.weekdays_for_weekly.label }}</label>
+                                <select name="weekdays_for_weekly" id="id_weekdays_for_weekly" multiple="multiple" class="{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}">
+                                    {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
+                                    <option value="{{ choice_value }}"{% if not recurrence_rule_form.data|is_empty %}
+                                        {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %} selected="selected"{% endif %}
+                                    {% else %}
+                                        {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %} selected="selected"{% endif %}
+                                    {% endif %}>{{ choice_label }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
-                            {% if user.is_superuser or user.is_staff %}
-                                <div>
-                                    <label>{% trans 'Delete event' %}</label>
-                                    <button class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                                        data-confirmation-title="{{ delete_dialog_title }}"
-                                        data-confirmation-text="{{ delete_dialog_text }}"
-                                        data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                        data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                        <i data-feather="trash-2" class="mr-2"></i>
-                                        {% trans 'Delete this event' %}
-                                    </button>
-                                </div>
-                            {% endif %}
-                        {% endif %}
+                            <div id="recurrence-monthly"{% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %} class="hidden"{% endif %}>
+                                <label for="{{ recurrence_rule_form.week_for_monthly.id_for_label }}" class="secondary">{{ recurrence_rule_form.week_for_monthly.label }}</label>
+                                {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" %}
+                                <label for="{{ recurrence_rule_form.weekday_for_monthly.id_for_label }}" class="secondary">{{ recurrence_rule_form.weekday_for_monthly.label }}</label>
+                                {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" %}
+                            </div>
+                            <label for="{{ recurrence_rule_form.interval.id_for_label }}" class="secondary">{{ recurrence_rule_form.interval.label }}</label>
+                            {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" %}
+                            {% render_field recurrence_rule_form.has_recurrence_end_date %}
+                            <label for="{{ recurrence_rule_form.has_recurrence_end_date.id_for_label }}" class="secondary">{{ recurrence_rule_form.has_recurrence_end_date.label }}</label>
+                            <div id="recurrence-end"{% if not recurrence_rule_form.data|is_empty %}
+                                {% if not recurrence_rule_form.data.has_recurrence_end_date %} class="hidden"{% endif %}
+                            {% else %}
+                                {% if not recurrence_rule_form.instance.recurrence_end_date %} class="hidden"{% endif %}
+                            {% endif %}>
+                                <label for="{{ recurrence_rule_form.recurrence_end_date.id_for_label }}" class="secondary">{{ recurrence_rule_form.recurrence_end_date.label }}</label>
+                                {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" %}
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <label for="{{ event_form.location.id_for_label }}">{{ event_form.location.label }}</label>
+                        {% trans 'Name of event location' as poi_title_placeholder %}
+                        <div class="relative my-2">
+                            <input id="poi-query-input" type="search" autocomplete="off" class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"{% if event_form.disabled %} disabled{% endif %} placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' %}" data-region-slug="{{ region.slug }}" data-default-placeholder="{{ poi_title_placeholder }}">
+                            <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                                <button id="poi-remove" title="{% trans 'Remove location from event' %}"{% if event_form.disabled %} disabled{% endif %}>
+                                    <i data-feather="trash-2" class="h-5 w-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="relative" id="poi-query-result">
+                            {% include 'events/_poi_query_result.html' %}
+                        </div>
+                        <p class="text-sm italic block mt-2 mb-2">
+                            {% trans 'Create an event location or start typing the name of an existing location' %}.
+                        </p>
+                        <label class="secondary">{% trans 'Address' %}</label>
+                        <input name="poi_id" id="poi-id" class="hidden" value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}" readonly>
+                        {% trans 'Street' as street_placeholder %}
+                        <input id="poi-address" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ street_placeholder }}" value="{% if poi %}{{ poi.address }}{% endif %}" />
+                        {% trans 'City' as city_placeholder %}
+                        <input id="poi-city" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ city_placeholder }}" value="{% if poi %}{{ poi.city }}{% endif %}" />
+                        {% trans 'Country' as country_placeholder %}
+                        <input id="poi-country" disabled class="appearance-none block w-full bg-white text-gray-800 border border-gray-400 rounded mb-2 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" placeholder="{{ country_placeholder }}" value="{% if poi %}{{ poi.country }}{% endif %}" />
+                        <label class="secondary">{% trans 'Map' %}</label>
+                        <i class="text-teal-500">Google Map vs. OSM</i>
+                    </div>
+                    <div>
+                        <label for="{{ event_form.icon.id_for_label }}">{{ event_form.icon.label }}</label>
+                        {% render_field event_form.icon label=event_form.icon.label %}
+                    </div>
+                    {% if event_form.instance.id and perms.cms.change_event %}
+                        <div>
+                            {% if event_form.instance.archived %}
+                                <label>{% trans 'Restore event' %}</label>
+                                <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                    data-confirmation-title="{{ restore_dialog_title }}"
+                                    data-confirmation-text="{{ restore_dialog_text}}"
+                                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    <i data-feather="refresh-ccw" class="mr-2"></i>
+                                    {% trans 'Restore this event' %}
+                                </button>
+                            {% else %}
+                                <label>{% trans 'Archive event' %}</label>
+                                <button class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                    data-confirmation-title="{{ archive_dialog_title }}"
+                                    data-confirmation-text="{{ archive_dialog_text }}"
+                                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                                    data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    <i data-feather="archive" class="mr-2"></i>
+                                    {% trans 'Archive this event' %}
+                                </button>
+                            {% endif %}
+                        </div>
+                        {% if perms.cms.delete_event %}
+                            <div>
+                                <label>{% trans 'Delete event' %}</label>
+                                <button class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                                    data-confirmation-title="{{ delete_dialog_title }}"
+                                    data-confirmation-text="{{ delete_dialog_text }}"
+                                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                                    data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    <i data-feather="trash-2" class="mr-2"></i>
+                                    {% trans 'Delete this event' %}
+                                </button>
+                            </div>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -308,7 +303,7 @@
 </form>
 {{ media_config_data|json_script:"media_config_data" }}
 
-{% if not can_edit_event or event_form.instance.id and event_form.instance.archived %}
+{% if not perms.cms.change_event or event_form.instance.id and event_form.instance.archived %}
     {% include '../_tinymce_config.html' with readonly=1 %}
 {% else %}
     {% include '../_tinymce_config.html' %}

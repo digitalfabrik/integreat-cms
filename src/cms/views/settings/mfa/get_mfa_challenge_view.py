@@ -1,6 +1,8 @@
 """
 This module contains all views related to multi-factor authentication
 """
+import logging
+
 import webauthn
 
 from django.conf import settings
@@ -11,6 +13,8 @@ from django.views.generic import View
 
 from ....decorators import modify_mfa_authenticated
 from ....utils.mfa_utils import generate_challenge
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")

@@ -121,7 +121,7 @@
                 <option>{% trans 'Select bulk action' %}</option>
                 <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=region.slug %}">{% trans 'Mark as read' %}</option>
                 <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=region.slug %}">{% trans 'Mark as unread' %}</option>
-                {% if request.user.is_superuser or request.user.is_staff %}
+                {% if perms.cms.delete_feedback %}
                     <option data-bulk-action="{% url 'delete_region_feedback' region_slug=region.slug %}">{% trans 'Delete' %}</option>
                 {% endif %}
             </select>

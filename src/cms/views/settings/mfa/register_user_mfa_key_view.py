@@ -1,3 +1,4 @@
+import logging
 import json
 
 import webauthn
@@ -13,6 +14,8 @@ from django.views.generic import CreateView
 
 from ....models import UserMfaKey
 from ....decorators import modify_mfa_authenticated
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")

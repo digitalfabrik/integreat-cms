@@ -1,6 +1,7 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -8,21 +9,20 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Region, Language
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class PageRevisionView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_page"), name="dispatch")
+class PageRevisionView(TemplateView):
     """
     View for browsing the page revisions and restoring old page revisions
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_pages"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_revisions.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
@@ -63,10 +63,10 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
                     "page_id": page.id,
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
 
-        if not request.user.has_perm("cms.edit_page", page):
+        if not request.user.has_perm("cms.change_page_object", page):
             messages.warning(
                 request,
                 _("You don't have the permission to restore revisions of this page."),
@@ -84,7 +84,7 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
                     "page_id": page.id,
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
 
         if page.archived:
@@ -129,9 +129,6 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
         region = Region.get_current_region(request)
         page = region.pages.get(id=kwargs.get("page_id"))
 
-        if not request.user.has_perm("cms.edit_page", page):
-            raise PermissionDenied
-
         language = Language.objects.get(slug=kwargs.get("language_slug"))
 
         revision = page.translations.filter(
@@ -146,7 +143,12 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
                     "page_id": page.id,
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
+            )
+
+        if not request.user.has_perm("cms.change_page_object", page):
+            raise PermissionDenied(
+                f"{request.user.profile!r} does not have the permission to restore {revision!r} of {page!r}"
             )
 
         current_revision = page.get_translation(language.slug)
@@ -168,7 +170,7 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
                     "page_id": page.id,
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
 
         revision.pk = None
@@ -179,8 +181,10 @@ class PageRevisionView(PermissionRequiredMixin, TemplateView):
         elif request.POST.get("submit_review"):
             revision.status = status.REVIEW
         elif request.POST.get("submit_public"):
-            if not request.user.has_perm("cms.publish_page", page):
-                raise PermissionDenied
+            if not request.user.has_perm("cms.publish_page_object", page):
+                raise PermissionDenied(
+                    f"{request.user.profile!r} does not have the permission to restore the public {revision!r} of {page!r}"
+                )
             revision.status = status.PUBLIC
 
         revision.save()

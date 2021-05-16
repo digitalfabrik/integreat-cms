@@ -4,7 +4,7 @@ This module contains view actions related to the imprint.
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
@@ -12,7 +12,7 @@ from django.http import HttpResponseNotFound
 from django.views.decorators.http import require_POST
 
 from backend.settings import WEBAPP_URL
-from ...decorators import region_permission_required, staff_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Region, ImprintPage, ImprintPageTranslation
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.manage_imprint", raise_exception=True)
+@permission_required("cms.change_imprintpage")
 def archive_imprint(request, region_slug):
     """
     Archive imprint object
@@ -62,7 +62,7 @@ def archive_imprint(request, region_slug):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.manage_imprint", raise_exception=True)
+@permission_required("cms.change_imprintpage")
 def restore_imprint(request, region_slug):
     """
     Restore imprint object (set ``archived=False``)
@@ -102,8 +102,8 @@ def restore_imprint(request, region_slug):
 
 @require_POST
 @login_required
-@staff_required
-@permission_required("cms.manage_imprint", raise_exception=True)
+@region_permission_required
+@permission_required("cms.delete_imprintpage")
 def delete_imprint(request, region_slug):
     """
     Delete imprint object

@@ -21,9 +21,9 @@
             <a href="{% url 'edit_imprint' region_slug=region.slug language_slug=target_language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2">
                 {% trans 'Go back to imprint editor' %}
             </a>
-            {% if not source_page_translation.page.archived %}
-            <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
-            <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% if perms.cms.change_imprintpage and not source_page_translation.page.archived %}
+                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
             {% endif %}
         </div>
     </div>
@@ -139,7 +139,7 @@
 </div>
 </form>
 
-{% if imprint_translation_form.instance.id and imprint_translation_form.instance.page.archived %}
+{% if not perms.cms.change_imprintpage or imprint_translation_form.instance.id and imprint_translation_form.instance.page.archived %}
     {% include '../_tinymce_config.html' with readonly=1 %}
 {% else %}
     {% include '../_tinymce_config.html' %}

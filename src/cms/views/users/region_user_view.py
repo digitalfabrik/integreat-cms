@@ -1,32 +1,33 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import RegionUserForm, RegionUserProfileForm
 from ...models import Region
 from ...utils.account_activation_utils import send_activation_link
 
+logger = logging.getLogger(__name__)
+
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class RegionUserView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("auth.view_user"), name="dispatch")
+@method_decorator(permission_required("auth.change_user"), name="post")
+class RegionUserView(TemplateView):
     """
     View for the user form and user profile form of region users
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_region_users"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "users/region/user.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "region_users_form"}
+    base_context = {"current_menu_item": "region_user_form"}
 
     def get(self, request, *args, **kwargs):
         """

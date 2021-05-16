@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from api.decorators import json_response
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import (
     UploadMediaFileForm,
     MediaFileForm,
@@ -25,6 +25,8 @@ logger = logging.getLogger(__name__)
 
 @login_required
 @region_permission_required
+@permission_required("cms.view_directory")
+@permission_required("cms.view_mediafile")
 @json_response
 # pylint: disable=unused-argument
 def get_directory_path_ajax(request, region_slug=None):
@@ -59,6 +61,8 @@ def get_directory_path_ajax(request, region_slug=None):
 
 @login_required
 @region_permission_required
+@permission_required("cms.view_directory")
+@permission_required("cms.view_mediafile")
 @json_response
 # pylint: disable=unused-argument
 def get_directory_content_ajax(request, region_slug=None):
@@ -98,6 +102,7 @@ def get_directory_content_ajax(request, region_slug=None):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.add_mediafile")
 @json_response
 # pylint: disable=unused-argument
 def upload_file_ajax(request, region_slug=None):
@@ -149,6 +154,7 @@ def upload_file_ajax(request, region_slug=None):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.change_mediafile")
 @json_response
 # pylint: disable=unused-argument
 def edit_file_ajax(request, region_slug=None):
@@ -214,6 +220,7 @@ def edit_file_ajax(request, region_slug=None):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.delete_mediafile")
 @json_response
 # pylint: disable=unused-argument
 def delete_file_ajax(request, region_slug=None):
@@ -259,6 +266,7 @@ def delete_file_ajax(request, region_slug=None):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.add_directory")
 @json_response
 # pylint: disable=unused-argument
 def create_directory_ajax(request, region_slug=None):
@@ -310,6 +318,7 @@ def create_directory_ajax(request, region_slug=None):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.change_directory")
 @json_response
 # pylint: disable=unused-argument
 def edit_directory_ajax(request, region_slug=None):
@@ -370,6 +379,7 @@ def edit_directory_ajax(request, region_slug=None):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.delete_directory")
 @json_response
 # pylint: disable=unused-argument
 def delete_directory_ajax(request, region_slug=None):

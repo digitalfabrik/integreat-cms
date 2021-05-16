@@ -1,27 +1,28 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...forms import OrganizationForm
 from ...models import Organization
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class OrganizationView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_organization"), name="dispatch")
+@method_decorator(permission_required("cms.change_organization"), name="post")
+class OrganizationView(TemplateView):
     """
     View for the organization form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_organizations"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "organizations/organization_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)

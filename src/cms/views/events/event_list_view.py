@@ -1,8 +1,8 @@
 from datetime import date, time
+import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -12,27 +12,23 @@ from django.views.generic import TemplateView
 from backend.settings import PER_PAGE
 
 from ...constants import all_day, recurrence
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Region
 from ...forms import EventFilterForm
 from .event_context_mixin import EventContextMixin
 
+logger = logging.getLogger(__name__)
+
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class EventListView(
-    LoginRequiredMixin, PermissionRequiredMixin, TemplateView, EventContextMixin
-):
+@method_decorator(permission_required("cms.view_event"), name="dispatch")
+class EventListView(TemplateView, EventContextMixin):
     """
     View for listing events (either non-archived or archived events depending on
     :attr:`~cms.views.events.event_list_view.EventListView.archived`)
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_events"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: Template for list of non-archived events
     template = "events/event_list.html"
     #: Template for list of archived events
@@ -90,7 +86,7 @@ class EventListView(
             )
             return redirect("language_tree", **{"region_slug": region.slug})
 
-        if not request.user.has_perm("cms.edit_events"):
+        if not request.user.has_perm("cms.change_event"):
             messages.warning(
                 request, _("You don't have the permission to edit or create events.")
             )

@@ -212,10 +212,9 @@ class Page(MPTTModel, AbstractBasePage):
         #: The plural verbose name of the model
         verbose_name_plural = _("pages")
         #: The default permissions for this model
-        default_permissions = ()
+        default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model
         permissions = (
-            ("edit_pages", "Can edit pages"),
-            ("publish_pages", "Can publish pages"),
-            ("grant_page_permissions", "Can grant page permissions"),
+            ("publish_page", "Can publish page"),
+            ("grant_page_permissions", "Can grant page permission"),
         )

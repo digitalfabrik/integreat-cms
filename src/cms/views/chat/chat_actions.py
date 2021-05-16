@@ -61,14 +61,11 @@ def delete_chat_message(request, message_id):
     """
     message = get_object_or_404(ChatMessage, id=message_id)
 
-    if not request.user.has_perm("cms.delete_chat_message", message):
+    if not request.user.has_perm("cms.delete_chat_message_object", message):
         # If the user is neither superuser or staff, nor the sender of the message, he cannot delete it
-        logger.warning(
-            "PermissionDenied: %r tried to delete %r",
-            request.user.profile,
-            message,
+        raise PermissionDenied(
+            f"{request.user.profile!r} does not have the permission to delete {message!r}"
         )
-        raise PermissionDenied
 
     message.delete()
     logger.debug("%r deleted by %r", message, request.user.profile)

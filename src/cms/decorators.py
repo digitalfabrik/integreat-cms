@@ -6,6 +6,7 @@ For more information, see :doc:`topics/http/decorators`.
 import time
 from functools import wraps
 
+from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 
@@ -23,15 +24,36 @@ def staff_required(function):
     :rtype: ~collections.abc.Callable
     """
 
-    @wraps(function)
-    def wrap(request, *args, **kwargs):
-        user = request.user
-        # superusers and staff have access to this areas
+    def is_staff(user):
         if user.is_superuser or user.is_staff:
-            return function(request, *args, **kwargs)
-        raise PermissionDenied
+            return True
+        raise PermissionDenied(
+            f"{user.profile!r} does not have the permission to access this staff area"
+        )
 
-    return wrap
+    return user_passes_test(is_staff)(function)
+
+
+def permission_required(permission):
+    """
+    Decorator for views that checks whether a user has a particular permission enabled.
+    If not, the PermissionDenied exception is raised.
+
+    :param permission: The required permission
+    :type permission: str
+
+    :return: The decorated function
+    :rtype: ~collections.abc.Callable
+    """
+
+    def check_permission(user):
+        if user.has_perm(permission):
+            return True
+        raise PermissionDenied(
+            f"{user.profile!r} does not have the permission {permission!r}"
+        )
+
+    return user_passes_test(check_permission)
 
 
 def region_permission_required(function):
@@ -54,7 +76,9 @@ def region_permission_required(function):
         region = Region.get_current_region(request)
         if region in user.profile.regions.all():
             return function(request, *args, **kwargs)
-        raise PermissionDenied
+        raise PermissionDenied(
+            f"{user.profile!r} does not have the permission to access {region!r}"
+        )
 
     return wrap
 

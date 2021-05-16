@@ -1,28 +1,29 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
+from ...constants import status
+from ...decorators import region_permission_required, permission_required
 from ...forms import PageTranslationForm
 from ...models import Region, Language
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class PageSideBySideView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_page"), name="dispatch")
+class PageSideBySideView(TemplateView):
     """
     View for the page side by side form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_pages"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_sbs.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
@@ -68,7 +69,7 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                     "page_id": page.id,
                     "region_slug": region.slug,
                     "language_slug": target_language.slug,
-                }
+                },
             )
 
         source_page_translation = page.get_translation(source_language.slug)
@@ -87,7 +88,7 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                     "page_id": page.id,
                     "region_slug": region.slug,
                     "language_slug": target_language.slug,
-                }
+                },
             )
 
         page_translation_form = PageTranslationForm(
@@ -129,12 +130,10 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
         region = Region.get_current_region(request)
         page = region.pages.get(id=kwargs.get("page_id"))
 
-        if not request.user.has_perm("cms.edit_page", page):
-            messages.warning(
-                request,
-                _("You don't have the permission to edit this page."),
+        if not request.user.has_perm("cms.change_page_object", page):
+            raise PermissionDenied(
+                f"{request.user.profile!r} does not have the permission to edit {page!r}"
             )
-            raise PermissionDenied
 
         target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         source_language_node = region.language_tree_nodes.get(
@@ -158,7 +157,7 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                     "page_id": page.id,
                     "region_slug": region.slug,
                     "language_slug": target_language.slug,
-                }
+                },
             )
 
         page_translation_instance = page.get_translation(target_language.slug)
@@ -176,7 +175,7 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
                     "page_id": page.id,
                     "region_slug": region.slug,
                     "language_slug": target_language.slug,
-                }
+                },
             )
 
         page_translation_form = PageTranslationForm(
@@ -195,6 +194,14 @@ class PageSideBySideView(PermissionRequiredMixin, TemplateView):
         elif not page_translation_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))
+        elif (
+            not request.user.has_perm("cms.publish_page_object", page)
+            and page_translation_form.cleaned_data.get("status") == status.PUBLIC
+        ):
+            # Raise PermissionDenied if user wants to publish page but doesn't have the permission
+            raise PermissionDenied(
+                f"{request.user.profile!r} does not have the permission to publish {page!r}"
+            )
         else:
             # Save form
             page_translation_form.save()

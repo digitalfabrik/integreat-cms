@@ -148,6 +148,4 @@ class POI(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("locations")
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (("manage_pois", "Can manage points of interest"),)
+        default_permissions = ("change", "delete", "view")

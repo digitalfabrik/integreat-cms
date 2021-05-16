@@ -7,13 +7,14 @@ import logging
 from mptt.exceptions import InvalidMove
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import region_permission_required
-from ...models import LanguageTreeNode, Region
+from ...constants import position
+from ...decorators import region_permission_required, permission_required
+from ...models import Region
 
 logger = logging.getLogger(__name__)
 
@@ -21,9 +22,9 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.manage_language_tree", raise_exception=True)
+@permission_required("cms.change_languagetreenode")
 def move_language_tree_node(
-    request, region_slug, language_tree_node_id, target_id, position
+    request, region_slug, language_tree_node_id, target_id, target_position
 ):
     """
     This action moves the given language tree node to the given position relative to the given target.
@@ -40,24 +41,23 @@ def move_language_tree_node(
     :param target_id: The id of the target language tree node
     :type target_id: int
 
-    :param position: The desired position (choices: :mod:`cms.constants.position`)
-    :type position: str
+    :param target_position: The desired position (choices: :mod:`cms.constants.position`)
+    :type target_position: str
 
     :return: A redirection to the language tree
     :rtype: ~django.http.HttpResponseRedirect
     """
 
+    region = Region.get_current_region(request)
+    language_tree_node = get_object_or_404(
+        region.language_tree_nodes, id=language_tree_node_id
+    )
+    target = get_object_or_404(region.language_tree_nodes, id=target_id)
+
     try:
-        region = Region.get_current_region(request)
-        language_tree_node = LanguageTreeNode.objects.get(id=language_tree_node_id)
-        target = LanguageTreeNode.objects.get(id=target_id)
-        if language_tree_node.region != region or target.region != region:
-            raise InvalidMove(
-                _("You can only move language tree nodes within one region.")
-            )
-        if target.level == 0 and position in ["left", "right"]:
+        if target.level == 0 and target_position in [position.LEFT, position.RIGHT]:
             raise InvalidMove(_("A region can only have one root language."))
-        language_tree_node.move_to(target, position)
+        language_tree_node.move_to(target, target_position)
         messages.success(
             request,
             _('The language tree node "{}" was successfully moved.').format(
@@ -67,11 +67,11 @@ def move_language_tree_node(
         logger.debug(
             "%r moved to %r of %r by %r",
             language_tree_node,
-            position,
+            target_position,
             target,
             request.user.profile,
         )
-    except (LanguageTreeNode.DoesNotExist, ValueError, InvalidMove) as e:
+    except (ValueError, InvalidMove) as e:
         messages.error(request, e)
         logger.exception(e)
 
@@ -81,7 +81,7 @@ def move_language_tree_node(
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.manage_language_tree", raise_exception=True)
+@permission_required("cms.delete_languagetreenode")
 def delete_language_tree_node(request, region_slug, language_tree_node_id):
     """
     Deletes the language node of distinct region

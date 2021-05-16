@@ -4,7 +4,6 @@ from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -13,7 +12,7 @@ from django.views.generic import TemplateView
 from django.forms import modelformset_factory
 
 from .push_notification_sender import PushNotificationSender
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import (
     PushNotificationForm,
     PushNotificationTranslationForm,
@@ -25,15 +24,12 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class PushNotificationView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
+@method_decorator(permission_required("cms.change_pushnotification"), name="post")
+class PushNotificationView(TemplateView):
     """
     Class that handles HTTP POST and GET requests for editing push notifications
     """
-
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_push_notifications"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "push_notifications/push_notification_form.html"
@@ -52,8 +48,6 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
 
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
-
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit push notifications
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -117,7 +111,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
 
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit push notifications
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to send push notifications
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -133,7 +127,7 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             push_notification=push_notification_instance
         )
 
-        if not request.user.has_perm("cms.edit_push_notifications"):
+        if not request.user.has_perm("cms.change_pushnotification"):
             logger.warning(
                 "%r tried to edit %r",
                 request.user.profile,
@@ -198,11 +192,11 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
                 )
 
             if "submit_send" in request.POST:
-                if not request.user.has_perm("cms.send_push_notifications"):
+                if not request.user.has_perm("cms.send_push_notification"):
                     logger.warning(
-                        "%r tried to send %r",
+                        "%r does not have the permission to send %r",
                         request.user.profile,
-                        pn_form.instance,
+                        push_notification_instance,
                     )
                     raise PermissionDenied
                 push_sender = PushNotificationSender(pn_form.instance)
@@ -239,7 +233,6 @@ class PushNotificationView(PermissionRequiredMixin, TemplateView):
             self.template_name,
             {
                 **self.base_context,
-                "push_notification": pn_form.instance,
                 "push_notification_form": pn_form,
                 "pnt_formset": pnt_formset,
                 "language": language,

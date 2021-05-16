@@ -31,6 +31,14 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         related_name="imprint_translations",
         verbose_name=_("language"),
     )
+    title = models.CharField(
+        max_length=250,
+        verbose_name=_("title of the imprint"),
+    )
+    text = models.TextField(
+        blank=True,
+        verbose_name=_("content of the imprint"),
+    )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,

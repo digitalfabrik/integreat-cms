@@ -6,24 +6,24 @@
 
 {% block content %}
 <div class="table-header">
-    <div class="flex justify-between">
+    <div class="flex flex-wrap justify-between">
         <h1 class="heading">{% trans 'Locations on map' %}</h1>
-        <a href="{% url 'archived_pois' region_slug=region.slug language_slug=language.slug %}" class="font-bold text-xs text-gray-800 block pb-2 hover:underline">
-            {% trans 'Archived locations' %}
+        <a href="{% url 'archived_pois' region_slug=region.slug language_slug=language.slug %}" class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+            <span>{% trans 'Archived locations' %}</span>
             <span class="inline-block rounded-full bg-integreat-500 text-gray-800 px-2 py-1 text-xs font-bold">
                 {{ archived_count }}
             </span>
         </a>
     </div>
-    <div class="flex justify-between">
-        <div class="flex flex-wrap">
+    <div class="flex flex-wrap justify-between gap-4">
+        <div class="flex flex-wrap gap-4">
             {% include "generic_language_switcher.html" with target='pois' %}
             <form class="table-search relative w-auto">
                 <i data-feather="search" class="absolute"></i>
-                <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
+                <input type="search" placeholder="{% trans 'Search' %}" class="pl-10">
             </form>
         </div>
-        {% if region.default_language == language %}
+        {% if region.default_language == language and perms.auth.change_imprintpage %}
             <a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 {% trans 'Create location' %}
             </a>

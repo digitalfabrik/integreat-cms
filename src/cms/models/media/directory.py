@@ -80,5 +80,3 @@ class Directory(models.Model):
         verbose_name_plural = _("media directories")
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["-region", "name"]
-        #: The default permissions for this model
-        default_permissions = ()

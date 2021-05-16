@@ -6,14 +6,13 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from django.db.models import Subquery, OuterRef
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from ...constants import status
-from ...decorators import region_permission_required, staff_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Region, POITranslation
 
 logger = logging.getLogger(__name__)
@@ -22,6 +21,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.change_event")
 def archive(request, event_id, region_slug, language_slug):
     """
     Set archived flag for an event
@@ -38,16 +38,11 @@ def archive(request, event_id, region_slug, language_slug):
     :param language_slug: current GUI language slug
     :type language_slug: str
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
-
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
     region = Region.get_current_region(request)
     event = get_object_or_404(region.events, id=event_id)
-
-    if not request.user.has_perm("cms.edit_events"):
-        raise PermissionDenied
 
     event.archived = True
     event.save()
@@ -67,6 +62,7 @@ def archive(request, event_id, region_slug, language_slug):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.change_event")
 def duplicate(request, event_id, region_slug, language_slug):
     """
     Duplicates the given event and all of its translations.
@@ -83,16 +79,11 @@ def duplicate(request, event_id, region_slug, language_slug):
     :param language_slug: current GUI language slug
     :type language_slug: str
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
-
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
     region = Region.get_current_region(request)
     event = get_object_or_404(region.events, id=event_id)
-
-    if not request.user.has_perm("cms.edit_events"):
-        raise PermissionDenied
 
     event.duplicate(request.user)
 
@@ -107,6 +98,7 @@ def duplicate(request, event_id, region_slug, language_slug):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.change_event")
 def restore(request, event_id, region_slug, language_slug):
     """
     Remove archived flag for an event
@@ -123,16 +115,11 @@ def restore(request, event_id, region_slug, language_slug):
     :param language_slug: current GUI language slug
     :type language_slug: str
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
-
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
     region = Region.get_current_region(request)
     event = get_object_or_404(region.events, id=event_id)
-
-    if not request.user.has_perm("cms.edit_events"):
-        raise PermissionDenied
 
     event.archived = False
     event.save()
@@ -151,7 +138,8 @@ def restore(request, event_id, region_slug, language_slug):
 
 @require_POST
 @login_required
-@staff_required
+@region_permission_required
+@permission_required("cms.delete_event")
 def delete(request, event_id, region_slug, language_slug):
     """
     Delete a single event
@@ -193,6 +181,7 @@ def delete(request, event_id, region_slug, language_slug):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.view_event")
 def search_poi_ajax(request):
     """
     AJAX endpoint for searching POIs

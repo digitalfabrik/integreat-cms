@@ -15,7 +15,9 @@
 				{% trans 'Create new organization' %}
 			{% endif %}
 		</h1>
-		<input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+		{% if perms.auth.change_organization %}
+			<input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+		{% endif %}
     </div>
     <div class="grid xl:grid-cols-2 gap-4">
 		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">

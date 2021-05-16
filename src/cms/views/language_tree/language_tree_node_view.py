@@ -1,28 +1,29 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import LanguageTreeNodeForm
 from ...models import Region
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_languagetreenode"), name="dispatch")
+@method_decorator(permission_required("cms.change_languagetreenode"), name="post")
+class LanguageTreeNodeView(TemplateView):
     """
     Class that handles viewing single language in the language tree.
     This view is available within regions.
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_language_tree"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "language_tree/language_tree_node_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)

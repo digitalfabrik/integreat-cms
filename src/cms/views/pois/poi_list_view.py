@@ -1,6 +1,7 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -9,23 +10,21 @@ from django.views.generic import TemplateView
 
 from backend.settings import PER_PAGE
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Region, Language
 from .poi_context_mixin import POIContextMixin
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class POIListView(PermissionRequiredMixin, TemplateView, POIContextMixin):
+@method_decorator(permission_required("cms.view_poi"), name="dispatch")
+class POIListView(TemplateView, POIContextMixin):
     """
     View for listing POIs (points of interests)
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_pois"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: Template for list of non-archived POIs
     template = "pois/poi_list.html"
     #: Template for list of archived POIs

@@ -190,8 +190,6 @@ class LanguageTreeNode(MPTTModel):
             ),
         )
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (("manage_language_tree", "Can manage language tree"),)
+        default_permissions = ("change", "delete", "view")
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["region", "level", "parent__pk"]

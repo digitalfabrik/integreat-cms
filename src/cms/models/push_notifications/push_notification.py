@@ -109,10 +109,6 @@ class PushNotification(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("push notifications")
         #: The default permissions for this model
-        default_permissions = ()
+        default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model
-        permissions = (
-            ("view_push_notifications", "Can view push notifications"),
-            ("edit_push_notifications", "Can edit push notifications"),
-            ("send_push_notifications", "Can send push notifications"),
-        )
+        permissions = (("send_push_notification", "Can send push notification"),)

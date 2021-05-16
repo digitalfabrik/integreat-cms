@@ -1,6 +1,8 @@
 """
 This module contains all views related to multi-factor authentication
 """
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -9,6 +11,8 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ....decorators import modify_mfa_authenticated
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")

@@ -4,21 +4,21 @@ This module contains view actions for user objects.
 import logging
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...utils.account_activation_utils import send_activation_link
 
 logger = logging.getLogger(__name__)
 
 
 @require_POST
-@staff_required
 @login_required
-@permission_required("cms.manage_admin_users", raise_exception=True)
+@staff_required
+@permission_required("auth.delete_user")
 def delete_user(request, user_id):
     """
     This view deletes a user
@@ -43,11 +43,12 @@ def delete_user(request, user_id):
 
 
 @require_POST
-@staff_required
 @login_required
-@permission_required("cms.manage_admin_users", raise_exception=True)
+@staff_required
+@permission_required("auth.cange_user")
 def resend_activation_link(request, user_id):
-    """Resends an activation link to an user
+    """
+    Resends an activation link to an user
 
     :param request: The current request
     :type request: ~django.http.HttpResponse
