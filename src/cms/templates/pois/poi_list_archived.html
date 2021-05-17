@@ -11,11 +11,14 @@
             <h1 class="heading">{% trans 'Archived locations' %}</h1>
         </div>
     </div>
-    <div class="flex flex-wrap">
-        <form class="table-search relative w-1/4">
-            <i data-feather="search" class="absolute"></i>
-            <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
-        </form>
+    <div class="flex flex-wrap justify-between">
+        <div class="flex flex-wrap">
+            {% include "generic_language_switcher.html" with target='archived_pois' %}
+            <form class="table-search relative w-1/4">
+                <i data-feather="search" class="absolute"></i>
+                <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
+            </form>
+        </div>
     </div>
 </div>
 

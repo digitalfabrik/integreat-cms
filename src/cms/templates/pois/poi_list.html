@@ -19,17 +19,20 @@
             </a>
         </div>
     </div>
-    <div class="flex flex-wrap">
-        <form class="table-search relative w-1/2">
-            <i data-feather="search" class="absolute"></i>
-            <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
-        </form>
-        <div class="w-1/2 flex flex-wrap justify-end">
-        {% if region.default_language == language %}
-        <a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            {% trans 'Create location' %}
-        </a>
-        {% endif %}
+    <div class="flex flex-wrap justify-between">
+        <div class="flex flex-wrap">
+            {% include "generic_language_switcher.html" with target='pois' %}
+            <form class="table-search relative w-1/2">
+                <i data-feather="search" class="absolute"></i>
+                <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
+            </form>
+        </div>
+        <div class="flex flex-wrap">
+            {% if region.default_language == language %}
+            <a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                {% trans 'Create location' %}
+            </a>
+            {% endif %}
         </div>
     </div>
 </div>

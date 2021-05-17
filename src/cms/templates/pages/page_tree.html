@@ -24,32 +24,8 @@
     </div>
     <div class="flex flex-wrap justify-between">
         <div class="flex flex-wrap">
-            <div id="language-switcher" class="flex flex-col z-10">
-                <a id="language-switcher-current" href="{% url 'pages' region_slug=region.slug language_slug=language.slug %}" class="font-bold block flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200">
-                    {{ language.translated_name }}
-                    <span>
-                        <span class="fp fp-rounded fp-{{ language.primary_country_code }} ml-2"></span>
-                        {% if language.secondary_country_code %}
-                            <span class="fp fp-rounded fp-{{ language.secondary_country_code }}"></span>
-                        {% endif %}
-                        <i id="language-switcher-chevron" class="-mr-2 h-5" data-feather="chevron-down"></i>
-                    </span>
-                </a>
-                <div id="language-switcher-list" class="h-0 hidden">
-                    {% for other_language in languages|remove:language %}
-                        <a href="{% url 'pages' region_slug=region.slug language_slug=other_language.slug %}" class="block flex justify-between whitespace-nowrap {% if forloop.last %} rounded-b {% endif %} shadow px-4 py-3 text-gray-800 hover:bg-gray-200 bg-white">
-                            {{ other_language.translated_name }}
-                            <span>
-                                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }} ml-2"></span>
-                                {% if other_language.secondary_country_code %}
-                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                {% endif %}
-                            </span>
-                        </a>
-                    {% endfor %}
-                </div>
-            </div>
-            <form class="table-search relative ml-4">
+            {% include "generic_language_switcher.html" with target='pages' %}
+            <form class="table-search relative">
                 <i data-feather="search" class="absolute"></i>
                 <input type="search" placeholder="{% trans 'Search' %}" class="h-full py-2 pl-10 pr-4 rounded shadow">
             </form>
