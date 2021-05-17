@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-11T10:14:54+00:00" />
+    <meta property="article:modified_time" content="2021-05-14T10:53:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>V3 &mdash; integreat-cms 0.0.14 documentation</title>
@@ -660,6 +660,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/api.v3.feedback.html#search-result-feedback">Search Result Feedback</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#events">Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#imprint">Imprint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#languages">Languages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/api.v3.html#locations">Locations</a></li>
@@ -1091,6 +1092,7 @@
 <li class="toctree-l4"><a class="reference internal" href="api.v3.feedback.html#module-api.v3.feedback.search_result_feedback">Search Result Feedback</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#module-api.v3.events">Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.imprint">Imprint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.languages">Languages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-api.v3.locations">Locations</a></li>
@@ -1219,6 +1221,64 @@
 </li>
 </ul>
 </div>
+<div class="section" id="module-api.v3.events">
+<span id="events"></span><h2>Events<a class="headerlink" href="#module-api.v3.events" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="api.v3.events.events">
+<code class="sig-prename descclassname"><span class="pre">api.v3.events.</span></code><code class="sig-name descname"><span class="pre">events</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.events" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all events of the region and transform result into JSON</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested region</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested language</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON object according to APIv3 events endpoint definition</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="api.v3.events.transform_event">
+<code class="sig-prename descclassname"><span class="pre">api.v3.events.</span></code><code class="sig-name descname"><span class="pre">transform_event</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.transform_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a JSON from a single event object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>event</strong> (<a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><em>Event</em></a>) – The event which should be converted</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return data necessary for API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="api.v3.events.transform_event_translation">
+<code class="sig-prename descclassname"><span class="pre">api.v3.events.</span></code><code class="sig-name descname"><span class="pre">transform_event_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.transform_event_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a JSON from a single event_translation object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>event_translation</strong> (<a class="reference internal" href="cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><em>EventTranslation</em></a>) – The event translation object which should be converted</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return data necessary for API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-api.v3.imprint">
 <span id="imprint"></span><h2>Imprint<a class="headerlink" href="#module-api.v3.imprint" title="Permalink to this headline">¶</a></h2>
 <p>imprint API endpoint</p>
@@ -1291,7 +1351,7 @@ default language.</p>
 <span id="locations"></span><h2>Locations<a class="headerlink" href="#module-api.v3.locations" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="api.v3.locations.locations">
-<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">locations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.locations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">locations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.locations" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all POIs of the region and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1311,8 +1371,30 @@ default language.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="api.v3.locations.transform_poi">
+<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">transform_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.transform_poi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a JSON from a single poi object.
+Because the json requires a translated name, <cite>poi_translation</cite> has to be
+passed as the second parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>poi</strong> (<a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><em>POI</em></a>) – The poi object which should be converted</p></li>
+<li><p><strong>poi_translation</strong> (<a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a>) – The translation of the POI which should be used for the title</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return data necessary for API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="api.v3.locations.transform_poi_translation">
-<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">transform_poi_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.transform_poi_translation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">transform_poi_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.transform_poi_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single poi_translation object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1684,7 +1766,7 @@ requested page does not exist.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 11, 2021.
+        Last updated on May 14, 2021.
       </span>
 
     </p>
