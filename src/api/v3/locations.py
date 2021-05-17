@@ -5,6 +5,35 @@ from cms.models import Region
 from ..decorators import json_response
 
 
+def transform_poi(poi, poi_translation):
+    """
+    Function to create a JSON from a single poi object.
+    Because the json requires a translated name, `poi_translation` has to be
+    passed as the second parameter.
+
+    :param poi: The poi object which should be converted
+    :type poi: ~cms.models.pois.poi.POI
+
+    :param poi_translation: The translation of the POI which should be used for the title
+    :type poi_translation: ~cms.models.pois.poi_translation.POITranslation
+
+    :return: return data necessary for API
+    :rtype: dict
+    """
+    return {
+        "id": poi.id,
+        "name": poi_translation.title,
+        "address": poi.address,
+        "town": poi.city,
+        "state": None,
+        "postcode": poi.postcode,
+        "region": None,
+        "country": poi.country,
+        "latitude": poi.latitude,
+        "longitude": poi.longitude,
+    }
+
+
 def transform_poi_translation(poi_translation):
     """
     Function to create a JSON from a single poi_translation object.
@@ -27,18 +56,7 @@ def transform_poi_translation(poi_translation):
         "content": poi_translation.description,
         "available_languages": poi_translation.available_languages,
         "thumbnail": poi.icon.url if poi.icon else None,
-        "location": {
-            "id": poi.id,
-            "name": poi_translation.title,
-            "address": poi.address,
-            "town": poi.city,
-            "state": None,
-            "postcode": poi.postcode,
-            "region": None,
-            "country": poi.country,
-            "latitude": poi.latitude,
-            "longitude": poi.longitude,
-        },
+        "location": transform_poi(poi, poi_translation),
         "hash": None,
     }
 
