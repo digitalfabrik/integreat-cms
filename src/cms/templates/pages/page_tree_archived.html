@@ -34,7 +34,7 @@
                     <div class="lang-grid flags whitespace-nowrap">
                         {% for lang in languages %}
                             <a href="{% url 'pages' region_slug=region.slug language_slug=lang.slug %}">
-                                <span title="{{ lang.translated_name }}"><img src="{% static '' %}images/flags/{{ lang.slug }}.png" /></span>
+                                <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
                             </a>
                         {% endfor %}
                     </div>

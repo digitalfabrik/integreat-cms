@@ -32,11 +32,11 @@
                     {% trans 'Channel' %}
                 </th>
                 <th class="text-sm text-left uppercase py-3 px-2">
-                    <div class="lang-grid flags">
+                    <div class="lang-grid flags whitespace-nowrap">
                         {% for lang in languages %}
-                        <a href="{% url 'push_notifications' region_slug=region.slug language_slug=lang.slug %}">
-                            <img src="{% static '' %}images/flags/{{ lang.slug }}.png" title="{{ lang.name }}" />
-                        </a>
+                            <a href="{% url 'push_notifications' region_slug=region.slug language_slug=lang.slug %}">
+                                <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
+                            </a>
                         {% endfor %}
                     </div>
                 </th>
