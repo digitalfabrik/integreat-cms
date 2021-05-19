@@ -10,12 +10,15 @@
                 <h1 class="heading">{% trans 'Archived events' %}</h1>
             </div>
         </div>
-        <div class="flex flex-wrap">
-            <form class="table-search relative w-1/2">
-                <i data-feather="search" class="absolute"></i>
-                <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
-            </form>
-            <div class="w-1/2 flex flex-wrap justify-end">
+        <div class="flex flex-wrap justify-between">
+            <div class="flex flex-wrap">
+                {% include "generic_language_switcher.html" with target='events_archived' %}
+                <form class="table-search relative w-1/2">
+                    <i data-feather="search" class="absolute"></i>
+                    <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
+                </form>
+            </div>
+            <div class="flex flex-wrap">
                 <button id="filter-toggle"
                         class="bg-gray-500 hover:bg-gray-600 text-gray-800 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
                     {% trans 'Filter events' %}
