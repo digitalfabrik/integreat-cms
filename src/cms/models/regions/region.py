@@ -2,7 +2,6 @@ from html import escape
 
 
 from django.contrib.auth import get_user_model
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.utils.safestring import mark_safe

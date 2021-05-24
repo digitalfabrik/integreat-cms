@@ -1,9 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
+from backend.settings import CHANNELS
 from ..regions.region import Region
 from ...constants.push_notifications import PN_MODES
-from backend.settings import CHANNELS
 
 
 class PushNotification(models.Model):
