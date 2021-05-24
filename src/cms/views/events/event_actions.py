@@ -67,6 +67,46 @@ def archive(request, event_id, region_slug, language_slug):
 @require_POST
 @login_required
 @region_permission_required
+def duplicate(request, event_id, region_slug, language_slug):
+    """
+    Duplicates the given event and all of its translations.
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param event_id: internal id of the event to be duplicated
+    :type event_id: int
+
+    :param region_slug: slug of the region which the event belongs to
+    :type region_slug: str
+
+    :param language_slug: current GUI language slug
+    :type language_slug: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
+    region = Region.get_current_region(request)
+    event = get_object_or_404(region.events, id=event_id)
+
+    if not request.user.has_perm("cms.edit_events"):
+        raise PermissionDenied
+
+    event.duplicate(request.user)
+
+    logger.debug("%r duplicated by %r", event, request.user.profile)
+    messages.success(request, _("Event was successfully duplicated"))
+
+    return redirect(
+        "events", **{"region_slug": region_slug, "language_slug": language_slug}
+    )
+
+
+@require_POST
+@login_required
+@region_permission_required
 def restore(request, event_id, region_slug, language_slug):
     """
     Remove archived flag for an event

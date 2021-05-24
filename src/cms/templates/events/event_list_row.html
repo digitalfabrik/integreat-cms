@@ -85,6 +85,12 @@
             <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}" class="py-3 px-2" title="{% trans 'Edit event' %}">
                 <i data-feather="edit" class="text-gray-800"></i>
             </a>
+            <form action="{% url 'duplicate_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="py-3 px-2" title="{% trans 'Duplicate event' %}">
+                    <i data-feather="copy" class="text-gray-800"></i>
+                </button>
+            </form>
             <button title="{% trans 'Archive event' %}" class="confirmation-button py-3 px-2" 
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
