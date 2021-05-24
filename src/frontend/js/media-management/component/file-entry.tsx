@@ -1,14 +1,17 @@
 import { File as FileIcon } from "preact-feather";
 import { File } from "./directory-listing";
-
+import cn from "classnames";
 interface Props {
   item: File;
+  active: boolean;
   onClick: (event: MouseEvent) => void;
 }
-export default function FileEntry({ item, onClick }: Props) {
+export default function FileEntry({ item, active, onClick }: Props) {
   return (
     <div
-      className="flex flex-col items-center h-44 cursor-pointer"
+      className={cn("flex flex-col items-center h-44 w-44 cursor-pointer", {
+        "border-2 border-blue-900 rounded": active,
+      })}
       onClick={onClick}
     >
       {item.thumbnailPath ? (

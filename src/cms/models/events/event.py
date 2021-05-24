@@ -43,11 +43,13 @@ class Event(models.Model):
         on_delete=models.SET_NULL,
         verbose_name=_("recurrence rule"),
     )
-    icon = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="events/%Y/%m/%d",
+    icon = models.ForeignKey(
+        "cms.Document",
         verbose_name=_("icon"),
+        on_delete=models.SET_NULL,
+        related_name="event_icon_of",
+        blank=True,
+        null=True,
     )
     archived = models.BooleanField(default=False, verbose_name=_("archived"))
 

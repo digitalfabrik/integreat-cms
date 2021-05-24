@@ -257,37 +257,6 @@ def create_directory_ajax(request, region_slug=None):
 @region_permission_required
 @json_response
 # pylint: disable=unused-argument
-def delete_directory_ajax(request, region_slug=None):
-    """
-    View provides the frontend with the option to delete a directory via AJAX.
-
-    :param request: The current request
-    :type request: ~django.http.HttpRequest
-
-    :param region_slug: The slug of the current region
-    :type region_slug: str
-
-    :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
-    """
-    region = Region.get_current_region(request)
-
-    json_data = json.loads(request.body.decode("utf-8"))
-
-    directory = get_object_or_404(
-        Directory.objects.filter(region=region), id=json_data["id"]
-    )
-
-    directory.delete()
-
-    return JsonResponse({"success": True})
-
-
-@require_POST
-@login_required
-@region_permission_required
-@json_response
-# pylint: disable=unused-argument
 def update_directory_ajax(request, region_slug=None):
     """
     View provides the frontend with the option to delete a directory via AJAX.
@@ -308,6 +277,10 @@ def update_directory_ajax(request, region_slug=None):
     directory_element = get_object_or_404(
         Directory.objects.filter(region=region), id=directory_id
     )
+    if json_data["name"] == directory_element.name:
+        return JsonResponse(
+            {"success": False, "error": _("No Changes detected")}, status=400
+        )
 
     directory_element.name = json_data["name"]
     directory_element.save()

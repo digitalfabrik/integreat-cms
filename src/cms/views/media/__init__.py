@@ -8,7 +8,6 @@ from .media_actions import (
     create_directory_ajax,
     delete_file_ajax,
     get_directory_path_ajax,
-    delete_directory_ajax,
     update_directory_ajax,
 )
 from .media_list_view import MediaListView, AdminMediaListView

@@ -82,13 +82,14 @@ window.addEventListener("load", () => {
         format: {
           title: "Format",
           items:
-            "bold italic underline strikethrough superscript | formats | forecolor backcolor",
+            "bold italic underline strikethrough superscript | formats | forecolor backcolor | notranslate",
         },
         insert: {
           title: "Insert",
           items: "openmediacenter link image media "
         }
       },
+      link_title: false,
       contextmenu: "paste link",
       autosave_interval: "120s",
       forced_root_block: false,
@@ -164,6 +165,11 @@ window.addEventListener("load", () => {
         );
         editor.ui.registry.addButton("notranslate", {
           tooltip: tinymceConfig.getAttribute("data-no-translate-tooltip"),
+          icon: "no_translate",
+          onAction: () => toggleNoTranslate(editor),
+        });
+        editor.ui.registry.addMenuItem("notranslate", {
+          text: tinymceConfig.getAttribute("data-no-translate-text"),
           icon: "no_translate",
           onAction: () => toggleNoTranslate(editor),
         });

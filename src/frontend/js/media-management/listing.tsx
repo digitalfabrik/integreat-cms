@@ -8,6 +8,7 @@ import DirectoryListing, {
   Directory,
   File,
 } from "./component/directory-listing";
+import EditDirectorySidebar from "./component/edit-directory-sidebar";
 import EditSidebar from "./component/edit-sidebar";
 
 interface Props {
@@ -48,14 +49,14 @@ export default function Listing(props: Props) {
   }, [props.parentDirectory]);
 
   return (
-    <div className="max-h-full flex flex-col w-full">
+    <div className="max-h-full h-full flex flex-col w-full">
       <div className="flex flex-wrap items-center">
         <h1 className="w-full heading p-2">
           {props.mediaTranslations.label_media_library}
         </h1>
         <form class="table-search relative w-1/2">
-            <Search class="absolute m-2" />
-            <input type="search" class="h-full py-2 pl-10 pr-4 rounded shadow" />
+          <Search class="absolute m-2" />
+          <input type="search" class="h-full py-2 pl-10 pr-4 rounded shadow" />
         </form>
         <div className="flex-1"></div>
         {!props.selectionMode && (props.globalEdit || !directory?.isGlobal) && (
@@ -76,16 +77,17 @@ export default function Listing(props: Props) {
         apiEndpoints={props.apiEndpoints}
         mediaTranslations={props.mediaTranslations}
       />
-      <div className="flex flex-1 overflow-auto items-stretch bg-white border-gray-800 shadow-sm rounded min-h-screen">
-        <div className="flex-1 pt-5" onClick={() => setEditFile(null)}>
+      <div className="flex flex-1 overflow-auto items-stretch bg-white border-gray-800 shadow-sm rounded">
+        <div className="flex-1 pt-14" onClick={() => setEditFile(null)}>
           <DirectoryListing
             parentDirectory={props.parentDirectory}
             apiEndpoints={props.apiEndpoints}
             setEditFile={setEditFile}
+            editFile={editFile}
             refresh={refreshCounter}
           ></DirectoryListing>
         </div>
-        {editFile && (
+        {editFile ? (
           <EditSidebar
             file={editFile}
             mediaTranslations={props.mediaTranslations}
@@ -99,6 +101,20 @@ export default function Listing(props: Props) {
             selectMedia={props.selectMedia}
             globalEdit={props.globalEdit}
           ></EditSidebar>
+        ) : (
+          directory && (
+            <EditDirectorySidebar
+              directory={directory}
+              mediaTranslations={props.mediaTranslations}
+              editDirectoryEndpoint={props.apiEndpoints.editDirectoryEndpoint}
+              selectionMode={props.selectionMode}
+              finishEditSidebar={() => {
+                setEditFile(null);
+                setRefreshCounter(refreshCounter + 1);
+              }}
+              globalEdit={props.globalEdit}
+            />
+          )
         )}
       </div>
     </div>

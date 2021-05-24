@@ -11,7 +11,7 @@ from ...forms import RegionForm
 from ...models import Region
 from ..media.content_media_mixin import ContentMediaMixin
 
-
+# pylint: disable=too-many-ancestors
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
 class RegionView(PermissionRequiredMixin, TemplateView, ContentMediaMixin):

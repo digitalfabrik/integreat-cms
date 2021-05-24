@@ -8,6 +8,7 @@ interface Props {
   parentDirectory: number | null;
   apiEndpoints: MediaApiPaths;
   refresh: number;
+  editFile?: File;
   setEditFile: (file: File) => void;
 }
 
@@ -38,6 +39,7 @@ export default function DirectoryListing({
   apiEndpoints,
   setEditFile,
   refresh,
+  editFile
 }: Props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -71,11 +73,12 @@ export default function DirectoryListing({
       {items.map((item) =>
         item.type === "directory" ? (
           <Link href={`/listing/${item.id}`}>
-            <DirectoryEntry item={item} />
+            <DirectoryEntry item={item}  />
           </Link>
         ) : (
           <FileEntry
             item={item}
+            active={item === editFile}
             onClick={(e) => {
               e.stopPropagation();
               setEditFile(item);

@@ -1,4 +1,5 @@
-import { Save, Trash2 } from "preact-feather";
+import { Save, Sliders, Trash2 } from "preact-feather";
+import { File as FileIcon} from "preact-feather";
 import { useEffect, useState } from "preact/hooks";
 import { getCsrfToken } from "../../utils/csrf-token";
 import { File } from "./directory-listing";
@@ -87,9 +88,17 @@ export default function EditSidebar({
 
   return (
     <div className="w-1/3 rounded-lg border-blue-500 shadow bg-white min-h-full m-0">
+      <div class="rounded w-full p-4 bg-blue-500 text-white font-bold">
+        <Sliders class="mr-1 inline-block h-5" />
+        {mediaTranslations.label_file_properties}
+      </div>
       <div class="h-30 items-center max-w-full">
+      {file.thumbnailPath ? (
         <img src={file.thumbnailPath} class="max-w-60 m-2 mx-auto"></img>
-        {success && <div>{mediaTranslations.message_suc}</div>}
+      ) : (
+        <FileIcon className="w-full h-36 align-middle mt-4" />
+      )}
+        {success && <div class="text-green-600 text-center">{mediaTranslations.message_suc}</div>}
       </div>
       <form onSubmit={submitChange} encType="multipart/form-data" method="post">
         <div class="p-4 border-b">

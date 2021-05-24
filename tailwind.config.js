@@ -53,7 +53,13 @@ module.exports = {
       },
       gridTemplateColumns: {
         'gallery': 'repeat(auto-fill, minmax(180px, 1fr))',
-      }
+      },
+      height: {
+        content: "calc(100vh - 104px)",
+      },
+      minHeight: {
+        content: "calc(100vh - 104px)",
+      },
     },
   },
   variants: {

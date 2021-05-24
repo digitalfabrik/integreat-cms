@@ -31,11 +31,13 @@ class Page(MPTTModel, AbstractBasePage):
         related_name="children",
         verbose_name=_("parent page"),
     )
-    icon = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="pages/%Y/%m/%d",
+    icon = models.ForeignKey(
+        "cms.Document",
         verbose_name=_("icon"),
+        on_delete=models.SET_NULL,
+        related_name="page_icon_of",
+        blank=True,
+        null=True,
     )
     region = models.ForeignKey(
         Region,

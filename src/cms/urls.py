@@ -445,11 +445,6 @@ urlpatterns = [
                     name="mediacenter_create_directory",
                 ),
                 url(
-                    r"^(?P<region_slug>[-\w]+)/media_edit/delete_directory$",
-                    media.delete_directory_ajax,
-                    name="mediacenter_delete_directory",
-                ),
-                url(
                     r"^(?P<region_slug>[-\w]+)/media_edit/update_directory$",
                     media.update_directory_ajax,
                     name="mediacenter_update_directory",
@@ -483,11 +478,6 @@ urlpatterns = [
                     r"^media_edit/create_directory$",
                     media.create_directory_ajax,
                     name="mediacenter_create_directory",
-                ),
-                url(
-                    r"^media_edit/delete_directory$",
-                    media.delete_directory_ajax,
-                    name="mediacenter_delete_directory",
                 ),
                 url(
                     r"^media_edit/update_directory$",

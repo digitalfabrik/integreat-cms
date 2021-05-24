@@ -34,6 +34,7 @@ class ContentMediaMixin(ContextMixin):
                 "btn_back": _("Back"),
                 "btn_submit": _("Submit"),
                 "btn_select": _("Select"),
+                "btn_rename": _("Rename"),
                 "btn_save": _("Save File"),
                 "label_media_library": _("Media Library"),
                 "label_media_root": _("Home"),
@@ -41,6 +42,8 @@ class ContentMediaMixin(ContextMixin):
                 "label_directory_name": _("Directory Name:"),
                 "label_data_type": _("Filetype:"),
                 "label_data_uploaded": _("File uploaded:"),
+                "label_file_properties": _("File Properties"),
+                "label_directory_properties": _("Directory Properties"),
                 "label_alt_text": _("Alternative Text:"),
                 "message_suc": _("Success"),
             },
@@ -53,8 +56,9 @@ class ContentMediaMixin(ContextMixin):
             ),
             "editMediaUrl": reverse("mediacenter_edit_url", kwargs=kwargs),
             "createDirectory": reverse("mediacenter_create_directory", kwargs=kwargs),
-            "deleteDirecotry": reverse("mediacenter_delete_directory", kwargs=kwargs),
-            "updateDirectory": reverse("mediacenter_update_directory", kwargs=kwargs),
+            "editDirectoryEndpoint": reverse(
+                "mediacenter_update_directory", kwargs=kwargs
+            ),
             "uploadFile": reverse("mediacenter_upload_file", kwargs=kwargs),
             "deleteMediaUrl": reverse("mediacenter_delete_file", kwargs=kwargs),
             "getDirectoryPath": reverse("mediacenter_directory_path", kwargs=kwargs),

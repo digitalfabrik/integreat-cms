@@ -34,11 +34,13 @@ class POI(models.Model):
         verbose_name=_("Do not show this location on map"),
         help_text=_("Tick if you do not show this location on map"),
     )
-    icon = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="pois/%Y/%m/%d",
+    icon = models.ForeignKey(
+        "cms.Document",
         verbose_name=_("icon"),
+        on_delete=models.SET_NULL,
+        related_name="poi_icon_of",
+        blank=True,
+        null=True,
     )
     archived = models.BooleanField(
         default=False,

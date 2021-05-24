@@ -9,6 +9,7 @@ export interface MediaApiPaths {
   getDirectoryContent: string;
   editMediaUrl: string;
   createDirectory: string;
+  editDirectoryEndpoint: string;
   uploadFile: string;
   deleteMediaUrl: string;
   getDirectoryPath: string;
