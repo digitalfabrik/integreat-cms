@@ -1,15 +1,14 @@
-from django.db.models import Q, OuterRef, Subquery
+from django.db.models import OuterRef, Subquery
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.base import RedirectView
 
-from linkcheck.models import Link
 from backend.settings import PER_PAGE
 
 from ...models.pages.page_translation import PageTranslation
 from ...models.events.event_translation import EventTranslation
 from ...models.pois.poi_translation import POITranslation
-
+from ...utils.filter_links import filter_links
 
 # pylint: disable=too-many-ancestors
 class LinkListView(ListView):
@@ -24,8 +23,7 @@ class LinkListView(ListView):
 
     def get_queryset(self):
         """
-        First filters all links by region
-        Next filters by links state and counts the number of links per group
+        Selects all links for the current region
         Finally annotates queryset by the content_type title
 
         :return: The QuerySet of the filtered links
@@ -33,33 +31,24 @@ class LinkListView(ListView):
         """
         region_slug = self.kwargs.get("region_slug")
         link_filter = self.kwargs.get("link_filter")
-        qset = Link.objects.filter(
-            Q(page_translations__page__region__slug=region_slug)
-            | Q(event_translations__event__region__slug=region_slug)
-            | Q(poi_translations__poi__region__slug=region_slug)
-        )
-        qset = qset.order_by("-url__last_checked")
-        valid_links = qset.filter(ignore=False, url__status__exact=True)
-        unchecked_links = qset.filter(ignore=False, url__last_checked__exact=None)
-        ignored_links = qset.filter(ignore=True)
-        invalid_links = qset.filter(ignore=False, url__status__exact=False)
+        filtered_dict = filter_links(region_slug)
         self.extra_context.update(
             {
                 "link_filter": link_filter,
-                "number_valid": valid_links.count(),
-                "number_invalid": invalid_links.count(),
-                "number_unchecked": unchecked_links.count(),
-                "number_ignored": ignored_links.count(),
+                "number_valid": filtered_dict.get("valid_links").count(),
+                "number_invalid": filtered_dict.get("invalid_links").count(),
+                "number_unchecked": filtered_dict.get("unchecked_links").count(),
+                "number_ignored": filtered_dict.get("ignored_links").count(),
             }
         )
         if link_filter == "valid":
-            result = valid_links
+            result = filtered_dict.get("valid_links")
         elif link_filter == "unchecked":
-            result = unchecked_links
+            result = filtered_dict.get("unchecked_links")
         elif link_filter == "ignored":
-            result = ignored_links
+            result = filtered_dict.get("ignored_links")
         else:
-            result = invalid_links
+            result = filtered_dict.get("invalid_links")
         page_translation = PageTranslation.objects.filter(id=OuterRef("object_id"))
         event_translation = EventTranslation.objects.filter(id=OuterRef("object_id"))
         poi_translation = POITranslation.objects.filter(id=OuterRef("object_id"))
