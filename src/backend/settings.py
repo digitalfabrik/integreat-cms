@@ -671,3 +671,9 @@ PER_PAGE = 16
 #: Disable linkcheck listeners e.g. when the fixtures are loaded
 if "LINKCHECK_DISABLE_LISTENERS" in os.environ:
     LINKCHECK_DISABLE_LISTENERS = True
+
+#############################
+# Push Notification Channel #
+#############################
+
+CHANNELS = (("News", "News"),)

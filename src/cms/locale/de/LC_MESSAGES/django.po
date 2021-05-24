@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-19 00:40+0000\n"
+"POT-Creation-Date: 2021-05-24 07:24+0000\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
 "Language: German\n"
@@ -1231,12 +1231,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: constants/region_status.py:17 models/regions/region.py:387
+#: constants/region_status.py:17 models/regions/region.py:381
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: constants/region_status.py:18 models/pages/page.py:202
-#: models/pages/page_translation.py:281 models/regions/region.py:390
+#: models/pages/page_translation.py:281 models/regions/region.py:384
 #: templates/pages/page_form.html:152
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
@@ -1510,13 +1510,13 @@ msgstr "Übersetzungsstatus"
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
 
-#: forms/regions/region_form.py:116
+#: forms/regions/region_form.py:115
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
 "eingegeben wurde."
 
-#: forms/regions/region_form.py:128
+#: forms/regions/region_form.py:127
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
@@ -1591,7 +1591,7 @@ msgid "content"
 msgstr "Inhalt"
 
 #: models/chat/chat_message.py:47
-#: models/push_notifications/push_notification.py:37
+#: models/push_notifications/push_notification.py:36
 msgid "sent date"
 msgstr "Sendedatum"
 
@@ -1607,7 +1607,7 @@ msgstr "Chat-Nachrichten"
 #: models/languages/language_tree_node.py:37 models/pages/imprint_page.py:22
 #: models/pages/page.py:44 models/pois/poi.py:18
 #: models/push_notifications/push_notification.py:18
-#: models/regions/region.py:406
+#: models/regions/region.py:400
 msgid "region"
 msgstr "Region"
 
@@ -1742,9 +1742,9 @@ msgstr "Ersteller"
 #: models/offers/offer_template.py:56 models/pages/abstract_base_page.py:19
 #: models/pages/abstract_base_page_translation.py:46
 #: models/pois/poi_translation.py:73
-#: models/push_notifications/push_notification.py:42
+#: models/push_notifications/push_notification.py:41
 #: models/push_notifications/push_notification_translation.py:38
-#: models/regions/region.py:110 models/users/organization.py:28
+#: models/regions/region.py:104 models/users/organization.py:28
 #: models/users/user_mfa_key.py:37
 msgid "creation date"
 msgstr "Erstellungsdatum"
@@ -1754,9 +1754,9 @@ msgstr "Erstellungsdatum"
 #: models/pages/abstract_base_page.py:22
 #: models/pages/abstract_base_page_translation.py:50
 #: models/pois/poi_translation.py:77
-#: models/push_notifications/push_notification.py:46
+#: models/push_notifications/push_notification.py:45
 #: models/push_notifications/push_notification_translation.py:42
-#: models/regions/region.py:114 models/users/organization.py:32
+#: models/regions/region.py:108 models/users/organization.py:32
 msgid "modification date"
 msgstr "Änderungsdatum"
 
@@ -2093,9 +2093,8 @@ msgstr "Das Datum und die Uhrzeit, zu der das Dokument hochgeladen wurde"
 msgid "documents"
 msgstr "Dokumente"
 
-#: models/offers/offer_template.py:16
-#: models/push_notifications/push_notification_channel.py:10
-#: models/regions/region.py:27 models/users/organization.py:11
+#: models/offers/offer_template.py:16 models/regions/region.py:27
+#: models/users/organization.py:11
 msgid "name"
 msgstr "Name"
 
@@ -2295,7 +2294,7 @@ msgstr "Leer"
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: models/pois/poi.py:23 models/regions/region.py:102
+#: models/pois/poi.py:23 models/regions/region.py:96
 msgid "postal code"
 msgstr "Postleitzahl"
 
@@ -2307,7 +2306,7 @@ msgstr "Stadt"
 msgid "country"
 msgstr "Land"
 
-#: models/pois/poi.py:27 models/regions/region.py:94
+#: models/pois/poi.py:27 models/regions/region.py:88
 msgid "latitude"
 msgstr "Geographische Breite"
 
@@ -2315,7 +2314,7 @@ msgstr "Geographische Breite"
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: models/pois/poi.py:30 models/regions/region.py:99
+#: models/pois/poi.py:30 models/regions/region.py:93
 msgid "longitude"
 msgstr "Geographische Länge"
 
@@ -2356,52 +2355,43 @@ msgstr ""
 msgid "location translations"
 msgstr "Orts-Übersetzungen"
 
-#: models/push_notifications/push_notification.py:24
+#: models/push_notifications/push_notification.py:23
 msgid "channel"
 msgstr "Kanal"
 
-#: models/push_notifications/push_notification.py:28
+#: models/push_notifications/push_notification.py:27
 msgid "draft"
 msgstr "Entwurf"
 
-#: models/push_notifications/push_notification.py:30
+#: models/push_notifications/push_notification.py:29
 msgid "Whether or not the push notification is a draft (drafts cannot be sent)"
 msgstr ""
 "Ob die Push-Benachrichtigung ein Entwurf ist oder nicht (Entwürfe können "
 "nicht gesendet werden)"
 
-#: models/push_notifications/push_notification.py:38
+#: models/push_notifications/push_notification.py:37
 msgid "The date and time when the push notification was sent."
 msgstr "Datum und Uhrzeit, als die Push-Benachrichtigung gesendet wurde"
 
-#: models/push_notifications/push_notification.py:52
+#: models/push_notifications/push_notification.py:51
 msgid "mode"
 msgstr "Modus"
 
-#: models/push_notifications/push_notification.py:54
+#: models/push_notifications/push_notification.py:53
 msgid ""
 "Sets behavior for dealing with not existing push notification translations"
 msgstr ""
 "Legt das Verhalten für den Umgang mit nicht vorhandenen Übersetzungen von "
 "Push-Benachrichtigungen fest"
 
-#: models/push_notifications/push_notification.py:85
+#: models/push_notifications/push_notification.py:84
 #: models/push_notifications/push_notification_translation.py:34
 msgid "push notification"
 msgstr "Push-Benachrichtigung"
 
-#: models/push_notifications/push_notification.py:87
+#: models/push_notifications/push_notification.py:86
 msgid "push notifications"
 msgstr "Push-Benachrichtigungen"
-
-#: models/push_notifications/push_notification_channel.py:34
-msgid "push notification channel"
-msgstr "Push-Benachrichtigungskanal"
-
-#: models/push_notifications/push_notification_channel.py:36
-#: models/regions/region.py:88
-msgid "push notification channels"
-msgstr "Push-Benachrichtigungskanäle"
 
 #: models/push_notifications/push_notification_translation.py:67
 msgid "push notification translation"
@@ -2458,46 +2448,42 @@ msgid "Whether or not push notifications are enabled in the region"
 msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
 
 #: models/regions/region.py:89
-msgid "Enter multiple channels separated by commas."
-msgstr "Mehrere Kanäle mit Kommata getrennt eingeben."
-
-#: models/regions/region.py:95
 msgid "The latitude coordinate of an approximate center of the region"
 msgstr "Die Breitengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: models/regions/region.py:100
+#: models/regions/region.py:94
 msgid "The longitude coordinate of an approximate center of the region"
 msgstr "Die Längengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: models/regions/region.py:105
+#: models/regions/region.py:99
 msgid "email address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: models/regions/region.py:119
+#: models/regions/region.py:113
 msgid "activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: models/regions/region.py:120
+#: models/regions/region.py:114
 msgid "Whether or not statistics are enabled for the region"
 msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
 
-#: models/regions/region.py:125
+#: models/regions/region.py:119
 msgid "Matomo ID"
 msgstr "Matomo ID"
 
-#: models/regions/region.py:127
+#: models/regions/region.py:121
 msgid "The Matomo ID of this region."
 msgstr "Die Matomo ID dieser region."
 
-#: models/regions/region.py:128
+#: models/regions/region.py:122
 msgid "Will be automatically derived from the Matomo access token."
 msgstr "Wird automatisch vom Matomo Zugangstoken abgeleitet."
 
-#: models/regions/region.py:135
+#: models/regions/region.py:129
 msgid "Matomo authentication token"
 msgstr "Matomo Authentifizierungs-Token"
 
-#: models/regions/region.py:137
+#: models/regions/region.py:131
 msgid ""
 "The secret Matomo access token of the region is used to authenticate in API "
 "requests"
@@ -2505,11 +2491,11 @@ msgstr ""
 "Das geheime Matomo-Zugangs-Token der Region wird zur Authentifizierung bei "
 "API-Anfragen verwendet"
 
-#: models/regions/region.py:143
+#: models/regions/region.py:137
 msgid "activate page-specific permissions"
 msgstr "Seiten-spezifische-Berechtigungen aktivieren"
 
-#: models/regions/region.py:145
+#: models/regions/region.py:139
 msgid ""
 "This allows individual users to be granted the right to edit or publish a "
 "specific page."
@@ -2517,26 +2503,26 @@ msgstr ""
 "Damit kann einzelnen Benutzern das Recht zum Bearbeiten oder Veröffentlichen "
 "einer bestimmten Seite eingeräumt werden."
 
-#: models/regions/region.py:153 models/users/organization.py:23
+#: models/regions/region.py:147 models/users/organization.py:23
 msgid "logo"
 msgstr "Logo"
 
-#: models/regions/region.py:158
+#: models/regions/region.py:152
 msgid "activate author chat"
 msgstr "Autoren-Chat aktivieren"
 
-#: models/regions/region.py:160
+#: models/regions/region.py:154
 msgid ""
 "This gives all users of this region access to the cross-regional author chat."
 msgstr ""
 "Dies gewährt allen Benutzern dieser Region Zugang zum überregionalen Autoren-"
 "Chat."
 
-#: models/regions/region.py:166
+#: models/regions/region.py:160
 msgid "include administrative division into name"
 msgstr "Verwaltungseinheit dem Namen hinzufügen"
 
-#: models/regions/region.py:169
+#: models/regions/region.py:163
 msgid ""
 "Determines whether the administrative division is displayed next to the "
 "region name."
@@ -2544,7 +2530,7 @@ msgstr ""
 "Legt fest, ob die Verwaltungseinheit neben dem Namen der Region angezeigt "
 "wird."
 
-#: models/regions/region.py:172
+#: models/regions/region.py:166
 msgid ""
 "Sorting is always based on the name, independently from the administrative "
 "division."
@@ -2552,11 +2538,11 @@ msgstr ""
 "Sortierungen werden immer auf Grundlage der Namen vorgenommen, unabhängig "
 "von der Verwaltungseinheit."
 
-#: models/regions/region.py:181
+#: models/regions/region.py:175
 msgid "offers"
 msgstr "Angebote"
 
-#: models/regions/region.py:184
+#: models/regions/region.py:178
 msgid ""
 "Integreat offers are extended features apart from pages and events and are "
 "usually offered by a third party."
@@ -2564,7 +2550,7 @@ msgstr ""
 "Integreat Angebote sind erweiterte Funktionen jenseits von Seiten und "
 "Ereignissen und werden in der Regel von Drittanbietern bereitgestellt."
 
-#: models/regions/region.py:187
+#: models/regions/region.py:181
 msgid ""
 "In most cases, the url is an external API endpoint which the frontend apps "
 "can query and render the results inside the Integreat app."
@@ -2573,7 +2559,7 @@ msgstr ""
 "Frontend Anfragen gesendet werden, um die Ergebnisse in der Integreat App "
 "einzubetten."
 
-#: models/regions/region.py:408 models/users/user_profile.py:30
+#: models/regions/region.py:402 models/users/user_profile.py:30
 msgid "regions"
 msgstr "Regionen"
 
@@ -5640,6 +5626,15 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "push notification channel"
+#~ msgstr "Push-Benachrichtigungskanal"
+
+#~ msgid "push notification channels"
+#~ msgstr "Push-Benachrichtigungskanäle"
+
+#~ msgid "Enter multiple channels separated by commas."
+#~ msgstr "Mehrere Kanäle mit Kommata getrennt eingeben."
 
 #~ msgid "key"
 #~ msgstr "Schlüssel"

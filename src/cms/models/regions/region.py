@@ -82,12 +82,6 @@ class Region(models.Model):
         verbose_name=_("activate push notifications"),
         help_text=_("Whether or not push notifications are enabled in the region"),
     )
-    push_notification_channels = ArrayField(
-        models.CharField(max_length=60),
-        blank=True,
-        verbose_name=_("push notification channels"),
-        help_text=_("Enter multiple channels separated by commas."),
-    )
 
     latitude = models.FloatField(
         null=True,
