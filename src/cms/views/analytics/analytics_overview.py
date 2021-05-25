@@ -2,8 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from cms.utils.filter_links import filter_links
-
 from ...decorators import region_permission_required
 from ...utils.filter_links import filter_links
 

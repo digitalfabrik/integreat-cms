@@ -4,12 +4,15 @@ from linkcheck.models import Link
 
 
 def filter_links(region_slug):
-    """[summary]
+    """
+    First filters links by current region
+    Then filters by the link state
+    Finally returns resulting query sets
 
-    :param region_slug: [description]
-    :type region_slug: [type]
-    :return: [description]
-    :rtype: [type]
+    :param region_slug: the current regions slug
+    :type region_slug: str
+    :return: dictionary of filtered querysets
+    :rtype: dict
     """
     qset = Link.objects.filter(
         Q(page_translations__page__region__slug=region_slug)
