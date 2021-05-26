@@ -21,8 +21,8 @@ def generate_unique_slug_helper(form_object, foreign_model):
     :type form_object: ~django.forms.Form
 
     :param foreign_model: If the form instance has a foreign key to another model (e.g. because it is a translation of
-                          a content-object), this paramaeter contains the model of the foreign related object.
-    :type foreign_model: ~django.db.models.Model
+                          a content-object), this parameter contains the model of the foreign related object.
+    :type foreign_model: str
 
     :raises ~django.core.exceptions.ValidationError: When no slug is given and there is also no field which can be used
                                                      as fallback (either ``title`` or ``name``).

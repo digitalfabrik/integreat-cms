@@ -671,6 +671,11 @@ urlpatterns = [
                                                         name="edit_event",
                                                     ),
                                                     url(
+                                                        r"^duplicate$",
+                                                        events.duplicate,
+                                                        name="duplicate_event",
+                                                    ),
+                                                    url(
                                                         r"^archive$",
                                                         events.archive,
                                                         name="archive_event",

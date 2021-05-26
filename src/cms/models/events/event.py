@@ -8,6 +8,7 @@ from .recurrence_rule import RecurrenceRule
 from ..pois.poi import POI
 from ..regions.region import Region, Language
 from ...constants import frequency, status
+from ...utils.slug_utils import generate_unique_slug
 
 
 class Event(models.Model):
@@ -223,6 +224,60 @@ class Event(models.Model):
         :rtype: ~cms.models.events.event_translation.EventTranslation
         """
         return self.backend_translation or self.default_translation
+
+    def duplicate(self, user):
+        """
+        This method creates a copy of this event and all of its translations.
+        This method saves the new event.
+
+        :param user: The user who initiated this copy
+        :type user: ~django.contrib.auth.models.User
+
+        :return: A copy of this event
+        :rtype: ~cms.models.events.event.Event
+        """
+        # save all translations on the original object, so that they can be duplicated later
+        translations = list(self.translations.all())
+
+        # Clear the own recurrence rule.
+        # If the own recurrence rule would not be cleared, django would throw an
+        # error that the recurrence rule is not unique (because it would belong to both
+        # the cloned and the new object)
+        recurrence_rule = self.recurrence_rule
+
+        if recurrence_rule:
+            # duplicate the recurrence rule, if it exists
+            recurrence_rule.pk = None
+            recurrence_rule.save()
+            self.recurrence_rule = recurrence_rule
+
+        # create the duplicated event
+        self.pk = None
+        self.save()
+
+        copy_translation = _("copy")
+        # Create new translations for this event
+        for translation in translations:
+            translation.pk = None
+            translation.event = self
+            translation.status = status.DRAFT
+            translation.title = f"{translation.title} ({copy_translation})"
+            translation.slug = generate_unique_slug(
+                **{
+                    "slug": translation.slug,
+                    "manager": type(translation).objects,
+                    "object_instance": translation,
+                    "foreign_model": "event",
+                    "instance": self,
+                    "region": self.region,
+                    "language": translation.language,
+                }
+            )
+            translation.currently_in_translation = False
+            translation.creator = user
+            translation.save()
+
+        return self
 
     def __str__(self):
         """

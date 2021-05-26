@@ -1603,7 +1603,7 @@ msgstr "Chat-Nachricht"
 msgid "chat messages"
 msgstr "Chat-Nachrichten"
 
-#: models/events/event.py:23 models/feedback/feedback.py:22
+#: models/events/event.py:24 models/feedback/feedback.py:22
 #: models/languages/language_tree_node.py:37 models/pages/imprint_page.py:22
 #: models/pages/page.py:44 models/pois/poi.py:18
 #: models/push_notifications/push_notification.py:17
@@ -1611,44 +1611,48 @@ msgstr "Chat-Nachrichten"
 msgid "region"
 msgstr "Region"
 
-#: models/events/event.py:31 models/pois/poi.py:144
+#: models/events/event.py:32 models/pois/poi.py:144
 #: models/pois/poi_translation.py:37
 msgid "location"
 msgstr "Ort"
 
-#: models/events/event.py:33
+#: models/events/event.py:34
 msgid "start date"
 msgstr "Start-Datum"
 
-#: models/events/event.py:34
+#: models/events/event.py:35
 msgid "start time"
 msgstr "Start-Uhrzeit"
 
-#: models/events/event.py:35
+#: models/events/event.py:36
 msgid "end date"
 msgstr "End-Uhrzeit"
 
-#: models/events/event.py:36
+#: models/events/event.py:37
 msgid "end time"
 msgstr "End-Datum"
 
-#: models/events/event.py:43 models/events/recurrence_rule.py:91
+#: models/events/event.py:44 models/events/recurrence_rule.py:91
 msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
-#: models/events/event.py:49 models/pages/page.py:38 models/pois/poi.py:41
+#: models/events/event.py:50 models/pages/page.py:38 models/pois/poi.py:41
 msgid "icon"
 msgstr "Icon"
 
-#: models/events/event.py:51 models/pois/poi.py:45
+#: models/events/event.py:52 models/pois/poi.py:45
 msgid "archived"
 msgstr "archiviert"
 
-#: models/events/event.py:249 models/events/event_translation.py:25
+#: models/events/event.py:258
+msgid "copy"
+msgstr "Kopie"
+
+#: models/events/event.py:304 models/events/event_translation.py:25
 msgid "event"
 msgstr "Veranstaltung"
 
-#: models/events/event.py:251
+#: models/events/event.py:306
 msgid "events"
 msgstr "Veranstaltungen"
 
@@ -3325,7 +3329,7 @@ msgstr "Veranstaltung wiederherstellen"
 msgid "Restore this event"
 msgstr "Diese Veranstaltung wiederherstellen"
 
-#: templates/events/event_form.html:276 templates/events/event_list_row.html:88
+#: templates/events/event_form.html:276 templates/events/event_list_row.html:94
 msgid "Archive event"
 msgstr "Veranstaltung archivieren"
 
@@ -3335,7 +3339,7 @@ msgstr "Diese Veranstaltung archivieren"
 
 #: templates/events/event_form.html:289
 #: templates/events/event_list_archived_row.html:102
-#: templates/events/event_list_row.html:97
+#: templates/events/event_list_row.html:103
 msgid "Delete event"
 msgstr "Veranstaltung löschen"
 
@@ -3413,6 +3417,10 @@ msgstr "Nicht festgelegt"
 #: templates/events/event_list_row.html:85
 msgid "Edit event"
 msgstr "Veranstaltung bearbeiten"
+
+#: templates/events/event_list_row.html:90
+msgid "Duplicate event"
+msgstr "Veranstaltung duplizieren"
 
 #: templates/feedback/_admin_feedback_filter_form.html:36
 #: templates/feedback/_region_feedback_filter_form.html:29
@@ -4953,11 +4961,15 @@ msgstr "Bitte versuchen Sie, die Seite neu zu laden."
 msgid "Event was successfully archived"
 msgstr "Veranstaltung wurde erfolgreich archiviert"
 
-#: views/events/event_actions.py:101
+#: views/events/event_actions.py:100
+msgid "Event was successfully duplicated"
+msgstr "Veranstaltung wurde erfolgreich dupliziert"
+
+#: views/events/event_actions.py:141
 msgid "Event was successfully restored"
 msgstr "Veranstaltung wurde erfolgreich wiederhergestellt"
 
-#: views/events/event_actions.py:142
+#: views/events/event_actions.py:182
 msgid "Event was successfully deleted"
 msgstr "Veranstaltung wurde erfolgreich gelöscht"
 
