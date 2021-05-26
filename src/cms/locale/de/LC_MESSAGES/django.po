@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-29 15:13+0000\n"
+"POT-Creation-Date: 2021-07-05 12:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -3148,10 +3148,12 @@ msgstr "Benutzerkonto aktivieren"
 
 #: templates/authentication/activation_email.html:3
 #: templates/authentication/password_reset_email.html:3
+#: templates/users/welcome_email.html:3
 msgid "Welcome"
 msgstr "Willkommen"
 
 #: templates/authentication/activation_email.html:5
+#: templates/users/welcome_email.html:5
 msgid ""
 "You are receiving this e-mail, because an Integreat-account was created for "
 "you."
@@ -3168,6 +3170,7 @@ msgstr ""
 
 #: templates/authentication/activation_email.html:10
 #: templates/authentication/password_reset_email.html:10
+#: templates/users/welcome_email.html:10
 msgid ""
 "If clicking on the link above does not work, please copy the URL and paste "
 "it into the address bar of your browser."
@@ -3176,16 +3179,19 @@ msgstr ""
 "die URL und fügen Sie sie in die Adresszeile Ihres Browsers ein."
 
 #: templates/authentication/activation_email.html:12
+#: templates/users/welcome_email.html:12
 msgid "Your username is:"
 msgstr "Ihr Benutzername lautet:"
 
 #: templates/authentication/activation_email.html:14
 #: templates/authentication/password_reset_email.html:14
+#: templates/users/welcome_email.html:14
 msgid "Best regards"
 msgstr "Viele Grüße"
 
 #: templates/authentication/activation_email.html:15
 #: templates/authentication/password_reset_email.html:15
+#: templates/users/welcome_email.html:15
 msgid "Your Integreat team"
 msgstr "Ihr Integreat-Team"
 
@@ -4514,7 +4520,7 @@ msgstr ""
 #: views/regions/region_view.py:87 views/roles/role_view.py:85
 #: views/settings/user_settings_view.py:93
 #: views/settings/user_settings_view.py:110 views/users/region_user_view.py:119
-#: views/users/user_view.py:127
+#: views/users/user_view.py:128
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
@@ -5013,15 +5019,22 @@ msgstr "Der Benutzer wird den Zugang zu folgenden Regionen behalten:"
 msgid "Remove user from region"
 msgstr "Benutzer von Region entfernen"
 
+#: templates/users/welcome_email.html:6
+msgid ""
+"Please click the link below to log in with your password and to your account."
+msgstr ""
+"Bitte klicken Sie auf den folgenden Link, um sich mit ihrem Benutzernamen "
+"und Passwort einzuloggen."
+
 #: utils/account_activation_utils.py:53
 msgid "Activate your Integreat account"
 msgstr "Aktivieren Sie Ihr Integreat-Benutzerkonto"
 
-#: utils/account_activation_utils.py:74
+#: utils/account_activation_utils.py:74 utils/welcome_mail_utils.py:33
 msgid "Activation link was successfully sent to user {}."
 msgstr "Aktivierungslink wurde erfolgreich an den Nutzer {} gesendet."
 
-#: utils/account_activation_utils.py:81
+#: utils/account_activation_utils.py:81 utils/welcome_mail_utils.py:40
 msgid "An error occurred! Could not send activation link per mail."
 msgstr ""
 "Es ist ein Fehler aufgetreten! Aktivierungslink konnte nicht per Mail "
@@ -5044,6 +5057,10 @@ msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 #, python-format
 msgid "Cannot generate slug from %(fallback)s."
 msgstr "Slug kann nicht aus dem %(fallback)s abgeleitet werden."
+
+#: utils/welcome_mail_utils.py:18
+msgid "Welcome to your Integreat account"
+msgstr "Willkommen zu Ihrem Integreat Account"
 
 #: views/authentication/account_activation_view.py:45
 #: views/authentication/mfa/mfa_assert_view.py:39
@@ -5911,21 +5928,21 @@ msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
 #: views/users/region_user_view.py:59 views/users/region_user_view.py:150
-#: views/users/user_view.py:58 views/users/user_view.py:156
+#: views/users/user_view.py:59 views/users/user_view.py:160
 msgid "Pending account activation"
 msgstr "Aktivierung des Benutzerkontos noch ausstehend"
 
-#: views/users/region_user_view.py:115 views/users/user_view.py:123
+#: views/users/region_user_view.py:115 views/users/user_view.py:124
 msgid "Please choose either to send an activation link or set a password."
 msgstr ""
 "Bitte wählen Sie entweder ein Passwort aus oder wählen die Option zum Senden "
 "eines Aktivierungslinks."
 
-#: views/users/region_user_view.py:132 views/users/user_view.py:139
+#: views/users/region_user_view.py:132 views/users/user_view.py:143
 msgid "User \"{}\" was successfully created"
 msgstr "Benutzer \"{}\" wurde erfolgreich erstellt"
 
-#: views/users/region_user_view.py:144 views/users/user_view.py:150
+#: views/users/region_user_view.py:144 views/users/user_view.py:154
 msgid "User \"{}\" was successfully saved"
 msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
 
@@ -5933,7 +5950,7 @@ msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
 msgid "User was successfully deleted"
 msgstr "Benutzer wurde erfolgreich gelöscht"
 
-#: views/users/user_view.py:112
+#: views/users/user_view.py:113
 msgid ""
 "A user has to be either staff/superuser or needs to be restricted to at "
 "least one region."
