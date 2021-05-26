@@ -15,9 +15,7 @@ class PageTest(TestCase):
         """
         Setup run to create a region and page objects.
         """
-        self.region = Region.objects.create(
-            aliases=[], push_notification_channels=[], slug="testregion"
-        )
+        self.region = Region.objects.create(aliases=[], slug="testregion")
         self.page1 = Page.objects.create(region=self.region)
         self.page2 = Page.objects.create(parent=self.page1, region=self.region)
         self.page3 = Page.objects.create(parent=self.page2, region=self.region)
