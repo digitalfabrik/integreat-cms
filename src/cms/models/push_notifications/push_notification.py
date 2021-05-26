@@ -1,8 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
+from backend.settings import CHANNELS
 from ..regions.region import Region
-from .push_notification_channel import PushNotificationChannel
 from ...constants.push_notifications import PN_MODES
 
 
@@ -17,10 +16,9 @@ class PushNotification(models.Model):
         related_name="push_notifications",
         verbose_name=_("region"),
     )
-    channel = models.ForeignKey(
-        PushNotificationChannel,
-        on_delete=models.CASCADE,
-        related_name="push_notifications",
+    channel = models.CharField(
+        max_length=60,
+        choices=CHANNELS,
         verbose_name=_("channel"),
     )
     draft = models.BooleanField(

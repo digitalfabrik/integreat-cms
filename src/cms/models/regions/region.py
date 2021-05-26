@@ -2,7 +2,6 @@ from html import escape
 
 
 from django.contrib.auth import get_user_model
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -81,12 +80,6 @@ class Region(models.Model):
         default=True,
         verbose_name=_("activate push notifications"),
         help_text=_("Whether or not push notifications are enabled in the region"),
-    )
-    push_notification_channels = ArrayField(
-        models.CharField(max_length=60),
-        blank=True,
-        verbose_name=_("push notification channels"),
-        help_text=_("Enter multiple channels separated by commas."),
     )
 
     latitude = models.FloatField(

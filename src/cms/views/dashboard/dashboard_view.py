@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 
 from backend.settings import RSS_FEED_URLS, BLOG_URLS
 from ...decorators import region_permission_required
+from ...utils.filter_links import filter_links
 from ..chat.chat_context_mixin import ChatContextMixin
 
 
@@ -23,6 +24,25 @@ class DashboardView(TemplateView, ChatContextMixin):
     template_name = "dashboard/dashboard.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "region_dashboard"}
+
+    def get_context_data(self, **kwargs):
+        """
+        Extend context by amount of links per link filter
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: The context dictionary
+        :rtype: dict
+        """
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                key: value.count()
+                for key, value in filter_links(kwargs.get("region_slug")).items()
+            }
+        )
+        return context
 
     def get(self, request, *args, **kwargs):
         """

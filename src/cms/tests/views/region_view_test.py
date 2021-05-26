@@ -41,7 +41,6 @@ class RegionViewTest(ViewTest):
     def setUp(self):
         region = Region.objects.create(
             slug="test_region",
-            push_notification_channels=[],
         )
         language = Language.objects.create(
             slug="te-st", native_name="test_language", english_name="test_language"
