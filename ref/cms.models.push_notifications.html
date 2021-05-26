@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-07T09:45:21+00:00" />
+    <meta property="article:modified_time" content="2021-05-24T08:13:01+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Push Notifications &mdash; integreat-cms 0.0.14 documentation</title>
@@ -439,7 +439,6 @@
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#push-notification">Push Notification</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#push-notification-channel">Push Notification Channel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#push-notification-translation">Push Notification Translation</a></li>
 </ul>
 </li>
@@ -871,7 +870,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_channel">Push Notification Channel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
 </ul>
 </li>
@@ -1212,13 +1210,14 @@
 <h2>Push Notification<a class="headerlink" href="#push-notification" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.push_notifications.push_notification.</span></code><code class="sig-name descname"><span class="pre">PushNotification</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.push_notifications.push_notification.</span></code><code class="sig-name descname"><span class="pre">PushNotification</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>Data model representing a push notification</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>channel</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Channel</p></li>
 <li><p><strong>draft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Draft. Whether or not the push notification is a draft (drafts cannot be sent)</p></li>
 <li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Sent date. The date and time when the push notification was sent.</p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
@@ -1230,10 +1229,7 @@
 <p>Relationship fields:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.push_notifications" title="cms.models.regions.region.Region.push_notifications"><code class="xref py py-attr docutils literal notranslate"><span class="pre">push_notifications</span></code></a>)</p></li>
-<li><p><strong>channel</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification_channel.PushNotificationChannel" title="cms.models.push_notifications.push_notification_channel.PushNotificationChannel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationChannel</span></code></a>) – Channel (related name: <a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification_channel.PushNotificationChannel.push_notifications" title="cms.models.push_notifications.push_notification_channel.PushNotificationChannel.push_notifications"><code class="xref py py-attr docutils literal notranslate"><span class="pre">push_notifications</span></code></a>)</p></li>
-</ul>
+<dd class="field-odd"><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.push_notifications" title="cms.models.regions.region.Region.push_notifications"><code class="xref py py-attr docutils literal notranslate"><span class="pre">push_notifications</span></code></a>)</p>
 </dd>
 </dl>
 <p>Reverse relationships:</p>
@@ -1244,19 +1240,19 @@
 </dl>
 <dl class="py exception">
 <dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">mode</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">mode</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Mode. Sets behavior for dealing with not existing push notification translations</p>
 <p>Choices:</p>
@@ -1269,46 +1265,10 @@
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">sent_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">sent_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
 <p>Sent date. The date and time when the push notification was sent.</p>
 <p><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if the push notification is not yet sent</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="push-notification-channel">
-<h2>Push Notification Channel<a class="headerlink" href="#push-notification-channel" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.push_notifications.push_notification_channel.</span></code><code class="sig-name descname"><span class="pre">PushNotificationChannel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_channel.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
-<p>Data model representing a push notification channels</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Name</p></li>
-</ul>
-</dd>
-</dl>
-<p>Reverse relationships:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>push_notifications</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification" title="cms.models.push_notifications.push_notification.PushNotification"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotification</span></code></a>) – All push notifications of this push notification channel (related name of <a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification.channel" title="cms.models.push_notifications.push_notification.PushNotification.channel"><code class="xref py py-attr docutils literal notranslate"><span class="pre">channel</span></code></a>)</p>
-</dd>
-</dl>
-<dl class="py exception">
-<dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_channel.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
-</dd></dl>
-
-<dl class="py exception">
-<dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_channel.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -1377,7 +1337,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 07, 2021.
+        Last updated on May 24, 2021.
       </span>
 
     </p>

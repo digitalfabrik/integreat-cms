@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-11T06:58:56+00:00" />
+    <meta property="article:modified_time" content="2021-05-24T08:13:01+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Regions &mdash; integreat-cms 0.0.14 documentation</title>
@@ -439,7 +439,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#push-notification">Push Notification</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#push-notification-channel">Push Notification Channel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.push_notifications.html#push-notification-translation">Push Notification Translation</a></li>
 </ul>
 </li>
@@ -871,7 +870,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification">Push Notification</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_channel">Push Notification Channel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.push_notifications.html#module-cms.models.push_notifications.push_notification_translation">Push Notification Translation</a></li>
 </ul>
 </li>
@@ -1221,7 +1219,6 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">events_enabled</span></code>: Activate events (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chat_enabled</span></code>: Activate author chat (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">push_notifications_enabled</span></code>: Activate push notifications (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">push_notification_channels</span></code>: Push notification channels (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/forms/#django.contrib.postgres.forms.SimpleArrayField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleArrayField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">latitude</span></code>: Latitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">longitude</span></code>: Longitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">postal_code</span></code>: Postal code (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
@@ -1240,7 +1237,7 @@
 </ul>
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1254,7 +1251,7 @@
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">clean_slug</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">clean_slug</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1268,7 +1265,7 @@
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -1291,7 +1288,7 @@ which are not directly determined by input fields.</p>
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_language_tree</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_language_tree</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to duplicate the language tree of one region to another.</p>
 <p>Usage: duplicate_language_tree(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole language tree. It starts at root level with the default parent None.
@@ -1310,13 +1307,13 @@ The recursion is necessary because the new nodes need their correct (also duplic
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_media</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_media</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to duplicate all media of one region to another.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">cms.forms.regions.region_form.</span></code><code class="sig-name descname"><span class="pre">duplicate_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/regions/region_form.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to duplicate all pages of one region to another.</p>
 <p>Usage: duplicate_pages(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole page tree. It starts at root level with the default parent None.
@@ -1356,7 +1353,7 @@ The recursion is necessary because the new pages need their correct (also duplic
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 11, 2021.
+        Last updated on May 24, 2021.
       </span>
 
     </p>
