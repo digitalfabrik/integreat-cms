@@ -14,7 +14,30 @@
             {% trans "Details" %}
         </a>
     </div>
-    <div class="p-3 w-full">
-        <!-- TODO -->
+    <div class="mt-4">
+    <table class="w-full max-w-xl">
+        <tbody>
+            <tr>
+                <td>{% trans 'Invalid links' %}</td>
+                <td class="text-right">{{ invalid_links }}</td>
+            </tr>
+            <tr>
+                <td>{% trans 'Valid links' %}</td>
+                <td class="text-right">{{ valid_links }}</td>
+            </tr>
+            <tr>
+                <td>{% trans 'Ignored links' %}</td>
+                <td class="text-right">{{ ignored_links }}</td>
+            </tr>
+            <tr>
+                <td class="pb-2 border-b border-gray-400">{% trans 'Unchecked links' %}</td>
+                <td class="text-right border-b border-gray-400">{{ unchecked_links }}</td>
+            </tr>
+            <tr>
+                <td class="pt-2">{% trans 'Total links' %}</td>
+                <td class="text-right">{{ all_links }}</td>
+            </tr>
+        </tbody>
+    </table>
     </div>
 {% endblock %}
