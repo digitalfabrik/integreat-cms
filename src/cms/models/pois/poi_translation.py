@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
-from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from linkcheck.models import Link
@@ -67,10 +66,6 @@ class POITranslation(models.Model):
         help_text=_(
             "Tick if this change does not require an update of translations in other languages."
         ),
-    )
-    created_date = models.DateTimeField(
-        default=timezone.now,
-        verbose_name=_("creation date"),
     )
     last_updated = models.DateTimeField(
         auto_now=True,

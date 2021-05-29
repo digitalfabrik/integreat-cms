@@ -39,10 +39,6 @@ class PushNotification(models.Model):
         auto_now_add=True,
         verbose_name=_("creation date"),
     )
-    last_updated = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_("modification date"),
-    )
     #: Manage choices in :mod:`cms.constants.push_notifications`
     mode = models.CharField(
         max_length=128,
