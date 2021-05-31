@@ -248,26 +248,6 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                 },
             )
 
-        if not page_form.has_changed() and not page_translation_form.has_changed():
-            messages.info(request, _("No changes detected."))
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.base_context,
-                    "page_form": page_form,
-                    "page_translation_form": page_translation_form,
-                    "page": page_instance,
-                    "siblings": siblings,
-                    "language": language,
-                    # Languages for tab view
-                    "languages": region.languages if page_instance else [language],
-                    "side_by_side_language_options": side_by_side_language_options,
-                    "right_to_left": language.text_direction
-                    == text_directions.RIGHT_TO_LEFT,
-                },
-            )
-
         page = page_form.save()
         page_translation = page_translation_form.save(
             page=page,
@@ -275,25 +255,30 @@ class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
         )
 
         published = page_translation.status == status.PUBLIC
-        if not page_instance:
-            if published:
-                messages.success(
-                    request, _("Page was successfully created and published")
-                )
-            else:
-                messages.success(request, _("Page was successfully created"))
-        elif not page_translation_instance:
-            if published:
-                messages.success(
-                    request, _("Translation was successfully created and published")
-                )
-            else:
-                messages.success(request, _("Translation was successfully created"))
+        if not page_form.has_changed() and not page_translation_form.has_changed():
+            messages.info(request, _("No changes detected, but date refreshed"))
         else:
-            if published:
-                messages.success(request, _("Translation was successfully published"))
+            if not page_instance:
+                if published:
+                    messages.success(
+                        request, _("Page was successfully created and published")
+                    )
+                else:
+                    messages.success(request, _("Page was successfully created"))
+            elif not page_translation_instance:
+                if published:
+                    messages.success(
+                        request, _("Translation was successfully created and published")
+                    )
+                else:
+                    messages.success(request, _("Translation was successfully created"))
             else:
-                messages.success(request, _("Translation was successfully saved"))
+                if published:
+                    messages.success(
+                        request, _("Translation was successfully published")
+                    )
+                else:
+                    messages.success(request, _("Translation was successfully saved"))
 
         return redirect(
             "edit_page",
