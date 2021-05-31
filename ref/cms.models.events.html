@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-26T10:56:58+00:00" />
+    <meta property="article:modified_time" content="2021-05-29T15:42:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Events &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1452,7 +1452,7 @@ which is needed to calculate the single instances of a recurring event</p>
 <h2>Event Translation<a class="headerlink" href="#event-translation" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.events.event_translation.</span></code><code class="sig-name descname"><span class="pre">EventTranslation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.events.event_translation.</span></code><code class="sig-name descname"><span class="pre">EventTranslation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>Data model representing an event translation</p>
 <dl class="field-list simple">
@@ -1466,7 +1466,6 @@ which is needed to calculate the single instances of a recurring event</p>
 <li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
 <li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Revision</p></li>
 <li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Minor edit. Tick if this change does not require an update of translations in other languages</p></li>
-<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
 </ul>
 </dd>
@@ -1490,19 +1489,19 @@ which is needed to calculate the single instances of a recurring event</p>
 </dl>
 <dl class="py exception">
 <dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">available_languages</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">available_languages</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks in which <a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the event is translated apart
 from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
 It only returns languages which have a public translation, so drafts are not included here.
@@ -1528,7 +1527,7 @@ The returned dict has the following format:</p>
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">foreign_object</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">foreign_object</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is an alias of the event foreign key and is needed to generalize the <a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
 <dl class="field-list simple">
@@ -1543,7 +1542,7 @@ for all content types</p>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">get_absolute_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L108"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">get_absolute_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This helper function returns the absolute url to the webapp view of the event translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1557,7 +1556,7 @@ for all content types</p>
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_outdated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_outdated</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
 This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
 <ul class="simple">
@@ -1583,7 +1582,7 @@ source translation.</p>
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_up_to_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_up_to_date</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks whether a translation is up to date.
 A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
 <dl class="field-list simple">
@@ -1598,7 +1597,7 @@ A translation is considered up to date when it is not outdated and not being tra
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_major_public_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_major_public_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is a link to the most recent major public version of this translation.
 This is used when translations, which are derived from this translation, check whether they are up to date.</p>
 <dl class="field-list simple">
@@ -1613,7 +1612,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_major_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_major_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is a link to the most recent major version of this translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1627,7 +1626,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_public_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">latest_public_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is a link to the most recent public version of this translation.
 If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <dl class="field-list simple">
@@ -1642,7 +1641,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">permalink</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">permalink</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1656,7 +1655,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">previous_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">previous_revision</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is a shortcut to the previous revision of this translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1670,7 +1669,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sitemap_alternates</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sitemap_alternates</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns the language alternatives of a event translation for the use in sitemaps.
 Similar to <a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation.available_languages" title="cms.models.events.event_translation.EventTranslation.available_languages"><code class="xref py py-func docutils literal notranslate"><span class="pre">cms.models.events.event_translation.EventTranslation.available_languages()</span></code></a>, but in a slightly
 different format.</p>
@@ -1686,7 +1685,7 @@ different format.</p>
 
 <dl class="py method">
 <dt>
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">source_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">source_translation</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
 It derives this information from the <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
 <a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
@@ -1704,7 +1703,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
 
 <dl class="py attribute">
 <dt>
-<code class="sig-name descname"><span class="pre">status</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">status</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Status</p>
 <p>Choices:</p>
@@ -1837,7 +1836,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 26, 2021.
+        Last updated on May 29, 2021.
       </span>
 
     </p>

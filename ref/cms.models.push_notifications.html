@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-24T08:13:01+00:00" />
+    <meta property="article:modified_time" content="2021-05-29T15:42:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Push Notifications &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1223,7 +1223,6 @@
 <li><p><strong>draft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Draft. Whether or not the push notification is a draft (drafts cannot be sent)</p></li>
 <li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Sent date. The date and time when the push notification was sent.</p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
-<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
 <li><p><strong>mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Mode. Sets behavior for dealing with not existing push notification translations</p></li>
 </ul>
 </dd>
@@ -1280,7 +1279,7 @@
 <h2>Push Notification Translation<a class="headerlink" href="#push-notification-translation" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.push_notifications.push_notification_translation.</span></code><code class="sig-name descname"><span class="pre">PushNotificationTranslation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.push_notifications.push_notification_translation.</span></code><code class="sig-name descname"><span class="pre">PushNotificationTranslation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>Data model representing a push notification translation</p>
 <dl class="field-list simple">
@@ -1289,7 +1288,6 @@
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
 <li><p><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Title</p></li>
 <li><p><strong>text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Content</p></li>
-<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
 </ul>
 </dd>
@@ -1305,13 +1303,13 @@
 </dl>
 <dl class="py exception">
 <dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt>
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/push_notifications/push_notification_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -1339,7 +1337,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 24, 2021.
+        Last updated on May 29, 2021.
       </span>
 
     </p>
