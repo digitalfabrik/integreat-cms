@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from ..languages.language import Language
@@ -32,10 +31,6 @@ class PushNotificationTranslation(models.Model):
         on_delete=models.CASCADE,
         related_name="translations",
         verbose_name=_("push notification"),
-    )
-    created_date = models.DateTimeField(
-        default=timezone.now,
-        verbose_name=_("creation date"),
     )
     last_updated = models.DateTimeField(
         auto_now=True,

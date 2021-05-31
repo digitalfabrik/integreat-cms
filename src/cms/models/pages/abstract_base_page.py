@@ -18,9 +18,6 @@ class AbstractBasePage(models.Model):
     created_date = models.DateTimeField(
         default=timezone.now, verbose_name=_("creation date")
     )
-    last_updated = models.DateTimeField(
-        auto_now=True, verbose_name=_("modification date")
-    )
 
     @property
     def archived(self):
