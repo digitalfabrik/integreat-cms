@@ -2,7 +2,8 @@
 {% load text_filters %}
 
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
-  <td class="py-3 pl-4 pr-2 whitespace-nowrap">{{ link.display_url }}</td>
+  <td class="py-3 pl-4"><input type="checkbox" name="selected_ids[]" value="{{ link.id }}" class="bulk-select-item"></td>
+  <td class="pr-2 whitespace-nowrap">{{ link.display_url }}</td>
   <td class="pr-2{% if link_filter == 'invalid' %} text-red-500{% elif link_filter == 'valid' %} text-green-500{% endif %}">
     {{ link.url.message|linkcheck_status_filter }}
   </td>
