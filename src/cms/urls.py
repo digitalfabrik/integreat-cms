@@ -938,6 +938,11 @@ urlpatterns = [
                         ]
                     ),
                 ),
+                url(
+                    r"^user_settings/$",
+                    settings.UserSettingsView.as_view(),
+                    name="user_settings",
+                ),
             ]
         ),
     ),

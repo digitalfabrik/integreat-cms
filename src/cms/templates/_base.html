@@ -61,13 +61,13 @@
         </div>
     </div>
     <div id="user-info" class="relative px-2 text-gray-800 flex flex-col justify-center cursor-pointer hover:bg-gray-200">
-        <a href="{% url 'user_settings' %}" class="relative block whitespace-nowrap">
+        <a href="{% if region %}{% url 'user_settings' region_slug=region.slug %}{% else %}{% url 'user_settings' %}{% endif %}" class="relative block whitespace-nowrap">
             <i data-feather="user"></i>
             {{ request.user.profile.full_user_name }}
             <i data-feather="chevron-down"></i>
         </a>
         <div id="user-menu" class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
-            <a href="{% url 'user_settings' %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400">
+            <a href="{% if region %}{% url 'user_settings' region_slug=region.slug %}{% else %}{% url 'user_settings' %}{% endif %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400">
                 <i data-feather="settings"></i>
                 {% trans 'User Settings' %}
             </a>
