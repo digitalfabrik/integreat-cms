@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 17:37+0000\n"
+"POT-Creation-Date: 2021-06-01 11:10+0000\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
 "Language: German\n"
@@ -1465,7 +1465,7 @@ msgstr "Kategorie"
 #: templates/imprint/imprint_revisions.html:45
 #: templates/imprint/imprint_sbs.html:58 templates/imprint/imprint_sbs.html:121
 #: templates/imprint/imprint_sbs.html:136
-#: templates/linkcheck/links_by_filter.html:37
+#: templates/linkcheck/links_by_filter.html:40
 #: templates/pages/page_form.html:150 templates/pages/page_revisions.html:49
 #: templates/pages/page_sbs.html:65 templates/pages/page_sbs.html:132
 #: templates/pages/page_sbs.html:137 templates/pages/page_tree.html:67
@@ -2112,7 +2112,7 @@ msgid "thumbnail URL"
 msgstr "Vorschaubild-URL"
 
 #: models/offers/offer_template.py:31
-#: templates/linkcheck/links_by_filter.html:36
+#: templates/linkcheck/links_by_filter.html:39
 #: templates/offer_templates/offer_template_list.html:24
 msgid "URL"
 msgstr "URL"
@@ -2860,22 +2860,22 @@ msgid "Details"
 msgstr "Detailansicht"
 
 #: templates/analytics/_broken_links_widget.html:21
-#: templates/linkcheck/links_by_filter.html:9
+#: templates/linkcheck/links_by_filter.html:10
 msgid "Invalid links"
 msgstr "Ungültige Links"
 
 #: templates/analytics/_broken_links_widget.html:25
-#: templates/linkcheck/links_by_filter.html:7
+#: templates/linkcheck/links_by_filter.html:8
 msgid "Valid links"
 msgstr "Gültige Links"
 
 #: templates/analytics/_broken_links_widget.html:29
-#: templates/linkcheck/links_by_filter.html:13
+#: templates/linkcheck/links_by_filter.html:14
 msgid "Ignored links"
 msgstr "Ignorierte Links"
 
 #: templates/analytics/_broken_links_widget.html:33
-#: templates/linkcheck/links_by_filter.html:11
+#: templates/linkcheck/links_by_filter.html:12
 msgid "Unchecked links"
 msgstr "Nicht geprüfte Links"
 
@@ -3499,6 +3499,7 @@ msgstr "Noch kein technisches Feedback vorhanden."
 
 #: templates/feedback/admin_feedback_list.html:128
 #: templates/feedback/region_feedback_list.html:122
+#: templates/linkcheck/links_by_filter.html:61
 #: templates/pages/page_tree.html:115
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
@@ -3521,6 +3522,7 @@ msgstr "Löschen"
 
 #: templates/feedback/admin_feedback_list.html:139
 #: templates/feedback/region_feedback_list.html:133
+#: templates/linkcheck/links_by_filter.html:73
 #: templates/pages/page_tree.html:127
 msgid "Execute"
 msgstr "Ausführen"
@@ -3868,37 +3870,49 @@ msgstr "Zuletzt aktualisiert"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
-#: templates/linkcheck/links_by_filter.html:18
+#: templates/linkcheck/links_by_filter.html:19
 msgid "Valid"
 msgstr "Gültig"
 
-#: templates/linkcheck/links_by_filter.html:22
+#: templates/linkcheck/links_by_filter.html:23
 msgid "Invalid"
 msgstr "Ungültig"
 
-#: templates/linkcheck/links_by_filter.html:26
+#: templates/linkcheck/links_by_filter.html:27
 msgid "Unchecked"
 msgstr "Nicht geprüft"
 
-#: templates/linkcheck/links_by_filter.html:30
+#: templates/linkcheck/links_by_filter.html:31
 msgid "Ignored"
 msgstr "Ignoriert"
 
-#: templates/linkcheck/links_by_filter.html:38
+#: templates/linkcheck/links_by_filter.html:41
 msgid "Link text"
 msgstr "Link Text"
 
-#: templates/linkcheck/links_by_filter.html:39
+#: templates/linkcheck/links_by_filter.html:42
 msgid "Source"
 msgstr "Quelle"
 
-#: templates/linkcheck/links_by_filter.html:40
+#: templates/linkcheck/links_by_filter.html:43
 msgid "Content type"
 msgstr "Inhaltstyp"
 
-#: templates/linkcheck/links_by_filter.html:49
+#: templates/linkcheck/links_by_filter.html:52
 msgid "No links detected yet."
 msgstr "Es konnten keine Links gefunden werden."
+
+#: templates/linkcheck/links_by_filter.html:63
+msgid "Unignore"
+msgstr "Nicht ignorieren"
+
+#: templates/linkcheck/links_by_filter.html:65
+msgid "Recheck"
+msgstr "Erneut prüfen"
+
+#: templates/linkcheck/links_by_filter.html:66
+msgid "Ignore"
+msgstr "Ignorieren"
 
 #: templates/media/media_form.html:6 templates/media/media_list.html:15
 msgid "Upload File"
@@ -5238,6 +5252,18 @@ msgstr "Sprache wurde erfolgreich erstellt"
 #: views/languages/language_view.py:79
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
+
+#: views/linkcheck/linkcheck.py:93
+msgid "Links were successfully ignored"
+msgstr "Links wurden erfolgreich ignoriert"
+
+#: views/linkcheck/linkcheck.py:96
+msgid "Links were successfully unignored"
+msgstr "Links werden nicht mehr ignoriert"
+
+#: views/linkcheck/linkcheck.py:100
+msgid "Links were successfully checked"
+msgstr "Links wurden erfolgreich geprüft"
 
 #: views/offer_templates/offer_template_view.py:72
 msgid "Offer template was successfully saved"

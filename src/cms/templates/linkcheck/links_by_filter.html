@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
   <h1 class="heading">
@@ -29,11 +30,13 @@
     class="{% if link_filter == 'ignored' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
     {% trans 'Ignored' %} <span class="{% if link_filter == 'ignored' %}text-gray-500 font-normal{% endif %}">({{ number_ignored }})</span>
   </a>
-  <div class="table-listing">
+  <form method="POST" id="bulk-action-form" class="table-listing">
+    {% csrf_token %}
     <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
       <thead>
         <tr class="border-b border-solid border-gray-200">
-          <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'URL' %}</th>
+          <th class="text-sm text-left uppercase py-3 pl-4"><input type="checkbox" id="bulk-select-all"></th>
+          <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'URL' %}</th>
           <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
           <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Link text' %}</th>
           <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Source' %}</th>
@@ -52,7 +55,24 @@
         {% endfor %}
       </tbody>
     </table>
-  </div>
+    <div class="flex flex-wrap relative w-1/2 mt-5 items-stretch">
+      <div class="relative w-auto inline-block">
+        <select id="bulk-action" name="action" class="block appearance-none bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
+          <option>{% trans 'Select bulk action' %}</option>
+          {% if link_filter == 'ignored' %}
+            <option value="unignore" data-bulk-action="{% url 'linkcheck' region_slug=region.slug link_filter=link_filter %}">{% trans 'Unignore' %}</option>
+          {% else %}
+            <option value="recheck" data-bulk-action="{% url 'linkcheck' region_slug=region.slug link_filter=link_filter %}">{% trans 'Recheck' %}</option>
+            <option value="ignore" data-bulk-action="{% url 'linkcheck' region_slug=region.slug link_filter=link_filter %}">{% trans 'Ignore' %}</option>
+          {% endif %}
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+          <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
+        </div>
+      </div>
+      <input id="bulk-action-execute" type="submit" value="{% trans 'Execute' %}" class="inline-block bg-gray-500 cursor-not-allowed text-white font-bold py-2 px-4 ml-2 rounded"/>
+    </div>
+  </form>
 
   {% url 'linkcheck' as url %}
   {% include 'pagination.html' with url=url chunk=page_obj %}
