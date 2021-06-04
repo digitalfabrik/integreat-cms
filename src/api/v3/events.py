@@ -1,8 +1,15 @@
+from datetime import timedelta
 from django.http import JsonResponse
 from django.utils import timezone
 
-from backend.settings import WEBAPP_URL, CURRENT_TIME_ZONE
+from backend.settings import (
+    WEBAPP_URL,
+    CURRENT_TIME_ZONE,
+    API_EVENTS_MAX_TIME_SPAN_DAYS,
+)
 from cms.models import Region
+from cms.models.events.event_translation import EventTranslation
+from cms.utils.slug_utils import generate_unique_slug
 from .locations import transform_poi
 from ..decorators import json_response
 
@@ -66,6 +73,68 @@ def transform_event_translation(event_translation):
     }
 
 
+def transform_event_recurrences(event_translation, today):
+    """
+    Yield all future recurrences of the event.
+
+    :param event_translation: The event translation object which should be converted
+    :type event_translation: ~cms.models.events.event_translation.EventTranslation
+
+    :param today: The first date at which event may be yielded
+    :type today: ~datetime.date
+
+    :return: An iterator over all future recurrences up to ``API_EVENTS_MAX_TIME_SPAN_DAYS``
+    :rtype: Iterator[:class:`~datetime.date`]
+    """
+    recurrence_rule = event_translation.event.recurrence_rule
+    if not recurrence_rule:
+        return
+
+    # In order to avoid unnecessary computations, check if any future event
+    # may be valid and return early if that is not the case
+    if (
+        recurrence_rule.recurrence_end_date
+        and recurrence_rule.recurrence_end_date < today
+    ):
+        return
+
+    event_data = transform_event_translation(event_translation)
+    event_length = event_translation.event.end_date - event_translation.event.start_date
+
+    url_base = event_data["url"][: event_data["url"].rfind("/")] + "/"
+    path_base = event_data["path"][: event_data["path"].rfind("/")] + "/"
+
+    start_date = event_translation.event.start_date
+    for recurrence_date in recurrence_rule.iter_after(start_date):
+        if recurrence_date - max(start_date, today) > timedelta(
+            days=API_EVENTS_MAX_TIME_SPAN_DAYS
+        ):
+            break
+        if recurrence_date < today or recurrence_date == start_date:
+            continue
+
+        unique_path = generate_unique_slug(
+            **{
+                "slug": f"{event_translation.slug}-{recurrence_date}",
+                "manager": EventTranslation.objects,
+                "object_instance": event_translation,
+                "foreign_model": "event",
+                "region": event_translation.event.region,
+                "language": event_translation.language,
+            }
+        )
+
+        event_data_copy = {**event_data}
+        event_data_copy["event"] = {**event_data_copy["event"]}
+        event_data_copy["id"] = None
+        event_data_copy["url"] = url_base + unique_path
+        event_data_copy["path"] = path_base + unique_path
+        event_data_copy["event"]["id"] = None
+        event_data_copy["event"]["start_date"] = recurrence_date
+        event_data_copy["event"]["end_date"] = recurrence_date + event_length
+        yield event_data_copy
+
+
 @json_response
 # pylint: disable=unused-argument
 def events(request, region_slug, language_slug):
@@ -86,10 +155,15 @@ def events(request, region_slug, language_slug):
     """
     region = Region.get_current_region(request)
     result = []
-    for event in region.events.filter(archived=False, end_date__gte=timezone.now()):
+    now = timezone.now().date()
+    for event in region.events.filter(archived=False):
         event_translation = event.get_public_translation(language_slug)
         if event_translation:
-            result.append(transform_event_translation(event_translation))
+            if event.end_date >= now:
+                result.append(transform_event_translation(event_translation))
+
+            for future_event in transform_event_recurrences(event_translation, now):
+                result.append(future_event)
 
     return JsonResponse(
         result, safe=False

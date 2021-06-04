@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -63,6 +64,84 @@ class RecurrenceRule(models.Model):
             "If the recurrence is not for an indefinite period, this field contains the end date"
         ),
     )
+
+    def iter_after(self, start_date):
+        """
+        Iterate all recurrences after a given start date.
+        This method assumes that ``weekdays_for_weekly`` contains at least one member
+        and that ``weekday_for_monthly`` and ``week_for_monthly`` are not null.
+
+        :param start_date: The date on which the iteration should start
+        :type start_date: ~datetime.date
+
+        :return: An iterator over all dates defined by this recurrence rule
+        :rtype: Iterator[:class:`~datetime.date`]
+        """
+        next_recurrence = start_date
+
+        def get_nth_weekday(month_date, weekday, n):
+            month_date = month_date.replace(day=1)
+            month_date += timedelta((weekday - month_date.weekday()) % 7)
+            return month_date + timedelta(weeks=n - 1)
+
+        def next_month(month_date):
+            if month_date.month < 12:
+                return month_date.replace(month=month_date.month + 1)
+
+            return month_date.replace(month=1, year=month_date.year + 1)
+
+        def advance():
+            nonlocal next_recurrence
+            if self.frequency == frequency.DAILY:
+                yield
+                next_recurrence += timedelta(days=1)
+            elif self.frequency == frequency.WEEKLY:
+                # Yield each day of the week that is valid, since
+                # ``interval`` should apply here only on weekly basis
+                for weekday in sorted(self.weekdays_for_weekly):
+                    if weekday < next_recurrence.weekday():
+                        continue
+                    next_recurrence += timedelta(
+                        days=weekday - next_recurrence.weekday()
+                    )
+                    yield
+                # advance to the next monday
+                next_recurrence += timedelta(days=7 - next_recurrence.weekday())
+            elif self.frequency == frequency.MONTHLY:
+                next_recurrence = get_nth_weekday(
+                    next_recurrence, self.weekday_for_monthly, self.week_for_monthly
+                )
+                if next_recurrence < start_date:
+                    next_recurrence = get_nth_weekday(
+                        next_month(next_recurrence),
+                        self.weekday_for_monthly,
+                        self.week_for_monthly,
+                    )
+                yield
+                next_recurrence = next_month(next_recurrence)
+            elif self.frequency == frequency.YEARLY:
+                yield
+
+                # It is not possible to go simply to the next year if the current date is february 29
+                year_dif = 1
+                while True:
+                    try:
+                        next_recurrence = next_recurrence.replace(
+                            year=next_recurrence.year + year_dif
+                        )
+                        break
+                    except ValueError:
+                        year_dif += 1
+
+        i = 0
+        end_date = self.recurrence_end_date or date.max
+        while True:
+            for _ in advance():
+                if next_recurrence > end_date:
+                    return
+                if i % self.interval == 0:
+                    yield next_recurrence
+            i += 1
 
     def __str__(self):
         """

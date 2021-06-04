@@ -90,6 +90,9 @@ RSS_FEED_URLS = {
 #: How many days of chat history should be shown
 AUTHOR_CHAT_HISTORY_DAYS = 30
 
+#: The time span up to which recurrent events should be returned by the api
+API_EVENTS_MAX_TIME_SPAN_DAYS = 31
+
 ###############################
 # Firebase Push Notifications #
 ###############################
