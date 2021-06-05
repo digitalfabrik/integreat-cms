@@ -4,7 +4,7 @@
 <div class="w-full">
     {% with icon=widget.document.name label=widget.attrs.label %}
     <div id="icon_preview" class="{% if not widget.document %}hidden{% endif %} w-full">
-        <img class="h-40 m-auto" src="{{ widget.document.thumbnail_path }}"/>
+        <img class="h-40 m-auto" src="{{ widget.document.thumbnail.url }}"/>
         <div id="icon_filename" class="block w-full break-all bg-gray-200 text-gray-800 border border-gray-200 rounded py-3 px-4 my-2">
             {{ widget.document.name }}
         </div>

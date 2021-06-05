@@ -34,6 +34,56 @@ from .views import (
     feedback,
 )
 
+media_ajax_urlpatterns = [
+    url(
+        r"^media/",
+        include(
+            [
+                url(
+                    r"^directory-path$",
+                    media.get_directory_path_ajax,
+                    name="mediacenter_directory_path",
+                ),
+                url(
+                    r"^directory-content$",
+                    media.get_directory_content_ajax,
+                    name="mediacenter_get_directory_content",
+                ),
+                url(
+                    r"^upload-file$",
+                    media.upload_file_ajax,
+                    name="mediacenter_upload_file",
+                ),
+                url(
+                    r"^edit-file",
+                    media.edit_file_ajax,
+                    name="mediacenter_edit_file",
+                ),
+                url(
+                    r"^delete-file$",
+                    media.delete_file_ajax,
+                    name="mediacenter_delete_file",
+                ),
+                url(
+                    r"^create-directory$",
+                    media.create_directory_ajax,
+                    name="mediacenter_create_directory",
+                ),
+                url(
+                    r"^update-directory$",
+                    media.edit_directory_ajax,
+                    name="mediacenter_edit_directory",
+                ),
+                url(
+                    r"^delete-directory$",
+                    media.delete_directory_ajax,
+                    name="mediacenter_delete_directory",
+                ),
+            ]
+        ),
+    ),
+]
+
 
 urlpatterns = [
     url(
@@ -93,7 +143,7 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^media/$", media.AdminMediaListView.as_view(), name="media_admin"),
+    url(r"^media-library/$", media.AdminMediaListView.as_view(), name="media_admin"),
     url(
         r"^languages/",
         include(
@@ -430,76 +480,11 @@ urlpatterns = [
                     name="slugify_ajax",
                 ),
                 url(
-                    r"^(?P<region_slug>[-\w]+)/media/directory_content$",
-                    media.get_directory_content_ajax,
-                    name="mediacenter_get_directory_content",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/media_edit$",
-                    media.edit_media_element_ajax,
-                    name="mediacenter_edit_url",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/media_edit/create_directory$",
-                    media.create_directory_ajax,
-                    name="mediacenter_create_directory",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/media_edit/update_directory$",
-                    media.update_directory_ajax,
-                    name="mediacenter_update_directory",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/media_edit/upload_file$",
-                    media.upload_file_ajax,
-                    name="mediacenter_upload_file",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/media_edit/delete_file$",
-                    media.delete_file_ajax,
-                    name="mediacenter_delete_file",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/media_edit/directory_path$",
-                    media.get_directory_path_ajax,
-                    name="mediacenter_directory_path",
-                ),
-                url(
-                    r"^media/directory_content$",
-                    media.get_directory_content_ajax,
-                    name="mediacenter_get_directory_content",
-                ),
-                url(
-                    r"^media_edit$",
-                    media.edit_media_element_ajax,
-                    name="mediacenter_edit_url",
-                ),
-                url(
-                    r"^media_edit/create_directory$",
-                    media.create_directory_ajax,
-                    name="mediacenter_create_directory",
-                ),
-                url(
-                    r"^media_edit/update_directory$",
-                    media.update_directory_ajax,
-                    name="mediacenter_update_directory",
-                ),
-                url(
-                    r"^media_edit/upload_file$",
-                    media.upload_file_ajax,
-                    name="mediacenter_upload_file",
-                ),
-                url(
-                    r"^media_edit/delete_file$",
-                    media.delete_file_ajax,
-                    name="mediacenter_delete_file",
-                ),
-                url(
-                    r"^media_edit/directory_path$",
-                    media.get_directory_path_ajax,
-                    name="mediacenter_directory_path",
+                    r"^(?P<region_slug>[-\w]+)/",
+                    include(media_ajax_urlpatterns),
                 ),
             ]
+            + media_ajax_urlpatterns
         ),
     ),
     url(
@@ -941,7 +926,7 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(r"^media/$", media.MediaListView.as_view(), name="media"),
+                url(r"^media-library/$", media.MediaListView.as_view(), name="media"),
                 url(
                     r"^users/",
                     include(

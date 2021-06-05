@@ -102,6 +102,8 @@ window.addEventListener("load", () => {
       link_default_protocol: "https",
       target_list: false,
       default_link_target: '',
+      relative_urls: false,
+      remove_script_host: false,
       branding: false,
       toolbar:
         "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export",

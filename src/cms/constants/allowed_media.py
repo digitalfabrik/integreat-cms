@@ -5,8 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 #: MIME type of PNG files
 PNG = "image/png"
-#: MIME type of JPG files
-JPG = "image/jpg"
 #: MIME type of JPEG files
 JPEG = "image/jpeg"
 #: MIME type of PDF files
@@ -15,7 +13,6 @@ PDF = "application/pdf"
 #: MIME type of image files. Expand this list to add further data types.
 IMAGES = [
     (PNG, _("PNG image")),
-    (JPG, _("JPG image")),
     (JPEG, _("JPEG image")),
 ]
 

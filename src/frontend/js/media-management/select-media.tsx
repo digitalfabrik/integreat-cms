@@ -1,7 +1,10 @@
-import { render } from "preact";
+/*
+ * This component renders a selection dialog to select a specific file from the media library.
+ * On selection, the given selection handler selectMedia() is executed.
+ */
 import { XCircle } from "preact-feather";
-import MediaManagement, { MediaApiPaths } from ".";
-import { File } from "./component/directory-listing";
+
+import MediaManagement, { File, MediaApiPaths } from ".";
 
 interface Props {
   cancel: () => any;
@@ -22,7 +25,7 @@ export default function SelectMedia({
       style="z-index: 2000;"
     >
       <div className="w-10/12 h-5/6 flex flex-col justify-center relative">
-        <div class="h-full content bg-gray-200 w-full p-4 shadow-md rounded">
+        <div class="flex w-full h-full content bg-gray-200 p-4 shadow-md rounded overflow-auto">
           <MediaManagement
             selectionMode
             selectMedia={selectMedia}
@@ -30,7 +33,7 @@ export default function SelectMedia({
             mediaTranslations={mediaTranslations}
           ></MediaManagement>
         </div>
-        <button onClick={cancel} className="absolute top-6 right-3">
+        <button onClick={cancel} className="hover:text-blue-500 absolute top-6 right-3">
           <XCircle className="inline-block h-8 w-8" />
         </button>
       </div>

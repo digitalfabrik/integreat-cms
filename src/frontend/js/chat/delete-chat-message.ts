@@ -2,36 +2,13 @@
  * This file contains the deletion function for the author chat
  */
 import { getCsrfToken } from "../utils/csrf-token";
-import { showConfirmationPopup } from "../confirmation-popups";
-
-export function refreshChatDeleteHandlers() {
-  document
-    .querySelectorAll(".confirmation-button")
-    .forEach((button) =>
-      button.removeEventListener("action-confirmed", deleteChatMessage)
-    );
-  document
-    .querySelectorAll(".confirmation-button")
-    .forEach((button) =>
-      button.addEventListener("action-confirmed", deleteChatMessage)
-    );
-  document
-    .querySelectorAll(".confirmation-button")
-    .forEach((button) =>
-      button.removeEventListener("click", showConfirmationPopup)
-    );
-  document
-    .querySelectorAll(".confirmation-button")
-    .forEach((button) =>
-      button.addEventListener("click", showConfirmationPopup)
-    );
-}
+import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
 
 // Listen on the custom event "action-confirmed" which is triggered by the confirmation popup
-window.addEventListener("load", refreshChatDeleteHandlers);
+window.addEventListener("load", () => refreshAjaxConfirmationHandlers(deleteChatMessage));
 
 // Function to delete a chat message
-async function deleteChatMessage(event: Event) {
+export async function deleteChatMessage(event: Event) {
   event.preventDefault();
   const chatNetworkError = document.getElementById("chat-network-error");
   const chatServerError = document.getElementById("chat-server-error");

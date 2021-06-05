@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
     // Fill in uploaded file path
     document
       .querySelector("#icon_preview img")
-      .setAttribute("src", file.path);
+      .setAttribute("src", file.thumbnailUrl);
     document.getElementById("icon_filename").innerText = file.name;
     // Update UI elements
     setIcon();
@@ -80,6 +80,8 @@ window.addEventListener("load", () => {
         {...mediaConfigData}
         cancel={() => el.remove()}
         selectMedia={(file) => {
+          console.log("File selected as icon:");
+          console.log(file);
           (iconField as HTMLInputElement).value = file.id.toString();
           el.remove()
           updateIconDisplay(file);

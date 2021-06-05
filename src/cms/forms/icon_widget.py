@@ -1,5 +1,5 @@
 from django import forms
-from ..models import Document
+from ..models import MediaFile
 
 
 class IconWidget(forms.HiddenInput):
@@ -13,6 +13,6 @@ class IconWidget(forms.HiddenInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
         if value:
-            context["widget"]["document"] = Document.objects.get(id=value)
+            context["widget"]["document"] = MediaFile.objects.get(id=value)
 
         return context

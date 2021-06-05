@@ -35,30 +35,21 @@ class CustomModelForm(forms.ModelForm):
         # Dynamically initialize logger to get module name of actual form
         self.logger = logging.getLogger(type(self).__module__)
 
-        if self.data and self.instance.id:
-            self.logger.debug(
-                "%s initialized with data %r and instance %r",
-                type(self).__name__,
-                self.data,
-                self.instance,
-            )
-        elif self.data:
-            self.logger.debug(
-                "%s initialized with data %r",
-                type(self).__name__,
-                self.data,
-            )
-        elif self.instance.id:
-            self.logger.debug(
-                "%s initialized with instance %r",
-                type(self).__name__,
-                self.instance,
-            )
-        else:
-            self.logger.debug(
-                "%s initialized",
-                type(self).__name__,
-            )
+        # Select the relevant attributes for logging
+        attributes = []
+        if self.data:
+            attributes.append("data")
+        if self.files:
+            attributes.append("files")
+        if self.instance.id:
+            attributes.append("instance")
+
+        self.logger.debug(
+            "%s initialized"
+            + (" with " + ": %r, ".join(attributes) + ": %r" if attributes else ""),
+            type(self).__name__,
+            *[getattr(self, attribute) for attribute in attributes]
+        )
 
         # Set placeholder for every text input fields
         for field_name in self.fields:
@@ -87,6 +78,25 @@ class CustomModelForm(forms.ModelForm):
                 field.widget.attrs.update(
                     {"placeholder": capfirst(_("Enter {} here").format(model_field))}
                 )
+
+    def get_error_messages(self):
+        """
+        Return all error messages of this form and append labels to field-errors
+
+        :return: The errors of this form
+        :rtype: list
+        """
+        error_messages = []
+        # Add field errors
+        for field in self:
+            for error in field.errors:
+                error_messages.append(
+                    {"type": "error", "text": field.label + ": " + error}
+                )
+        # Add non-field errors
+        for error in self.non_field_errors():
+            error_messages.append({"type": "error", "text": error})
+        return error_messages
 
     def save(self, *args, **kwargs):
         """

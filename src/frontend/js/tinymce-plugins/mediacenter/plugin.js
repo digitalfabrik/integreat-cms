@@ -17,19 +17,20 @@
           ...mediaConfigData,
           cancel: () => el.remove(),
           selectMedia: (file) => {
+            console.log("File inserted into content:")
+            console.log(file)
             el.remove();
-            if (file.file_type.startsWith("image/")) {
+            if (file.type.startsWith("image/")) {
               const linkEl = document.createElement("a");
-              linkEl.href = file.path;
-              linkEl.target = "_blank";
+              linkEl.href = file.url;
               const imageEl = document.createElement("img");
-              imageEl.src = file.thumbnailPath;
-              imageEl.alt = file.alt_text;
+              imageEl.src = file.thumbnailUrl;
+              imageEl.alt = file.altText;
               linkEl.append(imageEl);
               editor.insertContent(linkEl.outerHTML);
             } else {
               const linkEl = document.createElement("a");
-              linkEl.href = file.path;
+              linkEl.href = file.url;
               linkEl.innerText = file.name;
               editor.insertContent(linkEl.outerHTML);
             }

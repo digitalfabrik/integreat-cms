@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
 
 from ..regions.region import Region
@@ -27,6 +29,11 @@ class Directory(models.Model):
         null=True,
         verbose_name=_("parent directory"),
     )
+    created_date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("creation date"),
+        help_text=_("The date and time when the directory was created"),
+    )
 
     def serialize(self):
         """
@@ -38,13 +45,17 @@ class Directory(models.Model):
         return {
             "type": "directory",
             "id": self.id,
+            # Use empty string because preact-router only handles string parameters
+            "parentId": self.parent.id if self.parent else "",
             "name": self.name,
-            "isGlobal": self.region is None,
+            "CreatedDate": localize(timezone.localtime(self.created_date)),
+            "isGlobal": not self.region,
+            "numberOfEntries": self.subdirectories.count() + self.files.count(),
         }
 
     def __str__(self):
         """
-        This overwrites the default Python __str__ method which would return <Document object at 0xDEADBEEF>
+        This overwrites the default Python __str__ method which would return <Directory object at 0xDEADBEEF>
 
         :return: The string representation (in this case the name) of the directory
         :rtype: str
@@ -59,13 +70,15 @@ class Directory(models.Model):
         :return: The canonical string representation of the directory
         :rtype: str
         """
-        region = f", region: {self.region.slug}" if self.region else ""
-        return f"<Directory (id: {self.id}{region}, name: {self.name})>"
+        region = f"region: {self.region.slug}" if self.region else "global"
+        return f"<Directory (id: {self.id}, name: {self.name}, {region})>"
 
     class Meta:
         #: The verbose name of the model
-        verbose_name = _("directory")
+        verbose_name = _("media directory")
         #: The plural verbose name of the model
-        verbose_name_plural = _("directories")
+        verbose_name_plural = _("media directories")
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["-region", "name"]
         #: The default permissions for this model
         default_permissions = ()

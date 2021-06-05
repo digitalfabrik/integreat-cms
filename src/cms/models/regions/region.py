@@ -139,7 +139,7 @@ class Region(models.Model):
     )
 
     icon = models.ForeignKey(
-        "cms.Document",
+        "cms.MediaFile",
         verbose_name=_("logo"),
         on_delete=models.SET_NULL,
         related_name="icon_of",

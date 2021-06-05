@@ -1,20 +1,15 @@
 import logging
 
-import lxml.html as LH
-
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
-
-from ..custom_model_form import CustomModelForm
+from ..custom_content_model_form import CustomContentModelForm
 from ...constants import status
-from ...models import POITranslation, Document
+from ...models import POITranslation
 from ...utils.slug_utils import generate_unique_slug_helper
 
 
 logger = logging.getLogger(__name__)
 
 
-class POITranslationForm(CustomModelForm):
+class POITranslationForm(CustomContentModelForm):
     """
     Form for creating and modifying POI translation objects
     """
@@ -134,23 +129,4 @@ class POITranslationForm(CustomModelForm):
         :return: The valid description
         :rtype: str
         """
-        description = self.data["description"]
-
-        if "<h1>" in description:
-            raise ValidationError(
-                _("Use of Heading 1 style not allowed."),
-                code="no-heading-1",
-            )
-
-        content = LH.fromstring(description)
-
-        for image in content.iter("img"):
-            media_data = Document.objects.filter(physical_path=image.attrib["src"])
-
-            if media_data:
-                image.attrib["alt"] = media_data[0].description
-
-        for link in content.iter("a"):
-            link.attrib["target"] = ""
-
-        return LH.tostring(content, with_tail=False, pretty_print=True).decode("utf-8")
+        return self.content_clean_method("description")
