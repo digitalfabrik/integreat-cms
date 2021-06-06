@@ -25,18 +25,20 @@
 <form id="bulk-action-form" method="POST">
     {% csrf_token %}
     <table data-enable-table-sort class="sort w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white" data-enable-row-checkbox-toggle>
-        <tr class="border-b border-solid border-gray-200">
-            <th class="text-sm text-left uppercase py-3 pr-2" style="padding-left: 10px;" title="{% trans 'Select all' %}"><input type="checkbox" id="bulk-select-all"></th>
-            <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Category' %}</th>
-            <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Feedback on' %}</th>
-            <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Language' %}</th>
-            <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Comment' %}</th>
-            <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Rating' %}</th>
-            <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Rating' %} ({% trans 'overall' %})</th>
-            <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Region' %}</th>
-            <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Marked as read by' %}</th>
-            <th class="text-sm text-right uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Date' %}</th>
-        </tr>
+        <thead>
+            <tr class="border-b border-solid border-gray-200">
+                <th class="text-sm text-left uppercase py-3 pr-2" style="padding-left: 10px;" title="{% trans 'Select all' %}"><input type="checkbox" id="bulk-select-all"></th>
+                <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Category' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Feedback on' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Language' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Comment' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Rating' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Rating' %} ({% trans 'overall' %})</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Region' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Marked as read by' %}</th>
+                <th class="text-sm text-right uppercase py-3 pr-2 no-sort" data-sort-method="none">{% trans 'Date' %}</th>
+            </tr>
+       </thead>
 
         {% for feedback in admin_feedback %}
         <tr class="border-t border-solid border-gray-200 hover:bg-gray-200 {% if not feedback.read %}bg-yellow-100 border-yellow-200 hover:border-gray-200{% endif %}">
