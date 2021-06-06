@@ -87,4 +87,14 @@ class RegisterUserMfaKeyView(CreateView):
                 'The 2-factor authentication key "{}" was successfully registered.'
             ).format(new_key.name),
         )
-        return JsonResponse({"success": True, "successUrl": reverse("user_settings")})
+        # Determine success url
+        if request.user.is_superuser or request.user.is_staff:
+            # If user is superuser, return to user settings in network area
+            success_url = reverse("user_settings")
+        else:
+            # If user is region-user, return to user settings in first region
+            success_url = reverse(
+                "user_settings",
+                kwargs={"region_slug": request.user.profile.regions.first().slug},
+            )
+        return JsonResponse({"success": True, "successUrl": success_url})
