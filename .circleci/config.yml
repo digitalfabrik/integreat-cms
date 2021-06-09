@@ -121,13 +121,13 @@ jobs:
       - run:
           name: Compile translation file
           command: |
-            cd src/cms
+            cd src
             pipenv run integreat-cms-cli compilemessages --settings=backend.circleci_settings
       - persist_to_workspace:
           root: .
           paths:
             - src/cms/static
-            - src/cms/locale/de/LC_MESSAGES/django.mo
+            - src/locale/de/LC_MESSAGES/django.mo
             - webpack-stats.json
   packaging:
     docker:
