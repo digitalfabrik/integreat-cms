@@ -1,0 +1,17 @@
+{# Set collapsed=True when including this template to show the box collapsed in the beginning #}
+
+<div class="rounded shadow bg-white mb-3">
+    <div class="collapsible cursor-pointer rounded p-4 bg-blue-500 text-white font-bold flex justify-between">
+        <span>
+            <i data-feather="{% spaceless %}{% block collapsible_box_icon %}{% endblock %}{% endspaceless %}" class="pb-1"></i>
+            {% block collapsible_box_title %}{% endblock %}
+        </span>
+        <i data-feather="chevron-up" class="up-arrow {% if collapsed %}hidden{% endif %}"></i>
+        <i data-feather="chevron-down" class="down-arrow {% if not collapsed %}hidden{% endif %}"></i>
+    </div>
+    <div class="collapsible-content transition-all duration-200 ease-in-out overflow-hidden {% if collapsed %}h-0{% endif %}">
+        <div class="p-4">
+            {% block collapsible_box_content %}{% endblock %}
+        </div>
+    </div>
+</div>

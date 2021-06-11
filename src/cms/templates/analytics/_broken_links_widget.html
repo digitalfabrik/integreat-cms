@@ -1,13 +1,18 @@
-{% extends "dashboard/_dashboard_widget.html" %}
+{% extends "_collapsible_box.html" %}
 
 {% load i18n %}
 {% load static %}
 
-{% block dashboard_widget_title %}
-    <i data-feather="link" class="pb-1"></i> {% trans 'Broken Link Checker' %}
+
+{% block collapsible_box_icon %}
+    link
 {% endblock %}
 
-{% block dashboard_widget_content %}
+{% block collapsible_box_title %}
+    {% trans 'Broken Link Checker' %}
+{% endblock %}
+
+{% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">{% trans 'The list below shows all detected errors related to links.' %}</p>
         <a href="{% url 'linkcheck_landing' region_slug=region.slug %}" class="btn">

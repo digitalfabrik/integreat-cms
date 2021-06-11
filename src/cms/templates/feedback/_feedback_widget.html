@@ -1,14 +1,18 @@
-{% extends "dashboard/_dashboard_widget.html" %}
+{% extends "_collapsible_box.html" %}
 
 {% load i18n %}
 {% load static %}
 {% load text_filters %}
 
-{% block dashboard_widget_title %}
-    <i data-feather="trello" class="pb-1"></i> {% trans 'Unread technical feedback' %}
+{% block collapsible_box_icon %}
+    trello
 {% endblock %}
 
-{% block dashboard_widget_content %}
+{% block collapsible_box_title %}
+    {% trans 'Unread technical feedback' %}
+{% endblock %}
+
+{% block collapsible_box_content %}
     <div class="mb-1 text-s text-gray-600">{% trans 'The five most recent entries are listed.' %}</div>
     <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
         <tr class="border-b border-solid border-gray-200">

@@ -1,14 +1,18 @@
-{% extends "dashboard/_dashboard_widget.html" %}
+{% extends "_collapsible_box.html" %}
 
 {% load i18n %}
 {% load static %}
 {% load parse_struct_time %}
 
-{% block dashboard_widget_title %}
-    <i data-feather="trello" class="pb-1"></i> {% trans 'Integreat News' %}
+{% block collapsible_box_icon %}
+    trello
 {% endblock %}
 
-{% block dashboard_widget_content %}
+{% block collapsible_box_title %}
+    {% trans 'Integreat News' %}
+{% endblock %}
+
+{% block collapsible_box_content %}
     <div class="rss-feed " data-feed-url="{{ feed_url }}">
         <div id="feed-loading" class="px-4 hidden"><i data-feather="loader" class="animate-spin"></i> {% trans 'Loading...' %}</div>
     </div>

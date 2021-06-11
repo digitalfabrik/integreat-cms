@@ -8,7 +8,8 @@ import feather from 'feather-icons';
 import "./css/style.scss";
 
 import "./js/tree-drag-and-drop.ts";
-import "./js/toggle-dashboard-section.ts";
+import "./js/rss-feed.ts";
+import "./js/collapsible-boxes.ts";
 import "./js/push-notifications.ts";
 import "./js/filter-form.ts";
 import "./js/copy-clipboard.ts";
