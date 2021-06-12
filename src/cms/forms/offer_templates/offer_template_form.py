@@ -19,6 +19,20 @@ class OfferTemplateForm(CustomModelForm):
         #: The fields of the model which should be handled by this form
         fields = ["name", "slug", "thumbnail", "url", "post_data", "use_postal_code"]
 
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize offer template form
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
+        super().__init__(*args, **kwargs)
+
+        self.fields["slug"].required = False
+
     def clean_slug(self):
         """
         Validate the slug field (see :ref:`overriding-modelform-clean-method`)

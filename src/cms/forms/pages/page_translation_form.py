@@ -68,6 +68,9 @@ class PageTranslationForm(CustomModelForm):
             for _, field in self.fields.items():
                 field.disabled = True
 
+        # The slug is not rquired because it will be auto-generated if left blank
+        self.fields["slug"].required = False
+
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
         """

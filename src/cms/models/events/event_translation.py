@@ -25,7 +25,6 @@ class EventTranslation(models.Model):
     )
     slug = models.SlugField(
         max_length=200,
-        blank=True,
         allow_unicode=True,
         verbose_name=_("URL parameter"),
         help_text=__(

@@ -37,7 +37,6 @@ class Region(models.Model):
     slug = models.SlugField(
         max_length=200,
         unique=True,
-        blank=True,
         allow_unicode=True,
         verbose_name=_("URL parameter"),
         help_text=__(

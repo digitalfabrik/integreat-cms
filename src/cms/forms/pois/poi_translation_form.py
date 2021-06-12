@@ -75,6 +75,8 @@ class POITranslationForm(CustomModelForm):
             for _, field in self.fields.items():
                 field.disabled = True
 
+        self.fields["slug"].required = False
+
     # pylint: disable=arguments-differ
     def save(self, poi=None, user=None):
         """
