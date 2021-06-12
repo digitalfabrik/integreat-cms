@@ -30,6 +30,7 @@ from .views import (
     settings,
     statistics,
     users,
+    utils,
     feedback,
 )
 
@@ -423,8 +424,8 @@ urlpatterns = [
                 ),
                 url(r"^search_poi$", events.search_poi_ajax, name="search_poi_ajax"),
                 url(
-                    r"^(?P<region_slug>[-\w]+)/(?P<language_slug>[-\w]+)/slugify$",
-                    pages.slugify_ajax,
+                    r"^(?P<region_slug>[-\w]+)/(?P<language_slug>[-\w]+)/(?P<model_type>event|page|poi)/slugify$",
+                    utils.slugify_ajax,
                     name="slugify_ajax",
                 ),
             ]
