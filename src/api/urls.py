@@ -27,11 +27,7 @@ from .v3.regions import regions, liveregions, hiddenregions, pushnew
 from .v3.offers import offers
 from .v3.single_page import single_page
 
-urlpatterns = [
-    url(r"^regions/?$", regions, name="api_regions"),
-    url(r"^regions/live/?$", liveregions, name="api_regions_live"),
-    url(r"^regions/hidden/?$", hiddenregions, name="api_regions_hidden"),
-    url(r"^regions/pushnew/?$", pushnew, name="api_pushnew"),
+api_urlpatterns = [
     url(
         r"^(?P<region_slug>[-\w]+)/",
         include(
@@ -134,4 +130,19 @@ urlpatterns = [
             ]
         ),
     ),
+]
+
+region_api_urlpatterns = [
+    url(r"^$", regions, name="api_regions"),
+    url(r"^live/?$", liveregions, name="api_regions_live"),
+    url(r"^hidden/?$", hiddenregions, name="api_regions_hidden"),
+    url(r"^pushnew/?$", pushnew, name="api_pushnew"),
+]
+
+
+urlpatterns = [
+    url(r"^api/", include(api_urlpatterns)),
+    url(r"^api/regions/", include(region_api_urlpatterns)),
+    url(r"^wp-json/extensions/v3/", include(api_urlpatterns)),
+    url(r"^wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
 ]
