@@ -5,7 +5,6 @@ See :mod:`backend.urls` for the other namespaces of this application.
 For more information on this file, see :doc:`topics/http/urls`.
 """
 from django.conf.urls import include, url
-from django.conf.urls.static import static
 from django.conf import settings as django_settings
 from django.views.generic import RedirectView
 
@@ -571,19 +570,26 @@ urlpatterns = [
                                             name="archived_pages",
                                         ),
                                         url(
-                                            r"^upload$",
-                                            pages.upload_xliff,
-                                            name="upload_xliff",
-                                        ),
-                                        url(
-                                            r"^confirm_xliff_import",
-                                            pages.confirm_xliff_import,
-                                            name="confirm_xliff_import",
-                                        ),
-                                        url(
-                                            r"download_xliff",
-                                            pages.download_xliff,
-                                            name="download_xliff",
+                                            r"^xliff/",
+                                            include(
+                                                [
+                                                    url(
+                                                        r"download",
+                                                        pages.download_xliff,
+                                                        name="download_xliff",
+                                                    ),
+                                                    url(
+                                                        r"^upload$",
+                                                        pages.upload_xliff,
+                                                        name="upload_xliff",
+                                                    ),
+                                                    url(
+                                                        r"^import/(?P<xliff_dir>[0-9a-f-]+)",
+                                                        pages.PageXliffImportView.as_view(),
+                                                        name="import_xliff",
+                                                    ),
+                                                ],
+                                            ),
                                         ),
                                         url(
                                             r"^export$",
@@ -1001,4 +1007,4 @@ urlpatterns = [
     url(
         r"^favicon\.ico$", RedirectView.as_view(url="/static/images/integreat-icon.png")
     ),
-] + static(django_settings.MEDIA_URL, document_root=django_settings.MEDIA_ROOT)
+]

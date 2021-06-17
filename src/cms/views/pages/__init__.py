@@ -12,7 +12,6 @@ from .page_actions import (
     export_pdf,
     download_xliff,
     upload_xliff,
-    confirm_xliff_import,
     move_page,
     grant_page_permission_ajax,
     revoke_page_permission_ajax,
@@ -23,3 +22,4 @@ from .page_actions import (
 )
 from .page_sbs_view import PageSideBySideView
 from .page_revision_view import PageRevisionView
+from .page_xliff_import_view import PageXliffImportView

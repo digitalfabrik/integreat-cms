@@ -10,7 +10,7 @@ def ugettext_many_lazy(*strings):
     should be concatenated with a space in between. This is useful for splitting lazy translated strings by sentences
     which improves the translation memory.
 
-    :param strings: A list of lazy translated strings which should be concatinated
+    :param strings: A list of lazy translated strings which should be concatenated
     :type strings: list
 
     :return: A lazy formatted string

@@ -7,6 +7,7 @@ from ...utils.translation_utils import ugettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
+
 # pylint: disable=too-few-public-methods
 class PageContextMixin(ContextMixin):
     """

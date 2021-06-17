@@ -27,6 +27,10 @@ class PageTranslation(AbstractBasePageTranslation):
     Data model representing a page translation
     """
 
+    title = models.CharField(
+        max_length=1024,
+        verbose_name=_("title of the page"),
+    )
     slug = models.SlugField(
         max_length=1024,
         allow_unicode=True,
@@ -48,10 +52,6 @@ class PageTranslation(AbstractBasePageTranslation):
         on_delete=models.CASCADE,
         related_name="page_translations",
         verbose_name=_("language"),
-    )
-    title = models.CharField(
-        max_length=1024,
-        verbose_name=_("title of the page"),
     )
     text = models.TextField(
         blank=True,

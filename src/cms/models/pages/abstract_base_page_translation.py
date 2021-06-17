@@ -177,12 +177,22 @@ class AbstractBasePageTranslation(models.Model):
                  :class:`~cms.models.languages.language.Language`)
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
-        source_language_tree_node = self.page.region.language_tree_nodes.get(
-            language=self.language
-        ).parent
-        if source_language_tree_node:
-            return self.page.get_translation(source_language_tree_node.slug)
+        source_language = self.language.get_source_language(self.page.region)
+        if source_language:
+            return self.page.get_translation(source_language.slug)
         return None
+
+    @property
+    def latest_revision(self):
+        """
+        This property is a link to the most recent version of this translation.
+
+        :return: The latest revision of the translation
+        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        """
+        return self.page.translations.filter(
+            language=self.language,
+        ).first()
 
     @property
     def latest_public_revision(self):
@@ -298,6 +308,32 @@ class AbstractBasePageTranslation(models.Model):
         :rtype: bool
         """
         return not self.currently_in_translation and not self.is_outdated
+
+    @property
+    def readable_title(self):
+        """
+        Get the title of a page translation including the title in the best translation
+
+        :return: The readable title of the page translation
+        :rtype: str
+        """
+        # Build readable page translation title
+        best_translation = self.page.best_translation
+        best_translation_title = (
+            f' {best_translation.language}: "{best_translation.title}"'
+        )
+        # Check whether page translation has title
+        # pylint: disable=no-member
+        if self.title:
+            # Start with translation title if exists
+            # pylint: disable=no-member
+            readable_title = f'"{self.title}"'
+            if best_translation != self:
+                readable_title += " (" + _("Title in") + best_translation_title + ")"
+        else:
+            # Start directly with the title of the best translation
+            readable_title = _("with the title in") + best_translation_title
+        return readable_title
 
     def __str__(self):
         """
