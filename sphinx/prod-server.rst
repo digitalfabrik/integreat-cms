@@ -33,6 +33,7 @@ Webserver
         * ``DJANGO_BASE_URL``: :attr:`~backend.settings.BASE_URL`
         * ``DJANGO_STATIC_ROOT``: :attr:`~backend.settings.STATIC_ROOT`
         * ``DJANGO_MEDIA_ROOT``: :attr:`~backend.settings.MEDIA_ROOT`
+        * ``DJANGO_XLIFF_ROOT``: :attr:`~backend.settings.XLIFF_ROOT`
 
        Database settings: :attr:`~backend.settings.DATABASES`
 
