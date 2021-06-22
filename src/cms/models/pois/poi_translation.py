@@ -20,7 +20,6 @@ class POITranslation(models.Model):
     title = models.CharField(max_length=250, verbose_name=_("title"))
     slug = models.SlugField(
         max_length=200,
-        blank=True,
         allow_unicode=True,
         verbose_name=_("URL parameter"),
         help_text=__(

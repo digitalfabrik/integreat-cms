@@ -63,6 +63,20 @@ class RegionForm(CustomModelForm):
             "offers": forms.CheckboxSelectMultiple(),
         }
 
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize region form
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
+        super().__init__(*args, **kwargs)
+
+        self.fields["slug"].required = False
+
     # pylint: disable=signature-differs
     def save(self, *args, **kwargs):
         """

@@ -17,7 +17,6 @@ class OfferTemplate(models.Model):
     slug = models.SlugField(
         max_length=60,
         unique=True,
-        blank=True,
         verbose_name=_("slug"),
         help_text=__(
             _("String identifier without spaces and special characters."),

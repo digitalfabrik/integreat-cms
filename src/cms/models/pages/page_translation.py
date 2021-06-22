@@ -28,7 +28,6 @@ class PageTranslation(AbstractBasePageTranslation):
 
     slug = models.SlugField(
         max_length=200,
-        blank=True,
         allow_unicode=True,
         verbose_name=_("Page link"),
         help_text=__(
