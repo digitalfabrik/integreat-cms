@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import staff_required, permission_required
-from ...utils.account_activation_utils import send_activation_link
+from ...utils.welcome_mail_utils import send_welcome_mail
 
 logger = logging.getLogger(__name__)
 
@@ -60,5 +60,5 @@ def resend_activation_link(request, user_id):
     :rtype: ~django.http.HttpResponseRedirect
     """
     user = get_object_or_404(get_user_model(), id=user_id)
-    send_activation_link(request, user)
+    send_welcome_mail(request, user, activation=True)
     return redirect("users")

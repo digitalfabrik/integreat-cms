@@ -1,41 +1,92 @@
 import logging
 
+from email.mime.image import MIMEImage
+
 from django.contrib import messages
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import BadHeaderError, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext as _
 
-from backend.settings import BASE_URL
+
+from backend.settings import BASE_URL, STATIC_ROOT
+from .account_activation_utils import account_activation_token_generator
 from ..models import Region
 
 logger = logging.getLogger(__name__)
 
 
-def send_welcome_mail(request, user):
+def send_welcome_mail(request, user, activation):
+    """
+    Sends welcome email to user with new account.
+
+    Making use of  :class:`~django.core.mail.EmailMultiAlternatives` and
+    :class:`~email.mime.image.MIMEImage` to send a multipart email with plain text and html
+    version and also attach the integreat logo.
+
+    :param request: The current http request
+    :type request: ~django.http.HttpRequest
+
+    :param user: The user to whom the e-mail is to be sent
+    :type user: ~django.contrib.auth.models.User
+
+    :param activation: Activation link should be generated
+    :type activation: bool
+    """
     subject = _("Welcome to your Integreat account")
-    message = render_to_string(
-        "users/welcome_email.html",
-        {"user": user, "base_url": BASE_URL},
+    debug_mail_type = "welcome mail"
+    context = {
+        "user": user,
+        "base_url": BASE_URL,
+        "region": Region.get_current_region(request),
+    }
+
+    if activation:
+        token = account_activation_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+        subject = _("Activate your Integreat account")
+        debug_mail_type = "activation mail"
+        context.update(
+            {
+                "uid": uid,
+                "token": token,
+            }
+        )
+
+    text_message = render_to_string(
+        "users/welcome_email.txt",
+        context,
     )
+    html_message = render_to_string("users/welcome_email.html", context)
+
+    email = EmailMultiAlternatives(subject, text_message, None, [user.email])
+    email.mixed_subtype = "related"
+    email.attach_alternative(html_message, "text/html")
+
+    # attach logo
+    image_path = f"{STATIC_ROOT}images/integreat-logo.png"
     try:
-        # set from_email to None to use DEFAULT_FROM_EMAIL
-        send_mail(subject, message, None, [user.email])
+        with open(image_path, mode="rb") as f:
+            image = MIMEImage(f.read())
+            email.attach(image)
+            image.add_header("Content-ID", "<logo>")
+    except FileNotFoundError:
         logger.debug(
-            "%r sent an account activation mail to %r",
-            request.user.profile,
-            user.profile,
+            "Logo not found at %s, will proceed without attaching.", image_path
+        )
+
+    try:
+        email.send()
+        logger.debug(
+            "%s sent an %s to %s", request.user.profile, debug_mail_type, user.profile
         )
         messages.success(
             request,
-            _("Activation link was successfully sent to user {}.").format(
-                user.profile.full_user_name
-            ),
+            _("Welcome mail was successfully sent to user %(user_name)s.")
+            % {"user_name": user.profile.full_user_name},
         )
     except BadHeaderError as e:
         logger.exception(e)
-        messages.error(
-            request, _("An error occurred! Could not send activation link per mail.")
-        )
+        messages.error(request, _("An error occurred! Could not send welcome mail."))

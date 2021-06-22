@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-05 12:47+0000\n"
+"POT-Creation-Date: 2021-07-05 12:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -3146,14 +3146,16 @@ msgstr "Summe"
 msgid "Activate your account"
 msgstr "Benutzerkonto aktivieren"
 
-#: templates/authentication/activation_email.html:3
+#: templates/authentication/activation_email_html.html:13
+#: templates/authentication/activation_email_text.html:3
 #: templates/authentication/password_reset_email.html:3
-#: templates/users/welcome_email.html:3
+#: templates/users/welcome_email.html:13 templates/users/welcome_email.txt:5
 msgid "Welcome"
 msgstr "Willkommen"
 
-#: templates/authentication/activation_email.html:5
-#: templates/users/welcome_email.html:5
+#: templates/authentication/activation_email_html.html:16
+#: templates/authentication/activation_email_text.html:5
+#: templates/users/welcome_email.html:16 templates/users/welcome_email.txt:7
 msgid ""
 "You are receiving this e-mail, because an Integreat-account was created for "
 "you."
@@ -3161,16 +3163,19 @@ msgstr ""
 "Sie erhalten diese E-Mail, weil für Sie ein Integreat-Benutzerkonto erstellt "
 "wurde."
 
-#: templates/authentication/activation_email.html:6
+#: templates/authentication/activation_email_html.html:17
+#: templates/authentication/activation_email_text.html:6
+#: templates/users/welcome_email.html:18 templates/users/welcome_email.txt:9
 msgid ""
 "Please click the link below to set a password and activate your account."
 msgstr ""
 "Bitte klicken Sie auf folgenden Link, um ein Passwort auszuwählen und Ihr "
 "Konto zu aktivieren."
 
-#: templates/authentication/activation_email.html:10
+#: templates/authentication/activation_email_html.html:23
+#: templates/authentication/activation_email_text.html:10
 #: templates/authentication/password_reset_email.html:10
-#: templates/users/welcome_email.html:10
+#: templates/users/welcome_email.html:29 templates/users/welcome_email.txt:16
 msgid ""
 "If clicking on the link above does not work, please copy the URL and paste "
 "it into the address bar of your browser."
@@ -3178,20 +3183,23 @@ msgstr ""
 "Wenn das Anklicken des obigen Links nicht funktioniert, kopieren Sie bitte "
 "die URL und fügen Sie sie in die Adresszeile Ihres Browsers ein."
 
-#: templates/authentication/activation_email.html:12
-#: templates/users/welcome_email.html:12
+#: templates/authentication/activation_email_html.html:25
+#: templates/authentication/activation_email_text.html:12
+#: templates/users/welcome_email.html:31 templates/users/welcome_email.txt:18
 msgid "Your username is:"
 msgstr "Ihr Benutzername lautet:"
 
-#: templates/authentication/activation_email.html:14
+#: templates/authentication/activation_email_html.html:28
+#: templates/authentication/activation_email_text.html:14
 #: templates/authentication/password_reset_email.html:14
-#: templates/users/welcome_email.html:14
+#: templates/users/welcome_email.html:34 templates/users/welcome_email.txt:20
 msgid "Best regards"
 msgstr "Viele Grüße"
 
-#: templates/authentication/activation_email.html:15
+#: templates/authentication/activation_email_html.html:30
+#: templates/authentication/activation_email_text.html:15
 #: templates/authentication/password_reset_email.html:15
-#: templates/users/welcome_email.html:15
+#: templates/users/welcome_email.html:36 templates/users/welcome_email.txt:21
 msgid "Your Integreat team"
 msgstr "Ihr Integreat-Team"
 
@@ -4520,7 +4528,7 @@ msgstr ""
 #: views/regions/region_view.py:87 views/roles/role_view.py:85
 #: views/settings/user_settings_view.py:93
 #: views/settings/user_settings_view.py:110 views/users/region_user_view.py:119
-#: views/users/user_view.py:128
+#: views/users/user_view.py:127
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
@@ -5019,26 +5027,12 @@ msgstr "Der Benutzer wird den Zugang zu folgenden Regionen behalten:"
 msgid "Remove user from region"
 msgstr "Benutzer von Region entfernen"
 
-#: templates/users/welcome_email.html:6
+#: templates/users/welcome_email.html:22 templates/users/welcome_email.txt:12
 msgid ""
 "Please click the link below to log in with your password and to your account."
 msgstr ""
 "Bitte klicken Sie auf den folgenden Link, um sich mit ihrem Benutzernamen "
 "und Passwort einzuloggen."
-
-#: utils/account_activation_utils.py:53
-msgid "Activate your Integreat account"
-msgstr "Aktivieren Sie Ihr Integreat-Benutzerkonto"
-
-#: utils/account_activation_utils.py:74 utils/welcome_mail_utils.py:33
-msgid "Activation link was successfully sent to user {}."
-msgstr "Aktivierungslink wurde erfolgreich an den Nutzer {} gesendet."
-
-#: utils/account_activation_utils.py:81 utils/welcome_mail_utils.py:40
-msgid "An error occurred! Could not send activation link per mail."
-msgstr ""
-"Es ist ein Fehler aufgetreten! Aktivierungslink konnte nicht per Mail "
-"gesendet werden."
 
 #: utils/matomo_api_manager.py:387 utils/matomo_api_manager.py:392
 msgid "CW"
@@ -5058,9 +5052,25 @@ msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 msgid "Cannot generate slug from %(fallback)s."
 msgstr "Slug kann nicht aus dem %(fallback)s abgeleitet werden."
 
-#: utils/welcome_mail_utils.py:18
+#: utils/welcome_mail_utils.py:37
 msgid "Welcome to your Integreat account"
 msgstr "Willkommen zu Ihrem Integreat Account"
+
+#: utils/welcome_mail_utils.py:49
+msgid "Activate your Integreat account"
+msgstr "Aktivieren Sie Ihr Integreat-Benutzerkonto"
+
+#: utils/welcome_mail_utils.py:87
+#, python-format
+msgid "Welcome mail was successfully sent to user %(user_name)s."
+msgstr ""
+"Die Willkommens-Mail wurde erfolgreich an den Nutzer %(user_name)s gesendet."
+
+#: utils/welcome_mail_utils.py:92
+msgid "An error occurred! Could not send welcome mail."
+msgstr ""
+"Es ist ein Fehler aufgetreten! Die Willkommens-Mail konnte nicht versendet "
+"werden."
 
 #: views/authentication/account_activation_view.py:45
 #: views/authentication/mfa/mfa_assert_view.py:39
@@ -5927,22 +5937,22 @@ msgstr "Benutzer {} wurde erfolgreich gelöscht."
 msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
-#: views/users/region_user_view.py:59 views/users/region_user_view.py:150
-#: views/users/user_view.py:59 views/users/user_view.py:160
+#: views/users/region_user_view.py:59 views/users/region_user_view.py:151
+#: views/users/user_view.py:58 views/users/user_view.py:157
 msgid "Pending account activation"
 msgstr "Aktivierung des Benutzerkontos noch ausstehend"
 
-#: views/users/region_user_view.py:115 views/users/user_view.py:124
+#: views/users/region_user_view.py:115 views/users/user_view.py:123
 msgid "Please choose either to send an activation link or set a password."
 msgstr ""
 "Bitte wählen Sie entweder ein Passwort aus oder wählen die Option zum Senden "
 "eines Aktivierungslinks."
 
-#: views/users/region_user_view.py:132 views/users/user_view.py:143
+#: views/users/region_user_view.py:133 views/users/user_view.py:140
 msgid "User \"{}\" was successfully created"
 msgstr "Benutzer \"{}\" wurde erfolgreich erstellt"
 
-#: views/users/region_user_view.py:144 views/users/user_view.py:154
+#: views/users/region_user_view.py:145 views/users/user_view.py:151
 msgid "User \"{}\" was successfully saved"
 msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
 
@@ -5950,13 +5960,55 @@ msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
 msgid "User was successfully deleted"
 msgstr "Benutzer wurde erfolgreich gelöscht"
 
-#: views/users/user_view.py:113
+#: views/users/user_view.py:112
 msgid ""
 "A user has to be either staff/superuser or needs to be restricted to at "
 "least one region."
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "Activation link was successfully sent to user {}."
+#~ msgstr "Aktivierungslink wurde erfolgreich an den Nutzer {} gesendet."
+
+#~ msgid "An error occurred! Could not send activation link per mail."
+#~ msgstr ""
+#~ "Es ist ein Fehler aufgetreten! Aktivierungslink konnte nicht per Mail "
+#~ "gesendet werden."
+
+#~ msgid "No changes detected."
+#~ msgstr "Keine Änderungen vorgenommen."
+
+#~ msgid "Event was successfully created and published"
+#~ msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Event was successfully created"
+#~ msgstr "Veranstaltung wurde erfolgreich erstellt"
+
+#~ msgid "Event translation was successfully created and published"
+#~ msgstr ""
+#~ "Veranstaltungsübersetzung wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Errors have occurred."
+#~ msgstr "Es sind Fehler aufgetreten."
+
+#~ msgid "Translation was successfully created and published"
+#~ msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht"
+
+#~ msgid "Translation was successfully created"
+#~ msgstr "Übersetzung wurde erfolgreich erstellt"
+
+#~ msgid "Translation was successfully published"
+#~ msgstr "Übersetzung wurde erfolgreich veröffentlicht"
+
+#~ msgid "Translation was successfully saved"
+#~ msgstr "Übersetzung wurde erfolgreich gespeichert"
+
+#~ msgid "User was successfully saved"
+#~ msgstr "Benutzer wurde erfolgreich gespeichert"
+
+#~ msgid "User was successfully created"
+#~ msgstr "Benutzer wurde erfolgreich erstellt"
 
 #~ msgid ""
 #~ "You don't have the permission to edit this page, but you can propose "
@@ -5979,21 +6031,6 @@ msgstr ""
 
 #~ msgid "Staff roles"
 #~ msgstr "Mitarbeiterrollen"
-
-#~ msgid "Errors have occurred."
-#~ msgstr "Es sind Fehler aufgetreten."
-
-#~ msgid "Translation was successfully created and published"
-#~ msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht"
-
-#~ msgid "Translation was successfully created"
-#~ msgstr "Übersetzung wurde erfolgreich erstellt"
-
-#~ msgid "Translation was successfully published"
-#~ msgstr "Übersetzung wurde erfolgreich veröffentlicht"
-
-#~ msgid "Translation was successfully saved"
-#~ msgstr "Übersetzung wurde erfolgreich gespeichert"
 
 #~ msgid "Page was successfully created and published"
 #~ msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
@@ -6020,19 +6057,6 @@ msgstr ""
 
 #~ msgid "Recurrence"
 #~ msgstr "Wiederholung"
-
-#~ msgid "No changes detected."
-#~ msgstr "Keine Änderungen vorgenommen."
-
-#~ msgid "Event was successfully created and published"
-#~ msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht"
-
-#~ msgid "Event was successfully created"
-#~ msgstr "Veranstaltung wurde erfolgreich erstellt"
-
-#~ msgid "Event translation was successfully created and published"
-#~ msgstr ""
-#~ "Veranstaltungsübersetzung wurde erfolgreich erstellt und veröffentlicht"
 
 #~ msgid "Event translation was successfully created"
 #~ msgstr "Veranstaltungsübersetzung wurde erfolgreich erstellt"
@@ -6281,12 +6305,6 @@ msgstr ""
 
 #~ msgid "Required Push Notification texts are missing"
 #~ msgstr "Benötigte Texte für die Push-Benachrichtigung fehlen"
-
-#~ msgid "User was successfully saved"
-#~ msgstr "Benutzer wurde erfolgreich gespeichert"
-
-#~ msgid "User was successfully created"
-#~ msgstr "Benutzer wurde erfolgreich erstellt"
 
 #~ msgid "Push Notification was successfully sent"
 #~ msgstr "Push-Benachrichtigung wurde erfolgreich gesendet"
