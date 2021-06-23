@@ -633,6 +633,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.users.html#user-view">User View</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.utils.html#slugify-ajax">Slugify Ajax</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#admin">Admin</a></li>
@@ -1063,6 +1067,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_actions">User Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_list_view">User List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_view">User View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.utils.html#module-cms.views.utils.slugify_ajax">Slugify Ajax</a></li>
 </ul>
 </li>
 </ul>
@@ -1586,7 +1594,7 @@ template rendered with the given context.</p>
 <span id="event-view"></span><h2>Event View<a class="headerlink" href="#module-cms.views.events.event_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="cms.views.events.event_view.EventView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.events.event_view.</span></code><code class="sig-name descname"><span class="pre">EventView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.events.event_view.</span></code><code class="sig-name descname"><span class="pre">EventView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.events.event_context_mixin.EventContextMixin" title="cms.views.events.event_context_mixin.EventContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.events.event_context_mixin.EventContextMixin</span></code></a></p>
 <p>Class for rendering the events form</p>
 <dl class="py method">
@@ -1604,7 +1612,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.content_type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1614,13 +1622,13 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">archived.',</span> <span class="pre">'archive_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">archive</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'delete_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">deleted.',</span> <span class="pre">'delete_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">delete</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'restore_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">restored.',</span> <span class="pre">'restore_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">restore</span> <span class="pre">this</span> <span class="pre">event'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.extra_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">archived.',</span> <span class="pre">'archive_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">archive</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'delete_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">deleted.',</span> <span class="pre">'delete_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">delete</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'restore_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">restored.',</span> <span class="pre">'restore_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">restore</span> <span class="pre">this</span> <span class="pre">event'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary of additional context</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.events.event_view.EventView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render event form for HTTP GET requests</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1689,7 +1697,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1699,7 +1707,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.login_url">
-<code class="sig-name descname"><span class="pre">login_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.login_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">login_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.login_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1710,18 +1718,18 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.permission_denied_message">
-<code class="sig-name descname"><span class="pre">permission_denied_message</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">permission_denied_message</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.permission_required">
-<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.view_events'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.permission_required" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">permission_required</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.view_events'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.permission_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="cms.views.events.event_view.EventView.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.post" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save event and ender event form for HTTP POST requests</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1744,13 +1752,13 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.raise_exception">
-<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">raise_exception</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.raise_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.redirect_field_name">
-<code class="sig-name descname"><span class="pre">redirect_field_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">redirect_field_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1775,12 +1783,12 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.template_engine" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="cms.views.events.event_view.EventView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'events/event_form.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.template_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'events/event_form.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 

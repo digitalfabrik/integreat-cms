@@ -5,10 +5,10 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-13T01:19:35+00:00" />
+    <meta property="article:modified_time" content="2021-06-22T14:54:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>MFA &mdash; integreat-cms 0.0.14 documentation</title>
+  <title>Utils &mdash; integreat-cms 0.0.14 documentation</title>
   
 
   
@@ -24,7 +24,7 @@
   
 
   
-    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref-ext/cms.views.authentication.mfa.html" />
+    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref-ext/cms.views.utils.html" />
 
   
   <!--[if lt IE 9]>
@@ -42,8 +42,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chat" href="cms.views.chat.html" />
-    <link rel="prev" title="Authentication" href="cms.views.authentication.html" /> 
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Users" href="cms.views.users.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -939,8 +939,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.analytics.html#module-cms.views.analytics.translation_coverage_view">Translation Coverage View</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">MFA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.mfa.html">MFA</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.account_activation_view">Account Activation View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.login_view">Login View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.authentication.html#module-cms.views.authentication.logout_view">Logout View</a></li>
@@ -1069,8 +1069,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.users.html#module-cms.views.users.user_view">User View</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cms.views.utils.html">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.utils.html#module-cms.views.utils.slugify_ajax">Slugify Ajax</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.views.utils.slugify_ajax">Slugify Ajax</a></li>
 </ul>
 </li>
 </ul>
@@ -1192,15 +1192,13 @@
         
           <li><a href="cms.views.html">Views</a> &raquo;</li>
         
-          <li><a href="cms.views.authentication.html">Authentication</a> &raquo;</li>
-        
-      <li>MFA</li>
+      <li>Utils</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../ref/cms.views.authentication.mfa.html" class="fa fa-search-minus"> Open simplified view</a>
+            <a href="../ref/cms.views.utils.html" class="fa fa-search-minus"> Open simplified view</a>
           
         
       </li>
@@ -1213,369 +1211,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cms.views.authentication.mfa">
-<span id="mfa"></span><h1>MFA<a class="headerlink" href="#module-cms.views.authentication.mfa" title="Permalink to this headline">¶</a></h1>
-<p>This package contains views related to the multi-factor-authentication login.</p>
-<p>The 2FA login process is as follows:</p>
-<ol class="arabic simple">
-<li><p>User tries to login with the <a class="reference internal" href="cms.views.authentication.html#cms.views.authentication.login_view.LoginView" title="cms.views.authentication.login_view.LoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a></p></li>
-<li><p>If the user has at least one <a class="reference internal" href="cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey" title="cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a> configured, the login is delayed and
-the user is redirected to <a class="reference internal" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView" title="cms.views.authentication.mfa.mfa_login_view.MfaLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaLoginView</span></code></a></p></li>
-<li><p>A 2FA assertion challenge is requested via an AJAX call to <a class="reference internal" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView" title="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaAssertView</span></code></a></p></li>
-<li><p>The browser sends the challenge to the 2FA key token and receives an assertion response</p></li>
-<li><p>The key’s assertion response is also sent via AJAX to <a class="reference internal" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView" title="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaVerifyView</span></code></a></p></li>
-<li><p>If the validation was successfull, the user is logged in and redirected to the entry dashboard</p></li>
-<li><p>If the validation was not successfull, an error message it displayed and the user can try again</p></li>
-</ol>
-<div class="section" id="module-cms.views.authentication.mfa.mfa_assert_view">
-<span id="mfa-assert-view"></span><h2>MFA Assert View<a class="headerlink" href="#module-cms.views.authentication.mfa.mfa_assert_view" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.mfa.mfa_assert_view.</span></code><code class="sig-name descname"><span class="pre">MfaAssertView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_assert_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
-<p>Generate challenge for multi factor authentication.
-If the user did not provide the first factor (password) or already authenticated with multiple factors, an error is
-returned.
-This AJAX view is called asynchronously by JavaScript.</p>
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor. Called in the URLconf; can contain helpful extra
-keyword arguments, and other things.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.as_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main entry point for a request-response process.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.dispatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_assert_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.get" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+  <div class="section" id="module-cms.views.utils">
+<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-cms.views.utils" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-cms.views.utils.slugify_ajax">
+<span id="slugify-ajax"></span><h2>Slugify Ajax<a class="headerlink" href="#module-cms.views.utils.slugify_ajax" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="cms.views.utils.slugify_ajax.slugify_ajax">
+<code class="sig-prename descclassname"><span class="pre">cms.views.utils.slugify_ajax.</span></code><code class="sig-name descname"><span class="pre">slugify_ajax</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/utils/slugify_ajax.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.utils.slugify_ajax.slugify_ajax" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks the current user input for title and generates unique slug for permalink</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – region identifier</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – language slug</p></li>
+<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The type of model to generate a unique slug for, one of <cite>event|page|poi</cite></p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The mfa challenge as JSON</p>
+<dd class="field-even"><p>unique translation slug</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If the user does not have the permission to access this function</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_assert_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.http_method_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.options" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView.setup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize attributes shared by all view methods.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-cms.views.authentication.mfa.mfa_login_view">
-<span id="mfa-login-view"></span><h2>MFA Login View<a class="headerlink" href="#module-cms.views.authentication.mfa.mfa_login_view" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.mfa.mfa_login_view.</span></code><code class="sig-name descname"><span class="pre">MfaLoginView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LoginView</span></code></a></p>
-<p>View to extend the default login behaviour from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
-multi-factor-authentication.</p>
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor. Called in the URLconf; can contain helpful extra
-keyword arguments, and other things.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.as_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main entry point for a request-response process.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.authentication_form">
-<code class="sig-name descname"><span class="pre">authentication_form</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.authentication_form" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.content_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/views.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.dispatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.extra_context" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.form_class">
-<code class="sig-name descname"><span class="pre">form_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/forms.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.form_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.AuthenticationForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.AuthenticationForm</span></code></a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.form_invalid">
-<code class="sig-name descname"><span class="pre">form_invalid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.form_invalid" title="Permalink to this definition">¶</a></dt>
-<dd><p>If the form is invalid, render the invalid form.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.form_valid">
-<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/views.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.form_valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Security check complete. Log the user in.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle GET requests: instantiate a blank version of the form.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_context_data">
-<code class="sig-name descname"><span class="pre">get_context_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_context_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Insert the form into the context dict.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_form">
-<code class="sig-name descname"><span class="pre">get_form</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_form" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an instance of the form to be used in this view.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_form_class">
-<code class="sig-name descname"><span class="pre">get_form_class</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/views.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_form_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the form class to use.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_form_kwargs">
-<code class="sig-name descname"><span class="pre">get_form_kwargs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/views.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_form_kwargs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the keyword arguments for instantiating the form.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_initial">
-<code class="sig-name descname"><span class="pre">get_initial</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_initial" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the initial data to use for forms on this view.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_prefix">
-<code class="sig-name descname"><span class="pre">get_prefix</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_prefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the prefix to use for forms.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_redirect_url">
-<code class="sig-name descname"><span class="pre">get_redirect_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/views.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_redirect_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the user-originating redirect URL if it’s safe.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_success_url">
-<code class="sig-name descname"><span class="pre">get_success_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/views.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_success_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the URL to redirect to after processing a valid form.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_success_url_allowed_hosts">
-<code class="sig-name descname"><span class="pre">get_success_url_allowed_hosts</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/views.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_success_url_allowed_hosts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_template_names">
-<code class="sig-name descname"><span class="pre">get_template_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_template_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of template names to be used for the request. Must return
-a list. May not be called if render_to_response() is overridden.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.http_method_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.initial">
-<code class="sig-name descname"><span class="pre">initial</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.initial" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.options" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.post" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle POST requests: instantiate a form instance with the passed
-POST variables and then check if it’s valid.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.prefix">
-<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.prefix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.put">
-<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.put" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.redirect_authenticated_user">
-<code class="sig-name descname"><span class="pre">redirect_authenticated_user</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.redirect_authenticated_user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.redirect_field_name">
-<code class="sig-name descname"><span class="pre">redirect_field_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.render_to_response">
-<code class="sig-name descname"><span class="pre">render_to_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.render_to_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
-template rendered with the given context.</p>
-<p>Pass response_kwargs to the constructor of the response class.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.response_class">
-<code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.response_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.setup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize attributes shared by all view methods.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.success_url">
-<code class="sig-name descname"><span class="pre">success_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.success_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.success_url_allowed_hosts">
-<code class="sig-name descname"><span class="pre">success_url_allowed_hosts</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.success_url_allowed_hosts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.template_engine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_login_view.MfaLoginView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/login_mfa.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_login_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-cms.views.authentication.mfa.mfa_verify_view">
-<span id="mfa-verify-view"></span><h2>MFA Verify View<a class="headerlink" href="#module-cms.views.authentication.mfa.mfa_verify_view" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.authentication.mfa.mfa_verify_view.</span></code><code class="sig-name descname"><span class="pre">MfaVerifyView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_verify_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
-<p>Verify the response to the challenge generated in <a class="reference internal" href="#cms.views.authentication.mfa.mfa_assert_view.MfaAssertView" title="cms.views.authentication.mfa.mfa_assert_view.MfaAssertView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaAssertView</span></code></a>.
-After a successful verification, the user is logged in.</p>
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor. Called in the URLconf; can contain helpful extra
-keyword arguments, and other things.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.as_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main entry point for a request-response process.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.dispatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_verify_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.http_method_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.options" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/mfa/mfa_verify_view.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.post" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The mfa challenge as JSON</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView.setup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize attributes shared by all view methods.</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -1587,8 +1249,8 @@ keyword arguments, and other things.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="cms.views.chat.html" class="btn btn-neutral float-right" title="Chat" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="cms.views.authentication.html" class="btn btn-neutral float-left" title="Authentication" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cms.views.users.html" class="btn btn-neutral float-left" title="Users" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -1600,7 +1262,7 @@ keyword arguments, and other things.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 13, 2021.
+        Last updated on Jun 22, 2021.
       </span>
 
     </p>
