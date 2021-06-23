@@ -142,7 +142,7 @@
                 <div class="w-full p-4">
                     <div class="flex justify-between">
                         <label for="{{ page_translation_form.title.id_for_label }}"
-                            data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug %}{% if page_form.instance.id %}?page={{ page_form.instance.id }}{% endif %}"
+                            data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}"
                             class="mb-2 mt-4 font-bold">{{ page_translation_form.title.label }}
                         </label>
                         {% if page_translation_form.instance.id %}

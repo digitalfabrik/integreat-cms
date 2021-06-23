@@ -9,6 +9,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from backend.settings import WEBAPP_URL
+
 from ...constants import status
 from ...decorators import region_permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
@@ -85,6 +87,7 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
             instance=recurrence_rule_instance, disabled=disabled
         )
         context = self.get_context_data(**kwargs)
+        url_link = f"{WEBAPP_URL}/{region.slug}/{language.slug}/events/"
         return render(
             request,
             self.template_name,
@@ -97,6 +100,7 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
                 "poi": poi_instance,
                 "language": language,
                 "languages": region.languages if event_instance else [language],
+                "url_link": url_link,
             },
         )
 
@@ -256,5 +260,5 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
                 "event_id": event.id,
                 "region_slug": region.slug,
                 "language_slug": language.slug,
-            }
+            },
         )

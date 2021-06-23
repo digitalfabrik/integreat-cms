@@ -110,37 +110,36 @@
                         {{ poi_translation_form.instance.get_status_display }}
                     {% endif %}
                     <label for="{{ poi_translation_form.title.id_for_label }}" 
-                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug %}{% if poi_form.instance.id %}?page={{ poi_form.instance.id }}{% endif %}"
+                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}"
                         class="block mb-2 mt-4 font-bold">{{ poi_translation_form.title.label }}
                     </label>
                     {% render_field poi_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2 font-bold"></label>
-                        <div id="link-container" class="flex items-center">
-                            <label for="{{ poi_translation_form.slug.id_for_label }}" class="block my-2 font-bold">
-                                {{ poi_translation_form.slug.label }}: 
-                            </label>
-                            {% spaceless %}
-                                <a href="https://integreat.app/{{ region.slug }}/{{ language.slug }}/" class="mr-2 text-blue-500 hover:underline">https://integreat.app/{{ region.slug }}/{{ language.slug }}/</a>
-                                <div class="flex mr-2 hidden flex-grow">
-                                    {% spaceless %}
-                                    <span>https://integreat.app/{{ region.slug }}/{{ language.slug }}/</span>
-                                    {% render_field poi_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
-                                    {% endspaceless %}
-                                </div>
-                                <button id="edit-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500">
-                                    <i data-feather="edit-3"></i>
-                                </button>
-                                <button id="copy-slug-btn" type="button" class="text-gray-800 hover:text-blue-500">
-                                    <i data-feather="copy"></i>
-                                </button>
-                                <button id="save-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500 hidden">
-                                    <i data-feather="save"></i>
-                                </button>
-                                <button id="restore-slug-btn" type="button" class="text-gray-800 hover:text-blue-500 hidden">
-                                    <i data-feather="x-circle"></i>
-                                </button>
+                    <div id="link-container" class="flex items-center mt-4">
+                        <label for="{{ poi_translation_form.slug.id_for_label }}" class="block mr-2 font-bold">
+                            {{ poi_translation_form.slug.label }}: 
+                        </label>
+                        {% spaceless %}
+                            <a href="https://integreat.app/{{ region.slug }}/{{ language.slug }}/{{ poi_translation_form.instance.slug }}" class="mr-2 text-blue-500 hover:underline">https://integreat.app/{{ region.slug }}/{{ language.slug }}/{{ poi_translation_form.instance.slug }}</a>
+                            <div class="flex mr-2 hidden flex-grow">
+                                {% spaceless %}
+                                <span>https://integreat.app/{{ region.slug }}/{{ language.slug }}/</span>
+                                {% render_field poi_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
+                                {% endspaceless %}
+                            </div>
+                            <button id="edit-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500">
+                                <i data-feather="edit-3"></i>
+                            </button>
+                            <button id="copy-slug-btn" type="button" class="text-gray-800 hover:text-blue-500">
+                                <i data-feather="copy"></i>
+                            </button>
+                            <button id="save-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500 hidden">
+                                <i data-feather="save"></i>
+                            </button>
+                            <button id="restore-slug-btn" type="button" class="text-gray-800 hover:text-blue-500 hidden">
+                                <i data-feather="x-circle"></i>
+                            </button>
                         {% endspaceless %}
-                        </div>
+                    </div>
                     <label for="{{ poi_translation_form.short_description.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ poi_translation_form.short_description.label }}</label>
                     {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     <label for="{{ poi_translation_form.description.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ poi_translation_form.description.label }}</label>
