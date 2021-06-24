@@ -215,7 +215,7 @@ def search_poi_ajax(request):
     # All latest revisions of a POI (one for each language)
     latest_public_poi_revisions = (
         POITranslation.objects.filter(poi=OuterRef("pk"), status=status.PUBLIC)
-        .order_by("language", "-version")
+        .order_by("language__pk", "-version")
         .distinct("language")
         .values("id")
     )
