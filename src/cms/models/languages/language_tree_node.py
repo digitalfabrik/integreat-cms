@@ -194,4 +194,4 @@ class LanguageTreeNode(MPTTModel):
         #: The custom permissions for this model
         permissions = (("manage_language_tree", "Can manage language tree"),)
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["region", "level", "parent"]
+        ordering = ["region", "level", "parent__pk"]

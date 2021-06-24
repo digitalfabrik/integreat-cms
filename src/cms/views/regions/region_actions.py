@@ -45,6 +45,8 @@ def delete_region(request, *args, **kwargs):
     # Remove hierarchy to prevent ProtectedError when children get deleted before their parents
     region.pages.update(parent=None)
     region.language_tree_nodes.update(parent=None)
+    # Prevent ProtectedError when location gets deleted before their events
+    region.events.update(location=None)
     # Delete region and cascade delete all contents
     deleted_objects = region.delete()
     logger.info(
