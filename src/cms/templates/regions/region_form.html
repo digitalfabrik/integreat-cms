@@ -163,12 +163,18 @@
                     <div class="my-2 text-s text-gray-600">{{ form.page_permissions_enabled.help_text }}</div>
                 </div>
 
+                <span class="block p-2 mt-2 text-xl font-bold">{% trans 'Short URL' %}</span>
+                <div class="p-2 border-b solid border-gray-400">
+                    {% render_field form.short_urls_enabled %}
+                    <label for="{{ form.short_url.id_for_label }}" class="font-bold cursor-pointer p-2">{{ form.short_url.label }}</label>
+                    <div class="my-2 text-s text-gray-600">{{ form.short_url.help_text }}</div>
+                </div>
+
                 <div class="p-2">
                     <label for="{{ form.offers.id_for_offers }}" class="block font-bold py-2 text-xl">{{ form.offers.label }}</label>
                     {% render_field form.offers %}
                     <div class="my-2 text-s text-gray-600">{{ form.offers.help_text }}</div>
                 </div>
-
             </div>
             
         </div>

@@ -181,6 +181,12 @@ class Region(models.Model):
         ),
     )
 
+    short_urls_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("Activate short urls"),
+        help_text=_("Please check the box if you want to use short urls."),
+    )
+
     @property
     def languages(self):
         """

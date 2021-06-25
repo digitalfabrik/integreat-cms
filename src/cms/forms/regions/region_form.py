@@ -56,6 +56,7 @@ class RegionForm(CustomModelForm):
             "icon",
             "administrative_division_included",
             "offers",
+            "short_urls_enabled",
         ]
         #: The widgets which are used in this form
         widgets = {

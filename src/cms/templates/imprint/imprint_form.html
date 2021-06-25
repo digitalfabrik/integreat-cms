@@ -109,11 +109,13 @@
                         <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="copy"></i>
                         </a><br>
+                        {% if region.short_urls_enabled and request.user.profile.expert_mode %}
                         <span class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</span>
                         <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
                         <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="copy"></i>
                         </a>
+                        {% endif %}
                     {% endif %}
                     <label for="{{ imprint_translation_form.title.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ imprint_translation_form.title.label }}</label>
                     {% render_field imprint_translation_form.title class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
