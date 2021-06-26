@@ -160,11 +160,13 @@
                     </div>
                     {% render_field page_translation_form.title class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
                     {% if page_translation_form.instance.id %}
+                        {% if region.short_urls_enabled and request.user.profile.expert_mode %}
                         <span class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</span>
                         <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
                         <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="copy"></i>
                         </a><br>
+                        {% endif %}
                         {% if page_translation_form.instance.currently_in_translation %}
                             <div id="trans-warn">
                                 <i data-feather="alert-triangle" class="text-red-800"></i>
